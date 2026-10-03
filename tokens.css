@@ -201,6 +201,11 @@
         var(--aika-highlight-top),
         0 8px 32px var(--aika-shadow-deep);
 
+    /* Прогресс (DESIGN.md §4, Progress) */
+    --aika-progress-height: 4px;
+    --aika-progress-fill: linear-gradient(to right, var(--aika-accent), var(--aika-accent-bright));
+    --aika-dur-shimmer: 2.8s;        /* перелив по заливке */
+
     /* Статусы (DESIGN.md §4, Status & Labels) */
     --aika-dot: 6px;                 /* точка статуса ● */
     --aika-dur-pulse: 2.4s;          /* пульс «живой» точки */

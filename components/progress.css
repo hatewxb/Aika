@@ -1,0 +1,64 @@
+/* ==========================================================================
+   components/progress.css — полосы прогресса (DESIGN.md §4, Progress).
+
+   Трек 4 px --aika-surface, заливка — градиент акцента; по заливке
+   медленно бежит светлая полоса (transform псевдоэлемента — не
+   background-position, анимируем только transform/opacity). При
+   --aika-motion: 0 полосы нет. Проценты и скорость — .aika-meta.
+
+   Свои классы: .aika-progress > .aika-progress__fill (ширина — inline).
+
+   Steam (сняты через CDP 2026-10-04):
+     .AchievementProgressContainer > .AchievementProgress — достижения
+       на странице игры; Steam (0,1,0), у нас (0,1,1)…(0,2,1).
+   TODO: полоса загрузки в нижней панели и на странице «Загрузки» —
+   классы снять, когда будет идти загрузка (сейчас её нет в DOM).
+   ========================================================================== */
+
+@keyframes aika-shimmer {
+    from {
+        transform: translateX(var(--aika-shine-from));
+    }
+    to {
+        transform: translateX(var(--aika-shine-to));
+    }
+}
+
+/* Трек */
+.aika-progress,
+html .AchievementProgressContainer {
+    position: relative;
+    height: var(--aika-progress-height);
+    overflow: hidden;
+    border-radius: var(--aika-radius-full);
+    background: var(--aika-surface);
+}
+
+/* Заливка */
+.aika-progress__fill,
+html .AchievementProgressContainer .AchievementProgress {
+    position: relative;
+    height: 100%;
+    overflow: hidden;
+    border-radius: inherit;
+    background: var(--aika-progress-fill);
+}
+
+/* Перелив */
+.aika-progress__fill::after,
+html .AchievementProgressContainer .AchievementProgress::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: var(--aika-shine-gradient);
+    opacity: var(--aika-motion);
+    animation: aika-shimmer var(--aika-dur-shimmer) var(--aika-ease-ambient) infinite;
+    pointer-events: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .aika-progress__fill::after,
+    html .AchievementProgressContainer .AchievementProgress::after {
+        animation: none;
+    }
+}
