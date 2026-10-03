@@ -77,3 +77,59 @@ html .AppButtonsContainer .MenuButton:hover {
     background-color: var(--aika-surface-hover);
     box-shadow: var(--aika-shadow-secondary-hover);
 }
+
+/* --------------------------------------------------------------------------
+   Герой: баннер плавно уходит в фон, логотип остаётся поверх.
+   Steam сам делает параллакс баннера (на .HeaderBackgroundImage —
+   translateZ(-1) scale(2) внутри контейнера с перспективой), поэтому
+   transform баннера не трогаем: затемнение — слоем ::after внутри него,
+   затухание при прокрутке — только opacity картинки.
+   -------------------------------------------------------------------------- */
+
+html .TopCapsule .HeaderBackgroundImage::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: var(--aika-hero-fade);
+    pointer-events: none;
+}
+
+/* Затухание при прокрутке (DESIGN.md §8): один раз по ходу скролла,
+   только при поддержке scroll-driven animations; при --aika-motion: 0
+   яркость не меняется */
+@keyframes aika-hero-fade-out {
+    to {
+        opacity: calc(1 - (1 - var(--aika-hero-scroll-opacity)) * var(--aika-motion));
+    }
+}
+
+@supports (animation-timeline: scroll()) {
+    html .TopCapsule .HeaderBackgroundImage .ImgContainer {
+        animation: aika-hero-fade-out linear both;
+        animation-timeline: scroll(nearest block);
+        animation-range: 0 var(--aika-hero-scroll-range);
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    html .TopCapsule .HeaderBackgroundImage .ImgContainer {
+        animation: none;
+    }
+}
+
+/* Чипы коллекций на баннере («КООП» и т.п.) — бейджи-пилюли */
+html .HeaderFeatures .InCollection {
+    padding: 0 var(--aika-space-2);
+    border-radius: var(--aika-radius-full);
+    background: var(--aika-bg-raised);
+    box-shadow: inset 0 0 0 var(--aika-hairline) var(--aika-border-hover);
+    color: var(--aika-fg-muted);
+    transition:
+        color var(--aika-dur-fast) var(--aika-ease-hover),
+        box-shadow var(--aika-dur-fast) var(--aika-ease-hover);
+}
+
+html .HeaderFeatures .InCollection:hover {
+    color: var(--aika-fg);
+    box-shadow: inset 0 0 0 var(--aika-hairline) var(--aika-border-accent);
+}

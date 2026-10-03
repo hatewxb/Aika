@@ -199,6 +199,11 @@
         var(--aika-highlight-top),
         0 8px 32px var(--aika-shadow-deep);
 
+    /* Герой страницы игры (game-page.css) */
+    --aika-hero-fade: linear-gradient(to bottom, var(--aika-transparent) 35%, var(--aika-bg-base) 100%);
+    --aika-hero-scroll-range: 320px;   /* за сколько прокрутки баннер гаснет */
+    --aika-hero-scroll-opacity: 0.55;  /* до какой яркости */
+
     /* Иконки верхних вкладок (nav.css). Свои простые SVG 24×24, линия 1.75;
        используются как mask-image, поэтому цвет внутри не важен — фигуру
        красит currentColor вкладки. */
