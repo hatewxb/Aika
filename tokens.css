@@ -97,6 +97,27 @@
         var(--aika-highlight-top),
         0 0 20px var(--aika-accent-haze);
 
+    /* Обложка в больших сетках — облегчённая карточка (DESIGN.md §4, Cards):
+       рамка + одна мягкая тень, без свечения акцента */
+    --aika-shadow-cover:
+        0 0 0 var(--aika-hairline) var(--aika-border),
+        0 4px 16px var(--aika-shadow-near);
+
+    --aika-shadow-cover-hover:
+        0 0 0 var(--aika-hairline) var(--aika-border-hover),
+        0 12px 28px var(--aika-shadow-deep);
+
+    /* Карточки: фон, вариант accent, градиентная рамка, spotlight */
+    --aika-card-bg: linear-gradient(to bottom, var(--aika-card-top), var(--aika-card-bottom));
+    --aika-card-accent-bg: linear-gradient(to bottom, var(--aika-accent-tint), var(--aika-card-bottom));
+    --aika-card-border-gradient: linear-gradient(to bottom, var(--aika-border-accent), var(--aika-transparent));
+    /* Spotlight: точку задаёт JS (--aika-spot-x/y на элементе), без JS —
+       верх-центр. Сам градиент собирается в card.css, а не здесь: var()
+       в токене :root вычислился бы один раз и не видел значений элемента. */
+    --aika-spot-x: 50%;
+    --aika-spot-y: 0%;
+    --aika-spot-size: 300px;
+
     /* Shine: косая светлая полоса, пробегает по CTA на hover */
     --aika-shine-gradient: linear-gradient(
         105deg,

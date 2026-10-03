@@ -18,6 +18,7 @@
 
 /* 2. Компоненты (components/): button → card → panel → status → input → nav → menu → progress */
 @import url("./components/button.css");
+@import url("./components/card.css");
 
 /* 3. Разделы клиента (стабильные селекторы) */
 @import url("./sections/library.css");

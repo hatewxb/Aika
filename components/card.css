@@ -1,0 +1,122 @@
+/* ==========================================================================
+   components/card.css — карточки (DESIGN.md §4, Cards).
+
+   1. Свои карточки .aika-card (для разметки, которую добавит JS):
+      варианты default / --translucent / --accent; hover — подъём,
+      многослойная тень, градиентная рамка и spotlight.
+   2. Обложки игр в библиотеке (.LibraryItemBox) — облегчённая версия:
+      только подъём, рамка и простая тень. Их на экране десятки, поэтому
+      никаких spotlight, свечений и дополнительных псевдоэлементов.
+   ========================================================================== */
+
+/* --------------------------------------------------------------------------
+   1. Своя карточка
+   -------------------------------------------------------------------------- */
+
+.aika-card {
+    position: relative;
+    border-radius: var(--aika-radius-lg);
+    background: var(--aika-card-bg);
+    box-shadow: var(--aika-shadow-card), var(--aika-highlight-top);
+    transition:
+        transform var(--aika-dur-base) var(--aika-ease),
+        box-shadow var(--aika-dur-base) var(--aika-ease);
+}
+
+.aika-card:hover {
+    transform: translateY(var(--aika-lift-md));
+    box-shadow: var(--aika-shadow-card-hover), var(--aika-highlight-top);
+}
+
+/* Spotlight: мягкое пятно акцента — за курсором (JS) или из верхнего центра */
+.aika-card::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    background: radial-gradient(
+        var(--aika-spot-size) circle at var(--aika-spot-x) var(--aika-spot-y),
+        var(--aika-accent-spot),
+        var(--aika-accent-none)
+    );
+    opacity: 0;
+    transition: opacity var(--aika-dur-base) var(--aika-ease-hover);
+    pointer-events: none;
+}
+
+/* Градиентная рамка: акцент сверху, гаснет книзу (DESIGN.md §3.4) */
+.aika-card::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    padding: var(--aika-hairline);
+    border-radius: inherit;
+    background: var(--aika-card-border-gradient);
+    -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+    opacity: 0;
+    transition: opacity var(--aika-dur-base) var(--aika-ease-hover);
+    pointer-events: none;
+}
+
+.aika-card:hover::before,
+.aika-card:hover::after {
+    opacity: 1;
+}
+
+/* Полупрозрачная — только для меню и всплывающих слоёв */
+.aika-card--translucent {
+    background: var(--aika-surface-translucent);
+    box-shadow: var(--aika-shadow-card), inset 0 0 0 var(--aika-hairline) var(--aika-border-hover);
+}
+
+/* Акцентная — выделенные блоки («Рекомендуемое») */
+.aika-card--accent {
+    background: var(--aika-card-accent-bg);
+    box-shadow: var(--aika-shadow-card), inset 0 0 0 var(--aika-hairline) var(--aika-border-accent);
+}
+
+/* --------------------------------------------------------------------------
+   2. Обложки игр в библиотеке — облегчённая карточка
+
+   Steam (сняты через CDP 2026-10-04):
+     .Draggable[.HoversEnabled] > .LibraryItemBox — обложка (полки «Недавние»,
+                                               сетка коллекций); HoversEnabled на
+                                               обёртке — режим с hover-эффектом
+     .LibraryItemBox.Landscape               — широкая обложка (полки)
+     .LibraryItemBoxShine                    — блик Steam поверх обложки, оставляем
+
+   Steam на hover наклоняет обложку в 3D (rotateX + translateZ) хэш-правилом
+   (0,4,0). Меняем на ровный подъём: .Draggable.HoversEnabled .LibraryItemBox:hover
+   с префиксом html — (0,4,1). Фильтр яркости и зум картинки — Steam'овские,
+   их не трогаем.
+   -------------------------------------------------------------------------- */
+
+html .Draggable .LibraryItemBox {
+    border-radius: var(--aika-radius-lg);
+    box-shadow: var(--aika-shadow-cover);
+    transition:
+        transform var(--aika-dur-base) var(--aika-ease),
+        box-shadow var(--aika-dur-base) var(--aika-ease),
+        filter var(--aika-dur-base) var(--aika-ease-hover);
+}
+
+html .Draggable.HoversEnabled .LibraryItemBox:hover {
+    transform: translateY(var(--aika-lift-md));
+    box-shadow: var(--aika-shadow-cover-hover);
+}
+
+html .Draggable.HoversEnabled .LibraryItemBox:hover:active {
+    transform: translateY(var(--aika-lift-md)) scale(var(--aika-press-scale));
+}
+
+/* Подпись под обложкой (.LibraryItemBoxSubscript, соседний элемент):
+   Steam наклоняет её вместе с обложкой — поднимаем синхронно */
+html .Draggable.HoversEnabled .LibraryItemBox ~ .LibraryItemBoxSubscript {
+    transition: transform var(--aika-dur-base) var(--aika-ease);
+}
+
+html .Draggable.HoversEnabled .LibraryItemBox:hover ~ .LibraryItemBoxSubscript {
+    transform: translateY(var(--aika-lift-md));
+}
