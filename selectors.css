@@ -47,31 +47,6 @@ html body ._1Pb6PMh_3L5p5NzuUz0Pp9 > .PlayButton.ButtonChild::after {
     display: none;
 }
 
-/* [Библиотека] Выбранная игра в левом списке (nav.css): мягкий акцент +
-   Fluent-индикатор. Читаемого класса у выбранной строки нет.
-   Проверено: 2026-10-04 по правилам Steam: «._1UBp… ._2-O4…» — фон
-   rgb(62,78,105) и тень (выбор и групповое выделение).
-   Визуально — подтвердить у пользователя.
-   Как найти: выбрать игру, посмотреть классы строки .Container в списке. */
-html .ReactVirtualized__List .Container._1UBpAXP408Ez_L_mXhW5Q9:has(> .GameListEntryContainer),
-html .ReactVirtualized__List .Container._1UBpAXP408Ez_L_mXhW5Q9:has(> .GameListEntryContainer):hover {
-    background-color: var(--aika-accent-soft);
-    box-shadow: none;
-    color: var(--aika-fg);
-}
-
-html .ReactVirtualized__List .Container._1UBpAXP408Ez_L_mXhW5Q9:has(> .GameListEntryContainer)::before {
-    content: "";
-    position: absolute;
-    left: 0;
-    top: var(--aika-indicator-inset);
-    bottom: var(--aika-indicator-inset);
-    width: var(--aika-indicator);
-    border-radius: var(--aika-radius-full);
-    background: var(--aika-accent);
-    animation: aika-indicator-in var(--aika-dur-base) var(--aika-ease);
-}
-
 /* TODO: корневой контейнер главного окна (непрозрачный фон Steam) */
 /* TODO: верхняя панель / заголовок окна */
 /* TODO: вкладки МАГАЗИН / БИБЛИОТЕКА / СООБЩЕСТВО */

@@ -7,7 +7,7 @@
      .SearchInput input                — поиск по названию
      .ReactVirtualized__List .Container:has(> .GameListEntryContainer)
                                        — строка игры; .Installed / .Uninstalled
-   Выбранная строка игры отмечается только хэш-классом — см. selectors.css.
+   Выбранная строка игры — .Container.Selected (проверено 2026-10-04).
 
    Индикатор выбора — вертикальная полоска 3 px акцента слева со
    скруглёнными концами, появляется scaleY 0 → 1 (при --aika-motion: 0 —
@@ -38,14 +38,16 @@ html .CollectionsButton .Bar:hover {
 }
 
 .aika-nav-item.is-selected,
-html .HomeBox .Bar.Selected {
+html .HomeBox .Bar.Selected,
+html .ReactVirtualized__List .Container.Selected:has(> .GameListEntryContainer) {
     position: relative;
     background-color: var(--aika-accent-soft);
     color: var(--aika-fg);
 }
 
 .aika-nav-item.is-selected::before,
-html .HomeBox .Bar.Selected::before {
+html .HomeBox .Bar.Selected::before,
+html .ReactVirtualized__List .Container.Selected:has(> .GameListEntryContainer)::before {
     content: "";
     position: absolute;
     left: 0;
@@ -83,6 +85,15 @@ html .ReactVirtualized__List .Container.Installed:has(> .GameListEntryContainer)
 
 html .ReactVirtualized__List .Container:has(> .GameListEntryContainer):hover {
     background-color: var(--aika-surface-hover);
+    color: var(--aika-fg);
+}
+
+/* Выбранная строка — после hover, чтобы при наведении не терять акцент;
+   тень выбора Steam («._1UBp…» = .Selected) убираем */
+html .ReactVirtualized__List .Container.Selected:has(> .GameListEntryContainer),
+html .ReactVirtualized__List .Container.Selected:has(> .GameListEntryContainer):hover {
+    background-color: var(--aika-accent-soft);
+    box-shadow: none;
     color: var(--aika-fg);
 }
 
