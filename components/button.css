@@ -80,6 +80,58 @@ html :is(.aika-button--primary, button.DialogButton.Primary, .PlayButton):not(.D
     transition: transform var(--aika-dur-enter) var(--aika-ease);
 }
 
+/* «Играть / Установить»: Steam красит иконку зелёным/голубым хэш-правилами
+   (до (0,4,1) на hover), а подпись — во внутреннем <span> капсом, вес 300.
+   Иконка и подпись — цветом текста на акценте. */
+html .PlayButtonContainer .PlayButton svg.SVGIcon_Button,
+html .PlayButtonContainer .PlayButton:hover svg.SVGIcon_Button {
+    color: var(--aika-on-accent);
+    fill: var(--aika-on-accent);
+}
+
+html .PlayButtonContainer .PlayButton * {
+    color: inherit;
+    font-weight: var(--aika-weight-semibold);
+    letter-spacing: normal;
+    text-transform: none;
+}
+
+/* --------------------------------------------------------------------------
+   Primary-иконка — квадратная кнопка ▶ на обложках в полках библиотеки
+   («Недавние» и т.п.). Steam: .LibraryItemBox .LibraryItemActionButton,
+   у установленной игры ещё .Play (зелёный градиент хэш-правилом (0,3,0),
+   иконка — до (0,5,0) на hover). Снято через CDP 2026-10-04.
+   -------------------------------------------------------------------------- */
+
+html .LibraryItemBox .LibraryItemActionButton,
+html .LibraryItemBox .LibraryItemActionButton.Play {
+    border-radius: var(--aika-radius-md);
+    background: var(--aika-accent);
+    box-shadow: var(--aika-shadow-cta);
+    transition:
+        background-color var(--aika-dur-fast) var(--aika-ease-hover),
+        box-shadow var(--aika-dur-base) var(--aika-ease),
+        transform var(--aika-dur-base) var(--aika-ease);
+}
+
+html .LibraryItemBox .LibraryItemActionButton:hover,
+html .LibraryItemBox .LibraryItemActionButton.Play:hover {
+    background: var(--aika-accent-bright);
+    box-shadow: var(--aika-shadow-cta-hover);
+    transform: translateY(var(--aika-lift-sm));
+}
+
+html .LibraryItemBox .LibraryItemActionButton:active,
+html .LibraryItemBox .LibraryItemActionButton.Play:active {
+    box-shadow: var(--aika-shadow-cta-press);
+    transform: scale(var(--aika-press-scale));
+}
+
+html .LibraryItemBox .LibraryItemActionButton.Play .SVGIcon_Button.SVGIcon_Play,
+html .LibraryItemBox .LibraryItemActionButton .SVGIcon_Button {
+    fill: var(--aika-on-accent);
+}
+
 /* --------------------------------------------------------------------------
    Secondary — поверхность, рамка inset-тенью
    -------------------------------------------------------------------------- */

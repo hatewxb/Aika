@@ -28,6 +28,25 @@
    Библиотека (library.css)
    -------------------------------------------------------------------------- */
 
+/* [Библиотека] Неактивная «Играть» (игра запускается / недоступна).
+   Steam отмечает это классом на родителе-обёртке кнопки, у самой
+   .PlayButton признаков нет. Без правила кнопка осталась бы акцентной.
+   Проверено: 2026-10-04, правило Steam «._1Pb6… > ._2AzIX…» (серый фон).
+   Как найти: правила с background у .PlayButton в DevTools.
+   Специфичность (0,4,2) — как у hover из button.css; выигрываем порядком. */
+html body ._1Pb6PMh_3L5p5NzuUz0Pp9 > .PlayButton.ButtonChild,
+html body ._1Pb6PMh_3L5p5NzuUz0Pp9 > .PlayButton.ButtonChild:hover {
+    opacity: var(--aika-disabled-opacity);
+    background: var(--aika-accent);
+    box-shadow: none;
+    transform: none;
+    cursor: default;
+}
+
+html body ._1Pb6PMh_3L5p5NzuUz0Pp9 > .PlayButton.ButtonChild::after {
+    display: none;
+}
+
 /* TODO: корневой контейнер главного окна (непрозрачный фон Steam) */
 /* TODO: верхняя панель / заголовок окна */
 /* TODO: вкладки МАГАЗИН / БИБЛИОТЕКА / СООБЩЕСТВО */
