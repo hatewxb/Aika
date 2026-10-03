@@ -490,6 +490,15 @@ html .AppDetailsMain > .PlayBar.Container > .PlayBar.Glassy {
    пустая тёмная полоса. Растягиваем заголовок и содержимое на всю ширину.
    -------------------------------------------------------------------------- */
 
+/* Правая колонка у Steam — float: right, левая течёт вокруг неё. Блоки
+   левой колонки делаем отдельным блочным контекстом (flow-root): тогда
+   блок целиком встаёт рядом с правой колонкой и сжимается до свободного
+   места, а не уезжает под неё (что было при width: 100% у потомков)
+   и не тянет тёмное тело под правую колонку (что было у Steam). */
+html .ColumnContainer .LeftColumn > .SeekTarget > .AppDetailsSection {
+    display: flow-root;
+}
+
 html .AppDetailsSection.ActivityFeedContainer > h2.SectionHeader {
     width: 100%;
     box-sizing: border-box;
@@ -621,4 +630,51 @@ html .CommunityItem .Controls .Control .Count {
 html .CommunityItem .MenuButton svg.SVGIcon_Button,
 html .CommunityItem .MenuButton svg.SVGIcon_Button path {
     fill: var(--aika-fg-muted);
+}
+
+/* Новости с картинкой (.PartnerEventMediumImage и др.): внутри карточки
+   у Steam свой контейнер с градиентной «подсветкой» — без скругления,
+   и карточка его не обрезала. Обрезаем по скруглению, подсветку Steam
+   заменяем нашей поверхностью, картинку скругляем. */
+html .ActivityFeedContainer .PartnerEvent {
+    overflow: hidden;
+}
+
+html .ActivityFeedContainer .PartnerEvent > .Panel {
+    border-radius: inherit;
+    background: var(--aika-transparent);
+}
+
+html .ActivityFeedContainer .PartnerEvent img {
+    border-radius: var(--aika-radius-md);
+}
+
+html .ActivityFeedContainer .PartnerEvent :is(.PartnerEventMediumImage_Title, .PartnerEventLargeImage_Title) {
+    color: var(--aika-fg);
+}
+
+html .ActivityFeedContainer .PartnerEvent :is(.PartnerEventMediumImage_Summary, .PartnerEventLargeImage_Summary) {
+    color: var(--aika-fg-muted);
+}
+
+/* Иконка «Установить»: стрелка — вложенный <svg> со своей голубой
+   заливкой Steam «:not(._1Pb6…) > ._2AzIX… svg» */
+html .PlayButtonContainer .PlayButton svg.SVGIcon_Button svg,
+html .PlayButtonContainer .PlayButton svg.SVGIcon_Button svg path,
+html .PlayButtonContainer .PlayButton:hover svg.SVGIcon_Button svg,
+html .PlayButtonContainer .PlayButton:hover svg.SVGIcon_Button svg path {
+    fill: var(--aika-on-accent);
+}
+
+/* Значок «?» у заголовков блоков */
+html .AppDetailsSection > h2.SectionHeader .MoreInfoIcon .MoreInfoIconQuestionMark {
+    color: var(--aika-fg-subtle);
+}
+
+/* Реакции поверх превью видео в «Контенте сообщества» — светлые плашки
+   Steam → наши тёмные */
+html .CommunityItem .Controls .Control {
+    border-radius: var(--aika-radius-md);
+    background-color: var(--aika-bg-raised);
+    color: var(--aika-fg-muted);
 }
