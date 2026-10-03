@@ -1,0 +1,25 @@
+{
+    "name": "Steam Liquid Glass",
+    "author": "belok",
+    "description": "Тема в стиле Apple Liquid Glass: полупрозрачные стеклянные панели, блики по краям и живой цветной фон.",
+    "version": "0.1.0",
+    "tags": ["Glass", "Dark", "Blur", "WIP"],
+
+    "RootColors": "variables.css",
+    "Steam-WebKit": "webkit.css",
+
+    "Patches": [
+        {
+            "MatchRegexString": "^Steam$",
+            "TargetCss": "main.css"
+        },
+        {
+            "MatchRegexString": ".ModalDialogPopup",
+            "TargetCss": "main.css"
+        },
+        {
+            "MatchRegexString": ".friendsui-container",
+            "TargetCss": "main.css"
+        }
+    ]
+}

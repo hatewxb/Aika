@@ -1,0 +1,20 @@
+# Системный мусор Windows / macOS
+Thumbs.db
+desktop.ini
+.DS_Store
+
+# Редакторы
+.vscode/
+.idea/
+*.swp
+
+# Логи и временные файлы
+*.log
+*.tmp
+
+# Если позже появится сборка (Sass, PostCSS и т.п.)
+node_modules/
+dist/
+
+# Локальные заметки и скриншоты для отладки
+scratch/
