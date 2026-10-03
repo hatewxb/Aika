@@ -1,0 +1,126 @@
+/* ==========================================================================
+   background.css — яркий живой фон под всем интерфейсом.
+
+   Окно Steam не прозрачно для рабочего стола, поэтому стеклу нечего
+   размывать, кроме содержимого самого Steam. Здесь под интерфейс
+   кладутся несколько больших мягких цветных пятен, которые медленно
+   плавают — их и будет «преломлять» стекло.
+
+   Как устроено:
+   - html — тёмная основа.
+   - body::before — три больших пятна.
+   - body::after  — два пятна + лёгкое затемнение для читаемости текста.
+   - Оба слоя двигаются по разным траекториям, поэтому картинка
+     не повторяется очевидным образом.
+   - Пятна — радиальные градиенты, уже мягкие сами по себе, поэтому
+     filter: blur() не нужен (это заметно дешевле для GPU).
+
+   Отключить анимацию: --lg-bg-animation: paused; в variables.css.
+   При системной настройке «уменьшить движение» она выключается сама.
+
+   TODO: Steam рисует свои непрозрачные фоны поверх body. Чтобы этот фон
+   стал виден, нужно сделать прозрачными корневые контейнеры окон —
+   для этого нужны их классы из DevTools (см. selectors.css).
+   ========================================================================== */
+
+html {
+    background-color: rgb(var(--lg-base-rgb));
+}
+
+body {
+    background: rgba(var(--lg-base-rgb), 0);
+}
+
+body::before,
+body::after {
+    content: "";
+    position: fixed;
+    inset: var(--lg-bg-overscan);
+    z-index: var(--lg-z-background);
+    pointer-events: none;
+    background-repeat: no-repeat;
+    will-change: transform;
+    animation-duration: var(--lg-bg-duration);
+    animation-timing-function: var(--lg-ease-inout);
+    animation-iteration-count: infinite;
+    animation-direction: alternate;
+    animation-play-state: var(--lg-bg-animation);
+}
+
+body::before {
+    background-image:
+        radial-gradient(
+            var(--lg-bg-blob-size-lg) at var(--lg-bg-blob-1-pos),
+            rgba(var(--lg-bg-blob-1-rgb), var(--lg-bg-blob-alpha)),
+            rgba(var(--lg-bg-blob-1-rgb), 0) var(--lg-bg-blob-falloff)
+        ),
+        radial-gradient(
+            var(--lg-bg-blob-size-md) at var(--lg-bg-blob-2-pos),
+            rgba(var(--lg-bg-blob-2-rgb), var(--lg-bg-blob-alpha)),
+            rgba(var(--lg-bg-blob-2-rgb), 0) var(--lg-bg-blob-falloff)
+        ),
+        radial-gradient(
+            var(--lg-bg-blob-size-lg) at var(--lg-bg-blob-3-pos),
+            rgba(var(--lg-bg-blob-3-rgb), var(--lg-bg-blob-alpha)),
+            rgba(var(--lg-bg-blob-3-rgb), 0) var(--lg-bg-blob-falloff)
+        );
+    animation-name: lg-bg-drift-a;
+}
+
+body::after {
+    background-image:
+        /* Затемнение — самый верхний слой, чтобы текст оставался читаемым */
+        linear-gradient(
+            rgba(var(--lg-base-rgb), var(--lg-bg-overlay-alpha)),
+            rgba(var(--lg-base-rgb), var(--lg-bg-overlay-alpha))
+        ),
+        radial-gradient(
+            var(--lg-bg-blob-size-md) at var(--lg-bg-blob-4-pos),
+            rgba(var(--lg-bg-blob-4-rgb), var(--lg-bg-blob-alpha)),
+            rgba(var(--lg-bg-blob-4-rgb), 0) var(--lg-bg-blob-falloff)
+        ),
+        radial-gradient(
+            var(--lg-bg-blob-size-sm) at var(--lg-bg-blob-5-pos),
+            rgba(var(--lg-bg-blob-5-rgb), var(--lg-bg-blob-alpha)),
+            rgba(var(--lg-bg-blob-5-rgb), 0) var(--lg-bg-blob-falloff)
+        );
+    animation-name: lg-bg-drift-b;
+}
+
+/* Первый слой: дрейф по диагонали с лёгким поворотом */
+@keyframes lg-bg-drift-a {
+    0% {
+        transform: translate3d(0, 0, 0) rotate(0deg) scale(1);
+    }
+    50% {
+        transform: translate3d(var(--lg-bg-drift), calc(var(--lg-bg-drift) * -1), 0)
+                   rotate(var(--lg-bg-rotate)) scale(var(--lg-bg-scale));
+    }
+    100% {
+        transform: translate3d(calc(var(--lg-bg-drift) * -1), var(--lg-bg-drift), 0)
+                   rotate(calc(var(--lg-bg-rotate) * -1)) scale(1);
+    }
+}
+
+/* Второй слой: встречное движение, чтобы пятна «перетекали» друг в друга */
+@keyframes lg-bg-drift-b {
+    0% {
+        transform: translate3d(0, 0, 0) rotate(0deg) scale(var(--lg-bg-scale));
+    }
+    50% {
+        transform: translate3d(calc(var(--lg-bg-drift) * -1), calc(var(--lg-bg-drift) * -1), 0)
+                   rotate(calc(var(--lg-bg-rotate) * -1)) scale(1);
+    }
+    100% {
+        transform: translate3d(var(--lg-bg-drift), var(--lg-bg-drift), 0)
+                   rotate(var(--lg-bg-rotate)) scale(var(--lg-bg-scale));
+    }
+}
+
+/* Уважаем системную настройку «уменьшить движение» */
+@media (prefers-reduced-motion: reduce) {
+    body::before,
+    body::after {
+        animation: none;
+    }
+}

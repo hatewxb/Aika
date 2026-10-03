@@ -1,0 +1,15 @@
+/* ==========================================================================
+   webkit.css — точка входа для веб-страниц внутри Steam
+   (магазин store.steampowered.com, сообщество steamcommunity.com).
+   Подключается через поле Steam-WebKit в skin.json.
+
+   Это отдельные документы, в них main.css не попадает — поэтому
+   основа подключается здесь повторно.
+   ========================================================================== */
+
+@import url("./variables.css");
+@import url("./glass.css");
+@import url("./background.css");
+
+@import url("./store.css");
+@import url("./selectors.css");
