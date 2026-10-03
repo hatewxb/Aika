@@ -169,3 +169,52 @@ html .AppGameInfoContainer .FeaturesList > .Container {
 html .AppGameInfoContainer .FeaturesList > .Container:hover {
     background-color: var(--aika-surface-hover);
 }
+
+/* --------------------------------------------------------------------------
+   Блок «предзаказ / не куплено» (.PrePurchaseContainer): 3D-куб с обложкой,
+   описание и кнопки. Steam красит его в сине-сиреневые градиенты — наш свет.
+   -------------------------------------------------------------------------- */
+
+html .InnerContainer .PrePurchaseContainer {
+    border-radius: var(--aika-radius-xl);
+    background: radial-gradient(100% 100% at 45% 45%, var(--aika-accent-haze), var(--aika-bg-elevated) 70%);
+    box-shadow: var(--aika-shadow-panel);
+}
+
+html .PrePurchaseContainer .GroundPlane {
+    background: radial-gradient(50% 50% at 35% 90%, var(--aika-accent-glow), var(--aika-accent-none));
+}
+
+/* Steam держит эти элементы цепочками (0,4,0)…(0,5,0) — у нас полные
+   читаемые цепочки + html */
+html .PrePurchaseContainer .CubeFace.CubeFaceBottom .CubeFaceShadow {
+    background: var(--aika-shadow-deep);
+}
+
+html .PrePurchaseContainer .CubeContainer .PrePurchaseDesc .Title {
+    color: var(--aika-fg);
+}
+
+html .PrePurchaseContainer .PrePurchaseDesc .Desc {
+    color: var(--aika-fg-muted);
+}
+
+/* Обёртка «Играть» — прозрачная; соседняя кнопка — secondary */
+html .PrePurchaseContainer .CubeContainer .PrePurchaseDesc .PrePurchaseActionsContainer div.PrePurchaseActions {
+    background: var(--aika-transparent);
+}
+
+html .PrePurchaseContainer .CubeContainer .PrePurchaseDesc .PrePurchaseActionsContainer button.PrePurchaseActions {
+    border-radius: var(--aika-radius-md);
+    background: var(--aika-surface);
+    box-shadow: var(--aika-shadow-secondary);
+    color: var(--aika-fg);
+}
+
+html .PrePurchaseContainer .CubeContainer .PrePurchaseDesc .PrePurchaseActionsContainer button.PrePurchaseActions:hover {
+    background: var(--aika-surface-hover);
+}
+
+html .PrePurchaseContainer .PrePurchaseActions .PlayButton svg.SVGIcon_Button svg {
+    fill: var(--aika-on-accent);
+}

@@ -52,6 +52,22 @@ html body ._1Pb6PMh_3L5p5NzuUz0Pp9 > .PlayButton.ButtonChild::after {
 /* TODO: вкладки МАГАЗИН / БИБЛИОТЕКА / СООБЩЕСТВО */
 /* TODO: левая панель со списком игр */
 /* TODO: элемент списка игр (обычный / выделенный) */
+/* [Библиотека] Включённый фильтр-переключатель в левой панели
+   («Сортировать по…», «Готово к игре»). Steam красит иконку голубым
+   хэш-классом «._1QFF…» (0,4,1), на hover — (0,5,1); читаемого нет.
+   Проверено: 2026-10-04 по правилам Steam.
+   Как найти: включить фильтр, посмотреть классы .CheckboxWithImage. */
+html .Bar .Filters .CheckboxWithImage._1QFFkxM5hw-43miIiylbwq svg,
+html .Bar .Filters .CheckboxWithImage._1QFFkxM5hw-43miIiylbwq svg g path,
+html .Bar .Filters .CheckboxWithImage._1QFFkxM5hw-43miIiylbwq:hover svg,
+html .Bar .Filters .CheckboxWithImage._1QFFkxM5hw-43miIiylbwq:hover svg g path {
+    fill: var(--aika-accent-bright);
+}
+
+html .Bar .Filters .CheckboxWithImage._1QFFkxM5hw-43miIiylbwq {
+    background: var(--aika-accent-soft);
+}
+
 /* TODO: нижняя панель (загрузки, друзья) */
 
 

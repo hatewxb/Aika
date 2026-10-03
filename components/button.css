@@ -192,3 +192,10 @@ html :is(.aika-button, button.DialogButton, .PlayButton):is(.Disabled, :disabled
     box-shadow: none;
     cursor: default;
 }
+
+/* Неактивная primary в отдельных местах (например, «Сохранить» в фильтрах
+   библиотеки) Steam красит синим хэш-правилом (0,3,0) — у нас (0,3,1) */
+html :is(button.DialogButton.Primary):is(.Disabled, :disabled) {
+    background: var(--aika-accent-fill);
+    color: var(--aika-on-accent);
+}

@@ -53,3 +53,15 @@ html button._DialogInputContainer[aria-expanded="true"] {
 html .CompatDropDown button._DialogInputContainer {
     background-color: var(--aika-bg-raised);
 }
+
+/* Стрелка выпадающего списка: Steam красит её серым rgb(150,150,150) правилом
+   до (0,3,1), а местами голубым — у нас (0,3,3)…(0,4,3) */
+html button._DialogInputContainer .DialogDropDown_Arrow svg.SVGIcon_Button,
+html button._DialogInputContainer .DialogDropDown_Arrow svg.SVGIcon_Button polygon {
+    fill: var(--aika-fg-subtle);
+}
+
+html button._DialogInputContainer:hover .DialogDropDown_Arrow svg.SVGIcon_Button,
+html button._DialogInputContainer:hover .DialogDropDown_Arrow svg.SVGIcon_Button polygon {
+    fill: var(--aika-fg-muted);
+}
