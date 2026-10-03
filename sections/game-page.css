@@ -570,7 +570,7 @@ html .AppDetailsSectionContainer .UnachievedSection.ShowDivider {
    Контент сообщества: арты, руководства (.CommunityItem.Large / .Small)
    -------------------------------------------------------------------------- */
 
-html .AppOverviewRow .CommunityItem:is(.Large, .Small) {
+html .AppOverviewRow .CommunityItem:not(.Blank) {
     overflow: hidden;
     border-radius: var(--aika-radius-lg);
     background-color: var(--aika-bg-raised);
