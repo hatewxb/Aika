@@ -372,16 +372,16 @@ html .AppDetailsSectionContainer .Highlight .UnlockedLabel span.UnlockedLabelPer
     color: var(--aika-fg-subtle);
 }
 
-html .PrimaryAchievement .TextSection .Name {
+html :is(.PrimaryAchievement, .RightAchievementSection) .TextSection .Name {
     color: var(--aika-fg);
 }
 
-html .PrimaryAchievement .TextSection .Desc {
+html :is(.PrimaryAchievement, .RightAchievementSection) .TextSection .Desc {
     color: var(--aika-fg-muted);
 }
 
 /* Иконки достижений — скругление; золотое свечение редких — Steam'овское */
-html .PrimaryAchievement .AchievementIconWrapper img.Icon {
+html .AchievementIconWrapper img.Icon {
     border-radius: var(--aika-radius-md);
 }
 
@@ -480,4 +480,88 @@ html .AppDetailsSectionContainer .VoteUpDownContainer button.AppDetailsButton:ho
    скруглены; панель внутри страницы под баннером остаётся вровень с краями */
 html .AppDetailsMain > .PlayBar.Container > .PlayBar.Glassy {
     border-radius: 0 0 var(--aika-radius-lg) var(--aika-radius-lg);
+}
+
+/* --------------------------------------------------------------------------
+   Лента активности на странице игры (.ActivityFeedContainer)
+
+   Steam сжимает заголовок и тело ленты по содержимому (~482 px), а тело
+   панели — во всю колонку: справа от поля поста и событий оставалась
+   пустая тёмная полоса. Растягиваем заголовок и содержимое на всю ширину.
+   -------------------------------------------------------------------------- */
+
+html .AppDetailsSection.ActivityFeedContainer > h2.SectionHeader {
+    width: 100%;
+    box-sizing: border-box;
+}
+
+html .ActivityFeedContainer > .AppDetailsSectionContainer > .Body.InnerContainer {
+    width: 100%;
+    box-sizing: border-box;
+    padding: var(--aika-space-4);
+    gap: var(--aika-space-3);
+}
+
+/* Дата дня в ленте */
+html .ActivityFeedContainer .AppActivityDay .AppActivityDate {
+    color: var(--aika-fg-subtle);
+    font-family: var(--aika-font-mono);
+    font-size: var(--aika-text-label);
+    letter-spacing: var(--aika-tracking-label);
+}
+
+/* Строка «Имя получает достижение» */
+html .ActivityFeedContainer .EventHeadline {
+    color: var(--aika-fg-muted);
+}
+
+/* Новости (.PartnerEvent, «Небольшое обновление…»): у Steam рамка
+   сделана border-image (PNG) — с ней скругление не работает. Заменяем
+   на нашу карточку. Steam (0,1,0). */
+html .ActivityFeedContainer .PartnerEvent {
+    border: var(--aika-hairline) solid var(--aika-border);
+    border-image: none;
+    border-radius: var(--aika-radius-lg);
+    background: var(--aika-surface);
+    box-shadow: none;
+    transition:
+        background-color var(--aika-dur-fast) var(--aika-ease-hover),
+        border-color var(--aika-dur-fast) var(--aika-ease-hover);
+}
+
+html .ActivityFeedContainer .PartnerEvent:hover {
+    border-color: var(--aika-border-hover);
+    background: var(--aika-surface-hover);
+}
+
+html .ActivityFeedContainer .PartnerEvent .PartnerEventType {
+    color: var(--aika-fg-subtle);
+    font-family: var(--aika-font-mono);
+    font-size: var(--aika-text-label);
+    letter-spacing: var(--aika-tracking-label);
+}
+
+html .ActivityFeedContainer .PartnerEvent .PartnerEventTextOnly_Title {
+    color: var(--aika-fg);
+}
+
+html .ActivityFeedContainer .PartnerEvent .PartnerEventTextOnly_Icon svg path {
+    fill: var(--aika-accent-bright);
+}
+
+/* Кнопка «Показать больше» внизу ленты — во всю ширину */
+html .ActivityFeedContainer .Body.InnerContainer > button.FetchMoreContainer {
+    align-self: stretch;
+}
+
+/* Мелкие иконки достижений и «+N» в блоке достижений */
+html .Additional .ItemWrapper .AdditionalItem {
+    overflow: hidden;
+    border-radius: var(--aika-radius-md);
+    background-color: var(--aika-bg-raised);
+}
+
+/* Разделитель «Не получено» */
+html .AppDetailsSectionContainer .UnachievedSection.ShowDivider {
+    border-color: var(--aika-border);
 }

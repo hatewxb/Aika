@@ -97,6 +97,15 @@ html .ReactVirtualized__List .Container.Selected:has(> .GameListEntryContainer):
     color: var(--aika-fg);
 }
 
+/* Steam при наведении на выбранную строку красит синим не её саму, а
+   потомков: «._1UBp…._2-O4… :hover» (пробел перед :hover, (0,3,0)) —
+   внутренний .GameListEntryContainer и всё, что под курсором.
+   Потомки выбранной строки — без своего фона, акцент даёт строка. */
+html .ReactVirtualized__List .Container.Selected .GameListEntryContainer,
+html .ReactVirtualized__List .Container.Selected .GameListEntryContainer * {
+    background-color: var(--aika-transparent);
+}
+
 /* Название игры: Steam красит сам <span> у установленных («._2ws8… span»,
    белый, вес 500) — берём цвет строки */
 html .ReactVirtualized__List .Container:has(> .GameListEntryContainer) .GameListEntryContainer > span {

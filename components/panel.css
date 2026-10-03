@@ -58,7 +58,10 @@ html .AppDetailsSection > h2.SectionHeader {
     background: var(--aika-bg-elevated);
 }
 
+/* margin-inline: 0 — у Steam тело смещено внутрь на 10 px, а заголовок
+   и обводка панели — во всю ширину блока: края не совпадали */
 html .AppDetailsSection > .AppDetailsSectionContainer {
+    margin-inline: 0;
     border-radius: 0 0 var(--aika-radius-xl) var(--aika-radius-xl);
     background: var(--aika-bg-elevated) !important;
     box-shadow: none !important;
@@ -67,4 +70,11 @@ html .AppDetailsSection > .AppDetailsSectionContainer {
 /* Блок без заголовка (ссылки «Магазин / Обсуждения…») — скругление со всех сторон */
 html .AppDetailsSection:not(:has(> h2.SectionHeader)) > .AppDetailsSectionContainer {
     border-radius: var(--aika-radius-xl);
+    box-shadow: var(--aika-shadow-panel) !important;
+}
+
+/* …а у самого такого блока Steam есть внутренний отступ, и обводка
+   секции была шире тела — обводка и тень только на теле */
+html .AppDetailsSection:not(:has(> h2.SectionHeader)) {
+    box-shadow: none;
 }
