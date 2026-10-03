@@ -40,7 +40,7 @@ DevTools: откройте `http://localhost:8080` в Chrome и выберите
 ### Если Steam закрывается сразу после «проверки обновлений»
 
 Скорее всего, падает Millennium. Отчёты — в
-`C:Program Files (x86)Steammillenniumcrashes`. Быстрая проверка:
+`C:\Program Files (x86)\Steam\millennium\crashes\`. Быстрая проверка:
 переименуйте `skin.json` в `skin.json.off` — если Steam запустился,
 проблема в теме (чаще всего — нецветное значение в `colors.css`).
 
