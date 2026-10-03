@@ -75,7 +75,7 @@ const expr = `(() => {
       const radius = parseFloat(s.borderTopLeftRadius) + parseFloat(s.borderBottomRightRadius);
       // Обрезан скруглённым родителем (overflow + radius) — углы и так круглые
       let clipped = false;
-      for (let p = el.parentElement, i = 0; p && i < 3 && !clipped; p = p.parentElement, i++) {
+      for (let p = el.parentElement, i = 0; p && i < 6 && !clipped; p = p.parentElement, i++) {
         const ps = getComputedStyle(p);
         clipped = ps.overflow !== "visible" && parseFloat(ps.borderTopLeftRadius) >= 2;
       }

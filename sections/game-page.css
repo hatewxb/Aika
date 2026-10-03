@@ -565,3 +565,60 @@ html .Additional .ItemWrapper .AdditionalItem {
 html .AppDetailsSectionContainer .UnachievedSection.ShowDivider {
     border-color: var(--aika-border);
 }
+
+/* --------------------------------------------------------------------------
+   Контент сообщества: арты, руководства (.CommunityItem.Large / .Small)
+   -------------------------------------------------------------------------- */
+
+html .AppOverviewRow .CommunityItem:is(.Large, .Small) {
+    overflow: hidden;
+    border-radius: var(--aika-radius-lg);
+    background-color: var(--aika-bg-raised);
+    box-shadow: var(--aika-shadow-cover);
+}
+
+/* Подпись арта поверх картинки */
+html .CommunityItem .ArtItem .BottomSection {
+    background: var(--aika-bg-elevated);
+    box-shadow: none;
+}
+
+html .CommunityItem .ArtItem .BottomSection .DescriptionRow {
+    color: var(--aika-fg-muted);
+}
+
+/* Автор сверху поверх картинки — наше затемнение */
+html .CommunityItem .AuthorSection {
+    background: linear-gradient(to bottom, var(--aika-scrim), var(--aika-scrim-none));
+}
+
+html .CommunityItem .AuthorSection .AuthorName {
+    color: var(--aika-fg-muted);
+}
+
+/* Руководства */
+html .CommunityItem .Guide .GuideTitle {
+    color: var(--aika-fg);
+}
+
+html .CommunityItem .Guide .TopSection .TopSectionInner {
+    background-color: var(--aika-surface);
+}
+
+html .CommunityItem .Guide .BottomSection .Description {
+    color: var(--aika-fg-muted);
+}
+
+/* Реакции, счётчики, меню */
+html .CommunityItem .Controls .Control .Button svg.Reactions path {
+    fill: var(--aika-accent-bright);
+}
+
+html .CommunityItem .Controls .Control .Count {
+    color: var(--aika-fg-subtle);
+}
+
+html .CommunityItem .MenuButton svg.SVGIcon_Button,
+html .CommunityItem .MenuButton svg.SVGIcon_Button path {
+    fill: var(--aika-fg-muted);
+}
