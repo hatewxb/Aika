@@ -1,0 +1,55 @@
+/* ==========================================================================
+   components/input.css — поля ввода и выпадающие списки (DESIGN.md §4, Inputs).
+
+   Steam (сняты через CDP 2026-10-04):
+     input.DialogTextInputBase  — текстовые поля во всех диалогах
+     button._DialogInputContainer.DialogDropDown — выпадающий список
+   Базовое правило Steam — «.DialogTextInputBase, ._DialogInputContainer»
+   (0,1,0); у нас html + тег/класс — сильнее, без !important.
+
+   Отдельные поля с хэш-правилами (поиск в левой панели библиотеки)
+   доделываются в разделах / selectors.css.
+   TODO: чекбоксы [ ] / [X] и переключатели — классы снять в окне настроек.
+   ========================================================================== */
+
+html :is(.aika-input, input.DialogTextInputBase, button._DialogInputContainer) {
+    background-color: var(--aika-bg-raised);
+    border: var(--aika-hairline) solid var(--aika-border-strong);
+    border-radius: var(--aika-radius-md);
+    box-shadow: none;
+    color: var(--aika-fg);
+    font-family: var(--aika-font-ui);
+    font-weight: var(--aika-weight-regular);
+    transition:
+        border-color var(--aika-dur-fast) var(--aika-ease-hover),
+        box-shadow var(--aika-dur-base) var(--aika-ease);
+}
+
+html :is(.aika-input, input.DialogTextInputBase, button._DialogInputContainer):hover {
+    border-color: var(--aika-border-hover);
+}
+
+/* Фокус: рамка акцента + мягкое кольцо. Оно и есть индикатор фокуса,
+   поэтому outline из base.css здесь не нужен — иначе два кольца. */
+html :is(.aika-input, input.DialogTextInputBase, button._DialogInputContainer):focus-visible,
+html :is(.aika-input, input.DialogTextInputBase):focus {
+    border-color: var(--aika-accent);
+    box-shadow: var(--aika-shadow-input-focus);
+    outline: none;
+}
+
+html :is(.aika-input, input.DialogTextInputBase)::placeholder {
+    color: var(--aika-fg-subtle);
+}
+
+/* Открытый выпадающий список — как в фокусе */
+html button._DialogInputContainer[aria-expanded="true"] {
+    border-color: var(--aika-accent);
+    box-shadow: var(--aika-shadow-input-focus);
+}
+
+/* Списки в фильтрах библиотеки (.CompatDropDown, «Поддержка геймпада» и т.п.):
+   Steam перекрашивает их правилом (0,2,0) — возвращаем наш фон */
+html .CompatDropDown button._DialogInputContainer {
+    background-color: var(--aika-bg-raised);
+}

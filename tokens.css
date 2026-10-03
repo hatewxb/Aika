@@ -97,6 +97,9 @@
         var(--aika-highlight-top),
         0 0 20px var(--aika-accent-haze);
 
+    /* Поле ввода в фокусе: кольцо мягкого акцента (DESIGN.md §4, Inputs) */
+    --aika-shadow-input-focus: 0 0 0 var(--aika-input-ring) var(--aika-accent-soft);
+
     /* Обложка в больших сетках — облегчённая карточка (DESIGN.md §4, Cards):
        рамка + одна мягкая тень, без свечения акцента */
     --aika-shadow-cover:
