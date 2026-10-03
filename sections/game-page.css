@@ -133,3 +133,39 @@ html .HeaderFeatures .InCollection:hover {
     color: var(--aika-fg);
     box-shadow: inset 0 0 0 var(--aika-hairline) var(--aika-border-accent);
 }
+
+/* --------------------------------------------------------------------------
+   Блок описания (.AppGameInfoContainer): постер, описание, разработчики,
+   возможности — как панель: тёмное тело, обводка, скругление xl.
+   Steam: фон (0,1,0), тень постера (0,2,0), кнопка лупы (0,2,0).
+   -------------------------------------------------------------------------- */
+
+html .AppGameInfoContainer > .Container {
+    border-radius: var(--aika-radius-xl);
+    background-color: var(--aika-bg-elevated);
+    box-shadow: var(--aika-shadow-panel);
+}
+
+/* Постер — скругление обложки и простая тень */
+html .AppGameInfoContainer .Portrait .PortraitImage {
+    border-radius: var(--aika-radius-lg);
+    overflow: hidden;
+    box-shadow: var(--aika-shadow-cover);
+}
+
+/* Кнопка увеличения постера — secondary-иконка */
+html .AppGameInfoContainer .Portrait .ZoomInButton {
+    border-radius: var(--aika-radius-md);
+    background-color: var(--aika-bg-raised);
+    box-shadow: inset 0 0 0 var(--aika-hairline) var(--aika-border-hover);
+}
+
+/* Возможности (одиночная игра, достижения…) — строки с мягким hover */
+html .AppGameInfoContainer .FeaturesList > .Container {
+    border-radius: var(--aika-radius-md);
+    transition: background-color var(--aika-dur-fast) var(--aika-ease-hover);
+}
+
+html .AppGameInfoContainer .FeaturesList > .Container:hover {
+    background-color: var(--aika-surface-hover);
+}
