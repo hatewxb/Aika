@@ -1,0 +1,132 @@
+/* ==========================================================================
+   components/panel.css — «файловая» панель, подпись Aika (DESIGN.md §4, File Panel).
+
+   Заголовок 34 px: слева путь моноширинным — каталог (--aika-path-dir,
+   --aika-fg-subtle) + имя файла (--aika-fg-muted) + расширение
+   (--aika-path-ext); тело — --aika-bg-elevated. Путь и расширение задаются
+   переменными на панели, так что разделы меняют только их.
+
+   1. Свои панели: .aika-panel > .aika-panel__header + .aika-panel__body,
+      путь целиком в --aika-path (DESIGN.md §4).
+   2. Блоки страницы игры Steam (сняты через CDP 2026-10-04):
+        .AppDetailsSection                       — блок
+          > h2.SectionHeader > .Label > .LabelText — заголовок, его текст — имя файла
+          > .AppDetailsSectionContainer           — тело
+      Steam: заголовок (0,2,0); фон тела в правой колонке — «._3-V8… > div»
+      с !important, поэтому фон и тень тела — тоже !important (только они).
+   ========================================================================== */
+
+/* --------------------------------------------------------------------------
+   Общая рамка панели
+   -------------------------------------------------------------------------- */
+
+.aika-panel,
+html .AppDetailsSection {
+    --aika-path-dir: "game/";
+    --aika-path-ext: ".txt";
+    border-radius: var(--aika-radius-xl);
+    box-shadow: var(--aika-shadow-panel);
+}
+
+/* --------------------------------------------------------------------------
+   Заголовок-путь
+   -------------------------------------------------------------------------- */
+
+.aika-panel__header,
+html .AppDetailsSection > h2.SectionHeader {
+    display: flex;
+    align-items: center;
+    gap: var(--aika-space-2);
+    min-height: var(--aika-panel-header);
+    margin: 0;
+    padding-inline: var(--aika-space-4);
+    border-radius: var(--aika-radius-xl) var(--aika-radius-xl) 0 0;
+    border-bottom: var(--aika-hairline) solid var(--aika-border);
+    background: var(--aika-bg-raised);
+    color: var(--aika-fg-muted);
+    font-family: var(--aika-font-mono);
+    font-size: var(--aika-text-label);
+    font-weight: var(--aika-weight-medium);
+    letter-spacing: normal;
+    text-transform: lowercase;
+}
+
+/* Свои панели: путь целиком из --aika-path */
+.aika-panel__header::before {
+    content: var(--aika-path);
+    color: var(--aika-fg-subtle);
+}
+
+/* Steam: каталог перед названием блока, расширение — после.
+   «game/» + «достижения» + «.txt» */
+html .AppDetailsSection > h2.SectionHeader .LabelText::before {
+    content: var(--aika-path-dir);
+    color: var(--aika-fg-subtle);
+}
+
+html .AppDetailsSection > h2.SectionHeader .LabelText::after {
+    content: var(--aika-path-ext);
+    color: var(--aika-fg-subtle);
+}
+
+/* Расширения по смыслу блока */
+html .AppDetailsSection.ActivityFeedContainer {
+    --aika-path-ext: ".log";
+}
+
+html .AppDetailsSection.ScreenshotsSection,
+html .AppDetailsSection.CommunityContentContainer {
+    --aika-path-ext: "/";
+}
+
+/* Декор «─ □ ✕» справа — только для своих панелей (у Steam справа
+   в заголовке бывают свои кнопки) */
+.aika-panel__header::after {
+    content: "─ □ ✕";
+    margin-inline-start: auto;
+    color: var(--aika-fg-subtle);
+    letter-spacing: var(--aika-tracking-label);
+}
+
+/* --------------------------------------------------------------------------
+   Тело
+   -------------------------------------------------------------------------- */
+
+.aika-panel__body {
+    padding: var(--aika-space-5);
+    border-radius: 0 0 var(--aika-radius-xl) var(--aika-radius-xl);
+    background: var(--aika-bg-elevated);
+}
+
+html .AppDetailsSection > .AppDetailsSectionContainer {
+    border-radius: 0 0 var(--aika-radius-xl) var(--aika-radius-xl);
+    background: var(--aika-bg-elevated) !important;
+    box-shadow: none !important;
+}
+
+/* Блок без заголовка (ссылки «Магазин / Обсуждения…») — скругление со всех сторон */
+html .AppDetailsSection:not(:has(> h2.SectionHeader)) > .AppDetailsSectionContainer {
+    border-radius: var(--aika-radius-xl);
+}
+
+/* --------------------------------------------------------------------------
+   Концовка длинных списков: «── end_of_list ──»
+   -------------------------------------------------------------------------- */
+
+.aika-end-of-list {
+    display: flex;
+    align-items: center;
+    gap: var(--aika-space-3);
+    padding-block: var(--aika-space-4);
+    color: var(--aika-fg-subtle);
+    font-family: var(--aika-font-mono);
+    font-size: var(--aika-text-label);
+}
+
+.aika-end-of-list::before,
+.aika-end-of-list::after {
+    content: "";
+    flex: 1;
+    height: var(--aika-hairline);
+    background: var(--aika-border);
+}

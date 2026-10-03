@@ -1,0 +1,79 @@
+/* ==========================================================================
+   sections/game-page.css — страница игры в библиотеке (DESIGN.md §5).
+
+   Структура (снята через CDP 2026-10-04):
+     .AppDetailsMain
+       .PlayBar.Container > .PlayBar.Glassy   — липкая панель «Играть»
+         .PlayButtonContainer[.ShowingStreaming]
+           .PlayButton                         — components/button.css
+           .StreamingSelector                  — стрелка выбора устройства
+         .StatusAndStats .GameStat             — статистика (components/status.css)
+         .AppButtonsContainer .MenuButton      — настройки, избранное
+       .Header .TopCapsule                     — герой: фон-баннер + логотип
+       .AppDetailsOverviewPanel
+         .AppDetailsSection …                  — блоки (components/panel.css)
+
+   Название игры — картинка-логотип Steam, текста нет; Display-антиква
+   здесь пока не применяется.
+   TODO: герой — затемняющий градиент под баннером, scroll-эффект
+   (DESIGN.md §8), когда снимем классы баннера.
+   ========================================================================== */
+
+/* --------------------------------------------------------------------------
+   Панель «Играть»: сплошная приподнятая поверхность вместо голубого
+   градиента Steam («._3DeO… ._3fLo…», (0,2,0)), тонкая линия сверху
+   -------------------------------------------------------------------------- */
+
+html .PlayBar.Glassy {
+    background: var(--aika-bg-elevated);
+    border-top: var(--aika-hairline) solid var(--aika-border);
+    box-shadow: var(--aika-highlight-top);
+}
+
+/* Серая подложка Steam вокруг «Играть» */
+html .PlayBar .PlayButtonContainer {
+    background: var(--aika-transparent);
+}
+
+/* «Играть» + стрелка стриминга — одна акцентная кнопка из двух частей.
+   Стрелка у установленной игры зелёная на hover — правило Steam (0,4,0),
+   иконка (0,4,1); у нас (0,4,1)…(0,5,2). */
+html .PlayButtonContainer.ShowingStreaming .PlayButton {
+    border-radius: var(--aika-radius-md) 0 0 var(--aika-radius-md);
+}
+
+html .PlayBar .PlayButtonContainer .StreamingSelector.ButtonChild {
+    border-radius: 0 var(--aika-radius-md) var(--aika-radius-md) 0;
+    border-inline-start: var(--aika-hairline) solid var(--aika-highlight-cta);
+    background: var(--aika-accent);
+    color: var(--aika-on-accent);
+    box-shadow: var(--aika-shadow-cta);
+    transition:
+        background-color var(--aika-dur-fast) var(--aika-ease-hover),
+        box-shadow var(--aika-dur-base) var(--aika-ease);
+}
+
+html .PlayBar .PlayButtonContainer .StreamingSelector.ButtonChild:hover {
+    background: var(--aika-accent-bright);
+    box-shadow: var(--aika-shadow-cta-hover);
+}
+
+html .PlayBar .PlayButtonContainer .StreamingSelector.ButtonChild svg,
+html .PlayBar .PlayButtonContainer .StreamingSelector.ButtonChild:hover svg {
+    fill: var(--aika-on-accent);
+}
+
+/* Кнопки справа (шестерёнка, звезда) — secondary-иконки */
+html .AppButtonsContainer .MenuButton {
+    border-radius: var(--aika-radius-md);
+    background-color: var(--aika-surface);
+    box-shadow: var(--aika-shadow-secondary);
+    transition:
+        background-color var(--aika-dur-fast) var(--aika-ease-hover),
+        box-shadow var(--aika-dur-base) var(--aika-ease);
+}
+
+html .AppButtonsContainer .MenuButton:hover {
+    background-color: var(--aika-surface-hover);
+    box-shadow: var(--aika-shadow-secondary-hover);
+}

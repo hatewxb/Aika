@@ -19,11 +19,14 @@
 /* 2. Компоненты (components/): button → card → panel → status → input → nav → menu → progress */
 @import url("./components/button.css");
 @import url("./components/card.css");
+@import url("./components/panel.css");
+@import url("./components/status.css");
 @import url("./components/input.css");
 @import url("./components/nav.css");
 
 /* 3. Разделы клиента (стабильные селекторы) */
 @import url("./sections/library.css");
+@import url("./sections/game-page.css");
 @import url("./sections/store.css");
 @import url("./sections/friends.css");
 @import url("./sections/settings.css");
