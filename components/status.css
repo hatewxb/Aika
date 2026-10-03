@@ -95,3 +95,39 @@ html .GameStat .PlayBarDetailLabel {
     font-size: var(--aika-text-label);
     font-weight: var(--aika-weight-medium);
 }
+
+/* --------------------------------------------------------------------------
+   Аватары и статусы игроков (страница игры, лента, друзья).
+   Steam: .avatarHolder img.avatar — рамка rgb(56,60,67) и тень;
+   имя игрока: .LabelHolder.ingame / .online / .offline .playerName,
+   в ленте — .ActorName.ingame .playerName.
+   Смысл цветов сохраняем: в игре — ok, в сети — акцент, не в сети — приглушённо.
+   -------------------------------------------------------------------------- */
+
+html .avatarHolder img.avatar {
+    border-color: var(--aika-border-hover);
+    border-radius: var(--aika-radius-md);
+    box-shadow: none;
+}
+
+html :is(.LabelHolder, .ActorName).ingame .playerName {
+    color: var(--aika-ok);
+}
+
+html :is(.LabelHolder, .ActorName).online .playerName {
+    color: var(--aika-accent-bright);
+}
+
+html :is(.LabelHolder, .ActorName).offline .playerName {
+    color: var(--aika-fg-subtle);
+}
+
+html .LabelHolder :is(.richPresenceLabel .PlaytimeStatus, .playerNicknameBracket) {
+    color: var(--aika-fg-subtle);
+}
+
+/* Строка «в игре …» / «был в сети …» под именем: у Steam там
+   «color: gray !important» — отвечаем тем же, только здесь */
+html .LabelHolder .richPresenceLabel .PlaytimeStatus {
+    color: var(--aika-fg-subtle) !important;
+}

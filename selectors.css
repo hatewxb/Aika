@@ -68,6 +68,27 @@ html .Bar .Filters .CheckboxWithImage._1QFFkxM5hw-43miIiylbwq {
     background: var(--aika-accent-soft);
 }
 
+/* [Страница игры] Подписи статистики, которые вставляет сторонний плагин
+   Millennium («Размер», «PLAYERS»; на <html> классы size-on-disk,
+   playercount-badge). Он берёт хэш-классы Steam без читаемых двойников:
+     ._34lrt5… — подпись (как .PlayBarLabel), ._2TYV… — значение
+     (как .PlayBarDetailLabel). Золотой цвет онлайна — inline-стиль
+   плагина, его не трогаем. Проверено: 2026-10-04. */
+html .GameStatsSection ._34lrt5-Fc3usZU6trA1P0- {
+    font-family: var(--aika-font-mono);
+    font-size: var(--aika-text-label);
+    font-weight: var(--aika-weight-medium);
+    letter-spacing: var(--aika-tracking-label);
+    color: var(--aika-fg-subtle);
+}
+
+html .GameStatsSection ._2TYVGoD27ZMfjRirKQNLfk {
+    font-family: var(--aika-font-mono);
+    font-size: var(--aika-text-meta);
+    font-variant-numeric: tabular-nums;
+    color: var(--aika-fg-muted);
+}
+
 /* TODO: нижняя панель (загрузки, друзья) */
 
 

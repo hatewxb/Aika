@@ -218,3 +218,266 @@ html .PrePurchaseContainer .CubeContainer .PrePurchaseDesc .PrePurchaseActionsCo
 html .PrePurchaseContainer .PrePurchaseActions .PlayButton svg.SVGIcon_Button svg {
     fill: var(--aika-on-accent);
 }
+
+/* ==========================================================================
+   Палитра Aika для оставшихся элементов страницы игры (аудит
+   tools/audit.js, 2026-10-04). Нейтральные серые Steam → наши тёплые,
+   синие акценты Steam → наш акцент. Смысловые цвета (в игре, редкое
+   достижение) — сохраняем смысл.
+   ========================================================================== */
+
+/* Фон страницы и стекло под блоками — прозрачные: виден фон Aika */
+html .AppDetailsMain > .Container > .Body.ScrollContainer {
+    background: var(--aika-transparent);
+}
+
+html .AppDetailsOverviewPanel .Backdrop .BackdropGlass {
+    background: var(--aika-transparent);
+}
+
+/* Чипы коллекций: у Steam своя белая рамка поверх нашей */
+html .HeaderFeatures .InCollection {
+    border-color: var(--aika-transparent);
+}
+
+/* --------------------------------------------------------------------------
+   Панель «Играть»: иконки статистики и кнопок
+   -------------------------------------------------------------------------- */
+
+html .PlayBar .GameStat :is(.GameStatIconForced, .GameStatIcon) svg :is(path, circle) {
+    fill: var(--aika-fg-subtle);
+}
+
+html .PlayBar .AppButtonsContainer .MenuButton svg.SVGIcon_Button,
+html .PlayBar .AppButtonsContainer .MenuButton svg.SVGIcon_Button :is(path, circle, polyline),
+html .PlayBar .AppButtonsContainer .MenuButton.FavoriteButton svg,
+html .PlayBar .AppButtonsContainer .MenuButton.FavoriteButton svg path {
+    fill: var(--aika-fg-muted);
+}
+
+html .PlayBar .AppButtonsContainer .MenuButton:hover svg.SVGIcon_Button,
+html .PlayBar .AppButtonsContainer .MenuButton:hover svg.SVGIcon_Button :is(path, circle, polyline),
+html .PlayBar .AppButtonsContainer .MenuButton.FavoriteButton:hover svg,
+html .PlayBar .AppButtonsContainer .MenuButton.FavoriteButton:hover svg path {
+    fill: var(--aika-fg);
+}
+
+/* --------------------------------------------------------------------------
+   Блок описания и ссылки
+   -------------------------------------------------------------------------- */
+
+html .AppGameInfoContainer .Description .GameDescription {
+    color: var(--aika-fg-muted);
+}
+
+html .AppGameInfoContainer .Stats :is(.AssociationList, .Release) .Label {
+    color: var(--aika-fg-subtle);
+}
+
+html .AppGameInfoContainer .Stats .AssociationList .Association a.Name {
+    color: var(--aika-fg);
+    transition: color var(--aika-dur-fast) var(--aika-ease-hover);
+}
+
+html .AppGameInfoContainer .Stats .AssociationList .Association a.Name:hover {
+    color: var(--aika-accent-bright);
+}
+
+html .AppGameInfoContainer .Portrait .ZoomInButton svg path {
+    fill: var(--aika-fg-muted);
+}
+
+html .LinksSectionBody .LinkInner .Link .Text {
+    color: var(--aika-fg-muted);
+    transition: color var(--aika-dur-fast) var(--aika-ease-hover);
+}
+
+html .LinksSectionBody .LinkInner:hover .Link .Text {
+    color: var(--aika-fg);
+}
+
+html .LinksSectionBody .MenuButton svg,
+html .LinksSectionBody .MenuButton svg circle {
+    fill: var(--aika-fg-muted);
+}
+
+/* --------------------------------------------------------------------------
+   Отзыв («Рекомендуете?», .Spotlights .ReviewContainer) — панель,
+   синие кнопки Steam → акцент
+   -------------------------------------------------------------------------- */
+
+html .Spotlights .ReviewContainer {
+    border-radius: var(--aika-radius-xl);
+    background: var(--aika-bg-elevated);
+    box-shadow: var(--aika-shadow-panel);
+}
+
+html .Spotlights .ReviewContainer .RatingContainer {
+    border-radius: var(--aika-radius-xl);
+    background: var(--aika-transparent);
+}
+
+html .Spotlights .ReviewContainer .RatingContainer .Playtime {
+    color: var(--aika-accent-bright);
+}
+
+html .Spotlights .ReviewContainer button.ReviewThumbButton {
+    border-radius: var(--aika-radius-md);
+    background: var(--aika-accent-soft);
+    color: var(--aika-accent-bright);
+    transition: background-color var(--aika-dur-fast) var(--aika-ease-hover);
+}
+
+html .Spotlights .ReviewContainer button.ReviewThumbButton:hover {
+    background: var(--aika-accent-glow);
+}
+
+html .Spotlights .ReviewContainer button.ReviewThumbButton span {
+    color: inherit;
+}
+
+html .Spotlights .ReviewContainer button.ReviewThumbButton svg.ThumbIcon,
+html .Spotlights .ReviewContainer button.ReviewThumbButton svg.ThumbIcon path {
+    fill: currentColor;
+}
+
+/* --------------------------------------------------------------------------
+   Друзья и достижения в правой колонке
+   -------------------------------------------------------------------------- */
+
+html .AppDetailsSectionContainer .Body .Subsection .SubsectionHeader {
+    color: var(--aika-fg-muted);
+}
+
+html .AppDetailsSectionContainer .Friends button.ShowMore.TextButton {
+    color: var(--aika-fg-muted);
+}
+
+html .AppDetailsSectionContainer .Friends button.ShowMore.TextButton:hover {
+    color: var(--aika-accent-bright);
+}
+
+/* Полоса «Открыто N из M» — поверхность вместо серо-синего градиента */
+html .AppDetailsSectionContainer .Highlight.HighlightDiv {
+    border-radius: var(--aika-radius-lg);
+    background: var(--aika-surface);
+    box-shadow: inset 0 0 0 var(--aika-hairline) var(--aika-border);
+}
+
+html .AppDetailsSectionContainer .Highlight .UnlockedLabel span {
+    color: var(--aika-fg-muted);
+}
+
+html .AppDetailsSectionContainer .Highlight .UnlockedLabel span.UnlockedLabelPercent {
+    color: var(--aika-fg-subtle);
+}
+
+html .PrimaryAchievement .TextSection .Name {
+    color: var(--aika-fg);
+}
+
+html .PrimaryAchievement .TextSection .Desc {
+    color: var(--aika-fg-muted);
+}
+
+/* Иконки достижений — скругление; золотое свечение редких — Steam'овское */
+html .PrimaryAchievement .AchievementIconWrapper img.Icon {
+    border-radius: var(--aika-radius-md);
+}
+
+/* --------------------------------------------------------------------------
+   Лента активности: поле поста, кнопки, события, лайки
+   -------------------------------------------------------------------------- */
+
+html .PostTextEntry.AddToFeed textarea.PostTextEntryArea {
+    border: var(--aika-hairline) solid var(--aika-border-strong);
+    border-radius: var(--aika-radius-md);
+    background: var(--aika-bg-raised);
+    color: var(--aika-fg);
+}
+
+html .PostTextEntry.AddToFeed textarea.PostTextEntryArea:focus {
+    border-color: var(--aika-accent);
+    box-shadow: var(--aika-shadow-input-focus);
+    outline: none;
+}
+
+html .PostTextEntry.AddToFeed .Controls :is(button.EmoticonButton, .PostButton) {
+    border-radius: var(--aika-radius-md);
+    background: var(--aika-surface);
+    box-shadow: var(--aika-shadow-secondary);
+}
+
+html .PostTextEntry.AddToFeed .Controls .PostButton .Label {
+    color: var(--aika-fg-muted);
+}
+
+html .PostTextEntry.AddToFeed .Controls button.EmoticonButton svg path {
+    fill: var(--aika-fg-muted);
+}
+
+html .AppDetailsSectionContainer .ViewLastNews span {
+    color: var(--aika-fg-muted);
+}
+
+html .AppActivityDay .Event .EventBody {
+    border-radius: var(--aika-radius-lg);
+    background: var(--aika-surface);
+}
+
+html .RatingBar :is(.CommentButton, .LikeButton) :is(.CommentCount, .LikeCount) {
+    color: var(--aika-fg-subtle);
+}
+
+html .RatingBar :is(.CommentButton, .LikeButton) svg.RatingIcon,
+html .RatingBar :is(.CommentButton, .LikeButton) svg.RatingIcon path {
+    fill: var(--aika-fg-subtle);
+}
+
+html .RatingBar :is(.CommentButton, .LikeButton):hover :is(.CommentCount, .LikeCount) {
+    color: var(--aika-fg);
+}
+
+html .RatingBar :is(.CommentButton, .LikeButton):hover svg.RatingIcon :is(*) {
+    fill: var(--aika-fg);
+}
+
+/* --------------------------------------------------------------------------
+   Нижние блоки: скриншоты, коллекционные карточки, контент сообщества,
+   голосование (аудит 2026-10-04)
+   -------------------------------------------------------------------------- */
+
+html .AppDetailsSectionContainer .Screenshots .Thumbnail {
+    overflow: hidden;
+    border-radius: var(--aika-radius-md);
+    background-color: var(--aika-bg-raised);
+}
+
+html .CardsSection .CardWrapper .Card .CardContainer {
+    border-radius: var(--aika-radius-md);
+    background-color: var(--aika-bg-raised);
+}
+
+/* Пустые ячейки-заглушки в «Контенте сообщества» */
+html .AppOverviewRow .CommunityItem.Blank {
+    border-radius: var(--aika-radius-lg);
+    background-color: var(--aika-surface);
+}
+
+html .AppDetailsSectionContainer .VoteUpDownContainer button.AppDetailsButton {
+    border-radius: var(--aika-radius-md);
+    background-color: var(--aika-surface);
+    box-shadow: var(--aika-shadow-secondary);
+    color: var(--aika-fg-muted);
+}
+
+html .AppDetailsSectionContainer .VoteUpDownContainer button.AppDetailsButton:hover {
+    background-color: var(--aika-surface-hover);
+    color: var(--aika-fg);
+}
+
+/* Липкая копия панели «Играть» (висит сверху при прокрутке) — нижние углы
+   скруглены; панель внутри страницы под баннером остаётся вровень с краями */
+html .AppDetailsMain > .PlayBar.Container > .PlayBar.Glassy {
+    border-radius: 0 0 var(--aika-radius-lg) var(--aika-radius-lg);
+}
