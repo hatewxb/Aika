@@ -37,7 +37,7 @@
 html body ._1Pb6PMh_3L5p5NzuUz0Pp9 > .PlayButton.ButtonChild,
 html body ._1Pb6PMh_3L5p5NzuUz0Pp9 > .PlayButton.ButtonChild:hover {
     opacity: var(--aika-disabled-opacity);
-    background: var(--aika-accent);
+    background: var(--aika-accent-fill);
     box-shadow: none;
     transform: none;
     cursor: default;

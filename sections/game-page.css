@@ -45,7 +45,7 @@ html .PlayButtonContainer.ShowingStreaming .PlayButton {
 html .PlayBar .PlayButtonContainer .StreamingSelector.ButtonChild {
     border-radius: 0 var(--aika-radius-md) var(--aika-radius-md) 0;
     border-inline-start: var(--aika-hairline) solid var(--aika-highlight-cta);
-    background: var(--aika-accent);
+    background: var(--aika-accent-fill);
     color: var(--aika-on-accent);
     box-shadow: var(--aika-shadow-cta);
     transition:
@@ -54,7 +54,7 @@ html .PlayBar .PlayButtonContainer .StreamingSelector.ButtonChild {
 }
 
 html .PlayBar .PlayButtonContainer .StreamingSelector.ButtonChild:hover {
-    background: var(--aika-accent-bright);
+    background: var(--aika-accent-fill-hover);
     box-shadow: var(--aika-shadow-cta-hover);
 }
 

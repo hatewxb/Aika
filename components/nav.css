@@ -110,11 +110,8 @@ html .ReactVirtualized__List .GameListEntryContainer .GameIcon {
 }
 
 /* --------------------------------------------------------------------------
-   Поиск в левой панели: моно-подсказка «> search_» с мигающим курсором
-   (DESIGN.md §4, Inputs). Steam красит поле правилом (0,3,0) и рисует
-   иконку лупы фоном — иконку оставляем, фон и рамку — наши.
-   Подсказка Steam («Поиск по названию») скрыта визуально, но остаётся
-   в атрибуте placeholder — экранные чтецы её прочитают.
+   Поиск в левой панели. Steam красит поле правилом (0,3,0) и рисует
+   иконку лупы фоном — иконку и подсказку Steam оставляем, фон и рамку — наши.
    -------------------------------------------------------------------------- */
 
 html .Container > .SearchInput input.DialogTextInputBase {
@@ -132,42 +129,67 @@ html .Container > .SearchInput input.DialogTextInputBase:focus {
     box-shadow: var(--aika-shadow-input-focus);
 }
 
-html .Container > .SearchInput input.DialogTextInputBase::placeholder {
-    color: var(--aika-transparent);
+/* --------------------------------------------------------------------------
+   Верхние вкладки — иконки вместо подписей (по просьбе автора)
+
+   Steam (сняты через CDP 2026-10-04):
+     .SuperNav > .SuperNavMenu[.Selected] > .MenuButton
+   Своих классов у вкладок нет, порядок постоянный:
+     1 Магазин · 2 Библиотека · 3 Сообщество · 4 профиль (ник в <span>) ·
+     5 Консоль (только в режиме -dev).
+   Профиль ищем по <span> (:has), остальные — по позиции среди div.
+   Подпись Steam остаётся в DOM (font-size: 0) — её читают экранные чтецы.
+   Steam: hover и выбор — (0,4,0), синяя линия выбора — в ::after;
+   у нас (0,4,1)+.
+   -------------------------------------------------------------------------- */
+
+html .SuperNav .SuperNavMenu > .MenuButton {
+    --aika-tab-icon: var(--aika-icon-store);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--aika-space-1);
+    padding: var(--aika-space-1) var(--aika-space-2);
+    font-size: 0;
+    color: var(--aika-fg-muted);
+    text-shadow: none;
+    transition: color var(--aika-dur-fast) var(--aika-ease-hover);
 }
 
-@keyframes aika-blink {
-    50% {
-        opacity: calc(1 - var(--aika-motion));
-    }
+html .SuperNav .SuperNavMenu:nth-of-type(2) > .MenuButton { --aika-tab-icon: var(--aika-icon-library); }
+html .SuperNav .SuperNavMenu:nth-of-type(3) > .MenuButton { --aika-tab-icon: var(--aika-icon-community); }
+html .SuperNav .SuperNavMenu:nth-of-type(5) > .MenuButton { --aika-tab-icon: var(--aika-icon-console); }
+html .SuperNav .SuperNavMenu > .MenuButton:has(> span) { --aika-tab-icon: var(--aika-icon-profile); }
+
+html .SuperNav .SuperNavMenu > .MenuButton::before {
+    content: "";
+    width: var(--aika-tab-icon-size);
+    height: var(--aika-tab-icon-size);
+    background: currentColor;
+    -webkit-mask: var(--aika-tab-icon) center / contain no-repeat;
+    mask: var(--aika-tab-icon) center / contain no-repeat;
+    transition: transform var(--aika-dur-base) var(--aika-ease);
 }
 
-/* «> search» и курсор «_» — пока поле пустое */
-html .SearchInput .DialogInput_Wrapper:has(input:placeholder-shown)::before,
-html .SearchInput .DialogInput_Wrapper:has(input:placeholder-shown)::after {
-    position: absolute;
-    top: 50%;
-    transform: translateY(-50%);
-    font-family: var(--aika-font-mono);
-    font-size: var(--aika-text-meta);
-    color: var(--aika-fg-subtle);
-    pointer-events: none;
+html .SuperNav .SuperNavMenu:hover > .MenuButton {
+    color: var(--aika-fg);
 }
 
-html .SearchInput .DialogInput_Wrapper:has(input:placeholder-shown)::before {
-    content: "> search";
-    inset-inline-start: var(--aika-space-7);
+html .SuperNav .SuperNavMenu:hover > .MenuButton::before {
+    transform: translateY(var(--aika-lift-sm));
 }
 
-/* Курсор стоит сразу за «> search»: 8 символов моно = 8ch */
-html .SearchInput .DialogInput_Wrapper:has(input:placeholder-shown)::after {
-    content: "_";
-    inset-inline-start: calc(var(--aika-space-7) + 8ch);
-    animation: aika-blink var(--aika-dur-blink) var(--aika-ease-term) infinite;
+/* Выбранная вкладка: иконка акцентом + линия-индикатор снизу */
+html .SuperNav .SuperNavMenu.Selected > .MenuButton {
+    color: var(--aika-accent-bright);
+    font-weight: var(--aika-weight-regular);
+    text-shadow: none;
 }
 
-/* В фокусе подсказка гаснет, остаётся только курсор поля */
-html .SearchInput .DialogInput_Wrapper:has(input:focus)::before,
-html .SearchInput .DialogInput_Wrapper:has(input:focus)::after {
-    content: none;
+html .SuperNav .SuperNavMenu.Selected > .MenuButton::after {
+    width: 100%;
+    height: var(--aika-indicator);
+    border-radius: var(--aika-radius-full);
+    background: var(--aika-accent);
+    box-shadow: 0 0 var(--aika-space-2) var(--aika-accent-glow);
 }

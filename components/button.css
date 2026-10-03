@@ -46,13 +46,13 @@ html :is(.aika-button, button.DialogButton, .PlayButton) {
 html :is(.aika-button--primary, button.DialogButton.Primary, .PlayButton) {
     position: relative;
     overflow: hidden;
-    background: var(--aika-accent);
+    background: var(--aika-accent-fill);
     color: var(--aika-on-accent);
     box-shadow: var(--aika-shadow-cta);
 }
 
 html :is(.aika-button--primary, button.DialogButton.Primary, .PlayButton):not(.Disabled, :disabled):hover {
-    background: var(--aika-accent-bright);
+    background: var(--aika-accent-fill-hover);
     color: var(--aika-on-accent);
     box-shadow: var(--aika-shadow-cta-hover);
     transform: translateY(var(--aika-lift-sm));
@@ -106,7 +106,7 @@ html .PlayButtonContainer .PlayButton * {
 html .LibraryItemBox .LibraryItemActionButton,
 html .LibraryItemBox .LibraryItemActionButton.Play {
     border-radius: var(--aika-radius-md);
-    background: var(--aika-accent);
+    background: var(--aika-accent-fill);
     box-shadow: var(--aika-shadow-cta);
     transition:
         background-color var(--aika-dur-fast) var(--aika-ease-hover),
@@ -116,7 +116,7 @@ html .LibraryItemBox .LibraryItemActionButton.Play {
 
 html .LibraryItemBox .LibraryItemActionButton:hover,
 html .LibraryItemBox .LibraryItemActionButton.Play:hover {
-    background: var(--aika-accent-bright);
+    background: var(--aika-accent-fill-hover);
     box-shadow: var(--aika-shadow-cta-hover);
     transform: translateY(var(--aika-lift-sm));
 }
