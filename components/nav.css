@@ -1,0 +1,162 @@
+/* ==========================================================================
+   components/nav.css — навигация в духе Fluent (DESIGN.md §4, Navigation).
+
+   Левая панель библиотеки (сняты через CDP 2026-10-04):
+     .HomeBox .Bar[.Selected]          — пункт «Библиотека» (домашняя)
+     .CollectionsButton .Bar           — кнопка «Коллекции»
+     .SearchInput input                — поиск по названию
+     .ReactVirtualized__List .Container:has(> .GameListEntryContainer)
+                                       — строка игры; .Installed / .Uninstalled
+   Выбранная строка игры отмечается только хэш-классом — см. selectors.css.
+
+   Индикатор выбора — вертикальная полоска 3 px акцента слева со
+   скруглёнными концами, появляется scaleY 0 → 1 (при --aika-motion: 0 —
+   сразу). Классы .aika-nav-item[.is-selected] — для своей разметки.
+   ========================================================================== */
+
+/* --------------------------------------------------------------------------
+   Общий вид пункта и индикатор
+   -------------------------------------------------------------------------- */
+
+@keyframes aika-indicator-in {
+    from {
+        transform: scaleY(calc(1 - var(--aika-motion)));
+    }
+}
+
+.aika-nav-item,
+html .HomeBox .Bar,
+html .CollectionsButton .Bar {
+    border-radius: var(--aika-radius-md);
+    transition: background-color var(--aika-dur-fast) var(--aika-ease-hover);
+}
+
+.aika-nav-item:hover,
+html .HomeBox .Bar:hover,
+html .CollectionsButton .Bar:hover {
+    background-color: var(--aika-surface-hover);
+}
+
+.aika-nav-item.is-selected,
+html .HomeBox .Bar.Selected {
+    position: relative;
+    background-color: var(--aika-accent-soft);
+    color: var(--aika-fg);
+}
+
+.aika-nav-item.is-selected::before,
+html .HomeBox .Bar.Selected::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: var(--aika-indicator-inset);
+    bottom: var(--aika-indicator-inset);
+    width: var(--aika-indicator);
+    border-radius: var(--aika-radius-full);
+    background: var(--aika-accent);
+    animation: aika-indicator-in var(--aika-dur-base) var(--aika-ease);
+    pointer-events: none;
+}
+
+/* --------------------------------------------------------------------------
+   Строки списка игр
+   Steam: hover — «._2-O4…:hover» (0,2,0), цвета состояний — до (0,3,0).
+   У нас html + 3 класса — (0,3,1)…(0,4,1).
+   -------------------------------------------------------------------------- */
+
+html .ReactVirtualized__List .Container:has(> .GameListEntryContainer) {
+    position: relative;
+    margin-inline: var(--aika-nav-inset);
+    padding-inline-start: var(--aika-nav-pad);
+    border-radius: var(--aika-radius-md);
+    color: var(--aika-fg-muted);
+    transition:
+        background-color var(--aika-dur-fast) var(--aika-ease-hover),
+        color var(--aika-dur-fast) var(--aika-ease-hover);
+}
+
+/* Установленные — ярче, неустановленные — приглушены (DESIGN.md §9:
+   состояние видно и по иконке статуса Steam, не только по цвету) */
+html .ReactVirtualized__List .Container.Installed:has(> .GameListEntryContainer) {
+    color: var(--aika-fg);
+}
+
+html .ReactVirtualized__List .Container:has(> .GameListEntryContainer):hover {
+    background-color: var(--aika-surface-hover);
+    color: var(--aika-fg);
+}
+
+/* Название игры: Steam красит сам <span> у установленных («._2ws8… span»,
+   белый, вес 500) — берём цвет строки */
+html .ReactVirtualized__List .Container:has(> .GameListEntryContainer) .GameListEntryContainer > span {
+    color: inherit;
+    font-weight: var(--aika-weight-regular);
+}
+
+/* Иконка игры — скругление в тон строке */
+html .ReactVirtualized__List .GameListEntryContainer .GameIcon {
+    border-radius: var(--aika-radius-xs);
+}
+
+/* --------------------------------------------------------------------------
+   Поиск в левой панели: моно-подсказка «> search_» с мигающим курсором
+   (DESIGN.md §4, Inputs). Steam красит поле правилом (0,3,0) и рисует
+   иконку лупы фоном — иконку оставляем, фон и рамку — наши.
+   Подсказка Steam («Поиск по названию») скрыта визуально, но остаётся
+   в атрибуте placeholder — экранные чтецы её прочитают.
+   -------------------------------------------------------------------------- */
+
+html .Container > .SearchInput input.DialogTextInputBase {
+    background-color: var(--aika-bg-raised);
+    border: var(--aika-hairline) solid var(--aika-border-strong);
+    border-radius: var(--aika-radius-md);
+}
+
+html .Container > .SearchInput input.DialogTextInputBase:hover {
+    border-color: var(--aika-border-hover);
+}
+
+html .Container > .SearchInput input.DialogTextInputBase:focus {
+    border-color: var(--aika-accent);
+    box-shadow: var(--aika-shadow-input-focus);
+}
+
+html .Container > .SearchInput input.DialogTextInputBase::placeholder {
+    color: var(--aika-transparent);
+}
+
+@keyframes aika-blink {
+    50% {
+        opacity: calc(1 - var(--aika-motion));
+    }
+}
+
+/* «> search» и курсор «_» — пока поле пустое */
+html .SearchInput .DialogInput_Wrapper:has(input:placeholder-shown)::before,
+html .SearchInput .DialogInput_Wrapper:has(input:placeholder-shown)::after {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    font-family: var(--aika-font-mono);
+    font-size: var(--aika-text-meta);
+    color: var(--aika-fg-subtle);
+    pointer-events: none;
+}
+
+html .SearchInput .DialogInput_Wrapper:has(input:placeholder-shown)::before {
+    content: "> search";
+    inset-inline-start: var(--aika-space-7);
+}
+
+/* Курсор стоит сразу за «> search»: 8 символов моно = 8ch */
+html .SearchInput .DialogInput_Wrapper:has(input:placeholder-shown)::after {
+    content: "_";
+    inset-inline-start: calc(var(--aika-space-7) + 8ch);
+    animation: aika-blink var(--aika-dur-blink) var(--aika-ease-term) infinite;
+}
+
+/* В фокусе подсказка гаснет, остаётся только курсор поля */
+html .SearchInput .DialogInput_Wrapper:has(input:focus)::before,
+html .SearchInput .DialogInput_Wrapper:has(input:focus)::after {
+    content: none;
+}

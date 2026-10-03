@@ -20,6 +20,7 @@
 @import url("./components/button.css");
 @import url("./components/card.css");
 @import url("./components/input.css");
+@import url("./components/nav.css");
 
 /* 3. Разделы клиента (стабильные селекторы) */
 @import url("./sections/library.css");
