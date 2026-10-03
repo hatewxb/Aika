@@ -1,132 +1,177 @@
 /* ==========================================================================
-   background.css — яркий живой фон под всем интерфейсом.
+   background.css — живой фон Aika (DESIGN.md §6).
 
-   Окно Steam не прозрачно для рабочего стола, поэтому стеклу нечего
-   размывать, кроме содержимого самого Steam. Здесь под интерфейс
-   кладутся несколько больших мягких цветных пятен, которые медленно
-   плавают — их и будет «преломлять» стекло.
+   Окно Steam не прозрачно для рабочего стола, поэтому стекло размывает
+   только то, что нарисовано внутри Steam. Отсюда «вечерняя комната»:
+   тёплый свет сверху и медленно плывущие пятна света под интерфейсом.
 
-   Как устроено:
-   - html — тёмная основа.
-   - body::before — три больших пятна.
-   - body::after  — два пятна + лёгкое затемнение для читаемости текста.
-   - Оба слоя двигаются по разным траекториям, поэтому картинка
-     не повторяется очевидным образом.
-   - Пятна — радиальные градиенты, уже мягкие сами по себе, поэтому
-     filter: blur() не нужен (это заметно дешевле для GPU).
+   Слои снизу вверх (все — позади интерфейса):
+     html            — база: радиальный свет сверху elevated → base → deep,
+                       под ней — обои --aika-wallpaper с затемнением
+     html::before    — пятно 1, тёплое, главное
+     html::after     — пятно 2, фиолетовое
+     body::before    — пятно 3, индиго
+     body::after     — шум против полос в градиентах (поверх пятен)
 
-   Отключить анимацию: --lg-bg-animation: paused; в variables.css.
-   При системной настройке «уменьшить движение» она выключается сама.
-
-   Steam закрывает body сплошной обёрткой .ForceOpaqueBackground —
-   она делается прозрачной в конце этого файла.
+   Пятна двигаются только через transform (дёшево для GPU).
+   Отключить движение: --aika-motion: 0 (пятна замрут на месте)
+   или системная настройка «уменьшить движение».
    ========================================================================== */
 
+/* --------------------------------------------------------------------------
+   База и обои
+   -------------------------------------------------------------------------- */
+
 html {
-    background-color: rgb(var(--lg-base-rgb));
+    background-color: var(--aika-bg-deep);
+    background-image:
+        linear-gradient(var(--aika-wallpaper-dim), var(--aika-wallpaper-dim)),
+        var(--aika-wallpaper),
+        radial-gradient(
+            var(--aika-bg-light-shape),
+            var(--aika-bg-elevated),
+            var(--aika-bg-base) var(--aika-bg-light-mid),
+            var(--aika-bg-deep)
+        );
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
 }
 
 body {
-    background: rgba(var(--lg-base-rgb), 0);
-}
-
-body::before,
-body::after {
-    content: "";
-    position: fixed;
-    inset: var(--lg-bg-overscan);
-    z-index: var(--lg-z-background);
-    pointer-events: none;
-    background-repeat: no-repeat;
-    will-change: transform;
-    animation-duration: var(--lg-bg-duration);
-    animation-timing-function: var(--lg-ease-inout);
-    animation-iteration-count: infinite;
-    animation-direction: alternate;
-    animation-play-state: var(--lg-bg-animation);
-}
-
-body::before {
-    background-image:
-        radial-gradient(
-            var(--lg-bg-blob-size-lg) at var(--lg-bg-blob-1-pos),
-            rgba(var(--lg-bg-blob-1-rgb), var(--lg-bg-blob-alpha)),
-            rgba(var(--lg-bg-blob-1-rgb), 0) var(--lg-bg-blob-falloff)
-        ),
-        radial-gradient(
-            var(--lg-bg-blob-size-md) at var(--lg-bg-blob-2-pos),
-            rgba(var(--lg-bg-blob-2-rgb), var(--lg-bg-blob-alpha)),
-            rgba(var(--lg-bg-blob-2-rgb), 0) var(--lg-bg-blob-falloff)
-        ),
-        radial-gradient(
-            var(--lg-bg-blob-size-lg) at var(--lg-bg-blob-3-pos),
-            rgba(var(--lg-bg-blob-3-rgb), var(--lg-bg-blob-alpha)),
-            rgba(var(--lg-bg-blob-3-rgb), 0) var(--lg-bg-blob-falloff)
-        );
-    animation-name: lg-bg-drift-a;
-}
-
-body::after {
-    background-image:
-        /* Затемнение — самый верхний слой, чтобы текст оставался читаемым */
-        linear-gradient(
-            rgba(var(--lg-base-rgb), var(--lg-bg-overlay-alpha)),
-            rgba(var(--lg-base-rgb), var(--lg-bg-overlay-alpha))
-        ),
-        radial-gradient(
-            var(--lg-bg-blob-size-md) at var(--lg-bg-blob-4-pos),
-            rgba(var(--lg-bg-blob-4-rgb), var(--lg-bg-blob-alpha)),
-            rgba(var(--lg-bg-blob-4-rgb), 0) var(--lg-bg-blob-falloff)
-        ),
-        radial-gradient(
-            var(--lg-bg-blob-size-sm) at var(--lg-bg-blob-5-pos),
-            rgba(var(--lg-bg-blob-5-rgb), var(--lg-bg-blob-alpha)),
-            rgba(var(--lg-bg-blob-5-rgb), 0) var(--lg-bg-blob-falloff)
-        );
-    animation-name: lg-bg-drift-b;
-}
-
-/* Первый слой: дрейф по диагонали с лёгким поворотом */
-@keyframes lg-bg-drift-a {
-    0% {
-        transform: translate3d(0, 0, 0) rotate(0deg) scale(1);
-    }
-    50% {
-        transform: translate3d(var(--lg-bg-drift), calc(var(--lg-bg-drift) * -1), 0)
-                   rotate(var(--lg-bg-rotate)) scale(var(--lg-bg-scale));
-    }
-    100% {
-        transform: translate3d(calc(var(--lg-bg-drift) * -1), var(--lg-bg-drift), 0)
-                   rotate(calc(var(--lg-bg-rotate) * -1)) scale(1);
-    }
-}
-
-/* Второй слой: встречное движение, чтобы пятна «перетекали» друг в друга */
-@keyframes lg-bg-drift-b {
-    0% {
-        transform: translate3d(0, 0, 0) rotate(0deg) scale(var(--lg-bg-scale));
-    }
-    50% {
-        transform: translate3d(calc(var(--lg-bg-drift) * -1), calc(var(--lg-bg-drift) * -1), 0)
-                   rotate(calc(var(--lg-bg-rotate) * -1)) scale(1);
-    }
-    100% {
-        transform: translate3d(var(--lg-bg-drift), var(--lg-bg-drift), 0)
-                   rotate(var(--lg-bg-rotate)) scale(var(--lg-bg-scale));
-    }
+    background: var(--aika-transparent);
 }
 
 /* Корневая обёртка окна Steam (div.Wrapper.ForceOpaqueBackground).
    Steam красит её в сплошной чёрный на всё окно — из-за неё фон не виден.
    Читаемый класс (не хэш). Проверено: 2026-10-04 через DevTools. */
 .Wrapper.ForceOpaqueBackground {
-    background: var(--lg-transparent);
+    background: var(--aika-transparent);
 }
 
-/* Уважаем системную настройку «уменьшить движение» */
+/* --------------------------------------------------------------------------
+   Пятна света
+   -------------------------------------------------------------------------- */
+
+html::before,
+html::after,
+body::before {
+    content: "";
+    position: fixed;
+    z-index: var(--aika-z-ambient);
+    aspect-ratio: var(--aika-ambient-aspect);
+    border-radius: var(--aika-ambient-shape);
+    filter: blur(var(--aika-ambient-blur));
+    pointer-events: none;
+    will-change: transform;
+    animation-timing-function: var(--aika-ease-ambient);
+    animation-iteration-count: infinite;
+    animation-direction: alternate;
+}
+
+/* 1 — тёплый коралл, главный источник света, у верхнего левого угла */
+html::before {
+    width: var(--aika-ambient-1-size);
+    left: var(--aika-ambient-1-x);
+    top: var(--aika-ambient-1-y);
+    background: var(--aika-ambient-1);
+    opacity: var(--aika-ambient-1-opacity);
+    animation-name: aika-ambient-1;
+    animation-duration: var(--aika-dur-ambient);
+}
+
+/* 2 — фиолетовый, справа */
+html::after {
+    width: var(--aika-ambient-2-size);
+    left: var(--aika-ambient-2-x);
+    top: var(--aika-ambient-2-y);
+    background: var(--aika-ambient-2);
+    opacity: var(--aika-ambient-2-opacity);
+    animation-name: aika-ambient-2;
+    animation-duration: var(--aika-dur-ambient-alt);
+}
+
+/* 3 — индиго, снизу */
+body::before {
+    width: var(--aika-ambient-3-size);
+    left: var(--aika-ambient-3-x);
+    top: var(--aika-ambient-3-y);
+    background: var(--aika-ambient-3);
+    opacity: var(--aika-ambient-3-opacity);
+    animation-name: aika-ambient-3;
+    animation-duration: var(--aika-dur-ambient-short);
+}
+
+/* Амплитуды умножаются на --aika-motion: при 0 все transform — нулевые,
+   пятна стоят на месте. */
+@keyframes aika-ambient-1 {
+    from {
+        transform: translate3d(0, 0, 0) rotate(0deg);
+    }
+    to {
+        transform:
+            translate3d(
+                calc(var(--aika-ambient-drift) * var(--aika-motion)),
+                calc(var(--aika-ambient-drift) * var(--aika-motion)),
+                0
+            )
+            rotate(calc(var(--aika-ambient-rotate) * var(--aika-motion)));
+    }
+}
+
+@keyframes aika-ambient-2 {
+    from {
+        transform: translate3d(0, 0, 0) rotate(0deg);
+    }
+    to {
+        transform:
+            translate3d(
+                calc(var(--aika-ambient-drift) * var(--aika-motion) * -1),
+                calc(var(--aika-ambient-drift) * var(--aika-motion)),
+                0
+            )
+            rotate(calc(var(--aika-ambient-rotate) * var(--aika-motion) * -1));
+    }
+}
+
+@keyframes aika-ambient-3 {
+    from {
+        transform: translate3d(0, 0, 0) rotate(0deg);
+    }
+    to {
+        transform:
+            translate3d(
+                calc(var(--aika-ambient-drift) * var(--aika-motion)),
+                calc(var(--aika-ambient-drift) * var(--aika-motion) * -1),
+                0
+            )
+            rotate(calc(var(--aika-ambient-rotate) * var(--aika-motion)));
+    }
+}
+
+/* --------------------------------------------------------------------------
+   Шум — поверх пятен, под интерфейсом
+   -------------------------------------------------------------------------- */
+
+body::after {
+    content: "";
+    position: fixed;
+    inset: 0;
+    z-index: var(--aika-z-noise);
+    background-image: var(--aika-noise-image);
+    opacity: var(--aika-noise-opacity);
+    pointer-events: none;
+}
+
+/* --------------------------------------------------------------------------
+   Уважаем системную настройку «уменьшить движение»
+   -------------------------------------------------------------------------- */
+
 @media (prefers-reduced-motion: reduce) {
-    body::before,
-    body::after {
+    html::before,
+    html::after,
+    body::before {
         animation: none;
     }
 }

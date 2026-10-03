@@ -1,186 +1,170 @@
 /* ==========================================================================
-   glass.css — переиспользуемые «стеклянные» стили.
+   glass.css — материал «стекло» Aika (DESIGN.md §4.1, §5.2) и общие правила.
 
-   В CSS нет миксинов, а классы на элементы Steam без JS не добавить.
-   Поэтому стекло описано двумя способами:
+   Классы на элементы Steam без JS не добавить, поэтому стекло задано
+   «рецептами» — составными переменными. Сделать элемент стеклянным:
 
-   1. «Рецепты» — составные переменные --lg-glass-* (ниже, в :root).
-      Чтобы сделать стеклянным любой элемент Steam, достаточно:
+       селектор {
+           background: var(--aika-glass-sheen-layer), var(--aika-glass-2-bg);
+           backdrop-filter: var(--aika-glass-2-filter);
+           box-shadow: var(--aika-glass-depth);
+       }
 
-          селектор {
-              background: var(--lg-glass-sheen), var(--lg-glass-fill);
-              backdrop-filter: var(--lg-glass-backdrop);
-              border: var(--lg-glass-border);
-              border-radius: var(--lg-radius-lg);
-              box-shadow: var(--lg-glass-shadow);
-              transition: var(--lg-glass-transition);
-          }
+   Уровни:
+     1 — тонкое:   тулбары, вкладки, мелкие панели
+     2 — основное: боковая панель, шапка, контейнеры карточек
+     3 — плотное:  модалки, контекстные меню, выпадашки, тултипы
 
-   2. Утилитарные классы .lg-glass / .lg-glass--thin / .lg-glass--thick /
-      .lg-glass--interactive — для своих элементов (например, если
-      позже будем добавлять разметку через TargetJs).
+   Почему диагональный блик — слой background, а не ::before (как в DESIGN.md):
+   у элементов Steam бывают свои ::before, а псевдоэлемент требует
+   position: relative и может сломать раскладку. Слой фона выглядит так же
+   и ничего не трогает.
 
-   Важно про backdrop-filter в Chromium:
-   - Не вкладывайте стекло в стекло: вложенный элемент размывает только
-     содержимое родительского стекла, а не общий фон.
-   - backdrop-filter перестаёт работать, если у предка есть filter,
-     opacity < 1, mask или will-change: filter.
+   Производительность (DESIGN.md §2): backdrop-filter — только на крупных
+   панелях. Для карточек в сетках — фон --aika-surface без размытия.
+
+   Особенности backdrop-filter в Chromium:
+   - Вложенное стекло размывает только содержимое родительского стекла.
+   - Не работает, если у предка есть filter, opacity < 1 или mask.
    ========================================================================== */
 
 :root {
-    /* Полностью прозрачный цвет — чтобы «убирать» фоны Steam без голых значений */
-    --lg-transparent: rgba(var(--lg-glass-tint-rgb), 0);
+    /* --- Заливки (как слои background, чтобы складывать с бликом) --- */
+    --aika-glass-1-bg: linear-gradient(var(--aika-glass-1-fill), var(--aika-glass-1-fill));
+    --aika-glass-2-bg: linear-gradient(to bottom, var(--aika-glass-2-fill-top), var(--aika-glass-2-fill-bottom));
+    --aika-glass-3-bg: linear-gradient(var(--aika-glass-3-fill), var(--aika-glass-3-fill));
 
-    /* Что происходит с тем, что под стеклом: размытие + насыщенность + яркость */
-    --lg-glass-backdrop-thin:
-        blur(var(--lg-blur-sm)) saturate(var(--lg-saturate)) brightness(var(--lg-brightness));
-    --lg-glass-backdrop:
-        blur(var(--lg-blur-md)) saturate(var(--lg-saturate)) brightness(var(--lg-brightness));
-    --lg-glass-backdrop-thick:
-        blur(var(--lg-blur-lg)) saturate(var(--lg-saturate)) brightness(var(--lg-brightness));
-
-    /* Заливка: светлый оттенок поверх тёмной подложки (стекло «не плоское») */
-    --lg-glass-shade: linear-gradient(
-        rgba(var(--lg-glass-shade-rgb), var(--lg-glass-shade-alpha)),
-        rgba(var(--lg-glass-shade-rgb), var(--lg-glass-shade-alpha))
-    );
-    --lg-glass-fill-thin: linear-gradient(
-        rgba(var(--lg-glass-tint-rgb), var(--lg-glass-alpha-thin)),
-        rgba(var(--lg-glass-tint-rgb), var(--lg-glass-alpha-thin))
-    ), var(--lg-glass-shade);
-    --lg-glass-fill: linear-gradient(
-        rgba(var(--lg-glass-tint-rgb), var(--lg-glass-alpha)),
-        rgba(var(--lg-glass-tint-rgb), var(--lg-glass-alpha))
-    ), var(--lg-glass-shade);
-    --lg-glass-fill-thick: linear-gradient(
-        rgba(var(--lg-glass-tint-rgb), var(--lg-glass-alpha-thick)),
-        rgba(var(--lg-glass-tint-rgb), var(--lg-glass-alpha-thick))
-    ), var(--lg-glass-shade);
-    --lg-glass-fill-hover: linear-gradient(
-        rgba(var(--lg-glass-tint-rgb), var(--lg-glass-alpha-hover)),
-        rgba(var(--lg-glass-tint-rgb), var(--lg-glass-alpha-hover))
-    ), var(--lg-glass-shade);
-    --lg-glass-fill-active: linear-gradient(
-        rgba(var(--lg-glass-tint-rgb), var(--lg-glass-alpha-active)),
-        rgba(var(--lg-glass-tint-rgb), var(--lg-glass-alpha-active))
-    ), var(--lg-glass-shade);
-
-    /* Мягкий отблеск сверху вниз — как свет, падающий на стекло */
-    --lg-glass-sheen: linear-gradient(
-        to bottom,
-        rgba(var(--lg-glass-tint-rgb), var(--lg-sheen-alpha)) 0%,
-        rgba(var(--lg-glass-tint-rgb), 0) var(--lg-sheen-length)
+    /* --- Диагональный блик для крупных панелей --- */
+    --aika-glass-sheen-layer: linear-gradient(
+        var(--aika-glass-sheen-angle),
+        var(--aika-glass-sheen),
+        var(--aika-glass-sheen-end) var(--aika-glass-sheen-length)
     );
 
-    /* Тонкая светлая кромка по периметру */
-    --lg-glass-border:
-        var(--lg-border-width) solid rgba(var(--lg-glass-tint-rgb), var(--lg-edge-alpha));
-    --lg-glass-border-color-hover: rgba(var(--lg-glass-tint-rgb), var(--lg-edge-alpha-hover));
+    /* --- Что происходит с фоном под стеклом --- */
+    --aika-glass-1-filter: blur(var(--aika-glass-1-blur)) saturate(var(--aika-glass-1-saturate));
+    --aika-glass-2-filter: blur(var(--aika-glass-2-blur)) saturate(var(--aika-glass-2-saturate));
+    --aika-glass-3-filter: blur(var(--aika-glass-3-blur)) saturate(var(--aika-glass-3-saturate));
 
-    /* Тень: яркий блик по верхнему краю + внутреннее свечение + мягкая внешняя тень */
-    --lg-glass-shadow:
-        inset 0 var(--lg-highlight-width) 0 rgba(var(--lg-glass-tint-rgb), var(--lg-highlight-alpha)),
-        inset 0 0 var(--lg-inner-glow-size) rgba(var(--lg-glass-tint-rgb), var(--lg-inner-glow-alpha)),
-        0 var(--lg-shadow-offset-y) var(--lg-shadow-blur) rgba(var(--lg-shadow-rgb), var(--lg-shadow-alpha));
-    /* Для «парящих» элементов: меню, всплывающие окна */
-    --lg-glass-shadow-strong:
-        inset 0 var(--lg-highlight-width) 0 rgba(var(--lg-glass-tint-rgb), var(--lg-highlight-alpha)),
-        inset 0 0 var(--lg-inner-glow-size) rgba(var(--lg-glass-tint-rgb), var(--lg-inner-glow-alpha)),
-        0 var(--lg-shadow-offset-y-strong) var(--lg-shadow-blur-strong) rgba(var(--lg-shadow-rgb), var(--lg-shadow-alpha-strong));
+    /* --- Толщина стекла: блик сверху + грань снизу + обводка + тень + контакт.
+           «Никогда не одна тень» (DESIGN.md §5.4). --- */
+    --aika-glass-depth:
+        inset 0 var(--aika-hairline) 0 0 var(--aika-glass-highlight),
+        inset 0 calc(var(--aika-hairline) * -1) 0 0 var(--aika-glass-edge-bottom),
+        0 0 0 var(--aika-hairline) var(--aika-border),
+        0 var(--aika-shadow-soft-y) var(--aika-shadow-soft-blur) var(--aika-shadow-soft),
+        0 0 var(--aika-shadow-contact-blur) var(--aika-shadow-contact);
 
-    --lg-glass-transition:
-        background var(--lg-duration) var(--lg-ease),
-        border-color var(--lg-duration) var(--lg-ease),
-        box-shadow var(--lg-duration) var(--lg-ease),
-        transform var(--lg-duration-fast) var(--lg-ease-spring);
+    /* То же, но глубже — для плотного стекла и hover */
+    --aika-glass-depth-raised:
+        inset 0 var(--aika-hairline) 0 0 var(--aika-glass-highlight),
+        inset 0 calc(var(--aika-hairline) * -1) 0 0 var(--aika-glass-edge-bottom),
+        0 0 0 var(--aika-hairline) var(--aika-border-hover),
+        0 var(--aika-shadow-deep-y) var(--aika-shadow-deep-blur) var(--aika-shadow-deep),
+        0 0 var(--aika-shadow-contact-blur) var(--aika-shadow-contact);
+
+    /* Только блики, без внешних теней — для панелей во всю ширину/высоту окна,
+       где внешняя тень легла бы на край окна */
+    --aika-glass-depth-flush:
+        inset 0 var(--aika-hairline) 0 0 var(--aika-glass-highlight),
+        inset 0 calc(var(--aika-hairline) * -1) 0 0 var(--aika-glass-edge-bottom);
+
+    /* --- Переходы: только то, что дёшево анимировать --- */
+    --aika-glass-transition:
+        background-color var(--aika-dur-fast) var(--aika-ease),
+        box-shadow var(--aika-dur-base) var(--aika-ease),
+        transform var(--aika-dur-fast) var(--aika-ease),
+        opacity var(--aika-dur-base) var(--aika-ease);
 }
 
 /* --------------------------------------------------------------------------
-   Утилитарные классы
+   Классы — для своих элементов (например, если позже добавим разметку
+   через TargetJs). На элементы Steam рецепты применяются в файлах разделов.
    -------------------------------------------------------------------------- */
 
-.lg-glass {
-    background: var(--lg-glass-sheen), var(--lg-glass-fill);
-    backdrop-filter: var(--lg-glass-backdrop);
-    border: var(--lg-glass-border);
-    border-radius: var(--lg-radius-lg);
-    box-shadow: var(--lg-glass-shadow);
-    transition: var(--lg-glass-transition);
+.aika-glass-1,
+.aika-glass-2,
+.aika-glass-3 {
+    box-shadow: var(--aika-glass-depth);
+    transition: var(--aika-glass-transition);
 }
 
-.lg-glass--thin {
-    background: var(--lg-glass-sheen), var(--lg-glass-fill-thin);
-    backdrop-filter: var(--lg-glass-backdrop-thin);
+.aika-glass-1 {
+    background: var(--aika-glass-1-bg);
+    backdrop-filter: var(--aika-glass-1-filter);
+    border-radius: var(--aika-radius-md);
 }
 
-.lg-glass--thick {
-    background: var(--lg-glass-sheen), var(--lg-glass-fill-thick);
-    backdrop-filter: var(--lg-glass-backdrop-thick);
-    box-shadow: var(--lg-glass-shadow-strong);
+.aika-glass-2 {
+    background: var(--aika-glass-sheen-layer), var(--aika-glass-2-bg);
+    backdrop-filter: var(--aika-glass-2-filter);
+    border-radius: var(--aika-radius-xl);
 }
 
-/* Кнопки и карточки: приподнимаются при наведении, «вдавливаются» при нажатии */
-.lg-glass--interactive:hover {
-    background: var(--lg-glass-sheen), var(--lg-glass-fill-hover);
-    border-color: var(--lg-glass-border-color-hover);
-    transform: translateY(var(--lg-hover-lift));
-}
-
-.lg-glass--interactive:active {
-    background: var(--lg-glass-sheen), var(--lg-glass-fill-active);
-    transform: scale(var(--lg-press-scale));
+.aika-glass-3 {
+    background: var(--aika-glass-3-bg);
+    backdrop-filter: var(--aika-glass-3-filter);
+    border-radius: var(--aika-radius-lg);
+    box-shadow: var(--aika-glass-depth-raised);
 }
 
 /* --------------------------------------------------------------------------
-   Общие мелочи, которые стабильны во всех окнах (стандартный CSS)
+   Общие правила для всех окон (стандартный CSS, стабилен)
    -------------------------------------------------------------------------- */
 
-/* Полосы прокрутки: тонкий полупрозрачный «леденец» без дорожки */
+/* Фокус всегда виден (DESIGN.md §10). :where() — нулевая специфичность,
+   чтобы разделы могли уточнять кольцо для своих компонентов. */
+:where(:focus-visible) {
+    outline: var(--aika-focus-width) solid var(--aika-accent);
+    outline-offset: var(--aika-focus-offset);
+}
+
+/* Выделение текста — мягкий акцент */
+::selection {
+    background: var(--aika-accent-glow);
+    color: var(--aika-fg);
+}
+
+/* Полосы прокрутки: тонкие, трек прозрачный, ярче на hover */
 ::-webkit-scrollbar {
-    width: var(--lg-scrollbar-size);
-    height: var(--lg-scrollbar-size);
-    background: rgba(var(--lg-glass-tint-rgb), 0);
+    width: var(--aika-scrollbar-size);
+    height: var(--aika-scrollbar-size);
+    background: var(--aika-transparent);
 }
 
 ::-webkit-scrollbar-track,
 ::-webkit-scrollbar-corner {
-    background: rgba(var(--lg-glass-tint-rgb), 0);
+    background: var(--aika-transparent);
 }
 
 ::-webkit-scrollbar-thumb {
-    background-color: rgba(var(--lg-glass-tint-rgb), var(--lg-scrollbar-thumb-alpha));
-    border-radius: var(--lg-radius-pill);
-    /* Прозрачная рамка + background-clip делают ползунок тоньше полосы */
-    border: calc(var(--lg-scrollbar-size) / 4) solid rgba(var(--lg-glass-tint-rgb), 0);
+    background-color: var(--aika-surface-active);
+    border-radius: var(--aika-radius-full);
+    border: var(--aika-scrollbar-inset) solid var(--aika-transparent);
     background-clip: padding-box;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-    background-color: rgba(var(--lg-glass-tint-rgb), var(--lg-scrollbar-thumb-alpha-hover));
-}
-
-/* Выделение текста — в цвет акцента */
-::selection {
-    background: rgba(var(--lg-accent-rgb), var(--lg-accent-soft-alpha));
+    background-color: var(--aika-fg-subtle);
 }
 
 /* --------------------------------------------------------------------------
    ЭКСПЕРИМЕНТ (выключено): настоящее преломление через SVG-фильтр.
 
-   Идея: feTurbulence/feImage даёт карту смещений, feDisplacementMap
-   «сдвигает» пиксели под стеклом — получается эффект линзы по краям.
-   backdrop-filter: url(#…) работает только в Chromium — CEF Steam подходит.
+   Идея: feTurbulence даёт карту смещений, feDisplacementMap «сдвигает»
+   пиксели под стеклом — эффект линзы по краям. backdrop-filter: url(#…)
+   работает только в Chromium — CEF Steam подходит.
 
-   Почему пока выключено:
+   Почему выключено:
    - SVG-фильтр должен лежать в DOM того же документа. Чистым CSS его
-     не добавить — понадобится TargetJs в skin.json, который вставит
-     <svg> в <body>.
-   - Дорого для GPU на больших панелях, нужна проверка производительности.
+     не добавить — нужен TargetJs в skin.json (Millennium это умеет),
+     который вставит <svg> в <body>.
+   - Дорого для GPU на больших панелях — сначала замерить.
 
    Разметка, которую должен вставить JS:
 
    <svg width="0" height="0" style="position:absolute">
-     <filter id="lg-refraction" x="0" y="0" width="100%" height="100%">
+     <filter id="aika-refraction" x="0" y="0" width="100%" height="100%">
        <feTurbulence type="fractalNoise" baseFrequency="0.008" numOctaves="2" seed="7" result="noise"/>
        <feGaussianBlur in="noise" stdDeviation="2" result="map"/>
        <feDisplacementMap in="SourceGraphic" in2="map" scale="40"
@@ -190,7 +174,7 @@
 
    CSS (числа выше при включении вынести в variables.css):
 
-.lg-glass--refract {
-    backdrop-filter: url("#lg-refraction") var(--lg-glass-backdrop);
+.aika-glass--refract {
+    backdrop-filter: url("#aika-refraction") var(--aika-glass-2-filter);
 }
    -------------------------------------------------------------------------- */

@@ -14,8 +14,8 @@
                      Проверено: ГГГГ-ММ-ДД, Steam <версия/дата сборки>
                      Как найти: <подсказка, где искать в DevTools>
        ._ClassName {
-           background: var(--lg-glass-sheen), var(--lg-glass-fill);
-           backdrop-filter: var(--lg-glass-backdrop);
+           background: var(--aika-glass-sheen-layer), var(--aika-glass-2-bg);
+           backdrop-filter: var(--aika-glass-2-filter);
            …
        }
 

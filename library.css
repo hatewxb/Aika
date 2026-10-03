@@ -1,5 +1,6 @@
 /* ==========================================================================
    library.css — библиотека (главное окно, заголовок окна «Steam»).
+   Дизайн компонентов — DESIGN.md §8.
 
    Сюда — только стабильные селекторы: атрибуты, структура, семантические
    классы. Автогенерированные классы — в selectors.css.
@@ -18,7 +19,7 @@
       боковые блоки (друзья, достижения), лента новостей.     TODO: классы
    6. Нижняя панель: загрузки и «Друзья и чат».              TODO: классы
    7. Контекстные меню и всплывающие подсказки — плотное стекло
-      (--lg-glass-fill-thick, --lg-glass-shadow-strong).      TODO: классы
+      (glass-3: --aika-glass-3-bg, --aika-glass-depth-raised).     TODO: классы
    ========================================================================== */
 
 /* --------------------------------------------------------------------------
@@ -44,31 +45,35 @@
    они стабильнее автогенерированных. Хэши — только в selectors.css.
    -------------------------------------------------------------------------- */
 
-/* Верхняя панель: тонкое стекло, светлая кромка снизу */
+/* Шапка (меню, вкладки, кнопки окна): glass-1 — тонкое стекло.
+   Во всю ширину окна, поэтому без внешней тени — только блики и граница. */
 .OuterFrame > .TopBar {
-    background: var(--lg-glass-sheen), var(--lg-glass-fill-thin);
-    backdrop-filter: var(--lg-glass-backdrop-thin);
-    border-bottom: var(--lg-glass-border);
-    box-shadow: var(--lg-glass-shadow);
+    background: var(--aika-glass-1-bg);
+    backdrop-filter: var(--aika-glass-1-filter);
+    border-bottom: var(--aika-hairline) solid var(--aika-border);
+    box-shadow: var(--aika-glass-depth-flush);
 }
 
-/* Нижняя панель: тонкое стекло, светлая кромка сверху */
+/* Нижняя панель (загрузки, друзья): glass-1 */
 .BottomBar {
-    background: var(--lg-glass-sheen), var(--lg-glass-fill-thin);
-    backdrop-filter: var(--lg-glass-backdrop-thin);
-    border-top: var(--lg-glass-border);
+    background: var(--aika-glass-1-bg);
+    backdrop-filter: var(--aika-glass-1-filter);
+    border-top: var(--aika-hairline) solid var(--aika-border);
+    box-shadow: var(--aika-glass-depth-flush);
 }
 
-/* Левая панель со списком игр: стекло вместо серого градиента Steam */
+/* Боковая панель со списком игр: glass-2 на всю высоту с диагональным
+   бликом, отделена от контента тонкой границей (DESIGN.md §8) */
 .Library > .Container > div:not(.MainPanel) > .Container {
-    background: var(--lg-glass-sheen), var(--lg-glass-fill);
-    backdrop-filter: var(--lg-glass-backdrop);
-    border-right: var(--lg-glass-border);
+    background: var(--aika-glass-sheen-layer), var(--aika-glass-2-bg);
+    backdrop-filter: var(--aika-glass-2-filter);
+    border-right: var(--aika-hairline) solid var(--aika-border);
+    box-shadow: var(--aika-glass-depth-flush);
 }
 
-/* Правая часть: убираем сплошные фоны Steam, чтобы был виден наш фон */
+/* Правая часть: убираем сплошные фоны Steam, чтобы был виден фон */
 .MainPanel .AppDetailsTransitionGroup,
 .MainPanel .LibraryHome,
 .MainPanel .AppDetailsMain > .Container {
-    background: var(--lg-transparent);
+    background: var(--aika-transparent);
 }
