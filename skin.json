@@ -1,9 +1,9 @@
 {
     "name": "Aika",
-    "author": "belok",
-    "description": "Тёплая тема для Steam: Fluent-структура, материал Liquid Glass и мягкий свет. Стеклянные панели над живым фоном из плывущих пятен света.",
-    "version": "0.1.0",
-    "tags": ["Glass", "Fluent", "Dark", "Warm", "WIP"],
+    "author": "hatewxb",
+    "description": "Тёплая тёмная тема для Steam: Fluent-структура, панели в духе файловой системы и мягкие пятна света на почти чёрном фоне.",
+    "version": "0.2.0",
+    "tags": ["Fluent", "Dark", "Warm", "Minimal", "WIP"],
 
     "RootColors": "colors.css",
     "Steam-WebKit": "webkit.css",

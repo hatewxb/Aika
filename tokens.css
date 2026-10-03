@@ -1,0 +1,186 @@
+/* ==========================================================================
+   tokens.css — все нецветные токены Aika (DESIGN.md §3).
+   Цвета — в colors.css (так нужно Millennium, см. DESIGN.md §0).
+   Составные значения (тени, градиенты) собираются здесь из цветов colors.css.
+   ========================================================================== */
+
+:root {
+    /* ------------------------------------------------------------------
+       Типографика (DESIGN.md §3.3). Шрифты — @font-face в base.css.
+       ------------------------------------------------------------------ */
+    --aika-font-ui: "Inter", "Geist", "Segoe UI Variable", "Segoe UI", system-ui, sans-serif;
+    --aika-font-mono: "Geist Mono", "JetBrains Mono", "Cascadia Code", monospace;
+    --aika-font-display: "Fraunces", "Source Serif 4", Georgia, serif;
+
+    --aika-text-display: clamp(36px, 4vw, 56px);
+    --aika-text-h1: clamp(24px, 20px + 0.4vw, 28px);
+    --aika-text-h2: clamp(18px, 16px + 0.2vw, 20px);
+    --aika-text-h3: clamp(15px, 14px + 0.1vw, 16px);
+    --aika-text-body: clamp(13px, 12px + 0.1vw, 14px);
+    --aika-text-meta: 12px;
+    --aika-text-label: 11px;
+
+    --aika-weight-regular: 400;
+    --aika-weight-medium: 500;
+    --aika-weight-semibold: 600;
+
+    --aika-tracking-display: -0.03em;
+    --aika-tracking-h1: -0.02em;
+    --aika-tracking-h2: -0.01em;
+    --aika-tracking-label: 0.08em;
+
+    --aika-leading-heading: 1.15;
+    --aika-leading-body: 1.55;
+
+    /* Заголовки: вертикальный градиентный текст (DESIGN.md §3.3) */
+    --aika-text-gradient: linear-gradient(to bottom, var(--aika-fg), var(--aika-fg-fade));
+
+    /* ------------------------------------------------------------------
+       Скругления (DESIGN.md §3.4)
+       ------------------------------------------------------------------ */
+    --aika-radius-xs: 3px;      /* чекбоксы [ ] */
+    --aika-radius-md: 8px;      /* кнопки, поля, пункты меню */
+    --aika-radius-lg: 12px;     /* карточки, обложки, меню, контейнеры иконок */
+    --aika-radius-xl: 16px;     /* панели, крупные контейнеры */
+    --aika-radius-full: 999px;  /* бейджи, статусы, переключатели */
+
+    /* ------------------------------------------------------------------
+       Линии
+       ------------------------------------------------------------------ */
+    --aika-hairline: 1px;       /* обводки, блики */
+    --aika-indicator: 3px;      /* Fluent-индикатор выбранного пункта */
+    --aika-focus-gap: 2px;      /* зазор цвета фона в кольце фокуса */
+    --aika-focus-ring: 4px;     /* внешний край кольца фокуса */
+    --aika-input-ring: 3px;     /* свечение поля ввода в фокусе */
+
+    /* Разделитель блоков: градиентная линия (DESIGN.md §5, «Ритм») */
+    --aika-divider: linear-gradient(to right, var(--aika-transparent), var(--aika-border-strong), var(--aika-transparent));
+
+    /* ------------------------------------------------------------------
+       Тени — «никогда не одна» (DESIGN.md §3.5)
+       ------------------------------------------------------------------ */
+    --aika-shadow-card:
+        0 0 0 var(--aika-hairline) var(--aika-border),
+        0 2px 20px var(--aika-shadow-near),
+        0 0 40px var(--aika-shadow-far);
+
+    --aika-shadow-card-hover:
+        0 0 0 var(--aika-hairline) var(--aika-border-hover),
+        0 8px 40px var(--aika-shadow-deep),
+        0 0 80px var(--aika-accent-haze);
+
+    --aika-shadow-cta:
+        0 0 0 var(--aika-hairline) var(--aika-accent-ring),
+        0 4px 12px var(--aika-accent-glow),
+        inset 0 var(--aika-hairline) 0 0 var(--aika-highlight-cta);
+
+    --aika-highlight-top: inset 0 var(--aika-hairline) 0 0 var(--aika-highlight);
+
+    /* Кольцо фокуса: зазор цвета фона + акцент (DESIGN.md §4, Interactive States) */
+    --aika-shadow-focus:
+        0 0 0 var(--aika-focus-gap) var(--aika-bg-base),
+        0 0 0 var(--aika-focus-ring) var(--aika-accent-ring);
+
+    /* ------------------------------------------------------------------
+       Движение (DESIGN.md §3.6, §8)
+       ------------------------------------------------------------------ */
+    --aika-ease: cubic-bezier(0.16, 1, 0.3, 1);   /* expo-out, без overshoot */
+    --aika-ease-hover: ease-out;
+    --aika-ease-term: steps(2, end);              /* мигающий курсор, пульс статуса */
+    --aika-ease-ambient: ease-in-out;             /* пятна фона */
+    --aika-dur-fast: 150ms;
+    --aika-dur-base: 250ms;
+    --aika-dur-enter: 500ms;
+    --aika-dur-ambient: 10s;
+    /* Разные периоды у пятен, чтобы движение не выглядело синхронным (9–12 s) */
+    --aika-dur-ambient-alt: 12s;
+    --aika-dur-ambient-short: 9s;
+
+    /* 1 — декоративное движение включено, 0 — выключено */
+    --aika-motion: 1;
+
+    --aika-lift-sm: -1px;        /* hover кнопок */
+    --aika-lift-md: -4px;        /* hover карточек (≤ 6 px, DESIGN.md §7.3) */
+    --aika-nudge: 2px;           /* сдвиг стрелки → на hover */
+    --aika-press-scale: 0.98;
+    --aika-appear-scale: 0.97;   /* стартовый масштаб меню */
+    --aika-appear-shift: 12px;   /* fade up при появлении блоков */
+    --aika-menu-shift: 4px;      /* появление меню */
+    --aika-stagger: 60ms;        /* задержка между соседними блоками (40–80 ms) */
+
+    --aika-disabled-opacity: 0.4;
+
+    /* ------------------------------------------------------------------
+       Отступы: шаг 4 px (DESIGN.md §3.7)
+       ------------------------------------------------------------------ */
+    --aika-space-1: 4px;
+    --aika-space-2: 8px;
+    --aika-space-3: 12px;
+    --aika-space-4: 16px;
+    --aika-space-5: 20px;
+    --aika-space-6: 24px;
+    --aika-space-7: 32px;
+    --aika-space-8: 40px;
+    --aika-space-9: 48px;
+    --aika-space-10: 64px;
+
+    --aika-panel-header: 34px;   /* высота заголовка файловой панели (32–36) */
+
+    /* ------------------------------------------------------------------
+       Фон (DESIGN.md §3.2)
+       ------------------------------------------------------------------ */
+
+    /* Layer 1 — база: радиальный свет сверху */
+    --aika-bg-gradient: radial-gradient(
+        ellipse at top,
+        var(--aika-bg-glow) 0%,
+        var(--aika-bg-base) 50%,
+        var(--aika-bg-deep) 100%
+    );
+
+    /* Layer 2 — шум против полос (banding). Непрозрачность общая
+       с сеткой — --aika-grid-opacity (один слой, см. background.css) */
+    --aika-noise-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+
+    /* Layer 3 — пятна света: размер в долях окна, положение, яркость, размытие */
+    --aika-light-shape: 50%;
+    --aika-light-aspect: 1.6;          /* эллипс: шире, чем выше */
+
+    --aika-light-1-size: 70vw;         /* верх-центр */
+    --aika-light-1-x: 15vw;
+    --aika-light-1-y: -30vw;
+    --aika-light-1-opacity: 0.25;
+    --aika-light-1-blur: 140px;
+
+    --aika-light-2-size: 50vw;         /* слева */
+    --aika-light-2-x: -20vw;
+    --aika-light-2-y: 25vh;
+    --aika-light-2-opacity: 0.12;
+    --aika-light-2-blur: 120px;
+
+    --aika-light-3-size: 45vw;         /* справа-снизу, пульсирует */
+    --aika-light-3-x: 65vw;
+    --aika-light-3-y: 60vh;
+    --aika-light-3-opacity: 0.10;
+    --aika-light-3-blur: 110px;
+
+    /* Амплитуда плавания (умножается на --aika-motion) */
+    --aika-light-drift: -20px;
+    --aika-light-rotate: 1deg;
+    --aika-light-pulse: 1.08;          /* масштаб на пике пульсации тёплого пятна */
+
+    /* Layer 4 — сетка (и шум), затухает к краям */
+    --aika-grid-size: 56px;
+    --aika-grid-opacity: 0.02;
+    --aika-grid-mask: radial-gradient(ellipse at center, var(--aika-grid-line) 0%, var(--aika-transparent) 75%);
+
+    /* Слои фона в корневом контексте наложения: пятна → сетка/шум → интерфейс */
+    --aika-z-lights: -2;
+    --aika-z-texture: -1;
+
+    /* ------------------------------------------------------------------
+       Полосы прокрутки
+       ------------------------------------------------------------------ */
+    --aika-scrollbar-size: 10px;
+    --aika-scrollbar-inset: 3px;   /* прозрачная рамка: ползунок тоньше полосы */
+}

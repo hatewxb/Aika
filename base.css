@@ -1,0 +1,119 @@
+/* ==========================================================================
+   base.css — основа для всех окон (DESIGN.md §3.3, §9):
+   шрифты, базовая типографика, выделение, фокус, скроллбары, reduced-motion.
+
+   Только стандартные селекторы — без классов Steam.
+   ========================================================================== */
+
+/* --------------------------------------------------------------------------
+   Шрифты — локально, все OFL (лицензии рядом в assets/fonts/OFL-*.txt).
+   Переменные TTF из github.com/google/fonts: один файл на все веса.
+   Путь относительный — от этого файла.
+
+   Кириллица: Inter и Geist Mono — проверить в Steam; у Fraunces кириллицы
+   нет, русские крупные заголовки уйдут в фолбэк (Georgia).
+   -------------------------------------------------------------------------- */
+
+@font-face {
+    font-family: "Inter";
+    src: url("./assets/fonts/Inter-Variable.ttf") format("truetype");
+    font-weight: 100 900;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: "Geist Mono";
+    src: url("./assets/fonts/GeistMono-Variable.ttf") format("truetype");
+    font-weight: 100 900;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: "Fraunces";
+    src: url("./assets/fonts/Fraunces-Variable.ttf") format("truetype");
+    font-weight: 100 900;
+    font-style: normal;
+    font-display: swap;
+}
+
+/* --------------------------------------------------------------------------
+   Типографика по умолчанию. Элементы Steam со своим font-family
+   переопределяются в sections/ — здесь только наследуемая основа.
+   -------------------------------------------------------------------------- */
+
+body {
+    font-family: var(--aika-font-ui);
+    color: var(--aika-fg);
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+}
+
+/* Поля и кнопки по умолчанию не наследуют шрифт — исправляем.
+   :where() — нулевая специфичность, разделы легко уточняют. */
+:where(button, input, textarea, select) {
+    font-family: inherit;
+}
+
+/* Цифры в мета-данных не прыгают (DESIGN.md §3.3, Meta) */
+:where(time, progress, meter) {
+    font-variant-numeric: tabular-nums;
+}
+
+/* --------------------------------------------------------------------------
+   Выделение и фокус
+   -------------------------------------------------------------------------- */
+
+::selection {
+    background: var(--aika-accent-glow);
+    color: var(--aika-fg);
+}
+
+/* Фокус всегда виден: кольцо акцента с зазором (DESIGN.md §9).
+   Глобально — outline со смещением, а не box-shadow: тени элементов Steam
+   перебили бы кольцо, и фокус пропал бы. В своих компонентах можно
+   использовать --aika-shadow-focus. Скругление outline в Chromium
+   повторяет border-radius элемента. */
+:where(:focus-visible) {
+    outline: calc(var(--aika-focus-ring) - var(--aika-focus-gap)) solid var(--aika-accent-ring);
+    outline-offset: var(--aika-focus-gap);
+}
+
+/* --------------------------------------------------------------------------
+   Полосы прокрутки: тонкие, трек прозрачный, ярче на hover
+   -------------------------------------------------------------------------- */
+
+::-webkit-scrollbar {
+    width: var(--aika-scrollbar-size);
+    height: var(--aika-scrollbar-size);
+    background: var(--aika-transparent);
+}
+
+::-webkit-scrollbar-track,
+::-webkit-scrollbar-corner {
+    background: var(--aika-transparent);
+}
+
+::-webkit-scrollbar-thumb {
+    background-color: var(--aika-surface-active);
+    border-radius: var(--aika-radius-full);
+    border: var(--aika-scrollbar-inset) solid var(--aika-transparent);
+    background-clip: padding-box;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background-color: var(--aika-fg-subtle);
+}
+
+/* --------------------------------------------------------------------------
+   «Уменьшить движение»: выключаем всё декоративное (DESIGN.md §9).
+   Компоненты умножают амплитуды на --aika-motion, фон дополнительно
+   снимает анимации в background.css.
+   -------------------------------------------------------------------------- */
+
+@media (prefers-reduced-motion: reduce) {
+    :root {
+        --aika-motion: 0;
+    }
+}

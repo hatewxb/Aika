@@ -4,13 +4,13 @@
    Подключается через поле Steam-WebKit в skin.json.
 
    Это отдельные документы, в них main.css не попадает — поэтому
-   основа подключается здесь повторно.
+   фундамент подключается здесь повторно.
    ========================================================================== */
 
 @import url("./colors.css");
-@import url("./variables.css");
-@import url("./glass.css");
+@import url("./tokens.css");
+@import url("./base.css");
 @import url("./background.css");
 
-@import url("./store.css");
+@import url("./sections/store.css");
 @import url("./selectors.css");

@@ -1,41 +1,30 @@
 /* ==========================================================================
-   background.css — живой фон Aika (DESIGN.md §6).
-
-   Окно Steam не прозрачно для рабочего стола, поэтому стекло размывает
-   только то, что нарисовано внутри Steam. Отсюда «вечерняя комната»:
-   тёплый свет сверху и медленно плывущие пятна света под интерфейсом.
+   background.css — многослойный фон Aika (DESIGN.md §3.2).
 
    Слои снизу вверх (все — позади интерфейса):
-     html            — база: радиальный свет сверху elevated → base → deep,
-                       под ней — обои --aika-wallpaper с затемнением
-     html::before    — пятно 1, тёплое, главное
-     html::after     — пятно 2, фиолетовое
-     body::before    — пятно 3, индиго
-     body::after     — шум против полос в градиентах (поверх пятен)
+     html            — Layer 1, база: радиальный свет сверху glow → base → deep
+     html::before    — Layer 3, пятно 1: основное, верх-центр (--aika-light-1)
+     html::after     — Layer 3, пятно 2: розовое, слева (--aika-light-2)
+     body::before    — Layer 3, пятно 3: тёплое, справа-снизу, пульсирует
+     body::after     — Layer 4 + Layer 2: сетка и шум одним слоем
 
-   Пятна двигаются только через transform (дёшево для GPU).
-   Отключить движение: --aika-motion: 0 (пятна замрут на месте)
-   или системная настройка «уменьшить движение».
+   Почему сетка и шум в одном слое: у html/body всего четыре псевдоэлемента,
+   а слоёв пять. У них одинаковая непрозрачность (0.02), поэтому слой
+   общий; маска гасит к краям и сетку, и шум — на почти чёрных краях
+   полос (banding) всё равно не видно.
+
+   Пятна — крупные статичные слои: blur на них допустим (DESIGN.md §0),
+   двигаются только через transform.
+   Отключить движение: --aika-motion: 0 или системное «уменьшить движение».
    ========================================================================== */
 
 /* --------------------------------------------------------------------------
-   База и обои
+   Layer 1 — база
    -------------------------------------------------------------------------- */
 
 html {
     background-color: var(--aika-bg-deep);
-    background-image:
-        linear-gradient(var(--aika-wallpaper-dim), var(--aika-wallpaper-dim)),
-        var(--aika-wallpaper),
-        radial-gradient(
-            var(--aika-bg-light-shape),
-            var(--aika-bg-elevated),
-            var(--aika-bg-base) var(--aika-bg-light-mid),
-            var(--aika-bg-deep)
-        );
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
+    background-image: var(--aika-bg-gradient);
     background-attachment: fixed;
 }
 
@@ -51,7 +40,7 @@ body {
 }
 
 /* --------------------------------------------------------------------------
-   Пятна света
+   Layer 3 — пятна света
    -------------------------------------------------------------------------- */
 
 html::before,
@@ -59,113 +48,102 @@ html::after,
 body::before {
     content: "";
     position: fixed;
-    z-index: var(--aika-z-ambient);
-    aspect-ratio: var(--aika-ambient-aspect);
-    border-radius: var(--aika-ambient-shape);
-    filter: blur(var(--aika-ambient-blur));
+    z-index: var(--aika-z-lights);
+    aspect-ratio: var(--aika-light-aspect);
+    border-radius: var(--aika-light-shape);
     pointer-events: none;
     will-change: transform;
+    animation-name: aika-float;
     animation-timing-function: var(--aika-ease-ambient);
     animation-iteration-count: infinite;
-    animation-direction: alternate;
 }
 
-/* 1 — тёплый коралл, главный источник света, у верхнего левого угла */
+/* 1 — основное, верх-центр, цвет акцента */
 html::before {
-    width: var(--aika-ambient-1-size);
-    left: var(--aika-ambient-1-x);
-    top: var(--aika-ambient-1-y);
-    background: var(--aika-ambient-1);
-    opacity: var(--aika-ambient-1-opacity);
-    animation-name: aika-ambient-1;
+    width: var(--aika-light-1-size);
+    left: var(--aika-light-1-x);
+    top: var(--aika-light-1-y);
+    background: var(--aika-light-1);
+    opacity: var(--aika-light-1-opacity);
+    filter: blur(var(--aika-light-1-blur));
     animation-duration: var(--aika-dur-ambient);
 }
 
-/* 2 — фиолетовый, справа */
+/* 2 — фиолетово-розовое, слева */
 html::after {
-    width: var(--aika-ambient-2-size);
-    left: var(--aika-ambient-2-x);
-    top: var(--aika-ambient-2-y);
-    background: var(--aika-ambient-2);
-    opacity: var(--aika-ambient-2-opacity);
-    animation-name: aika-ambient-2;
+    width: var(--aika-light-2-size);
+    left: var(--aika-light-2-x);
+    top: var(--aika-light-2-y);
+    background: var(--aika-light-2);
+    opacity: var(--aika-light-2-opacity);
+    filter: blur(var(--aika-light-2-blur));
     animation-duration: var(--aika-dur-ambient-alt);
+    animation-direction: reverse;
 }
 
-/* 3 — индиго, снизу */
+/* 3 — тёплое (Claude), справа-снизу: плывёт и медленно «дышит» */
 body::before {
-    width: var(--aika-ambient-3-size);
-    left: var(--aika-ambient-3-x);
-    top: var(--aika-ambient-3-y);
-    background: var(--aika-ambient-3);
-    opacity: var(--aika-ambient-3-opacity);
-    animation-name: aika-ambient-3;
+    width: var(--aika-light-3-size);
+    left: var(--aika-light-3-x);
+    top: var(--aika-light-3-y);
+    background: var(--aika-light-3);
+    opacity: var(--aika-light-3-opacity);
+    filter: blur(var(--aika-light-3-blur));
+    animation-name: aika-float-pulse;
     animation-duration: var(--aika-dur-ambient-short);
 }
 
-/* Амплитуды умножаются на --aika-motion: при 0 все transform — нулевые,
-   пятна стоят на месте. */
-@keyframes aika-ambient-1 {
-    from {
+/* Амплитуды умножаются на --aika-motion: при 0 все transform нулевые */
+@keyframes aika-float {
+    0%, 100% {
         transform: translate3d(0, 0, 0) rotate(0deg);
     }
-    to {
+    50% {
         transform:
-            translate3d(
-                calc(var(--aika-ambient-drift) * var(--aika-motion)),
-                calc(var(--aika-ambient-drift) * var(--aika-motion)),
-                0
-            )
-            rotate(calc(var(--aika-ambient-rotate) * var(--aika-motion)));
+            translate3d(0, calc(var(--aika-light-drift) * var(--aika-motion)), 0)
+            rotate(calc(var(--aika-light-rotate) * var(--aika-motion)));
     }
 }
 
-@keyframes aika-ambient-2 {
-    from {
-        transform: translate3d(0, 0, 0) rotate(0deg);
+@keyframes aika-float-pulse {
+    0%, 100% {
+        transform: translate3d(0, 0, 0) rotate(0deg) scale(1);
     }
-    to {
+    50% {
         transform:
-            translate3d(
-                calc(var(--aika-ambient-drift) * var(--aika-motion) * -1),
-                calc(var(--aika-ambient-drift) * var(--aika-motion)),
-                0
-            )
-            rotate(calc(var(--aika-ambient-rotate) * var(--aika-motion) * -1));
-    }
-}
-
-@keyframes aika-ambient-3 {
-    from {
-        transform: translate3d(0, 0, 0) rotate(0deg);
-    }
-    to {
-        transform:
-            translate3d(
-                calc(var(--aika-ambient-drift) * var(--aika-motion)),
-                calc(var(--aika-ambient-drift) * var(--aika-motion) * -1),
-                0
-            )
-            rotate(calc(var(--aika-ambient-rotate) * var(--aika-motion)));
+            translate3d(0, calc(var(--aika-light-drift) * var(--aika-motion)), 0)
+            rotate(calc(var(--aika-light-rotate) * var(--aika-motion)))
+            scale(calc(1 + (var(--aika-light-pulse) - 1) * var(--aika-motion)));
     }
 }
 
 /* --------------------------------------------------------------------------
-   Шум — поверх пятен, под интерфейсом
+   Layer 4 + Layer 2 — сетка и шум: поверх пятен, под интерфейсом
    -------------------------------------------------------------------------- */
 
 body::after {
     content: "";
     position: fixed;
     inset: 0;
-    z-index: var(--aika-z-noise);
-    background-image: var(--aika-noise-image);
-    opacity: var(--aika-noise-opacity);
+    z-index: var(--aika-z-texture);
+    background-image:
+        var(--aika-noise-image),
+        linear-gradient(to right, var(--aika-grid-line) var(--aika-hairline), var(--aika-transparent) var(--aika-hairline)),
+        linear-gradient(to bottom, var(--aika-grid-line) var(--aika-hairline), var(--aika-transparent) var(--aika-hairline));
+    background-size:
+        auto,
+        var(--aika-grid-size) var(--aika-grid-size),
+        var(--aika-grid-size) var(--aika-grid-size);
+    background-position: center;
+    opacity: var(--aika-grid-opacity);
+    -webkit-mask-image: var(--aika-grid-mask);
+    mask-image: var(--aika-grid-mask);
     pointer-events: none;
 }
 
 /* --------------------------------------------------------------------------
-   Уважаем системную настройку «уменьшить движение»
+   «Уменьшить движение»: пятна стоят (--aika-motion обнуляется в base.css,
+   а здесь анимация снимается совсем, чтобы не тратить кадры)
    -------------------------------------------------------------------------- */
 
 @media (prefers-reduced-motion: reduce) {

@@ -5,20 +5,23 @@
 
    Здесь только @import — стилей в этом файле нет.
    @import обязан стоять в самом начале файла, до любых правил.
-   Порядок важен: каждый следующий файл может переопределять предыдущий.
+   Порядок важен (DESIGN.md §0): каждый следующий файл может
+   переопределять предыдущий.
    ========================================================================== */
 
-/* 1. Основа: цвета → переменные → рецепты стекла → фон */
+/* 1. Фундамент: цвета → токены → основа → фон */
 @import url("./colors.css");
-@import url("./variables.css");
-@import url("./glass.css");
+@import url("./tokens.css");
+@import url("./base.css");
 @import url("./background.css");
 
-/* 2. Разделы клиента (стабильные селекторы) */
-@import url("./library.css");
-@import url("./store.css");
-@import url("./friends.css");
-@import url("./settings.css");
+/* 2. Компоненты (components/) — появятся на следующем шаге */
 
-/* 3. Нестабильные классы Steam — последними, чтобы перебивать всё выше */
+/* 3. Разделы клиента (стабильные селекторы) */
+@import url("./sections/library.css");
+@import url("./sections/store.css");
+@import url("./sections/friends.css");
+@import url("./sections/settings.css");
+
+/* 4. Нестабильные классы Steam — последними, чтобы перебивать всё выше */
 @import url("./selectors.css");
