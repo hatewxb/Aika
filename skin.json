@@ -5,7 +5,7 @@
     "version": "0.1.0",
     "tags": ["Glass", "Dark", "Blur", "WIP"],
 
-    "RootColors": "variables.css",
+    "RootColors": "colors.css",
     "Steam-WebKit": "webkit.css",
 
     "Patches": [
