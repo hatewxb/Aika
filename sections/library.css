@@ -133,3 +133,67 @@ html .RecentGame .AddedDate {
     font-size: var(--aika-text-meta);
     color: var(--aika-fg-subtle);
 }
+
+/* --------------------------------------------------------------------------
+   Шапка окна (снято через CDP 2026-10-04)
+     .TitleBar .RootMenuBar .RootMenuButton   — Steam, Вид, Друзья, Игры, Справка
+     .TitleBarControls .Button                 — объявления, уведомления, Big Picture…
+     .TitleBarControls .AccountMenu            — аккаунт и кошелёк
+   Steam: (0,1,0)–(0,2,0); у нас html + 2–3 класса.
+   -------------------------------------------------------------------------- */
+
+html .RootMenuBar .RootMenuButton {
+    border-radius: var(--aika-radius-md);
+    color: var(--aika-fg-muted);
+    transition:
+        background-color var(--aika-dur-fast) var(--aika-ease-hover),
+        color var(--aika-dur-fast) var(--aika-ease-hover);
+}
+
+html .RootMenuBar .RootMenuButton:hover {
+    background-color: var(--aika-surface-hover);
+    color: var(--aika-fg);
+}
+
+html .TitleBarControls :is(.Button, .AccountMenu) {
+    border-radius: var(--aika-radius-md);
+    background-color: var(--aika-surface);
+    box-shadow: inset 0 0 0 var(--aika-hairline) var(--aika-border);
+    transition: background-color var(--aika-dur-fast) var(--aika-ease-hover);
+}
+
+html .TitleBarControls :is(.Button, .AccountMenu):hover {
+    background-color: var(--aika-surface-hover);
+}
+
+/* --------------------------------------------------------------------------
+   Нижняя панель (снято через CDP 2026-10-04)
+     .BottomBar .AddGameButton   — «Добавить игру»
+     .BottomBar .DownloadStatus  — «Управление загрузками» / прогресс загрузки
+     .BottomBar .FriendsButton   — «Друзья и чат»
+   TODO: вид во время загрузки (прогресс) — снять классы, когда идёт загрузка.
+   -------------------------------------------------------------------------- */
+
+html .BottomBar :is(.AddGameButton, .FriendsButton, .DownloadStatus) {
+    border-radius: var(--aika-radius-md);
+    color: var(--aika-fg-muted);
+    transition:
+        background-color var(--aika-dur-fast) var(--aika-ease-hover),
+        color var(--aika-dur-fast) var(--aika-ease-hover);
+}
+
+html .BottomBar :is(.AddGameButton, .FriendsButton, .DownloadStatus):hover {
+    background-color: var(--aika-surface-hover);
+    color: var(--aika-fg);
+}
+
+/* Подписи внутри кнопок нижней панели Steam красит сам — берём цвет кнопки */
+html .BottomBar :is(.AddGameButton, .FriendsButton, .DownloadStatus) :is(.Text, .Queue, .DownloadStatusContent) {
+    color: inherit;
+}
+
+/* Ник в шапке: Steam красит его синим «в сети»; статус и так виден
+   по рамке аватара — ник нейтральный */
+html .TitleBarControls .AccountMenu {
+    color: var(--aika-fg);
+}
