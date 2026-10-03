@@ -1,0 +1,142 @@
+/* ==========================================================================
+   components/button.css — кнопки (DESIGN.md §4, Buttons).
+
+   Варианты: primary (CTA), secondary, ghost. Каждый селектор — список:
+   свой класс .aika-button--* (для разметки, которую добавит JS) +
+   читаемые классы общих кнопок Steam. Это не хэши, Steam использует
+   их во всех окнах, поэтому они здесь, а не в selectors.css.
+
+   Кнопки Steam (сняты через CDP 2026-10-04):
+     buttonbutton.DialogButton.Primary    — «Сохранить», «Готово»… в диалогах и библиотеке
+     buttonbutton.DialogButton.Secondary  — второстепенные кнопки диалогов
+     div.PlayButton                 — ИГРАТЬ / УСТАНОВИТЬ на странице игры
+     .Disabled                      — неактивная кнопка (класс, не атрибут)
+
+   Shine — на ::after: ::before у DialogButton занят Steam, а ::after
+   у Secondary — тоже (там «»»), поэтому shine только у primary.
+
+   Специфичность: Steam пишет button.DialogButton.Primary (0,2,1), поэтому
+   у нас тег button + префикс html — (0,2,2), перебиваем без !important.
+   Фокус — кольцо outline из base.css, со свечением теней не конфликтует.
+   ========================================================================== */
+
+/* --------------------------------------------------------------------------
+   Общая основа
+   -------------------------------------------------------------------------- */
+
+html :is(.aika-button, button.DialogButton, .PlayButton) {
+    border: none;
+    border-radius: var(--aika-radius-md);
+    font-family: var(--aika-font-ui);
+    font-weight: var(--aika-weight-medium);
+    letter-spacing: normal;
+    text-transform: none;
+    transition:
+        background-color var(--aika-dur-fast) var(--aika-ease-hover),
+        color var(--aika-dur-fast) var(--aika-ease-hover),
+        box-shadow var(--aika-dur-base) var(--aika-ease),
+        transform var(--aika-dur-base) var(--aika-ease),
+        opacity var(--aika-dur-base) var(--aika-ease);
+}
+
+/* --------------------------------------------------------------------------
+   Primary — главное действие: акцент, свечение, shine
+   -------------------------------------------------------------------------- */
+
+html :is(.aika-button--primary, button.DialogButton.Primary, .PlayButton) {
+    position: relative;
+    overflow: hidden;
+    background: var(--aika-accent);
+    color: var(--aika-on-accent);
+    box-shadow: var(--aika-shadow-cta);
+}
+
+html :is(.aika-button--primary, button.DialogButton.Primary, .PlayButton):not(.Disabled, :disabled):hover {
+    background: var(--aika-accent-bright);
+    color: var(--aika-on-accent);
+    box-shadow: var(--aika-shadow-cta-hover);
+    transform: translateY(var(--aika-lift-sm));
+}
+
+html :is(.aika-button--primary, button.DialogButton.Primary, .PlayButton):not(.Disabled, :disabled):active {
+    box-shadow: var(--aika-shadow-cta-press);
+    transform: scale(var(--aika-press-scale));
+}
+
+/* Shine: полоса за левым краем, на hover пробегает вправо.
+   При --aika-motion: 0 полоса невидима (opacity = 0). */
+html :is(.aika-button--primary, button.DialogButton.Primary, .PlayButton)::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: var(--aika-shine-gradient);
+    transform: translateX(var(--aika-shine-from));
+    opacity: var(--aika-motion);
+    pointer-events: none;
+}
+
+html :is(.aika-button--primary, button.DialogButton.Primary, .PlayButton):not(.Disabled, :disabled):hover::after {
+    transform: translateX(var(--aika-shine-to));
+    transition: transform var(--aika-dur-enter) var(--aika-ease);
+}
+
+/* --------------------------------------------------------------------------
+   Secondary — поверхность, рамка inset-тенью
+   -------------------------------------------------------------------------- */
+
+html :is(.aika-button--secondary, button.DialogButton.Secondary) {
+    background: var(--aika-surface);
+    color: var(--aika-fg);
+    box-shadow: var(--aika-shadow-secondary);
+}
+
+html :is(.aika-button--secondary, button.DialogButton.Secondary):not(.Disabled, :disabled):hover {
+    background: var(--aika-surface-hover);
+    color: var(--aika-fg);
+    box-shadow: var(--aika-shadow-secondary-hover);
+    transform: translateY(var(--aika-lift-sm));
+}
+
+html :is(.aika-button--secondary, button.DialogButton.Secondary):not(.Disabled, :disabled):active {
+    background: var(--aika-surface-active);
+    transform: scale(var(--aika-press-scale));
+}
+
+/* --------------------------------------------------------------------------
+   Ghost — без фона; у Steam прямого аналога нет, только свой класс
+   -------------------------------------------------------------------------- */
+
+.aika-button--ghost {
+    background: var(--aika-transparent);
+    color: var(--aika-fg-muted);
+    box-shadow: none;
+}
+
+.aika-button--ghost:not(:disabled):hover {
+    background: var(--aika-surface);
+    color: var(--aika-fg);
+}
+
+.aika-button--ghost:not(:disabled):active {
+    transform: scale(var(--aika-press-scale));
+}
+
+/* Стрелка → у текстовой кнопки: <span class="aika-button__arrow">→</span> */
+.aika-button__arrow {
+    display: inline-block;
+    transition: transform var(--aika-dur-base) var(--aika-ease);
+}
+
+.aika-button:hover .aika-button__arrow {
+    transform: translateX(var(--aika-nudge));
+}
+
+/* --------------------------------------------------------------------------
+   Disabled — приглушена, без свечения и hover-эффектов
+   -------------------------------------------------------------------------- */
+
+html :is(.aika-button, button.DialogButton, .PlayButton):is(.Disabled, :disabled) {
+    opacity: var(--aika-disabled-opacity);
+    box-shadow: none;
+    cursor: default;
+}

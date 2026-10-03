@@ -74,7 +74,36 @@
         0 4px 12px var(--aika-accent-glow),
         inset 0 var(--aika-hairline) 0 0 var(--aika-highlight-cta);
 
+    /* CTA на hover — свечение сильнее; при нажатии — меньше */
+    --aika-shadow-cta-hover:
+        0 0 0 var(--aika-hairline) var(--aika-accent-ring),
+        0 6px 24px var(--aika-accent-glow),
+        inset 0 var(--aika-hairline) 0 0 var(--aika-highlight-cta);
+
+    --aika-shadow-cta-press:
+        0 0 0 var(--aika-hairline) var(--aika-accent-ring),
+        0 2px 6px var(--aika-accent-glow),
+        inset 0 var(--aika-hairline) 0 0 var(--aika-highlight-cta);
+
     --aika-highlight-top: inset 0 var(--aika-hairline) 0 0 var(--aika-highlight);
+
+    /* Secondary-кнопка: рамка inset-тенью вместо border (DESIGN.md §3.4) */
+    --aika-shadow-secondary:
+        inset 0 0 0 var(--aika-hairline) var(--aika-border-hover),
+        var(--aika-highlight-top);
+
+    --aika-shadow-secondary-hover:
+        inset 0 0 0 var(--aika-hairline) var(--aika-border-hover),
+        var(--aika-highlight-top),
+        0 0 20px var(--aika-accent-haze);
+
+    /* Shine: косая светлая полоса, пробегает по CTA на hover */
+    --aika-shine-gradient: linear-gradient(
+        105deg,
+        var(--aika-shine-edge) 30%,
+        var(--aika-shine) 50%,
+        var(--aika-shine-edge) 70%
+    );
 
     /* Кольцо фокуса: зазор цвета фона + акцент (DESIGN.md §4, Interactive States) */
     --aika-shadow-focus:
@@ -109,6 +138,10 @@
     --aika-stagger: 60ms;        /* задержка между соседними блоками (40–80 ms) */
 
     --aika-disabled-opacity: 0.4;
+
+    /* Shine-полоса: старт и финиш сдвига (в долях ширины кнопки) */
+    --aika-shine-from: -100%;
+    --aika-shine-to: 100%;
 
     /* ------------------------------------------------------------------
        Отступы: шаг 4 px (DESIGN.md §3.7)

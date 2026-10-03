@@ -5,7 +5,7 @@
     "version": "0.2.0",
     "tags": ["Fluent", "Dark", "Warm", "Minimal", "WIP"],
 
-    "RootColors": "colors.css",
+    "RootColors": "root-colors.css",
     "Steam-WebKit": "webkit.css",
 
     "Patches": [
