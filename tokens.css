@@ -195,6 +195,12 @@
     --aika-indicator-inset: 25%;     /* индикатор выбора: отступ сверху и снизу */
     --aika-dur-blink: 1.1s;          /* мигающий курсор _ */
 
+    /* Меню (DESIGN.md §4, Menus): тень у всплывающих слоёв */
+    --aika-shadow-menu:
+        inset 0 0 0 var(--aika-hairline) var(--aika-border-hover),
+        var(--aika-highlight-top),
+        0 8px 32px var(--aika-shadow-deep);
+
     /* Статусы (DESIGN.md §4, Status & Labels) */
     --aika-dot: 6px;                 /* точка статуса ● */
     --aika-dur-pulse: 2.4s;          /* пульс «живой» точки */

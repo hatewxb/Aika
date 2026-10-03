@@ -52,8 +52,25 @@ html body ._1Pb6PMh_3L5p5NzuUz0Pp9 > .PlayButton.ButtonChild::after {
 /* TODO: вкладки МАГАЗИН / БИБЛИОТЕКА / СООБЩЕСТВО */
 /* TODO: левая панель со списком игр */
 /* TODO: элемент списка игр (обычный / выделенный) */
-/* TODO: карточка игры на домашней странице */
 /* TODO: нижняя панель (загрузки, друзья) */
+
+
+/* --------------------------------------------------------------------------
+   Меню (components/menu.css, окна .ContextMenuPopup)
+   -------------------------------------------------------------------------- */
+
+/* [Меню] Пункт, подсвеченный с клавиатуры (стрелки вверх/вниз).
+   Steam: «.DesktopUI ._1n7W…._18z-3vk…» — светлая заливка, как на hover.
+   Проверено: 2026-10-04 по правилам Steam в окне «Games Root Menu».
+   Как найти: открыть меню, нажать стрелку вниз, посмотреть классы пункта. */
+html .contextMenu .contextMenuContents .contextMenuItem._18z-3vkWndCBO5WJgFldRK {
+    background: var(--aika-surface-hover);
+    color: var(--aika-fg);
+}
+
+html .contextMenu .contextMenuContents .contextMenuItem._18z-3vkWndCBO5WJgFldRK * {
+    color: inherit;
+}
 
 
 /* --------------------------------------------------------------------------

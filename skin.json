@@ -20,6 +20,10 @@
         {
             "MatchRegexString": ".friendsui-container",
             "TargetCss": "main.css"
+        },
+        {
+            "MatchRegexString": ".ContextMenuPopup",
+            "TargetCss": "popup.css"
         }
     ]
 }

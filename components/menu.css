@@ -1,0 +1,94 @@
+/* ==========================================================================
+   components/menu.css — меню, выпадающие списки, тултипы (DESIGN.md §4, Menus).
+
+   Меню Steam — отдельные окна (Steam / Вид / Игры…, контекстные меню,
+   Supernav у вкладок, списки DialogDropDown). Их <html> — .ContextMenuPopup,
+   <body> — .ContextMenuPopupBody; html и body прозрачные, поэтому
+   скругления видны. Подключается через popup.css (Patch в skin.json).
+
+   Steam (сняты через CDP 2026-10-04):
+     .contextMenu > .contextMenuContents     — коробка меню
+       .contextMenuItem[.MenuItem][.disabled] — пункт
+       hr.MenuItem.Separator                  — разделитель
+   Hover пункта у Steam — светлая заливка «.DesktopUI ._1n7W…:hover» (0,3,0),
+   у неактивного — (0,4,0); коробку Steam держит правилами до (0,2,1),
+   поэтому у нас html body .contextMenu.ContextMenuPosition (0,2,2).
+   Подсветка с клавиатуры — хэш-класс, см. selectors.css.
+
+   Это единственное место с полупрозрачной поверхностью (translucent).
+   ========================================================================== */
+
+@keyframes aika-menu-in {
+    from {
+        opacity: 0;
+        transform: translateY(var(--aika-menu-shift)) scale(var(--aika-appear-scale));
+    }
+}
+
+/* --------------------------------------------------------------------------
+   Коробка меню
+   -------------------------------------------------------------------------- */
+
+.aika-menu,
+html body .contextMenu.ContextMenuPosition {
+    padding: var(--aika-space-1);
+    border-radius: var(--aika-radius-lg);
+    background: var(--aika-surface-translucent);
+    box-shadow: var(--aika-shadow-menu);
+    color: var(--aika-fg);
+    font-family: var(--aika-font-ui);
+    transform-origin: top left;
+    animation: aika-menu-in var(--aika-dur-fast) var(--aika-ease);
+}
+
+html .contextMenu .contextMenuContents {
+    background: var(--aika-transparent);
+}
+
+/* --------------------------------------------------------------------------
+   Пункты
+   -------------------------------------------------------------------------- */
+
+.aika-menu__item,
+html .contextMenu .contextMenuContents .contextMenuItem {
+    padding: var(--aika-space-2) var(--aika-space-3);
+    border-radius: var(--aika-radius-md);
+    color: var(--aika-fg);
+    font-size: var(--aika-text-body);
+    transition: background-color var(--aika-dur-fast) var(--aika-ease-hover);
+}
+
+.aika-menu__item:hover,
+html .contextMenu .contextMenuContents .contextMenuItem:not(.disabled):hover {
+    background: var(--aika-surface-hover);
+    color: var(--aika-fg);
+}
+
+/* Steam на hover красит вложенный текст тёмным (0,4,0) — берём цвет пункта */
+html .contextMenu .contextMenuContents .contextMenuItem:not(.disabled):hover * {
+    color: inherit;
+}
+
+html .contextMenu .contextMenuContents .contextMenuItem.disabled {
+    color: var(--aika-fg-subtle);
+}
+
+/* Разделитель — тонкая линия с отступами */
+.aika-menu__separator,
+html .contextMenu .contextMenuContents hr.Separator {
+    height: var(--aika-hairline);
+    margin: var(--aika-space-1) var(--aika-space-2);
+    border: none;
+    background: var(--aika-border);
+}
+
+/* --------------------------------------------------------------------------
+   «Уменьшить движение»: без анимации появления
+   -------------------------------------------------------------------------- */
+
+@media (prefers-reduced-motion: reduce) {
+    .aika-menu,
+    html body .contextMenu.ContextMenuPosition {
+        animation: none;
+    }
+}
