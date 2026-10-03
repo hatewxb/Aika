@@ -18,9 +18,8 @@
    Отключить анимацию: --lg-bg-animation: paused; в variables.css.
    При системной настройке «уменьшить движение» она выключается сама.
 
-   TODO: Steam рисует свои непрозрачные фоны поверх body. Чтобы этот фон
-   стал виден, нужно сделать прозрачными корневые контейнеры окон —
-   для этого нужны их классы из DevTools (см. selectors.css).
+   Steam закрывает body сплошной обёрткой .ForceOpaqueBackground —
+   она делается прозрачной в конце этого файла.
    ========================================================================== */
 
 html {
@@ -115,6 +114,13 @@ body::after {
         transform: translate3d(var(--lg-bg-drift), var(--lg-bg-drift), 0)
                    rotate(var(--lg-bg-rotate)) scale(var(--lg-bg-scale));
     }
+}
+
+/* Корневая обёртка окна Steam (div.Wrapper.ForceOpaqueBackground).
+   Steam красит её в сплошной чёрный на всё окно — из-за неё фон не виден.
+   Читаемый класс (не хэш). Проверено: 2026-10-04 через DevTools. */
+.Wrapper.ForceOpaqueBackground {
+    background: var(--lg-transparent);
 }
 
 /* Уважаем системную настройку «уменьшить движение» */

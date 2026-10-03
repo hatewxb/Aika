@@ -28,6 +28,9 @@
    ========================================================================== */
 
 :root {
+    /* Полностью прозрачный цвет — чтобы «убирать» фоны Steam без голых значений */
+    --lg-transparent: rgba(var(--lg-glass-tint-rgb), 0);
+
     /* Что происходит с тем, что под стеклом: размытие + насыщенность + яркость */
     --lg-glass-backdrop-thin:
         blur(var(--lg-blur-sm)) saturate(var(--lg-saturate)) brightness(var(--lg-brightness));

@@ -5,8 +5,8 @@
    классы. Автогенерированные классы — в selectors.css.
 
    План (по порядку важности):
-   1. Корневые контейнеры окна — сделать прозрачными, чтобы был виден
-      фон из background.css.                                  TODO: классы
+   1. [готово] Корневые контейнеры окна — прозрачные, виден
+      фон из background.css (см. background.css и ниже).
    2. Верхняя панель: заголовок окна, меню (Steam, Вид, Друзья…),
       кнопки свернуть/закрыть, вкладки МАГАЗИН / БИБЛИОТЕКА / СООБЩЕСТВО.
                                                               TODO: классы
@@ -20,3 +20,55 @@
    7. Контекстные меню и всплывающие подсказки — плотное стекло
       (--lg-glass-fill-thick, --lg-glass-shadow-strong).      TODO: классы
    ========================================================================== */
+
+/* --------------------------------------------------------------------------
+   Структура главного окна (снято через DevTools 2026-10-04):
+
+   .Wrapper.ForceOpaqueBackground          — корневая обёртка (background.css)
+   └─ .OuterFrame
+      ├─ .TopBar                           — меню, вкладки, кнопки окна
+      ├─ .ContentFrame
+      │  └─ .Library
+      │     └─ .Container
+      │        ├─ div > .Container          — левая панель (у неё нет своего
+      │        │                              читаемого класса, только общий
+      │        │                              .Container — берём по структуре)
+      │        │    ├─ .Bar                 — поиск и фильтры
+      │        │    └─ .Container [role=grid] — список игр
+      │        └─ .MainPanel                — правая часть
+      │             ├─ .LibraryHome         — домашняя страница
+      │             └─ .AppDetailsMain      — страница игры
+      └─ div > .BottomBar                   — загрузки, друзья
+
+   Классы выше — читаемые (не хэши), Steam использует их сам, поэтому
+   они стабильнее автогенерированных. Хэши — только в selectors.css.
+   -------------------------------------------------------------------------- */
+
+/* Верхняя панель: тонкое стекло, светлая кромка снизу */
+.OuterFrame > .TopBar {
+    background: var(--lg-glass-sheen), var(--lg-glass-fill-thin);
+    backdrop-filter: var(--lg-glass-backdrop-thin);
+    border-bottom: var(--lg-glass-border);
+    box-shadow: var(--lg-glass-shadow);
+}
+
+/* Нижняя панель: тонкое стекло, светлая кромка сверху */
+.BottomBar {
+    background: var(--lg-glass-sheen), var(--lg-glass-fill-thin);
+    backdrop-filter: var(--lg-glass-backdrop-thin);
+    border-top: var(--lg-glass-border);
+}
+
+/* Левая панель со списком игр: стекло вместо серого градиента Steam */
+.Library > .Container > div:not(.MainPanel) > .Container {
+    background: var(--lg-glass-sheen), var(--lg-glass-fill);
+    backdrop-filter: var(--lg-glass-backdrop);
+    border-right: var(--lg-glass-border);
+}
+
+/* Правая часть: убираем сплошные фоны Steam, чтобы был виден наш фон */
+.MainPanel .AppDetailsTransitionGroup,
+.MainPanel .LibraryHome,
+.MainPanel .AppDetailsMain > .Container {
+    background: var(--lg-transparent);
+}
