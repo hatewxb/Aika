@@ -64,7 +64,7 @@
 
     /* Мягкий отблеск сверху вниз — как свет, падающий на стекло */
     --lg-glass-sheen: linear-gradient(
-        180deg,
+        to bottom,
         rgba(var(--lg-glass-tint-rgb), var(--lg-sheen-alpha)) 0%,
         rgba(var(--lg-glass-tint-rgb), 0) var(--lg-sheen-length)
     );
