@@ -370,3 +370,30 @@ html .LabelHolder.ingame.awayOrSnooze .richPresenceContainer .richPresenceLabel 
 html .FriendIsPlaying svg :is(path, circle) {
     fill: var(--aika-ok);
 }
+
+/* Полоска статуса у миниатюр друзей (.avatarHolder .avatarStatus.right / .bottom,
+   «Друзей, игравших недавно / раньше» на странице игры и др.): у Steam —
+   прямая линия 2 px вплотную к аватару, под скруглёнными углами торчала
+   (правка автора 2026-10-05). Делаем короткую скруглённую пилюлю
+   с отступом — как Fluent-индикатор. */
+html .avatarHolder:has(> .avatarStatus) {
+    position: relative;
+}
+
+html .avatarHolder > .avatarStatus {
+    border-radius: var(--aika-radius-full);
+}
+
+html .avatarHolder > .avatarStatus.right {
+    top: 25%;
+    right: calc(-1 * var(--aika-space-1));
+    width: var(--aika-indicator);
+    height: 50%;
+}
+
+html .avatarHolder > .avatarStatus.bottom {
+    bottom: calc(-1 * var(--aika-space-1));
+    left: 25%;
+    width: 50%;
+    height: var(--aika-indicator);
+}
