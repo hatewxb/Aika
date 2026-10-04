@@ -78,9 +78,24 @@ html #blotter_page .playerAvatar.in-game {
     background: var(--aika-ok);
 }
 
-html #blotter_page .playerAvatar img {
+/* Только сам аватар: у картинки рамки предмета (.profile_avatar_frame img)
+   прозрачная середина — наш фон заливал её и закрывал аватар под ней */
+html #blotter_page .playerAvatar img:not(.profile_avatar_frame img) {
     border-radius: var(--aika-radius-md);
     background: var(--aika-bg-raised);
+}
+
+/* Рамка предмета профиля — как у Steam: без фона и скругления.
+   Steam красит её градиентом статуса (.playerAvatar.online img, (0,2,1)) */
+html #blotter_page .playerAvatar .profile_avatar_frame img {
+    border-radius: 0;
+    background: var(--aika-transparent);
+}
+
+/* С рамкой подложка статуса аватара не нужна — статус виден по рамке
+   предмета, а цветной квадрат выглядывал бы из-под неё */
+html #blotter_page .playerAvatar:has(.profile_avatar_frame img) {
+    background: var(--aika-transparent);
 }
 
 /* Маленькие аватары в свёрнутых событиях */
