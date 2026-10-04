@@ -800,3 +800,9 @@ html .followed_game_actions .btnv6_blue_hoverfade:not(.btn_disabled):not(:disabl
     background: var(--aika-surface-hover);
     color: var(--aika-fg) !important; /* у Steam #fff !important */
 }
+
+/* Подсветка за шапкой «Друзья» (.friends_header_bg — картинка bg_highlight.png,
+   голубое свечение снизу) — мягкий свет акцента (правка автора 2026-10-05) */
+html .friends_header_bg {
+    background: radial-gradient(ellipse 60% 100% at 50% 100%, var(--aika-accent-tint), var(--aika-transparent) 70%);
+}
