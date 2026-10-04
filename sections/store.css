@@ -93,7 +93,9 @@ html .BrowserWrapper > .URLBar > .URLBarText:hover :is(.URL, .StatusIcon) {
          сезонный скин переобъявляет на body.
    ========================================================================== */
 
-html:root:has(> body.v6) {
+/* Новый движок магазина (список желаемого и др., 2026): body без .v6,
+   всё внутри #StoreTemplate — те же шкалы, другой корень */
+html:root:is(:has(> body.v6), :has(> body > #StoreTemplate)) {
     --font-family: var(--aika-font-ui);
     --color-text-light-title: var(--aika-fg);
     --color-text-light-subtitle: var(--aika-fg);
@@ -147,6 +149,11 @@ html:root:has(> body.v6) {
     --Neutrals-lightestGrey: var(--aika-fg-muted);
     --Neutrals-lighterGrey: var(--aika-fg-subtle);
 
+    /* Всплывающие панели (popover) нового движка: фон и тень через
+       var(--popover-*, …), Steam их не объявляет */
+    --popover-background: var(--aika-surface-translucent);
+    --popover-shadow: var(--aika-shadow-menu);
+
     /* Подвал (React, footer#footer): у Steam rgba(15,25,36,.9) */
     --footer-bg-color: var(--aika-bg-elevated);
 }
@@ -192,7 +199,8 @@ html:root:has(> body.v6) {
    (ссылка на распродажу), его не трогаем.
    -------------------------------------------------------------------------- */
 
-html body.v6.v6 {
+html body.v6.v6,
+html body:has(> #StoreTemplate) {
     background: var(--aika-transparent);
     color: var(--aika-fg-muted);
     font-family: var(--aika-font-ui);

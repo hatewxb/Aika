@@ -765,6 +765,437 @@ html body.v6 [data-featuretarget="store-menu-v7"] .-bDCBiZsIWB-_6IzGxbhz ._15eaL
     color: var(--aika-fg-subtle);
 }
 
+/* ==========================================================================
+   [Магазин, новый движок] Страницы на #StoreTemplate (body без .v6) —
+   список желаемого (store.steampowered.com/wishlist/…). Хэши CSS-модулей
+   оканчиваются на «-». Область — html body #StoreTemplate (1,0,2):
+   перебивает правила Steam любой силы без !important.
+   Проверено: 2026-10-04, список желаемого (сортировка «по скидке»).
+   Как найти: открыть «Список желаемого» из меню магазина.
+   ========================================================================== */
+
+/* Полоса меню магазина (.WCG-2-OYepA-, у Steam сине-серый радиальный
+   градиент с размытием) */
+html body #StoreTemplate .WCG-2-OYepA- {
+    background: var(--aika-bg-elevated);
+    color: var(--aika-fg-muted);
+    box-shadow: inset 0 calc(-1 * var(--aika-hairline)) 0 0 var(--aika-border);
+}
+
+html body #StoreTemplate .WCG-2-OYepA- a:hover {
+    color: var(--aika-fg);
+}
+
+/* Поиск в полосе меню: форма (.TU-7RxpTpy4- > form, белая 12 %),
+   поле .S-0LcpbLAf8- (рамка белая 14 %, курсивный плейсхолдер),
+   кнопка .et-RRc3JMu8- (синяя #1a9fff) */
+html body #StoreTemplate .TU-7RxpTpy4- > form {
+    overflow: hidden;
+    border-radius: var(--aika-radius-md);
+    background: var(--aika-bg-raised);
+    box-shadow: inset 0 0 0 var(--aika-hairline) var(--aika-border-strong);
+    transition: box-shadow var(--aika-dur-fast) var(--aika-ease-hover);
+}
+
+html body #StoreTemplate .TU-7RxpTpy4- > form:focus-within {
+    box-shadow: var(--aika-shadow-input-focus);
+}
+
+html body #StoreTemplate .S-0LcpbLAf8-,
+html body #StoreTemplate .S-0LcpbLAf8-:hover,
+html body #StoreTemplate .S-0LcpbLAf8-:focus-visible {
+    border: none;
+    background: var(--aika-transparent);
+    color: var(--aika-fg);
+    box-shadow: none;
+}
+
+html body #StoreTemplate .S-0LcpbLAf8-::placeholder,
+html body #StoreTemplate .S-0LcpbLAf8-:hover::placeholder {
+    color: var(--aika-fg-subtle);
+    font-style: normal;
+}
+
+html body #StoreTemplate .et-RRc3JMu8- {
+    border-radius: 0;
+    background: var(--aika-transparent);
+    color: var(--aika-fg-muted);
+}
+
+html body #StoreTemplate .et-RRc3JMu8-:hover {
+    background: var(--aika-surface-hover);
+    color: var(--aika-accent-bright);
+    box-shadow: none;
+}
+
+/* Подсказки поиска (.SdFPqnbn0yI-: серый градиент) — как меню Aika */
+html body #StoreTemplate .SdFPqnbn0yI- {
+    border-radius: var(--aika-radius-lg);
+    background: var(--aika-surface-translucent);
+    box-shadow: var(--aika-shadow-menu);
+}
+
+html body #StoreTemplate .SdFPqnbn0yI- ._7gYaw-JAHLI- :is(.o3-Lb6N8-cY-, .OEygWxUcrLo-) {
+    color: var(--aika-fg-subtle);
+}
+
+html body #StoreTemplate .SdFPqnbn0yI- ._7gYaw-JAHLI- .OEygWxUcrLo- a.S7h-nmAfrEM- {
+    color: var(--aika-accent-bright);
+}
+
+html body #StoreTemplate a.S-0da5Ll-j0- {
+    border-radius: var(--aika-radius-md);
+    background: var(--aika-surface);
+    color: var(--aika-fg);
+}
+
+html body #StoreTemplate a.S-0da5Ll-j0-:hover,
+html body #StoreTemplate a.S-0da5Ll-j0-.mNGHDmmBgX8- {
+    background: var(--aika-surface-hover);
+}
+
+/* Мега-меню нового движка — те же части, что у старого (см. выше), свои хэши:
+     button.EYF1OQwj3TE-.NmzlVu-XMK4- — открытая кнопка (голубой #51b6ff),
+       .IG5AcX8yPdI- — полоска под ней (#1a9fff);
+     .v3B63V0zBTo- .rGuH1gD4ryg- — затемнение страницы;
+     .q-DP3khZsgc- — колонка главных ссылок, .PSIUSUPanIQ- — разделитель,
+       .J2HcX9GsO0E- — подпись под пунктом; .cKXa1JcaxPQ- > div — заголовки колонок;
+     .aTVR03O9jUI- .Iu8tq8U-V3s- — крупные плитки (._08QPZ50-kEY- — белая
+       плашка, .uWLEkJZTDIY- — подпись, .LsUtid7lp2U- — мелкая подпись). */
+html body #StoreTemplate button.EYF1OQwj3TE-.NmzlVu-XMK4- {
+    color: var(--aika-fg);
+}
+
+html body #StoreTemplate button.EYF1OQwj3TE-.NmzlVu-XMK4- :is(.XjqMC1cYnuc-, svg, svg path) {
+    color: var(--aika-fg);
+    fill: currentColor;
+}
+
+html body #StoreTemplate .XjqMC1cYnuc- .SSKzoqpi1KQ- .IG5AcX8yPdI- {
+    background: var(--aika-accent);
+}
+
+html body #StoreTemplate .v3B63V0zBTo- .rGuH1gD4ryg-,
+html body #StoreTemplate .v3B63V0zBTo- .rGuH1gD4ryg-.NmzlVu-XMK4- {
+    background: var(--aika-scrim);
+}
+
+html body #StoreTemplate .q-DP3khZsgc- {
+    overflow: hidden;
+    border-radius: var(--aika-radius-lg);
+    background: var(--aika-card-accent-bg);
+    box-shadow: inset 0 0 0 var(--aika-hairline) var(--aika-border-accent);
+}
+
+html body #StoreTemplate .PSIUSUPanIQ- {
+    border-bottom-color: var(--aika-border);
+}
+
+html body #StoreTemplate .J2HcX9GsO0E- {
+    color: var(--aika-fg-subtle);
+}
+
+html body #StoreTemplate .cKXa1JcaxPQ- > div {
+    color: var(--aika-fg-subtle);
+    font-size: var(--aika-text-label);
+    letter-spacing: var(--aika-tracking-label);
+    text-transform: uppercase;
+}
+
+html body #StoreTemplate .aTVR03O9jUI- .Iu8tq8U-V3s-,
+html body #StoreTemplate .aTVR03O9jUI-.y6CSiIugo4o- .Iu8tq8U-V3s-,
+html body #StoreTemplate .aTVR03O9jUI-.hnaLLQmuzWk- .Iu8tq8U-V3s-:nth-child(n) {
+    border-radius: var(--aika-radius-lg);
+    background: var(--aika-card-accent-bg);
+    color: var(--aika-fg);
+    box-shadow:
+        inset 0 0 0 var(--aika-hairline) var(--aika-border-accent),
+        var(--aika-shadow-card);
+}
+
+html body #StoreTemplate .aTVR03O9jUI- .Iu8tq8U-V3s-:hover,
+html body #StoreTemplate .aTVR03O9jUI-.y6CSiIugo4o- .Iu8tq8U-V3s-:hover,
+html body #StoreTemplate .aTVR03O9jUI-.hnaLLQmuzWk- .Iu8tq8U-V3s-:nth-child(n):hover {
+    background: var(--aika-accent-soft);
+    color: var(--aika-fg);
+    box-shadow:
+        inset 0 0 0 var(--aika-hairline) var(--aika-border-accent),
+        var(--aika-shadow-card-hover);
+}
+
+html body #StoreTemplate .aTVR03O9jUI- .Iu8tq8U-V3s- ._08QPZ50-kEY- {
+    border-radius: var(--aika-radius-md);
+    background: var(--aika-accent-fill);
+    color: var(--aika-on-accent);
+    box-shadow: var(--aika-shadow-cta);
+}
+
+html body #StoreTemplate .aTVR03O9jUI- .Iu8tq8U-V3s- :is(span, .uWLEkJZTDIY-) {
+    color: inherit;
+}
+
+html body #StoreTemplate .aTVR03O9jUI- .Iu8tq8U-V3s- .LsUtid7lp2U- {
+    color: var(--aika-fg-subtle);
+}
+
+/* Счётчики в полосе меню (желаемое, корзина) */
+html body #StoreTemplate a.EYF1OQwj3TE- .oWSo9BvK7oY- {
+    color: var(--aika-fg-subtle);
+    font-family: var(--aika-font-mono);
+}
+
+/* Рамка аватара по умолчанию (серый градиент) */
+html body #StoreTemplate .jaUFLgHnJNs-.hMka8STEycI- {
+    overflow: hidden;
+    border-radius: var(--aika-radius-md);
+    background: var(--aika-bg-high);
+}
+
+/* Панель фильтров списка: поле поиска .QoJP0e0vzFA- (#34404d),
+   кнопки сортировки/вида .PzuczM6OUSY- (#3d4450), подписи .BKhk6CZ5ib0- */
+html body #StoreTemplate .DFhzzTUhoEs- .QoJP0e0vzFA- {
+    border: var(--aika-hairline) solid var(--aika-border-strong);
+    border-radius: var(--aika-radius-md);
+    background: var(--aika-bg-raised);
+    color: var(--aika-fg);
+    transition: box-shadow var(--aika-dur-fast) var(--aika-ease-hover);
+}
+
+html body #StoreTemplate .DFhzzTUhoEs- .QoJP0e0vzFA-:focus {
+    outline: none;
+    box-shadow: var(--aika-shadow-input-focus);
+}
+
+html body #StoreTemplate .PzuczM6OUSY- {
+    border-radius: var(--aika-radius-md);
+    background: var(--aika-surface);
+    color: var(--aika-fg);
+    box-shadow: var(--aika-shadow-secondary);
+}
+
+html body #StoreTemplate .PzuczM6OUSY-:hover {
+    background: var(--aika-surface-hover);
+    box-shadow: var(--aika-shadow-secondary-hover);
+}
+
+html body #StoreTemplate .BKhk6CZ5ib0-,
+html body #StoreTemplate .JmLh4Njn6Xg- {
+    color: var(--aika-fg-subtle);
+}
+
+/* Фильтры-чипы (.Vy3rNuKLunU-: рамка #485d77; .Nd9ijC9o-tY- — открыт,
+   ._8hEc07LCoLU- — выбран, голубой #89acd1; .EEBSJHM2XHw- — «×» #2c4562) */
+html body #StoreTemplate .Vy3rNuKLunU- {
+    border-color: var(--aika-border-strong);
+    border-radius: var(--aika-radius-full);
+    color: var(--aika-fg-muted);
+}
+
+html body #StoreTemplate .Vy3rNuKLunU-:hover,
+html body #StoreTemplate .Vy3rNuKLunU-.Nd9ijC9o-tY- {
+    background-color: var(--aika-surface-hover);
+    color: var(--aika-fg);
+}
+
+html body #StoreTemplate .Vy3rNuKLunU- svg,
+html body #StoreTemplate .Vy3rNuKLunU-.hVIpsPsRhsA- svg {
+    fill: currentColor;
+}
+
+html body #StoreTemplate .Vy3rNuKLunU-._8hEc07LCoLU-,
+html body #StoreTemplate .Vy3rNuKLunU-._8hEc07LCoLU-:hover {
+    border-color: var(--aika-border-accent);
+    background-color: var(--aika-accent-soft);
+    color: var(--aika-accent-bright);
+}
+
+html body #StoreTemplate .EEBSJHM2XHw- {
+    border-radius: var(--aika-radius-full);
+    background: var(--aika-surface-active);
+}
+
+/* Строка игры (.PE-3oq-yIvg-: тёмно-синий диагональный градиент, текст
+   #9dacbc; ._59yvzd7T13A- — недоступна; ._9KYdPze1X3k- — обложка;
+   .I8vuMMV-osE- — название) */
+html body #StoreTemplate .PE-3oq-yIvg- {
+    border-color: var(--aika-border);
+    border-radius: var(--aika-radius-lg);
+    background: var(--aika-card-bg);
+    color: var(--aika-fg-muted);
+    box-shadow: var(--aika-shadow-card);
+}
+
+html body #StoreTemplate .PE-3oq-yIvg-._59yvzd7T13A- {
+    background: var(--aika-surface);
+}
+
+html body #StoreTemplate .PE-3oq-yIvg- ._9KYdPze1X3k- {
+    overflow: hidden;
+    border-radius: var(--aika-radius-md);
+}
+
+html body #StoreTemplate .PE-3oq-yIvg- .I8vuMMV-osE- {
+    color: var(--aika-fg);
+}
+
+/* Метки-жанры в строке (.U3ndjc3qoW8-: #2c4562; .-bFWpSZUw-0- — совпала
+   с фильтром, голубая) */
+html body #StoreTemplate .U3ndjc3qoW8- {
+    border-radius: var(--aika-radius-full);
+    background: var(--aika-surface-active);
+    color: var(--aika-fg-muted);
+}
+
+html body #StoreTemplate .U3ndjc3qoW8-:hover {
+    background: var(--aika-surface-hover);
+    color: var(--aika-fg);
+}
+
+html body #StoreTemplate .U3ndjc3qoW8-.-bFWpSZUw-0-,
+html body #StoreTemplate .U3ndjc3qoW8-.-bFWpSZUw-0-:hover {
+    background-color: var(--aika-accent-soft);
+    color: var(--aika-accent-bright);
+}
+
+/* Оценка обзоров: положительные (#66c0f4) — акцент, смешанные (#b9a074) — warn */
+html body #StoreTemplate ._0uIJq8Pia8Q-.ojEsJSejN5U- {
+    color: var(--aika-accent-bright);
+}
+
+html body #StoreTemplate ._0uIJq8Pia8Q-.ffvyer-fyXc- {
+    color: var(--aika-warn);
+}
+
+/* Плашки «В библиотеке» и т. п. (.u-paMv-Fe0U-, #1a9fff) */
+html body #StoreTemplate .u-paMv-Fe0U- :is(.O7UR3Sc3EmM-, .kkZ9PsIE60o-) {
+    border-radius: var(--aika-radius-xs);
+    background-color: var(--aika-accent-fill);
+    color: var(--aika-on-accent);
+    font-family: var(--aika-font-mono);
+}
+
+/* Всплывающая подсказка (.m0FGLQCyzgQ- .oQJ4ZJN3E6g-: светло-серый
+   радиальный градиент, тёмный текст) — тултип Aika */
+html body #StoreTemplate .m0FGLQCyzgQ- .oQJ4ZJN3E6g-,
+html body:has(> #StoreTemplate) .m0FGLQCyzgQ- .oQJ4ZJN3E6g- {
+    border-radius: var(--aika-radius-md);
+    background: var(--aika-surface-translucent);
+    color: var(--aika-fg);
+    text-shadow: none;
+    box-shadow: var(--aika-shadow-menu);
+}
+
+/* Всплывающие панели (popover, .h2hJmhz41JY-; фон и тень — переменные
+   --popover-*, см. store.css). Панель «Параметры» списка (.IShbIXSFzbI-):
+   заголовки h3 — синие капсом, радио/флажки — системные. */
+html body:has(> #StoreTemplate) .h2hJmhz41JY- {
+    border-radius: var(--aika-radius-lg);
+}
+
+html body:has(> #StoreTemplate) .IShbIXSFzbI- h3 {
+    color: var(--aika-fg-subtle);
+    font-size: var(--aika-text-label);
+    letter-spacing: var(--aika-tracking-label);
+}
+
+html body:has(> #StoreTemplate) .IShbIXSFzbI- label {
+    color: var(--aika-fg-muted);
+}
+
+html body:has(> #StoreTemplate) .IShbIXSFzbI- input {
+    accent-color: var(--aika-accent);
+}
+
+/* Синяя кнопка-градиент нового движка (.oS2hPC3gY6k- > span) — primary Aika */
+html body:has(> #StoreTemplate) .oS2hPC3gY6k- {
+    border-radius: var(--aika-radius-md);
+    color: var(--aika-on-accent);
+    text-shadow: none;
+}
+
+html body:has(> #StoreTemplate) .oS2hPC3gY6k- > span {
+    border-radius: var(--aika-radius-md);
+    background: var(--aika-accent-fill);
+    box-shadow: var(--aika-shadow-cta);
+}
+
+html body:has(> #StoreTemplate) .oS2hPC3gY6k-:hover > span {
+    background: var(--aika-accent-fill-hover);
+    box-shadow: var(--aika-shadow-cta-hover);
+}
+
+/* Блок покупки в строке (._6QzykeEsckc-: чёрный 20 %, цена + «В корзину») */
+html body #StoreTemplate .PE-3oq-yIvg- ._6QzykeEsckc- {
+    border-radius: var(--aika-radius-md);
+    background: var(--aika-surface);
+}
+
+/* «Удалить» (button > svg + span.MqFcMoKfvAw-, текст #9dacbc) */
+html body #StoreTemplate .PE-3oq-yIvg- button:has(> .MqFcMoKfvAw-) {
+    color: var(--aika-fg-subtle);
+    transition: color var(--aika-dur-fast) var(--aika-ease-hover);
+}
+
+html body #StoreTemplate .PE-3oq-yIvg- button:has(> .MqFcMoKfvAw-):hover {
+    color: var(--aika-fg);
+}
+
+html body #StoreTemplate .PE-3oq-yIvg- button:has(> .MqFcMoKfvAw-) .MqFcMoKfvAw- {
+    color: inherit;
+}
+
+/* «Удалить» — красный значок Steam: live Aika */
+html body #StoreTemplate .PE-3oq-yIvg- button:has(> .MqFcMoKfvAw-) svg,
+html body #StoreTemplate .PE-3oq-yIvg- button:has(> .MqFcMoKfvAw-) svg * {
+    fill: var(--aika-live);
+}
+
+/* Цена: блок скидки .rsMD9WnTopA- (салатовый на зелёном 50 %),
+   старая цена .T6YQ-V5Z-WM- > div (#738895); кнопка «В корзину» —
+   .E4PXslhR-fI- > button > span (зелёный градиент) */
+html body #StoreTemplate .Cj7J5QHbL-0- {
+    overflow: hidden;
+    border-radius: var(--aika-radius-md);
+    background: var(--aika-bg-raised);
+    color: var(--aika-fg);
+    font-family: var(--aika-font-mono);
+}
+
+html body #StoreTemplate .rsMD9WnTopA-,
+html body #StoreTemplate .rsMD9WnTopA-.OaA5Hz-VGBw- {
+    background: var(--aika-ok);
+    color: var(--aika-bg-deep);
+}
+
+html body #StoreTemplate .rsMD9WnTopA- .hPiY1A-1izA- {
+    color: inherit;
+    font-weight: var(--aika-weight-semibold);
+}
+
+html body #StoreTemplate .T6YQ-V5Z-WM- > div:first-child:not(:last-child) {
+    color: var(--aika-fg-subtle);
+}
+
+html body #StoreTemplate .E4PXslhR-fI- > button,
+html body #StoreTemplate .E4PXslhR-fI- > button > span {
+    border-radius: var(--aika-radius-md);
+}
+
+html body #StoreTemplate .E4PXslhR-fI- > button > span {
+    background: var(--aika-accent-fill);
+    color: var(--aika-on-accent);
+    box-shadow: var(--aika-shadow-cta);
+    transition:
+        background-color var(--aika-dur-fast) var(--aika-ease-hover),
+        box-shadow var(--aika-dur-base) var(--aika-ease);
+}
+
+html body #StoreTemplate .E4PXslhR-fI- > button:hover > span {
+    background: var(--aika-accent-fill-hover);
+    color: var(--aika-on-accent);
+    box-shadow: var(--aika-shadow-cta-hover);
+}
+
 /* [Магазин] Ползунок прокрутки каруселей (.PQzkJfi8IxzjcFEDG-yv-, белый 35 %)
    внутри ._3SyN-YtXsML6ado0q-Gdve .EMd4F6A8qdMk-l6os415A.
    Проверено: 2026-10-04, магазин (ELDEN RING), правило Steam (0,2,0). */
