@@ -1498,3 +1498,115 @@ html body.v6 .gamehighlight_desktopcarousel ._2zDVM8AJTzHysTViti1Kot,
 html body.v6 .gamehighlight_desktopcarousel ._2zDVM8AJTzHysTViti1Kot .ArOIQvgR0PkwzfWGlNoj5 {
     color: var(--aika-fg);
 }
+
+/* ==========================================================================
+   [Магазин] Общий React-диалог (напр. «Добавлено в корзину!»): dialog
+   ._1mPKxUDAZ01x-i7612JIsL (тень, ::backdrop чёрный 80 %) > ._79d7mzfWutbJb1DCbh1Du
+   (тело: #25282e с серым светом, ::before — сине-голубая линия сверху),
+   шапка ._1w-TUMWBEOX_zsSa-BBhK8 (заголовок ._2tpBIlq2yGQqKcloht-UiJ,
+   крестик .RC4JznqJb34yCm04FKk0I). Кнопки диалогов: ._15dbpkIdbzeDJlZYQEhn1d >
+   span — вторичная (#32363f), ._14GZWzJgooP0mbfTvEQnjA > span — основная
+   (сине-голубой градиент), ._23fSnYfnMQqkgm3ROkJhrO — та же база.
+   Проверено: 2026-10-04, ELDEN RING → «В корзину». Сила Steam (0,1,0)…(0,2,0).
+   ========================================================================== */
+html body.v6 dialog._1mPKxUDAZ01x-i7612JIsL {
+    overflow: hidden;
+    border-radius: var(--aika-radius-xl);
+    color: var(--aika-fg-muted);
+    box-shadow: var(--aika-shadow-menu);
+}
+
+html body.v6 dialog._1mPKxUDAZ01x-i7612JIsL::backdrop {
+    background: var(--aika-scrim);
+}
+
+html body.v6 dialog._1mPKxUDAZ01x-i7612JIsL ._79d7mzfWutbJb1DCbh1Du {
+    background: var(--aika-bg-elevated);
+}
+
+html body.v6 dialog._1mPKxUDAZ01x-i7612JIsL ._79d7mzfWutbJb1DCbh1Du::before {
+    background: var(--aika-progress-fill);
+}
+
+html body.v6 ._1w-TUMWBEOX_zsSa-BBhK8 ._2tpBIlq2yGQqKcloht-UiJ {
+    color: var(--aika-fg);
+}
+
+html body.v6 ._1w-TUMWBEOX_zsSa-BBhK8 .RC4JznqJb34yCm04FKk0I {
+    border-radius: var(--aika-radius-md);
+    color: var(--aika-fg-muted);
+}
+
+html body.v6 ._1w-TUMWBEOX_zsSa-BBhK8 .RC4JznqJb34yCm04FKk0I:hover {
+    background: var(--aika-surface-hover);
+    color: var(--aika-fg);
+}
+
+html body.v6 :is(._23fSnYfnMQqkgm3ROkJhrO, ._15dbpkIdbzeDJlZYQEhn1d, ._14GZWzJgooP0mbfTvEQnjA),
+html body.v6 :is(._23fSnYfnMQqkgm3ROkJhrO, ._15dbpkIdbzeDJlZYQEhn1d, ._14GZWzJgooP0mbfTvEQnjA) > span {
+    border-radius: var(--aika-radius-md);
+    text-shadow: none;
+}
+
+html body.v6 ._15dbpkIdbzeDJlZYQEhn1d {
+    color: var(--aika-fg);
+}
+
+html body.v6 ._15dbpkIdbzeDJlZYQEhn1d > span {
+    background: var(--aika-surface);
+    box-shadow: var(--aika-shadow-secondary);
+}
+
+html body.v6 ._15dbpkIdbzeDJlZYQEhn1d:hover > span {
+    background: var(--aika-surface-hover);
+    color: var(--aika-fg);
+    box-shadow: var(--aika-shadow-secondary-hover);
+}
+
+html body.v6 ._14GZWzJgooP0mbfTvEQnjA,
+html body.v6 ._14GZWzJgooP0mbfTvEQnjA:hover {
+    color: var(--aika-on-accent);
+}
+
+html body.v6 ._14GZWzJgooP0mbfTvEQnjA > span {
+    background: var(--aika-accent-fill);
+    box-shadow: var(--aika-shadow-cta);
+}
+
+html body.v6 ._14GZWzJgooP0mbfTvEQnjA:hover > span {
+    background: var(--aika-accent-fill-hover);
+    box-shadow: var(--aika-shadow-cta-hover);
+}
+
+/* Товар в диалоге / корзине: подписи платформ и пометки (.ysGS-IPPWEkwN-O5rr-0V,
+   #606f7f), значок Windows (#7c8289), название (.EflKs0JjldhDSxbUBaiOp, белое) */
+html body.v6 .ysGS-IPPWEkwN-O5rr-0V,
+html body.v6 .ysGS-IPPWEkwN-O5rr-0V > div {
+    color: var(--aika-fg-subtle);
+}
+
+html body.v6 .HhD4RK0A4phOlAwZQDckk svg,
+html body.v6 .HhD4RK0A4phOlAwZQDckk svg * {
+    fill: var(--aika-fg-subtle);
+}
+
+html body.v6 .EflKs0JjldhDSxbUBaiOp {
+    color: var(--aika-fg);
+}
+
+/* [Магазин] Корзина с товарами: «Удалить все товары» (._12zYFuKO2U-1QfeVxlGfwF,
+   #606f7f), блок «Подписаться на создателей» (._2HG7VOroS8aHSg-W3fPyTt —
+   радиальный сине-серый свет). Проверено: 2026-10-04, ELDEN RING в корзине. */
+html body.v6 ._12zYFuKO2U-1QfeVxlGfwF {
+    color: var(--aika-fg-subtle);
+}
+
+html body.v6 ._12zYFuKO2U-1QfeVxlGfwF:hover {
+    color: var(--aika-fg);
+}
+
+html body.v6 ._2HG7VOroS8aHSg-W3fPyTt {
+    border-radius: var(--aika-radius-lg);
+    background: var(--aika-card-accent-bg);
+    box-shadow: inset 0 0 0 var(--aika-hairline) var(--aika-border-accent);
+}

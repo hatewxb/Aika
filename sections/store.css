@@ -1805,3 +1805,38 @@ html body.v6 #gameHeaderImageCtn img.game_header_image_full {
     border-radius: var(--aika-radius-lg);
     box-shadow: var(--aika-shadow-card);
 }
+
+/* --------------------------------------------------------------------------
+   Корзина с товарами (2026-10-04): кнопка «Корзина N» в меню магазина
+   (a[href*="/cart"], у Steam #1a9fff, когда в корзине что-то есть) —
+   акцент; «Подписаться» (FollowButton, #54a5d4) везде — вторичная Aika
+   -------------------------------------------------------------------------- */
+
+html body.v6 [data-featuretarget="store-menu-v7"] a[href*="/cart"] {
+    border-radius: var(--aika-radius-md);
+    background: var(--aika-accent-fill);
+    color: var(--aika-on-accent);
+    box-shadow: var(--aika-shadow-cta);
+}
+
+html body.v6 [data-featuretarget="store-menu-v7"] a[href*="/cart"]:hover {
+    background: var(--aika-accent-fill-hover);
+    color: var(--aika-on-accent);
+}
+
+html body.v6 .FollowButton {
+    border-radius: var(--aika-radius-md);
+    background: var(--aika-surface);
+    color: var(--aika-fg);
+    box-shadow: var(--aika-shadow-secondary);
+}
+
+html body.v6 .FollowButton:hover {
+    background: var(--aika-surface-hover);
+    color: var(--aika-fg);
+    box-shadow: var(--aika-shadow-secondary-hover);
+}
+
+html body.v6 .FollowButton .FollowBtnText {
+    color: inherit;
+}
