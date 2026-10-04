@@ -84,3 +84,38 @@ html .AppDetailsSection:not(:has(> h2.SectionHeader)) > .AppDetailsSectionContai
 html .AppDetailsSection:not(:has(> h2.SectionHeader)) {
     box-shadow: none;
 }
+
+/* --------------------------------------------------------------------------
+   Появление панелей страницы игры со stagger (DESIGN.md §8, Entrance):
+   fade up + лёгкий scale, соседние блоки — с задержкой --aika-stagger.
+   Чистый CSS: анимация срабатывает, когда Steam вставляет блок в DOM
+   (при открытии страницы игры); панели не виртуализированы и Steam не
+   двигает их transform'ом — конфликта нет (проверено 2026-10-04).
+   Задержка — по позиции блока в своей колонке (до 6-го, дальше — как 6-й).
+   Колонки сняты на PEAK: .RightColumn / .LeftColumn > .SeekTarget > панель.
+   -------------------------------------------------------------------------- */
+
+@keyframes aika-panel-appear {
+    from {
+        opacity: 0;
+        transform: translateY(var(--aika-appear-shift)) scale(var(--aika-appear-scale));
+    }
+}
+
+html .AppDetailsSection {
+    animation: aika-panel-appear var(--aika-dur-enter) var(--aika-ease) both;
+}
+
+/* Каждая панель — в своей обёртке .SeekTarget внутри .RightColumn /
+   .LeftColumn: позиция — у обёртки */
+html :is(.RightColumn, .LeftColumn) > .SeekTarget:nth-child(2) > .AppDetailsSection { animation-delay: calc(var(--aika-stagger) * 1); }
+html :is(.RightColumn, .LeftColumn) > .SeekTarget:nth-child(3) > .AppDetailsSection { animation-delay: calc(var(--aika-stagger) * 2); }
+html :is(.RightColumn, .LeftColumn) > .SeekTarget:nth-child(4) > .AppDetailsSection { animation-delay: calc(var(--aika-stagger) * 3); }
+html :is(.RightColumn, .LeftColumn) > .SeekTarget:nth-child(5) > .AppDetailsSection { animation-delay: calc(var(--aika-stagger) * 4); }
+html :is(.RightColumn, .LeftColumn) > .SeekTarget:nth-child(n + 6) > .AppDetailsSection { animation-delay: calc(var(--aika-stagger) * 5); }
+
+@media (prefers-reduced-motion: reduce) {
+    html .AppDetailsSection {
+        animation: none;
+    }
+}
