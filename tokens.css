@@ -167,7 +167,10 @@
        в токене :root вычислился бы один раз и не видел значений элемента. */
     --aika-spot-x: 50%;
     --aika-spot-y: 0%;
-    --aika-spot-size: 300px;
+    /* Радиус свечения за курсором — ползунок «Радиус свечения» в настройках
+       темы («Расширенное», Millennium выставляет --aika-setting-spot-size);
+       по умолчанию небольшой (правка автора 2026-10-05: «еле видимым») */
+    --aika-spot-size: var(--aika-setting-spot-size, 160px);
 
     /* Shine: косая светлая полоса, пробегает по CTA на hover */
     --aika-shine-gradient: linear-gradient(

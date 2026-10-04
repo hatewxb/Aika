@@ -83,7 +83,7 @@ html:root {
     --aika-accent-ring: rgb(from var(--aika-accent) r g b / 0.5);     /* фокус, обводка CTA */
     --aika-accent-haze: rgb(from var(--aika-accent) r g b / 0.10);    /* дальнее свечение на hover */
     --aika-border-accent: rgb(from var(--aika-accent) r g b / 0.32);
-    --aika-accent-spot: rgb(from var(--aika-accent) r g b / 0.15);    /* spotlight карточек */
+    --aika-accent-spot: rgb(from var(--aika-accent) r g b / 0.06);    /* spotlight: еле заметно (2026-10-05) */
     --aika-accent-tint: rgb(from var(--aika-accent) r g b / 0.08);    /* фон карточки accent */
     --aika-accent-none: rgb(from var(--aika-accent) r g b / 0);       /* конец градиентов акцента */
     /* Сплошные тёмные ступени акцента (акцент, подмешанный в холст) —

@@ -1,0 +1,11 @@
+/* ==========================================================================
+   «Свечение за курсором: нет» (настройки темы → «Расширенное»).
+   Убирает слой свечения (::after) с крупных блоков клиента
+   (components/card.css). js/spotlight.js при этом лишь пишет координаты —
+   без слоя они ни на что не влияют.
+   ========================================================================== */
+
+html :is(.AppDetailsSection, .PartnerEventRowCapsule_Container.HoversEnabled, .CSSGrid.Grid .Collection)::after,
+html .aika-card::before {
+    display: none;
+}

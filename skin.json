@@ -40,6 +40,29 @@
                     "TargetCss": { "affects": [".*"], "src": "options/colors-manual.css" }
                 }
             }
+        },
+        "Свечение за курсором": {
+            "description": "Мягкое свечение акцента под курсором на крупных блоках библиотеки (панели страницы игры, «Что нового», коллекции).",
+            "tab": "Расширенное",
+            "default": "yes",
+            "values": {
+                "yes": {},
+                "no": {
+                    "TargetCss": { "affects": ["^Steam$"], "src": "options/spotlight-off.css" }
+                }
+            }
+        },
+        "Радиус свечения": {
+            "description": "Размер свечения за курсором, в пикселях.",
+            "tab": "Расширенное",
+            "default": 160,
+            "slider": {
+                "cssVariable": "--aika-setting-spot-size",
+                "min": 60,
+                "max": 400,
+                "step": 20,
+                "unit": "px"
+            }
         }
     },
 
