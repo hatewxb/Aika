@@ -1641,3 +1641,42 @@ html ._1HjkZ3ooQw-4TV518YPtvp {
 html ._2s393FLIe2l5quVJHoS53K {
     color: var(--aika-fg-subtle);
 }
+
+/* ==========================================================================
+   [Шапка окна] Кнопки справа в заголовке: семейный просмотр
+   (.ParentalToggleButton), новости (.AnnouncementsButton), уведомления
+   (.NotificationsButton). Состояния — хэш-модификаторы (правка автора
+   2026-10-05: «активный — акцентом, иначе как сейчас»):
+     ._13vrqU6oOqmmxrsZSW5O39._2lStU4uLIW5pByb98vQdpO — семейный: открыт (зелёный #5c7e10);
+     ._3arz-hc3FJ0QKXLPRUSaah:not(._2lStU…) — заблокирован (красный #9a3130);
+     ._5wILZhsLODVwGfcJ0hKmJ._1oEwirQksXfZ-3RWWslbAR — есть новости (синий #1999ff);
+     .RtSv39ZoBOySnb8XQ5hJf._3L1c8C0o_xXzPy26aoLBFd — есть уведомления (зелёный).
+   Значок — ._34bQcTHo5QKzuujoEyU1tm (color). Сила Steam до (0,4,0) с :not/:hover.
+   Проверено: 2026-10-05 по правилам Steam (вживую — нейтральные состояния).
+   ========================================================================== */
+html .TitleBar .Button.ParentalToggleButton._13vrqU6oOqmmxrsZSW5O39._2lStU4uLIW5pByb98vQdpO,
+html .TitleBar .Button.ParentalToggleButton._13vrqU6oOqmmxrsZSW5O39._2lStU4uLIW5pByb98vQdpO:hover,
+html .TitleBar .Button.AnnouncementsButton._5wILZhsLODVwGfcJ0hKmJ._1oEwirQksXfZ-3RWWslbAR,
+html .TitleBar .Button.AnnouncementsButton._5wILZhsLODVwGfcJ0hKmJ._1oEwirQksXfZ-3RWWslbAR:hover,
+html .TitleBar .Button.NotificationsButton.RtSv39ZoBOySnb8XQ5hJf._3L1c8C0o_xXzPy26aoLBFd,
+html .TitleBar .Button.NotificationsButton.RtSv39ZoBOySnb8XQ5hJf._3L1c8C0o_xXzPy26aoLBFd:not(._1QQWjaXmb1eTHZpeIhQA_5):hover {
+    background-color: var(--aika-accent-fill);
+    color: var(--aika-on-accent);
+    box-shadow: 0 0 var(--aika-space-2) var(--aika-accent-glow);
+}
+
+html .TitleBar .Button:is(.ParentalToggleButton._2lStU4uLIW5pByb98vQdpO, .AnnouncementsButton._1oEwirQksXfZ-3RWWslbAR, .NotificationsButton._3L1c8C0o_xXzPy26aoLBFd) ._34bQcTHo5QKzuujoEyU1tm {
+    color: var(--aika-on-accent);
+}
+
+/* Семейный просмотр заблокирован — акцентная обводка (у Steam красная заливка) */
+html .TitleBar .Button.ParentalToggleButton._3arz-hc3FJ0QKXLPRUSaah:not(._2lStU4uLIW5pByb98vQdpO),
+html .TitleBar .Button.ParentalToggleButton._3arz-hc3FJ0QKXLPRUSaah:not(._2lStU4uLIW5pByb98vQdpO):hover {
+    background-color: var(--aika-accent-soft);
+    color: var(--aika-accent-bright);
+    box-shadow: inset 0 0 0 var(--aika-hairline) var(--aika-border-accent);
+}
+
+html .TitleBar .Button.ParentalToggleButton._3arz-hc3FJ0QKXLPRUSaah:not(._2lStU4uLIW5pByb98vQdpO) ._34bQcTHo5QKzuujoEyU1tm {
+    color: var(--aika-accent-bright);
+}
