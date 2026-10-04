@@ -25,6 +25,7 @@
 @import url("./components/nav.css");
 @import url("./components/menu.css");
 @import url("./components/progress.css");
+@import url("./components/window.css");
 
 /* 3. Разделы клиента (стабильные селекторы) */
 @import url("./sections/library.css");

@@ -1,0 +1,118 @@
+/* ==========================================================================
+   components/window.css — шапка окна: кнопки окна и меню слева.
+
+   Кнопки окна (сняты через CDP 2026-10-04), во всех окнах клиента:
+     .TitleBar .title-bar-actions.window-controls
+       .title-area-icon.windowControlButton.minimizeButton
+                                         .maximizeButton / .restoreButton
+                                         .closeButton
+         > .title-area-icon-inner > svg (SVGIcon_Minimize / _Maximize /
+           _Restore / _X_Line)
+   Steam: квадраты 32×32, жирные глифы, hover #3d4450, «закрыть» #e22a27;
+   правила до (0,4,0). Делаем как в Windows 11: кнопки 46×32, тонкие
+   глифы 10×10 (свои SVG масками, svg Steam прячем), мягкий hover
+   поверхности, «закрыть» — красный Windows 11.
+
+   Меню слева (.RootMenuBar): «Steam» → «Aika» (просьба автора 2026-10-04,
+   DESIGN.md §11; текст Steam прячем font-size: 0, своё — ::after),
+   остальные пункты («Вид», «Друзья», «Игры», «Справка») — моно.
+   ========================================================================== */
+
+/* --------------------------------------------------------------------------
+   Кнопки окна
+   -------------------------------------------------------------------------- */
+
+/* Место под три кнопки: Steam держит блок 99 px (хэш (0,2,0)), а наши
+   кнопки шире — иначе они наезжали на кнопки шапки слева */
+html .TitleBar > .WindowControls {
+    flex-basis: calc(var(--aika-window-button-width) * 3);
+}
+
+html .TitleBar .title-bar-actions .title-area-icon.windowControlButton {
+    width: var(--aika-window-button-width);
+    height: var(--aika-window-button-height);
+    color: var(--aika-fg-muted);
+    background: var(--aika-transparent);
+    transition:
+        background-color var(--aika-dur-fast) var(--aika-ease-hover),
+        color var(--aika-dur-fast) var(--aika-ease-hover);
+}
+
+html .TitleBar .title-bar-actions .title-area-icon.windowControlButton:hover {
+    background: var(--aika-surface-hover);
+    color: var(--aika-fg);
+}
+
+html .TitleBar .title-bar-actions .title-area-icon.windowControlButton:active {
+    background: var(--aika-surface-active);
+}
+
+html .TitleBar .title-bar-actions .title-area-icon.windowControlButton.closeButton:hover {
+    background: var(--aika-close-hover);
+    color: var(--aika-on-accent);
+}
+
+/* Глифы Steam прячем, рисуем свои */
+html .TitleBar .title-bar-actions .windowControlButton .title-area-icon-inner svg {
+    display: none;
+}
+
+html .TitleBar .title-bar-actions .windowControlButton .title-area-icon-inner::before {
+    content: "";
+    width: var(--aika-window-icon-size);
+    height: var(--aika-window-icon-size);
+    background-color: currentColor;
+    -webkit-mask: var(--aika-icon-win-maximize) center / contain no-repeat;
+    mask: var(--aika-icon-win-maximize) center / contain no-repeat;
+}
+
+html .TitleBar .title-bar-actions .minimizeButton .title-area-icon-inner::before {
+    -webkit-mask-image: var(--aika-icon-win-minimize);
+    mask-image: var(--aika-icon-win-minimize);
+}
+
+html .TitleBar .title-bar-actions .restoreButton .title-area-icon-inner::before,
+html .TitleBar .title-bar-actions .windowControlButton:has(svg.SVGIcon_Restore) .title-area-icon-inner::before {
+    -webkit-mask-image: var(--aika-icon-win-restore);
+    mask-image: var(--aika-icon-win-restore);
+}
+
+html .TitleBar .title-bar-actions .closeButton .title-area-icon-inner::before {
+    -webkit-mask-image: var(--aika-icon-win-close);
+    mask-image: var(--aika-icon-win-close);
+}
+
+/* Голубая полоса-подсветка над кнопками (у Steam opacity 0, но на всякий) */
+html .TitleBar .title-area-highlight {
+    background: var(--aika-transparent);
+}
+
+/* --------------------------------------------------------------------------
+   Меню слева: «Aika» вместо «Steam», остальные пункты — моно
+   -------------------------------------------------------------------------- */
+
+html .RootMenuBar .RootMenuButton .SteamButton {
+    font-size: 0;
+}
+
+html .RootMenuBar .RootMenuButton .SteamButton svg.Logo {
+    display: none;
+}
+
+html .RootMenuBar .RootMenuButton .SteamButton::after {
+    content: "Aika";
+    background: linear-gradient(to right, var(--aika-fg), var(--aika-accent-bright));
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: var(--aika-transparent);
+    font-family: var(--aika-font-display);
+    font-size: var(--aika-text-h3);
+    font-weight: var(--aika-weight-semibold);
+    letter-spacing: var(--aika-tracking-h2);
+}
+
+html .RootMenuBar .RootMenuButton:not(:has(.SteamButton)) > div {
+    font-family: var(--aika-font-mono);
+    font-size: var(--aika-text-meta);
+    letter-spacing: normal;
+}

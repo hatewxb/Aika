@@ -160,3 +160,19 @@ html .LabelHolder.ingame .statusAndName .SnoozeContainer .SnoozeZ {
     fill: var(--aika-ok);
     color: var(--aika-ok);
 }
+
+/* «в игре …» / «был в сети» под ником друга не в сети: серый #6e6e6e (0,2,0) */
+html .LabelHolder.offline .richPresenceContainer .richPresenceLabel {
+    color: var(--aika-fg-subtle);
+}
+
+/* Полоска статуса справа/снизу у аватара (.avatarHolder .avatarStatus):
+   у Steam голубой / салатовый градиент «в сети» / «в игре» (0,2,0).
+   Смысл тот же: в сети — акцент, в игре — ok. */
+html .avatarHolder.online .avatarStatus {
+    background: var(--aika-accent-bright);
+}
+
+html .avatarHolder.ingame .avatarStatus {
+    background: var(--aika-ok);
+}

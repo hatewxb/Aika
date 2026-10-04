@@ -645,6 +645,9 @@ html .ActivityFeedContainer .PartnerEvent .PartnerEventTextOnly_Icon svg path {
 /* Кнопка «Показать больше» внизу ленты — во всю ширину */
 html .ActivityFeedContainer .Body.InnerContainer > button.FetchMoreContainer {
     align-self: stretch;
+    /* Steam «.ActivityFeedContainer-хэш .кнопка» (0,2,0): радиус 2 px и серо-синий фон */
+    border-radius: var(--aika-radius-md);
+    color: var(--aika-fg-muted);
 }
 
 /* Мелкие иконки достижений и «+N» в блоке достижений */
@@ -1140,4 +1143,162 @@ html .Event .EventHeadline .SpanEvent .HeadlineGameName {
    Золотое свечение редких (.IconGlow) — знак редкости, не трогаем. */
 html .AchievementHoverContainer .AchievementIconWrapper img.Icon:not(.IconGlow) {
     box-shadow: var(--aika-shadow-cover);
+}
+
+/* --------------------------------------------------------------------------
+   «Крупное обновление» в ленте (.Event.PartnerEventLargeUpdate >
+   .MajorUpdateContentContainer): голубая полоса слева
+   (.LeftSideMajorUpdateBar, торчит за край карточки), серая радиальная
+   подсветка, голубой тип события. Хэши (0,1,0), hover — (0,2,0).
+   Делаем акцентной карточкой: это главное событие ленты.
+   -------------------------------------------------------------------------- */
+
+html .ActivityFeedContainer .PartnerEventLargeUpdate.PartnerEventLargeUpdate {
+    border-radius: var(--aika-radius-lg);
+    background: var(--aika-transparent);
+    box-shadow: none;
+}
+
+html .PartnerEventLargeUpdate .MajorUpdateContentContainer .LeftSideMajorUpdateBar {
+    border-radius: var(--aika-radius-lg) 0 0 var(--aika-radius-lg);
+    background: linear-gradient(to right, var(--aika-accent-none), var(--aika-accent-soft));
+}
+
+html .PartnerEventLargeUpdate .MajorUpdateContentContainer .PartnerEventLargeImage_Container {
+    overflow: hidden;
+    border: var(--aika-hairline) solid var(--aika-border-accent);
+    border-radius: var(--aika-radius-lg);
+    background: var(--aika-card-accent-bg);
+    box-shadow: var(--aika-highlight-top);
+    transition:
+        border-color var(--aika-dur-fast) var(--aika-ease-hover),
+        box-shadow var(--aika-dur-base) var(--aika-ease);
+}
+
+html .PartnerEventLargeUpdate .MajorUpdateContentContainer .PartnerEventLargeImage_Container:hover {
+    border-color: var(--aika-accent-ring);
+    background: var(--aika-card-accent-bg);
+    box-shadow: var(--aika-highlight-top), 0 0 20px var(--aika-accent-haze);
+}
+
+html .PartnerEventLargeUpdate .PartnerEventLargeImage_Contents .ImageContainer img.PartnerEventLargeImage_Image {
+    border-radius: var(--aika-radius-md);
+}
+
+html .PartnerEventLargeUpdate .PartnerEventLargeImage_TextColumn .PartnerEventType.PartnerEventTypeUpdate {
+    color: var(--aika-accent-bright);
+    font-family: var(--aika-font-mono);
+    font-size: var(--aika-text-label);
+    letter-spacing: var(--aika-tracking-label);
+}
+
+html .PartnerEventLargeUpdate .PartnerEventLargeImage_TextColumn .PartnerEventLargeImage_Title,
+html .PartnerEventLargeUpdate .PartnerEventLargeImage_Container:hover .PartnerEventLargeImage_TextColumn .PartnerEventLargeImage_Title {
+    color: var(--aika-fg);
+}
+
+html .PartnerEventLargeUpdate .PartnerEventLargeImage_TextColumn .PartnerEventLargeImage_Summary {
+    color: var(--aika-fg-muted);
+}
+
+/* --------------------------------------------------------------------------
+   Скрытые достижения («?» вместо иконки, .HiddenLabel) и строка «+N других»
+   (.Featured.RemainderContainer) в ленте и блоке достижений. Steam: серая
+   градиентная плитка без скругления, белёсые подписи, хэши (0,1,0)…(0,3,0).
+   -------------------------------------------------------------------------- */
+
+html .AchievementHoverContainer .HiddenLabel {
+    border-radius: var(--aika-radius-md);
+    background: var(--aika-bg-raised);
+    box-shadow: inset 0 0 0 var(--aika-hairline) var(--aika-border-accent);
+    color: var(--aika-accent-bright);
+    font-family: var(--aika-font-mono);
+}
+
+html .Featured.RemainderContainer .TextSection .Name {
+    color: var(--aika-fg);
+}
+
+html .Featured.RemainderContainer .TextSection .Desc {
+    color: var(--aika-fg-muted);
+}
+
+html .Featured.RemainderContainer .Remainder .AchievementRemainder {
+    border-radius: var(--aika-radius-md);
+}
+
+html .Featured.RemainderContainer .Remainder .RemainderText {
+    color: var(--aika-fg);
+    font-family: var(--aika-font-mono);
+}
+
+/* Краткий текст новости без картинки: серо-голубой Steam (0,1,0) */
+html .ActivityFeedContainer .PartnerEventTextOnly_LimitedSummary .PartnerEventTextOnly_Summary {
+    color: var(--aika-fg-muted);
+}
+
+/* «Избранное» — закреплённое событие вверху ленты (.PartnerEventFeatured:
+   полоса-заголовок .PartnerEventFeaturedHeader + та же карточка крупного
+   обновления). Steam: ярко-голубой градиент на полосе и вокруг, (0,2,0).
+   У нас — единая акцентная карточка: полоса — акцентный заголовок панели. */
+html .ActivityFeedContainer .PartnerEventLargeUpdate.PartnerEventFeatured {
+    overflow: hidden;
+    border: var(--aika-hairline) solid var(--aika-border-accent);
+    background: var(--aika-card-accent-bg);
+    box-shadow: var(--aika-highlight-top), 0 0 20px var(--aika-accent-haze);
+}
+
+html .ActivityFeedContainer .PartnerEventFeatured .PartnerEventFeaturedHeader {
+    border-bottom: var(--aika-hairline) solid var(--aika-border-accent);
+    background: linear-gradient(to right, var(--aika-accent-soft), var(--aika-accent-none));
+    color: var(--aika-accent-bright);
+    font-family: var(--aika-font-mono);
+    font-size: var(--aika-text-label);
+    letter-spacing: var(--aika-tracking-label);
+}
+
+/* Внутренняя карточка в «Избранном» — без своей рамки и углов: рамка общая */
+html .PartnerEventFeatured .MajorUpdateContentContainer .PartnerEventLargeImage_Container {
+    border: none;
+    border-radius: 0;
+    box-shadow: none;
+}
+
+html .PartnerEventFeatured .MajorUpdateContentContainer .LeftSideMajorUpdateBar {
+    display: none;
+}
+
+/* Дата рядом с типом события («2 окт.») */
+html .PartnerEventLargeImage_TextColumn .PartnerEventType .DayPosted {
+    color: var(--aika-fg-subtle);
+    font-family: var(--aika-font-mono);
+}
+
+/* --------------------------------------------------------------------------
+   Семейная библиотека в «Играть» (.Row.SharedLibrary): «Вы играете в копию
+   от …» + друг + «Сменить предпочтительную копию» (a.ChooseButton —
+   голубая ссылка #6dcff6, (0,2,0)). Ссылку делаем secondary-кнопкой.
+   -------------------------------------------------------------------------- */
+
+html .PlayBar .InnerContainer .Row.SharedLibrary {
+    color: var(--aika-fg-muted);
+}
+
+html .PlayBar .Row.SharedLibrary a.ChooseButton {
+    padding: var(--aika-space-1) var(--aika-space-3);
+    border-radius: var(--aika-radius-md);
+    background: var(--aika-surface);
+    box-shadow: var(--aika-shadow-secondary);
+    color: var(--aika-accent-bright);
+    font-size: var(--aika-text-meta);
+    transition:
+        background-color var(--aika-dur-fast) var(--aika-ease-hover),
+        box-shadow var(--aika-dur-base) var(--aika-ease),
+        color var(--aika-dur-fast) var(--aika-ease-hover);
+}
+
+html .PlayBar .Row.SharedLibrary a.ChooseButton:hover {
+    background: var(--aika-surface-hover);
+    box-shadow: var(--aika-shadow-secondary-hover);
+    color: var(--aika-fg);
 }

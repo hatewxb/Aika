@@ -360,7 +360,7 @@ html .TitleBarControls .AccountMenu .WalletBalance {
 
 html .TitleBarControls .AccountMenu .avatarHolder img.avatar {
     border-color: var(--aika-border-hover);
-    border-radius: var(--aika-radius-xs);
+    border-radius: var(--aika-radius-md);
     box-shadow: none;
 }
 
@@ -643,4 +643,19 @@ html .EventRowCarousel .PartnerEventRowCapsule .GameIconAndName .GameName {
 
 html .EventRowCarousel .PartnerEventRowCapsule .GameIconAndName:hover .GameName {
     color: var(--aika-fg);
+}
+
+/* Плашка аккаунта в шапке: ник — средний вес, стрелка — приглушённо,
+   кошелёк — моно (у Steam #788a92). В игре Steam красит плашку зелёным
+   (0,2,0) — наш фон из правила выше сильнее. */
+html .TitleBarControls .AccountMenu > div:not(.avatarHolder):not(.WalletBalance) {
+    font-weight: var(--aika-weight-medium);
+}
+
+html .TitleBarControls .AccountMenu svg.Chevron path {
+    fill: var(--aika-fg-subtle);
+}
+
+html .TitleBarControls .AccountMenu .WalletBalance {
+    font-family: var(--aika-font-mono);
 }

@@ -92,3 +92,19 @@ html .contextMenu .contextMenuContents hr.Separator {
         animation: none;
     }
 }
+
+/* --------------------------------------------------------------------------
+   Меню аккаунта (окно «Account Menu», .AccountMenuPopup): имя аккаунта
+   и баланс кошелька Steam красит голубым #4cb4ff (хэш (0,2,0)).
+   Имя — светлое, баланс — моно акцентом.
+   -------------------------------------------------------------------------- */
+
+html .AccountMenuPopup .LogoutButton .AccountName {
+    color: var(--aika-fg);
+    font-weight: var(--aika-weight-medium);
+}
+
+html .AccountMenuPopup .LogoutButton .WalletBalance {
+    color: var(--aika-accent-bright);
+    font-family: var(--aika-font-mono);
+}
