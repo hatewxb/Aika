@@ -288,6 +288,12 @@
     /* Меню разделов настроек (sections/settings.css): контейнер значка и значок */
     --aika-settings-icon-box: 28px;
     --aika-settings-icon: 16px;
+    /* «Контент» → полки скриншотов по играм (sections/content.css):
+       иконка игры, круглые стрелки, высота ленты, карточка «ещё» */
+    --aika-shelf-icon: 32px;
+    --aika-shelf-arrow: 32px;
+    --aika-shot-height: 180px;
+    --aika-shot-more-width: 112px;
 
     /* Кнопки окна в духе Windows 11 (components/window.css): тонкие глифы
        10×10, линия 1; как mask-image — цвет берётся из currentColor */

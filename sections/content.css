@@ -1,0 +1,617 @@
+/* ==========================================================================
+   sections/content.css — «Контент» профиля: скриншоты, иллюстрации, видео,
+   работы в Мастерской, коллекции (steamcommunity.com/(id|profiles)/…/
+   screenshots | images | videos | myworkshopfiles …).
+   Подключается через webkit.css. Снято через CDP 2026-10-05, старая вёрстка,
+   классы и id читаемые, сила Steam — id + класс (1,1,0) максимум:
+     #BG_top_sharedfiles (.sharedfiles_header_ctn) — шапка: #HeaderUserAvatar,
+       #HeaderUserBreadcrumbs = #HeaderUserInfoName a » .HeaderUserInfoSection a,
+       #FilterContainer — «Фильтровать по игре», «Показать» (.favoritesRadioText);
+     .sharedfiles_tabs_ctn .sectionTabs .sectionTab[.active] — вкладки;
+     #ScreenshotManagementControlsTop — полоса «Отображаются / сортировка /
+       доступ / Управление скриншотами / Загрузить»;
+     .sharedfiles_filterselect > .sharedfiles_filterselect_activeoption —
+       выпадашки (PNG-стрелка), список — .popup_block >
+       .sharedfiles_filterselect_options.shadow_content > .option;
+     #image_wall .imageWallRow … a.profile_media_item > .imgWallItem — стена
+       (картинка фоном, рамка 1px black).
+   Полки по играм (.aika-shelves-list) строит js/content-shelves.js.
+   ========================================================================== */
+
+/* --------------------------------------------------------------------------
+   Шапка «Имя » Скриншоты»: у Steam серо-синяя плашка #3a3e4780
+   -------------------------------------------------------------------------- */
+
+html #BG_top_sharedfiles {
+    border: var(--aika-hairline) solid var(--aika-border);
+    border-radius: var(--aika-radius-xl);
+    background:
+        radial-gradient(ellipse 50% 140% at 0% 0%, var(--aika-accent-tint), var(--aika-transparent) 70%),
+        var(--aika-surface);
+    box-shadow: var(--aika-shadow-card);
+}
+
+/* Аватар: рамка статуса Steam — голубой градиент */
+html #HeaderUserAvatar .playerAvatar {
+    border-radius: var(--aika-radius-md);
+    background: var(--aika-fg-subtle);
+}
+
+html #HeaderUserAvatar .playerAvatar.online {
+    background: var(--aika-accent-bright);
+}
+
+html #HeaderUserAvatar .playerAvatar.in-game {
+    background: var(--aika-ok);
+}
+
+html #HeaderUserAvatar .playerAvatar img:not(.profile_avatar_frame img) {
+    border-radius: calc(var(--aika-radius-md) - 1px);
+    background: var(--aika-bg-raised);
+}
+
+/* Рамка предмета профиля — как есть, без подложки статуса */
+html #HeaderUserAvatar .playerAvatar:has(.profile_avatar_frame img) {
+    background: var(--aika-transparent);
+}
+
+html #HeaderUserAvatar .playerAvatar .profile_avatar_frame img {
+    border-radius: 0;
+    background: none;
+}
+
+/* Путь «Имя » Скриншоты»: имя — крупно, » — акцентом, раздел — светлым акцентом;
+   линия под ним у Steam серая #4c4c4c — разделитель Aika */
+html #BG_top_sharedfiles #HeaderUserBreadcrumbs {
+    border-bottom-color: var(--aika-border);
+}
+
+html #HeaderUserBreadcrumbs #HeaderUserInfoName a {
+    color: var(--aika-fg);
+    font-weight: var(--aika-weight-semibold);
+    letter-spacing: var(--aika-tracking-h1);
+    transition: color var(--aika-dur-fast) var(--aika-ease-hover);
+}
+
+html #HeaderUserBreadcrumbs #HeaderUserInfoName a:hover {
+    color: var(--aika-accent-bright);
+}
+
+html #HeaderUserBreadcrumbs .separatorArrows {
+    color: var(--aika-accent);
+}
+
+html #HeaderUserBreadcrumbs .HeaderUserInfoSection a {
+    color: var(--aika-accent-bright);
+    font-weight: var(--aika-weight-medium);
+}
+
+html #HeaderUserBreadcrumbs .HeaderUserInfoSection a:hover {
+    color: var(--aika-fg);
+}
+
+/* Выбранная игра в фильтре (#searchedForApp.profileAppFilter.searchedForTerm,
+   клик сбрасывает фильтр): у Steam зелёная плашка #68932f, текст #d2ff96 —
+   чип акцента; крестик-PNG Steam оставляем, приглушённым */
+html .sharedfiles_header_ctn .profileAppFilter.searchedForTerm {
+    padding: var(--aika-space-1) var(--aika-space-3);
+    border: var(--aika-hairline) solid var(--aika-border-accent);
+    border-radius: var(--aika-radius-full);
+    background-color: var(--aika-accent-soft);
+    color: var(--aika-fg);
+    cursor: pointer;
+    transition: background-color var(--aika-dur-fast) var(--aika-ease-hover);
+}
+
+html .sharedfiles_header_ctn .profileAppFilter.searchedForTerm:hover {
+    background-color: var(--aika-accent-glow);
+}
+
+html .sharedfiles_header_ctn .profileAppFilter.searchedForTerm .searchedForTermImage {
+    margin-left: var(--aika-space-1);
+    vertical-align: middle;
+    opacity: 0.6;
+}
+
+/* Подписи «Фильтровать по игре:», «Показать:» и радио-кнопки */
+html #FilterContainer .sharedfiles_usercontrols_label {
+    color: var(--aika-fg-subtle);
+}
+
+html #FilterContainer .favoritesRadioText {
+    color: var(--aika-fg-muted);
+}
+
+html #FilterContainer .favoritesRadio {
+    accent-color: var(--aika-accent);
+}
+
+/* --------------------------------------------------------------------------
+   Вкладки «Скриншоты / Иллюстрации / Видео / …»: неактивные приглушённые,
+   активная — линия акцента (sections/community.css), hover — светлее
+   -------------------------------------------------------------------------- */
+
+html .sharedfiles_tabs_ctn .sectionTabs .sectionTab {
+    color: var(--aika-fg-muted);
+    transition: color var(--aika-dur-fast) var(--aika-ease-hover);
+}
+
+html .sharedfiles_tabs_ctn .sectionTabs .sectionTab:hover,
+html .sharedfiles_tabs_ctn .sectionTabs .sectionTab.active {
+    color: var(--aika-fg);
+}
+
+/* --------------------------------------------------------------------------
+   Полоса управления: у Steam чёрная 0.3 без скругления
+   -------------------------------------------------------------------------- */
+
+html :is(#image_wall, #video_wall) #ScreenshotManagementControlsTop {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: var(--aika-space-2);
+    padding: var(--aika-space-2) var(--aika-space-3);
+    border: var(--aika-hairline) solid var(--aika-border);
+    border-radius: var(--aika-radius-lg);
+    background: var(--aika-surface);
+}
+
+html :is(#image_wall, #video_wall) #ScreenshotManagementControlsTop .ScreenshotManagementLabel {
+    color: var(--aika-fg-subtle);
+}
+
+/* «Управление скриншотами» / «Загрузить скриншоты…»: у Steam светло-серые
+   плашки #e8e8e8 с серым текстом и PNG-стрелкой — вторичные кнопки Aika */
+html :is(#image_wall, #video_wall) .AdditionalSharedFilesControls {
+    margin-left: auto;
+}
+
+html :is(#image_wall, #video_wall) .AdditionalSharedFilesControls :is(#ScreenshotManagementToggle, #ScreenshotUploadLink) {
+    padding: var(--aika-space-1) var(--aika-space-3);
+    border: var(--aika-hairline) solid var(--aika-border-strong);
+    border-radius: var(--aika-radius-md);
+    background: var(--aika-bg-raised);
+    color: var(--aika-fg-muted);
+    transition:
+        background-color var(--aika-dur-fast) var(--aika-ease-hover),
+        border-color var(--aika-dur-fast) var(--aika-ease-hover),
+        color var(--aika-dur-fast) var(--aika-ease-hover);
+}
+
+html :is(#image_wall, #video_wall) .AdditionalSharedFilesControls :is(#ScreenshotManagementToggle, #ScreenshotUploadLink):hover {
+    border-color: var(--aika-border-hover);
+    background: var(--aika-surface-hover);
+    color: var(--aika-fg);
+}
+
+/* --------------------------------------------------------------------------
+   Выпадашки (игра, вид, сортировка, доступ): как components/input.css
+   -------------------------------------------------------------------------- */
+
+html #mainContents_sharedfiles div.sharedfiles_filterselect {
+    border: var(--aika-hairline) solid var(--aika-border-strong);
+    border-radius: var(--aika-radius-md);
+    background: var(--aika-bg-raised);
+    color: var(--aika-fg);
+    transition: border-color var(--aika-dur-fast) var(--aika-ease-hover);
+}
+
+html #mainContents_sharedfiles div.sharedfiles_filterselect:hover {
+    border-color: var(--aika-border-hover);
+}
+
+html #mainContents_sharedfiles div.sharedfiles_filterselect div.sharedfiles_filterselect_activeoption {
+    position: relative;
+    padding-right: calc(var(--aika-chevron-size) + var(--aika-space-3));
+    padding-left: var(--aika-space-2);
+    background: var(--aika-transparent);
+    color: var(--aika-fg-muted);
+}
+
+html #mainContents_sharedfiles div.sharedfiles_filterselect div.sharedfiles_filterselect_activeoption::after {
+    content: "";
+    position: absolute;
+    top: 50%;
+    right: var(--aika-space-2);
+    width: var(--aika-chevron-size);
+    height: var(--aika-chevron-size);
+    background-color: currentColor;
+    -webkit-mask: var(--aika-icon-chevron-down) center / contain no-repeat;
+    mask: var(--aika-icon-chevron-down) center / contain no-repeat;
+    transform: translateY(-50%);
+}
+
+html #mainContents_sharedfiles div.sharedfiles_filterselect:hover div.sharedfiles_filterselect_activeoption {
+    color: var(--aika-fg);
+}
+
+/* Список: PNG-тени Steam прячем, плашка — меню Aika */
+html #mainContents_sharedfiles .popup_block :is(.shadow_left, .shadow_right, .shadow_bl, .shadow_bottom, .shadow_br) {
+    display: none;
+}
+
+html #mainContents_sharedfiles .popup_block .sharedfiles_filterselect_options {
+    overflow: hidden auto;
+    padding: var(--aika-space-1);
+    border: var(--aika-hairline) solid var(--aika-border-hover);
+    border-radius: var(--aika-radius-lg);
+    background: var(--aika-surface-translucent);
+    box-shadow: var(--aika-shadow-menu);
+}
+
+html #mainContents_sharedfiles .popup_block .sharedfiles_filterselect_options div.option {
+    border-radius: var(--aika-radius-md);
+    background: var(--aika-transparent);
+    color: var(--aika-fg-muted);
+    transition:
+        background-color var(--aika-dur-fast) var(--aika-ease-hover),
+        color var(--aika-dur-fast) var(--aika-ease-hover);
+}
+
+html #mainContents_sharedfiles .popup_block .sharedfiles_filterselect_options div.option:hover {
+    background: var(--aika-surface-hover);
+    color: var(--aika-fg);
+}
+
+html #mainContents_sharedfiles .popup_block .sharedfiles_filterselect_options input[type="text"] {
+    border: var(--aika-hairline) solid var(--aika-border-strong);
+    border-radius: var(--aika-radius-md);
+    background: var(--aika-bg-raised);
+    box-shadow: none;
+    color: var(--aika-fg);
+}
+
+/* Список игр под полем поиска: у Steam голубые линии #79a1db сверху и снизу;
+   лупа-PNG рядом с полем — лишняя */
+html #mainContents_sharedfiles .popup_block div#sharedfiles_filterselect_app_filterable {
+    border-color: var(--aika-border);
+}
+
+html #mainContents_sharedfiles .popup_block #sharedfiles_filterselect_search_img {
+    display: none;
+}
+
+html #mainContents_sharedfiles .popup_block .sharedfiles_filterselect_options input[type="text"]:focus {
+    border-color: var(--aika-accent);
+    box-shadow: var(--aika-shadow-input-focus);
+    outline: none;
+}
+
+/* --------------------------------------------------------------------------
+   Стена Steam (фильтр по игре, «Управление скриншотами»): скруглённые
+   карточки вместо рамки 1px black
+   -------------------------------------------------------------------------- */
+
+html #image_wall .profile_media_item .imgWallItem {
+    overflow: hidden;
+    border-color: var(--aika-transparent);
+    border-radius: var(--aika-radius-lg);
+    background-color: var(--aika-bg-raised);
+    transition:
+        transform var(--aika-dur-base) var(--aika-ease),
+        box-shadow var(--aika-dur-base) var(--aika-ease);
+}
+
+html #image_wall .profile_media_item:hover .imgWallItem {
+    box-shadow: 0 0 0 var(--aika-hairline) var(--aika-border-accent), var(--aika-shadow-card-hover);
+    transform: translateY(calc(-1 * var(--aika-lift-sm)));
+}
+
+/* Пусто («Не удалось найти подходящие видео.»): у Steam чёрная 0.4 плашка
+   без скругления — тихая карточка Aika */
+html #BatchScreenshotManagement #NoItemsContainer {
+    border: var(--aika-hairline) dashed var(--aika-border-strong);
+    border-radius: var(--aika-radius-xl);
+    background-color: var(--aika-surface);
+    color: var(--aika-fg-subtle);
+}
+
+/* Подпись при наведении (.imgWallHover > .imgWallHoverBottom >
+   .imgWallHoverDescription > q — название иллюстрации / скриншота):
+   у Steam голубой текст #7cc5fb прямо по картинке — светлый текст
+   на затемнении снизу */
+html #image_wall .imgWallHover .imgWallHoverBottom {
+    background: linear-gradient(to top, var(--aika-scrim), var(--aika-scrim-none));
+}
+
+html #image_wall .imgWallHover .imgWallHoverDescription q {
+    color: var(--aika-fg);
+}
+
+/* ==========================================================================
+   Полки по играм (js/content-shelves.js): пока они есть, стена Steam скрыта
+   ========================================================================== */
+
+html.aika-shelves #image_wall #BatchScreenshotManagement,
+html.aika-shelves #image_wall #action_wait,
+html.aika-shelves #image_wall #BackToTop,
+html:not(.aika-shelves) .aika-shelves-list {
+    display: none;
+}
+
+/* «Отображаются: стеной / сеткой» — к полкам не относится */
+html.aika-shelves #image_wall #ScreenshotManagementControlsTop :is(.ScreenshotManagementLabel, .ScreenshotManagementLabel + div) {
+    display: none;
+}
+
+.aika-shelves-list {
+    display: flex;
+    flex-direction: column;
+    gap: var(--aika-space-6);
+    margin-top: var(--aika-space-5);
+    padding-bottom: var(--aika-space-8);
+}
+
+.aika-shelf {
+    position: relative;
+    animation: aika-shelf-in var(--aika-dur-enter) var(--aika-ease) both;
+}
+
+@keyframes aika-shelf-in {
+    from { opacity: 0; transform: translateY(var(--aika-appear-shift)); }
+}
+
+/* Заголовок полки: иконка + название игры (ссылка на фильтр), справа стрелки */
+.aika-shelf-head {
+    display: flex;
+    align-items: center;
+    gap: var(--aika-space-3);
+    margin-bottom: var(--aika-space-3);
+}
+
+.aika-shelf-title {
+    display: flex;
+    flex: 1 1 auto;
+    align-items: center;
+    gap: var(--aika-space-3);
+    min-width: 0;
+    color: var(--aika-fg);
+    text-decoration: none;
+}
+
+.aika-shelf-icon {
+    position: relative;
+    flex: none;
+    overflow: hidden;
+    width: var(--aika-shelf-icon);
+    height: var(--aika-shelf-icon);
+    border-radius: var(--aika-radius-md);
+    background: var(--aika-bg-raised);
+    box-shadow: 0 0 0 var(--aika-hairline) var(--aika-border), var(--aika-shadow-cover);
+}
+
+/* Первая буква названия — пока иконка грузится или если её нет */
+.aika-shelf-icon::before {
+    content: attr(data-letter);
+    position: absolute;
+    inset: 0;
+    display: grid;
+    place-items: center;
+    color: var(--aika-accent-bright);
+    font-family: var(--aika-font-mono);
+    font-size: var(--aika-text-body);
+    font-weight: var(--aika-weight-semibold);
+}
+
+.aika-shelf-icon-img {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    opacity: 0;
+    transition: opacity var(--aika-dur-base) var(--aika-ease);
+}
+
+.aika-shelf-icon.is-ready .aika-shelf-icon-img {
+    opacity: 1;
+}
+
+.aika-shelf-name {
+    overflow: hidden;
+    font-family: var(--aika-font-ui);
+    font-size: var(--aika-text-h3);
+    font-weight: var(--aika-weight-semibold);
+    letter-spacing: var(--aika-tracking-h2);
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    transition: color var(--aika-dur-fast) var(--aika-ease-hover);
+}
+
+.aika-shelf-title:hover .aika-shelf-name {
+    color: var(--aika-accent-bright);
+}
+
+/* Стрелки карусели: появляются, когда есть куда листать */
+.aika-shelf-nav {
+    display: flex;
+    flex: none;
+    gap: var(--aika-space-1);
+}
+
+.aika-shelf-arrow {
+    position: relative;
+    width: var(--aika-shelf-arrow);
+    height: var(--aika-shelf-arrow);
+    padding: 0;
+    border: var(--aika-hairline) solid var(--aika-border-strong);
+    border-radius: var(--aika-radius-full);
+    background: var(--aika-bg-raised);
+    color: var(--aika-fg-muted);
+    cursor: pointer;
+    opacity: var(--aika-disabled-opacity);
+    pointer-events: none;
+    transition:
+        opacity var(--aika-dur-fast) var(--aika-ease-hover),
+        background-color var(--aika-dur-fast) var(--aika-ease-hover),
+        border-color var(--aika-dur-fast) var(--aika-ease-hover),
+        color var(--aika-dur-fast) var(--aika-ease-hover);
+}
+
+.aika-shelf-arrow::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    margin: auto;
+    width: var(--aika-chevron-size);
+    height: var(--aika-chevron-size);
+    background-color: currentColor;
+    -webkit-mask: var(--aika-icon-chevron-down) center / contain no-repeat;
+    mask: var(--aika-icon-chevron-down) center / contain no-repeat;
+}
+
+.aika-shelf-prev::before { transform: rotate(90deg); }
+.aika-shelf-next::before { transform: rotate(-90deg); }
+
+.aika-shelf.can-prev .aika-shelf-prev,
+.aika-shelf.can-next .aika-shelf-next {
+    opacity: 1;
+    pointer-events: auto;
+}
+
+.aika-shelf-arrow:hover {
+    border-color: var(--aika-border-accent);
+    background: var(--aika-accent-soft);
+    color: var(--aika-fg);
+}
+
+.aika-shelf-arrow:focus-visible {
+    outline: none;
+    box-shadow: var(--aika-shadow-focus);
+}
+
+/* Лента: горизонтальная прокрутка с привязкой к карточкам, края гаснут */
+.aika-shelf-track {
+    display: flex;
+    gap: var(--aika-space-3);
+    overflow: auto hidden;
+    height: var(--aika-shot-height);
+    padding: var(--aika-space-2) var(--aika-space-1);
+    margin: calc(-1 * var(--aika-space-2)) calc(-1 * var(--aika-space-1));
+    scroll-snap-type: x mandatory;
+    scroll-padding-inline: var(--aika-space-1);
+    scrollbar-width: none;
+    overscroll-behavior-x: contain;
+}
+
+.aika-shelf-track::-webkit-scrollbar {
+    display: none;
+}
+
+.aika-shelf.can-next .aika-shelf-track {
+    -webkit-mask: linear-gradient(to right, #000 calc(100% - var(--aika-space-8)), transparent);
+    mask: linear-gradient(to right, #000 calc(100% - var(--aika-space-8)), transparent);
+}
+
+.aika-shelf.can-prev .aika-shelf-track {
+    -webkit-mask: linear-gradient(to left, #000 calc(100% - var(--aika-space-8)), transparent);
+    mask: linear-gradient(to left, #000 calc(100% - var(--aika-space-8)), transparent);
+}
+
+.aika-shelf.can-prev.can-next .aika-shelf-track {
+    -webkit-mask: linear-gradient(to right, transparent, #000 var(--aika-space-8), #000 calc(100% - var(--aika-space-8)), transparent);
+    mask: linear-gradient(to right, transparent, #000 var(--aika-space-8), #000 calc(100% - var(--aika-space-8)), transparent);
+}
+
+/* Карточка скриншота: скруглённая, ширина — по пропорциям кадра */
+.aika-shot {
+    position: relative;
+    flex: none;
+    overflow: hidden;
+    height: 100%;
+    aspect-ratio: var(--aika-shot-aspect, 16 / 9);
+    border-radius: var(--aika-radius-lg);
+    background: var(--aika-bg-raised);
+    box-shadow: 0 0 0 var(--aika-hairline) var(--aika-border), var(--aika-shadow-card);
+    scroll-snap-align: start;
+    transition:
+        transform var(--aika-dur-base) var(--aika-ease),
+        box-shadow var(--aika-dur-base) var(--aika-ease);
+}
+
+.aika-shot-img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    opacity: 0;
+    transition:
+        opacity var(--aika-dur-base) var(--aika-ease),
+        transform var(--aika-dur-enter) var(--aika-ease);
+}
+
+.aika-shot.is-ready .aika-shot-img {
+    opacity: 1;
+}
+
+a.aika-shot:hover {
+    box-shadow: 0 0 0 var(--aika-hairline) var(--aika-border-accent), var(--aika-shadow-card-hover);
+    transform: translateY(calc(-1 * var(--aika-lift-sm)));
+}
+
+a.aika-shot:hover .aika-shot-img {
+    transform: scale(1.03);
+}
+
+a.aika-shot:focus-visible {
+    outline: none;
+    box-shadow: var(--aika-shadow-focus);
+}
+
+/* Заглушка, пока Steam отдаёт страницу игры: мерцание как у прогресса */
+.aika-shot-skeleton {
+    background:
+        linear-gradient(100deg, var(--aika-transparent) 30%, var(--aika-surface-hover) 50%, var(--aika-transparent) 70%)
+        0 0 / 300% 100% no-repeat,
+        var(--aika-bg-raised);
+    animation: aika-shot-shimmer var(--aika-dur-shimmer) linear infinite;
+}
+
+@keyframes aika-shot-shimmer {
+    from { background-position: 100% 0, 0 0; }
+    to { background-position: -200% 0, 0 0; }
+}
+
+/* «Все скриншоты игры» — последняя карточка-стрелка */
+.aika-shot-more {
+    display: grid;
+    aspect-ratio: auto;
+    width: var(--aika-shot-more-width);
+    place-items: center;
+    color: var(--aika-fg-muted);
+}
+
+.aika-shot-more-icon {
+    width: var(--aika-shelf-arrow);
+    height: var(--aika-shelf-arrow);
+    border-radius: var(--aika-radius-full);
+    background: var(--aika-accent-soft);
+    box-shadow: inset 0 0 0 var(--aika-hairline) var(--aika-border-accent);
+    position: relative;
+}
+
+.aika-shot-more-icon::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    margin: auto;
+    width: var(--aika-chevron-size);
+    height: var(--aika-chevron-size);
+    background-color: var(--aika-accent-bright);
+    -webkit-mask: var(--aika-icon-chevron-down) center / contain no-repeat;
+    mask: var(--aika-icon-chevron-down) center / contain no-repeat;
+    transform: rotate(-90deg);
+}
+
+/* Нет скриншотов (удалены / скрыты) или Steam не ответил — полку не показываем */
+.aika-shelf.is-empty,
+.aika-shelf.is-error {
+    display: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .aika-shelf,
+    .aika-shot-skeleton {
+        animation: none;
+    }
+}
