@@ -147,7 +147,12 @@
     /* У .highlight_overflow справа margin 16 px (Steam) — центр окна трейлера
        левее центра .highlight_ctn на половину этого отступа */
     --aika-store-highlight-gutter: 16px;
-    --aika-store-logo-shadow: drop-shadow(0 6px 18px var(--aika-shadow-logo)) drop-shadow(0 1px 3px var(--aika-shadow-logo));
+    /* Три слоя: широкий ореол, мягкая тень вниз, плотная кромка (правка автора:
+       «увеличь тень за логотипом») */
+    --aika-store-logo-shadow:
+        drop-shadow(0 0 36px var(--aika-shadow-logo-halo))
+        drop-shadow(0 10px 28px var(--aika-shadow-logo))
+        drop-shadow(0 2px 4px var(--aika-shadow-logo));
     /* Затухание текста свёрнутого обзора — в цвет фона под карточкой */
     --aika-store-review-fade: linear-gradient(to bottom, var(--aika-transparent), var(--aika-bg-elevated));
     /* Spotlight: точку задаёт JS (--aika-spot-x/y на элементе), без JS —
