@@ -18,3 +18,8 @@ dist/
 
 # Локальные заметки и скриншоты для отладки
 scratch/
+
+# Локальные настройки Claude Code, скрины для отладки, памятка по скриншотам README
+.claude/
+SSforClaude/
+screenshots.txt
