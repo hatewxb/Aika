@@ -1278,3 +1278,214 @@ html body.v6 .CapsuleDecorators > span {
 html body.v6 #game_area_metascore .score {
     border-radius: var(--aika-radius-md);
 }
+
+/* ==========================================================================
+   4. Поиск (store.steampowered.com/search/, body.v6.search_page)
+      Снято через CDP 2026-10-04 (запрос «souls»). Старая вёрстка,
+      классы читаемые, правила Steam до (1,0,0) у #term.
+   ========================================================================== */
+
+/* Метки запроса над результатами («souls ×») */
+html body.v6 .termcontainer .searchtag {
+    border-radius: var(--aika-radius-full);
+    background: var(--aika-accent-soft);
+    color: var(--aika-accent-bright);
+}
+
+html body.v6 .termcontainer .searchtag .label {
+    color: inherit;
+}
+
+/* Полоса поиска: поле #term (голубое 20 %), сортировка (.dselect_container) */
+html body.v6 .searchbar {
+    border-radius: var(--aika-radius-lg);
+    background: var(--aika-surface);
+}
+
+html body.v6 .searchbar .label {
+    color: var(--aika-fg-subtle);
+}
+
+html body.v6 #term,
+html body.v6 .search_filter_suggest {
+    border: var(--aika-hairline) solid var(--aika-border-strong);
+    border-radius: var(--aika-radius-md);
+    background-color: var(--aika-bg-raised);
+    color: var(--aika-fg);
+    text-shadow: none;
+    box-shadow: none;
+    transition: box-shadow var(--aika-dur-fast) var(--aika-ease-hover);
+}
+
+html body.v6 #term.blur,
+html body.v6 .search_filter_suggest.blur {
+    color: var(--aika-fg-subtle);
+    font-style: normal;
+}
+
+html body.v6 #term:focus,
+html body.v6 .search_filter_suggest:focus {
+    outline: none;
+    box-shadow: var(--aika-shadow-input-focus);
+}
+
+/* Выпадающий список сортировки: кнопка и раскрытый список (.dropcontainer ul) */
+html body.v6 .dselect_container button.trigger {
+    border-radius: var(--aika-radius-md);
+    background: var(--aika-surface);
+    color: var(--aika-fg);
+}
+
+html body.v6 .dselect_container button.trigger:hover,
+html body.v6 .dselect_container button.activetrigger,
+html body.v6 .dselect_container button.activetrigger:hover {
+    background: var(--aika-surface-hover);
+    color: var(--aika-fg);
+}
+
+html body.v6 .dselect_container .dropcontainer ul {
+    border-radius: var(--aika-radius-lg);
+    background: var(--aika-surface-translucent);
+    box-shadow: var(--aika-shadow-menu);
+}
+
+html body.v6 .dselect_container .dropcontainer ul a {
+    border-radius: var(--aika-radius-md);
+    color: var(--aika-fg-muted);
+}
+
+html body.v6 .dselect_container .dropcontainer a.highlighted_selection,
+html body.v6 .dselect_container .dropcontainer ul a:hover {
+    background: var(--aika-surface-hover);
+    color: var(--aika-fg);
+}
+
+/* «Скрыто из-за настроек» — у Steam светло-жёлтый текст на чёрном 20 % */
+html body.v6 .search_results_filtered_warning > div {
+    background-color: var(--aika-warn-soft);
+    color: var(--aika-warn);
+}
+
+html body.v6 .search_results_filtered_warning > div:first-child {
+    border-radius: var(--aika-radius-md) 0 0 var(--aika-radius-md);
+}
+
+html body.v6 .search_results_filtered_warning > div:last-child {
+    border-radius: 0 var(--aika-radius-md) var(--aika-radius-md) 0;
+}
+
+html body.v6 .search_results_filtered_warning > div:only-child {
+    border-radius: var(--aika-radius-md);
+}
+
+/* Строка результата: у Steam чёрная 20 %, hover — 40 % и голубая рамка */
+html body.v6 .search_result_row,
+html body.v6 .search_result_row:hover {
+    overflow: hidden;
+    border-radius: var(--aika-radius-md);
+    color: var(--aika-fg);
+    transition: background-color var(--aika-dur-fast) var(--aika-ease-hover);
+}
+
+html body.v6 .search_result_row {
+    border-color: var(--aika-transparent);
+    background: var(--aika-surface);
+}
+
+html body.v6 .search_result_row:hover {
+    border-color: var(--aika-border-hover);
+    background: var(--aika-surface-hover);
+}
+
+html body.v6 .search_result_row .search_capsule img {
+    border-radius: var(--aika-radius-xs);
+}
+
+html body.v6 .search_result_row.ds_flagged:not(.ds_wishlist) .search_name,
+html body.v6 .search_result_row :is(.vr_required, .vr_supported, .includes_games_results) {
+    color: var(--aika-fg-subtle);
+}
+
+html body.v6 .responsive_search_name_combined .search_released {
+    color: var(--aika-fg-subtle);
+    font-family: var(--aika-font-mono);
+}
+
+html body.v6 .search_result_row .search_reviewscore .game_review_summary {
+    color: var(--aika-warn);
+}
+
+html body.v6 .search_result_row .search_reviewscore .game_review_summary.positive {
+    color: var(--aika-accent-bright);
+}
+
+html body.v6 .search_result_row .search_reviewscore .game_review_summary.none {
+    color: var(--aika-fg-subtle);
+}
+
+/* Скидка в строке: у Steam .search_discount_block — свои зелёный и серый */
+html body.v6 .discount_block.search_discount_block .discount_pct {
+    background: var(--aika-ok);
+}
+
+html body.v6 .discount_block.search_discount_block .discount_prices .discount_original_price {
+    color: var(--aika-fg-subtle);
+}
+
+html body.v6 .discount_block.search_discount_block .discount_prices .discount_final_price {
+    color: var(--aika-fg);
+}
+
+/* Фильтры справа (.search_collapse_block): заголовок блока — белая 10 %
+   полоса, пункты-флажки — голубые, выбранный — голубой градиент */
+html body.v6.search_page .rightcol .block {
+    overflow: hidden;
+    border-radius: var(--aika-radius-lg);
+    background: var(--aika-card-bg);
+    box-shadow: var(--aika-shadow-card);
+}
+
+html body.v6.search_page .rightcol .block .block_header {
+    background: var(--aika-transparent);
+    color: var(--aika-fg);
+    box-shadow: inset 0 calc(-1 * var(--aika-hairline)) 0 0 var(--aika-border);
+}
+
+html body.v6.search_page .rightcol .block .block_header > div {
+    color: inherit;
+}
+
+html body.v6.search_page .rightcol .block .block_content {
+    border-color: var(--aika-transparent);
+}
+
+html body.v6 :is(.tab_filter_control, .range_display) {
+    color: var(--aika-fg-muted);
+}
+
+html body.v6 :is(.tab_filter_control:hover, .tab_filter_control_row:not(.disabled):hover) {
+    border-radius: var(--aika-radius-md);
+    background: var(--aika-surface-hover);
+    color: var(--aika-fg);
+}
+
+html body.v6 :is(.tab_filter_control.checked, .tab_filter_control_row:not(.disabled).checked) {
+    border-radius: var(--aika-radius-md);
+    background: var(--aika-accent-soft);
+    color: var(--aika-fg);
+}
+
+html body.v6 .tab_filter_control_row:not(.disabled).checked .tab_filter_control,
+html body.v6 .tab_filter_control_label {
+    color: inherit;
+}
+
+html body.v6 .tab_filter_control_count {
+    color: var(--aika-fg-subtle);
+    font-family: var(--aika-font-mono);
+    font-style: normal;
+}
+
+html body.v6 .see_all_expander {
+    color: var(--aika-accent-bright);
+}
