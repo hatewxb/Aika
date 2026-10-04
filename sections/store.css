@@ -294,6 +294,45 @@ html body.v6 [data-featuretarget="store-menu-v7"] form[role="search"] + div > di
     background: var(--aika-surface-hover);
 }
 
+/* Пустой запрос: группы «Часто ищут» (строки — обложка + название)
+   и «Ваши любимые жанры» (плитки с картинкой и меткой). Группа —
+   коробка > div > [заголовок, список > a]. У Steam строки и плитки —
+   серо-голубые градиенты, метка жанра — белая плашка. Цветные подложки
+   картинок жанров оставляем (своя у каждого жанра, как плитки категорий). */
+html body.v6 [data-featuretarget="store-menu-v7"] form[role="search"] + div > div > div > div > div:first-child {
+    color: var(--aika-fg-subtle);
+    font-size: var(--aika-text-label);
+    letter-spacing: var(--aika-tracking-label);
+    text-transform: uppercase;
+}
+
+html body.v6 [data-featuretarget="store-menu-v7"] form[role="search"] + div > div > div > div > div > a {
+    overflow: hidden;
+    border-radius: var(--aika-radius-md);
+    background: var(--aika-surface);
+    color: var(--aika-fg);
+    transition: background-color var(--aika-dur-fast) var(--aika-ease-hover);
+}
+
+html body.v6 [data-featuretarget="store-menu-v7"] form[role="search"] + div > div > div > div > div > a:hover {
+    background: var(--aika-surface-hover);
+}
+
+/* Обложка в строке «Часто ищут» и подложка картинки — без серо-голубого */
+html body.v6 [data-featuretarget="store-menu-v7"] form[role="search"] + div > div > div > div > div > a > div:has(> img) {
+    overflow: hidden;
+    border-radius: var(--aika-radius-md);
+    background-color: var(--aika-transparent);
+    background-image: none;
+}
+
+/* Метка жанра на плитке — у Steam белая плашка */
+html body.v6 [data-featuretarget="store-menu-v7"] form[role="search"] + div > div > div > div > div > a > div:not(:has(img)) {
+    border-radius: var(--aika-radius-xs);
+    background-color: var(--aika-surface-translucent);
+    color: var(--aika-fg);
+}
+
 /* --------------------------------------------------------------------------
    Цены и скидки (.discount_block — общий блок всего магазина).
    Steam: плашки без скругления, % — чёрным на --green, старая цена
@@ -869,12 +908,46 @@ html body.v6 .gameDlcBlocks .game_purchase_price {
    Описание и системные требования
    -------------------------------------------------------------------------- */
 
-html body.v6 .game_area_description {
-    color: var(--aika-fg-muted);
+/* Шрифт: "Motiva Sans" на веб-страницах подменён на Inter (web-fonts.css).
+   Arial Steam ставит отдельно — подписи требований (strong), «Подписаться»
+   в каруселях (Arial у хэш-правила), жирные вставки (b). */
+html body.v6 .page_content_ctn :is(b, strong),
+html body.v6 .related_items_ctn :is(.FollowButton, .btnv6_grey_black) {
+    font-family: var(--aika-font-ui);
 }
 
+/* «Об этой игре»: текст — Inter с нашим межстрочным, заголовки разделов
+   страницы («Об этой игре», «Системные требования», «Загружаемый
+   контент…») — у Steam 14 px Motiva с картинкой-линейкой снизу */
+html body.v6 .game_area_description {
+    color: var(--aika-fg-muted);
+    font-size: var(--aika-text-body);
+    line-height: var(--aika-leading-body);
+}
+
+html body.v6 .game_description_column h2,
 html body.v6 .game_area_description h2 {
+    padding-bottom: var(--aika-space-2);
+    border-bottom: var(--aika-hairline) solid var(--aika-border);
+    background-image: none;
     color: var(--aika-fg);
+    font-size: var(--aika-text-h3);
+    font-weight: var(--aika-weight-semibold);
+    letter-spacing: var(--aika-tracking-h2);
+    line-height: var(--aika-leading-heading);
+    text-transform: none;
+}
+
+/* Заголовки внутри текста от издателя (h2.bb_tag) — без линейки */
+html body.v6 .game_area_description h2.bb_tag {
+    border-bottom: none;
+    color: var(--aika-fg);
+}
+
+/* Картинки, гифки и ролики в описании (.bb_img_ctn > img/video.bb_img) */
+html body.v6 .game_area_description :is(.bb_img_ctn, img.bb_img, video.bb_img) {
+    overflow: hidden;
+    border-radius: var(--aika-radius-lg);
 }
 
 /* «Читать дальше» — у Steam голубой текст на синей полосе
@@ -1107,6 +1180,13 @@ html body.v6 .StoreSalePriceWidgetContainer {
     font-family: var(--aika-font-mono);
 }
 
+/* Пометка вместо цены («Предзаказ»): у Steam салатовый на #344654 */
+html body.v6 .StoreSalePriceWidgetContainer > div > span {
+    border-radius: var(--aika-radius-xs);
+    background: var(--aika-accent-soft);
+    color: var(--aika-accent-bright);
+}
+
 html body.v6 .StoreSalePriceWidgetContainer.Discounted > div:first-child {
     background: var(--aika-ok);
     color: var(--aika-bg-deep);
@@ -1140,6 +1220,29 @@ html body.v6 .related_items_ctn .btnv6_grey_black:not(.btn_disabled):not(:disabl
 
 html body.v6 .related_items_ctn :is(.FollowButton, .btnv6_grey_black) * {
     color: inherit;
+}
+
+/* Капсулы каруселей («Больше продуктов», «Похожие товары»): React,
+   обёртка с overflow: hidden и скруглением 3 px — без читаемого класса,
+   берём её как родителя ссылки с .CapsuleImageCtn. Полоса цены снизу
+   (.CapsuleBottomBar) — у Steam чёрная. */
+html body.v6 .related_items_ctn div:has(> a .CapsuleImageCtn) {
+    overflow: hidden;
+    border-radius: var(--aika-radius-lg);
+    box-shadow: var(--aika-shadow-card);
+    transition: box-shadow var(--aika-dur-base) var(--aika-ease);
+}
+
+html body.v6 .related_items_ctn div:has(> a .CapsuleImageCtn):hover {
+    box-shadow: var(--aika-shadow-card-hover);
+}
+
+html body.v6 .related_items_ctn .CapsuleBottomBar {
+    background: var(--aika-bg-elevated);
+}
+
+html body.v6 .related_items_ctn .CapsuleBottomBar .StoreSalePriceWidgetContainer {
+    border-radius: 0;
 }
 
 /* Метки на капсулах («В библиотеке», «В списке желаемого»):

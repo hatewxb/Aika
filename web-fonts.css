@@ -1,0 +1,81 @@
+/* ==========================================================================
+   web-fonts.css — шрифт Aika на веб-страницах Steam (магазин, сообщество).
+   Подключается только из webkit.css, сразу после base.css.
+
+   Старая вёрстка магазина и многие React-блоки зашивают "Motiva Sans"
+   прямо в правила элементов (font-family: "Motiva Sans", Arial, …),
+   поэтому наследование от body не помогает, а перечислять все элементы
+   (часто с хэш-классами) — бесконечно. Вместо этого объявляем
+   "Motiva Sans" заново с файлом Inter: у грани с теми же дескрипторами
+   (вес и начертание) выигрывает объявленная позже, а наш <link>
+   подключается после motiva_sans.css Steam. Грани — те же, что
+   у Steam в public/shared/css/motiva_sans.css (проверено 2026-10-04).
+
+   Лёгкие веса (200, 300) Inter рисует как ExtraLight/Light — у Steam
+   ими набраны крупные заголовки, читаемость нормальная.
+   Курсив Inter не поставляется — italic-грани рисуются наклоном.
+   Моно-элементы темы задают --aika-font-mono явно и не затрагиваются.
+   ========================================================================== */
+
+@font-face {
+    font-family: "Motiva Sans";
+    src: url("./assets/fonts/Inter-Variable.ttf") format("truetype");
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: "Motiva Sans";
+    src: url("./assets/fonts/Inter-Variable.ttf") format("truetype");
+    font-weight: 300;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: "Motiva Sans";
+    src: url("./assets/fonts/Inter-Variable.ttf") format("truetype");
+    font-weight: 200;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: "Motiva Sans";
+    src: url("./assets/fonts/Inter-Variable.ttf") format("truetype");
+    font-weight: 500;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: "Motiva Sans";
+    src: url("./assets/fonts/Inter-Variable.ttf") format("truetype");
+    font-weight: bold;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: "Motiva Sans";
+    src: url("./assets/fonts/Inter-Variable.ttf") format("truetype");
+    font-weight: 900;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: "Motiva Sans";
+    src: url("./assets/fonts/Inter-Variable.ttf") format("truetype");
+    font-weight: normal;
+    font-style: italic;
+}
+
+@font-face {
+    font-family: "Motiva Sans";
+    src: url("./assets/fonts/Inter-Variable.ttf") format("truetype");
+    font-weight: 300;
+    font-style: italic;
+}
+
+@font-face {
+    font-family: "Motiva Sans";
+    src: url("./assets/fonts/Inter-Variable.ttf") format("truetype");
+    font-weight: bold;
+    font-style: italic;
+}

@@ -11,6 +11,7 @@
 @import url("./colors.css");
 @import url("./tokens.css");
 @import url("./base.css");
+@import url("./web-fonts.css");
 @import url("./background.css");
 
 @import url("./sections/store.css");
