@@ -134,8 +134,9 @@
     --aika-store-readmore-bg: linear-gradient(90deg, var(--aika-transparent), var(--aika-accent-tint) 33%, var(--aika-accent-tint) 66%, var(--aika-transparent));
     --aika-store-readmore-hover-bg: linear-gradient(90deg, var(--aika-transparent), var(--aika-accent-soft) 33%, var(--aika-accent-soft) 66%, var(--aika-transparent));
     /* Загрузки: затухание обложки активной загрузки вправо, к графику
-       (у Steam — в синий #0056d6) */
-    --aika-download-hero-fade: linear-gradient(to right, var(--aika-transparent) 15%, var(--aika-accent-dim) 90%);
+       (у Steam — в синий #0056d6). В нейтральный тёплый фон: затухание
+       в приглушённый акцент читалось синеватым (правка автора 2026-10-05) */
+    --aika-download-hero-fade: linear-gradient(to right, var(--aika-transparent) 15%, var(--aika-bg-elevated) 90%);
     /* Баннер в мега-меню магазина: затемнение картинки слева направо */
     --aika-store-banner-shade: linear-gradient(270deg, var(--aika-scrim-none) 37%, var(--aika-bg-base) 81%);
     /* Видеоплеер магазина (selectors.css): плавающая панель управления */

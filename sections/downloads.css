@@ -253,3 +253,15 @@ html .DownloadSectionActiveItem .HoverRing {
     border-color: var(--aika-border-accent);
     border-radius: var(--aika-radius-lg);
 }
+
+/* Значок игры у активной загрузки: белый блик-фаска (.DownloadGameIconBevel) */
+html .HeroAndLogo .GameIconAndName .DownloadGameIconBevel {
+    border-radius: var(--aika-radius-xs);
+    background-image: none;
+    box-shadow: inset 0 0 0 var(--aika-hairline) var(--aika-border);
+}
+
+html .HeroAndLogo .GameIconAndName > .Container {
+    overflow: hidden;
+    border-radius: var(--aika-radius-xs);
+}
