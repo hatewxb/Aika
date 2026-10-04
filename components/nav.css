@@ -212,3 +212,25 @@ html .SuperNav .SuperNavMenu.Selected > .MenuButton::after {
     background: var(--aika-accent);
     box-shadow: 0 0 var(--aika-space-2) var(--aika-accent-glow);
 }
+
+/* Вкладки — ровно по центру верхней панели (просьба автора 2026-10-04).
+   .SuperNav — flex: [← →] + .MenuWrapper×N. Автоотступы с двух сторон
+   у группы вкладок и невидимый противовес шириной со стрелки справа
+   (::after) — центр группы совпадает с центром панели. */
+html .SuperNav > div.MenuWrapper:first-of-type {
+    margin-inline-start: auto;
+}
+
+html .SuperNav > div.MenuWrapper:last-of-type {
+    margin-inline-end: auto;
+}
+
+html .SuperNav::after {
+    content: "";
+    flex: none;
+    width: var(--aika-supernav-arrows-width);
+}
+
+html .SuperNav .SuperNavMenu > .MenuButton {
+    padding-inline: var(--aika-space-3);
+}

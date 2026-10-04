@@ -243,7 +243,11 @@
     /* Иконки верхних вкладок (nav.css). Свои простые SVG 24×24, линия 1.75;
        используются как mask-image, поэтому цвет внутри не важен — фигуру
        красит currentColor вкладки. */
-    --aika-tab-icon-size: 22px;
+    --aika-tab-icon-size: 26px;
+    /* Противовес справа от вкладок (components/nav.css), чтобы они стояли
+       ровно по центру окна: стрелки «назад / вперёд» (32 + 24 px) плюс левый
+       отступ полосы .SuperNavBar (11 px Steam) */
+    --aika-supernav-arrows-width: 67px;
     --aika-icon-store: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='1.75' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M5 8h14l-1.2 11.2a2 2 0 0 1-2 1.8H8.2a2 2 0 0 1-2-1.8z'/%3E%3Cpath d='M9 8V6.5a3 3 0 0 1 6 0V8'/%3E%3C/svg%3E");
     --aika-icon-library: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='1.75' stroke-linejoin='round'%3E%3Crect x='3.5' y='3.5' width='7' height='7' rx='2'/%3E%3Crect x='13.5' y='3.5' width='7' height='7' rx='2'/%3E%3Crect x='3.5' y='13.5' width='7' height='7' rx='2'/%3E%3Crect x='13.5' y='13.5' width='7' height='7' rx='2'/%3E%3C/svg%3E");
     --aika-icon-community: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='1.75' stroke-linecap='round'%3E%3Ccircle cx='9' cy='8.5' r='3.25'/%3E%3Cpath d='M3 19.5c0-3.3 2.7-5.5 6-5.5s6 2.2 6 5.5'/%3E%3Ccircle cx='17' cy='9.5' r='2.5'/%3E%3Cpath d='M16.5 14.2c2.6.3 4.5 2.3 4.5 5.3'/%3E%3C/svg%3E");
