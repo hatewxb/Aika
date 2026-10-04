@@ -395,3 +395,97 @@ html #blotter_page .dynamiclink_box .dynamiclink_author span {
 html #blotter_page .dynamiclink_box .dynamiclink_description {
     color: var(--aika-fg-muted);
 }
+
+/* --------------------------------------------------------------------------
+   «Связать с игрой» у поля статуса (#blotter_appselect_app, onclick ShowMenu):
+   у Steam — PNG-градиент и PNG-стрелка, текст капсом в самом DOM (не меняем).
+   Делаем как наш выпадающий список (components/input.css). Список игр —
+   #blotter_appselect_app_options.popup_block: голубая плашка, PNG-тени
+   (.shadow_left… ), поле фильтра — сине-серое.
+   -------------------------------------------------------------------------- */
+
+html #blotter_page .blotter_status_entry #blotter_appselect_app.blotter_appselect {
+    border: var(--aika-hairline) solid var(--aika-border-strong);
+    border-radius: var(--aika-radius-md);
+    background: var(--aika-bg-raised);
+    transition:
+        border-color var(--aika-dur-fast) var(--aika-ease-hover),
+        box-shadow var(--aika-dur-base) var(--aika-ease);
+}
+
+html #blotter_page .blotter_status_entry #blotter_appselect_app.blotter_appselect:hover {
+    border-color: var(--aika-border-hover);
+}
+
+html #blotter_page #blotter_appselect_app #blotter_appselect_app_activeoption {
+    position: relative;
+    padding-right: calc(var(--aika-chevron-size) + var(--aika-space-3));
+    background: var(--aika-transparent);
+    color: var(--aika-fg-muted);
+    font-family: var(--aika-font-mono);
+    font-size: var(--aika-text-label);
+    letter-spacing: var(--aika-tracking-label);
+}
+
+html #blotter_page #blotter_appselect_app #blotter_appselect_app_activeoption::after {
+    content: "";
+    position: absolute;
+    top: 50%;
+    right: var(--aika-space-2);
+    width: var(--aika-chevron-size);
+    height: var(--aika-chevron-size);
+    background-color: currentColor;
+    -webkit-mask: var(--aika-icon-chevron-down) center / contain no-repeat;
+    mask: var(--aika-icon-chevron-down) center / contain no-repeat;
+    transform: translateY(-50%);
+}
+
+html #blotter_page #blotter_appselect_app:hover #blotter_appselect_app_activeoption {
+    color: var(--aika-fg);
+}
+
+/* Список игр */
+html #blotter_page #blotter_appselect_app_options :is(.shadow_left, .shadow_right, .shadow_bl, .shadow_bottom, .shadow_br) {
+    display: none;
+}
+
+html #blotter_page #blotter_appselect_app_options #blotter_appselect_options {
+    overflow: hidden;
+    padding: var(--aika-space-1);
+    border: var(--aika-hairline) solid var(--aika-border-hover);
+    border-radius: var(--aika-radius-lg);
+    background: var(--aika-surface-translucent);
+    box-shadow: var(--aika-shadow-menu);
+}
+
+html #blotter_page #blotter_appselect_options #blotter_appselect_app_filter {
+    border: var(--aika-hairline) solid var(--aika-border-strong);
+    border-radius: var(--aika-radius-md);
+    background: var(--aika-bg-raised);
+    box-shadow: none;
+    color: var(--aika-fg);
+}
+
+html #blotter_page #blotter_appselect_options #blotter_appselect_app_filter:focus {
+    border-color: var(--aika-accent);
+    box-shadow: var(--aika-shadow-input-focus);
+    outline: none;
+}
+
+/* Лупа-GIF Steam рядом с фильтром */
+html #blotter_page #blotter_appselect_options #blotter_appselect_search_img {
+    display: none;
+}
+
+html #blotter_page #blotter_appselect_options #blotter_appselect_suggestions div.option {
+    border-radius: var(--aika-radius-md);
+    color: var(--aika-fg-muted);
+    transition:
+        background-color var(--aika-dur-fast) var(--aika-ease-hover),
+        color var(--aika-dur-fast) var(--aika-ease-hover);
+}
+
+html #blotter_page #blotter_appselect_options #blotter_appselect_suggestions div.option:hover {
+    background: var(--aika-surface-hover);
+    color: var(--aika-fg);
+}

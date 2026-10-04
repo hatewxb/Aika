@@ -236,6 +236,9 @@
     --aika-icon-win-maximize: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 10 10' fill='none' stroke='black' stroke-width='1'%3E%3Crect x='.5' y='.5' width='9' height='9' rx='1.75'/%3E%3C/svg%3E");
     --aika-icon-win-restore: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 10 10' fill='none' stroke='black' stroke-width='1'%3E%3Crect x='.5' y='2.5' width='7' height='7' rx='1.5'/%3E%3Cpath d='M2.5 2.5V2A1.5 1.5 0 0 1 4 .5h4A1.5 1.5 0 0 1 9.5 2v4A1.5 1.5 0 0 1 8 7.5h-.5'/%3E%3C/svg%3E");
     --aika-icon-win-close: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 10 10' fill='none' stroke='black' stroke-width='1' stroke-linecap='round'%3E%3Cpath d='M.75.75l8.5 8.5M9.25.75l-8.5 8.5'/%3E%3C/svg%3E");
+    /* Стрелка выпадающего списка ▾ (community.css) */
+    --aika-icon-chevron-down: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 12' fill='none' stroke='black' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M3 4.5l3 3 3-3'/%3E%3C/svg%3E");
+    --aika-chevron-size: 12px;
 
     /* Прогресс (DESIGN.md §4, Progress) */
     --aika-progress-height: 4px;

@@ -11,7 +11,7 @@
    документов должны быть разделены по корневым селекторам.
 
    План:
-   1. Панель навигации браузера (назад/вперёд/адрес).          TODO: классы
+   1. Панель браузера (адрес, обновить) — ниже, сделано.       TODO: назад/вперёд
    2. Веб-магазин: шапка сайта, меню магазина, главная карусель,
       карточки игр, капсулы со скидками, страница игры, корзина.
       У сайта классы человекочитаемые и стабильнее, чем у клиента,
@@ -19,3 +19,49 @@
    3. Фон веб-страниц: сделать прозрачным, чтобы был виден наш фон.
                                                                TODO: классы
    ========================================================================== */
+
+/* --------------------------------------------------------------------------
+   1. Панель браузера клиента над веб-страницами (магазин, сообщество)
+      (снято через CDP 2026-10-04, главное окно):
+        .BrowserWrapper > .URLBar
+          > .StatusIcon.ReloadButton          — обновить
+          > .URLBarText (.StatusIcon.LockIcon + .URL) — адрес
+      Steam: полоса #171d25 с синеватыми inset-линиями, адрес серым 11 px,
+      hover — #23262e; хэши (0,2,0)…(0,4,0). Делаем прозрачную полосу
+      с тонкой линией снизу, адрес — моно-пилюля нашей поверхности.
+      Красный «небезопасно» (хэш-класс) не трогаем — это смысловой цвет.
+   -------------------------------------------------------------------------- */
+
+/* .ContentFrame — чтобы перебить и вариант развёрнутого окна
+   («.Maximized .хэш .хэш», (0,3,0)) */
+html .ContentFrame .BrowserWrapper > .URLBar {
+    background: var(--aika-transparent);
+    box-shadow: inset 0 calc(-1 * var(--aika-hairline)) 0 0 var(--aika-border);
+}
+
+html .BrowserWrapper > .URLBar .StatusIcon {
+    color: var(--aika-fg-subtle);
+}
+
+html .BrowserWrapper > .URLBar > .StatusIcon.ReloadButton:hover {
+    background: var(--aika-surface-hover);
+    color: var(--aika-fg);
+}
+
+html .BrowserWrapper > .URLBar > .URLBarText {
+    background: var(--aika-surface);
+    box-shadow: inset 0 0 0 var(--aika-hairline) var(--aika-border);
+}
+
+html .BrowserWrapper > .URLBar > .URLBarText:hover {
+    background: var(--aika-surface-hover);
+}
+
+html .BrowserWrapper > .URLBar > .URLBarText .URL {
+    color: var(--aika-fg-muted);
+    font-family: var(--aika-font-mono);
+}
+
+html .BrowserWrapper > .URLBar > .URLBarText:hover :is(.URL, .StatusIcon) {
+    color: var(--aika-fg);
+}
