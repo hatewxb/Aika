@@ -1,0 +1,19 @@
+/* ==========================================================================
+   toast.css — точка входа для окна всплывающих уведомлений Steam
+   («Загрузка завершена», друг в сети, достижение…). Окно маленькое
+   (~283×70) и отдельное: <body class="DesktopToastContainer">.
+   Подключается через Patches в skin.json по классу .DesktopToastContainer.
+
+   Только @import. Без background.css — фон с пятнами света в крошечном
+   окне не нужен (как в popup.css).
+   ========================================================================== */
+
+@import url("./root-colors.css");
+@import url("./colors.css");
+@import url("./tokens.css");
+@import url("./base.css");
+
+@import url("./components/toast.css");
+@import url("./components/status.css");
+
+@import url("./selectors.css");

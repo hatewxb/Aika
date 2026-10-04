@@ -1,0 +1,69 @@
+/* ==========================================================================
+   components/toast.css — всплывающее уведомление клиента (DESIGN.md §4,
+   тултипы и всплывающие слои — единственное место для полупрозрачности).
+
+   Steam (снято 2026-10-05 наблюдателем tools/watch-window.js на «Загрузка
+   завершена»):
+     body.DesktopToastContainer > div > .DesktopToastPopup — карточка
+       (серо-синий радиальный градиент, без скругления);
+       .DesktopToastBackground svg — декоративный узор;
+       .StandardTemplateContainer > .DesktopToastTemplate —
+         .AppLogo (обложка 44×44) + .Content:
+           .Header (.Icon + .Title — «Загрузка завершена», #8b929a),
+           .StandardNotificationDescription — главное (белое),
+           .StandardNotificationSubText — пояснение (#8b929a).
+   ========================================================================== */
+
+html:has(> body.DesktopToastContainer),
+html body.DesktopToastContainer {
+    background: var(--aika-transparent);
+}
+
+html .DesktopToastContainer .DesktopToastPopup {
+    overflow: hidden;
+    border-radius: var(--aika-radius-lg);
+    background: var(--aika-bg-elevated);
+    color: var(--aika-fg-muted);
+    box-shadow:
+        inset 0 0 0 var(--aika-hairline) var(--aika-border-accent),
+        inset var(--aika-indicator) 0 0 0 var(--aika-accent);
+}
+
+/* Декоративный узор Steam — едва заметный акцентный */
+html .DesktopToastContainer .DesktopToastPopup .DesktopToastBackground {
+    opacity: 0.15;
+}
+
+html .DesktopToastContainer .DesktopToastPopup .DesktopToastBackground svg path {
+    fill: var(--aika-accent);
+}
+
+html .DesktopToastContainer .DesktopToastTemplate .AppLogo,
+html .DesktopToastContainer .DesktopToastTemplate .AppLogo :is(.Container, img) {
+    overflow: hidden;
+    border-radius: var(--aika-radius-md);
+}
+
+html .DesktopToastContainer .DesktopToastTemplate .Header .Icon {
+    color: var(--aika-accent-bright);
+}
+
+html .DesktopToastContainer .DesktopToastTemplate .Header .Icon svg :is(path, circle, rect) {
+    fill: currentColor;
+}
+
+html .DesktopToastContainer .DesktopToastTemplate .Header .Title {
+    color: var(--aika-fg-subtle);
+    font-size: var(--aika-text-label);
+    letter-spacing: var(--aika-tracking-label);
+    text-transform: uppercase;
+}
+
+html .DesktopToastContainer .DesktopToastTemplate .StandardNotificationDescription {
+    color: var(--aika-fg);
+    font-weight: var(--aika-weight-medium);
+}
+
+html .DesktopToastContainer .DesktopToastTemplate .StandardNotificationSubText {
+    color: var(--aika-fg-muted);
+}

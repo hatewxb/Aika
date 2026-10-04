@@ -85,6 +85,10 @@
             "TargetCss": "popup.css"
         },
         {
+            "MatchRegexString": ".DesktopToastContainer",
+            "TargetCss": "toast.css"
+        },
+        {
             "MatchRegexString": "^https://store\\.steampowered\\.com/app/.*",
             "TargetJs": "js/store-logo.js"
         }
