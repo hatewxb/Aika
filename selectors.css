@@ -651,6 +651,120 @@ html body.v6 ._2_lmTz0tA4NOSle5WaO1PZ ._2FxbHJzYoH024ko7zqcJOf {
     box-shadow: var(--aika-shadow-menu);
 }
 
+/* [Магазин] Мега-меню «Просмотр / Рекомендации / Категории / Способы игры /
+   Прочее» (под [data-featuretarget="store-menu-v7"], React):
+     ._16jZ3HEbtaJTl80pQINN2Y — полоса меню с раскрытой частью (текст #dcdedf);
+     ._3gaaE-cRfFWJdZcC8XMi0x — полоска под открытой кнопкой (#1a9fff);
+     .h2B3SGR_w4RWdrnsRZEcD ._19o1GB7ysfrWKLYpqZ6aXu — затемнение страницы под меню;
+     ._2HcSSRyk_Jzd3Iq7xSC6En — колонка «главных» ссылок (сине-голубой градиент),
+       ._4bi1iROLdQ66C6or_iLnT — её пункт (hover — голубой градиент через
+       --hi-1…3), .msDiiFvZmOWUVrazuOR7y — разделитель, ._1O0H6NQY1-2DaXv-n_JyEm —
+       подпись под пунктом;
+     ._3wkp8GaMeHBsrImd61r1X- — заголовки колонок («Самые популярные…»);
+     .-bDCBiZsIWB-_6IzGxbhz ._15eaL848WovXjJ0POHaD9D — крупные кнопки-плитки
+       (розовая / бирюзовая / синие градиенты), ._3W0fAmrZB7mfUJZ8QRpquy — белая
+       плашка внутри, ._15LI4ya5Dm0JI0f0GAMvaW — мелкая подпись.
+   Проверено: 2026-10-04, магазин (наведение на «Просмотр»), правила Steam
+   (0,1,0)…(0,3,0). Как найти: навести на пункт меню магазина. */
+html body.v6 [data-featuretarget="store-menu-v7"] ._16jZ3HEbtaJTl80pQINN2Y {
+    color: var(--aika-fg);
+}
+
+html body.v6 [data-featuretarget="store-menu-v7"] ._16jZ3HEbtaJTl80pQINN2Y a:hover {
+    color: var(--aika-fg);
+}
+
+/* У Steam «button._175B… .vj9h… ._1-hP… ._3gaaE…» (0,4,1) */
+html body.v6 [data-featuretarget="store-menu-v7"] button ._1-hPfsxjynE3demuqGmqf0 ._3gaaE-cRfFWJdZcC8XMi0x {
+    background: var(--aika-accent);
+}
+
+/* Цена в подсказках поиска («Часто ищут»): .hWF8eniTajf4-mfZvbK3F —
+   ._2lQxRlo1DQ1PN08TYTil2L скидка (зелёный 50 %), ._2faI25vznC0tWNttks8OaJ —
+   старая/новая цена. Как .discount_block в store.css: ok Aika, моно. */
+html body.v6 [data-featuretarget="store-menu-v7"] .hWF8eniTajf4-mfZvbK3F {
+    font-family: var(--aika-font-mono);
+}
+
+html body.v6 [data-featuretarget="store-menu-v7"] .hWF8eniTajf4-mfZvbK3F ._2lQxRlo1DQ1PN08TYTil2L {
+    border-radius: var(--aika-radius-xs);
+    background: var(--aika-ok);
+    color: var(--aika-bg-deep);
+}
+
+html body.v6 .h2B3SGR_w4RWdrnsRZEcD ._19o1GB7ysfrWKLYpqZ6aXu,
+html body.v6 .h2B3SGR_w4RWdrnsRZEcD ._19o1GB7ysfrWKLYpqZ6aXu._2IyR9WyPwYb15ILBjPvLR9 {
+    background: var(--aika-scrim);
+}
+
+html body.v6 [data-featuretarget="store-menu-v7"] ._2HcSSRyk_Jzd3Iq7xSC6En {
+    overflow: hidden;
+    border-radius: var(--aika-radius-lg);
+    background: var(--aika-card-accent-bg);
+    box-shadow: inset 0 0 0 var(--aika-hairline) var(--aika-border-accent);
+}
+
+html body.v6 [data-featuretarget="store-menu-v7"] ._4bi1iROLdQ66C6or_iLnT {
+    --hi-1: var(--aika-surface-active);
+    --hi-2: var(--aika-surface);
+    --hi-3: var(--aika-transparent);
+    color: var(--aika-fg);
+}
+
+html body.v6 [data-featuretarget="store-menu-v7"] .msDiiFvZmOWUVrazuOR7y {
+    border-bottom-color: var(--aika-border);
+}
+
+html body.v6 [data-featuretarget="store-menu-v7"] ._1O0H6NQY1-2DaXv-n_JyEm {
+    color: var(--aika-fg-subtle);
+}
+
+html body.v6 [data-featuretarget="store-menu-v7"] ._3wkp8GaMeHBsrImd61r1X- {
+    color: var(--aika-fg-subtle);
+    font-size: var(--aika-text-label);
+    letter-spacing: var(--aika-tracking-label);
+    text-transform: uppercase;
+}
+
+/* Крупные плитки: у Steam у каждой своя заливка по nth-child — делаем
+   акцентными карточками Aika, все одинаково */
+html body.v6 [data-featuretarget="store-menu-v7"] .-bDCBiZsIWB-_6IzGxbhz ._15eaL848WovXjJ0POHaD9D,
+html body.v6 [data-featuretarget="store-menu-v7"] .-bDCBiZsIWB-_6IzGxbhz.JWPtoi9esADBpUUkODq1z ._15eaL848WovXjJ0POHaD9D:nth-child(n),
+html body.v6 [data-featuretarget="store-menu-v7"] .-bDCBiZsIWB-_6IzGxbhz._2SVHFh60yRjQbYRg6t2mcK ._15eaL848WovXjJ0POHaD9D {
+    border-radius: var(--aika-radius-lg);
+    background: var(--aika-card-accent-bg);
+    color: var(--aika-fg);
+    box-shadow:
+        inset 0 0 0 var(--aika-hairline) var(--aika-border-accent),
+        var(--aika-shadow-card);
+    transition: box-shadow var(--aika-dur-base) var(--aika-ease);
+}
+
+html body.v6 [data-featuretarget="store-menu-v7"] .-bDCBiZsIWB-_6IzGxbhz ._15eaL848WovXjJ0POHaD9D:hover,
+html body.v6 [data-featuretarget="store-menu-v7"] .-bDCBiZsIWB-_6IzGxbhz.JWPtoi9esADBpUUkODq1z ._15eaL848WovXjJ0POHaD9D:nth-child(n):hover,
+html body.v6 [data-featuretarget="store-menu-v7"] .-bDCBiZsIWB-_6IzGxbhz._2SVHFh60yRjQbYRg6t2mcK ._15eaL848WovXjJ0POHaD9D:hover {
+    background: var(--aika-accent-soft);
+    color: var(--aika-fg);
+    box-shadow:
+        inset 0 0 0 var(--aika-hairline) var(--aika-border-accent),
+        var(--aika-shadow-card-hover);
+}
+
+html body.v6 [data-featuretarget="store-menu-v7"] .-bDCBiZsIWB-_6IzGxbhz ._15eaL848WovXjJ0POHaD9D ._3W0fAmrZB7mfUJZ8QRpquy {
+    border-radius: var(--aika-radius-md);
+    background: var(--aika-accent-fill);
+    color: var(--aika-on-accent);
+    box-shadow: var(--aika-shadow-cta);
+}
+
+html body.v6 [data-featuretarget="store-menu-v7"] .-bDCBiZsIWB-_6IzGxbhz ._15eaL848WovXjJ0POHaD9D :is(span, ._3JmGSFfarJIfLqzni43JFQ) {
+    color: inherit;
+}
+
+html body.v6 [data-featuretarget="store-menu-v7"] .-bDCBiZsIWB-_6IzGxbhz ._15eaL848WovXjJ0POHaD9D ._15LI4ya5Dm0JI0f0GAMvaW {
+    color: var(--aika-fg-subtle);
+}
+
 /* [Магазин] Ползунок прокрутки каруселей (.PQzkJfi8IxzjcFEDG-yv-, белый 35 %)
    внутри ._3SyN-YtXsML6ado0q-Gdve .EMd4F6A8qdMk-l6os415A.
    Проверено: 2026-10-04, магазин (ELDEN RING), правило Steam (0,2,0). */

@@ -141,6 +141,12 @@ html:root:has(> body.v6) {
     --color-storegreen-11: var(--aika-ok);
     --color-storegreen-12: var(--aika-fg);
 
+    /* Нейтральные React-магазина (мега-меню и др.): Steam их не объявляет,
+       берёт фолбэк из var(--Neutrals-*, #…) — объявляем сами */
+    --Neutrals-white: var(--aika-fg);
+    --Neutrals-lightestGrey: var(--aika-fg-muted);
+    --Neutrals-lighterGrey: var(--aika-fg-subtle);
+
     /* Подвал (React, footer#footer): у Steam rgba(15,25,36,.9) */
     --footer-bg-color: var(--aika-bg-elevated);
 }
