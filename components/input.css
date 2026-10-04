@@ -201,3 +201,65 @@ html .DialogDropDown .InstallDropdownOption .DriveSize {
 html .DialogDropDown .InstallDropdownOption > svg path {
     fill: var(--aika-fg-subtle);
 }
+
+/* Заливка «вкл.» на самом деле рисуется ::before дорожки: Steam сдвигает
+   его translateX (выкл. — уезжает влево), цвет #1a9fff (0,1,1).
+   Скрывался от проверки computed-стилей самого .ToggleRail — нашёлся
+   по скриншоту автора 2026-10-04. */
+html .Toggle .ToggleRail {
+    overflow: hidden;
+}
+
+html .Toggle .ToggleRail::before {
+    background: var(--aika-accent);
+}
+
+html .Toggle.On:hover .ToggleRail::before {
+    background: var(--aika-accent-bright);
+}
+
+/* --------------------------------------------------------------------------
+   Ползунки (.SliderControl > .SliderTrack(::before — заливка) + .SliderHandle):
+   заливка у Steam — var(--left-track-color, #1a9fff) на ::before, дорожка —
+   белая 15 %, ручка — белый кружок с чёрной тенью. Найдено аудитом
+   псевдоэлементов 2026-10-04 (настройки: «Доступность», «Голос», «Музыка»).
+   Плеер магазина задаёт свои значения в selectors.css — там сильнее.
+   -------------------------------------------------------------------------- */
+
+html .SliderControl .SliderTrack {
+    --left-track-color: var(--aika-accent);
+    border-radius: var(--aika-radius-full);
+    background: var(--aika-surface-active);
+    box-shadow: inset 0 0 0 var(--aika-hairline) var(--aika-border);
+}
+
+html .SliderControl .SliderTrack::before {
+    border-radius: var(--aika-radius-full);
+    background: var(--left-track-color);
+}
+
+html .SliderControl:hover .SliderTrack {
+    --left-track-color: var(--aika-accent-bright);
+}
+
+html .SliderControl .SliderHandle {
+    background: var(--aika-fg);
+    box-shadow: var(--aika-shadow-card);
+}
+
+/* --------------------------------------------------------------------------
+   Группа-переключатель (.Shared_Radio_Group > .Button.RadioButton, выбранный —
+   .Active; у Steam синий радиальный градиент, разделители — ::before #3d4450)
+   -------------------------------------------------------------------------- */
+
+html .Shared_Radio_Group > .Button.RadioButton.Active,
+html .Shared_Radio_Group > .Button.RadioButton.Active:hover {
+    background: var(--aika-accent-soft);
+    color: var(--aika-fg);
+    box-shadow: inset 0 0 0 var(--aika-hairline) var(--aika-border-accent);
+}
+
+/* Разделитель между невыбранными: у Steam «.хэш:not(.хэш) + .хэш:not(.хэш)::before» (0,4,1) */
+html .Shared_Radio_Group > .Button.RadioButton:not(.Active) + .Button.RadioButton:not(.Active)::before {
+    background: var(--aika-border);
+}

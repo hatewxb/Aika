@@ -69,6 +69,18 @@ const expr = `(() => {
         const partsSh = s.boxShadow.split(/,(?![^()]*\\))/).filter(p => !/^\\s*\\S+\\([^)]*\\)\\s+0px 0px 0px 0px/.test(p) && !/^\\s*\\S+\\([^)]*\\)\\s+0px 0px( 0px)?\\s*(inset)?\\s*$/.test(p));
         const cols = partsSh.join(",").match(/(rgba?|oklch|color)\\([^()]*\\)/g) || [];
         if (cols.some(c => !ours(rgba(c)))) add(label(el), "shadow " + partsSh.join(",").slice(0, 60)); }
+      // Псевдоэлементы: Steam рисует ими заливки (напр. «вкл.» у переключателя —
+      // .ToggleRail::before), computed самого элемента их не показывает
+      for (const ps of ["::before", "::after"]) {
+        const p = getComputedStyle(el, ps);
+        if (p.content === "none" || p.content === "normal" || p.display === "none" || p.opacity === "0") continue;
+        const pb = rgba(p.backgroundColor);
+        if (!ours(pb)) add(label(el) + ps, "bg " + p.backgroundColor);
+        if (p.backgroundImage !== "none" && /gradient/.test(p.backgroundImage)) {
+          const cols = p.backgroundImage.match(/(rgba?|oklch|color)\\([^()]*(\\([^()]*\\))?[^()]*\\)|#[0-9a-f]{3,8}/gi) || [];
+          if (cols.some(c => !ours(rgba(c)))) add(label(el) + ps, "gradient " + p.backgroundImage.slice(0, 70));
+        }
+      }
     }
     if (MODE !== "colors") {
       const visible = rgba(s.backgroundColor)[3] > 0.02
