@@ -120,3 +120,43 @@ html .Draggable.HoversEnabled .LibraryItemBox ~ .LibraryItemBoxSubscript {
 html .Draggable.HoversEnabled .LibraryItemBox:hover ~ .LibraryItemBoxSubscript {
     transform: translateY(var(--aika-lift-md));
 }
+
+/* --------------------------------------------------------------------------
+   Spotlight на крупных поверхностях Steam (DESIGN.md §1, §4; js/spotlight.js):
+   панели страницы игры, карточки «Что нового», плитки коллекций — их на
+   экране единицы. ::after — радиальное акцентное свечение под курсором,
+   поверх содержимого в режиме screen (подсвечивает, не перекрывает текст).
+   Координаты — --aika-spot-x/y от скрипта; без скрипта — верхний центр.
+   Псевдоэлементы у этих блоков свободны (проверено 2026-10-04).
+   -------------------------------------------------------------------------- */
+
+html :is(.AppDetailsSection, .PartnerEventRowCapsule_Container.HoversEnabled, .CSSGrid.Grid .Collection) {
+    position: relative;
+}
+
+html :is(.AppDetailsSection, .PartnerEventRowCapsule_Container.HoversEnabled, .CSSGrid.Grid .Collection)::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    border-radius: inherit;
+    background: radial-gradient(
+        var(--aika-spot-size) circle at var(--aika-spot-x) var(--aika-spot-y),
+        var(--aika-accent-spot),
+        var(--aika-accent-none)
+    );
+    opacity: 0;
+    mix-blend-mode: screen;
+    transition: opacity var(--aika-dur-base) var(--aika-ease-hover);
+    pointer-events: none;
+}
+
+html :is(.AppDetailsSection, .PartnerEventRowCapsule_Container.HoversEnabled, .CSSGrid.Grid .Collection):hover::after {
+    opacity: 1;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    html :is(.AppDetailsSection, .PartnerEventRowCapsule_Container.HoversEnabled, .CSSGrid.Grid .Collection)::after {
+        transition: none;
+    }
+}

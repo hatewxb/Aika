@@ -11,7 +11,8 @@
     "Patches": [
         {
             "MatchRegexString": "^Steam$",
-            "TargetCss": "main.css"
+            "TargetCss": "main.css",
+            "TargetJs": "js/spotlight.js"
         },
         {
             "MatchRegexString": ".ModalDialogPopup",
