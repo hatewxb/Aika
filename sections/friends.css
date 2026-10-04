@@ -359,8 +359,21 @@ html.friendsui-container .chatEntry form.chatEntryControls button.chatSubmitButt
     background-color: var(--aika-transparent);
 }
 
+/* Активная «Отправить» (есть текст): у Steam синий градиент в
+   background-image — «._3Ule… .RVIs…:not(.jaQN…)» (0,3,0). Делаем
+   primary Aika: акцентная заливка, светлый значок. */
 html.friendsui-container .chatEntry form.chatEntryControls button.chatSubmitButton:not(.disabled) {
-    color: var(--aika-accent-bright);
+    margin: var(--aika-space-1);
+    border-radius: var(--aika-radius-md);
+    background: var(--aika-accent-fill);
+    color: var(--aika-on-accent);
+    box-shadow: var(--aika-shadow-cta);
+}
+
+html.friendsui-container .chatEntry form.chatEntryControls button.chatSubmitButton:not(.disabled):hover {
+    background: var(--aika-accent-fill-hover);
+    color: var(--aika-on-accent);
+    box-shadow: var(--aika-shadow-cta-hover);
 }
 
 html.friendsui-container .chatEntry :is(button.chatSubmitButton, button.VoiceToggle) svg,
@@ -386,4 +399,64 @@ html.friendsui-container .ChatMessageEntryVoice.Inactive {
    задают свой color #898989 — значок берёт цвет кнопки */
 html.friendsui-container .chatEntry :is(button.chatSubmitButton, button.VoiceToggle) :is(.tool-tip-source, .VoiceToggleIconCtn, svg) {
     color: inherit;
+}
+
+/* Закреплённые сверху (.quickAccessFriend): цвет статуса задаётся всей
+   плитке (.friend.online — голубой #6dcff6, наследуют имя и значки) */
+html.friendsui-container .friend.online {
+    color: var(--aika-accent-bright);
+}
+
+html.friendsui-container .friend.ingame {
+    color: var(--aika-ok);
+}
+
+html.friendsui-container .quickAccessFriends .friend.online .playerName {
+    color: var(--aika-accent-bright);
+}
+
+/* Поиск по друзьям (лупа во вкладке «Друзья»): кнопка .TabSearchButton
+   (#2c3036 50 %), полоса .socialSearchContainer (#434953), поле
+   .friendSearchInput[type=text] (#262930, тёмная тень внутрь; на фокусе —
+   #2c3036, (0,3,0)). Поле Aika: приподнятая поверхность, тонкая рамка,
+   на фокусе — акцентное кольцо. */
+html.friendsui-container .friendsTabButtonsContainer .TabSearchButton {
+    border-radius: var(--aika-radius-md);
+    background-color: var(--aika-surface);
+}
+
+html.friendsui-container .friendsTabButtonsContainer .TabSearchButton:hover {
+    background-color: var(--aika-surface-hover);
+}
+
+html.friendsui-container .socialSearchContainer {
+    border-radius: var(--aika-radius-md);
+    background-color: var(--aika-bg-elevated);
+}
+
+html.friendsui-container .socialSearchContainer .friendSearchInput[type="text"],
+html.friendsui-container .socialSearchContainer .friendSearchInput[type="text"]:focus {
+    border-radius: var(--aika-radius-md);
+    background-color: var(--aika-bg-raised);
+    color: var(--aika-fg);
+    box-shadow: inset 0 0 0 var(--aika-hairline) var(--aika-border-strong);
+    transition: box-shadow var(--aika-dur-fast) var(--aika-ease-hover);
+}
+
+html.friendsui-container .socialSearchContainer .friendSearchInput[type="text"]:focus {
+    box-shadow: var(--aika-shadow-input-focus);
+}
+
+html.friendsui-container .socialSearchContainer .friendSearchInput::placeholder {
+    color: var(--aika-fg-subtle);
+}
+
+html.friendsui-container .socialSearchContainer .friendSearchClear svg,
+html.friendsui-container .socialSearchContainer .friendSearchClear svg * {
+    fill: var(--aika-fg-subtle);
+}
+
+html.friendsui-container .socialSearchContainer .friendSearchClear:hover svg,
+html.friendsui-container .socialSearchContainer .friendSearchClear:hover svg * {
+    fill: var(--aika-fg);
 }

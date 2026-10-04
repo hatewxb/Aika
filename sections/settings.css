@@ -29,17 +29,46 @@ html .ModalPosition_Content {
     box-shadow: var(--aika-shadow-panel);
 }
 
-/* Левая колонка: заголовок «Настройки» (#1a9fff) и разделы */
+/* --------------------------------------------------------------------------
+   Левая колонка — как левая панель библиотеки (правка автора 2026-10-04:
+   «меню не подходит под стилистику»). У Steam: сплошной #2a2d34, пункты
+   прижаты к краю окна, синий заголовок, серые разделители.
+   У нас: колонка прозрачная (виден фон темы и пятна света) с тонкой линией
+   справа; заголовок — градиентный текст; пункты с отступом от краёв,
+   значок — в маленьком скруглённом контейнере (DESIGN §4, контейнеры
+   иконок); выбранный — акцентная карточка, контейнер значка залит
+   акцентом, слева — Fluent-индикатор (components/nav.css).
+   -------------------------------------------------------------------------- */
+
+html .PagedSettingsDialog .PagedSettingsDialog_PageListColumn {
+    background: var(--aika-transparent);
+    box-shadow: inset calc(-1 * var(--aika-hairline)) 0 0 0 var(--aika-border);
+}
+
 html .PagedSettingsDialog_PageListColumn .PagedSettingsDialog_Title {
-    color: var(--aika-fg);
-    font-size: var(--aika-text-h2);
+    padding-inline-start: var(--aika-space-5);
+    background-image: var(--aika-text-gradient);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: var(--aika-transparent);
+    font-size: var(--aika-text-h1);
     font-weight: var(--aika-weight-semibold);
-    letter-spacing: var(--aika-tracking-h2);
+    letter-spacing: var(--aika-tracking-h1);
+    line-height: var(--aika-leading-heading);
+}
+
+html .PagedSettingsDialog_PageListColumn .PagedSettingsDialog_PageList {
+    padding-inline: var(--aika-space-2);
 }
 
 html .PagedSettingsDialog_PageList .PagedSettingsDialog_PageListItem {
+    position: relative;
+    width: auto;
+    margin-block: var(--aika-hairline);
+    padding: var(--aika-space-1) var(--aika-space-2);
     border-radius: var(--aika-radius-md);
     color: var(--aika-fg-muted);
+    font-size: var(--aika-text-body);
     transition:
         background-color var(--aika-dur-fast) var(--aika-ease-hover),
         color var(--aika-dur-fast) var(--aika-ease-hover);
@@ -50,13 +79,58 @@ html .PagedSettingsDialog_PageList .PagedSettingsDialog_PageListItem:not(.Active
     color: var(--aika-fg);
 }
 
-html .PagedSettingsDialog_PageList .PagedSettingsDialog_PageListItem :is(.PageListItem_Title, .PageListItem_Icon) {
+html .PagedSettingsDialog_PageList .PagedSettingsDialog_PageListItem.Active {
+    background: var(--aika-card-accent-bg);
+    color: var(--aika-fg);
+    box-shadow: inset 0 0 0 var(--aika-hairline) var(--aika-border-accent);
+}
+
+html .PagedSettingsDialog_PageList .PagedSettingsDialog_PageListItem .PageListItem_Title {
     color: inherit;
+}
+
+/* Контейнер значка */
+html .PagedSettingsDialog_PageList .PagedSettingsDialog_PageListItem .PageListItem_Icon {
+    display: flex;
+    flex: none;
+    align-items: center;
+    justify-content: center;
+    width: var(--aika-settings-icon-box);
+    height: var(--aika-settings-icon-box);
+    margin-inline-end: var(--aika-space-3);
+    border-radius: var(--aika-radius-md);
+    background: var(--aika-surface);
+    color: inherit;
+    box-shadow: inset 0 0 0 var(--aika-hairline) var(--aika-border);
+    transition:
+        background-color var(--aika-dur-fast) var(--aika-ease-hover),
+        color var(--aika-dur-fast) var(--aika-ease-hover);
+}
+
+html .PagedSettingsDialog_PageList .PagedSettingsDialog_PageListItem:not(.Active):hover .PageListItem_Icon {
+    background: var(--aika-surface-active);
+}
+
+html .PagedSettingsDialog_PageList .PagedSettingsDialog_PageListItem.Active .PageListItem_Icon {
+    background: var(--aika-accent-fill);
+    color: var(--aika-on-accent);
+    box-shadow: var(--aika-shadow-cta);
+}
+
+html .PagedSettingsDialog_PageList .PagedSettingsDialog_PageListItem .PageListItem_Icon svg {
+    width: var(--aika-settings-icon);
+    height: var(--aika-settings-icon);
 }
 
 html .PagedSettingsDialog_PageList .PagedSettingsDialog_PageListItem .PageListItem_Icon svg,
 html .PagedSettingsDialog_PageList .PagedSettingsDialog_PageListItem .PageListItem_Icon svg path {
     fill: currentColor;
+}
+
+/* Разделители групп (.PageListSeparator, #3d4450) */
+html .PagedSettingsDialog_PageList .PageListSeparator {
+    margin: var(--aika-space-2) var(--aika-space-3);
+    background: var(--aika-border);
 }
 
 /* Правая колонка: у Steam #25282e с серым радиальным светом, внутри
@@ -341,12 +415,7 @@ html .PagedSettingsDialog .DriveName .tool-tip-source > svg {
 }
 
 /* Разделы при наведении: Steam темнит значок (#3d4450) под светлую
-   подложку — у нас подложка тёмная, значок цвета текста */
-html .PagedSettingsDialog_PageList .PagedSettingsDialog_PageListItem:hover .PageListItem_Icon svg,
-html .PagedSettingsDialog_PageList .PagedSettingsDialog_PageListItem:hover .PageListItem_Icon svg path {
-    fill: currentColor;
-}
-
+   подложку — у нас значок цвета текста */
 html .PagedSettingsDialog_PageList .PagedSettingsDialog_PageListItem:not(.Active):hover :is(.PageListItem_Title, .PageListItem_Icon, .PageListItem_Icon svg) {
     color: var(--aika-fg);
 }

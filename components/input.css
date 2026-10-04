@@ -122,3 +122,11 @@ html .DialogCheckbox svg path {
 html .Toggle:not(.Disabled):is(:hover, :focus-visible, .gpfocus) {
     box-shadow: 0 0 0 var(--aika-space-1) var(--aika-accent-haze);
 }
+
+/* Выпадающий список на hover в окнах-диалогах: у Steam
+   «.хэш .DialogDropDown:hover» (0,3,0) — серый #464d58 (напр., выбор диска
+   в «Хранилище»). Повторяем наш hover сильнее. */
+html button._DialogInputContainer.DialogDropDown:not(.Disabled):hover {
+    background-color: var(--aika-surface-hover);
+    color: var(--aika-fg);
+}

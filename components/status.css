@@ -277,3 +277,80 @@ html :is(.PlayerName, .FakeFriend > .noContextMenu).ingame .richPresenceContaine
 html :is(.PlayerName, .FakeFriend > .noContextMenu).offline .richPresenceContainer .richPresenceLabel {
     color: var(--aika-fg-subtle);
 }
+
+/* --------------------------------------------------------------------------
+   Значки статуса друга — свои, в цвете статуса (просьба автора 2026-10-04):
+   «отошёл / не беспокоить» (.SnoozeContainer — у Steam три прыгающие буквы
+   .SnoozeZ) — луна с «z»; «с телефона» (.PersonaStatusIcon.MobilePhoneIcon —
+   svg Steam) — контурный телефон. Иконки — маски из tokens.css, цвет —
+   currentColor: в игре — ok, в сети — акцент. Класс статуса (.online /
+   .ingame) у Steam стоит прямо на этих элементах. Остальные значки
+   (Steam Deck, VR…) — svg Steam в цвете статуса.
+   -------------------------------------------------------------------------- */
+
+html :is(.SnoozeContainer, .PersonaStatusIcon).online {
+    color: var(--aika-accent-bright);
+}
+
+html :is(.SnoozeContainer, .PersonaStatusIcon).ingame {
+    color: var(--aika-ok);
+}
+
+html :is(.SnoozeContainer, .PersonaStatusIcon).offline {
+    color: var(--aika-fg-subtle);
+}
+
+html .SnoozeContainer > .SnoozeZ,
+html .PersonaStatusIcon.MobilePhoneIcon > svg {
+    display: none;
+}
+
+html .SnoozeContainer {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+html :is(.SnoozeContainer, .PersonaStatusIcon.MobilePhoneIcon)::before {
+    content: "";
+    display: block;
+    flex: none;
+    width: var(--aika-status-icon-size);
+    height: var(--aika-status-icon-size);
+    background-color: currentColor;
+    -webkit-mask: var(--aika-icon-snooze) center / contain no-repeat;
+    mask: var(--aika-icon-snooze) center / contain no-repeat;
+}
+
+html .PersonaStatusIcon.MobilePhoneIcon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+}
+
+html .PersonaStatusIcon.MobilePhoneIcon::before {
+    -webkit-mask-image: var(--aika-icon-mobile);
+    mask-image: var(--aika-icon-mobile);
+}
+
+/* Луна на аватаре — в тёмном кружке, чтобы читалась поверх картинки */
+html .avatarHolder .SnoozeContainer {
+    box-sizing: content-box;
+    width: var(--aika-status-icon-size);
+    min-width: var(--aika-status-icon-size);
+    height: var(--aika-status-icon-size);
+    min-height: var(--aika-status-icon-size);
+    padding: 0;
+    border-radius: var(--aika-radius-full);
+    background: var(--aika-bg-deep);
+    box-shadow: 0 0 0 var(--aika-hairline) var(--aika-border-strong);
+}
+
+html .avatarHolder .SnoozeContainer::before {
+    width: 75%;
+    height: 75%;
+}
+
+html .PersonaStatusIcon:is(.online, .ingame, .offline) svg path {
+    fill: currentColor;
+}
