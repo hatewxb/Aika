@@ -19,6 +19,12 @@
     --aika-bg-elevated: #0E0D0C;    /* тело панелей */
     --aika-bg-raised: #161514;      /* заголовки панелей, поля ввода, меню */
     --aika-bg-glow: #0E0C0B;        /* центр радиального света в базе фона */
+    /* Сплошные ступени светлее raised — для шкал, которые ждут непрозрачный
+       цвет (дизайн-система магазина Steam, sections/store.css) */
+    --aika-bg-hover: #1D1B19;
+    --aika-bg-high: #262321;
+    --aika-bg-edge: #2F2C29;
+    --aika-bg-line: #3A3633;
 
     /* ------------------------------------------------------------------
        Поверхности (карточки, пункты списков)
@@ -56,6 +62,11 @@
     --aika-accent-spot: rgb(from var(--aika-accent) r g b / 0.15);    /* spotlight карточек */
     --aika-accent-tint: rgb(from var(--aika-accent) r g b / 0.08);    /* фон карточки accent */
     --aika-accent-none: rgb(from var(--aika-accent) r g b / 0);       /* конец градиентов акцента */
+    /* Сплошные тёмные ступени акцента (акцент, подмешанный в холст) —
+       для шкал, которые ждут непрозрачный цвет (магазин, sections/store.css) */
+    --aika-accent-deep: color-mix(in oklab, var(--aika-accent) 12%, var(--aika-bg-base));
+    --aika-accent-dim: color-mix(in oklab, var(--aika-accent) 28%, var(--aika-bg-base));
+    --aika-accent-mid: color-mix(in oklab, var(--aika-accent) 55%, var(--aika-bg-base));
 
     /* ------------------------------------------------------------------
        Границы — почти невидимые (DESIGN.md §7.5)
