@@ -380,6 +380,17 @@ html .LinksSectionBody .LinkInner:hover .Link .Text {
     color: var(--aika-fg);
 }
 
+/* Подложка ссылки: у Steam скругление 2 px и серо-синий hover — хэш (0,3,0)
+   с :hover; у нас html + три класса + :hover */
+html .LinksSectionBody .LinkInner .Anchor .Link {
+    border-radius: var(--aika-radius-md);
+    transition: background-color var(--aika-dur-fast) var(--aika-ease-hover);
+}
+
+html .LinksSectionBody .LinkInner .Anchor .Link:hover {
+    background-color: var(--aika-surface-hover);
+}
+
 html .LinksSectionBody .MenuButton svg,
 html .LinksSectionBody .MenuButton svg circle {
     fill: var(--aika-fg-muted);
@@ -446,6 +457,23 @@ html .AppDetailsSectionContainer .Highlight.HighlightDiv {
     border-radius: var(--aika-radius-lg);
     background: var(--aika-surface);
     box-shadow: inset 0 0 0 var(--aika-hairline) var(--aika-border);
+}
+
+/* «Вы получили все достижения» — акцентная полоса и медаль в цветах Aika
+   (у Steam — сине-голубой градиент из <defs> и жёлтый круг) */
+html .AppDetailsSectionContainer .Highlight.HighlightDiv.AllAchieved {
+    background: var(--aika-accent-soft);
+    box-shadow: inset 0 0 0 var(--aika-hairline) var(--aika-border-accent);
+}
+
+html .AppDetailsSectionContainer .Highlight.AllAchieved svg.Ribbon path {
+    fill: var(--aika-accent-fill);
+    stroke: var(--aika-accent-bright);
+}
+
+html .AppDetailsSectionContainer .Highlight.AllAchieved svg.Ribbon circle {
+    fill: var(--aika-warn);
+    stroke: var(--aika-light-3);
 }
 
 html .AppDetailsSectionContainer .Highlight .UnlockedLabel span {
@@ -540,6 +568,12 @@ html .AppDetailsSectionContainer .Screenshots .Thumbnail {
 html .CardsSection .CardWrapper .Card .CardContainer {
     border-radius: var(--aika-radius-md);
     background-color: var(--aika-bg-raised);
+}
+
+/* Наведение на карточку: у Steam одна чёрная тень (хэш (0,3,0) с :hover) →
+   наша многослойная */
+html .CardsSection .CardWrapper .Card:hover .CardContainer {
+    box-shadow: var(--aika-shadow-card-hover);
 }
 
 /* Пустые ячейки-заглушки в «Контенте сообщества» */
@@ -788,6 +822,12 @@ html .AppDetailsSectionContainer > .Panel > .Highlight.WorkshopHightlight {
 
 html .Highlight.BadgeSection .BadgeInfo .BadgeName {
     color: var(--aika-fg);
+}
+
+/* Значок ещё не создан — пустой пунктирный круг: серый Steam → наша рамка
+   (у Steam хэш (0,2,0); у нас html + три класса) */
+html .Highlight.BadgeSection .Badge.EmptyCircle {
+    border-color: var(--aika-border-hover);
 }
 
 html .Highlight.BadgeSection .BadgeInfo .BadgeLevel {
