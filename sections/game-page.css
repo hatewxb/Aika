@@ -1159,9 +1159,20 @@ html .ActivityFeedContainer .PartnerEventLargeUpdate.PartnerEventLargeUpdate {
     box-shadow: none;
 }
 
+/* Полоса слева торчит за край карточки на 22 px и читалась как налипшая
+   рамка — убираем: акцент и так в обводке карточки */
 html .PartnerEventLargeUpdate .MajorUpdateContentContainer .LeftSideMajorUpdateBar {
-    border-radius: var(--aika-radius-lg) 0 0 var(--aika-radius-lg);
-    background: linear-gradient(to right, var(--aika-accent-none), var(--aika-accent-soft));
+    display: none;
+}
+
+/* Размытая копия обложки под текстом (.Blur, blur 32px): к краям размытие
+   прозрачнеет, и сквозь него по контуру проступал фон карточки — тонкое
+   синее «кольцо». Растягиваем за края (края уходят под overflow: hidden)
+   и оставляем мягкой цветной подсветкой вместо серой. Steam (0,2,0). */
+html .PartnerEventLargeUpdate .PartnerEventLargeImage_Contents img.PartnerEventLargeImage_Image.Blur {
+    transform: scale(var(--aika-blur-cover-scale));
+    filter: var(--aika-blur-cover-filter);
+    opacity: var(--aika-blur-cover-opacity);
 }
 
 html .PartnerEventLargeUpdate .MajorUpdateContentContainer .PartnerEventLargeImage_Container {

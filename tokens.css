@@ -211,6 +211,11 @@
     --aika-hero-inset: 10px;           /* поля героя и «Играть» — как у блоков Steam ниже (10 px) */
     --aika-hero-glow: 0 0 24px var(--aika-accent-haze);  /* свечение вокруг блока героя */
     --aika-hero-edge-fade: 32px;       /* затухание боков отражения баннера (2 × radius-xl) */
+    /* Размытая обложка под «Крупным обновлением»: растянута за края карточки,
+       чтобы не было светлого кольца от blur по контуру */
+    --aika-blur-cover-scale: 1.4;
+    --aika-blur-cover-opacity: 0.35;
+    --aika-blur-cover-filter: blur(32px) brightness(0.5) saturate(1.2);
 
     /* Иконки верхних вкладок (nav.css). Свои простые SVG 24×24, линия 1.75;
        используются как mask-image, поэтому цвет внутри не важен — фигуру
