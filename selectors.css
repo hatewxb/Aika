@@ -182,6 +182,280 @@ html body.v6 .CapsuleDecorators > span._1f8WQvpQv-I5pqCmscp6iV {
     color: var(--aika-on-accent);
 }
 
+/* [Магазин, страница игры] Обзоры пользователей (.app_reviews_area, React).
+   Читаемых классов внутри нет. Роли хэшей:
+     ._1CXIQ2B63vhNXx-kCDgpUY — заголовок «Обзоры пользователей: …» (#86b5d9);
+     ._2rVi-K-6kLGyoCnjKAHcf5 a — ссылки справа (белые, разделитель #9fb4c9),
+       .VOQ3gy6S6Wx6thjXHTFhu — оранжевая пометка;
+     ._2o9Sk4A7T9XCDkoZwylnsQ — линия-разделитель (#415063);
+     ._1rJdzVWqHHLrXDngd242Qr — сводка «Обзоры (Русский)» (радиальный свет),
+       ._2Tq_Z1Hko5WX8JFR8g6dwf — подпись, .insvelMlW6bYM42Tr3s8d — «(обзоров: N)»;
+     .fSTofplcy-cQt7eO3r665 — плашки «Все обзоры / Недавние», ._1mEfBBT4xKmQZnqtZbSqEI — число;
+     ._2K0QaklF1PPjEzkH9U2Ozt.DVGYJj6Ddo8-TqMXZ8tDa — оценка «Очень положительные» (#66c0f4);
+     ._8bfDpjt5qevt4WIKJfbhY — полоса фильтров, .DEOsXuYJsm3X4xf82xHzS — кнопка (чёрная),
+       .CecQS-9NnDjfJDCPbAQZN — «Фильтры», ._2OLQGE41_8oNzXx_GQPmrm — чипы фильтров;
+     ._2nAa7fM6w0mQzxPqb6sPYU — заголовки «Наиболее полезные / Недавние»;
+     ._2uvK1zucSC4I2mo3PDObGs — карточка обзора (чёрная 20 %; ._1LI9d9a8_tfZJvBuuZz6Oh —
+       выделенная #274156; .dh9oGaFfS7QEnReR1JGRQ — узкая колонка, градиент);
+     ._1_sHcxv9rQdANehiviVZR4._2G4b7NcQECHtFR_D28hqQG — рамка аватара (серый градиент);
+     .K01H9PwUQhHjebFXo5Jhy — автор, ._24Z0sYrwo1ALn7WkF98RaU — «Обзоров: N»;
+     .HGCiCZ2mhusHJku7z15Nw — шапка «Рекомендую» (._1pk8MT_nsrwd0kif6cppyD — значок
+       #174766 / ._1yQUzR4jghsMyIgpY_Ay7f — «не рекомендую» #602f35,
+       ._17lxcLR8FnXBii5ZgrKZCf — вердикт, ._1N9XZTVu3iXgXmyuKwSF4E — часы в игре);
+     ._36PINioDf9qx6L5QCpuW3l — «Опубликован…»; ._25ppgVnyq5WaMqUlTkqeug — затухание текста;
+     .Zq302wXf0fsRUcqWKFdy3 — «Читать дальше»;
+     ._22edD6e1Rd44stPirbVhB2 ._131dBxXvyV0SDKXTx9Ad0n — «Да / Нет / Забавно / Наградить»
+       (._20o0K-LdkmbQfesddfuo-X — нажата);
+     ._1zbKizfCRpoX2D_zOLQes0 — «Был ли этот обзор полезен?», ._37ICOYBDy-RisYkzNGWFDX —
+       «Пользователей, посчитавших…»; .gIkMYMHi6hVU9kquHJeBV — награды обзора;
+     .KahBO3vHzFejyThpZEiB — плашка-пометка (#486582).
+   Проверено: 2026-10-04, магазин (ELDEN RING), правила Steam (0,1,0)…(0,3,0).
+   Как найти: страница игры в магазине, низ — «Обзоры пользователей». */
+html body.v6 .app_reviews_area ._1CXIQ2B63vhNXx-kCDgpUY,
+html body.v6 .app_reviews_area ._2nAa7fM6w0mQzxPqb6sPYU {
+    color: var(--aika-fg);
+}
+
+/* Шапка блока (._3zes6T6m1Toq7exYjsN21e) — линия снизу #5b7381 */
+html body.v6 .app_reviews_area ._3zes6T6m1Toq7exYjsN21e {
+    border-bottom-color: var(--aika-border);
+}
+
+html body.v6 .app_reviews_area ._2rVi-K-6kLGyoCnjKAHcf5 a {
+    border-left-color: var(--aika-border-strong);
+    color: var(--aika-fg-muted);
+}
+
+html body.v6 .app_reviews_area ._2rVi-K-6kLGyoCnjKAHcf5 a:hover {
+    color: var(--aika-fg);
+}
+
+html body.v6 .app_reviews_area ._2rVi-K-6kLGyoCnjKAHcf5 .VOQ3gy6S6Wx6thjXHTFhu {
+    color: var(--aika-warn);
+}
+
+html body.v6 .app_reviews_area ._2o9Sk4A7T9XCDkoZwylnsQ {
+    background-color: var(--aika-border);
+}
+
+html body.v6 .app_reviews_area ._1rJdzVWqHHLrXDngd242Qr {
+    border-radius: var(--aika-radius-lg);
+    background: var(--aika-card-accent-bg);
+    box-shadow: inset 0 0 0 var(--aika-hairline) var(--aika-border-accent);
+}
+
+html body.v6 .app_reviews_area .fSTofplcy-cQt7eO3r665 {
+    border-radius: var(--aika-radius-lg);
+    background: var(--aika-card-bg);
+    color: var(--aika-fg-muted);
+    box-shadow: var(--aika-shadow-card);
+}
+
+html body.v6 .app_reviews_area ._13aViTmW-tOp_ggaXcObxv ._2Tq_Z1Hko5WX8JFR8g6dwf {
+    color: var(--aika-fg-subtle);
+}
+
+html body.v6 .app_reviews_area ._13aViTmW-tOp_ggaXcObxv .insvelMlW6bYM42Tr3s8d,
+html body.v6 .app_reviews_area .fSTofplcy-cQt7eO3r665 ._1mEfBBT4xKmQZnqtZbSqEI {
+    color: var(--aika-fg-muted);
+    font-family: var(--aika-font-mono);
+}
+
+html body.v6 .app_reviews_area ._2K0QaklF1PPjEzkH9U2Ozt.DVGYJj6Ddo8-TqMXZ8tDa {
+    color: var(--aika-accent-bright);
+}
+
+/* Фильтры */
+html body.v6 .app_reviews_area ._8bfDpjt5qevt4WIKJfbhY {
+    border-radius: var(--aika-radius-lg);
+    background: var(--aika-surface);
+}
+
+html body.v6 .app_reviews_area ._8bfDpjt5qevt4WIKJfbhY .DEOsXuYJsm3X4xf82xHzS {
+    border-radius: var(--aika-radius-md);
+    background-color: var(--aika-bg-raised);
+    color: var(--aika-fg);
+}
+
+html body.v6 .app_reviews_area .CecQS-9NnDjfJDCPbAQZN {
+    color: var(--aika-fg-muted);
+}
+
+html body.v6 .app_reviews_area ._2OLQGE41_8oNzXx_GQPmrm {
+    border-radius: var(--aika-radius-full);
+    background-color: var(--aika-surface-active);
+    color: var(--aika-fg-muted);
+}
+
+html body.v6 .app_reviews_area ._2OLQGE41_8oNzXx_GQPmrm:hover {
+    background-color: var(--aika-surface-hover);
+    color: var(--aika-fg);
+}
+
+/* Карточка обзора */
+html body.v6 .app_reviews_area :is(.amNoDX2pd1HfanrHX9QUo, ._3xiX6A0plTO_i8P3Di75Oy) ._2uvK1zucSC4I2mo3PDObGs {
+    overflow: hidden;
+    border-radius: var(--aika-radius-lg);
+    background: var(--aika-card-bg);
+    box-shadow: var(--aika-shadow-card);
+}
+
+html body.v6 .app_reviews_area .amNoDX2pd1HfanrHX9QUo._1LI9d9a8_tfZJvBuuZz6Oh ._2uvK1zucSC4I2mo3PDObGs {
+    background: var(--aika-card-accent-bg);
+}
+
+html body.v6 .app_reviews_area ._1_sHcxv9rQdANehiviVZR4._2G4b7NcQECHtFR_D28hqQG {
+    overflow: hidden;
+    border-radius: var(--aika-radius-md);
+    background: var(--aika-bg-high);
+}
+
+html body.v6 .app_reviews_area ._3F7bFyuhd9Wd6ElK9gYO78 .K01H9PwUQhHjebFXo5Jhy {
+    color: var(--aika-fg);
+}
+
+html body.v6 .app_reviews_area ._3F7bFyuhd9Wd6ElK9gYO78 ._24Z0sYrwo1ALn7WkF98RaU {
+    color: var(--aika-fg-subtle);
+}
+
+html body.v6 .app_reviews_area .HGCiCZ2mhusHJku7z15Nw {
+    border-radius: var(--aika-radius-md);
+    background-color: var(--aika-surface);
+}
+
+html body.v6 .app_reviews_area .HGCiCZ2mhusHJku7z15Nw ._1pk8MT_nsrwd0kif6cppyD {
+    border-radius: var(--aika-radius-md);
+    background-color: var(--aika-accent-soft);
+}
+
+html body.v6 .app_reviews_area .HGCiCZ2mhusHJku7z15Nw ._1pk8MT_nsrwd0kif6cppyD svg {
+    fill: var(--aika-accent-bright);
+}
+
+html body.v6 .app_reviews_area .HGCiCZ2mhusHJku7z15Nw ._1pk8MT_nsrwd0kif6cppyD._1yQUzR4jghsMyIgpY_Ay7f {
+    background-color: var(--aika-live-soft);
+}
+
+html body.v6 .app_reviews_area .HGCiCZ2mhusHJku7z15Nw ._1pk8MT_nsrwd0kif6cppyD._1yQUzR4jghsMyIgpY_Ay7f svg {
+    fill: var(--aika-live);
+}
+
+html body.v6 .app_reviews_area .HGCiCZ2mhusHJku7z15Nw ._17lxcLR8FnXBii5ZgrKZCf {
+    color: var(--aika-fg);
+}
+
+html body.v6 .app_reviews_area .HGCiCZ2mhusHJku7z15Nw ._1N9XZTVu3iXgXmyuKwSF4E,
+html body.v6 .app_reviews_area ._36PINioDf9qx6L5QCpuW3l {
+    color: var(--aika-fg-subtle);
+    font-family: var(--aika-font-mono);
+}
+
+html body.v6 .app_reviews_area ._7-m3PA_FStk99zsZUPYX- ._25ppgVnyq5WaMqUlTkqeug {
+    background: var(--aika-store-review-fade);
+}
+
+html body.v6 .app_reviews_area ._7-m3PA_FStk99zsZUPYX- ._1zbKizfCRpoX2D_zOLQes0 {
+    color: var(--aika-fg-muted);
+}
+
+html body.v6 .app_reviews_area ._7-m3PA_FStk99zsZUPYX- .Zq302wXf0fsRUcqWKFdy3,
+html body.v6 .app_reviews_area ._22edD6e1Rd44stPirbVhB2 ._131dBxXvyV0SDKXTx9Ad0n {
+    border-radius: var(--aika-radius-md);
+    background: var(--aika-surface);
+    color: var(--aika-fg-muted);
+    transition: background-color var(--aika-dur-fast) var(--aika-ease-hover);
+}
+
+html body.v6 .app_reviews_area ._7-m3PA_FStk99zsZUPYX- .Zq302wXf0fsRUcqWKFdy3:hover,
+html body.v6 .app_reviews_area ._22edD6e1Rd44stPirbVhB2 ._131dBxXvyV0SDKXTx9Ad0n:hover {
+    background: var(--aika-surface-hover);
+    color: var(--aika-fg);
+}
+
+html body.v6 .app_reviews_area ._22edD6e1Rd44stPirbVhB2 ._131dBxXvyV0SDKXTx9Ad0n._20o0K-LdkmbQfesddfuo-X {
+    background: var(--aika-accent-soft);
+    color: var(--aika-fg);
+}
+
+html body.v6 .app_reviews_area ._22edD6e1Rd44stPirbVhB2 ._131dBxXvyV0SDKXTx9Ad0n._20o0K-LdkmbQfesddfuo-X svg {
+    color: var(--aika-ok);
+    fill: var(--aika-ok);
+    stroke: var(--aika-ok);
+}
+
+html body.v6 .app_reviews_area ._22edD6e1Rd44stPirbVhB2 ._1pk8MT_nsrwd0kif6cppyD svg {
+    fill: var(--aika-fg-muted);
+}
+
+html body.v6 .app_reviews_area ._3yLQ-0lsgzRjHo5_mPaKBX ._1zbKizfCRpoX2D_zOLQes0,
+html body.v6 .app_reviews_area .hIgoBpQW6F1kNF7Bs7Gna ._37ICOYBDy-RisYkzNGWFDX {
+    color: var(--aika-fg-subtle);
+}
+
+html body.v6 .app_reviews_area ._3kYaVBYTs2J13FnFOmJqgK .gIkMYMHi6hVU9kquHJeBV {
+    border-radius: var(--aika-radius-md);
+    background-color: var(--aika-surface);
+    color: var(--aika-fg-muted);
+}
+
+html body.v6 .app_reviews_area ._3kYaVBYTs2J13FnFOmJqgK .gIkMYMHi6hVU9kquHJeBV:hover {
+    background-color: var(--aika-surface-hover);
+}
+
+/* Узкая колонка «Недавние»: автор в шапке (._2AL4QiqNSjqzhkK1W9m2E6, #c1dbf4);
+   «Продукт получен бесплатно» (._2s6TIoq8OcJpmpUPEdWbfT, оранжевый) — warn;
+   заголовки внутри текста обзора (h1, #5aa9d6); рамка аватара «в игре»
+   (._3pbKzT087jaL2EeQO1qsaR, салатовый градиент) — ok Aika;
+   ссылки под обзором (.hIgoBpQW6F1kNF7Bs7Gna a, #66c0f4). */
+html body.v6 .app_reviews_area .HGCiCZ2mhusHJku7z15Nw ._2AL4QiqNSjqzhkK1W9m2E6 {
+    color: var(--aika-fg);
+}
+
+html body.v6 .app_reviews_area ._2s6TIoq8OcJpmpUPEdWbfT {
+    color: var(--aika-warn);
+}
+
+html body.v6 .app_reviews_area ._1zbKizfCRpoX2D_zOLQes0 h1 {
+    color: var(--aika-fg);
+}
+
+html body.v6 .app_reviews_area ._1_sHcxv9rQdANehiviVZR4 ._3pbKzT087jaL2EeQO1qsaR {
+    background: var(--aika-ok);
+}
+
+html body.v6 .app_reviews_area .hIgoBpQW6F1kNF7Bs7Gna a > div {
+    color: var(--aika-accent-bright);
+}
+
+html body.v6 .app_reviews_area .hIgoBpQW6F1kNF7Bs7Gna a svg,
+html body.v6 .app_reviews_area .hIgoBpQW6F1kNF7Bs7Gna a svg path {
+    fill: currentColor;
+}
+
+html body.v6 .app_reviews_area .SVGIcon_Star_Filled path {
+    fill: var(--aika-fg-subtle);
+}
+
+html body.v6 .app_reviews_area .KahBO3vHzFejyThpZEiB {
+    border-radius: var(--aika-radius-md);
+    background-color: var(--aika-accent-soft);
+    color: var(--aika-fg);
+}
+
+/* [Магазин] Всплывающая подсказка React-магазина (._2FxbHJzYoH024ko7zqcJOf внутри
+   слоя ._2_lmTz0tA4NOSle5WaO1PZ): у Steam светло-серый радиальный градиент,
+   тёмный текст, скругление 2 px. Делаем тултипом Aika (components/menu.css).
+   Проверено: 2026-10-04, магазин (ELDEN RING, наведение на «Подписаться»
+   в «Ещё от FromSoftware»), правило Steam (0,1,0). */
+html body.v6 ._2_lmTz0tA4NOSle5WaO1PZ ._2FxbHJzYoH024ko7zqcJOf {
+    border-radius: var(--aika-radius-md);
+    background: var(--aika-surface-translucent);
+    color: var(--aika-fg);
+    font-family: var(--aika-font-ui);
+    text-shadow: none;
+    box-shadow: var(--aika-shadow-menu);
+}
+
 /* [Магазин] Ползунок прокрутки каруселей (.PQzkJfi8IxzjcFEDG-yv-, белый 35 %)
    внутри ._3SyN-YtXsML6ado0q-Gdve .EMd4F6A8qdMk-l6os415A.
    Проверено: 2026-10-04, магазин (ELDEN RING), правило Steam (0,2,0). */

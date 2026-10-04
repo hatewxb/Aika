@@ -10,14 +10,14 @@
    Так как файл подключается в обоих местах, правила для разных
    документов должны быть разделены по корневым селекторам.
 
-   План:
-   1. Панель браузера (адрес, обновить) — ниже, сделано.       TODO: назад/вперёд
-   2. Веб-магазин: шапка сайта, меню магазина, главная карусель,
-      карточки игр, капсулы со скидками, страница игры, корзина.
-      У сайта классы человекочитаемые и стабильнее, чем у клиента,
-      но их тоже нужно сверить в DevTools.                     TODO: классы
-   3. Фон веб-страниц: сделать прозрачным, чтобы был виден наш фон.
-                                                               TODO: классы
+   Разделы файла:
+   1. Панель браузера (адрес, обновить).                       TODO: назад/вперёд
+   2. Веб-магазин, главная: переменные дизайн-системы, фон, меню, поиск,
+      цены, кнопки покупки, капсулы, вкладки, карточка при наведении.
+   3. Страница игры (app/…): сводка, правая колонка, покупка, DLC,
+      описание и требования, контроллеры, карусели внизу.
+      Хэш-части (плеер скриншотов, обзоры, панели каруселей) — selectors.css.
+   TODO: список желаемого, корзина, поиск (search/…), меню «Просмотр…».
    ========================================================================== */
 
 /* --------------------------------------------------------------------------
@@ -326,7 +326,8 @@ html body.v6 .discount_block .discount_prices .discount_final_price {
 /* --------------------------------------------------------------------------
    Кнопки покупки: .btn_green_steamui («В корзину») — primary Aika,
    .btn_blue_steamui — secondary. Цвет у Steam на внутреннем <span>
-   (0,1,1) — градиент и скругление 2 px.
+   (0,1,1) — градиент и скругление 2 px; hover — цепочка из четырёх
+   :not() (0,6,1), её повторяем.
    -------------------------------------------------------------------------- */
 
 html body.v6 :is(.btn_green_steamui, .btn_blue_steamui) {
@@ -349,7 +350,7 @@ html body.v6 .btn_green_steamui > span {
     box-shadow: var(--aika-shadow-cta);
 }
 
-html body.v6 .btn_green_steamui:hover > span {
+html body.v6 .btn_green_steamui:not(.btn_disabled):not(:disabled):not(.btn_active):not(.active):hover > span {
     background: var(--aika-accent-fill-hover);
     color: var(--aika-on-accent);
     box-shadow: var(--aika-shadow-cta-hover);
@@ -361,7 +362,7 @@ html body.v6 .btn_blue_steamui > span {
     box-shadow: var(--aika-shadow-secondary);
 }
 
-html body.v6 .btn_blue_steamui:hover > span {
+html body.v6 .btn_blue_steamui:not(.btn_disabled):not(:disabled):not(.btn_active):not(.active):hover > span {
     background: var(--aika-surface-hover);
     color: var(--aika-fg);
     box-shadow: var(--aika-shadow-secondary-hover);
@@ -390,6 +391,7 @@ html body.v6 :is(.ds_flag.ds_wishlist_flag, .ds_flag.ds_owned_flag, .ds_flag) {
     background-color: var(--aika-accent-fill);
     color: var(--aika-on-accent);
     font-family: var(--aika-font-mono);
+    box-shadow: var(--aika-shadow-card); /* у Steam чёрная тень 90 % */
 }
 
 /* Оценка обзоров: «Очень положительные» — акцент вместо голубого,
@@ -572,7 +574,8 @@ html body.v6 .glance_ctn .more_btn {
         box-shadow var(--aika-dur-fast) var(--aika-ease-hover);
 }
 
-html body.v6 .btnv6_blue_hoverfade:not(.btn_disabled, :disabled, .btn_active, .active):hover,
+/* У Steam hover — четыре :not() подряд, (0,6,0); повторяем цепочку */
+html body.v6 .btnv6_blue_hoverfade:not(.btn_disabled):not(:disabled):not(.btn_active):not(.active):hover,
 html body.v6 .glance_ctn .more_btn:hover {
     background: var(--aika-surface-hover);
     color: var(--aika-fg) !important; /* у Steam #fff !important */
@@ -1128,7 +1131,8 @@ html body.v6 .related_items_ctn :is(.FollowButton, .btnv6_grey_black) {
     box-shadow: var(--aika-shadow-secondary);
 }
 
-html body.v6 .related_items_ctn :is(.FollowButton, .btnv6_grey_black):hover {
+html body.v6 .related_items_ctn .FollowButton:hover,
+html body.v6 .related_items_ctn .btnv6_grey_black:not(.btn_disabled):not(:disabled):not(.btn_active):not(.active):hover {
     background: var(--aika-surface-hover);
     color: var(--aika-fg) !important; /* у Steam #fff !important */
     box-shadow: var(--aika-shadow-secondary-hover);

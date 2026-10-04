@@ -133,6 +133,8 @@
     --aika-store-queue-glow: radial-gradient(1000px 153px at 50% top, var(--aika-accent-tint), var(--aika-transparent));
     --aika-store-readmore-bg: linear-gradient(90deg, var(--aika-transparent), var(--aika-accent-tint) 33%, var(--aika-accent-tint) 66%, var(--aika-transparent));
     --aika-store-readmore-hover-bg: linear-gradient(90deg, var(--aika-transparent), var(--aika-accent-soft) 33%, var(--aika-accent-soft) 66%, var(--aika-transparent));
+    /* Затухание текста свёрнутого обзора — в цвет фона под карточкой */
+    --aika-store-review-fade: linear-gradient(to bottom, var(--aika-transparent), var(--aika-bg-elevated));
     /* Spotlight: точку задаёт JS (--aika-spot-x/y на элементе), без JS —
        верх-центр. Сам градиент собирается в card.css, а не здесь: var()
        в токене :root вычислился бы один раз и не видел значений элемента. */

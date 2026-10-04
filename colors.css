@@ -85,6 +85,7 @@
     --aika-warn-soft: rgb(from var(--aika-warn) r g b / 0.10);    /* фон предупреждения */
     --aika-warn-border: rgb(from var(--aika-warn) r g b / 0.28);
     --aika-ok-soft: rgb(from var(--aika-ok) r g b / 0.14);        /* фон «активно / успешно» */
+    --aika-live-soft: rgb(from var(--aika-live) r g b / 0.14);    /* фон «не рекомендую» и т. п. */
     /* Непрозрачные ступени ok для шкал, которые ждут сплошной цвет
        (--color-storegreen-* магазина, sections/store.css) */
     --aika-ok-dim: color-mix(in oklab, var(--aika-ok) 22%, var(--aika-bg-base));
