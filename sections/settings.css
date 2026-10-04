@@ -419,3 +419,126 @@ html .PagedSettingsDialog .DriveName .tool-tip-source > svg {
 html .PagedSettingsDialog_PageList .PagedSettingsDialog_PageListItem:not(.Active):hover :is(.PageListItem_Title, .PageListItem_Icon, .PageListItem_Icon svg) {
     color: var(--aika-fg);
 }
+
+/* ==========================================================================
+   Окно «Свойства» игры (html.ModalDialogPopup.MillenniumWindow_GameProperties) —
+   тот же .PagedSettingsDialog, что и настройки; всё выше действует и здесь.
+   Ниже — то, чего нет в настройках. Снято через CDP 2026-10-04 (PEAK, все
+   8 разделов). Steam здесь сильнее: «.хэш.хэш:not(.хэш) .кнопка» (0,4,0),
+   «.хэш .DialogBody .хэш» (0,3,0) — поэтому префикс
+   :is(.PagedSettingsDialog, .AppProperties.PagedSettingsDialog .DialogBody)
+   (специфичность :is() — по самому сильному варианту, (0,3,0)).
+   ========================================================================== */
+
+/* Обычный текст тела раздела (#8b929a) и подсветка значений («BlueHighlight»,
+   #1a9fff: размер на диске, облако) */
+html :is(.PagedSettingsDialog, .AppProperties.PagedSettingsDialog .DialogBody) .DialogBody {
+    color: var(--aika-fg-muted);
+}
+
+html :is(.PagedSettingsDialog, .AppProperties.PagedSettingsDialog .DialogBody) .BlueHighlight {
+    color: var(--aika-accent-bright);
+    font-family: var(--aika-font-mono);
+}
+
+html :is(.PagedSettingsDialog, .AppProperties.PagedSettingsDialog .DialogBody) :is(.Detail, .SteamCloudUsage, .BrowseDiskSizeLabel, .BuildInfo > div) {
+    color: var(--aika-fg-subtle);
+}
+
+html :is(.PagedSettingsDialog, .AppProperties.PagedSettingsDialog .DialogBody) .SectionTopLine {
+    border-color: var(--aika-border);
+}
+
+html :is(.PagedSettingsDialog, .AppProperties.PagedSettingsDialog .DialogBody) :is(.LocalFilesLink a, .SteamInputLink) {
+    color: var(--aika-accent-bright);
+}
+
+html :is(.PagedSettingsDialog, .AppProperties.PagedSettingsDialog .DialogBody) .Field.Disabled .FieldDescription {
+    color: var(--aika-fg-subtle);
+}
+
+/* Кнопки разделов («Обзор…», «Проверить целостность…», «Проверить код»):
+   .SettingsDialogButton.DialogButton — у Steam rgba(59,63,72,.5) (0,2,0) */
+html :is(.PagedSettingsDialog, .AppProperties.PagedSettingsDialog .DialogBody) button.SettingsDialogButton.DialogButton {
+    border-radius: var(--aika-radius-md);
+    background: var(--aika-surface);
+    color: var(--aika-fg);
+    box-shadow: var(--aika-shadow-secondary);
+}
+
+html :is(.PagedSettingsDialog, .AppProperties.PagedSettingsDialog .DialogBody) button.SettingsDialogButton.DialogButton:not(.Disabled, :disabled):hover {
+    background: var(--aika-surface-hover);
+    box-shadow: var(--aika-shadow-secondary-hover);
+}
+
+/* Выпадашка с подписью и пояснением («Обновления»: когда обновлять) */
+html :is(.PagedSettingsDialog, .AppProperties.PagedSettingsDialog .DialogBody) .DropDownLabelContainer .DropDownLabelTitle {
+    color: var(--aika-fg);
+}
+
+html :is(.PagedSettingsDialog, .AppProperties.PagedSettingsDialog .DialogBody) .DropDownLabelContainer :is(.DefaultOptionText, .DropDownLabelDescription) {
+    color: var(--aika-fg-subtle);
+}
+
+/* «Версии и бета-версии»: шапка таблицы (#3d4450), строки (#2c303a),
+   кружок выбора (рамка #1c9fff) */
+html :is(.PagedSettingsDialog, .AppProperties.PagedSettingsDialog .DialogBody) .BetaHeaderRow {
+    border-radius: var(--aika-radius-md) var(--aika-radius-md) 0 0;
+    background: var(--aika-surface-active);
+}
+
+html :is(.PagedSettingsDialog, .AppProperties.PagedSettingsDialog .DialogBody) .BetaHeaderRow .BetaName,
+html :is(.PagedSettingsDialog, .AppProperties.PagedSettingsDialog .DialogBody) .BetasTable .BetaName :is(.NameText, .DescText) {
+    color: var(--aika-fg);
+}
+
+html :is(.PagedSettingsDialog, .AppProperties.PagedSettingsDialog .DialogBody) :is(.BetaHeaderRow, .BetasTable .BetaRow) .BetaLastUpdated {
+    color: var(--aika-fg-subtle);
+    font-family: var(--aika-font-mono);
+}
+
+html :is(.PagedSettingsDialog, .AppProperties.PagedSettingsDialog .DialogBody) .BetasTable {
+    overflow: hidden;
+    border-radius: 0 0 var(--aika-radius-md) var(--aika-radius-md);
+}
+
+html :is(.PagedSettingsDialog, .AppProperties.PagedSettingsDialog .DialogBody) .BetasTable .BetaRow {
+    background: var(--aika-surface);
+    transition: background-color var(--aika-dur-fast) var(--aika-ease-hover);
+}
+
+html :is(.PagedSettingsDialog, .AppProperties.PagedSettingsDialog .DialogBody) .BetasTable .BetaRow:hover {
+    background: var(--aika-surface-hover);
+}
+
+html :is(.PagedSettingsDialog, .AppProperties.PagedSettingsDialog .DialogBody) .BetasTable .BetaRadioButton {
+    border-color: var(--aika-accent);
+}
+
+html :is(.PagedSettingsDialog, .AppProperties.PagedSettingsDialog .DialogBody) .BetaLabel {
+    color: var(--aika-fg);
+}
+
+/* «Контроллер»: таблица статуса Steam Input (#3b3f48 20 %) */
+html :is(.PagedSettingsDialog, .AppProperties.PagedSettingsDialog .DialogBody) .SteamInputStatusGrid {
+    border-radius: var(--aika-radius-md);
+    background: var(--aika-surface);
+}
+
+html :is(.PagedSettingsDialog, .AppProperties.PagedSettingsDialog .DialogBody) .SteamInputStatusGrid :is(.Controller, span) {
+    color: var(--aika-fg-muted);
+}
+
+html :is(.PagedSettingsDialog, .AppProperties.PagedSettingsDialog .DialogBody) .SteamInputStatusGrid span.SteamInputStatus {
+    color: var(--aika-fg);
+}
+
+/* Выбранная бета-версия: полоска слева (.BetaRadioButton, border-left #1c9fff
+   правилом сильнее (0,3,0)) — акцентный индикатор, строка — акцентная подложка */
+html :is(.PagedSettingsDialog, .AppProperties.PagedSettingsDialog .DialogBody) .BetasTable .BetaRow.Selected .BetaRadioButton {
+    border-left-color: var(--aika-accent);
+}
+
+html :is(.PagedSettingsDialog, .AppProperties.PagedSettingsDialog .DialogBody) .BetasTable .BetaRow.Selected {
+    background: var(--aika-accent-soft);
+}
