@@ -938,6 +938,182 @@ html body #StoreTemplate .aTVR03O9jUI- .Iu8tq8U-V3s- .LsUtid7lp2U- {
     color: var(--aika-fg-subtle);
 }
 
+/* Остальные меню нового движка («Рекомендации / Категории / Способы игры /
+   Прочее») и подсказки поиска:
+     .eyl2vUlQWEs- / .IOoSOaGrC7Q- / .-pd7WaMaCGQ- > div — заголовки колонок (серые);
+     .cO0trRuLfzA- — строка «обложка + название + цена» (серо-голубой градиент),
+       .JImNxATJ1xc- — обложка, .kNeH7jZB5vg- — название, .qy5xFmO5xOU- — цена,
+       .XG3WxbEbgs4- — подпись;
+     .-ql7Gy6zpYM- — флаг на обложке (.hR30rQ7-vWs- синий, .EBHTztRtXvI- салатовый,
+       ._4IEzXSK-SRw- / .EeXIvUouJ-A- / .pLRN5w2yzas- — светлые);
+     .HIS-lBmeobo- — метки-ссылки (голубые 20 %); .b0nTNEz4-gE- — «Показать все» (--Colors-blue);
+     .uY4s6MvOMgg- — блок с градиентом; .uE7SRhzps2Q- .XR-wlKdotHE- — синие плитки;
+     .YDu9omcur7Q- — баннер с картинкой (.awopm9AseKk- — затемнение,
+       .GKTMS0L6Uik- — зелёная плашка, .d30iSoA-0mw- — кнопка, --Blue-gredient);
+     .cZUpBJfM-G4- / .btPcx-NCU20- — плитки жанров (.J5k5cIOBoX8- — подложка,
+       .-KO7F--HeBE- / ._4ylz-Fyg14c- — белые метки; цветные подложки жанров
+       по nth-child оставлены — своя у каждого жанра).
+   Проверено: 2026-10-04, список желаемого, клик по пунктам меню. */
+html body #StoreTemplate :is(.eyl2vUlQWEs-, .IOoSOaGrC7Q-, .-pd7WaMaCGQ-) > div:not(:has(a, button)) {
+    color: var(--aika-fg-subtle);
+    font-size: var(--aika-text-label);
+    letter-spacing: var(--aika-tracking-label);
+    text-transform: uppercase;
+}
+
+html body #StoreTemplate .cO0trRuLfzA- {
+    overflow: hidden;
+    border-radius: var(--aika-radius-md);
+    background: var(--aika-surface);
+    transition: background-color var(--aika-dur-fast) var(--aika-ease-hover);
+}
+
+html body #StoreTemplate :is(.cO0trRuLfzA-._1lo9weU-WUo-, .cO0trRuLfzA-.lyUq2mbGYf4-:hover, .cO0trRuLfzA-.gpfocus) {
+    background: var(--aika-surface-hover);
+}
+
+html body #StoreTemplate .cO0trRuLfzA- .JImNxATJ1xc- {
+    overflow: hidden;
+    border-radius: var(--aika-radius-md);
+    background: var(--aika-surface);
+}
+
+html body #StoreTemplate .cO0trRuLfzA- ._6iY2YwtsQR0- .kNeH7jZB5vg- {
+    color: var(--aika-fg);
+}
+
+html body #StoreTemplate .cO0trRuLfzA- ._6iY2YwtsQR0- .qy5xFmO5xOU-,
+html body #StoreTemplate .cO0trRuLfzA- ._6iY2YwtsQR0- .qy5xFmO5xOU- * {
+    color: var(--aika-fg-muted);
+    font-family: var(--aika-font-mono);
+}
+
+html body #StoreTemplate .cO0trRuLfzA- ._6iY2YwtsQR0- .XG3WxbEbgs4- {
+    color: var(--aika-fg-subtle);
+}
+
+html body #StoreTemplate .-ql7Gy6zpYM- {
+    border-radius: 0 var(--aika-radius-xs) var(--aika-radius-xs) 0;
+    background: var(--aika-bg-high);
+    color: var(--aika-fg);
+    box-shadow: var(--aika-shadow-card);
+}
+
+html body #StoreTemplate :is(.-ql7Gy6zpYM-._4IEzXSK-SRw-, .-ql7Gy6zpYM-.EeXIvUouJ-A-, .-ql7Gy6zpYM-.pLRN5w2yzas-) {
+    background: var(--aika-bg-high);
+}
+
+html body #StoreTemplate .-ql7Gy6zpYM-.hR30rQ7-vWs- {
+    background: var(--aika-accent-fill);
+    color: var(--aika-on-accent);
+}
+
+html body #StoreTemplate .-ql7Gy6zpYM-.EBHTztRtXvI- {
+    background: var(--aika-ok);
+    color: var(--aika-bg-deep);
+}
+
+html body #StoreTemplate ._0BeVbyJgjX8- .GRmUHltqGK4- .HIS-lBmeobo- {
+    border-radius: var(--aika-radius-full);
+    background: var(--aika-surface-active);
+    color: var(--aika-fg-muted);
+}
+
+html body #StoreTemplate ._0BeVbyJgjX8- .GRmUHltqGK4- :is(.HIS-lBmeobo-:hover, .HIS-lBmeobo-.gpfocus) {
+    background: var(--aika-accent-soft);
+    color: var(--aika-fg);
+}
+
+html body #StoreTemplate .b0nTNEz4-gE-:hover {
+    color: var(--aika-fg);
+}
+
+html body #StoreTemplate .b0nTNEz4-gE- svg,
+html body #StoreTemplate .b0nTNEz4-gE- svg path {
+    fill: currentColor;
+}
+
+html body #StoreTemplate .uY4s6MvOMgg- {
+    border-radius: var(--aika-radius-lg);
+    background: var(--aika-card-accent-bg);
+}
+
+html body #StoreTemplate .Fp3sktsxh98- .uE7SRhzps2Q- .XR-wlKdotHE- {
+    border-radius: var(--aika-radius-lg);
+    background: var(--aika-card-accent-bg);
+    color: var(--aika-fg);
+    box-shadow:
+        inset 0 0 0 var(--aika-hairline) var(--aika-border-accent),
+        var(--aika-shadow-card);
+}
+
+html body #StoreTemplate .Fp3sktsxh98- .uE7SRhzps2Q- .XR-wlKdotHE-:hover {
+    background: var(--aika-accent-soft);
+    color: var(--aika-fg);
+}
+
+html body #StoreTemplate .YDu9omcur7Q- {
+    border-radius: var(--aika-radius-lg);
+}
+
+html body #StoreTemplate .YDu9omcur7Q- .-U8O2frQ6tI- .awopm9AseKk-,
+html body #StoreTemplate .YDu9omcur7Q-:hover .-U8O2frQ6tI- .awopm9AseKk- {
+    background: var(--aika-store-banner-shade);
+}
+
+html body #StoreTemplate .XUs1hmYynpc- .GKTMS0L6Uik- {
+    border-radius: var(--aika-radius-xs);
+    background: var(--aika-ok);
+    color: var(--aika-bg-deep);
+}
+
+html body #StoreTemplate .YDu9omcur7Q- .fJyhKfVIRy0- .d30iSoA-0mw- {
+    border-radius: var(--aika-radius-md);
+    box-shadow: var(--aika-shadow-cta);
+}
+
+html body #StoreTemplate :is(.cZUpBJfM-G4-, .btPcx-NCU20-) {
+    border-radius: var(--aika-radius-md);
+    background: var(--aika-surface);
+}
+
+html body #StoreTemplate .cZUpBJfM-G4-.mNGHDmmBgX8- {
+    background: var(--aika-surface-hover);
+}
+
+html body #StoreTemplate :is(.cZUpBJfM-G4-, .btPcx-NCU20-) .J5k5cIOBoX8- {
+    background: var(--aika-transparent);
+}
+
+html body #StoreTemplate :is(.cZUpBJfM-G4-, .btPcx-NCU20-) :is(.-KO7F--HeBE-, ._4ylz-Fyg14c-) {
+    border-radius: var(--aika-radius-xs);
+    background: var(--aika-surface-translucent);
+    color: var(--aika-fg);
+}
+
+html body #StoreTemplate .cZUpBJfM-G4- ._6r7gSVgjWII- {
+    color: var(--aika-fg-muted);
+}
+
+/* Значок в баннере (.ShnNYR4pEXQ- svg: цвет ссылки по умолчанию, синий) */
+html body #StoreTemplate .XUs1hmYynpc- .fJyhKfVIRy0- .ShnNYR4pEXQ- svg,
+html body #StoreTemplate .XUs1hmYynpc- .fJyhKfVIRy0- .ShnNYR4pEXQ- svg path {
+    fill: var(--aika-fg);
+}
+
+/* Аватар в полосе меню «в сети» (.jaUFLgHnJNs-.H3NNmSoIJ0E-): рамка
+   .mpKocPQdcN4- и подложка img.cFn3BDbAK-g- — голубые градиенты.
+   «В сети» у Aika — ok (colors.css). */
+html body #StoreTemplate .jaUFLgHnJNs-.H3NNmSoIJ0E- .mpKocPQdcN4- {
+    border-radius: var(--aika-radius-md);
+    background: var(--aika-ok);
+}
+
+html body #StoreTemplate .jaUFLgHnJNs-.H3NNmSoIJ0E- img.cFn3BDbAK-g- {
+    border-radius: var(--aika-radius-md);
+    background: var(--aika-bg-high);
+}
+
 /* Счётчики в полосе меню (желаемое, корзина) */
 html body #StoreTemplate a.EYF1OQwj3TE- .oWSo9BvK7oY- {
     color: var(--aika-fg-subtle);

@@ -148,6 +148,10 @@ html:root:is(:has(> body.v6), :has(> body > #StoreTemplate)) {
     --Neutrals-white: var(--aika-fg);
     --Neutrals-lightestGrey: var(--aika-fg-muted);
     --Neutrals-lighterGrey: var(--aika-fg-subtle);
+    --Colors-blue: var(--aika-accent-bright);
+    --Blue-gredient: var(--aika-accent-fill);
+    --Text-Main: var(--aika-on-accent);
+    --Blues-darkestGrey: var(--aika-fg);
 
     /* Всплывающие панели (popover) нового движка: фон и тень через
        var(--popover-*, …), Steam их не объявляет */
