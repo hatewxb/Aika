@@ -1,0 +1,382 @@
+/* ==========================================================================
+   community.css — веб-страницы сообщества (steamcommunity.com).
+   Подключается через webkit.css (поле Steam-WebKit в skin.json).
+
+   1. «Активность друзей» (/id/…/home/, меню профиля → «Активность»).
+      Классы у сайта читаемые, сняты через CDP 2026-10-04:
+        #blotter_page                         — вся страница
+          .friend_activity_header             — заголовок h1 + поиск
+          #friendactivity_right_column .box   — блоки правой колонки
+          #blotter_content                    — лента:
+            .blotter_status_entry             — поле «написать статус»
+            .blotter_day > .blotter_day_header_date — дата дня
+            .blotter_block                    — событие (карточка):
+              .blotter_author_block           — полоса «кто и что сделал»
+              .blotter_gamepurchase_content   — логотипы игр
+              .blotter_comment_thread         — комментарии
+              .blotter_daily_rollup           — свёрнутые события дня
+      Правила Steam — (0,1,0)…(1,1,0); у нас всё под #blotter_page —
+      сильнее, без !important (кроме цвета кнопок: у Steam там !important).
+      Тексты сайта не меняем — только стиль (DESIGN.md §11).
+   ========================================================================== */
+
+/* --------------------------------------------------------------------------
+   Заголовок страницы
+   -------------------------------------------------------------------------- */
+
+html #blotter_page .friend_activity_header h1 {
+    color: var(--aika-fg);
+    font-family: var(--aika-font-display);
+    font-weight: var(--aika-weight-medium);
+    letter-spacing: var(--aika-tracking-h1);
+}
+
+html #blotter_page .blotter_page_title a {
+    color: var(--aika-fg-muted);
+}
+
+html #blotter_page .blotter_page_title a:hover {
+    color: var(--aika-accent-bright);
+}
+
+/* --------------------------------------------------------------------------
+   Ссылки: имена друзей, названия игр
+   -------------------------------------------------------------------------- */
+
+html #blotter_page :is(#blotter_content, #friendactivity_right_column) a {
+    color: var(--aika-fg);
+    transition: color var(--aika-dur-fast) var(--aika-ease-hover);
+}
+
+html #blotter_page :is(#blotter_content, #friendactivity_right_column) a:hover {
+    color: var(--aika-accent-bright);
+}
+
+/* Ник, который дал сам пользователь, — «(Имя)» после имени друга */
+html #blotter_page .nickname_block,
+html #blotter_page .nickname_block .nickname_name {
+    color: var(--aika-fg-subtle);
+}
+
+/* --------------------------------------------------------------------------
+   Аватары. Steam: .playerAvatar.online/.in-game/.offline — рамка градиентом
+   статуса, у img — свой градиент. Смысл цветов как в components/status.css:
+   в игре — ok, в сети — акцент, не в сети — приглушённо.
+   Рамку предмета профиля (.profile_avatar_frame) не трогаем.
+   -------------------------------------------------------------------------- */
+
+html #blotter_page .playerAvatar {
+    border-radius: var(--aika-radius-md);
+    background: var(--aika-fg-subtle);
+}
+
+html #blotter_page .playerAvatar.online {
+    background: var(--aika-accent-bright);
+}
+
+html #blotter_page .playerAvatar.in-game {
+    background: var(--aika-ok);
+}
+
+html #blotter_page .playerAvatar img {
+    border-radius: var(--aika-radius-md);
+    background: var(--aika-bg-raised);
+}
+
+/* Маленькие аватары в свёрнутых событиях */
+html #blotter_page .blotter_playerAvatarSmall {
+    border-radius: var(--aika-radius-xs);
+    background-color: var(--aika-fg-subtle);
+}
+
+html #blotter_page .blotter_playerAvatarSmall.online {
+    background-color: var(--aika-accent-bright);
+}
+
+html #blotter_page .blotter_playerAvatarSmall.in-game {
+    background-color: var(--aika-ok);
+}
+
+html #blotter_page .blotter_playerAvatarSmall img {
+    border-radius: var(--aika-radius-xs);
+}
+
+/* --------------------------------------------------------------------------
+   Правая колонка: «Список друзей», «Добавить друзей», меню профиля,
+   группы, события — карточки
+   -------------------------------------------------------------------------- */
+
+html #blotter_page #friendactivity_right_column :is(.box, .friends_add_block, .blotter_eventsblock) {
+    border: var(--aika-hairline) solid var(--aika-border);
+    border-radius: var(--aika-radius-lg);
+    background: var(--aika-bg-elevated);
+    box-shadow: var(--aika-highlight-top);
+}
+
+html #blotter_page #friendactivity_right_column .friends_link_block {
+    transition:
+        background-color var(--aika-dur-fast) var(--aika-ease-hover),
+        border-color var(--aika-dur-fast) var(--aika-ease-hover);
+}
+
+html #blotter_page #friendactivity_right_column a:hover .friends_link_block {
+    border-color: var(--aika-border-hover);
+    background: var(--aika-bg-raised);
+}
+
+html #blotter_page .friends_link_block .profile_button_text {
+    color: var(--aika-fg);
+}
+
+html #blotter_page .friends_link_block .profile_link_block_text_friends {
+    color: var(--aika-accent-bright);
+    font-family: var(--aika-font-mono);
+    font-size: var(--aika-text-meta);
+}
+
+/* Подписи блоков: «Добавить друзей», «Запланированные события» */
+html #blotter_page :is(.profile_add_friends_title, .blotter_eventsblock_title) {
+    color: var(--aika-fg-muted);
+    font-family: var(--aika-font-mono);
+    font-size: var(--aika-text-label);
+    letter-spacing: var(--aika-tracking-label);
+}
+
+html #blotter_page .blotter_eventsblock .eventSubLinks {
+    color: var(--aika-fg-subtle);
+}
+
+/* Имя пользователя в меню профиля: Steam .persona.online — голубой */
+html #blotter_page .friendName.persona {
+    color: var(--aika-fg-subtle);
+}
+
+html #blotter_page .friendName.persona.online {
+    color: var(--aika-accent-bright);
+}
+
+html #blotter_page .friendName.persona.in-game {
+    color: var(--aika-ok);
+}
+
+/* --------------------------------------------------------------------------
+   Поля: поиск в шапке, «Добавить друзей», «написать статус», комментарии.
+   Как components/input.css: фон raised, рамка border-strong, фокус — акцент.
+   -------------------------------------------------------------------------- */
+
+html #blotter_page :is(#headerSearch, .profileFriendSearchBox, .commentthread_entry_quotebox) {
+    border: var(--aika-hairline) solid var(--aika-border-strong);
+    border-radius: var(--aika-radius-md);
+    background-color: var(--aika-bg-raised);
+    transition:
+        border-color var(--aika-dur-fast) var(--aika-ease-hover),
+        box-shadow var(--aika-dur-base) var(--aika-ease);
+}
+
+html #blotter_page :is(#headerSearch, .profileFriendSearchBox, .commentthread_entry_quotebox):hover {
+    border-color: var(--aika-border-hover);
+}
+
+html #blotter_page :is(#headerSearch, .profileFriendSearchBox, .commentthread_entry_quotebox):focus-within {
+    border-color: var(--aika-accent);
+    box-shadow: var(--aika-shadow-input-focus);
+}
+
+/* Сами input/textarea внутри — прозрачные, рамку даёт обёртка */
+html #blotter_page :is(#headerSearch, .profileFriendSearchBox, .commentthread_entry_quotebox) :is(input, textarea) {
+    border: none;
+    background: var(--aika-transparent);
+    box-shadow: none;
+    color: var(--aika-fg);
+    outline: none;
+}
+
+html #blotter_page :is(input, textarea)::placeholder {
+    color: var(--aika-fg-subtle);
+}
+
+/* --------------------------------------------------------------------------
+   Кнопки сайта. У Steam цвет текста — !important, поэтому и у нас.
+     .btn_grey_grey              — «👍» под событием  → secondary
+     .btn_grey_white_innerfade   — «Отправить» статус → secondary
+     .btn_green_white_innerfade  — «Отправить» комментарий → primary
+   Градиент у Steam и на <a>, и на внутреннем <span>.
+   -------------------------------------------------------------------------- */
+
+html #blotter_page :is(.btn_grey_grey, .btn_grey_white_innerfade, .btn_green_white_innerfade, .btn_grey_black) {
+    border-radius: var(--aika-radius-md);
+    transition:
+        background-color var(--aika-dur-fast) var(--aika-ease-hover),
+        box-shadow var(--aika-dur-base) var(--aika-ease),
+        transform var(--aika-dur-base) var(--aika-ease);
+}
+
+html #blotter_page :is(.btn_grey_grey, .btn_grey_white_innerfade, .btn_green_white_innerfade, .btn_grey_black) > span {
+    border-radius: inherit;
+    background: var(--aika-transparent);
+}
+
+html #blotter_page :is(.btn_grey_grey, .btn_grey_white_innerfade, .btn_grey_black) {
+    background: var(--aika-surface);
+    box-shadow: var(--aika-shadow-secondary);
+    color: var(--aika-fg) !important;
+}
+
+html #blotter_page :is(.btn_grey_grey, .btn_grey_white_innerfade, .btn_grey_black):hover {
+    background: var(--aika-surface-hover);
+    box-shadow: var(--aika-shadow-secondary-hover);
+    transform: translateY(var(--aika-lift-sm));
+}
+
+html #blotter_page .btn_green_white_innerfade {
+    background: var(--aika-accent-fill);
+    box-shadow: var(--aika-shadow-cta);
+    color: var(--aika-on-accent) !important;
+}
+
+html #blotter_page .btn_green_white_innerfade:hover {
+    background: var(--aika-accent-fill-hover);
+    box-shadow: var(--aika-shadow-cta-hover);
+    transform: translateY(var(--aika-lift-sm));
+}
+
+html #blotter_page :is(.btn_grey_grey, .btn_grey_white_innerfade, .btn_green_white_innerfade, .btn_grey_black):active {
+    transform: scale(var(--aika-press-scale));
+}
+
+/* --------------------------------------------------------------------------
+   Поле «написать статус» вверху ленты
+   -------------------------------------------------------------------------- */
+
+html #blotter_page .blotter_status_entry .commentthread_entry {
+    padding: var(--aika-space-3);
+    border: var(--aika-hairline) solid var(--aika-border);
+    border-radius: var(--aika-radius-lg);
+    background: var(--aika-surface);
+}
+
+/* --------------------------------------------------------------------------
+   Дата дня: моно-метка + линия
+   -------------------------------------------------------------------------- */
+
+html #blotter_page .blotter_day_header_date {
+    color: var(--aika-fg-subtle);
+    font-family: var(--aika-font-mono);
+    font-size: var(--aika-text-label);
+    letter-spacing: var(--aika-tracking-label);
+}
+
+html #blotter_page .blotter_day_header_divider {
+    border: none;
+    background: var(--aika-divider);
+}
+
+/* --------------------------------------------------------------------------
+   Событие — карточка. Steam: .blotter_block — голубая заливка 0.2,
+   полоса автора и комментарии — свои тёмные фоны с синими линиями.
+   -------------------------------------------------------------------------- */
+
+html #blotter_page .blotter_block {
+    overflow: hidden;
+    border: var(--aika-hairline) solid var(--aika-border);
+    border-radius: var(--aika-radius-lg);
+    background: var(--aika-card-bg);
+    box-shadow: var(--aika-highlight-top);
+}
+
+/* Полоса «кто и что сделал» — как заголовок панели */
+html #blotter_page .blotter_author_block {
+    border-bottom: var(--aika-hairline) solid var(--aika-border);
+    background: var(--aika-bg-raised);
+    color: var(--aika-fg-muted);
+}
+
+/* Свёрнутые события дня — фон даёт карточка */
+html #blotter_page .blotter_daily_rollup {
+    background: var(--aika-transparent);
+    color: var(--aika-fg-muted);
+}
+
+html #blotter_page .blotter_daily_rollup_line + .blotter_daily_rollup_line {
+    border-top: var(--aika-hairline) solid var(--aika-border);
+}
+
+/* Логотипы купленных игр и «+N» */
+html #blotter_page .blotter_gamepurchase_logo img {
+    border-radius: var(--aika-radius-md);
+}
+
+html #blotter_page .blotter_gamepurchase_content .plus_block {
+    border-radius: var(--aika-radius-md);
+    background: var(--aika-bg-raised);
+    color: var(--aika-fg-muted);
+}
+
+html #blotter_page .blotter_gamepurchase_text,
+html #blotter_page .blotter_voters_names {
+    color: var(--aika-fg-muted);
+}
+
+/* Комментарии под событием */
+html #blotter_page .blotter_comment_thread {
+    border-top: var(--aika-hairline) solid var(--aika-border);
+    background: var(--aika-transparent);
+}
+
+html #blotter_page .blotter_comment_thread .commentthread_entry {
+    background: var(--aika-transparent);
+}
+
+html #blotter_page .commentthread_comment_container .commentthread_comment {
+    border-radius: var(--aika-radius-md);
+}
+
+/* Скриншот во всю ширину карточки: поля вокруг картинки — глубокий фон
+   вместо чёрного 0.5 */
+html #blotter_page .blotter_screenshot_image {
+    background: var(--aika-bg-deep);
+}
+
+/* --------------------------------------------------------------------------
+   Ссылка-карточка на работу из Мастерской / руководство
+   (.dynamiclink_box внутри .blotter_workshopitem). Steam: голубой
+   градиент 60°, имя голубое с точечным подчёркиванием.
+   -------------------------------------------------------------------------- */
+
+html #blotter_page .dynamiclink_box {
+    border: var(--aika-hairline) solid var(--aika-border);
+    border-radius: var(--aika-radius-lg);
+    background: var(--aika-surface);
+    transition:
+        background-color var(--aika-dur-fast) var(--aika-ease-hover),
+        border-color var(--aika-dur-fast) var(--aika-ease-hover);
+}
+
+html #blotter_page .dynamiclink_box:hover {
+    border-color: var(--aika-border-hover);
+    background: var(--aika-surface-hover);
+}
+
+html #blotter_page .dynamiclink_box .dynamiclink_preview {
+    border-radius: var(--aika-radius-md);
+}
+
+html #blotter_page .dynamiclink_box .dynamiclink_name {
+    border-bottom: none;
+    color: var(--aika-fg);
+}
+
+html #blotter_page .dynamiclink_box .dynamiclink_type {
+    color: var(--aika-accent-bright);
+    font-family: var(--aika-font-mono);
+    font-size: var(--aika-text-meta);
+}
+
+html #blotter_page .dynamiclink_box .dynamiclink_author,
+html #blotter_page .dynamiclink_box .dynamiclink_author span {
+    color: var(--aika-fg-subtle);
+}
+
+html #blotter_page .dynamiclink_box .dynamiclink_description {
+    color: var(--aika-fg-muted);
+}
