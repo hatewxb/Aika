@@ -116,14 +116,16 @@ html .AddShowcaseRow .Rule {
 }
 
 /* Стрелки листания — небольшие тёмные кнопки-иконки */
-html .ShowcaseHeader .PageButtons > :is(.PageLeft, .PageRight) {
+html .ShowcaseHeader .PageButtons > :is(.PageLeft, .PageRight),
+html .HeaderPageControls .PageClickContainer > :is(.PageLeft, .PageRight) {
     border-radius: var(--aika-radius-md);
     background-color: var(--aika-surface);
     box-shadow: inset 0 0 0 var(--aika-hairline) var(--aika-border);
     transition: background-color var(--aika-dur-fast) var(--aika-ease-hover);
 }
 
-html .ShowcaseHeader .PageButtons > :is(.PageLeft, .PageRight):not(.Disabled):hover {
+html .ShowcaseHeader .PageButtons > :is(.PageLeft, .PageRight):not(.Disabled):hover,
+html .HeaderPageControls .PageClickContainer > :is(.PageLeft, .PageRight):not(.Disabled):hover {
     background-color: var(--aika-surface-hover);
 }
 
@@ -300,9 +302,40 @@ html .ShowcaseHeader .DragHandle svg rect {
     fill: currentColor;
 }
 
-/* Декоративная иконка-«водяной знак» в пункте «Библиотека» */
+/* Пункт «Библиотека» над поиском — в акцентных цветах (просьба автора
+   2026-10-04): акцентная карточка, обводка акцентом, подпись светлым
+   акцентом. Steam: фон #25272d и подпись — хэш-правила (0,1,0). */
+html .GameListHomeAndSearch .HomeBox .Bar {
+    background: var(--aika-card-accent-bg);
+    box-shadow:
+        inset 0 0 0 var(--aika-hairline) var(--aika-border-accent),
+        var(--aika-highlight-top);
+    transition:
+        background-color var(--aika-dur-fast) var(--aika-ease-hover),
+        box-shadow var(--aika-dur-base) var(--aika-ease);
+}
+
+html .GameListHomeAndSearch .HomeBox .Bar:hover,
+html .GameListHomeAndSearch .HomeBox .Bar.Selected {
+    background: var(--aika-accent-soft);
+    box-shadow:
+        inset 0 0 0 var(--aika-hairline) var(--aika-accent-ring),
+        var(--aika-highlight-top),
+        0 0 20px var(--aika-accent-haze);
+}
+
+html .GameListHomeAndSearch .HomeBox .Bar .Label {
+    color: var(--aika-accent-bright);
+    font-weight: var(--aika-weight-medium);
+}
+
+html .GameListHomeAndSearch .HomeBox .Bar:is(:hover, .Selected) .Label {
+    color: var(--aika-fg);
+}
+
+/* Декоративная иконка-«водяной знак» в пункте «Библиотека» — акцентом */
 html .HomeBox .Bar .Icon svg path {
-    fill: var(--aika-surface-hover);
+    fill: var(--aika-accent-soft);
 }
 
 /* Фильтры-переключатели: без чёрной подложки, скругление */
@@ -446,5 +479,168 @@ html .Showcase .ShowcaseHeader .Collapser {
 
 html .Showcase .ShowcaseHeader .Collapser:hover {
     background-color: var(--aika-surface-active);
+    color: var(--aika-fg);
+}
+
+/* --------------------------------------------------------------------------
+   Заголовки разделов в списке игр: «Все (698/727)», коллекции
+   (снято через CDP 2026-10-04). Строка виртуального списка:
+     .Container.CollapseIconParent > .Container (значок ⊕/⊖)
+                                   + .SectionHeaderContent
+                                       > .SectionName + .SectionCount
+   Steam: серо-синий градиент и голубой текст хэш-правилами (0,1,0)…(0,2,0).
+   Плашка — наша поверхность, имя — светлое, счётчик — моно.
+   -------------------------------------------------------------------------- */
+
+html .ReactVirtualized__List .Container.CollapseIconParent:has(> .SectionHeaderContent) {
+    box-sizing: border-box;
+    width: auto;
+    margin-inline: var(--aika-nav-inset);
+    border-radius: var(--aika-radius-md);
+    background: var(--aika-surface);
+    box-shadow: inset 0 0 0 var(--aika-hairline) var(--aika-border);
+    color: var(--aika-fg-muted);
+    transition: background-color var(--aika-dur-fast) var(--aika-ease-hover);
+}
+
+html .ReactVirtualized__List .Container.CollapseIconParent:has(> .SectionHeaderContent):hover {
+    background: var(--aika-surface-hover);
+}
+
+html .ReactVirtualized__List .CollapseIconParent > .SectionHeaderContent {
+    color: var(--aika-fg);
+    font-weight: var(--aika-weight-medium);
+}
+
+html .ReactVirtualized__List .CollapseIconParent > .SectionHeaderContent .SectionCount {
+    color: var(--aika-fg-subtle);
+    font-family: var(--aika-font-mono);
+    font-size: var(--aika-text-meta);
+    font-weight: var(--aika-weight-regular);
+}
+
+/* Значок свернуть/развернуть: контур голубым 0.5 → приглушённый, на hover — акцент */
+html .ReactVirtualized__List .CollapseIconParent:has(> .SectionHeaderContent) > .Container {
+    stroke: var(--aika-fg-subtle);
+    transition: stroke var(--aika-dur-fast) var(--aika-ease-hover);
+}
+
+html .ReactVirtualized__List .CollapseIconParent:has(> .SectionHeaderContent):hover > .Container {
+    stroke: var(--aika-accent-bright);
+}
+
+/* --------------------------------------------------------------------------
+   «Что нового» на домашней странице (снято через CDP 2026-10-04):
+     .UpdatesContainer .PageableContainer
+       > .HeaderPageControls (.Name, .SettingsButton, .PageClickContainer)
+       > .BoxCarousel.EventRowCarousel .PartnerEventRowCapsule:
+           .EventTime                                  — «на этой неделе»
+           .PartnerEventRowCapsule_Container.HoversEnabled
+             .PartnerEventRowCapsule_MainImageContainer — картинка
+             .EventSummaryContainer (.EventSummaryType, .EventSummaryText)
+                                                       — текст на hover
+             .EventTimeSpan                            — голубая плашка «идёт…»
+           .PartnerEventRowCapsule_TextTitle           — заголовок
+           .GameIconAndName                            — чип игры
+   Steam: хэш-правила (0,1,0)…(0,6,0) на hover; у нас читаемые цепочки + html.
+   -------------------------------------------------------------------------- */
+
+/* Сам блок: у Steam — полоса во всю ширину с градиентом #2d333c → #171d25
+   (хэш (0,1,0)). У нас — панель: поля как у героя страницы игры,
+   скругление, тёмное тело и обводка; карусель обрезается по скруглению. */
+html div.UpdatesContainer {
+    overflow: hidden;
+    margin: var(--aika-hero-inset);
+    border: var(--aika-hairline) solid var(--aika-border);
+    border-radius: var(--aika-radius-xl);
+    background: var(--aika-bg-elevated);
+    box-shadow: var(--aika-shadow-panel);
+}
+
+html .UpdatesContainer .PageableContainer .HeaderPageControls .Name {
+    color: var(--aika-fg);
+    font-weight: var(--aika-weight-semibold);
+    letter-spacing: var(--aika-tracking-h2);
+}
+
+html .UpdatesContainer .HeaderPageControls .SettingsButton svg,
+html .UpdatesContainer .HeaderPageControls .SettingsButton svg path {
+    fill: var(--aika-fg-subtle);
+}
+
+html .UpdatesContainer .HeaderPageControls .SettingsButton:hover svg path {
+    fill: var(--aika-fg);
+}
+
+/* «на этой неделе», «Вчера» — моно-метка */
+html .EventRowCarousel .PartnerEventRowCapsule .EventTime {
+    color: var(--aika-fg-subtle);
+    font-family: var(--aika-font-mono);
+    font-size: var(--aika-text-label);
+    letter-spacing: var(--aika-tracking-label);
+}
+
+/* Картинка — скругление обложки, подложка — наша */
+html .EventRowCarousel .PartnerEventRowCapsule .PartnerEventRowCapsule_MainImageContainer {
+    border-radius: var(--aika-radius-lg);
+    background-color: var(--aika-bg-raised);
+    box-shadow: var(--aika-shadow-cover);
+}
+
+html .EventRowCarousel .PartnerEventRowCapsule .PartnerEventRowCapsule_Container.HoversEnabled {
+    border-radius: var(--aika-radius-lg);
+}
+
+/* Наведение: Steam размывает картинку и кладёт синюю подложку
+   rgba(0,34,65,.7) с голубым типом события → затемнение Aika и акцент */
+html .PartnerEventRowCapsule .PartnerEventRowCapsule_Container.HoversEnabled:hover .EventSummaryContainer {
+    border-radius: var(--aika-radius-lg);
+    background-color: var(--aika-scrim);
+}
+
+html .PartnerEventRowCapsule .PartnerEventRowCapsule_Container.HoversEnabled:hover .EventSummaryContainer .EventSummaryType {
+    color: var(--aika-accent-bright);
+    font-family: var(--aika-font-mono);
+    font-size: var(--aika-text-label);
+    letter-spacing: var(--aika-tracking-label);
+}
+
+html .PartnerEventRowCapsule .PartnerEventRowCapsule_Container.HoversEnabled:hover .EventSummaryContainer .EventSummaryText {
+    color: var(--aika-fg);
+}
+
+/* Плашка «идёт / закончится через…» — голубая Steam → акцентная */
+html .PartnerEventRowCapsule .PartnerEventRowCapsule_Container .EventTimeSpan {
+    border-radius: var(--aika-radius-full);
+    background-color: var(--aika-accent-fill);
+    color: var(--aika-on-accent);
+    font-family: var(--aika-font-mono);
+}
+
+html .PartnerEventRowCapsule .Event_Title .PartnerEventRowCapsule_TextTitle {
+    color: var(--aika-fg);
+}
+
+/* Чип игры под карточкой */
+html .EventRowCarousel .PartnerEventRowCapsule .GameIconAndName {
+    border-radius: var(--aika-radius-full);
+    background-color: var(--aika-surface);
+    box-shadow: inset 0 0 0 var(--aika-hairline) var(--aika-border);
+    transition: background-color var(--aika-dur-fast) var(--aika-ease-hover);
+}
+
+html .EventRowCarousel .PartnerEventRowCapsule .GameIconAndName:hover {
+    background-color: var(--aika-surface-hover);
+}
+
+html .EventRowCarousel .PartnerEventRowCapsule .GameIconAndName .GameIcon {
+    border-radius: var(--aika-radius-full);
+}
+
+html .EventRowCarousel .PartnerEventRowCapsule .GameIconAndName .GameName {
+    color: var(--aika-fg-muted);
+}
+
+html .EventRowCarousel .PartnerEventRowCapsule .GameIconAndName:hover .GameName {
     color: var(--aika-fg);
 }

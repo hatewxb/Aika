@@ -131,3 +131,32 @@ html .LabelHolder :is(.richPresenceLabel .PlaytimeStatus, .playerNicknameBracket
 html .LabelHolder .richPresenceLabel .PlaytimeStatus {
     color: var(--aika-fg-subtle) !important;
 }
+
+/* Время в игре — моно, как статистика панели «Играть» (просьба автора
+   2026-10-04): «31,3 ч. за последнее время» у друзей, «Вы играли 884,1 ч.»
+   в блоке обзора, время скриншота в ленте. Текст Steam не меняем. */
+html .LabelHolder .richPresenceLabel .PlaytimeStatus,
+html .AppDetailsSectionContainer .PlayedForTime,
+html .ActivityPublishedScreenshot .ActiveScreenshot .TimeStamp {
+    font-family: var(--aika-font-mono);
+    font-size: var(--aika-text-meta);
+}
+
+html .AppDetailsSectionContainer .PlayedForTime,
+html .ActivityPublishedScreenshot .ActiveScreenshot .TimeStamp {
+    color: var(--aika-fg-subtle);
+}
+
+/* Значки рядом с именем друга (телефон, Steam Deck, VR) и «Zzz» отошедшего:
+   Steam красит их голубым статуса «в сети» правилом (0,3,1) */
+html .LabelHolder.online .statusAndName .PersonaStatusIcon svg path,
+html .LabelHolder.online .statusAndName .SnoozeContainer .SnoozeZ {
+    fill: var(--aika-accent-bright);
+    color: var(--aika-accent-bright);
+}
+
+html .LabelHolder.ingame .statusAndName .PersonaStatusIcon svg path,
+html .LabelHolder.ingame .statusAndName .SnoozeContainer .SnoozeZ {
+    fill: var(--aika-ok);
+    color: var(--aika-ok);
+}

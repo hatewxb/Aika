@@ -67,6 +67,12 @@ html .AppDetailsSection > .AppDetailsSectionContainer {
     box-shadow: none !important;
 }
 
+/* Между заголовком и телом Steam оставляет 6 px (хэш-правило (0,2,0)) —
+   была видна щель между полосой заголовка и фоном тела */
+html .AppDetailsSection > h2.SectionHeader + .AppDetailsSectionContainer {
+    margin-top: 0;
+}
+
 /* Блок без заголовка (ссылки «Магазин / Обсуждения…») — скругление со всех сторон */
 html .AppDetailsSection:not(:has(> h2.SectionHeader)) > .AppDetailsSectionContainer {
     border-radius: var(--aika-radius-xl);

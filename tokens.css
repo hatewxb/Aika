@@ -203,6 +203,8 @@
     --aika-hero-fade: linear-gradient(to bottom, var(--aika-transparent) 35%, var(--aika-bg-base) 100%);
     --aika-hero-scroll-range: 320px;   /* за сколько прокрутки баннер гаснет */
     --aika-hero-scroll-opacity: 0.55;  /* до какой яркости */
+    --aika-hero-inset: 10px;           /* поля героя и «Играть» — как у блоков Steam ниже (10 px) */
+    --aika-hero-glow: 0 0 24px var(--aika-accent-haze);  /* свечение вокруг блока героя */
 
     /* Иконки верхних вкладок (nav.css). Свои простые SVG 24×24, линия 1.75;
        используются как mask-image, поэтому цвет внутри не важен — фигуру

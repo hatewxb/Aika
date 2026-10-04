@@ -117,6 +117,69 @@ html .TopCapsule .HeaderBackgroundImage::after {
     }
 }
 
+/* --------------------------------------------------------------------------
+   Герой + панель «Играть» — один блок со скруглением и акцентной обводкой
+   (просьба автора 2026-10-04). В DOM это разные ветки: .Header (баннер)
+   и .AppDetailsOverviewPanel .Container.InPage > .PlayBar, поэтому
+   блок собран из двух половин: у героя — верхние углы и обводка сверху
+   и по бокам, у панели — нижние углы и обводка снизу и по бокам.
+
+   Обрезать героя через overflow/clip-path нельзя: .TopCapsule —
+   preserve-3d, параллакс баннера сломается, а «отражение» баннера
+   (.ImgBlurBackdrop) под панелью пропадёт. Поэтому скругляем сами
+   картинки (они плоские внутри 3D-слоя), а обводку рисуем ::before
+   поверх. Затемнение (::after) и затухание при прокрутке — как были.
+   -------------------------------------------------------------------------- */
+
+html .AppDetailsMain .Header.HeaderLoaded {
+    width: auto;
+    margin: var(--aika-hero-inset) var(--aika-hero-inset) 0;
+}
+
+html .AppDetailsMain .Header.HeaderLoaded::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    border: var(--aika-hairline) solid var(--aika-border-accent);
+    border-bottom: none;
+    border-radius: var(--aika-radius-xl) var(--aika-radius-xl) 0 0;
+    box-shadow: var(--aika-hero-glow);
+    clip-path: inset(-40px -40px 0 -40px);
+    pointer-events: none;
+}
+
+/* Баннер — в 3D-слое (translateZ(-1) scale(2), перспектива у контейнера
+   прокрутки): сдвиг в разметке он показывает вдвое меньше, и после
+   полей героя съезжал на половину поля влево-вверх. Сдвигаем на поле. */
+html .TopCapsule .HeaderBackgroundImage {
+    top: var(--aika-hero-inset);
+    left: var(--aika-hero-inset);
+}
+
+/* Steam делает картинку выше героя (326 при 271): низ торчал из-под
+   скруглённых углов панели «Играть». Высота — по герою; при прокрутке
+   баннер едет вниз относительно героя (параллакс), так что видимая
+   часть героя остаётся закрытой. Отражение (.ImgBlurBackdrop) не трогаем. */
+html .TopCapsule .HeaderBackgroundImage > :is(.ImgContainer, img.ImgBlur:not(.ImgBlurBackdrop)) {
+    max-height: 100%;
+    border-radius: var(--aika-radius-xl) var(--aika-radius-xl) 0 0;
+    overflow: hidden;
+}
+
+html .AppDetailsOverviewPanel .Container.InPage {
+    width: auto;
+    margin-inline: var(--aika-hero-inset);
+}
+
+html .AppDetailsOverviewPanel .Container.InPage > .PlayBar.Glassy {
+    border: var(--aika-hairline) solid var(--aika-border-accent);
+    border-top-color: var(--aika-border);
+    border-radius: 0 0 var(--aika-radius-xl) var(--aika-radius-xl);
+    box-shadow: var(--aika-highlight-top), var(--aika-hero-glow);
+    clip-path: inset(0 -40px -40px -40px);
+}
+
 /* Чипы коллекций на баннере («КООП» и т.п.) — бейджи-пилюли */
 html .HeaderFeatures .InCollection {
     padding: 0 var(--aika-space-2);
@@ -389,30 +452,30 @@ html .AchievementIconWrapper img.Icon {
    Лента активности: поле поста, кнопки, события, лайки
    -------------------------------------------------------------------------- */
 
-html .PostTextEntry.AddToFeed textarea.PostTextEntryArea {
+html .PostTextEntry:is(.AddToFeed, .AddReply) textarea.PostTextEntryArea {
     border: var(--aika-hairline) solid var(--aika-border-strong);
     border-radius: var(--aika-radius-md);
     background: var(--aika-bg-raised);
     color: var(--aika-fg);
 }
 
-html .PostTextEntry.AddToFeed textarea.PostTextEntryArea:focus {
+html .PostTextEntry:is(.AddToFeed, .AddReply) textarea.PostTextEntryArea:focus {
     border-color: var(--aika-accent);
     box-shadow: var(--aika-shadow-input-focus);
     outline: none;
 }
 
-html .PostTextEntry.AddToFeed .Controls :is(button.EmoticonButton, .PostButton) {
+html .PostTextEntry:is(.AddToFeed, .AddReply) .Controls :is(button.EmoticonButton, .PostButton) {
     border-radius: var(--aika-radius-md);
     background: var(--aika-surface);
     box-shadow: var(--aika-shadow-secondary);
 }
 
-html .PostTextEntry.AddToFeed .Controls .PostButton .Label {
+html .PostTextEntry:is(.AddToFeed, .AddReply) .Controls .PostButton .Label {
     color: var(--aika-fg-muted);
 }
 
-html .PostTextEntry.AddToFeed .Controls button.EmoticonButton svg path {
+html .PostTextEntry:is(.AddToFeed, .AddReply) .Controls button.EmoticonButton svg path {
     fill: var(--aika-fg-muted);
 }
 
@@ -677,4 +740,178 @@ html .CommunityItem .Controls .Control {
     border-radius: var(--aika-radius-md);
     background-color: var(--aika-bg-raised);
     color: var(--aika-fg-muted);
+}
+
+/* --------------------------------------------------------------------------
+   «Коллекционные карточки» (значок) и «Мастерская» (работа в тренде):
+   у Steam общая подложка .Highlight — серо-синий градиент, скругление 2 px,
+   тень. Хэш-правила (0,1,0)…(0,4,0); у нас полные читаемые цепочки + html.
+   -------------------------------------------------------------------------- */
+
+html .AppDetailsSectionContainer .Highlight:is(.BadgeSection, .WorkshopHightlight) {
+    border: var(--aika-hairline) solid var(--aika-border);
+    border-radius: var(--aika-radius-lg);
+    background: var(--aika-card-bg);
+    box-shadow: var(--aika-highlight-top);
+    color: var(--aika-fg-muted);
+}
+
+/* В блоке тело идёт сразу за подложкой — отступ по краям тела панели */
+html .AppDetailsSectionContainer > .Highlight.BadgeSection,
+html .AppDetailsSectionContainer > .Panel > .Highlight.WorkshopHightlight {
+    margin: var(--aika-space-3);
+}
+
+html .Highlight.BadgeSection .BadgeInfo .BadgeName {
+    color: var(--aika-fg);
+}
+
+html .Highlight.BadgeSection .BadgeInfo .BadgeLevel {
+    color: var(--aika-fg-subtle);
+    font-family: var(--aika-font-mono);
+    font-size: var(--aika-text-meta);
+}
+
+/* «Поздравляем! Значок максимального уровня» — голубой Steam → акцент */
+html .AppDetailsSectionContainer .Body .CardsLeft {
+    color: var(--aika-fg-muted);
+}
+
+html .AppDetailsSectionContainer .Body .CardsLeft.BadgeMaxed {
+    color: var(--aika-accent-bright);
+}
+
+/* Мастерская: «Работа в тренде», название, описание, «Подробнее» */
+html .FeaturedItem .FeaturedItemDetailsContainer .FeaturedItemHeader {
+    color: var(--aika-accent-bright);
+    font-family: var(--aika-font-mono);
+    font-size: var(--aika-text-label);
+    letter-spacing: var(--aika-tracking-label);
+}
+
+html .FeaturedItem .FeaturedItemDetailsContainer .FeaturedItemName {
+    color: var(--aika-fg);
+}
+
+html .FeaturedItem .FeaturedItemDetailsContainer .FeaturedItemDesc {
+    color: var(--aika-fg-muted);
+}
+
+html .WorkshopHightlight .FeaturedItem .FeaturedLinks .FeaturedItemLink {
+    color: var(--aika-fg-muted);
+    transition: color var(--aika-dur-fast) var(--aika-ease-hover);
+}
+
+html .WorkshopHightlight .FeaturedItem .FeaturedLinks .FeaturedItemLink:hover {
+    color: var(--aika-accent-bright);
+}
+
+html .WorkshopHightlight .FeaturedItem .FeaturedItemImage {
+    border-radius: var(--aika-radius-md);
+}
+
+html .WorkshopHightlight .FeaturedItem .FeaturedItemHideButton {
+    border-radius: var(--aika-radius-md);
+}
+
+html .WorkshopHightlight .FeaturedItem .FeaturedItemHideButton svg {
+    fill: var(--aika-fg-subtle);
+}
+
+/* Низ блока Мастерской: картинка-фон workshopbackground.png на сером */
+html .WorkshopSection .AppDetailsSectionContainer .Body.WorkshopContainer {
+    border-radius: 0 0 var(--aika-radius-xl) var(--aika-radius-xl);
+    background: var(--aika-transparent);
+}
+
+/* --------------------------------------------------------------------------
+   Доп. контент: обложки DLC — скругление, без «стеклянного» блика Steam
+   -------------------------------------------------------------------------- */
+
+html .AppDetailsSectionContainer .DLC .Item .DLCArt {
+    overflow: hidden;
+    border-radius: var(--aika-radius-md);
+}
+
+html .AppDetailsSectionContainer .DLC .DLCArt > .Art {
+    box-shadow: none;
+}
+
+html .AppDetailsSectionContainer .DLC .DLCArt > .Gloss {
+    background: var(--aika-transparent);
+}
+
+/* --------------------------------------------------------------------------
+   Лента: комментарии под событием (скриншоты, статусы) —
+   .ActivityCommentThread. Steam: подложка rgba(36,40,47,.8), серые время,
+   текст, «палец вверх»; цепочки хэшей до (0,6,0).
+   -------------------------------------------------------------------------- */
+
+html .Event .CommentThread .ActivityCommentThread {
+    border-top: var(--aika-hairline) solid var(--aika-border);
+    border-radius: 0 0 var(--aika-radius-lg) var(--aika-radius-lg);
+    background: var(--aika-bg-elevated);
+}
+
+html .ActivityCommentThread .Comment .HeaderandBody .CommentHeader .CommentTime {
+    color: var(--aika-fg-subtle);
+    font-family: var(--aika-font-mono);
+    font-size: var(--aika-text-label);
+}
+
+html .ActivityCommentThread .Comment .HeaderandBody .CommentBody .CommentText {
+    color: var(--aika-fg-muted);
+}
+
+html .ActivityCommentThread .Comment .HeaderandBody .CommentBody .CommentControls .CommentRatingButton .CommentRating {
+    color: var(--aika-fg-subtle);
+}
+
+html .ActivityCommentThread .Comment .HeaderandBody .CommentBody .CommentControls .CommentRatingButton .CommentRating svg,
+html .ActivityCommentThread .Comment .HeaderandBody .CommentBody .CommentControls .CommentRatingButton .CommentRating svg path,
+html .ActivityCommentThread .Comment .HeaderandBody .CommentBody .CommentControls .DeleteButton svg.DeleteUserNews,
+html .ActivityCommentThread .Comment .HeaderandBody .CommentBody .CommentControls .DeleteButton svg.DeleteUserNews path {
+    fill: var(--aika-fg-subtle);
+}
+
+html .ActivityCommentThread .Comment .HeaderandBody .CommentBody .CommentControls .DeleteButton:hover svg.DeleteUserNews path {
+    fill: var(--aika-live);
+}
+
+/* Реакции (смайлик) рядом с «комментарии / нравится» */
+html .RatingBar .Reactions .ReactionCount {
+    color: var(--aika-fg-subtle);
+}
+
+html .RatingBar .Reactions .ReactionIcon svg,
+html .RatingBar .Reactions .ReactionIcon svg path {
+    fill: var(--aika-fg-subtle);
+}
+
+html .RatingBar .Reactions:hover .ReactionCount {
+    color: var(--aika-fg);
+}
+
+html .RatingBar .Reactions:hover .ReactionIcon svg :is(*) {
+    fill: var(--aika-fg);
+}
+
+/* Подпись к скриншоту: голубая плашка-градиент → наша поверхность */
+html .ActivityPublishedScreenshot .ActiveScreenshot .ScreenshotCaption {
+    border-radius: 0 var(--aika-radius-md) 0 0;
+    background: var(--aika-scrim);
+    color: var(--aika-fg);
+}
+
+html .ActivityPublishedScreenshot .ActiveScreenshot .ScreenshotCaption .CaptionQuoteContainer {
+    color: var(--aika-fg);
+}
+
+html .ActivityPublishedScreenshot .ActiveScreenshot .ScreenshotCaption .CaptionQuoteContainer .CaptionQuote {
+    color: var(--aika-accent-bright);
+}
+
+/* Текст статуса друга («мне сегодня 5 лет…») */
+html .Event .EventBody .ActivityPublishedStatus {
+    color: var(--aika-fg);
 }
