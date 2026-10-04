@@ -587,3 +587,72 @@ html .PagedSettingsDialog .FieldLabel a.ConfigureMic {
 html .PagedSettingsDialog .FieldLabel a:hover {
     color: var(--aika-fg);
 }
+
+/* ==========================================================================
+   Диалоги внутри окна (.ModalOverlayContent > .ModalPosition >
+   .ModalPosition_Content > .DialogContent) — напр. «Установка» игры
+   (.InstallRequestModal). У Steam — #25282e с серым радиальным светом,
+   без скругления. Снято через CDP 2026-10-04 (установка Among Us).
+   Окна-диалоги целиком (настройки, свойства) — не трогаем: там
+   .ModalPosition_Content во всё окно.
+   ========================================================================== */
+
+html .ModalOverlayContent .ModalPosition_Content {
+    overflow: hidden;
+    border-radius: var(--aika-radius-xl);
+    box-shadow: var(--aika-shadow-menu);
+}
+
+html .ModalOverlayContent .ModalPosition_Content > .DialogContent {
+    background: var(--aika-bg-elevated);
+    color: var(--aika-fg-muted);
+}
+
+/* «Установка»: список устанавливаемого, размер, ярлыки, выбор папки */
+html .InstallRequestModal :is(.AppsToInstall, .AppToInstall) {
+    border-color: var(--aika-border);
+}
+
+html .InstallRequestModal .AppsToInstall {
+    border-radius: var(--aika-radius-md);
+}
+
+html .InstallRequestModal .AppToInstall .AppName {
+    color: var(--aika-fg);
+}
+
+html .InstallRequestModal .AppToInstall .AppSizeRequired,
+html .InstallRequestModal .FolderOption .DiskSpace {
+    color: var(--aika-fg-muted);
+    font-family: var(--aika-font-mono);
+}
+
+html .ModalOverlayContent .DialogCheckbox_Container .DialogToggle_Label span {
+    color: var(--aika-fg-muted);
+}
+
+/* Папки установки (.FolderOption, выбранная — .Active; у Steam #3d4450
+   и синий #1a9fff, (0,3,0) с .DesktopUI) */
+html .InstallRequestModal .FolderSelector .FolderOption {
+    border-radius: var(--aika-radius-md);
+    background: var(--aika-surface);
+    color: var(--aika-fg);
+    transition: background-color var(--aika-dur-fast) var(--aika-ease-hover);
+}
+
+html .InstallRequestModal .FolderSelector .FolderOption:hover {
+    background: var(--aika-surface-hover);
+}
+
+html .InstallRequestModal .FolderSelector .FolderOption.Active {
+    background: var(--aika-accent-soft);
+    box-shadow: inset 0 0 0 var(--aika-hairline) var(--aika-border-accent);
+}
+
+html .InstallRequestModal .FolderOption :is(.FolderName, .FolderFlag) {
+    color: var(--aika-fg);
+}
+
+html .InstallRequestModal .FolderOption .FolderFlag svg path {
+    fill: var(--aika-fg-muted);
+}
