@@ -8,6 +8,41 @@
     "RootColors": "root-colors.css",
     "Steam-WebKit": "webkit.css",
 
+    "Conditions": {
+        "Положение вкладок": {
+            "description": "Где стоят вкладки «Магазин», «Библиотека», «Сообщество» и профиль в верхней панели.",
+            "tab": "Верхняя панель",
+            "default": "По центру",
+            "values": {
+                "По центру": {
+                    "TargetCss": { "affects": ["^Steam$"], "src": "options/tabs-center.css" }
+                },
+                "Слева": {}
+            }
+        },
+        "Пресет": {
+            "description": "Набор цветов темы: акцент и пятна света. Чтобы задать цвета вручную, включите «Свои цвета» во вкладке «Расширенное».",
+            "tab": "Цветовые пресеты",
+            "default": "Aika",
+            "values": {
+                "Aika": {
+                    "TargetCss": { "affects": [".*"], "src": "options/presets/aika.css" }
+                }
+            }
+        },
+        "Свои цвета": {
+            "description": "Использовать цвета из редактора цветов темы вместо пресета. Сами цвета (акцент, наведение, три пятна света) настраиваются в разделе цветов этой темы.",
+            "tab": "Расширенное",
+            "default": "no",
+            "values": {
+                "no": {},
+                "yes": {
+                    "TargetCss": { "affects": [".*"], "src": "options/colors-manual.css" }
+                }
+            }
+        }
+    },
+
     "Patches": [
         {
             "MatchRegexString": "^Steam$",

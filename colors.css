@@ -10,6 +10,25 @@
    в настройках — поменялись свечение, мягкий фон и рамки.
    ========================================================================== */
 
+/* Итоговые настраиваемые цвета — под html:root (0,1,1): Millennium
+   вставляет сохранённые цвета темы своим <style> «:root {…}» поверх CSS,
+   в том числе под старыми именами (--aika-accent…, до 2026-10-04) —
+   они не должны перебить пресет. */
+html:root {
+    /* ------------------------------------------------------------------
+       Итоговые настраиваемые цвета (настройки темы в Millennium):
+       цветовой пресет (--aika-preset-*, options/presets/*.css) — если
+       выбран; иначе свои цвета (--aika-user-*, root-colors.css, вкладка
+       «Расширенное»). «Свои цвета: да» сбрасывает --aika-preset-* в initial
+       (options/colors-manual.css) — тогда var() берёт запасное значение.
+       ------------------------------------------------------------------ */
+    --aika-accent: var(--aika-preset-accent, var(--aika-user-accent));
+    --aika-accent-bright: var(--aika-preset-accent-bright, var(--aika-user-accent-bright));
+    --aika-light-1: var(--aika-preset-light-1, var(--aika-user-light-1));
+    --aika-light-2: var(--aika-preset-light-2, var(--aika-user-light-2));
+    --aika-light-3: var(--aika-preset-light-3, var(--aika-user-light-3));
+}
+
 :root {
     /* ------------------------------------------------------------------
        Фон: тёплые почти-чёрные (не #000 — DESIGN.md §7)

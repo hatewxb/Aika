@@ -1,0 +1,15 @@
+/* ==========================================================================
+   «Свои цвета» (настройки темы → «Расширенное» → да).
+   Сбрасывает значения цветового пресета в initial — тогда var() в colors.css
+   берёт запасное значение: цвета из редактора Millennium (--aika-user-*,
+   root-colors.css). html:root (0,1,1) сильнее :root пресета (0,1,0) —
+   порядок подключения не важен.
+   ========================================================================== */
+
+html:root {
+    --aika-preset-accent: initial;
+    --aika-preset-accent-bright: initial;
+    --aika-preset-light-1: initial;
+    --aika-preset-light-2: initial;
+    --aika-preset-light-3: initial;
+}
