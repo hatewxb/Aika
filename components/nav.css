@@ -123,17 +123,25 @@ html .ReactVirtualized__List .GameListEntryContainer .GameIcon {
    иконку лупы фоном — иконку и подсказку Steam оставляем, фон и рамку — наши.
    -------------------------------------------------------------------------- */
 
+/* Фон — полупрозрачная тёплая поверхность (как карточки): непрозрачный
+   --aika-bg-raised выглядел тёмной дырой на панели со светом (автор, 2026-10-04) */
 html .Container > .SearchInput input.DialogTextInputBase {
-    background-color: var(--aika-bg-raised);
+    background-color: var(--aika-surface-hover);
+    transition:
+        background-color var(--aika-dur-fast) var(--aika-ease-hover),
+        border-color var(--aika-dur-fast) var(--aika-ease-hover),
+        box-shadow var(--aika-dur-base) var(--aika-ease);
     border: var(--aika-hairline) solid var(--aika-border-strong);
     border-radius: var(--aika-radius-md);
 }
 
 html .Container > .SearchInput input.DialogTextInputBase:hover {
     border-color: var(--aika-border-hover);
+    background-color: var(--aika-surface-active);
 }
 
 html .Container > .SearchInput input.DialogTextInputBase:focus {
+    background-color: var(--aika-surface-active);
     border-color: var(--aika-accent);
     box-shadow: var(--aika-shadow-input-focus);
 }
