@@ -8,7 +8,7 @@ Fluent-структура · панели в духе файловой сист�
 
 Автор — **hatewxb** · для [Millennium](https://steambrew.app) · версия 0.1.0 (WIP)
 
-![Aika — превью](screenshots/preview.png)
+![Aika — страница игры в библиотеке](screenshots/library-game.png)
 
 </div>
 
@@ -46,54 +46,40 @@ Aika переодевает весь клиент Steam: библиотеку, �
 
 ## Скриншоты
 
+> Личные данные на скриншотах (ник, аватары, друзья, адреса) замазаны.
+
 <details open>
 <summary><b>Библиотека</b></summary>
 
-| Главная | Страница игры |
-|:--:|:--:|
-| ![Библиотека — главная](screenshots/library-home.png) | ![Страница игры](screenshots/library-game.png) |
-| **Коллекции** | **Друзья, игравшие в игру** |
-| ![Коллекции](screenshots/library-collections.png) | ![Играющие друзья](screenshots/library-friends.png) |
+Главная: «Что нового», полки, список игр с индикатором выбранной игры.
+Страница игры — на превью вверху.
+
+![Библиотека — главная](screenshots/library-home.jpg)
 
 </details>
 
-<details>
+<details open>
 <summary><b>Магазин</b></summary>
 
-| Главная | Страница игры |
+| Главная | Страница игры — логотип над трейлером |
 |:--:|:--:|
-| ![Магазин — главная](screenshots/store-home.png) | ![Магазин — страница игры](screenshots/store-app.png) |
-| **Плеер трейлеров** | **Поиск** |
-| ![Плеер трейлеров](screenshots/store-player.png) | ![Поиск](screenshots/store-search.png) |
+| ![Магазин — главная](screenshots/store-home.jpg) | ![Магазин — страница игры](screenshots/store-app.jpg) |
 
 </details>
 
-<details>
+<details open>
 <summary><b>Сообщество</b></summary>
 
-| Активность друзей | Друзья |
+| Друзья | Скриншоты по играм |
 |:--:|:--:|
-| ![Активность друзей](screenshots/community-activity.png) | ![Друзья](screenshots/community-friends.png) |
-| **Скриншоты по играм** | |
-| ![Скриншоты по играм](screenshots/community-screenshots.png) | |
+| ![Друзья](screenshots/community-friends.png) | ![Скриншоты по играм](screenshots/community-screenshots.png) |
 
 </details>
 
-<details>
-<summary><b>Друзья и чат, загрузки, настройки</b></summary>
+<details open>
+<summary><b>Настройки клиента</b></summary>
 
-| Список друзей и чат | Загрузки |
-|:--:|:--:|
-| ![Друзья и чат](screenshots/friends-chat.png) | ![Загрузки](screenshots/downloads.png) |
-| **Настройки** | **Меню и уведомления** |
-| ![Настройки](screenshots/settings.png) | ![Меню и уведомления](screenshots/menus.png) |
-
-</details>
-
-<details>
-<summary><b>Настройки темы в Millennium</b></summary>
-
-![Настройки темы](screenshots/theme-settings.png)
+<p align="center"><img src="screenshots/settings.png" alt="Настройки" width="600"></p>
 
 </details>
 
@@ -138,7 +124,7 @@ Aika переодевает весь клиент Steam: библиотеку, �
 - [x] Коллекции: плитки, страница коллекции, «Создать коллекцию»
 - [x] Свечение за курсором на крупных блоках, плавное появление панелей
 - [ ] Длинные названия игр в списке при наведении
-- [ ] Пустая полка на главной (стиль есть, вживую не проверен)
+- [x] Пустая полка на главной («Выберите, что хотите видеть…»)
 
 </details>
 
