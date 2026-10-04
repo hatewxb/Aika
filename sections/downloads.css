@@ -1,0 +1,101 @@
+/* ==========================================================================
+   sections/downloads.css — страница «Загрузки» (DESIGN.md §5).
+
+   Структура (снята через CDP 2026-10-04, без активной загрузки):
+     .DownloadsPage
+       .TopSection > .Section.Active           — верхняя полоса
+         .HeroAndLogo[.Empty]                  — баннер текущей загрузки
+                                                 (пусто — синий градиент)
+         .DownloadGraphWrapper .DownloadGraph  — график: .DiskGraph svg
+                                                 path.GraphLine — диск
+         .DownloadGraphStatsWrapper .SingleStat
+           .LegendRow (.LegendBox.Network svg + .LegendText) + .Stat .Figure
+       .TopSection > .SettingsButton button    — шестерёнка
+       .ItemLists > .Section[.EmptyQueue]      — «Очередь», «Запланировано»…
+         h3.SectionTitle > .TitleAndCount (.Count) + .AutoUpdate
+         .SectionList > .EmptyTransfers > .Text — «В очереди нет загрузок»
+   Steam: серо-синий радиальный фон, #0e141b, синий баннер, Motiva Sans,
+   хэши (0,1,0)…(0,3,0). Цвета графика: сеть — акцент, диск — тёплое
+   пятно света (у Steam синий и зелёный — два разных ряда, смысл тот же).
+
+   TODO: элементы активной загрузки (строка игры в очереди, прогресс,
+   кнопки пауза/вверх, полоса в нижней панели) — снять классы, когда
+   что-нибудь качается.
+   ========================================================================== */
+
+/* Фон страницы — прозрачный: под ним фон Aika */
+html .DownloadsPage {
+    background: var(--aika-transparent);
+}
+
+/* Верхняя полоса — панель с отступом и скруглением */
+html .DownloadsPage .TopSection > .Section.Active {
+    overflow: hidden;
+    margin: var(--aika-hero-inset);
+    border: var(--aika-hairline) solid var(--aika-border);
+    border-radius: var(--aika-radius-xl);
+    background: var(--aika-bg-elevated);
+    box-shadow: var(--aika-shadow-panel);
+}
+
+/* Пустой баннер: синий градиент Steam → мягкий акцентный свет */
+html .DownloadsPage .GraphAndStats .HeroAndLogo.Empty {
+    background: linear-gradient(to right, var(--aika-accent-soft), var(--aika-accent-none));
+}
+
+/* Легенда и цифры */
+html .DownloadsPage .DownloadGraphStats .LegendRow .LegendText {
+    color: var(--aika-fg-subtle);
+    font-family: var(--aika-font-mono);
+    letter-spacing: var(--aika-tracking-label);
+}
+
+html .DownloadsPage .DownloadGraphStats .SingleStat .Stat .Figure {
+    color: var(--aika-fg);
+    font-family: var(--aika-font-mono);
+}
+
+html .DownloadsPage .LegendRow .LegendBox.Network svg {
+    color: var(--aika-accent);
+}
+
+html .DownloadsPage .DownloadGraph .DiskGraph svg path.GraphLine {
+    stroke: var(--aika-light-3);
+}
+
+/* Шестерёнка: у Steam #3d4450 правилом с удвоенным хэшем (0,2,0)… */
+html .DownloadsPage .TopSection .SettingsButton button.DialogButton.Secondary {
+    border-radius: var(--aika-radius-md);
+    background: var(--aika-surface);
+    box-shadow: var(--aika-shadow-secondary);
+}
+
+html .DownloadsPage .TopSection .SettingsButton button.DialogButton.Secondary:hover {
+    background: var(--aika-surface-hover);
+}
+
+html .DownloadsPage .TopSection .SettingsButton button.DialogButton svg path {
+    fill: var(--aika-fg-muted);
+}
+
+/* Разделы очереди: заголовок, счётчик, автообновление */
+html .DownloadsPage .ItemLists .Section h3.SectionTitle {
+    color: var(--aika-fg);
+    font-family: var(--aika-font-ui);
+    font-weight: var(--aika-weight-semibold);
+    letter-spacing: var(--aika-tracking-h2);
+}
+
+html .DownloadsPage .ItemLists .Section h3.SectionTitle .TitleAndCount .Count {
+    color: var(--aika-fg-subtle);
+    font-family: var(--aika-font-mono);
+}
+
+html .DownloadsPage .ItemLists .Section h3.SectionTitle .AutoUpdate .AutoUpdateHours {
+    color: var(--aika-fg-subtle);
+    font-family: var(--aika-font-mono);
+}
+
+html .DownloadsPage .ItemLists .Section .SectionList .EmptyTransfers .Text {
+    color: var(--aika-fg-muted);
+}

@@ -30,6 +30,7 @@
 /* 3. Разделы клиента (стабильные селекторы) */
 @import url("./sections/library.css");
 @import url("./sections/game-page.css");
+@import url("./sections/downloads.css");
 @import url("./sections/store.css");
 @import url("./sections/friends.css");
 @import url("./sections/settings.css");

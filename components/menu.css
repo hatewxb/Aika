@@ -139,3 +139,21 @@ html:is([class*="_Supernav"], .Account_Menu) body .contextMenu.ContextMenuPositi
     width: max-content;
     min-width: 0 !important;
 }
+
+/* --------------------------------------------------------------------------
+   Всплывающие подсказки клиента (.HoverPosition > .TextToolTip; снято через
+   CDP 2026-10-04, наведение на шестерёнку «Загрузок»). Steam: светлая
+   плашка с радиальным градиентом, тёмный текст, Motiva Sans, хэш (0,1,0).
+   Подсказка — одно из мест с полупрозрачной поверхностью (DESIGN.md §11).
+   -------------------------------------------------------------------------- */
+
+html .HoverPosition .TextToolTip {
+    padding: var(--aika-space-1) var(--aika-space-2);
+    border: var(--aika-hairline) solid var(--aika-border-hover);
+    border-radius: var(--aika-radius-md);
+    background: var(--aika-surface-translucent);
+    box-shadow: var(--aika-shadow-menu);
+    color: var(--aika-fg);
+    font-family: var(--aika-font-ui);
+    font-size: var(--aika-text-meta);
+}
