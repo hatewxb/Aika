@@ -1499,3 +1499,55 @@ html body.v6 .tab_filter_control_count {
 html body.v6 .see_all_expander {
     color: var(--aika-accent-bright);
 }
+
+/* --------------------------------------------------------------------------
+   Логотип игры над трейлером (идея автора 2026-10-04; js/store-logo.js).
+   Скрипт кладёт .aika-store-logo > img в .highlight_ctn и ставит
+   html.aika-has-logo. Логотип по центру окна трейлера/скриншотов, его
+   центр — на верхней кромке окна: верхняя половина заходит на полосу
+   с названием, нижняя слегка перекрывает трейлер. Сзади — тень.
+   Без скрипта или без логотипа — текстовое название Steam как было.
+   -------------------------------------------------------------------------- */
+
+html body.v6 .highlight_ctn:has(> .aika-store-logo) {
+    position: relative;
+}
+
+html body.v6 .highlight_ctn > .aika-store-logo {
+    position: absolute;
+    top: 0;
+    left: calc(50% - var(--aika-store-highlight-gutter) / 2);
+    z-index: 30;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: var(--aika-store-logo-max-width);
+    height: var(--aika-store-logo-max-height);
+    transform: translate(-50%, -50%);
+    pointer-events: none;
+    animation: aika-store-logo-in var(--aika-dur-enter) var(--aika-ease) both;
+}
+
+html body.v6 .highlight_ctn > .aika-store-logo img {
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain;
+    filter: var(--aika-store-logo-shadow);
+}
+
+@keyframes aika-store-logo-in {
+    from {
+        opacity: 0;
+        transform: translate(-50%, calc(-50% + var(--aika-appear-shift)));
+    }
+}
+
+/* Текстовое название — только для экранных чтецов, место под логотип */
+html.aika-has-logo body.v6 .apphub_AppName {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip-path: inset(50%);
+    white-space: nowrap;
+}

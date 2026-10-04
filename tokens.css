@@ -141,6 +141,13 @@
     --aika-player-track-height: 4px;
     --aika-player-track-height-hover: 7px;
     --aika-player-button: 30px;
+    /* Логотип игры над трейлером в магазине (js/store-logo.js, store.css) */
+    --aika-store-logo-max-width: 56%;
+    --aika-store-logo-max-height: 132px;
+    /* У .highlight_overflow справа margin 16 px (Steam) — центр окна трейлера
+       левее центра .highlight_ctn на половину этого отступа */
+    --aika-store-highlight-gutter: 16px;
+    --aika-store-logo-shadow: drop-shadow(0 6px 18px var(--aika-shadow-logo)) drop-shadow(0 1px 3px var(--aika-shadow-logo));
     /* Затухание текста свёрнутого обзора — в цвет фона под карточкой */
     --aika-store-review-fade: linear-gradient(to bottom, var(--aika-transparent), var(--aika-bg-elevated));
     /* Spotlight: точку задаёт JS (--aika-spot-x/y на элементе), без JS —

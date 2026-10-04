@@ -24,6 +24,10 @@
         {
             "MatchRegexString": ".ContextMenuPopup",
             "TargetCss": "popup.css"
+        },
+        {
+            "MatchRegexString": "^https://store\\.steampowered\\.com/app/",
+            "TargetJs": "js/store-logo.js"
         }
     ]
 }
