@@ -14,3 +14,339 @@
    4. Элементы управления: переключатели, выпадающие списки,
       кнопки, поля ввода, ползунки.                           TODO: классы
    ========================================================================== */
+
+/* ==========================================================================
+   Окно «Настройки» (html.ModalDialogPopup.MillenniumWindow_Settings;
+   в localhost:8080 — «Настройки»). Снято через CDP 2026-10-04.
+   Читаемые классы: .PagedSettingsDialog_* (меню разделов), .Field (строка
+   настройки), .SettingsDialogFatButton (крупные кнопки). У Steam к ним
+   хэши-двойники, сила — до (0,3,1). Выбранный раздел — общий
+   Fluent-индикатор (components/nav.css).
+   ========================================================================== */
+
+html .ModalPosition_Content {
+    color: var(--aika-fg-muted);
+    box-shadow: var(--aika-shadow-panel);
+}
+
+/* Левая колонка: заголовок «Настройки» (#1a9fff) и разделы */
+html .PagedSettingsDialog_PageListColumn .PagedSettingsDialog_Title {
+    color: var(--aika-fg);
+    font-size: var(--aika-text-h2);
+    font-weight: var(--aika-weight-semibold);
+    letter-spacing: var(--aika-tracking-h2);
+}
+
+html .PagedSettingsDialog_PageList .PagedSettingsDialog_PageListItem {
+    border-radius: var(--aika-radius-md);
+    color: var(--aika-fg-muted);
+    transition:
+        background-color var(--aika-dur-fast) var(--aika-ease-hover),
+        color var(--aika-dur-fast) var(--aika-ease-hover);
+}
+
+html .PagedSettingsDialog_PageList .PagedSettingsDialog_PageListItem:not(.Active):hover {
+    background-color: var(--aika-surface-hover);
+    color: var(--aika-fg);
+}
+
+html .PagedSettingsDialog_PageList .PagedSettingsDialog_PageListItem :is(.PageListItem_Title, .PageListItem_Icon) {
+    color: inherit;
+}
+
+html .PagedSettingsDialog_PageList .PagedSettingsDialog_PageListItem .PageListItem_Icon svg,
+html .PagedSettingsDialog_PageList .PagedSettingsDialog_PageListItem .PageListItem_Icon svg path {
+    fill: currentColor;
+}
+
+/* Правая колонка: у Steam #25282e с серым радиальным светом, внутри
+   содержимое на #171d25 — одна приподнятая поверхность */
+html .PagedSettingsDialog .PagedSettingDialog_ContentColumn {
+    background: var(--aika-bg-elevated);
+    box-shadow: inset var(--aika-hairline) 0 0 0 var(--aika-border);
+}
+
+html .PagedSettingsDialog .PagedSettingDialog_ContentColumn > .DialogContent {
+    background: var(--aika-transparent);
+}
+
+/* Строка настройки и её подписи (на всех страницах; .Field у Steam —
+   хэш-двойник (0,2,0), #23262e). Похожие плашки: .FakeContainer
+   («Загрузки»), .InfoRow (участники семьи), карточки режима записи */
+html .PagedSettingsDialog :is(.Field, .FakeContainer, .InfoRow) {
+    border-radius: var(--aika-radius-md);
+    background: var(--aika-surface);
+}
+
+html .PagedSettingsDialog :is(.FieldLabel, .FieldLabel .EntryLabel, .SettingsDialogBodyText, .DialogBodyText) {
+    color: var(--aika-fg);
+}
+
+html .PagedSettingsDialog :is(.FieldDescription, .SettingsDialogDescriptionText) {
+    color: var(--aika-fg-subtle);
+}
+
+html .PagedSettingsDialog .FieldDescription :is(a, .SettingsLink),
+html .PagedSettingsDialog .SettingsDialogDescriptionText a {
+    color: var(--aika-accent-bright);
+}
+
+/* Подзаголовки разделов («Чат», «Уведомления»…) — подпись капсом */
+html .PagedSettingsDialog .SettingsDialogSubHeader {
+    color: var(--aika-fg-subtle);
+    font-size: var(--aika-text-label);
+    font-weight: var(--aika-weight-semibold);
+    letter-spacing: var(--aika-tracking-label);
+    text-transform: uppercase;
+}
+
+/* Галочка «значение по умолчанию» у ползунков */
+html .PagedSettingsDialog .DefaultValueTick svg path {
+    fill: var(--aika-fg-subtle);
+}
+
+html .PagedSettingsDialog .FieldLabel .EntryValue {
+    color: var(--aika-fg-subtle);
+}
+
+/* Крупные кнопки (Семейный доступ и т. п.) — у Steam #23262e (0,3,1) */
+html .PagedSettingsDialog button.SettingsDialogFatButton.DialogButton {
+    border-radius: var(--aika-radius-lg);
+    background: var(--aika-card-bg);
+    box-shadow: var(--aika-shadow-card);
+}
+
+html .PagedSettingsDialog button.SettingsDialogFatButton.DialogButton:hover {
+    background: var(--aika-surface-hover);
+    box-shadow: var(--aika-shadow-card-hover);
+}
+
+html .PagedSettingsDialog button.SettingsDialogFatButton .Details {
+    color: var(--aika-fg-subtle);
+}
+
+/* --------------------------------------------------------------------------
+   Отдельные страницы
+   -------------------------------------------------------------------------- */
+
+/* «Семья»: название группы и значок, «Это вы» (салатовая плашка) */
+html .PagedSettingsDialog .FamilyNameRow :is(.FamilyName, .YourFamily) {
+    color: var(--aika-fg-muted);
+}
+
+html .PagedSettingsDialog .FamilyNameRow .YourFamily svg path {
+    fill: currentColor;
+}
+
+html .PagedSettingsDialog .FamilyMemberStatus .MeBadge {
+    border-radius: var(--aika-radius-xs);
+    background-color: var(--aika-ok);
+    color: var(--aika-bg-deep);
+}
+
+/* «Безопасность»: щит Steam Guard зелёный — ok Aika */
+html .PagedSettingsDialog .Status svg.SteamGuardIcon path {
+    fill: var(--aika-ok);
+}
+
+/* «Библиотека»: переключатель-группа (.Shared_Radio_Group, #2a2e36),
+   выбранный вариант — синий радиальный */
+html .PagedSettingsDialog .Shared_Radio_Group {
+    overflow: hidden;
+    border-radius: var(--aika-radius-md);
+    background: var(--aika-surface);
+}
+
+html .PagedSettingsDialog .Shared_Radio_Group > .Button {
+    border-radius: var(--aika-radius-md);
+    background: var(--aika-transparent);
+    color: var(--aika-fg-muted);
+}
+
+html .PagedSettingsDialog .Shared_Radio_Group > .Button:hover {
+    background: var(--aika-surface-hover);
+    color: var(--aika-fg);
+}
+
+/* «Запись игр»: карточки режима (.RecordingModeOption), точка выбора (.Pip) */
+html .PagedSettingsDialog .RecordingMode .RecordingModeOption {
+    border-radius: var(--aika-radius-lg);
+    background: var(--aika-surface);
+}
+
+html .PagedSettingsDialog .RecordingMode .RecordingModeOption .Content .Header {
+    color: var(--aika-fg);
+}
+
+html .PagedSettingsDialog .RecordingMode .RecordingModeOption .Content .Body,
+html .PagedSettingsDialog .RecordingMode .RecordingModeOption .Content .Body * {
+    color: var(--aika-fg-subtle);
+}
+
+html .PagedSettingsDialog .RecordingMode .RecordingModeOption .Pip {
+    background: var(--aika-bg-high);
+}
+
+html .PagedSettingsDialog .RecordingMode .RecordingModeOption .Pip.ActivePip {
+    border-color: var(--aika-fg);
+    background: var(--aika-accent);
+}
+
+/* «Хранилище»: имя диска, полоса заполнения (штриховка #363d48), подписи */
+html .PagedSettingsDialog .DriveUsage .DriveName {
+    color: var(--aika-fg-subtle);
+}
+
+html .PagedSettingsDialog .DriveUsage .DriveUsageIndicator {
+    overflow: hidden;
+    border-radius: var(--aika-radius-full);
+    background: var(--aika-surface-active);
+}
+
+html .PagedSettingsDialog .DriveUsage .DriveUsageNumber {
+    color: var(--aika-fg-muted);
+    font-family: var(--aika-font-mono);
+}
+
+html .PagedSettingsDialog .DriveUsage .OtherInfo svg path {
+    fill: var(--aika-fg-subtle);
+}
+
+/* Диаграмма занятого места: у Steam своя краска на каждую категорию
+   (.DriveUsageBar.DriveUsage* и точки легенды .DriveUsageDot.DriveUsage*,
+   (0,1,0)). Переводим в палитру Aika, сохраняя различимость. */
+html .PagedSettingsDialog .DriveUsage :is(.DriveUsageBar, .DriveUsageDot).DriveUsageGames {
+    background-color: var(--aika-accent);
+}
+
+html .PagedSettingsDialog .DriveUsage :is(.DriveUsageBar, .DriveUsageDot).DriveUsageDLC {
+    background-color: var(--aika-accent-mid);
+}
+
+html .PagedSettingsDialog .DriveUsage :is(.DriveUsageBar, .DriveUsageDot).DriveUsageWorkshop {
+    background-color: var(--aika-ok);
+}
+
+html .PagedSettingsDialog .DriveUsage :is(.DriveUsageBar, .DriveUsageDot).DriveUsageUpdates {
+    background-color: var(--aika-light-3);
+}
+
+html .PagedSettingsDialog .DriveUsage :is(.DriveUsageBar, .DriveUsageDot).DriveUsageShader {
+    background-color: var(--aika-light-2);
+}
+
+html .PagedSettingsDialog .DriveUsage :is(.DriveUsageBar, .DriveUsageDot).DriveUsageMedia {
+    background-color: var(--aika-ok-mid);
+}
+
+html .PagedSettingsDialog .DriveUsage :is(.DriveUsageBar.DriveUsageOther, .DriveUsageDot.DriveUsageOtherDot) {
+    background-color: var(--aika-warn);
+}
+
+html .PagedSettingsDialog .DriveUsage .DriveUsageDot.DriveUsageFreeSpace {
+    background-color: var(--aika-surface-active);
+}
+
+html .PagedSettingsDialog .LibraryHeader .DriveSettingsButton {
+    border-radius: var(--aika-radius-md);
+    background-color: var(--aika-surface);
+    transition: background-color var(--aika-dur-fast) var(--aika-ease-hover);
+}
+
+html .PagedSettingsDialog .LibraryHeader .DriveSettingsButton:hover {
+    background-color: var(--aika-surface-hover);
+}
+
+html .PagedSettingsDialog .AppsGrid .AppHeader .AppHeaderValue {
+    color: var(--aika-fg-subtle);
+    font-family: var(--aika-font-mono);
+}
+
+/* «Семья»: значок у названия — у Steam color на самом svg (0,3,1) */
+html .PagedSettingsDialog .FamilyGroup .FamilyNameRow .YourFamily > svg {
+    color: var(--aika-fg-muted);
+}
+
+/* «Запись игр», вступление (.IntroContainer .SinglePageIntro): у Steam
+   тёмно-синий радиальный фон, золотые заголовки и кружки-значки */
+html .PagedSettingsDialog .DialogBody .IntroContainer {
+    background: var(--aika-scrim);
+}
+
+html .PagedSettingsDialog .IntroContainer .SinglePageIntro {
+    border-radius: var(--aika-radius-xl);
+    background: var(--aika-card-accent-bg);
+    box-shadow:
+        inset 0 0 0 var(--aika-hairline) var(--aika-border-accent),
+        var(--aika-shadow-panel);
+}
+
+html .PagedSettingsDialog .IntroContainer .SinglePageIntro .SinglePageHeading,
+html .PagedSettingsDialog .IntroContainer .Bullets .Bullet .Content .Title {
+    color: var(--aika-accent-bright);
+}
+
+html .PagedSettingsDialog .IntroContainer :is(.Tagline, .Bullet .Content .Slug) {
+    color: var(--aika-fg-muted);
+}
+
+html .PagedSettingsDialog .IntroContainer .Bullets .Bullet .IconCircle {
+    background: var(--aika-accent-fill);
+    color: var(--aika-on-accent);
+}
+
+html .PagedSettingsDialog .IntroContainer .Bullet.Muted .IconCircle {
+    background: var(--aika-surface-active);
+}
+
+html .PagedSettingsDialog .IntroContainer .Bullet.Muted .Content :is(.Title, .Slug) {
+    color: var(--aika-fg-subtle);
+}
+
+/* «Хранилище», список игр: сведения (.AppInfoItem — значок, подпись,
+   значение), флажки выбора (у Steam (0,3,0) #3d4450), кнопки действий
+   (.AppActionBar button.ActionButton — (0,3,0)) */
+html .PagedSettingsDialog .AppInfo .AppInfoItem :is(.AppUsageText, svg) {
+    color: var(--aika-fg-subtle);
+}
+
+html .PagedSettingsDialog .AppInfo .AppInfoItem svg path {
+    fill: currentColor;
+}
+
+html .PagedSettingsDialog .AppInfo .AppInfoItem .AppUsageValue {
+    color: var(--aika-fg-muted);
+    font-family: var(--aika-font-mono);
+}
+
+html .PagedSettingsDialog .AppsGrid .AppSelected .DialogCheckbox {
+    border-radius: var(--aika-radius-xs);
+    background: var(--aika-surface-active);
+}
+
+html .PagedSettingsDialog .AppActionBar button.ActionButton.DialogButton {
+    border-radius: var(--aika-radius-md);
+    background: var(--aika-surface);
+    color: var(--aika-fg);
+}
+
+html .PagedSettingsDialog .AppActionBar button.ActionButton.DialogButton:not(.Disabled, :disabled):hover {
+    background: var(--aika-surface-hover);
+}
+
+/* Звезда «библиотека по умолчанию» у имени диска (жёлтая): цвет —
+   на самом svg, path берёт currentColor */
+html .PagedSettingsDialog .DriveName .tool-tip-source > svg {
+    color: var(--aika-warn);
+}
+
+/* Разделы при наведении: Steam темнит значок (#3d4450) под светлую
+   подложку — у нас подложка тёмная, значок цвета текста */
+html .PagedSettingsDialog_PageList .PagedSettingsDialog_PageListItem:hover .PageListItem_Icon svg,
+html .PagedSettingsDialog_PageList .PagedSettingsDialog_PageListItem:hover .PageListItem_Icon svg path {
+    fill: currentColor;
+}
+
+html .PagedSettingsDialog_PageList .PagedSettingsDialog_PageListItem:not(.Active):hover :is(.PageListItem_Title, .PageListItem_Icon, .PageListItem_Icon svg) {
+    color: var(--aika-fg);
+}

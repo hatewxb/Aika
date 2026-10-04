@@ -9,7 +9,8 @@
 
    Отдельные поля с хэш-правилами (поиск в левой панели библиотеки)
    доделываются в разделах / selectors.css.
-   TODO: чекбоксы [ ] / [X] и переключатели — классы снять в окне настроек.
+   Переключатели (.Toggle > .ToggleRail + .ToggleSwitch, включён — .On)
+   и флажки (.DialogCheckbox) — сняты в окне настроек 2026-10-04, см. конец файла.
    ========================================================================== */
 
 html :is(.aika-input, input.DialogTextInputBase, button._DialogInputContainer) {
@@ -64,4 +65,60 @@ html button._DialogInputContainer .DialogDropDown_Arrow svg.SVGIcon_Button polyg
 html button._DialogInputContainer:hover .DialogDropDown_Arrow svg.SVGIcon_Button,
 html button._DialogInputContainer:hover .DialogDropDown_Arrow svg.SVGIcon_Button polygon {
     fill: var(--aika-fg-muted);
+}
+
+/* --------------------------------------------------------------------------
+   Переключатели: .Toggle(.On) > .ToggleRail (белая 15 %) + .ToggleSwitch
+   (белый кружок). Steam — хэш-двойники (0,1,0)…(0,3,0).
+   Включён — акцентная дорожка, кружок светлый.
+   -------------------------------------------------------------------------- */
+
+html .Toggle .ToggleRail {
+    border-radius: var(--aika-radius-full);
+    background: var(--aika-surface-active);
+    box-shadow: inset 0 0 0 var(--aika-hairline) var(--aika-border-strong);
+    transition: background-color var(--aika-dur-fast) var(--aika-ease-hover);
+}
+
+html .Toggle:hover .ToggleRail {
+    background: var(--aika-surface-hover);
+}
+
+html .Toggle.On .ToggleRail,
+html .Toggle.On:hover .ToggleRail {
+    background: var(--aika-accent-fill);
+    box-shadow: none;
+}
+
+html .Toggle .ToggleSwitch {
+    background: var(--aika-fg);
+    box-shadow: var(--aika-shadow-card);
+}
+
+/* --------------------------------------------------------------------------
+   Флажки .DialogCheckbox (чёрный 27 %, hover — почти чёрный). Отдельные
+   места с особой раскраской (красный «заблокировать» у приглашений и т. п.)
+   Steam оформляет своими правилами — не трогаем.
+   -------------------------------------------------------------------------- */
+
+html .DialogCheckbox {
+    border-radius: var(--aika-radius-xs);
+    background-color: var(--aika-surface-active);
+    box-shadow: inset 0 0 0 var(--aika-hairline) var(--aika-border-strong);
+}
+
+html :is(.DialogCheckbox_Container:hover .DialogCheckbox:not(.Disabled), .DialogCheckbox:hover:not(.Disabled)) {
+    background-color: var(--aika-surface-hover);
+}
+
+html .DialogCheckbox svg,
+html .DialogCheckbox svg path {
+    color: var(--aika-accent-bright);
+    fill: var(--aika-accent-bright);
+}
+
+/* Кольцо вокруг переключателя при наведении/фокусе (у Steam белое 30 %,
+   «.хэш:not(.хэш):hover» (0,3,0) — у нас :not() тоже) */
+html .Toggle:not(.Disabled):is(:hover, :focus-visible, .gpfocus) {
+    box-shadow: 0 0 0 var(--aika-space-1) var(--aika-accent-haze);
 }

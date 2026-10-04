@@ -39,7 +39,8 @@ html .CollectionsButton .Bar:hover {
 
 .aika-nav-item.is-selected,
 html .HomeBox .Bar.Selected,
-html .ReactVirtualized__List .Container.Selected:has(> .GameListEntryContainer) {
+html .ReactVirtualized__List .Container.Selected:has(> .GameListEntryContainer),
+html .PagedSettingsDialog_PageList .PagedSettingsDialog_PageListItem.Active {
     position: relative;
     background-color: var(--aika-accent-soft);
     color: var(--aika-fg);
@@ -47,7 +48,8 @@ html .ReactVirtualized__List .Container.Selected:has(> .GameListEntryContainer) 
 
 .aika-nav-item.is-selected::before,
 html .HomeBox .Bar.Selected::before,
-html .ReactVirtualized__List .Container.Selected:has(> .GameListEntryContainer)::before {
+html .ReactVirtualized__List .Container.Selected:has(> .GameListEntryContainer)::before,
+html .PagedSettingsDialog_PageList .PagedSettingsDialog_PageListItem.Active::before {
     content: "";
     position: absolute;
     left: 0;

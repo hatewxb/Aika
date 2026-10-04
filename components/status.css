@@ -240,3 +240,40 @@ html .miniProfile .miniProfileBottom .miniProfileFeaturedContainer .featuredLabe
 html .miniProfile .miniProfileBottom .miniProfileFeaturedContainer .featuredLabels .featuredSubTitle {
     color: var(--aika-fg-subtle);
 }
+
+/* Строка под именем «в сети» (.LabelHolder.online .richPresenceLabel):
+   у Steam приглушённый голубой #4c91ac (0,2,0) — приглушённый акцент
+   (окно настроек, шапка аккаунта; в окне друзей — sections/friends.css) */
+html .LabelHolder.online .richPresenceContainer .richPresenceLabel {
+    color: var(--aika-accent-mid);
+}
+
+/* Имя игрока со статусом прямо на контейнере (.PlayerName.online — «Семья»
+   в настройках; превью .FakeFriend > .online — «Друзья и чат») */
+html :is(.PlayerName, .FakeFriend > .noContextMenu).online .statusAndName .playerName {
+    color: var(--aika-accent-bright);
+}
+
+html :is(.PlayerName, .FakeFriend > .noContextMenu).ingame .statusAndName .playerName {
+    color: var(--aika-ok);
+}
+
+html :is(.PlayerName, .FakeFriend > .noContextMenu).offline .statusAndName .playerName {
+    color: var(--aika-fg-subtle);
+}
+
+html :is(.PlayerName, .FakeFriend > .noContextMenu) .playerNicknameBracket {
+    color: var(--aika-fg-subtle);
+}
+
+html :is(.PlayerName, .FakeFriend > .noContextMenu).online .richPresenceContainer .richPresenceLabel {
+    color: var(--aika-accent-mid);
+}
+
+html :is(.PlayerName, .FakeFriend > .noContextMenu).ingame .richPresenceContainer .richPresenceLabel {
+    color: var(--aika-ok);
+}
+
+html :is(.PlayerName, .FakeFriend > .noContextMenu).offline .richPresenceContainer .richPresenceLabel {
+    color: var(--aika-fg-subtle);
+}
