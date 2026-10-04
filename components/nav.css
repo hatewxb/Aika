@@ -219,3 +219,20 @@ html .SuperNav .SuperNavMenu.Selected > .MenuButton::after {
 html .SuperNav .SuperNavMenu > .MenuButton {
     padding-inline: var(--aika-space-3);
 }
+
+/* Полоса вкладок выше (у Steam .SuperNavBar — height/min-height 32 px, (0,1,0)),
+   чтобы иконкам с подписью-индикатором хватало места; кнопки — по центру
+   по вертикали */
+html .TopBar .SuperNavBar {
+    height: var(--aika-supernav-height);
+    min-height: var(--aika-supernav-height);
+}
+
+html .SuperNavBar .SuperNav > .MenuWrapper {
+    display: flex;
+    align-items: center;
+}
+
+html .SuperNav .SuperNavMenu > .MenuButton {
+    height: auto;
+}
