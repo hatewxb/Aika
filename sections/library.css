@@ -659,3 +659,161 @@ html .TitleBarControls .AccountMenu svg.Chevron path {
 html .TitleBarControls .AccountMenu .WalletBalance {
     font-family: var(--aika-font-mono);
 }
+/* --------------------------------------------------------------------------
+   Режим «Коллекции» (кнопка рядом с «Библиотекой»; снято через CDP 2026-10-04)
+     .Header > .Label («Ваши коллекции») + .MoreInfoIcon + .Rule
+     .CSSGrid.Grid .Collection             — плитка коллекции
+       .CollectionImage > .CollectionBG    — размытый фон из обложек (оставляем)
+         .DisplayCaseContainer .AppGrid .CapsuleImage — 3D-витрина обложек
+       .CollectionLabel > div + .CollectionLabelCount — имя и «( 4/6 )»
+       .DynamicCollection                  — значок динамической коллекции
+     .Collection.NewCollection > .BigPlus  — «Создать коллекцию»
+   Steam: плитка #313d53, hover #6278a3, рамки обложек #161616 / белые,
+   хэши (0,1,0)…(0,3,0). Плитка — наша карточка: подъём и свечение на hover.
+   Капс и разрядку подписей оставляем как у Steam (это стиль, не текст).
+   -------------------------------------------------------------------------- */
+
+html .MainPanel .Header > .Label {
+    color: var(--aika-fg-muted);
+    font-family: var(--aika-font-mono);
+    font-size: var(--aika-text-label);
+    letter-spacing: var(--aika-tracking-label);
+}
+
+html .MainPanel .Header > .Rule {
+    height: var(--aika-hairline);
+    background: var(--aika-divider);
+}
+
+html .MainPanel .Header > .MoreInfoIcon {
+    background-color: var(--aika-surface-active);
+}
+
+html .MainPanel .Header > .MoreInfoIcon .MoreInfoIconQuestionMark {
+    color: var(--aika-fg-muted);
+}
+
+html .CSSGrid.Grid .Collection {
+    border-radius: var(--aika-radius-lg);
+    background: var(--aika-bg-raised);
+    box-shadow: var(--aika-shadow-card), inset 0 0 0 var(--aika-hairline) var(--aika-border);
+    transition:
+        background-color var(--aika-dur-fast) var(--aika-ease-hover),
+        box-shadow var(--aika-dur-base) var(--aika-ease),
+        transform var(--aika-dur-base) var(--aika-ease);
+}
+
+html .CSSGrid.Grid .Collection:is(:hover, :focus) {
+    background: var(--aika-bg-raised);
+    box-shadow: var(--aika-shadow-card-hover), inset 0 0 0 var(--aika-hairline) var(--aika-border-accent);
+    transform: translateY(var(--aika-lift-md));
+}
+
+/* Обложки в витрине: рамки Steam (тёмные слева/снизу, светлые сверху/справа)
+   задают объём — оставляем схему, цвета наши */
+html .CSSGrid .Collection .CollectionImage .AppGrid .CapsuleImage {
+    border-left-color: var(--aika-bg-deep);
+    border-bottom-color: var(--aika-bg-deep);
+    border-top-color: var(--aika-border-hover);
+    border-right-color: var(--aika-border-hover);
+    box-shadow: var(--aika-shadow-case);
+}
+
+html .CSSGrid .Collection:is(:hover, :focus) .CollectionImage .AppGrid .CapsuleImage {
+    box-shadow: var(--aika-shadow-case-hover);
+}
+
+html .CSSGrid .Collection .CollectionLabel {
+    color: var(--aika-fg);
+    font-weight: var(--aika-weight-semibold);
+}
+
+html .CSSGrid .Collection .CollectionLabel .CollectionLabelCount {
+    color: var(--aika-fg-muted);
+    font-family: var(--aika-font-mono);
+    letter-spacing: normal;
+}
+
+html .CSSGrid .Collection .DynamicCollection svg :is(polyline, path, line) {
+    fill: var(--aika-transparent);
+    stroke: var(--aika-accent-bright);
+}
+
+/* «Создать коллекцию» — пунктирная пустая карточка */
+html .CSSGrid.Grid .Collection.NewCollection {
+    background: var(--aika-transparent);
+    border: var(--aika-hairline) dashed var(--aika-border-strong);
+    box-shadow: none;
+}
+
+html .CSSGrid.Grid .Collection.NewCollection:is(:hover, :focus) {
+    border: var(--aika-hairline) dashed var(--aika-accent-ring);
+    background: var(--aika-accent-tint);
+    box-shadow: 0 0 20px var(--aika-accent-haze);
+}
+
+html .CSSGrid .Collection.NewCollection .BigPlus svg path {
+    fill: var(--aika-fg-muted);
+}
+
+html .CSSGrid .Collection.NewCollection:is(:hover, :focus) .BigPlus svg path {
+    fill: var(--aika-accent-bright);
+}
+
+html .CSSGrid .Collection.NewCollection .CollectionLabel {
+    color: var(--aika-fg-muted);
+}
+
+html .CSSGrid .Collection.NewCollection:is(:hover, :focus) .CollectionLabel {
+    color: var(--aika-fg);
+}
+
+/* --------------------------------------------------------------------------
+   Страница коллекции (клик по плитке; снято через CDP 2026-10-04)
+     .ContainerScroll .Header > .CollectionName + .SectionCount + .Rule
+     .GridWithControls > .CollectionOptions .SortingDropDown — «Сортировка»
+     .AppGridSectionHeader > .AppGridSectionLabel — «Установлено» и т.п.
+   Steam: светло-серое имя weight 100, dimgray счётчик, белёсые плашки
+   выпадающего списка, хэши (0,2,0)…(0,3,0). Капс Steam сохраняем.
+   -------------------------------------------------------------------------- */
+
+html .ContainerScroll .Header > .CollectionName {
+    color: var(--aika-fg);
+    font-size: var(--aika-text-h3);
+    font-weight: var(--aika-weight-semibold);
+}
+
+html .ContainerScroll .Header > .SectionCount {
+    color: var(--aika-fg-subtle);
+    font-family: var(--aika-font-mono);
+}
+
+html .GridWithControls .CollectionOptions .SortingDropDown .SortingDropDownLabel {
+    color: var(--aika-fg-subtle);
+    font-family: var(--aika-font-mono);
+    font-size: var(--aika-text-label);
+    font-weight: var(--aika-weight-regular);
+}
+
+html .GridWithControls .CollectionOptions .SortingDropDown button.DialogDropDown :is(.DialogDropDown_CurrentDisplay, .DialogDropDown_Arrow) {
+    background: var(--aika-transparent);
+    color: var(--aika-fg);
+}
+
+html .GridWithControls .CollectionOptions .SortingDropDown button.DialogDropDown {
+    font-weight: var(--aika-weight-regular);
+    letter-spacing: normal;
+}
+
+html .AppGridSectionHeader .AppGridSectionLabel {
+    color: var(--aika-fg-muted);
+    font-family: var(--aika-font-mono);
+    font-size: var(--aika-text-label);
+    font-weight: var(--aika-weight-regular);
+    letter-spacing: var(--aika-tracking-label);
+}
+
+/* Заголовок группы — та же подсветка при перетаскивании, что у полок */
+html .AppGridSectionHeader {
+    border-radius: var(--aika-radius-md);
+}

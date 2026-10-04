@@ -112,6 +112,11 @@
         0 0 0 var(--aika-hairline) var(--aika-border),
         0 4px 16px var(--aika-shadow-near);
 
+    /* 3D-витрина обложек в плитке коллекции (library.css) — тень вниз-влево,
+       как у Steam, цвет — наш */
+    --aika-shadow-case: -8px 14px 12px var(--aika-shadow-deep);
+    --aika-shadow-case-hover: -12px 18px 24px var(--aika-shadow-deep);
+
     --aika-shadow-cover-hover:
         0 0 0 var(--aika-hairline) var(--aika-border-hover),
         0 12px 28px var(--aika-shadow-deep);
