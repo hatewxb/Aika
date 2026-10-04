@@ -114,7 +114,81 @@ html .contextMenu .contextMenuContents .contextMenuItem._18z-3vkWndCBO5WJgFldRK 
    Магазин (store.css)
    -------------------------------------------------------------------------- */
 
-/* TODO */
+/* [Магазин, страница игры] Плеер скриншотов и роликов
+   (.highlight_ctn .gamehighlight_desktopcarousel, React):
+     ._33i4zSWeCfsTaa25tHu5Us — окно картинки/видео (overflow: hidden у Steam);
+     .ZpjLn9D4rTIVnM4axYSoG ._2Ose8zPg3MlKQQeG9nwv24 — миниатюра,
+       ._2uCL56lGO9iUUcLEtE83zG — выбранная (::after, рамка #d6d7d8 3 px);
+     ._2Z-YccLz9coJD6SBV13Fya — полоса прокрутки миниатюр:
+       ._2lIBEOcXRC3KKhDamcV9t — стрелки, ._3DXmyv2Yx-lnmLz03GryEd — ползунок
+       (rgba(35,60,81,.8), hover — синий градиент);
+     ._11VWkpWTaRCptZe9_D-Twj ._1AHwgG8SLF8QL4SPHixfq — прогресс ролика #1a9fff.
+   Проверено: 2026-10-04, магазин (ELDEN RING), правила Steam (0,1,0)…(0,3,0).
+   Как найти: страница игры в магазине, классы у картинки и миниатюр под ней. */
+html body.v6 .gamehighlight_desktopcarousel ._33i4zSWeCfsTaa25tHu5Us {
+    border-radius: var(--aika-radius-lg);
+}
+
+html body.v6 .gamehighlight_desktopcarousel .ZpjLn9D4rTIVnM4axYSoG ._2Ose8zPg3MlKQQeG9nwv24,
+html body.v6 .gamehighlight_desktopcarousel .ZpjLn9D4rTIVnM4axYSoG ._2Ose8zPg3MlKQQeG9nwv24 img {
+    border-radius: var(--aika-radius-md);
+}
+
+html body.v6 .gamehighlight_desktopcarousel .ZpjLn9D4rTIVnM4axYSoG ._2Ose8zPg3MlKQQeG9nwv24._2uCL56lGO9iUUcLEtE83zG::after {
+    border-color: var(--aika-accent);
+}
+
+html body.v6 .gamehighlight_desktopcarousel ._2Z-YccLz9coJD6SBV13Fya :is(._2lIBEOcXRC3KKhDamcV9t, ._3DXmyv2Yx-lnmLz03GryEd) {
+    border-color: var(--aika-transparent);
+    border-radius: var(--aika-radius-xs);
+    background: var(--aika-surface-active);
+    color: var(--aika-fg-muted);
+}
+
+html body.v6 .gamehighlight_desktopcarousel ._2Z-YccLz9coJD6SBV13Fya :is(._2lIBEOcXRC3KKhDamcV9t, ._3DXmyv2Yx-lnmLz03GryEd):hover,
+html body.v6 .gamehighlight_desktopcarousel ._2Z-YccLz9coJD6SBV13Fya ._2SBCUqLfy4PgWdonAHX_fR:active ._3DXmyv2Yx-lnmLz03GryEd {
+    background: var(--aika-accent-soft);
+    color: var(--aika-fg);
+}
+
+html body.v6 .gamehighlight_desktopcarousel ._2Z-YccLz9coJD6SBV13Fya ._2SBCUqLfy4PgWdonAHX_fR {
+    border-radius: var(--aika-radius-xs);
+    background-color: var(--aika-surface);
+}
+
+html body.v6 .gamehighlight_desktopcarousel ._1AHwgG8SLF8QL4SPHixfq {
+    background-color: var(--aika-accent);
+}
+
+/* [Магазин, страница игры] Панели React-каруселей внизу («Ещё от …»,
+   «Похожие игры»): ._2BG1JKMgeqn_cr0rbRhRNA и .XIDYByW4BEOm-YiOiwGmO —
+   белый радиальный свет, скругление 5 px, своих читаемых классов нет
+   (только общий .Panel). Делаем карточкой Aika.
+   Проверено: 2026-10-04, магазин (ELDEN RING), правило Steam (0,1,0).
+   Как найти: .related_items_ctn → первый блок с border-radius: 5px. */
+html body.v6 .related_items_ctn :is(._2BG1JKMgeqn_cr0rbRhRNA, .XIDYByW4BEOm-YiOiwGmO):not(._263kQddRJk-a3OP3ANz0Bv, .xCXUyx3dF-dUDB7Y3lQp0) {
+    border-radius: var(--aika-radius-xl);
+    background: var(--aika-card-bg);
+    color: var(--aika-fg-muted);
+    box-shadow: var(--aika-shadow-card);
+}
+
+/* [Магазин] Метка капсулы «В библиотеке» — модификатор ._1f8WQvpQv-I5pqCmscp6iV
+   (у Steam голубой #66c0f4). Общий вид меток — store.css (.CapsuleDecorators).
+   Проверено: 2026-10-04, магазин (ELDEN RING, «Ещё от FromSoftware»).
+   Как найти: капсула купленной игры, span внутри .CapsuleDecorators. */
+html body.v6 .CapsuleDecorators > span._1f8WQvpQv-I5pqCmscp6iV {
+    background-color: var(--aika-accent-fill);
+    color: var(--aika-on-accent);
+}
+
+/* [Магазин] Ползунок прокрутки каруселей (.PQzkJfi8IxzjcFEDG-yv-, белый 35 %)
+   внутри ._3SyN-YtXsML6ado0q-Gdve .EMd4F6A8qdMk-l6os415A.
+   Проверено: 2026-10-04, магазин (ELDEN RING), правило Steam (0,2,0). */
+html body.v6 .EMd4F6A8qdMk-l6os415A .PQzkJfi8IxzjcFEDG-yv- {
+    border-radius: var(--aika-radius-full);
+    background-color: var(--aika-border-hover);
+}
 
 
 /* --------------------------------------------------------------------------

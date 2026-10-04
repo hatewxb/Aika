@@ -127,6 +127,12 @@
     --aika-card-border-gradient: linear-gradient(to bottom, var(--aika-border-accent), var(--aika-transparent));
     /* Непрозрачная приподнятая поверхность (инфо-блоки капсул магазина) */
     --aika-raised-bg: linear-gradient(to bottom, var(--aika-bg-raised), var(--aika-bg-elevated));
+    /* Магазин, страница игры: свет сверху (вместо синего #254b79 Steam),
+       подсветка под полосой очереди, полоса «Читать дальше» */
+    --aika-store-app-glow: radial-gradient(1000px 500px at 23% top, var(--aika-accent-haze), var(--aika-transparent));
+    --aika-store-queue-glow: radial-gradient(1000px 153px at 50% top, var(--aika-accent-tint), var(--aika-transparent));
+    --aika-store-readmore-bg: linear-gradient(90deg, var(--aika-transparent), var(--aika-accent-tint) 33%, var(--aika-accent-tint) 66%, var(--aika-transparent));
+    --aika-store-readmore-hover-bg: linear-gradient(90deg, var(--aika-transparent), var(--aika-accent-soft) 33%, var(--aika-accent-soft) 66%, var(--aika-transparent));
     /* Spotlight: точку задаёт JS (--aika-spot-x/y на элементе), без JS —
        верх-центр. Сам градиент собирается в card.css, а не здесь: var()
        в токене :root вычислился бы один раз и не видел значений элемента. */

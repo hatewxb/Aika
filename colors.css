@@ -82,6 +82,13 @@
     --aika-live: #F07A6B;   /* live, ошибки, ✕ */
     --aika-close-hover: #C42B1C;   /* «закрыть окно» на hover — красный Windows 11 (белый глиф 5.9:1) */
     --aika-warn: #E8C170;   /* предупреждения, away */
+    --aika-warn-soft: rgb(from var(--aika-warn) r g b / 0.10);    /* фон предупреждения */
+    --aika-warn-border: rgb(from var(--aika-warn) r g b / 0.28);
+    --aika-ok-soft: rgb(from var(--aika-ok) r g b / 0.14);        /* фон «активно / успешно» */
+    /* Непрозрачные ступени ok для шкал, которые ждут сплошной цвет
+       (--color-storegreen-* магазина, sections/store.css) */
+    --aika-ok-dim: color-mix(in oklab, var(--aika-ok) 22%, var(--aika-bg-base));
+    --aika-ok-mid: color-mix(in oklab, var(--aika-ok) 50%, var(--aika-bg-base));
 
     /* ------------------------------------------------------------------
        Цвета внутри теней и бликов (DESIGN.md §3.5)
