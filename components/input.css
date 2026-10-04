@@ -84,10 +84,17 @@ html .Toggle:hover .ToggleRail {
     background: var(--aika-surface-hover);
 }
 
-html .Toggle.On .ToggleRail,
+/* Включён — основной лавандовый акцент (не --aika-accent-fill: тот затемнён
+   под белый текст кнопок и на маленькой дорожке читается сине-индиговым —
+   правка автора 2026-10-04: «свитчи голубые»), мягкое свечение */
+html .Toggle.On .ToggleRail {
+    background: var(--aika-accent);
+    box-shadow: 0 0 var(--aika-space-2) var(--aika-accent-glow);
+}
+
 html .Toggle.On:hover .ToggleRail {
-    background: var(--aika-accent-fill);
-    box-shadow: none;
+    background: var(--aika-accent-bright);
+    box-shadow: 0 0 var(--aika-space-2) var(--aika-accent-glow);
 }
 
 html .Toggle .ToggleSwitch {
