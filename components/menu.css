@@ -18,10 +18,13 @@
    Это единственное место с полупрозрачной поверхностью (translucent).
    ========================================================================== */
 
+/* Без scale: Steam меряет коробку меню (с transform) в момент появления
+   и по ней задаёт размер окна — при scale(0.97) окно выходило на ~3 %
+   уже меню и правый край со скруглением обрезался (2026-10-04) */
 @keyframes aika-menu-in {
     from {
         opacity: 0;
-        transform: translateY(var(--aika-menu-shift)) scale(var(--aika-appear-scale));
+        transform: translateY(var(--aika-menu-shift));
     }
 }
 
@@ -76,6 +79,10 @@ html .contextMenu .contextMenuContents .contextMenuItem.disabled {
 /* Разделитель — тонкая линия с отступами */
 .aika-menu__separator,
 html .contextMenu .contextMenuContents hr.Separator {
+    /* width: auto — у Steam width: 100% (хэш (0,2,0)): вместе с нашими
+       боковыми полями линия вылезала за коробку на 16 px, Steam мерил
+       меню вместе с ней, а окно выходило уже коробки */
+    width: auto;
     height: var(--aika-hairline);
     margin: var(--aika-space-1) var(--aika-space-2);
     border: none;
@@ -107,4 +114,28 @@ html .AccountMenuPopup .LogoutButton .AccountName {
 html .AccountMenuPopup .LogoutButton .WalletBalance {
     color: var(--aika-accent-bright);
     font-family: var(--aika-font-mono);
+}
+
+/* --------------------------------------------------------------------------
+   Размер коробки меню (проверено через CDP 2026-10-04)
+
+   1. Скругление справа обрезалось у всех меню: padding коробки прибавлялся
+      к ширине (content-box), а окно меню Steam делает по ширине содержимого —
+      коробка выходила на 8 px шире окна (916 при 910, у аккаунта 314 при 308).
+   2. Меню вкладок («Магазин», «Библиотека»… — окна «… Supernav») и аккаунта
+      были шире текста: Steam ставит inline min-width (видели 908 px).
+      Окно меню Steam подгоняет под измеренную ширину коробки, поэтому
+      ширина по содержимому даёт окно по самой длинной надписи + равные
+      поля слева и справа (padding пункта). Inline-стиль перебивается
+      только !important. Выпадающие списки (DialogDropDown) не трогаем:
+      там min-width — ширина поля, так и должно быть.
+   -------------------------------------------------------------------------- */
+
+html body .contextMenu.ContextMenuPosition {
+    box-sizing: border-box;
+}
+
+html:is([class*="_Supernav"], .Account_Menu) body .contextMenu.ContextMenuPosition {
+    width: max-content;
+    min-width: 0 !important;
 }
