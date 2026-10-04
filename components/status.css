@@ -176,3 +176,67 @@ html .avatarHolder.online .avatarStatus {
 html .avatarHolder.ingame .avatarStatus {
     background: var(--aika-ok);
 }
+
+/* --------------------------------------------------------------------------
+   Мини-профиль при наведении на друга (.miniProfileHoverInner.miniProfile —
+   список друзей, чат, библиотека). Классы-хэши Steam дублируются
+   читаемыми: .miniProfileContent, .miniProfilePlayer.in-game/.online/.offline,
+   .personaName(.hasNickname) > .personaNameLabel, .miniProfileGameContainer
+   (.miniProfileBackdropBlur) > .gameContent.persona > .gameState/.richPresence,
+   .featuredTitle/.featuredSubTitle. Сила Steam — до (0,6,0) (имя «в игре»
+   с :not()), поэтому цепочки длинные. Фон профиля пользователя и цвета
+   кольца уровня (.friendPlayerLevel.lvl_N — шкала уровней Steam) не трогаем.
+   Проверено: 2026-10-04, окно чата, наведение на вкладку друга.
+   -------------------------------------------------------------------------- */
+
+html .miniProfileHoverInner.miniProfile {
+    overflow: hidden;
+    border-radius: var(--aika-radius-lg);
+    box-shadow: var(--aika-shadow-menu);
+}
+
+html .miniProfile .miniProfileContent .miniProfilePlayer .avatarHolder {
+    border-radius: var(--aika-radius-md);
+    box-shadow: var(--aika-shadow-cover);
+}
+
+html .miniProfile .miniProfileContent .miniProfilePlayer.in-game .personaName .personaNameLabel {
+    color: var(--aika-ok);
+}
+
+html .miniProfile .miniProfileContent .miniProfilePlayer.online .personaName .personaNameLabel {
+    color: var(--aika-accent-bright);
+}
+
+html .miniProfile .miniProfileContent .miniProfilePlayer.offline .personaName .personaNameLabel {
+    color: var(--aika-fg-muted);
+}
+
+/* Вторая строка — настоящее имя под псевдонимом */
+html .miniProfile .miniProfileContent .persona .personaName.hasNickname,
+html .miniProfile .miniProfileContent .persona .personaName.hasNickname .personaNameLabel,
+html .miniProfile .miniProfileContent .personaName .playerNicknameBracket {
+    color: var(--aika-fg-subtle);
+}
+
+/* Полосы поверх фона профиля (игра, витрина): у Steam тёмно-серый
+   полупрозрачный градиент с размытием — тёмный «материал» Aika */
+html .miniProfile .miniProfileContent .miniProfileBackdropBlur {
+    background: var(--aika-surface-translucent);
+}
+
+html .miniProfile .miniProfileGameContainer .gameContent.persona {
+    color: var(--aika-ok);
+}
+
+html .miniProfile .miniProfileGameContainer .gameContent.persona :is(.gameState, .richPresence) {
+    color: var(--aika-ok-mid);
+}
+
+html .miniProfile .miniProfileBottom .miniProfileFeaturedContainer .featuredLabels .featuredTitle {
+    color: var(--aika-fg);
+}
+
+html .miniProfile .miniProfileBottom .miniProfileFeaturedContainer .featuredLabels .featuredSubTitle {
+    color: var(--aika-fg-subtle);
+}

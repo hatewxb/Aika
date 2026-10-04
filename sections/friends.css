@@ -226,3 +226,164 @@ html.friendsui-container .singleWindowFocusBar {
 html.friendsui-container .friendsListSectionTitle:hover {
     background-color: var(--aika-surface-hover);
 }
+
+/* ==========================================================================
+   2. Окно чата (html.friendsui-container.ChatPopup; вкладки чатов, история,
+      поле ввода). Снято через CDP 2026-10-04 (личный чат). Правила Steam
+      до (0,3,0), часть — хэши-двойники читаемых классов.
+   ========================================================================== */
+
+/* Полоса вкладок (.titleBarContainer.ChatTabs, #1c232c) и вкладка (.ChatTab) */
+html.friendsui-container .titleBarContainer.ChatTabs {
+    border-color: var(--aika-border);
+    background-color: var(--aika-bg-elevated);
+    box-shadow: inset 0 calc(-1 * var(--aika-hairline)) 0 0 var(--aika-border);
+}
+
+html.friendsui-container .ChatTabs .ChatTab {
+    border-radius: var(--aika-radius-md) var(--aika-radius-md) 0 0;
+    background-color: var(--aika-surface);
+}
+
+html.friendsui-container .ChatTabs .ChatTab .friend {
+    border-radius: var(--aika-radius-md);
+}
+
+/* Шапка чата (.chatWindow .chatHeader — серый градиент) */
+html.friendsui-container .chatWindow .chatHeader {
+    background: var(--aika-transparent);
+    box-shadow: inset 0 calc(-1 * var(--aika-hairline)) 0 0 var(--aika-border);
+}
+
+/* История: разделители по времени, имена по статусу, время, текст */
+html.friendsui-container .chatHistory .msg.timeDivision {
+    color: var(--aika-fg-subtle);
+    font-family: var(--aika-font-mono);
+}
+
+html.friendsui-container .ChatSpeaker .speaker.online .speakerName {
+    color: var(--aika-accent-bright);
+}
+
+html.friendsui-container .ChatSpeaker .speaker.ingame .speakerName {
+    color: var(--aika-ok);
+}
+
+html.friendsui-container .ChatSpeaker .speaker.offline .speakerName {
+    color: var(--aika-fg-muted);
+}
+
+html.friendsui-container .ChatSpeaker .speaker .playerNicknameBracket {
+    color: var(--aika-fg-subtle);
+}
+
+html.friendsui-container .ChatSpeaker .speakerTimeStamp {
+    color: var(--aika-fg-subtle);
+    font-family: var(--aika-font-mono);
+    font-size: var(--aika-text-label);
+}
+
+html.friendsui-container .ChatMessageBlock .msgText {
+    color: var(--aika-fg);
+}
+
+/* Свои сообщения — приглушённее (у Steam .isCurrentUser .msgText #969aa1) */
+html.friendsui-container .MultiUserChat .isCurrentUser .msgText,
+html.friendsui-container .ChatMessageBlock .msgText :is(.gameInviteSelf, .gameInviteDismissed) > div {
+    color: var(--aika-fg-muted);
+}
+
+/* «Вниз к новым» */
+html.friendsui-container .ScrollToBottomButton > span {
+    border-radius: var(--aika-radius-full);
+    background: var(--aika-surface-translucent);
+    color: var(--aika-fg-muted);
+    box-shadow: var(--aika-shadow-menu);
+}
+
+/* «Пригласить ещё друга» в шапке */
+html.friendsui-container .inviteAnotherFriendButton .SVGIcon_Button,
+html.friendsui-container .inviteAnotherFriendButton .SVGIcon_Button * {
+    fill: var(--aika-fg-subtle);
+}
+
+html.friendsui-container .inviteAnotherFriendButton:hover .SVGIcon_Button,
+html.friendsui-container .inviteAnotherFriendButton:hover .SVGIcon_Button * {
+    fill: var(--aika-fg);
+}
+
+/* Поле ввода (form.chatEntryControls — #1b1c20 с чёрной тенью внутрь),
+   textarea — прозрачная; на фокусе — акцентное кольцо */
+html.friendsui-container .chatEntry form.chatEntryControls {
+    overflow: hidden;
+    border-radius: var(--aika-radius-lg);
+    background-color: var(--aika-bg-raised);
+    color: var(--aika-fg);
+    box-shadow: inset 0 0 0 var(--aika-hairline) var(--aika-border-strong);
+    transition: box-shadow var(--aika-dur-fast) var(--aika-ease-hover);
+}
+
+html.friendsui-container .chatEntry form.chatEntryControls:focus-within {
+    box-shadow: var(--aika-shadow-input-focus);
+}
+
+html.friendsui-container .chatEntry form.chatEntryControls textarea.chatTextarea {
+    background-color: var(--aika-transparent);
+    color: var(--aika-fg);
+    box-shadow: none;
+}
+
+html.friendsui-container .chatEntry form.chatEntryControls textarea.chatTextarea::placeholder {
+    color: var(--aika-fg-subtle);
+}
+
+/* Кнопки у поля: отправить, смайлы/вложения (.chatEntryActionsGroup),
+   голос (.VoiceToggle). У Steam #2c3036, значки #898989 */
+html.friendsui-container .chatEntry button.chatSubmitButton,
+html.friendsui-container .chatEntry button.VoiceToggle {
+    border-radius: var(--aika-radius-md);
+    background-color: var(--aika-surface);
+    color: var(--aika-fg-muted);
+    transition:
+        background-color var(--aika-dur-fast) var(--aika-ease-hover),
+        color var(--aika-dur-fast) var(--aika-ease-hover);
+}
+
+html.friendsui-container .chatEntry button.chatSubmitButton:not(.disabled):hover,
+html.friendsui-container .chatEntry button.VoiceToggle:hover {
+    background-color: var(--aika-surface-hover);
+    color: var(--aika-fg);
+}
+
+html.friendsui-container .chatEntry form.chatEntryControls button.chatSubmitButton {
+    background-color: var(--aika-transparent);
+}
+
+html.friendsui-container .chatEntry form.chatEntryControls button.chatSubmitButton:not(.disabled) {
+    color: var(--aika-accent-bright);
+}
+
+html.friendsui-container .chatEntry :is(button.chatSubmitButton, button.VoiceToggle) svg,
+html.friendsui-container .chatEntry :is(button.chatSubmitButton, button.VoiceToggle) svg path {
+    fill: currentColor;
+}
+
+html.friendsui-container .chatEntry button.chatSubmitButton.disabled {
+    color: var(--aika-fg-subtle);
+}
+
+html.friendsui-container .chatEntry .chatEntryActionsGroup {
+    border-radius: var(--aika-radius-md);
+}
+
+/* Голос неактивен: у Steam зелёное радиальное свечение под кнопкой */
+html.friendsui-container .ChatMessageEntryVoice.Inactive {
+    border-radius: var(--aika-radius-md);
+    background: var(--aika-transparent);
+}
+
+/* Обёртки значков внутри кнопок (.tool-tip-source, .VoiceToggleIconCtn)
+   задают свой color #898989 — значок берёт цвет кнопки */
+html.friendsui-container .chatEntry :is(button.chatSubmitButton, button.VoiceToggle) :is(.tool-tip-source, .VoiceToggleIconCtn, svg) {
+    color: inherit;
+}
