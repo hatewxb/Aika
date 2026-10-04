@@ -35,6 +35,11 @@
     --aika-card-top: rgba(255, 246, 236, 0.06);       /* градиент карточки сверху… */
     --aika-card-bottom: rgba(255, 246, 236, 0.015);   /* …и снизу */
     --aika-surface-translucent: rgba(14, 13, 12, 0.92); /* ТОЛЬКО меню, выпадашки, тултипы */
+    /* Панель видеоплеера поверх кадра (в духе Apple: тёмный «материал»
+       с размытием) — просьба автора 2026-10-04, DESIGN.md §11 */
+    --aika-player-material: rgba(18, 16, 15, 0.52);
+    --aika-player-track: rgb(from var(--aika-fg) r g b / 0.22);
+    --aika-player-buffer: rgb(from var(--aika-fg) r g b / 0.38);
 
     /* ------------------------------------------------------------------
        Текст: тёплый off-white (не #FFF)

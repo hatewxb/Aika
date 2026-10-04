@@ -156,8 +156,203 @@ html body.v6 .gamehighlight_desktopcarousel ._2Z-YccLz9coJD6SBV13Fya ._2SBCUqLfy
     background-color: var(--aika-surface);
 }
 
-html body.v6 .gamehighlight_desktopcarousel ._1AHwgG8SLF8QL4SPHixfq {
-    background-color: var(--aika-accent);
+/* [Магазин, страница игры] Видеоплеер трейлеров — в духе Apple (просьба
+   автора 2026-10-04): панель управления — плавающая капсула над кадром
+   (тёмный материал с размытием), тонкая полоса прогресса со скруглением,
+   утолщается при наведении; время — моно.
+   Роли хэшей (видео в ._3LAiT6FD5iZnZ-uET79Wp5):
+     ._1VqUjhPFtEvOPuhxIU00tM — панель показана (мышь над видео);
+     ._3gCTpQnGsgMqi5-Xv1TAvq — панель (у Steam прижата к низу, прячется
+       translateY(100%)); ._3TlT2rOHuFxffhLGn3t15M — затемнение низа кадра;
+     ._11VWkpWTaRCptZe9_D-Twj — полоса перемотки: ._1Ni5Kqn_Pbfd6nOEYoVE4J —
+       дорожка, ._1YR-8ikrCi2ltWRBZs2UIi — загружено, ._1AHwgG8SLF8QL4SPHixfq —
+       просмотрено (#1a9fff), ._1A7SqxH5q2HjQ_VgzY1t2y — метка под мышью,
+       ._3NkJIkSIxwjh0iF8D6rerB — подсказка с кадром (._3rdLqWiqq8zOaGV9iL0CkF)
+       и временем (._2IuTnjshl3kyS4azrP7Dme, белая плашка);
+     ._19irS_a0FK5GG1jWDRv3FC — кнопки (#b8bcbf); .OEPT8AhRvpFM5uWUlRm-V — время;
+     .HqVrl-7SIPNdZd1uHcMK1 — громкость (читаемые .SliderTrack / .SliderHandle).
+   Проверено: 2026-10-04, магазин (ELDEN RING, трейлер), правила Steam
+   (0,1,0)…(0,3,0). Как найти: навести мышь на трейлер, классы панели внизу. */
+html body.v6 .gamehighlight_desktopcarousel ._3TlT2rOHuFxffhLGn3t15M {
+    background: var(--aika-transparent);
+}
+
+html body.v6 .gamehighlight_desktopcarousel ._3gCTpQnGsgMqi5-Xv1TAvq {
+    right: var(--aika-player-inset);
+    bottom: var(--aika-player-inset);
+    left: var(--aika-player-inset);
+    padding: 0 var(--aika-space-4) var(--aika-space-1);
+    border-radius: var(--aika-radius-xl);
+    background: var(--aika-player-material);
+    box-shadow: var(--aika-shadow-menu);
+    opacity: 0;
+    transform: translateY(calc(100% + var(--aika-player-inset)));
+    transition:
+        transform var(--aika-dur-base) var(--aika-ease),
+        opacity var(--aika-dur-base) var(--aika-ease);
+    -webkit-backdrop-filter: var(--aika-player-blur);
+    backdrop-filter: var(--aika-player-blur);
+}
+
+html body.v6 .gamehighlight_desktopcarousel ._1VqUjhPFtEvOPuhxIU00tM ._3gCTpQnGsgMqi5-Xv1TAvq {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* Полоса перемотки */
+html body.v6 .gamehighlight_desktopcarousel ._11VWkpWTaRCptZe9_D-Twj {
+    padding-top: var(--aika-space-3);
+    padding-bottom: var(--aika-space-2);
+}
+
+html body.v6 .gamehighlight_desktopcarousel ._11VWkpWTaRCptZe9_D-Twj ._1Ni5Kqn_Pbfd6nOEYoVE4J {
+    overflow: hidden;
+    height: var(--aika-player-track-height);
+    border-radius: var(--aika-radius-full);
+    background-color: var(--aika-player-track);
+    transition: height var(--aika-dur-fast) var(--aika-ease-hover);
+}
+
+html body.v6 .gamehighlight_desktopcarousel ._11VWkpWTaRCptZe9_D-Twj:hover ._1Ni5Kqn_Pbfd6nOEYoVE4J {
+    height: var(--aika-player-track-height-hover);
+}
+
+html body.v6 .gamehighlight_desktopcarousel ._11VWkpWTaRCptZe9_D-Twj ._1YR-8ikrCi2ltWRBZs2UIi {
+    border-radius: var(--aika-radius-full);
+    background-color: var(--aika-player-buffer);
+}
+
+html body.v6 .gamehighlight_desktopcarousel ._11VWkpWTaRCptZe9_D-Twj ._1AHwgG8SLF8QL4SPHixfq {
+    border-radius: var(--aika-radius-full);
+    background-color: var(--aika-fg);
+}
+
+html body.v6 .gamehighlight_desktopcarousel ._11VWkpWTaRCptZe9_D-Twj ._1A7SqxH5q2HjQ_VgzY1t2y {
+    background-color: var(--aika-accent-bright);
+}
+
+/* Подсказка над полосой: кадр и время */
+html body.v6 .gamehighlight_desktopcarousel ._3NkJIkSIxwjh0iF8D6rerB ._3rdLqWiqq8zOaGV9iL0CkF {
+    overflow: hidden;
+    border: var(--aika-hairline) solid var(--aika-border-hover);
+    border-radius: var(--aika-radius-md);
+    background-color: var(--aika-bg-deep);
+    box-shadow: var(--aika-shadow-menu);
+}
+
+html body.v6 .gamehighlight_desktopcarousel ._3NkJIkSIxwjh0iF8D6rerB ._2IuTnjshl3kyS4azrP7Dme {
+    border-radius: var(--aika-radius-full);
+    background-color: var(--aika-player-material);
+    color: var(--aika-fg);
+    font-family: var(--aika-font-mono);
+    font-weight: var(--aika-weight-medium);
+    font-size: var(--aika-text-meta);
+    box-shadow: var(--aika-shadow-menu);
+    -webkit-backdrop-filter: var(--aika-player-blur);
+    backdrop-filter: var(--aika-player-blur);
+}
+
+html body.v6 .gamehighlight_desktopcarousel ._3NkJIkSIxwjh0iF8D6rerB ._2IuTnjshl3kyS4azrP7Dme::after {
+    display: none;
+}
+
+/* Кнопки: светлые глифы, на hover — круглая подложка */
+html body.v6 .gamehighlight_desktopcarousel ._19irS_a0FK5GG1jWDRv3FC {
+    width: var(--aika-player-button);
+    height: var(--aika-player-button);
+    padding: var(--aika-space-1);
+    border-radius: var(--aika-radius-full);
+    color: var(--aika-fg);
+    transition:
+        background-color var(--aika-dur-fast) var(--aika-ease-hover),
+        transform var(--aika-dur-fast) var(--aika-ease-hover);
+}
+
+html body.v6 .gamehighlight_desktopcarousel ._19irS_a0FK5GG1jWDRv3FC:hover {
+    background-color: var(--aika-surface-active);
+    color: var(--aika-fg);
+}
+
+html body.v6 .gamehighlight_desktopcarousel ._19irS_a0FK5GG1jWDRv3FC:hover:active {
+    color: var(--aika-fg-muted);
+    transform: scale(var(--aika-press-scale));
+}
+
+/* Время «0:32 / 2:29» */
+html body.v6 .gamehighlight_desktopcarousel .OEPT8AhRvpFM5uWUlRm-V,
+html body.v6 .gamehighlight_desktopcarousel .OEPT8AhRvpFM5uWUlRm-V span {
+    color: var(--aika-fg);
+    font-family: var(--aika-font-mono);
+    font-size: var(--aika-text-meta);
+    font-variant-numeric: tabular-nums;
+}
+
+html body.v6 .gamehighlight_desktopcarousel .OEPT8AhRvpFM5uWUlRm-V ._1kRok2cvbsviuEoWTNbsmi {
+    color: var(--aika-fg-subtle);
+}
+
+/* Громкость: дорожка-пилюля, ручка — светлая точка */
+html body.v6 .gamehighlight_desktopcarousel .HqVrl-7SIPNdZd1uHcMK1 .SliderTrack {
+    --left-track-color: var(--aika-fg);
+    border-radius: var(--aika-radius-full);
+    background: var(--aika-player-track);
+    box-shadow: none;
+}
+
+html body.v6 .gamehighlight_desktopcarousel .HqVrl-7SIPNdZd1uHcMK1 .SliderControl:hover .SliderTrack {
+    --left-track-color: var(--aika-fg);
+}
+
+html body.v6 .gamehighlight_desktopcarousel .HqVrl-7SIPNdZd1uHcMK1 .SliderHandle,
+html body.v6 .gamehighlight_desktopcarousel .HqVrl-7SIPNdZd1uHcMK1 .SliderControl:hover .SliderHandle {
+    border-radius: var(--aika-radius-full);
+    background: var(--aika-fg);
+    box-shadow: var(--aika-shadow-card);
+}
+
+/* Стрелки листания по бокам кадра (._258hIVgneRO0dUbgnPZh_R, белые 50 %)
+   и ▶ на миниатюрах роликов (._2qzM1XTf6NXdHvCDD9D-PF, чёрный круг 70 %) —
+   тот же материал, что у панели */
+html body.v6 .gamehighlight_desktopcarousel ._33i4zSWeCfsTaa25tHu5Us ._258hIVgneRO0dUbgnPZh_R {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: var(--aika-space-5);
+    max-width: none;
+    height: var(--aika-space-5);
+    padding: var(--aika-space-2);
+    border-radius: var(--aika-radius-full);
+    background: var(--aika-player-material);
+    color: var(--aika-fg);
+    box-shadow: var(--aika-shadow-menu);
+    -webkit-backdrop-filter: var(--aika-player-blur);
+    backdrop-filter: var(--aika-player-blur);
+}
+
+html body.v6 .gamehighlight_desktopcarousel ._33i4zSWeCfsTaa25tHu5Us ._258hIVgneRO0dUbgnPZh_R:hover {
+    background: var(--aika-surface-translucent);
+    color: var(--aika-fg);
+}
+
+html body.v6 .gamehighlight_desktopcarousel ._33i4zSWeCfsTaa25tHu5Us ._258hIVgneRO0dUbgnPZh_R svg {
+    width: 100%;
+    height: 100%;
+}
+
+html body.v6 .gamehighlight_desktopcarousel ._33i4zSWeCfsTaa25tHu5Us ._258hIVgneRO0dUbgnPZh_R svg path {
+    fill: currentColor;
+}
+
+html body.v6 .gamehighlight_desktopcarousel .ZpjLn9D4rTIVnM4axYSoG ._2Ose8zPg3MlKQQeG9nwv24 ._2qzM1XTf6NXdHvCDD9D-PF {
+    background-color: var(--aika-player-material);
+    color: var(--aika-fg);
+    -webkit-backdrop-filter: var(--aika-player-blur);
+    backdrop-filter: var(--aika-player-blur);
+}
+
+/* Значок «пауза / пуск» по центру кадра при клике */
+html body.v6 .gamehighlight_desktopcarousel .XOCThrhUVwM7POd5vevov ._2nf0N0dCSmcsl2O-iUjifb {
+    color: var(--aika-fg);
 }
 
 /* [Магазин, страница игры] Панели React-каруселей внизу («Ещё от …»,

@@ -133,6 +133,12 @@
     --aika-store-queue-glow: radial-gradient(1000px 153px at 50% top, var(--aika-accent-tint), var(--aika-transparent));
     --aika-store-readmore-bg: linear-gradient(90deg, var(--aika-transparent), var(--aika-accent-tint) 33%, var(--aika-accent-tint) 66%, var(--aika-transparent));
     --aika-store-readmore-hover-bg: linear-gradient(90deg, var(--aika-transparent), var(--aika-accent-soft) 33%, var(--aika-accent-soft) 66%, var(--aika-transparent));
+    /* Видеоплеер магазина (selectors.css): плавающая панель управления */
+    --aika-player-blur: blur(24px) saturate(160%);
+    --aika-player-inset: var(--aika-space-3);       /* отступ панели от краёв кадра */
+    --aika-player-track-height: 4px;
+    --aika-player-track-height-hover: 7px;
+    --aika-player-button: 30px;
     /* Затухание текста свёрнутого обзора — в цвет фона под карточкой */
     --aika-store-review-fade: linear-gradient(to bottom, var(--aika-transparent), var(--aika-bg-elevated));
     /* Spotlight: точку задаёт JS (--aika-spot-x/y на элементе), без JS —
