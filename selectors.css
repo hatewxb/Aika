@@ -1484,3 +1484,17 @@ html body.v6 [data-featuretarget="store-menu-v7"] form[role="search"] + div ._3O
     color: var(--aika-fg-muted);
     font-family: var(--aika-font-mono);
 }
+
+/* [Магазин, страница игры] Аватары в обзорах: рамка по статусу
+   (._1_sHcxv9rQdANehiviVZR4 с модификаторами статуса — голубой градиент «в сети»)
+   и подложка картинки (img — голубой). Проверено: 2026-10-04, PEAK. */
+html body.v6 .app_reviews_area ._1_sHcxv9rQdANehiviVZR4 img {
+    border-radius: var(--aika-radius-md);
+    background: var(--aika-bg-high);
+}
+
+/* Название ролика в плеере (._2zDVM8AJTzHysTViti1Kot .ArOIQvgR0PkwzfWGlNoj5, #dcdedf) */
+html body.v6 .gamehighlight_desktopcarousel ._2zDVM8AJTzHysTViti1Kot,
+html body.v6 .gamehighlight_desktopcarousel ._2zDVM8AJTzHysTViti1Kot .ArOIQvgR0PkwzfWGlNoj5 {
+    color: var(--aika-fg);
+}

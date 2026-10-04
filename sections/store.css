@@ -359,6 +359,7 @@ html body.v6 .discount_block {
 }
 
 html body.v6 .discount_block .discount_pct {
+    background: var(--aika-ok);
     color: var(--aika-bg-deep);
     font-family: var(--aika-font-mono);
     font-weight: var(--aika-weight-semibold);
@@ -677,7 +678,8 @@ html body.v6 .glance_ctn .release_date .date {
 html body.v6 .glance_ctn .dev_row a,
 html body.v6 .details_block a,
 html body.v6 .rightcol.game_meta_data a.all_languages,
-html body.v6 p.reason.for a {
+html body.v6 p.reason.for a,
+html body.v6 p.reason.info a {
     color: var(--aika-accent-bright);
 }
 
@@ -726,7 +728,7 @@ html body.v6 .shared_game_rating .block_title {
     color: var(--aika-fg-muted);
 }
 
-html body.v6 p.reason.for,
+html body.v6 p.reason,
 html body.v6 .details_block,
 html body.v6 .shared_game_rating :is(.game_rating_agency, .descriptorText) {
     color: var(--aika-fg-muted);
@@ -1550,4 +1552,249 @@ html.aika-has-logo body.v6 .apphub_AppName {
     overflow: hidden;
     clip-path: inset(50%);
     white-space: nowrap;
+}
+
+/* ==========================================================================
+   5. Страница игры, которая уже есть в библиотеке (правка автора 2026-10-04,
+      проверено на PEAK): полоса «PEAK уже находится в вашей библиотеке»
+      (.game_area_already_owned — салатовый градиент, текст #a3cf06),
+      блок под ней (.game_area_play_stats — серо-голубая карточка: «Играть»,
+      часы, «Написать обзор»), метка «В библиотеке» у вариантов покупки
+      (.package_in_library_flag.in_own_library — салатовая), затухание над
+      «Читать дальше». Классы читаемые, сила Steam до (0,3,1)/(0,6,0) у hover.
+   ========================================================================== */
+
+html body.v6 .game_area_already_owned:not(.master_sub) {
+    border-radius: var(--aika-radius-lg);
+    background: var(--aika-card-accent-bg);
+    color: var(--aika-fg);
+    box-shadow: inset 0 0 0 var(--aika-hairline) var(--aika-border-accent);
+}
+
+html body.v6 .game_area_already_owned .already_in_library {
+    color: var(--aika-fg);
+}
+
+/* Метка «В библиотеке» на полосе: у Steam своя чёрная тень и иконка-PNG */
+html body.v6 .game_area_already_owned .ds_flag {
+    border-radius: var(--aika-radius-xs);
+    box-shadow: var(--aika-shadow-card);
+}
+
+html body.v6 .game_area_play_stats {
+    border-radius: var(--aika-radius-lg);
+    background: var(--aika-card-bg);
+    color: var(--aika-fg-muted);
+    box-shadow: var(--aika-shadow-card);
+}
+
+html body.v6 .game_area_play_stats .details_block.hours_played {
+    color: var(--aika-fg-muted);
+    font-family: var(--aika-font-mono);
+}
+
+/* «Играть» и «Опубликовать» (.btnv6_lightblue_blue — светло-голубой
+   градиент, тёмно-синий текст с !important) — primary Aika */
+html body.v6 .btnv6_lightblue_blue {
+    border-color: var(--aika-transparent);
+    border-radius: var(--aika-radius-md);
+    background: var(--aika-accent-fill);
+    color: var(--aika-on-accent) !important; /* у Steam #2B5066 !important */
+    box-shadow: var(--aika-shadow-cta);
+    transition:
+        background-color var(--aika-dur-fast) var(--aika-ease-hover),
+        box-shadow var(--aika-dur-base) var(--aika-ease);
+}
+
+html body.v6 .btnv6_lightblue_blue:not(.btn_disabled):not(:disabled):not(.btn_active):not(.active):hover {
+    background: var(--aika-accent-fill-hover);
+    color: var(--aika-on-accent) !important; /* у Steam #fff !important */
+    box-shadow: var(--aika-shadow-cta-hover);
+}
+
+html body.v6 .btnv6_lightblue_blue > span {
+    color: inherit;
+    text-shadow: none;
+}
+
+/* «Написать обзор продукта PEAK»: заголовок (#66c0f4), пояснение, аватар
+   с рамкой статуса, поле (#222b35), настройки видимости/языка (чёрная 20 %) */
+html body.v6 .game_area_play_stats #review_create h2 {
+    color: var(--aika-fg);
+}
+
+html body.v6 .game_area_play_stats #review_create p {
+    color: var(--aika-fg-subtle);
+}
+
+html body.v6 .game_area_play_stats #review_create .input_box {
+    border-color: var(--aika-border-strong);
+    border-radius: var(--aika-radius-md);
+    background-color: var(--aika-bg-raised);
+    color: var(--aika-fg);
+    transition: box-shadow var(--aika-dur-fast) var(--aika-ease-hover);
+}
+
+html body.v6 .game_area_play_stats #review_create .input_box:focus {
+    outline: none;
+    box-shadow: var(--aika-shadow-input-focus);
+}
+
+html body.v6 .game_area_play_stats .review_controls {
+    border-radius: var(--aika-radius-lg);
+    background: var(--aika-surface);
+}
+
+html body.v6 .game_area_play_stats .review_controls .dselect_container {
+    border-radius: var(--aika-radius-md);
+    background: var(--aika-transparent);
+    color: var(--aika-fg);
+}
+
+html body.v6 .avatar_block :is(.avatar_block_status_online, .avatar_block_status_in-game, .avatar_block_status_offline),
+html body.v6 .avatar_block :is(.avatar_block_status_online, .avatar_block_status_in-game, .avatar_block_status_offline) img {
+    border-radius: var(--aika-radius-md);
+}
+
+html body.v6 .avatar_block .avatar_block_status_online {
+    background: var(--aika-accent-bright);
+}
+
+html body.v6 .avatar_block .avatar_block_status_in-game {
+    background: var(--aika-ok);
+}
+
+html body.v6 .avatar_block .avatar_block_status_offline {
+    background: var(--aika-fg-subtle);
+}
+
+html body.v6 .avatar_block :is(.avatar_block_status_online, .avatar_block_status_in-game, .avatar_block_status_offline) img {
+    background: var(--aika-bg-high);
+}
+
+/* «В библиотеке» у вариантов покупки: своя — accent, семейная — тоже,
+   с более тёмной заливкой */
+html body.v6 .package_in_library_flag {
+    border-radius: var(--aika-radius-xs);
+    box-shadow: var(--aika-shadow-card);
+}
+
+html body.v6 .package_in_library_flag.in_own_library {
+    background: var(--aika-accent-fill);
+    color: var(--aika-on-accent);
+}
+
+html body.v6 .package_in_library_flag.in_family_library {
+    background: var(--aika-accent-mid);
+    color: var(--aika-fg);
+}
+
+/* Затухание над «Читать дальше» (.widestore …_fade — голубая PNG-полоса).
+   В описании — в фон страницы; в правой колонке блок лежит на карточке
+   (.rightcol .block — градиент), там цвет фона не угадать — без подложки,
+   затухание делает маска на самом содержимом. */
+html body.v6.widestore .game_page_autocollapse_fade {
+    border-radius: 0 0 var(--aika-radius-lg) var(--aika-radius-lg);
+    background: var(--aika-store-collapse-fade);
+}
+
+html body.v6.widestore .rightcol .game_page_autocollapse_fade {
+    background: var(--aika-transparent);
+}
+
+html body.v6.widestore .rightcol .game_page_autocollapse_ctn.collapsed .game_page_autocollapse {
+    -webkit-mask-image: var(--aika-store-collapse-mask);
+    mask-image: var(--aika-store-collapse-mask);
+}
+
+/* Аватар в форме обзора: у Steam «#review_create .avatar» (1,1,0) обнуляет скругление */
+html body.v6 #review_create .avatar_block .avatar,
+html body.v6 #review_create .avatar_block .avatar img {
+    border-radius: var(--aika-radius-md);
+}
+
+/* «Скидка закончится …» над ценой (#7cb8e4) — warn: срок предложения */
+html body.v6 .game_purchase_discount_countdown {
+    color: var(--aika-warn);
+    font-family: var(--aika-font-mono);
+}
+
+/* --------------------------------------------------------------------------
+   Друзья, у которых есть игра (.friend_blocks_grid .friend_block_holder,
+   правая колонка): аватар в рамке статуса (Steam — голубой / салатовый /
+   серый градиенты и JPG-подложки), скругление 0. Как в components/status.css:
+   в игре — ok, в сети — акцент, не в сети — приглушённо.
+   -------------------------------------------------------------------------- */
+
+html body.v6 .friend_block_holder .friend_block_avatar,
+html body.v6 .friend_block_holder .friend_block_avatar img {
+    border-radius: var(--aika-radius-md);
+}
+
+html body.v6 .friend_block_holder .friend_block_avatar {
+    background: var(--aika-fg-subtle);
+}
+
+html body.v6 .friend_block_holder.friend_status_online .friend_block_avatar {
+    background: var(--aika-accent-bright);
+}
+
+html body.v6 .friend_block_holder.friend_status_in-game .friend_block_avatar {
+    background: var(--aika-ok);
+}
+
+html body.v6 .friend_block_holder .friend_block_avatar img {
+    background: var(--aika-bg-high);
+}
+
+html body.v6 .friend_block_holder {
+    border-radius: var(--aika-radius-md);
+    color: var(--aika-fg-muted);
+}
+
+html body.v6 .friend_block_holder:hover {
+    background: var(--aika-surface-hover);
+}
+
+/* --------------------------------------------------------------------------
+   Набор (bundle) в покупке: подпись «Набор» (#a4d7f5), пояснение,
+   старая скидка набора (.bundle_base_discount #626366), превью состава
+   (.bundle_contents_preview — капсулы без скругления, чёрная тень)
+   -------------------------------------------------------------------------- */
+
+html body.v6 .bundle_label {
+    color: var(--aika-accent-bright);
+}
+
+html body.v6 .bundle_label .bundle_label_tooltip {
+    color: var(--aika-fg-subtle);
+}
+
+html body.v6 .discount_block .bundle_base_discount {
+    color: var(--aika-fg-subtle);
+    font-family: var(--aika-font-mono);
+}
+
+html body.v6 .bundle_contents_preview {
+    overflow: hidden;
+    border-radius: var(--aika-radius-md);
+}
+
+html body.v6 .bundle_contents_preview a.bundle_contents_preview_item,
+html body.v6 .bundle_contents_preview.collapsed a.bundle_contents_preview_item {
+    overflow: hidden;
+    border-radius: var(--aika-radius-md);
+    box-shadow: var(--aika-shadow-card);
+}
+
+/* Описание: абзацы внутри списков (у Steam #acb2b8 на .bb_paragraph),
+   кнопка «развернуть» (🔎) на картинках — и в описании, и в других блоках */
+html body.v6 .game_area_description .bb_ul .bb_paragraph {
+    color: var(--aika-fg-muted);
+}
+
+html body.v6 .bb_img_icons .bb_img_expand {
+    border-radius: var(--aika-radius-md);
+    background: var(--aika-surface-translucent);
+    color: var(--aika-fg);
 }

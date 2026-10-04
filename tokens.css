@@ -153,6 +153,10 @@
         drop-shadow(0 0 36px var(--aika-shadow-logo-halo))
         drop-shadow(0 10px 28px var(--aika-shadow-logo))
         drop-shadow(0 2px 4px var(--aika-shadow-logo));
+    /* Затухание свёрнутого описания над «Читать дальше» — в фон страницы
+       (у Steam — голубая PNG-полоса) */
+    --aika-store-collapse-fade: linear-gradient(to bottom, var(--aika-transparent), var(--aika-bg-deep) 85%);
+    --aika-store-collapse-mask: linear-gradient(to bottom, black 55%, transparent);
     /* Затухание текста свёрнутого обзора — в цвет фона под карточкой */
     --aika-store-review-fade: linear-gradient(to bottom, var(--aika-transparent), var(--aika-bg-elevated));
     /* Spotlight: точку задаёт JS (--aika-spot-x/y на элементе), без JS —
