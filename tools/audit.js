@@ -14,6 +14,9 @@ const names = [...new Set(["colors.css", "root-colors.css"].flatMap(f =>
 
 const expr = `(() => {
   const MODE = ${JSON.stringify(mode)}, SCOPE = ${JSON.stringify(scope)}, NAMES = ${JSON.stringify(names)};
+  // Скрытое окно (другой раздел клиента) не проигрывает CSS-переходы —
+  // цвета застывают на старте. Доводим переходы до конца.
+  for (const a of document.getAnimations()) if (a instanceof CSSTransition) a.finish();
   const cv = document.createElement("canvas"); cv.width = cv.height = 1;
   const cx = cv.getContext("2d", { willReadFrequently: true });
   const probe = document.createElement("div"); document.body.append(probe);

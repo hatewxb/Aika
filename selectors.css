@@ -765,6 +765,43 @@ html body.v6 [data-featuretarget="store-menu-v7"] .-bDCBiZsIWB-_6IzGxbhz ._15eaL
     color: var(--aika-fg-subtle);
 }
 
+/* [Магазин] Корзина (store.steampowered.com/cart/, body.v6.ShoppingCart, React):
+     .XjPmFc2t_i1DAuEXEbIX — блок списка («Ваша корзина пуста»; чёрный 25 %);
+     ._2bIzQo07mxubFvscA8RIA8 — итог (страна, сумма, «Перейти к оплате»),
+       ._31DQWsrdb_9oV-vMOaaPqI — «Налог с продаж…» (#ccd5e0);
+     .jY9l4aHTdQLHeTWfPonTr — «При покупке цифрового товара…» (голубой
+       радиальный свет), .p8XFGmprI4snkQjm11Pf2 / ._2Wg3oyIvxKKM_o6q7rXdc5 — текст;
+     ._2FKdJT3nRLNX_ue4Zj-qdK ._3TtUDn-J9j6rkwHqjT-i4Y — хлебные крошки (#56707f).
+   Кнопки и выпадающий список страны — общие DialogButton / DialogDropDown
+   (components/button.css, input.css — подключены и в webkit.css).
+   Проверено: 2026-10-04, пустая корзина. Строки товаров — снять, когда
+   в корзине что-то будет. */
+html body.v6 :is(.XjPmFc2t_i1DAuEXEbIX, ._2bIzQo07mxubFvscA8RIA8) {
+    border-radius: var(--aika-radius-lg);
+    background: var(--aika-card-bg);
+    color: var(--aika-fg-muted);
+    box-shadow: var(--aika-shadow-card);
+}
+
+html body.v6 ._31DQWsrdb_9oV-vMOaaPqI,
+html body.v6 .jY9l4aHTdQLHeTWfPonTr ._2Wg3oyIvxKKM_o6q7rXdc5 {
+    color: var(--aika-fg-subtle);
+}
+
+html body.v6 .jY9l4aHTdQLHeTWfPonTr {
+    border-radius: var(--aika-radius-lg);
+    background: var(--aika-card-accent-bg);
+    box-shadow: inset 0 0 0 var(--aika-hairline) var(--aika-border-accent);
+}
+
+html body.v6 .jY9l4aHTdQLHeTWfPonTr .p8XFGmprI4snkQjm11Pf2 {
+    color: var(--aika-fg);
+}
+
+html body.v6 ._2FKdJT3nRLNX_ue4Zj-qdK ._3TtUDn-J9j6rkwHqjT-i4Y {
+    color: var(--aika-fg-subtle);
+}
+
 /* ==========================================================================
    [Магазин, новый движок] Страницы на #StoreTemplate (body без .v6) —
    список желаемого (store.steampowered.com/wishlist/…). Хэши CSS-модулей

@@ -14,6 +14,9 @@
 @import url("./web-fonts.css");
 @import url("./background.css");
 
+@import url("./components/button.css");
+@import url("./components/input.css");
+
 @import url("./sections/store.css");
 @import url("./sections/community.css");
 @import url("./selectors.css");
