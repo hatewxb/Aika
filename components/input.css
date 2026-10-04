@@ -130,3 +130,67 @@ html button._DialogInputContainer.DialogDropDown:not(.Disabled):hover {
     background-color: var(--aika-surface-hover);
     color: var(--aika-fg);
 }
+
+/* --------------------------------------------------------------------------
+   Раскрытый список выпадашки внутри окна (.DialogMenuPosition >
+   .DialogDropDownMenu._DialogInputContainer, пункты .DialogDropDownMenu_Item) —
+   напр., выбор диска в «Хранилище». У Steam — #373c44 со скруглением 3 px,
+   выбранный/под мышью пункт #3e444d, (0,2,0). Как меню Aika
+   (components/menu.css): полупрозрачная поверхность, тень, скругления.
+   -------------------------------------------------------------------------- */
+
+html .DialogDropDownMenu._DialogInputContainer {
+    padding: var(--aika-space-1);
+    border-radius: var(--aika-radius-lg);
+    background: var(--aika-surface-translucent);
+    box-shadow: var(--aika-shadow-menu);
+}
+
+html .DialogDropDownMenu .DialogDropDownMenu_Item {
+    border-radius: var(--aika-radius-md);
+    background: var(--aika-transparent);
+    color: var(--aika-fg-muted);
+    transition: background-color var(--aika-dur-fast) var(--aika-ease-hover);
+}
+
+html .DialogDropDownMenu .DialogDropDownMenu_Item:is(:hover, :focus, .ContextMenuAutoFocus) {
+    background: var(--aika-surface-hover);
+    color: var(--aika-fg);
+}
+
+/* Пункты-диски: имя, размер (моно), значок; «Добавить папку…» */
+html .DialogDropDownMenu .InstallDropdownOption .DriveName {
+    color: var(--aika-fg);
+}
+
+html .DialogDropDownMenu .InstallDropdownOption .DriveSize {
+    color: var(--aika-fg-subtle);
+    font-family: var(--aika-font-mono);
+}
+
+html .DialogDropDownMenu :is(.InstallDropdownOption, .AddFolderDropdownOption) > svg path {
+    fill: var(--aika-fg-subtle);
+}
+
+html .DialogDropDownMenu .AddFolderDropdownOption {
+    color: var(--aika-fg-muted);
+}
+
+/* Звезда «по умолчанию» у диска (жёлтая, color на svg) */
+html :is(.DialogDropDownMenu, .DialogDropDown) .DriveName .tool-tip-source > svg {
+    color: var(--aika-warn);
+}
+
+/* То же в закрытом поле выпадашки (текущий диск) */
+html .DialogDropDown .InstallDropdownOption .DriveName {
+    color: var(--aika-fg);
+}
+
+html .DialogDropDown .InstallDropdownOption .DriveSize {
+    color: var(--aika-fg-subtle);
+    font-family: var(--aika-font-mono);
+}
+
+html .DialogDropDown .InstallDropdownOption > svg path {
+    fill: var(--aika-fg-subtle);
+}

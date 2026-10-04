@@ -693,6 +693,32 @@ html body.v6 [data-featuretarget="store-menu-v7"] .hWF8eniTajf4-mfZvbK3F ._2lQxR
     color: var(--aika-bg-deep);
 }
 
+/* Внутри: % (._3cdhtxJwOkHYnEljY7P-vL), старая (._1xgg-R84IHS6h5_x6ZycXi)
+   и итоговая (._2L23Sk2CNSFCplu_7mMmQx) цены — у Steam свои цвета,
+   были бледными */
+html body.v6 [data-featuretarget="store-menu-v7"] .hWF8eniTajf4-mfZvbK3F ._2lQxRlo1DQ1PN08TYTil2L ._3cdhtxJwOkHYnEljY7P-vL {
+    color: var(--aika-bg-deep);
+    font-weight: var(--aika-weight-semibold);
+}
+
+html body.v6 [data-featuretarget="store-menu-v7"] .hWF8eniTajf4-mfZvbK3F ._2faI25vznC0tWNttks8OaJ ._1xgg-R84IHS6h5_x6ZycXi {
+    color: var(--aika-fg-muted);
+}
+
+html body.v6 [data-featuretarget="store-menu-v7"] .hWF8eniTajf4-mfZvbK3F ._2faI25vznC0tWNttks8OaJ ._2L23Sk2CNSFCplu_7mMmQx {
+    color: var(--aika-fg);
+    font-weight: var(--aika-weight-semibold);
+}
+
+/* Метка жанра на плитке «Ваши любимые жанры» (.NOctYARrXun3C2m8ZOA3u,
+   у Steam белая плашка с тёмным текстом) */
+html body.v6 [data-featuretarget="store-menu-v7"] .NOctYARrXun3C2m8ZOA3u,
+html body.v6 [data-featuretarget="store-menu-v7"] .NOctYARrXun3C2m8ZOA3u > div {
+    border-radius: var(--aika-radius-xs);
+    background-color: var(--aika-surface-translucent);
+    color: var(--aika-fg);
+}
+
 html body.v6 .h2B3SGR_w4RWdrnsRZEcD ._19o1GB7ysfrWKLYpqZ6aXu,
 html body.v6 .h2B3SGR_w4RWdrnsRZEcD ._19o1GB7ysfrWKLYpqZ6aXu._2IyR9WyPwYb15ILBjPvLR9 {
     background: var(--aika-scrim);
@@ -1437,3 +1463,24 @@ html body.v6 .EMd4F6A8qdMk-l6os415A .PQzkJfi8IxzjcFEDG-yv- {
    -------------------------------------------------------------------------- */
 
 /* TODO */
+
+/* [Магазин] Подсказки поиска с запросом: название (._2c8KHMFOeIi4TVcVN6qeIi,
+   белое), флажок «В библиотеке» на обложке (._3dtnlw7cvJhAMGafZPipGv,
+   #4f95bd), счётчик «Игр: N» у плиток тегов (._3OXIIlPZdEJ8toS6in8CcY, #ccc).
+   Подложка-градиент плиток тегов (._2w-jD5qv9RsHiUz19AVLGO) — цветная
+   по тегу, оставлена. Проверено: 2026-10-04, запрос «souls». */
+html body.v6 [data-featuretarget="store-menu-v7"] form[role="search"] + div ._2c8KHMFOeIi4TVcVN6qeIi {
+    color: var(--aika-fg);
+}
+
+html body.v6 [data-featuretarget="store-menu-v7"] form[role="search"] + div ._3dtnlw7cvJhAMGafZPipGv {
+    border-radius: 0 var(--aika-radius-xs) var(--aika-radius-xs) 0;
+    background: var(--aika-accent-fill);
+    color: var(--aika-on-accent);
+    box-shadow: var(--aika-shadow-card);
+}
+
+html body.v6 [data-featuretarget="store-menu-v7"] form[role="search"] + div ._3OXIIlPZdEJ8toS6in8CcY {
+    color: var(--aika-fg-muted);
+    font-family: var(--aika-font-mono);
+}

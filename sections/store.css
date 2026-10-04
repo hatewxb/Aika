@@ -297,7 +297,7 @@ html body.v6 [data-featuretarget="store-menu-v7"] form[role="search"] + div > di
     box-shadow: var(--aika-shadow-menu);
 }
 
-html body.v6 [data-featuretarget="store-menu-v7"] form[role="search"] + div > div > div div {
+html body.v6 [data-featuretarget="store-menu-v7"] form[role="search"] + div > div > div {
     color: var(--aika-fg-muted);
 }
 
@@ -344,12 +344,8 @@ html body.v6 [data-featuretarget="store-menu-v7"] form[role="search"] + div > di
     background-image: none;
 }
 
-/* Метка жанра на плитке — у Steam белая плашка */
-html body.v6 [data-featuretarget="store-menu-v7"] form[role="search"] + div > div > div > div > div > a > div:not(:has(img)) {
-    border-radius: var(--aika-radius-xs);
-    background-color: var(--aika-surface-translucent);
-    color: var(--aika-fg);
-}
+/* Метка жанра на плитке (белая плашка) — в selectors.css по её классу:
+   структурное правило задевало текст строк «Часто ищут» */
 
 /* --------------------------------------------------------------------------
    Цены и скидки (.discount_block — общий блок всего магазина).
