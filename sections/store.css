@@ -368,15 +368,27 @@ html body.v6 .discount_block .discount_pct {
     font-weight: var(--aika-weight-semibold);
 }
 
+/* Цены: у Steam вес 300 — моно-шрифт на 11–13 px становится бледным
+   (правка автора 2026-10-04: «цифры еле различимые»). Подложка под
+   ценами, итоговая — полужирная, старая — приглушённая, но читаемая. */
 html body.v6 .discount_block .discount_prices {
+    background: var(--aika-bg-raised);
     font-family: var(--aika-font-mono);
+    font-weight: var(--aika-weight-medium);
 }
 
 html body.v6 .discount_block .discount_prices .discount_original_price {
-    color: var(--aika-fg-subtle);
+    color: var(--aika-fg-muted);
+    font-weight: var(--aika-weight-regular);
 }
 
 html body.v6 .discount_block .discount_prices .discount_final_price {
+    color: var(--aika-fg);
+    font-weight: var(--aika-weight-semibold);
+}
+
+/* Без скидки (.no_discount): цена одна, на той же подложке */
+html body.v6 .discount_block.no_discount .discount_prices .discount_final_price {
     color: var(--aika-fg);
 }
 
@@ -451,10 +463,11 @@ html body.v6 :is(.ds_flag.ds_wishlist_flag, .ds_flag.ds_owned_flag, .ds_flag) {
     box-shadow: var(--aika-shadow-card); /* у Steam чёрная тень 90 % */
 }
 
-/* Оценка обзоров: «Очень положительные» — акцент вместо голубого,
-   «Смешанные» — тёплый, «Отрицательные» — live */
+/* Оценка обзоров: все «…положительные» (Steam — один класс .positive,
+   голубой) — зелёный ok Aika (просьба автора 2026-10-04: зелёные, не
+   фиолетовые), «Смешанные» — тёплый, «Отрицательные» — live */
 html body.v6 .game_review_summary.positive {
-    color: var(--aika-accent-bright);
+    color: var(--aika-ok);
 }
 
 html body.v6 .game_review_summary.mixed {
@@ -1212,11 +1225,12 @@ html body.v6 .StoreSalePriceWidgetContainer.Discounted > div:first-child {
 }
 
 html body.v6 .StoreSalePriceWidgetContainer.Discounted > div:last-child > div:first-child {
-    color: var(--aika-fg-subtle);
+    color: var(--aika-fg-muted);
 }
 
 html body.v6 .StoreSalePriceWidgetContainer.Discounted > div:last-child > div:last-child {
     color: var(--aika-fg);
+    font-weight: var(--aika-weight-semibold);
 }
 
 /* Кнопки шапки карусели: «Подписаться» (FollowButton) и «Просмотреть все»
@@ -1416,7 +1430,7 @@ html body.v6 .search_result_row .search_reviewscore .game_review_summary {
 }
 
 html body.v6 .search_result_row .search_reviewscore .game_review_summary.positive {
-    color: var(--aika-accent-bright);
+    color: var(--aika-ok);
 }
 
 html body.v6 .search_result_row .search_reviewscore .game_review_summary.none {
@@ -1429,7 +1443,7 @@ html body.v6 .discount_block.search_discount_block .discount_pct {
 }
 
 html body.v6 .discount_block.search_discount_block .discount_prices .discount_original_price {
-    color: var(--aika-fg-subtle);
+    color: var(--aika-fg-muted);
 }
 
 html body.v6 .discount_block.search_discount_block .discount_prices .discount_final_price {

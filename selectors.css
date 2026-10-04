@@ -457,7 +457,7 @@ html body.v6 .app_reviews_area .fSTofplcy-cQt7eO3r665 ._1mEfBBT4xKmQZnqtZbSqEI {
 }
 
 html body.v6 .app_reviews_area ._2K0QaklF1PPjEzkH9U2Ozt.DVGYJj6Ddo8-TqMXZ8tDa {
-    color: var(--aika-accent-bright);
+    color: var(--aika-ok);
 }
 
 /* Фильтры */
@@ -518,13 +518,14 @@ html body.v6 .app_reviews_area .HGCiCZ2mhusHJku7z15Nw {
     background-color: var(--aika-surface);
 }
 
+/* «Рекомендую» — зелёный, как оценки обзоров */
 html body.v6 .app_reviews_area .HGCiCZ2mhusHJku7z15Nw ._1pk8MT_nsrwd0kif6cppyD {
     border-radius: var(--aika-radius-md);
-    background-color: var(--aika-accent-soft);
+    background-color: var(--aika-ok-soft);
 }
 
 html body.v6 .app_reviews_area .HGCiCZ2mhusHJku7z15Nw ._1pk8MT_nsrwd0kif6cppyD svg {
-    fill: var(--aika-accent-bright);
+    fill: var(--aika-ok);
 }
 
 html body.v6 .app_reviews_area .HGCiCZ2mhusHJku7z15Nw ._1pk8MT_nsrwd0kif6cppyD._1yQUzR4jghsMyIgpY_Ay7f {
@@ -1270,9 +1271,9 @@ html body #StoreTemplate .U3ndjc3qoW8-.-bFWpSZUw-0-:hover {
     color: var(--aika-accent-bright);
 }
 
-/* Оценка обзоров: положительные (#66c0f4) — акцент, смешанные (#b9a074) — warn */
+/* Оценка обзоров: положительные (#66c0f4) — ok (зелёный), смешанные (#b9a074) — warn */
 html body #StoreTemplate ._0uIJq8Pia8Q-.ojEsJSejN5U- {
-    color: var(--aika-accent-bright);
+    color: var(--aika-ok);
 }
 
 html body #StoreTemplate ._0uIJq8Pia8Q-.ffvyer-fyXc- {
@@ -1386,7 +1387,13 @@ html body #StoreTemplate .rsMD9WnTopA- .hPiY1A-1izA- {
 }
 
 html body #StoreTemplate .T6YQ-V5Z-WM- > div:first-child:not(:last-child) {
-    color: var(--aika-fg-subtle);
+    color: var(--aika-fg-muted);
+}
+
+/* Итоговая цена (.-HQzBzl6lqI-, вес у Steam 300) — полужирная */
+html body #StoreTemplate .Cj7J5QHbL-0- .-HQzBzl6lqI- {
+    color: var(--aika-fg);
+    font-weight: var(--aika-weight-semibold);
 }
 
 html body #StoreTemplate .E4PXslhR-fI- > button,
