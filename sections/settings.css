@@ -542,3 +542,48 @@ html :is(.PagedSettingsDialog, .AppProperties.PagedSettingsDialog .DialogBody) .
 html :is(.PagedSettingsDialog, .AppProperties.PagedSettingsDialog .DialogBody) .BetasTable .BetaRow.Selected {
     background: var(--aika-accent-soft);
 }
+
+/* --------------------------------------------------------------------------
+   «Голос», «Трансляция» (2026-10-04, правка автора: «Настройки микрофона
+   голубые»): полоса уровня микрофона (.MicrophoneTest .ProgressBar #3d4450
+   > .Percent #1a9fff), общие полосы .DialogProgressBar_* (синий градиент,
+   рамка #2a2d33), блок клавиши «нажми и говори», ссылка «Настроить
+   микрофон» (a.ConfigureMic, #6dcff6)
+   -------------------------------------------------------------------------- */
+
+html .PagedSettingsDialog .MicrophoneTest .ProgressBar {
+    overflow: hidden;
+    border-radius: var(--aika-radius-full);
+    background: var(--aika-surface-active);
+}
+
+html .PagedSettingsDialog .MicrophoneTest .ProgressBar .Percent {
+    border-radius: var(--aika-radius-full);
+    background: var(--aika-accent);
+}
+
+html .DialogProgressBar_ProgressBarContainer {
+    border-color: var(--aika-transparent);
+    border-radius: var(--aika-radius-full);
+    background: var(--aika-surface-active);
+    box-shadow: inset 0 0 0 var(--aika-hairline) var(--aika-border-strong);
+}
+
+html .DialogProgressBar_ProgressBarContainer .DialogProgressBar_Value {
+    border-radius: var(--aika-radius-full);
+    background: var(--aika-progress-fill);
+}
+
+html .VoiceSettings ._DialogSection.pushToTalkSection :is(.pushToKeyAssignContainer, .pushtoTalkKeyAssignContainer) {
+    border-radius: 0 0 var(--aika-radius-md) var(--aika-radius-md);
+    background-color: var(--aika-surface);
+}
+
+html .PagedSettingsDialog .FieldLabel a,
+html .PagedSettingsDialog .FieldLabel a.ConfigureMic {
+    color: var(--aika-accent-bright);
+}
+
+html .PagedSettingsDialog .FieldLabel a:hover {
+    color: var(--aika-fg);
+}

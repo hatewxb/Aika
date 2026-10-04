@@ -1798,3 +1798,10 @@ html body.v6 .bb_img_icons .bb_img_expand {
     background: var(--aika-surface-translucent);
     color: var(--aika-fg);
 }
+
+/* Обложка игры над краткой сводкой справа (#gameHeaderImageCtn
+   img.game_header_image_full) — у Steam без скругления (правка автора) */
+html body.v6 #gameHeaderImageCtn img.game_header_image_full {
+    border-radius: var(--aika-radius-lg);
+    box-shadow: var(--aika-shadow-card);
+}
