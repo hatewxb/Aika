@@ -6,7 +6,7 @@
 
 Fluent-структура · панели в духе файловой системы · мягкие пятна тёплого света на почти чёрном фоне
 
-Автор — **hatewxb** · для [Millennium](https://steambrew.app) · версия 0.1.0 (WIP)
+Автор — **hatewxb** · для [Millennium](https://steambrew.app) · версия 0.1.0a (WIP)
 
 ![Aika — страница игры в библиотеке](screenshots/library-game.png)
 
@@ -86,9 +86,10 @@ Aika переодевает весь клиент Steam: библиотеку, �
 ## Установка
 
 1. Установите [Millennium](https://steambrew.app).
-2. Скачайте тему: **Code → Download ZIP** на этой странице (или `git clone`).
-3. Распакуйте папку в
-   `C:\Program Files (x86)\Steam\millennium\themes\` и назовите её **`Aika`**.
+2. Скачайте `Aika-<версия>.zip` из [Releases](../../releases) — там только
+   файлы темы, без инструментов разработки (или **Code → Download ZIP** / `git clone`).
+3. Распакуйте папку **`Aika`** в
+   `C:\Program Files (x86)\Steam\millennium\themes\`.
    Внутри должен сразу лежать `skin.json`:
    `…\millennium\themes\Aika\skin.json`.
 4. Steam → **Millennium → Themes** → выберите **Aika**. Steam перезагрузит интерфейс.
