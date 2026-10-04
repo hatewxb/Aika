@@ -65,36 +65,36 @@ html #blotter_page .nickname_block .nickname_name {
    Рамку предмета профиля (.profile_avatar_frame) не трогаем.
    -------------------------------------------------------------------------- */
 
-html #blotter_page .playerAvatar {
+html :is(#blotter_page, .profile_small_header_avatar) .playerAvatar {
     border-radius: var(--aika-radius-md);
     background: var(--aika-fg-subtle);
 }
 
-html #blotter_page .playerAvatar.online {
+html :is(#blotter_page, .profile_small_header_avatar) .playerAvatar.online {
     background: var(--aika-accent-bright);
 }
 
-html #blotter_page .playerAvatar.in-game {
+html :is(#blotter_page, .profile_small_header_avatar) .playerAvatar.in-game {
     background: var(--aika-ok);
 }
 
 /* Только сам аватар: у картинки рамки предмета (.profile_avatar_frame img)
    прозрачная середина — наш фон заливал её и закрывал аватар под ней */
-html #blotter_page .playerAvatar img:not(.profile_avatar_frame img) {
+html :is(#blotter_page, .profile_small_header_avatar) .playerAvatar img:not(.profile_avatar_frame img) {
     border-radius: var(--aika-radius-md);
     background: var(--aika-bg-raised);
 }
 
 /* Рамка предмета профиля — как у Steam: без фона и скругления.
    Steam красит её градиентом статуса (.playerAvatar.online img, (0,2,1)) */
-html #blotter_page .playerAvatar .profile_avatar_frame img {
+html :is(#blotter_page, .profile_small_header_avatar) .playerAvatar .profile_avatar_frame img {
     border-radius: 0;
     background: var(--aika-transparent);
 }
 
 /* С рамкой подложка статуса аватара не нужна — статус виден по рамке
    предмета, а цветной квадрат выглядывал бы из-под неё */
-html #blotter_page .playerAvatar:has(.profile_avatar_frame img) {
+html :is(#blotter_page, .profile_small_header_avatar) .playerAvatar:has(.profile_avatar_frame img) {
     background: var(--aika-transparent);
 }
 
@@ -488,4 +488,315 @@ html #blotter_page #blotter_appselect_options #blotter_appselect_suggestions div
 html #blotter_page #blotter_appselect_options #blotter_appselect_suggestions div.option:hover {
     background: var(--aika-surface-hover);
     color: var(--aika-fg);
+}
+
+/* ==========================================================================
+   Друзья (steamcommunity.com/id/…/friends/), снято через CDP 2026-10-04.
+   Старая вёрстка, классы читаемые, сила Steam (0,1,0)…(0,3,0).
+     .friends_header_* — шапка (аватар, имя); .friends_nav — левое меню
+       (h4 — разделы, a.icon_item[.active] + span.count);
+     .profile_friends.title_bar — полоса поиска и «Управлять» (#015e80),
+       .friends_search_text_box — поле; .manage_friends_panel — панель выбора;
+     .state_block — «В игре / В сети / Не в сети»;
+     .friend_block_v2.persona.(in-game|online|offline) — карточка друга:
+       .player_avatar.friend_block_link_overlay — аватар с полосой статуса
+       справа (border-right 4px), .friend_block_content — имя,
+       .friend_small_text/.friend_game_link — игра (#a3cf06),
+       .player_nickname_hint, .friend_last_online_text — серое.
+   Статусы — как во всей теме: в игре — ok, в сети — акцент, не в сети — приглушённо.
+   ========================================================================== */
+
+html .friends_header_avatar > a img,
+html .friends_header_avatar > img {
+    border-radius: var(--aika-radius-md);
+    box-shadow: var(--aika-shadow-cover);
+}
+
+html .friends_header_name,
+html .friends_header_name a {
+    color: var(--aika-fg);
+}
+
+/* Левое меню */
+html .friends_nav h4 {
+    color: var(--aika-fg-subtle);
+    font-size: var(--aika-text-label);
+    letter-spacing: var(--aika-tracking-label);
+}
+
+html .friends_nav a {
+    border-radius: var(--aika-radius-md);
+    color: var(--aika-fg-muted);
+    transition:
+        background-color var(--aika-dur-fast) var(--aika-ease-hover),
+        color var(--aika-dur-fast) var(--aika-ease-hover);
+}
+
+html .friends_nav a:hover {
+    background-color: var(--aika-surface-hover);
+    color: var(--aika-fg);
+}
+
+html .friends_nav a.active {
+    background-color: var(--aika-accent-soft);
+    color: var(--aika-fg);
+    box-shadow: inset var(--aika-indicator) 0 0 0 var(--aika-accent);
+}
+
+html .friends_nav a .count {
+    color: var(--aika-fg-subtle);
+    font-family: var(--aika-font-mono);
+}
+
+html .friends_nav .hr {
+    border-bottom-color: var(--aika-border);
+}
+
+/* Полоса поиска / управления */
+html .profile_friends.title_bar,
+html .profile_groups.title_bar {
+    border-radius: var(--aika-radius-lg);
+    background-color: var(--aika-surface);
+}
+
+html :is(.friends_search_text_box, .groups_search_text_box) {
+    border: var(--aika-hairline) solid var(--aika-border-strong);
+    border-radius: var(--aika-radius-md);
+    background-color: var(--aika-bg-raised);
+    color: var(--aika-fg);
+}
+
+html :is(.friends_search_text_box, .groups_search_text_box)::placeholder {
+    color: var(--aika-fg-subtle);
+    font-style: normal;
+}
+
+html :is(.friends_search_text_box, .groups_search_text_box):focus {
+    outline: none;
+    box-shadow: var(--aika-shadow-input-focus);
+}
+
+html .manage_friends_panel {
+    border-radius: var(--aika-radius-lg);
+    background: var(--aika-card-accent-bg);
+    box-shadow: inset 0 0 0 var(--aika-hairline) var(--aika-border-accent);
+}
+
+html .manage_friends_panel .row,
+html .manage_friends_panel .row > .selection_type {
+    color: var(--aika-fg-muted);
+}
+
+html .profile_friends .state_block {
+    color: var(--aika-fg-subtle);
+    font-size: var(--aika-text-label);
+    letter-spacing: var(--aika-tracking-label);
+}
+
+/* Карточка друга */
+html .friend_block_v2 {
+    border-color: var(--aika-transparent);
+    border-radius: var(--aika-radius-md);
+    background: var(--aika-card-bg);
+    color: var(--aika-fg-muted);
+    box-shadow: var(--aika-shadow-card);
+    transition:
+        background-color var(--aika-dur-fast) var(--aika-ease-hover),
+        box-shadow var(--aika-dur-base) var(--aika-ease);
+}
+
+html .friend_block_v2:hover,
+html .friend_block_v2.in-game:hover {
+    background-color: var(--aika-surface-hover);
+    box-shadow: var(--aika-shadow-card-hover);
+}
+
+html .friend_block_v2 .player_avatar.friend_block_link_overlay {
+    border-radius: var(--aika-radius-md) 0 0 var(--aika-radius-md);
+}
+
+html .friend_block_v2 .player_avatar.friend_block_link_overlay img {
+    border-radius: var(--aika-radius-md) 0 0 var(--aika-radius-md);
+}
+
+html .friend_block_link_overlay.in-game { border-color: var(--aika-ok); }
+html .friend_block_link_overlay.online { border-color: var(--aika-accent-bright); color: var(--aika-accent-bright); }
+html .friend_block_link_overlay.offline { border-color: var(--aika-fg-subtle); }
+
+html .friend_block_v2.in-game .friend_block_content { color: var(--aika-ok); }
+html .friend_block_v2.online .friend_block_content { color: var(--aika-accent-bright); }
+html .friend_block_v2.offline .friend_block_content { color: var(--aika-fg-muted); }
+
+html .friend_block_v2 :is(.friend_small_text, .friend_game_link) {
+    color: var(--aika-ok);
+}
+
+html .friend_block_v2 :is(.player_nickname_hint, .friend_last_online_text),
+html .friend_block_v2 .player_nickname_hint .friend_last_online_text {
+    color: var(--aika-fg-subtle);
+}
+
+/* Отметка выбора в режиме «Управлять» (.indicator, #afc0ca) */
+html .friend_block_v2 .indicator {
+    background-color: var(--aika-surface-active);
+    color: var(--aika-fg);
+}
+
+html .friend_block_v2.selected .indicator {
+    background-color: var(--aika-accent-fill);
+    color: var(--aika-on-accent);
+}
+
+/* --------------------------------------------------------------------------
+   Мини-профиль сайта при наведении на друга (.miniprofile_hover; есть
+   и в магазине, и в сообществе). Как клиентский (components/status.css):
+   рамка аватара и имя по статусу, полосы поверх фона профиля — тёмный
+   материал, игра — ok. Фон профиля пользователя, рамку-предмет и кольцо
+   уровня (.friendPlayerLevel.lvl_N) не трогаем.
+   -------------------------------------------------------------------------- */
+
+html .miniprofile_hover .miniprofile_container {
+    border-radius: var(--aika-radius-lg);
+    box-shadow: var(--aika-shadow-menu);
+}
+
+html .miniprofile_playersection .playersection_avatar,
+html .miniprofile_playersection .playersection_avatar img {
+    border-radius: var(--aika-radius-md);
+}
+
+html .miniprofile_playersection .playersection_avatar.border_color_in-game { border-bottom-color: var(--aika-ok); }
+html .miniprofile_playersection .playersection_avatar.border_color_online { border-bottom-color: var(--aika-accent-bright); }
+html .miniprofile_playersection .playersection_avatar.border_color_offline { border-bottom-color: var(--aika-fg-subtle); }
+
+html .miniprofile_playersection .player_content .persona.in-game { color: var(--aika-ok); }
+html .miniprofile_playersection .player_content .persona.online { color: var(--aika-accent-bright); }
+html .miniprofile_playersection .player_content .persona.offline { color: var(--aika-fg-muted); }
+
+html .miniprofile_container .miniprofile_backdrop {
+    background: var(--aika-surface-translucent);
+}
+
+html .miniprofile_gamesection .miniprofile_game_details .miniprofile_game_name {
+    color: var(--aika-ok);
+}
+
+html .miniprofile_gamesection .miniprofile_game_details :is(.game_state, .rich_presence) {
+    color: var(--aika-ok-mid);
+}
+
+html .miniprofile_featuredcontainer .description .name {
+    color: var(--aika-fg);
+}
+
+html .miniprofile_featuredcontainer .description .xp {
+    color: var(--aika-fg-subtle);
+    font-family: var(--aika-font-mono);
+}
+
+html .miniprofile_playtimesection:not(.forcurrentgame) {
+    border-radius: var(--aika-radius-md);
+    background: var(--aika-card-accent-bg);
+}
+
+html .miniprofile_playtimesection .playtimecontent {
+    color: var(--aika-fg-subtle);
+}
+
+html .miniprofile_playtimesection .playtimecontent .timeplayed {
+    color: var(--aika-fg);
+    font-family: var(--aika-font-mono);
+}
+
+/* Фон мини-профиля по умолчанию (у друга нет своего фона профиля):
+   серо-синий радиальный — наш тёплый, со светом акцента */
+html .miniprofile_container .miniprofile_background {
+    background: radial-gradient(ellipse farthest-corner at 20% 30%, var(--aika-accent-dim), var(--aika-bg-elevated) 70%);
+}
+
+/* Подпись статуса под именем («В сети», «Не в сети») */
+html .miniprofile_playersection .player_content .friend_status_online { color: var(--aika-accent-bright); }
+html .miniprofile_playersection .player_content .friend_status_in-game { color: var(--aika-ok); }
+html .miniprofile_playersection .player_content .friend_status_offline { color: var(--aika-fg-subtle); }
+
+/* --------------------------------------------------------------------------
+   Разделы меню друзей (2026-10-04): пустые состояния, «Недавно играли»,
+   заблокированные, группы; «Подписки на игры» (body.flat_page — другая
+   вёрстка: шапка профиля .profile_small_header_*, вкладки, строки игр).
+   Аватар в шапке профиля — общие правила аватаров выше.
+   -------------------------------------------------------------------------- */
+
+html .friends_container .search_results_none {
+    border-radius: var(--aika-radius-lg);
+    background: var(--aika-surface);
+    color: var(--aika-fg-muted);
+}
+
+html .profile_friends.responsive_friendblocks {
+    border-radius: var(--aika-radius-lg);
+}
+
+html .profile_friends .noCoplayHistory {
+    border-color: var(--aika-border);
+    border-radius: var(--aika-radius-md);
+    color: var(--aika-fg-muted);
+}
+
+/* «Заблокирован» (#da2525) — live Aika */
+html .friend_block_v2 .friend_small_text .blocked_text {
+    color: var(--aika-live);
+}
+
+/* Группы и приглашения (.group_block.invite_row — как карточка друга) */
+html .group_block.invite_row {
+    border-radius: var(--aika-radius-lg);
+    background: var(--aika-card-bg);
+    box-shadow: var(--aika-shadow-card);
+}
+
+html .group_block .groupTitle a {
+    color: var(--aika-fg);
+}
+
+/* «Публичная» (.pubGroup, оранжевый #d05f29) — warn */
+html .pubGroup {
+    color: var(--aika-warn);
+}
+
+/* Шапка профиля на подстраницах (.profile_small_header_*) */
+html .profile_small_header_bg .profile_small_header_texture {
+    border-radius: var(--aika-radius-lg);
+    background-color: var(--aika-surface);
+}
+
+html .profile_small_header_text .profile_small_header_arrow {
+    color: var(--aika-fg-subtle);
+}
+
+/* Вкладки разделов (.sectionTabs .sectionTab.active — синяя линия) */
+html .sectionTabs .sectionTab.active {
+    border-color: var(--aika-accent);
+}
+
+/* «Подписки на игры»: строки игр, метка «В желаемом», кнопки */
+html .games_list_rows .gameListRow {
+    border-radius: var(--aika-radius-lg);
+    background-color: var(--aika-surface);
+}
+
+html .gameListRow .ds_flag {
+    border-radius: var(--aika-radius-xs);
+    background-color: var(--aika-accent-fill);
+    color: var(--aika-on-accent);
+}
+
+html .followed_game_actions .btnv6_blue_hoverfade {
+    border-radius: var(--aika-radius-md);
+    background: var(--aika-surface);
+    color: var(--aika-fg) !important; /* у Steam #67c1f5 !important */
+}
+
+html .followed_game_actions .btnv6_blue_hoverfade:not(.btn_disabled):not(:disabled):not(.btn_active):not(.active):hover {
+    background: var(--aika-surface-hover);
+    color: var(--aika-fg) !important; /* у Steam #fff !important */
 }

@@ -1610,3 +1610,34 @@ html body.v6 ._2HG7VOroS8aHSg-W3fPyTt {
     background: var(--aika-card-accent-bg);
     box-shadow: inset 0 0 0 var(--aika-hairline) var(--aika-border-accent);
 }
+
+/* [Сообщество] «Добавить в друзья» (…/friends/add, React): шапка
+   .X9bYNT3rKpg6L1Cgq45pG (#015e80), блоки ._1xwi06sEKXpwIpZcgHle_h (чёрный 40 %)
+   и ._2N55HNCo3jLIzL6RNNlRUo (чёрный 20 %), плашки кода и ссылки
+   ._1HjkZ3ooQw-4TV518YPtvp (серые 10 %), пояснения ._2s393FLIe2l5quVJHoS53K.
+   Проверено: 2026-10-04. */
+html .X9bYNT3rKpg6L1Cgq45pG {
+    border-radius: var(--aika-radius-lg) var(--aika-radius-lg) 0 0;
+    background-color: var(--aika-surface-active);
+    color: var(--aika-fg);
+}
+
+html :is(._1xwi06sEKXpwIpZcgHle_h, ._2N55HNCo3jLIzL6RNNlRUo) {
+    background-color: var(--aika-surface);
+}
+
+html ._1xwi06sEKXpwIpZcgHle_h:last-child,
+html ._2N55HNCo3jLIzL6RNNlRUo:last-child {
+    border-radius: 0 0 var(--aika-radius-lg) var(--aika-radius-lg);
+}
+
+html ._1HjkZ3ooQw-4TV518YPtvp {
+    border-radius: var(--aika-radius-md);
+    background-color: var(--aika-bg-raised);
+    color: var(--aika-fg);
+    font-family: var(--aika-font-mono);
+}
+
+html ._2s393FLIe2l5quVJHoS53K {
+    color: var(--aika-fg-subtle);
+}
