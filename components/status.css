@@ -354,3 +354,19 @@ html .avatarHolder .SnoozeContainer::before {
 html .PersonaStatusIcon:is(.online, .ingame, .offline) svg path {
     fill: currentColor;
 }
+
+/* Строка «во что играет» у друга в игре (.LabelHolder.ingame .richPresenceLabel,
+   у Steam #91c257 и тёмно-зелёный у «отошёл», (0,3,0)) — ok Aika */
+html .LabelHolder.ingame .richPresenceContainer .richPresenceLabel,
+html .LabelHolder.ingame .richPresenceContainer .richPresenceLabel a {
+    color: var(--aika-ok);
+}
+
+html .LabelHolder.ingame.awayOrSnooze .richPresenceContainer .richPresenceLabel {
+    color: var(--aika-ok-mid);
+}
+
+/* Значок «друг сейчас играет» (.FriendIsPlaying svg, салатовый 70 %) */
+html .FriendIsPlaying svg :is(path, circle) {
+    fill: var(--aika-ok);
+}

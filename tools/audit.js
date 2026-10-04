@@ -71,7 +71,8 @@ const expr = `(() => {
         if (cols.some(c => !ours(rgba(c)))) add(label(el), "shadow " + partsSh.join(",").slice(0, 60)); }
       // Псевдоэлементы: Steam рисует ими заливки (напр. «вкл.» у переключателя —
       // .ToggleRail::before), computed самого элемента их не показывает
-      for (const ps of ["::before", "::after"]) {
+      // у <img> псевдоэлементы не рисуются (кроме битых картинок) — пропускаем
+      if (!(el instanceof HTMLImageElement)) for (const ps of ["::before", "::after"]) {
         const p = getComputedStyle(el, ps);
         if (p.content === "none" || p.content === "normal" || p.display === "none" || p.opacity === "0") continue;
         const pb = rgba(p.backgroundColor);
