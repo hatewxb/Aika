@@ -2,7 +2,7 @@
 // Steam сам умеет показывать тестовые уведомления (NotificationStore.Test…
 // в SharedJSContext) — ждать настоящего сообщения не нужно.
 //   node tools/toast-test.js [message|ingame|online|download] [inject|-] [снимок.png]
-//     inject — подгрузить в окно свежие toast.css и js/toast-glass.js
+//     inject — подгрузить в окно свежие toast.css и js/toast.js
 //              (до перезапуска Steam, пока новые Patches не подхвачены)
 // Выводит: подключённые стили/скрипты, есть ли слой сцены и фильтр hyalite
 // на нём, шрифт надписи «Aika» и загружен ли он.
@@ -23,7 +23,7 @@ const inject = `(async () => {
   const l = document.createElement("link"); l.rel = "stylesheet"; l.href = "${base}toast.css?v=" + Date.now();
   await new Promise(r => { l.onload = r; l.onerror = r; old ? old.after(l) : document.head.append(l); });
   if (old) old.remove();
-  if (!window.Hyalite) await import("${base}js/toast-glass.js?v=" + Date.now());
+  if (!window.Hyalite) await import("${base}js/toast.js?v=" + Date.now());
 })()`;
 
 const report = `(async () => {

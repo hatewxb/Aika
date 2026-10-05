@@ -401,4 +401,18 @@
     --aika-toast-inset-x: 16px;
     --aika-toast-inset-y: 8px;
     --aika-toast-pad-y: 6px;    /* поля карточки по вертикали (у Steam 10 px) */
+    /* Появление и уход карточки — считает js/toast-motion.js (окно при
+       этом ведёт пружина). Появление — --aika-dur-enter по --aika-ease.
+       Амплитуды умножаются на --aika-motion: при «уменьшить движение»
+       остаётся только прозрачность. */
+    --aika-toast-enter-shift: 10px;
+    --aika-toast-enter-scale: 0.94;
+    --aika-toast-enter-blur: 6px;
+    --aika-toast-leave-shift: 28px;
+    --aika-toast-leave-scale: 0.97;
+    --aika-toast-leave-blur: 4px;
+    /* Уход — ускорение (expo-in), успевает до того, как Steam
+       спрячет окно (через 300 мс после начала ухода) */
+    --aika-toast-dur-leave: 280ms;
+    --aika-ease-leave: cubic-bezier(0.7, 0, 0.84, 0);
 }

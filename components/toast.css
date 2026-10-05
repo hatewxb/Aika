@@ -13,7 +13,7 @@
 
    Отступы: карточка на --aika-toast-gap ниже окна — это зазор между
    уведомлениями (окна Steam стоят вплотную); отступы стопки от края
-   экрана задаёт js/toast-glass.js (токены --aika-toast-inset-*).
+   экрана задаёт js/toast-motion.js (токены --aika-toast-inset-*).
 
    Рабочий стол за окном стекло не преломляет и не размывает: окно
    уведомления — отдельное окно ОС, страница его не видит. Почему не
@@ -54,6 +54,19 @@ html .DesktopToastContainer .DesktopToastPopup {
     border-radius: var(--aika-radius-lg);
     color: var(--aika-fg-muted);
     background: var(--aika-transparent);
+}
+
+/* Появление и уход. CSS-анимации в окне уведомления не идут (Chromium
+   считает его скрытым), поэтому кадры считает js/toast-motion.js в цикле
+   SharedJSContext и выставляет переменные на <html>; класс
+   .aika-toast-motion — только когда скрипт работает. Кривые и амплитуды —
+   токены --aika-ease, --aika-ease-leave, --aika-toast-enter-*, -leave-*. */
+html.aika-toast-motion .DesktopToastContainer .DesktopToastPopup {
+    opacity: var(--aika-toast-alpha, 1);
+    transform:
+        translate(var(--aika-toast-dx, 0px), var(--aika-toast-dy, 0px))
+        scale(var(--aika-toast-scale, 1));
+    filter: blur(var(--aika-toast-blur, 0px));
 }
 
 html .DesktopToastContainer .DesktopToastPopup:not(:has(> .aika-toast-scene)),

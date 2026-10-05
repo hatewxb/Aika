@@ -28,7 +28,7 @@
   - `node tools/toast-test.js [message|ingame|online|download] [inject|-] [снимок.png]` —
     показать тестовое уведомление Steam (NotificationStore.Test… в SharedJSContext),
     проверить стили темы в нём и снять скриншот (в окне уведомления снимки работают);
-    `inject` — подгрузить свежие toast.css и js/toast-glass.js без перезапуска Steam;
+    `inject` — подгрузить свежие toast.css и js/toast.js без перезапуска Steam;
     пробные правки — переменными AIKA_EXTRA_CSS / AIKA_EVAL;
   - `node tools/click.js "<окно>" "<селектор>" [double]` — настоящий клик (React не реагирует на el.click());
   - `node tools/hover.js "<селектор>"` — навести мышь на элемент (прокрутит к нему),
@@ -114,6 +114,7 @@
 | 2026-10-05 | Репозиторий GitHub — приватный, About и темы; README сокращён: превью, скриншоты таблицей, установка, роадмап по разделам (готово / не сделано) | README.md |
 | 2026-10-06 | Уведомления — жидкое стекло: полупрозрачная карточка над рабочим столом, под стеклом пятна света и надпись «Aika» (готика / «японская кисть») вместо логотипа Steam; hyalite (MIT, js/vendor) в режиме self гнёт слой-сцену у краёв (backdrop-filter складывал полупрозрачность в непрозрачную); имя друга, «играет в», игра (ok), полоска статуса — пилюля. Настройки: вкладка «Уведомления» — «Надпись в уведомлениях», «Плотность уведомлений». tools/toast-test.js — тестовые уведомления Steam + снимок. Проверено снимками на сообщении, «играет в», «Загрузка завершена» после перезапуска Steam | components/toast.css, js/toast-glass.js, js/vendor/, skin.json, options/toast-mark-brush.css, base.css, tokens.css, colors.css, assets/fonts, tools/toast-test.js |
 | 2026-10-06 | Уведомления: отступы. Стопка — 16 px от края и выше панели задач (отступы Steam: js/toast-glass.js через window.opener → SteamUIStore…SetNotificationPosition, значения — токены --aika-toast-inset-*); зазор 8 px между уведомлениями — карточка ниже окна (окна Steam стоят вплотную, шаг = высота окна). Проверено тремя уведомлениями подряд после перезапуска | js/toast-glass.js, components/toast.css, tokens.css, tools/toast-test.js |
+| 2026-10-06 | Уведомления: анимация по кривым. Окно уведомления Chromium считает скрытым — rAF и CSS-анимации в нём не идут, поэтому всё в кадрах SharedJSContext (window.opener): карточка проявляется/подрастает/становится резкой по --aika-ease вместе с подъездом окна; SteamClient.Window.MoveTo подменён пружиной (окна стопки встают плавно, без линейных шагов Steam); уход — состояние уведомления читается из React-стопки Steam (m_eState), окно замирает, карточка уплывает вправо по --aika-ease-leave. JS разнесён: js/toast.js → toast-glass.js, toast-motion.js. Проверено трассой кадров (появление, уход, три подряд) | js/toast.js, js/toast-motion.js, js/toast-glass.js, components/toast.css, tokens.css, skin.json |
 
 ## Ждёт проверки автором в Steam
 
@@ -258,7 +259,7 @@
 4. **Магазин — остатки** (`sections/store.css`): главная, страница игры,
    мега-меню, список желаемого, корзина (пустая и с товаром), поиск готовы.
    Не трогали: оформление заказа (checkout — JS туда не пускают).
-   Всплывающие уведомления — жидкое стекло (toast.css, js/toast-glass.js);
+   Всплывающие уведомления — жидкое стекло и анимация (toast.css, js/toast.js);
    другие типы (достижение, приглашение) — `node tools/toast-test.js`
    умеет их показывать (NotificationStore.TestAchievement… в SharedJSContext). На странице игры не
    встречались (снять, когда попадутся): блок «Вы владеете», ранний доступ,

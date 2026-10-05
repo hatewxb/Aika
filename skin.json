@@ -110,7 +110,7 @@
         {
             "MatchRegexString": ".DesktopToastContainer",
             "TargetCss": "toast.css",
-            "TargetJs": "js/toast-glass.js"
+            "TargetJs": "js/toast.js"
         },
         {
             "MatchRegexString": "^https://store\\.steampowered\\.com/app/.*",
