@@ -99,6 +99,64 @@ html .ReactVirtualized__List .Container.Selected:has(> .GameListEntryContainer):
     color: var(--aika-fg);
 }
 
+/* Состояния строки (правка автора 2026-10-06, на примере Pratfall —
+   «Обновление в очереди»). Steam (снято через CDP 2026-10-06):
+     .Container.Updating / .Synchronizing / .CloudError / .CloudOutOfDate —
+       название #26b7ff, вес 300; .Running — #adff2f;
+     .DownloadProgress — подпись справа («Обновление в очереди»), #74d1ff;
+     .AppIconDownloading — иконка с кольцом прогресса: иконка
+       brightness(0.4), кольцо — svg circle #74d1ff ((0,4,1)).
+   У нас: обновление и синхронизация — целиком акцент (название, подпись,
+   кольцо), иконка затемнена слабее — игра не выглядит неустановленной;
+   ошибка облака — --aika-live, «облако устарело» — --aika-warn,
+   запущена — --aika-ok. Цвет держится и при наведении, и у выбранной
+   строки — поэтому блок после правил hover / .Selected. */
+html .ReactVirtualized__List .Container:is(.Updating, .Synchronizing):has(> .GameListEntryContainer),
+html .ReactVirtualized__List .Container:is(.Updating, .Synchronizing):has(> .GameListEntryContainer):is(:hover, .Selected) {
+    color: var(--aika-accent-bright);
+    font-weight: var(--aika-weight-regular);
+}
+
+html .ReactVirtualized__List .Container.CloudError:has(> .GameListEntryContainer),
+html .ReactVirtualized__List .Container.CloudError:has(> .GameListEntryContainer):is(:hover, .Selected) {
+    color: var(--aika-live);
+    font-weight: var(--aika-weight-regular);
+}
+
+html .ReactVirtualized__List .Container.CloudOutOfDate:has(> .GameListEntryContainer),
+html .ReactVirtualized__List .Container.CloudOutOfDate:has(> .GameListEntryContainer):is(:hover, .Selected) {
+    color: var(--aika-warn);
+    font-weight: var(--aika-weight-regular);
+}
+
+html .ReactVirtualized__List .Container.Running:has(> .GameListEntryContainer),
+html .ReactVirtualized__List .Container.Running:has(> .GameListEntryContainer):is(:hover, .Selected) {
+    color: var(--aika-ok);
+}
+
+/* Подпись справа — цветом строки; у запущенной Steam красит её отдельно */
+html .ReactVirtualized__List .Container .GameListEntryContainer .DownloadProgress {
+    color: inherit;
+}
+
+html .ReactVirtualized__List .Container .GameListEntryContainer .DownloadDash {
+    color: var(--aika-fg-subtle);
+}
+
+/* Иконка с кольцом прогресса: затемнение слабее, кольцо — цветом строки.
+   [class] у svg — чтобы перебить тройной хэш Steam (0,4,1) */
+html .ReactVirtualized__List .GameListEntryContainer .AppIconDownloading .GameIcon {
+    filter: var(--aika-download-icon-dim);
+}
+
+html .ReactVirtualized__List .GameListEntryContainer .AppIconDownloading svg[class] {
+    color: inherit;
+}
+
+html .ReactVirtualized__List .GameListEntryContainer .AppIconDownloading svg[class] circle {
+    stroke: currentColor;
+}
+
 /* Строка, по которой открыто контекстное меню (ПКМ): Steam даёт
    .HasContextMenuOpen серо-голубую рамку #506588, фон #293344, на hover
    #586f96 (до (0,3,0)). Снято 2026-10-06 (правка автора). Рамку 1 px Steam

@@ -331,6 +331,7 @@
     /* Линия над диалогами внутри окна (.ModalPosition_TopBar; у Steam —
        синий градиент #00ccff → #3366ff): акцент, гаснущий к краям */
     --aika-modal-topbar-opacity: 0.6;
+    --aika-download-icon-dim: brightness(0.7);   /* иконка игры под кольцом загрузки (у Steam 0.4) */
     --aika-submenu-gap: 6px;          /* видимый зазор меню → подменю (js/menu-gap.js) */
     --aika-modal-topbar: linear-gradient(to right, var(--aika-transparent), var(--aika-accent-bright) 50%, var(--aika-transparent));
     --aika-dur-shimmer: 2.8s;        /* перелив по заливке */
