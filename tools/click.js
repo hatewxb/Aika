@@ -20,7 +20,7 @@ const sel = args.pop();
   ws.onopen = async () => {
     const r = await send("Runtime.evaluate", { returnByValue: true, expression:
       `(() => { const e = document.querySelector(${JSON.stringify(sel)}); if (!e) return null;
-        e.scrollIntoView({ block: "center" }); const r = e.getBoundingClientRect();
+        e.scrollIntoView({ block: "nearest" }); const r = e.getBoundingClientRect();
         return { x: r.left + r.width / 2, y: r.top + r.height / 2 }; })()` });
     const p = r.result.value;
     if (!p) { console.log("элемент не найден: " + sel); process.exit(1); }

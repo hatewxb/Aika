@@ -434,6 +434,18 @@ html .LibraryItemBox .Container.GreyBackground .Title {
    Плавающие элементы: «Наверх» на странице, уведомление в нижней панели
    -------------------------------------------------------------------------- */
 
+/* Спрятанная «Наверх» у Steam — translateY(30px) (0,1,0): она вылезала за
+   низ .ContentFrame (overflow: hidden), и у рамки появлялись лишние 30 px
+   прокрутки. scrollIntoView (Steam при выборе игры, наши tools/click.js)
+   прокручивал её, и левая панель уезжала вверх («Библиотека» срезана
+   сверху, скрин автора 2026-10-06). Обёртка обрезает вылезающее по
+   вертикали (clip, не hidden — сама не прокручивается); запас
+   overflow-clip-margin не годится — он тоже идёт в прокрутку. Сверху у
+   видимой кнопки 10 px отступа Steam, снизу край окна — свечению хватает. */
+html .ContentFrame > div:has(> .ScrollToTopButton) {
+    overflow-y: clip;
+}
+
 html .ContentFrame .ScrollToTopButton > div {
     border-radius: var(--aika-radius-full);
     background: var(--aika-accent-fill);
