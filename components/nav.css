@@ -99,6 +99,23 @@ html .ReactVirtualized__List .Container.Selected:has(> .GameListEntryContainer):
     color: var(--aika-fg);
 }
 
+/* Строка, по которой открыто контекстное меню (ПКМ): Steam даёт
+   .HasContextMenuOpen серо-голубую рамку #506588, фон #293344, на hover
+   #586f96 (до (0,3,0)). Снято 2026-10-06 (правка автора). Рамку 1 px Steam
+   оставляем — только цвет, чтобы строка не прыгала: акцентная рамка,
+   фон как при наведении; у выбранной строки — её акцентный фон. */
+html .ReactVirtualized__List .Container.HasContextMenuOpen:has(> .GameListEntryContainer),
+html .ReactVirtualized__List .Container.HasContextMenuOpen:has(> .GameListEntryContainer):hover {
+    border-color: var(--aika-border-accent);
+    background-color: var(--aika-surface-hover);
+    color: var(--aika-fg);
+}
+
+html .ReactVirtualized__List .Container.Selected.HasContextMenuOpen:has(> .GameListEntryContainer),
+html .ReactVirtualized__List .Container.Selected.HasContextMenuOpen:has(> .GameListEntryContainer):hover {
+    background-color: var(--aika-accent-soft);
+}
+
 /* Steam при наведении на выбранную строку красит синим не её саму, а
    потомков: «._1UBp…._2-O4… :hover» (пробел перед :hover, (0,3,0)) —
    внутренний .GameListEntryContainer и всё, что под курсором.
