@@ -40,6 +40,35 @@ function scan() {
 scan();
 new MutationObserver(scan).observe(document.body, { childList: true, subtree: true });
 
+// Отступы стопки уведомлений от края экрана (над панелью задач и сбоку).
+// Окна уведомлений ставит SharedJSContext (window.opener этого окна):
+// рабочая область экрана + NotificationPosition окна Steam, у которого
+// отступы по умолчанию 0. Задаём их из токенов --aika-toast-inset-*
+// (tokens.css). Цикл анимации Steam замечает новые отступы в следующем
+// кадре и переставляет окна; позицию (угол экрана) не трогаем (-1).
+// Значение живёт до перезапуска Steam — ставим при каждом уведомлении.
+function setInsets() {
+    try {
+        const css = getComputedStyle(document.documentElement);
+        const x = parseInt(css.getPropertyValue("--aika-toast-inset-x"), 10);
+        const y = parseInt(css.getPropertyValue("--aika-toast-inset-y"), 10);
+        const win = window.opener?.SteamUIStore?.WindowStore?.SteamUIWindows?.[0];
+        if (!win) return true;                              // не наш Steam — не повторяем
+        if (Number.isNaN(x) || Number.isNaN(y)) return false;  // CSS темы ещё не загружен
+        const pos = win.NotificationPosition;
+        if (pos.horizontalInset !== x || pos.verticalInset !== y) win.SetNotificationPosition(-1, x, y);
+    } catch (e) {
+        // Steam поменял устройство окон — уведомления просто встанут по-старому
+    }
+    return true;
+}
+
+// Токены приходят с CSS темы, а он может загрузиться позже скрипта —
+// повторяем по кадрам, пока не появятся (не дольше ~2 с)
+(function tryInsets(left) {
+    if (!setInsets() && left > 0) requestAnimationFrame(() => tryInsets(left - 1));
+})(120);
+
 // Карточка маленькая (283×70): узкий скос, чтобы надпись и пятна
 // изгибались у края, а середина оставалась ровной.
 glass.watch(document.body, ".aika-toast-scene", {

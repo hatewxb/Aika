@@ -11,6 +11,10 @@
                                    hyalite гнёт его у краёв (filter: --hyalite);
      .DesktopToastTemplate       — содержимое Steam, блик и кромка стекла.
 
+   Отступы: карточка на --aika-toast-gap ниже окна — это зазор между
+   уведомлениями (окна Steam стоят вплотную); отступы стопки от края
+   экрана задаёт js/toast-glass.js (токены --aika-toast-inset-*).
+
    Рабочий стол за окном стекло не преломляет и не размывает: окно
    уведомления — отдельное окно ОС, страница его не видит. Почему не
    backdrop-filter — js/toast-glass.js.
@@ -44,6 +48,7 @@ html body.DesktopToastContainer {
 
 html .DesktopToastContainer .DesktopToastPopup {
     position: relative;
+    height: calc(100vh - var(--aika-toast-gap));
     overflow: hidden;
     isolation: isolate;
     border-radius: var(--aika-radius-lg);
@@ -104,6 +109,9 @@ html .DesktopToastContainer .aika-toast-mark {
 html .DesktopToastContainer .DesktopToastPopup .DesktopToastTemplate {
     position: relative;
     z-index: 1;
+    box-sizing: border-box;
+    height: 100%;
+    padding-block: var(--aika-toast-pad-y);
     border-radius: var(--aika-radius-lg);
     background: linear-gradient(to bottom, var(--aika-toast-sheen), var(--aika-transparent) 45%);
     box-shadow:

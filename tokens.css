@@ -390,4 +390,15 @@
     --aika-toast-mark-bottom: 0px;
     --aika-toast-mark-tilt: -6deg;
     --aika-toast-text-shadow-size: 0 1px 2px;
+    /* Положение окон уведомлений. Окна Steam ставит вплотную друг к другу
+       (шаг = высота окна, 70 px), поэтому зазор между ними — прозрачная
+       полоса внизу каждого окна, карточка на --aika-toast-gap ниже окна.
+       Отступы от края рабочей области (над панелью задач и сбоку) —
+       настоящие отступы Steam: js/toast-glass.js читает эти два токена
+       и передаёт их в SetNotificationPosition. Нижний отступ складывается
+       с зазором: над панелью задач — inset-y + gap. */
+    --aika-toast-gap: 8px;
+    --aika-toast-inset-x: 16px;
+    --aika-toast-inset-y: 8px;
+    --aika-toast-pad-y: 6px;    /* поля карточки по вертикали (у Steam 10 px) */
 }

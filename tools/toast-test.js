@@ -86,6 +86,6 @@ const pages = async () => (await fetch("http://localhost:8080/json")).json();
     }
     await new Promise(r => setTimeout(r, 150));
   }
-  console.log("окно уведомления не появилось");
+  console.log("окно уведомления не появилось (включён семейный просмотр? в нём уведомления не показываются)");
   process.exit(1);
 })();
