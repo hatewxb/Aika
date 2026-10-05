@@ -2,9 +2,11 @@
 // Steam на синтетический el.click() часто не реагируют.
 //   node tools/click.js [окно|ws://…] "<селектор>"          — один клик
 //   node tools/click.js [окно|ws://…] "<селектор>" double   — двойной
+//   node tools/click.js [окно|ws://…] "<селектор>" right    — правой кнопкой (контекстное меню)
 const target = require("./target");
 const args = process.argv.slice(2);
 const double = args[args.length - 1] === "double" ? (args.pop(), true) : false;
+const button = args[args.length - 1] === "right" ? (args.pop(), "right") : "left";
 const sel = args.pop();
 (async () => {
   const ws = new WebSocket(await target(args[0]));
@@ -25,8 +27,8 @@ const sel = args.pop();
     const { x, y } = p;
     await send("Input.dispatchMouseEvent", { type: "mouseMoved", x, y });
     for (let n = 1; n <= (double ? 2 : 1); n++) {
-      await send("Input.dispatchMouseEvent", { type: "mousePressed", x, y, button: "left", clickCount: n });
-      await send("Input.dispatchMouseEvent", { type: "mouseReleased", x, y, button: "left", clickCount: n });
+      await send("Input.dispatchMouseEvent", { type: "mousePressed", x, y, button, clickCount: n });
+      await send("Input.dispatchMouseEvent", { type: "mouseReleased", x, y, button, clickCount: n });
     }
     console.log(`клик: ${Math.round(x)},${Math.round(y)}${double ? " ×2" : ""}`);
     process.exit(0);

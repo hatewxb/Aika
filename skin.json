@@ -93,7 +93,7 @@
         {
             "MatchRegexString": "^Steam$",
             "TargetCss": "main.css",
-            "TargetJs": "js/spotlight.js"
+            "TargetJs": "js/main.js"
         },
         {
             "MatchRegexString": ".ModalDialogPopup",

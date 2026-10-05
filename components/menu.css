@@ -76,6 +76,51 @@ html .contextMenu .contextMenuContents .contextMenuItem.disabled {
     color: var(--aika-fg-subtle);
 }
 
+/* Пункт-действие в контекстном меню игры (ПКМ в списке библиотеки;
+   меню рисуется внутри главного окна). У Steam — .ContextMenuAction
+   с классом действия: «зелёные» (.Play, .Launch, .Stream, .Connect,
+   .PlayMusic) и «синие» (.Install, .Download, .Update, .Resume…),
+   градиенты (0,3,0), на hover (0,3,1), текст капсом. Снято 2026-10-06.
+   Как на странице игры: «Играть» — яркая (--aika-play-fill),
+   остальные действия — обычный акцент. Подпись — без капса, как
+   у кнопки «Играть» (components/button.css). */
+html .contextMenu .contextMenuContents .contextMenuItem.ContextMenuAction {
+    background: var(--aika-accent-fill);
+    box-shadow: var(--aika-shadow-cta);
+    color: var(--aika-on-accent);
+    font-weight: var(--aika-weight-semibold);
+    letter-spacing: normal;
+    text-transform: none;
+}
+
+html .contextMenu .contextMenuContents .contextMenuItem.ContextMenuAction:not(.disabled):is(:hover, :focus) {
+    background: var(--aika-accent-fill-hover);
+    box-shadow: var(--aika-shadow-cta-hover);
+    color: var(--aika-on-accent);
+}
+
+html .contextMenu .contextMenuContents .contextMenuItem.ContextMenuAction:is(.Play, .Launch, .Stream, .Connect, .PlayMusic) {
+    background: var(--aika-play-fill);
+    background-size: var(--aika-play-fill-size);
+    box-shadow: var(--aika-shadow-play);
+}
+
+html .contextMenu .contextMenuContents .contextMenuItem.ContextMenuAction:is(.Play, .Launch, .Stream, .Connect, .PlayMusic):not(.disabled):is(:hover, :focus) {
+    background: var(--aika-play-fill);
+    background-size: var(--aika-play-fill-size);
+    background-position: 100% 50%;
+    box-shadow: var(--aika-shadow-play-hover);
+}
+
+html .contextMenu .contextMenuContents .contextMenuItem.ContextMenuAction svg :is(path, polygon, rect, circle) {
+    fill: currentColor;
+}
+
+/* Действие отделено от обычных пунктов ниже */
+html .contextMenu .contextMenuContents .contextMenuItem.ContextMenuAction + .contextMenuItem {
+    margin-top: var(--aika-space-1);
+}
+
 /* Разделитель — тонкая линия с отступами */
 .aika-menu__separator,
 html .contextMenu .contextMenuContents hr.Separator {

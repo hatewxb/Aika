@@ -78,6 +78,13 @@ html:root {
        Сам акцент — для индикаторов, свечений, рамок (на фоне — 6.2:1). */
     --aika-accent-fill: oklch(from var(--aika-accent) calc(l - 0.12) c h);
     --aika-accent-fill-hover: oklch(from var(--aika-accent) calc(l - 0.10) c h);
+    /* «Играть» (установленная игра) — ярче «Установить»: акцент → розовое
+       пятно света; оба конца затемнены в OKLCH ради белого текста (§11) */
+    --aika-play-fill-from: var(--aika-accent-fill);
+    --aika-play-fill-to: oklch(from var(--aika-light-2) calc(l - 0.14) c h);
+    --aika-play-glow: rgb(from var(--aika-accent) r g b / 0.55);
+    --aika-play-glow-pink: rgb(from var(--aika-light-2) r g b / 0.35);
+    --aika-play-highlight: rgba(255, 255, 255, 0.28);
     --aika-accent-glow: rgb(from var(--aika-accent) r g b / 0.30);    /* свечение */
     --aika-accent-soft: rgb(from var(--aika-accent) r g b / 0.12);    /* фон выбранного */
     --aika-accent-ring: rgb(from var(--aika-accent) r g b / 0.5);     /* фокус, обводка CTA */

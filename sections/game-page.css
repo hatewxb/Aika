@@ -63,6 +63,36 @@ html .PlayBar .PlayButtonContainer .StreamingSelector.ButtonChild:hover svg {
     fill: var(--aika-on-accent);
 }
 
+/* «Играть» у установленной игры — ярче «Установить» (правка автора
+   2026-10-06). Steam различает их контейнером: у «Играть» —
+   .PlayButtonContainer.Green (иконка SVGIcon_Play), у «Установить» —
+   без .Green (SVGIcon_Download); «Установить» остаётся обычной
+   акцентной кнопкой. Заливка — акцент → розовое пятно света с медленным
+   переливом, свечение двойное. */
+html .PlayBar .PlayButtonContainer.Green :is(.PlayButton, .StreamingSelector.ButtonChild) {
+    background: var(--aika-play-fill);
+    background-size: var(--aika-play-fill-size);
+    box-shadow: var(--aika-shadow-play);
+    animation: aika-play-flow var(--aika-dur-play-flow) var(--aika-ease-ambient) infinite alternate;
+}
+
+html .PlayBar .PlayButtonContainer.Green :is(.PlayButton, .StreamingSelector.ButtonChild):not(.Disabled):hover {
+    background: var(--aika-play-fill);
+    background-size: var(--aika-play-fill-size);
+    box-shadow: var(--aika-shadow-play-hover);
+}
+
+@keyframes aika-play-flow {
+    from { background-position: 0% 50%; }
+    to { background-position: 100% 50%; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    html .PlayBar .PlayButtonContainer.Green :is(.PlayButton, .StreamingSelector.ButtonChild) {
+        animation: none;
+    }
+}
+
 /* Кнопки справа (шестерёнка, звезда) — secondary-иконки */
 html .AppButtonsContainer .MenuButton {
     border-radius: var(--aika-radius-md);

@@ -82,6 +82,21 @@
         0 6px 24px var(--aika-accent-glow),
         inset 0 var(--aika-hairline) 0 0 var(--aika-highlight-cta);
 
+    /* «Играть»: двойное свечение (акцент + розовый), блик сверху ярче */
+    --aika-play-fill: linear-gradient(110deg, var(--aika-play-fill-from), var(--aika-play-fill-to) 50%, var(--aika-play-fill-from));
+    --aika-play-fill-size: 200% 100%;
+    --aika-dur-play-flow: 6s;        /* медленный перелив заливки */
+    --aika-shadow-play:
+        0 0 0 var(--aika-hairline) var(--aika-accent-ring),
+        0 4px 16px var(--aika-play-glow),
+        0 0 32px var(--aika-play-glow-pink),
+        inset 0 var(--aika-hairline) 0 0 var(--aika-play-highlight);
+    --aika-shadow-play-hover:
+        0 0 0 var(--aika-hairline) var(--aika-accent-ring),
+        0 6px 24px var(--aika-play-glow),
+        0 0 48px var(--aika-play-glow-pink),
+        inset 0 var(--aika-hairline) 0 0 var(--aika-play-highlight);
+
     --aika-shadow-cta-press:
         0 0 0 var(--aika-hairline) var(--aika-accent-ring),
         0 2px 6px var(--aika-accent-glow),
@@ -316,6 +331,7 @@
     /* Линия над диалогами внутри окна (.ModalPosition_TopBar; у Steam —
        синий градиент #00ccff → #3366ff): акцент, гаснущий к краям */
     --aika-modal-topbar-opacity: 0.6;
+    --aika-submenu-gap: 6px;          /* видимый зазор меню → подменю (js/menu-gap.js) */
     --aika-modal-topbar: linear-gradient(to right, var(--aika-transparent), var(--aika-accent-bright) 50%, var(--aika-transparent));
     --aika-dur-shimmer: 2.8s;        /* перелив по заливке */
 
