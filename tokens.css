@@ -313,6 +313,10 @@
     /* Прогресс (DESIGN.md §4, Progress) */
     --aika-progress-height: 4px;
     --aika-progress-fill: linear-gradient(to right, var(--aika-accent), var(--aika-accent-bright));
+    /* Линия над диалогами внутри окна (.ModalPosition_TopBar; у Steam —
+       синий градиент #00ccff → #3366ff): акцент, гаснущий к краям */
+    --aika-modal-topbar-opacity: 0.6;
+    --aika-modal-topbar: linear-gradient(to right, var(--aika-transparent), var(--aika-accent-bright) 50%, var(--aika-transparent));
     --aika-dur-shimmer: 2.8s;        /* перелив по заливке */
 
     /* Статусы (DESIGN.md §4, Status & Labels) */
@@ -415,4 +419,20 @@
        спрячет окно (через 300 мс после начала ухода) */
     --aika-toast-dur-leave: 280ms;
     --aika-ease-leave: cubic-bezier(0.7, 0, 0.84, 0);
+
+    /* ------------------------------------------------------------------
+       Поле ПИН-кода (семейный просмотр, режим киоска; sections/settings.css):
+       четыре ячейки с подчёркиванием, точки встают ровно в ячейки.
+       Ширина символа Geist Mono — 0.6em (проверено 2026-10-06), поэтому
+       шаг ячейки = символ + letter-spacing.
+       ------------------------------------------------------------------ */
+    --aika-pin-digits: 4;
+    --aika-pin-pitch: 44px;           /* шаг ячейки */
+    --aika-pin-font-size: 28px;
+    --aika-pin-glyph: 0.6em;          /* ширина символа Geist Mono */
+    --aika-pin-height: 60px;
+    --aika-pin-line-inset: 8px;       /* поля подчёркивания внутри ячейки */
+    --aika-pin-line-bottom: 12px;     /* подчёркивание от низа поля */
+    --aika-pin-line-width: 2px;
 }
+

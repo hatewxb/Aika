@@ -603,6 +603,12 @@ html .ModalOverlayContent .ModalPosition_Content {
     box-shadow: var(--aika-shadow-menu);
 }
 
+/* Линия над диалогом — без синего Steam, в акценте темы */
+html .ModalPosition_Content .ModalPosition_TopBar {
+    background: var(--aika-modal-topbar);
+    opacity: var(--aika-modal-topbar-opacity);
+}
+
 html .ModalOverlayContent .ModalPosition_Content > .DialogContent {
     background: var(--aika-bg-elevated);
     color: var(--aika-fg-muted);
@@ -655,4 +661,79 @@ html .InstallRequestModal .FolderOption :is(.FolderName, .FolderFlag) {
 
 html .InstallRequestModal .FolderOption .FolderFlag svg path {
     fill: var(--aika-fg-muted);
+}
+
+/* ==========================================================================
+   Ввод ПИН-кода: семейный просмотр («Чтобы выйти из семейного просмотра,
+   введите свой ПИН-код») и режим киоска. Диалог внутри главного окна:
+   .GenericConfirmDialog > … > .DialogBodyText > .Body (ErrorText,
+   описание, input.TextInput[type=password]). У Steam: Motiva Sans, белый
+   заголовок 22 px, поле — серо-синее, 3 px, 35 px, max-width 25 %.
+   Класса-корня у диалога нет (ParentalUnlock в DOM не попадает) —
+   узнаём по полю пароля в .Body. Снято через CDP 2026-10-06.
+   ========================================================================== */
+
+html .GenericConfirmDialog:has(.Body > input.TextInput[type="password"]) .DialogHeader {
+    color: var(--aika-fg);
+    font-family: var(--aika-font-ui);
+    font-size: var(--aika-text-h2);
+    font-weight: var(--aika-weight-semibold);
+    letter-spacing: var(--aika-tracking-h2);
+}
+
+html .GenericConfirmDialog:has(.Body > input.TextInput[type="password"]) .DialogBodyText {
+    color: var(--aika-fg-muted);
+    font-family: var(--aika-font-ui);
+    font-size: var(--aika-text-body);
+    text-align: center;
+}
+
+html .GenericConfirmDialog .Body:has(> input.TextInput[type="password"]) .ErrorText {
+    color: var(--aika-live);
+    font-family: var(--aika-font-ui);
+}
+
+/* Поле: четыре ячейки. Точки — моно-шрифтом с шагом --aika-pin-pitch,
+   первая сдвинута на середину ячейки; под каждой ячейкой — черта
+   (повторяющийся градиент). Цвет черты — --aika-pin-line (по состоянию). */
+html .GenericConfirmDialog .Body > input.TextInput[type="password"] {
+    --aika-pin-line: var(--aika-border-strong);
+    box-sizing: content-box;
+    width: calc(var(--aika-pin-digits) * var(--aika-pin-pitch));
+    max-width: none;
+    height: var(--aika-pin-height);
+    padding: 0 var(--aika-space-3);
+    border: var(--aika-hairline) solid var(--aika-border-strong);
+    border-radius: var(--aika-radius-lg);
+    background:
+        repeating-linear-gradient(
+            90deg,
+            var(--aika-transparent) 0 var(--aika-pin-line-inset),
+            var(--aika-pin-line) var(--aika-pin-line-inset) calc(var(--aika-pin-pitch) - var(--aika-pin-line-inset)),
+            var(--aika-transparent) calc(var(--aika-pin-pitch) - var(--aika-pin-line-inset)) var(--aika-pin-pitch)
+        )
+        var(--aika-space-3) calc(100% - var(--aika-pin-line-bottom)) / calc(var(--aika-pin-digits) * var(--aika-pin-pitch)) var(--aika-pin-line-width) no-repeat,
+        var(--aika-bg-raised);
+    box-shadow: none;
+    color: var(--aika-fg);
+    caret-color: var(--aika-accent);
+    font-family: var(--aika-font-mono);
+    font-size: var(--aika-pin-font-size);
+    letter-spacing: calc(var(--aika-pin-pitch) - var(--aika-pin-glyph));
+    text-align: left;
+    text-indent: calc((var(--aika-pin-pitch) - var(--aika-pin-glyph)) / 2);
+    transition:
+        border-color var(--aika-dur-fast) var(--aika-ease-hover),
+        box-shadow var(--aika-dur-base) var(--aika-ease);
+}
+
+html .GenericConfirmDialog .Body > input.TextInput[type="password"]:hover {
+    border-color: var(--aika-border-hover);
+}
+
+html .GenericConfirmDialog .Body > input.TextInput[type="password"]:focus {
+    --aika-pin-line: var(--aika-border-accent);
+    border-color: var(--aika-accent);
+    box-shadow: var(--aika-shadow-input-focus);
+    outline: none;
 }
