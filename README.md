@@ -47,9 +47,11 @@
 | Друзья и чат | Список друзей, личный чат, мини-профили | Групповой и голосовой чат, запросы в друзья |
 | Загрузки | Всё | — |
 | Настройки и окна | Настройки, свойства игры, диалоги | Окно входа |
-| Общее | Меню, подсказки, уведомление о загрузке | Другие уведомления, пресеты, Big Picture, оверлей |
+| Общее | Меню, подсказки, уведомления (сообщение, «играет в», загрузка) — жидкое стекло | Другие уведомления, пресеты, Big Picture, оверлей |
 
 ## Лицензии
 
-Шрифты Inter, Geist Mono и Fraunces — SIL Open Font License 1.1
-(`assets/fonts/OFL-*.txt`).
+Шрифты Inter, Geist Mono, Fraunces, UnifrakturMaguntia и Shojumaru —
+SIL Open Font License 1.1 (`assets/fonts/OFL-*.txt`). Жидкое стекло
+уведомлений — [hyalite](https://github.com/VII-Cae/hyalite--liquid-glass),
+MIT (`js/vendor/LICENSE-hyalite.txt`).

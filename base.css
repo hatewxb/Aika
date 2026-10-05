@@ -43,6 +43,26 @@
     font-display: swap;
 }
 
+/* Надпись «Aika» на фоне уведомлений (components/toast.css): готический
+   UnifrakturMaguntia и латиница «под японскую кисть» Shojumaru. Только
+   латиница — для одного слова этого хватает. Выбор — Conditions
+   «Надпись в уведомлениях». */
+@font-face {
+    font-family: "UnifrakturMaguntia";
+    src: url("./assets/fonts/UnifrakturMaguntia-Book.ttf") format("truetype");
+    font-weight: 400;
+    font-style: normal;
+    font-display: block;
+}
+
+@font-face {
+    font-family: "Shojumaru";
+    src: url("./assets/fonts/Shojumaru-Regular.ttf") format("truetype");
+    font-weight: 400;
+    font-style: normal;
+    font-display: block;
+}
+
 /* --------------------------------------------------------------------------
    Типографика по умолчанию. Элементы Steam со своим font-family
    переопределяются в sections/ — здесь только наследуемая основа.

@@ -52,6 +52,29 @@
                 }
             }
         },
+        "Надпись в уведомлениях": {
+            "description": "Шрифт надписи «Aika» на фоне всплывающих уведомлений.",
+            "tab": "Уведомления",
+            "default": "Готическая",
+            "values": {
+                "Готическая": {},
+                "Японская": {
+                    "TargetCss": { "affects": [".*"], "src": "options/toast-mark-brush.css" }
+                }
+            }
+        },
+        "Плотность уведомлений": {
+            "description": "Насколько уведомление закрывает рабочий стол: меньше — прозрачнее.",
+            "tab": "Уведомления",
+            "default": 62,
+            "slider": {
+                "cssVariable": "--aika-setting-toast-tint",
+                "min": 20,
+                "max": 95,
+                "step": 5,
+                "unit": "%"
+            }
+        },
         "Радиус свечения": {
             "description": "Размер свечения за курсором, в пикселях.",
             "tab": "Расширенное",
@@ -86,7 +109,8 @@
         },
         {
             "MatchRegexString": ".DesktopToastContainer",
-            "TargetCss": "toast.css"
+            "TargetCss": "toast.css",
+            "TargetJs": "js/toast-glass.js"
         },
         {
             "MatchRegexString": "^https://store\\.steampowered\\.com/app/.*",

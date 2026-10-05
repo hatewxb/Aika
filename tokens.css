@@ -11,6 +11,8 @@
     --aika-font-ui: "Inter", "Geist", "Segoe UI Variable", "Segoe UI", system-ui, sans-serif;
     --aika-font-mono: "Geist Mono", "JetBrains Mono", "Cascadia Code", monospace;
     --aika-font-display: "Fraunces", "Source Serif 4", Georgia, serif;
+    --aika-font-gothic: "UnifrakturMaguntia", "Old English Text MT", serif;
+    --aika-font-brush: "Shojumaru", "Fraunces", serif;
 
     --aika-text-display: clamp(36px, 4vw, 56px);
     --aika-text-h1: clamp(24px, 20px + 0.4vw, 28px);
@@ -377,4 +379,15 @@
        ------------------------------------------------------------------ */
     --aika-scrollbar-size: 10px;
     --aika-scrollbar-inset: 3px;   /* прозрачная рамка: ползунок тоньше полосы */
+
+    /* ------------------------------------------------------------------
+       Всплывающие уведомления (components/toast.css). Шрифт надписи —
+       Conditions «Надпись в уведомлениях» (options/toast-mark-*.css).
+       ------------------------------------------------------------------ */
+    --aika-toast-mark-font: var(--aika-font-gothic);
+    --aika-toast-mark-size: 54px;
+    --aika-toast-mark-right: 10px;
+    --aika-toast-mark-bottom: 0px;
+    --aika-toast-mark-tilt: -6deg;
+    --aika-toast-text-shadow-size: 0 1px 2px;
 }

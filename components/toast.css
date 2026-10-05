@@ -1,17 +1,34 @@
 /* ==========================================================================
-   components/toast.css — всплывающее уведомление клиента (DESIGN.md §4,
-   тултипы и всплывающие слои — единственное место для полупрозрачности).
+   components/toast.css — всплывающее уведомление клиента: жидкое стекло
+   (DESIGN.md §11, 2026-10-06 — единственное место со стеклом в теме).
 
-   Steam (снято 2026-10-05 наблюдателем tools/watch-window.js на «Загрузка
-   завершена»):
-     body.DesktopToastContainer > div > .DesktopToastPopup — карточка
-       (серо-синий радиальный градиент, без скругления);
-       .DesktopToastBackground svg — декоративный узор;
-       .StandardTemplateContainer > .DesktopToastTemplate —
-         .AppLogo (обложка 44×44) + .Content:
-           .Header (.Icon + .Title — «Загрузка завершена», #8b929a),
-           .StandardNotificationDescription — главное (белое),
-           .StandardNotificationSubText — пояснение (#8b929a).
+   Слои карточки, снизу вверх:
+     .DesktopToastPopup          — карточка (прозрачная, скругление);
+       .aika-toast-scene         — слой из js/toast-glass.js: тонировка, пятна
+                                   и .aika-toast-mark — надпись «Aika» (готика /
+                                   «японская кисть», Conditions «Надпись
+                                   в уведомлениях») вместо узора-логотипа Steam;
+                                   hyalite гнёт его у краёв (filter: --hyalite);
+     .DesktopToastTemplate       — содержимое Steam, блик и кромка стекла.
+
+   Рабочий стол за окном стекло не преломляет и не размывает: окно
+   уведомления — отдельное окно ОС, страница его не видит. Почему не
+   backdrop-filter — js/toast-glass.js.
+
+   Steam (снято 2026-10-06 через NotificationStore.TestFriendMessage /
+   TestFriendIngame в SharedJSContext и tools/watch-window.js):
+     body.DesktopToastContainer (283×70) > div > .DesktopToastPopup —
+       карточка (серо-синий радиальный градиент);
+       .DesktopToastBackground svg — узор-логотип Steam;
+       .DesktopToastTemplate — содержимое:
+         .StandardLogoDimensions (аватар/обложка 44×44),
+         .AvatarStatus.online|.ingame|.offline — полоска статуса 3×44,
+         .Content > .Header (.Icon + .Title | .IngameTitle — имя друга)
+                  > .Body (.GroupMessageUserName — имя,
+                           .GroupMessageBody — текст сообщения,
+                           .FriendInGameAppColor — название игры),
+         .StandardNotificationDescription / .StandardNotificationSubText —
+           «Загрузка завершена» и другие системные.
    ========================================================================== */
 
 html:has(> body.DesktopToastContainer),
@@ -19,29 +36,114 @@ html body.DesktopToastContainer {
     background: var(--aika-transparent);
 }
 
+/* --------------------------------------------------------------------------
+   Карточка и сцена под стеклом.
+   Сцена — слой .aika-toast-scene из js/toast-glass.js (его гнёт hyalite);
+   без JS те же тонировка, пятна и надпись рисуются на самой карточке.
+   -------------------------------------------------------------------------- */
+
 html .DesktopToastContainer .DesktopToastPopup {
+    position: relative;
+    overflow: hidden;
+    isolation: isolate;
+    border-radius: var(--aika-radius-lg);
+    color: var(--aika-fg-muted);
+    background: var(--aika-transparent);
+}
+
+html .DesktopToastContainer .DesktopToastPopup:not(:has(> .aika-toast-scene)),
+html .DesktopToastContainer .aika-toast-scene {
+    background:
+        radial-gradient(70% 140% at 0% 0%, var(--aika-toast-light-1), var(--aika-transparent) 70%),
+        radial-gradient(60% 130% at 100% 100%, var(--aika-toast-light-3), var(--aika-transparent) 70%),
+        var(--aika-toast-tint);
+}
+
+html .DesktopToastContainer .aika-toast-scene {
+    position: absolute;
+    inset: 0;
+    z-index: 0;
     overflow: hidden;
     border-radius: var(--aika-radius-lg);
-    background: var(--aika-bg-elevated);
-    color: var(--aika-fg-muted);
+    filter: var(--hyalite, none);
+    pointer-events: none;
+}
+
+/* Узор-логотип Steam заменяет надпись «Aika»; подсветку Steam при наведении
+   (::before, голубая) — тоже убираем */
+html .DesktopToastContainer .DesktopToastPopup .DesktopToastBackground,
+html .DesktopToastContainer .DesktopToastPopup::before {
+    display: none;
+}
+
+html .DesktopToastContainer .DesktopToastPopup:not(:has(> .aika-toast-scene))::after,
+html .DesktopToastContainer .aika-toast-mark {
+    content: "Aika";
+    position: absolute;
+    right: var(--aika-toast-mark-right);
+    bottom: var(--aika-toast-mark-bottom);
+    z-index: 0;
+    font-family: var(--aika-toast-mark-font);
+    font-size: var(--aika-toast-mark-size);
+    font-weight: 400;
+    line-height: 1;
+    white-space: nowrap;
+    color: var(--aika-transparent);
+    background: linear-gradient(120deg, var(--aika-toast-mark-from), var(--aika-toast-mark-to));
+    -webkit-background-clip: text;
+    background-clip: text;
+    transform: rotate(var(--aika-toast-mark-tilt));
+    pointer-events: none;
+}
+
+/* --------------------------------------------------------------------------
+   Стекло: содержимое Steam поверх сцены, блик сверху и тонкая кромка
+   (в режиме self hyalite кромку не рисует — она здесь)
+   -------------------------------------------------------------------------- */
+
+html .DesktopToastContainer .DesktopToastPopup .DesktopToastTemplate {
+    position: relative;
+    z-index: 1;
+    border-radius: var(--aika-radius-lg);
+    background: linear-gradient(to bottom, var(--aika-toast-sheen), var(--aika-transparent) 45%);
     box-shadow:
-        inset 0 0 0 var(--aika-hairline) var(--aika-border-accent),
-        inset var(--aika-indicator) 0 0 0 var(--aika-accent);
+        inset 0 var(--aika-hairline) 0 0 var(--aika-toast-rim-top),
+        inset 0 calc(-1 * var(--aika-hairline)) 0 0 var(--aika-toast-rim-bottom),
+        inset 0 0 0 var(--aika-hairline) var(--aika-border-accent);
 }
 
-/* Декоративный узор Steam — едва заметный акцентный */
-html .DesktopToastContainer .DesktopToastPopup .DesktopToastBackground {
-    opacity: 0.15;
+/* --------------------------------------------------------------------------
+   Содержимое — поверх стекла, с тенью: читается над любым рабочим столом
+   -------------------------------------------------------------------------- */
+
+html .DesktopToastContainer .DesktopToastTemplate :is(.Content, .AppLogo, .StandardLogoDimensions) {
+    position: relative;
 }
 
-html .DesktopToastContainer .DesktopToastPopup .DesktopToastBackground svg path {
-    fill: var(--aika-accent);
+html .DesktopToastContainer .DesktopToastTemplate .Content {
+    text-shadow: var(--aika-toast-text-shadow-size) var(--aika-toast-text-shadow);
 }
 
-html .DesktopToastContainer .DesktopToastTemplate .AppLogo,
+html .DesktopToastContainer .DesktopToastTemplate :is(.AppLogo, .StandardLogoDimensions),
 html .DesktopToastContainer .DesktopToastTemplate .AppLogo :is(.Container, img) {
     overflow: hidden;
     border-radius: var(--aika-radius-md);
+}
+
+/* Полоска статуса у аватара — пилюля в цветах темы */
+html .DesktopToastContainer .DesktopToastTemplate .AvatarStatus {
+    margin-left: var(--aika-space-1);
+    border-radius: var(--aika-radius-full);
+    background-color: var(--aika-fg-subtle);
+    box-shadow: none;
+}
+
+html .DesktopToastContainer .DesktopToastTemplate .AvatarStatus.online {
+    background-color: var(--aika-accent-bright);
+}
+
+html .DesktopToastContainer .DesktopToastTemplate .AvatarStatus.ingame {
+    background-color: var(--aika-ok);
 }
 
 html .DesktopToastContainer .DesktopToastTemplate .Header .Icon {
@@ -53,17 +155,31 @@ html .DesktopToastContainer .DesktopToastTemplate .Header .Icon svg :is(path, ci
 }
 
 html .DesktopToastContainer .DesktopToastTemplate .Header .Title {
-    color: var(--aika-fg-subtle);
+    color: var(--aika-fg-muted);
     font-size: var(--aika-text-label);
     letter-spacing: var(--aika-tracking-label);
     text-transform: uppercase;
 }
 
+/* Имя друга: в сообщении и в «играет в» */
+html .DesktopToastContainer .DesktopToastTemplate :is(.GroupMessageUserName, .IngameTitle),
 html .DesktopToastContainer .DesktopToastTemplate .StandardNotificationDescription {
     color: var(--aika-fg);
+    font-family: var(--aika-font-ui);
     font-weight: var(--aika-weight-medium);
 }
 
+html .DesktopToastContainer .DesktopToastTemplate .GroupMessageBody,
 html .DesktopToastContainer .DesktopToastTemplate .StandardNotificationSubText {
     color: var(--aika-fg-muted);
+}
+
+html .DesktopToastContainer .DesktopToastTemplate .GroupMessageBody .GroupMessageIcon {
+    color: var(--aika-accent-bright);
+}
+
+/* Во что играет — как в списке друзей (sections/friends.css) */
+html .DesktopToastContainer .DesktopToastTemplate .FriendInGameAppColor {
+    color: var(--aika-ok);
+    font-weight: var(--aika-weight-medium);
 }

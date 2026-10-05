@@ -134,6 +134,22 @@ html:root {
     --aika-scrim: rgba(7, 6, 6, 0.75);
     --aika-scrim-none: rgba(7, 6, 6, 0);
 
+    /* ------------------------------------------------------------------
+       Всплывающие уведомления (components/toast.css, DESIGN.md §11):
+       полупрозрачная карточка над рабочим столом, под стеклом — пятна
+       света и надпись «Aika». Плотность тонировки — ползунок
+       «Плотность уведомлений» (--aika-setting-toast-tint, проценты).
+       ------------------------------------------------------------------ */
+    --aika-toast-tint: color-mix(in srgb, var(--aika-bg-base) var(--aika-setting-toast-tint, 62%), transparent);
+    --aika-toast-light-1: rgb(from var(--aika-light-1) r g b / 0.55);
+    --aika-toast-light-3: rgb(from var(--aika-light-3) r g b / 0.30);
+    --aika-toast-mark-from: rgb(from var(--aika-accent-bright) r g b / 0.55);
+    --aika-toast-mark-to: rgb(from var(--aika-light-2) r g b / 0.30);
+    --aika-toast-sheen: rgba(255, 246, 236, 0.07);   /* блик по верхней половине стекла */
+    --aika-toast-rim-top: rgba(255, 246, 236, 0.22); /* светлая кромка сверху */
+    --aika-toast-rim-bottom: rgba(0, 0, 0, 0.30);    /* тёмная кромка снизу */
+    --aika-toast-text-shadow: rgba(0, 0, 0, 0.55);   /* текст читается над любым рабочим столом */
+
     /* Полностью прозрачный — чтобы «убирать» фоны Steam без голых значений */
     --aika-transparent: rgba(255, 246, 236, 0);
 }
