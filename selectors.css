@@ -1680,3 +1680,209 @@ html .TitleBar .Button.ParentalToggleButton._3arz-hc3FJ0QKXLPRUSaah:not(._2lStU4
 html .TitleBar .Button.ParentalToggleButton._3arz-hc3FJ0QKXLPRUSaah:not(._2lStU4uLIW5pByb98vQdpO) ._34bQcTHo5QKzuujoEyU1tm {
     color: var(--aika-accent-bright);
 }
+
+/* ==========================================================================
+   [Магазин, новости] Окно новости на веб-страницах (store…/news/app/…,
+   «Новостной центр»): тот же React-модуль, что в клиенте
+   (sections/game-page.css, «Окно новости»), но без читаемых классов —
+   только хэши. Карта хэш → имя из клиента:
+     ._1HRiMtg_SGUiOa-NXDzZl7  — AppPartnerEventsBanner («Новостной центр»)
+     ._2EV_WNLGjRLNX824mfis9O  — рамка логотипа в баннере
+     ._2tSyrRxMCRWK6K09JErgI_  — ControlSectionRightSide (кнопки справа)
+     ._1_vCR1dPfyJ7_yukwDqblf  — CloseButton, ._1t_97P9KMsEBaPq9y-6OUl — ScrollButton
+     ._3GCEyyVil-cCS-8hoI2Zo1  — AppPartnerEventsContainer
+     ._1KsYSVzmvIfRivBTcx-_GE  — PartnerEvent (+ ._3_SEiDNs-lzwV7cTF6gcgt — InLibraryView)
+     ._2-IygC3-t05_RYwPl6Fkgt  — обложка, .stsss-bTNuazY8FYtvTOX — размытая обложка
+     ._3z2NYCkFizMu4fMvWTIBUG  — EventDetailTitleContainer
+     .Udzrpqr8534T5DvVZveNP    — EventType, ._4LAnPYKRPeF-QDReu_VGm — «Опубликовано»,
+     .MBkkhT4wei3tWetnWbiqn    — дата, ._2VqeQaZVaUkkEWaiLkmqmT — автор
+     .TqEPC9bhvVpZ1rb3Z8Mbd    — заголовок, ._20f2sKS2M7PlPSnPCinT26 — подзаголовок
+     .A_A2B6fTn_MPLlGCmsLtd    — EventDetailsBody (.uT9FPw… — YouTube)
+     .mKmrOjr9bGjKAolgp9NoD    — полоса «Нравится / Обсудить / Поделиться»:
+       ._3Kelh1-_v6xHfRjF68n7NB, ._16xC0mtOWoLbvSQbmo_ycv, ._3ctGqQID5-8adtd7HlZ3YM — плашки,
+       ._3csl-MPe-hKuT8hQpOqEG5, .QQy4BCjcpjCfAvTKAqBq3 — счётчики,
+       ._1ABCOz8DSrl-YJdh1xD-m0 — кнопки
+   Steam: те же серо-синие #42454c → #25282e, голубой тип #289cff, баннер
+   #3d424c с белым свечением, вуаль rgba(0,0,0,.8). Сила Steam до (0,3,0).
+   В клиенте хэши те же — правила совпадают с game-page.css, не мешают.
+   Проверено: 2026-10-07, store…/news/app/593110 (осенняя распродажа).
+   Как найти: открыть новость в «Новостном центре» → .ModalOverlayContent.active.
+   ========================================================================== */
+
+html ._1HRiMtg_SGUiOa-NXDzZl7.AppPartnerEventsBanner {
+    border-bottom: var(--aika-hairline) solid var(--aika-border);
+    background: var(--aika-bg-elevated);
+    background-image: radial-gradient(ellipse at bottom center, var(--aika-accent-tint), var(--aika-accent-none) 70%);
+}
+
+html ._1HRiMtg_SGUiOa-NXDzZl7 ._2EV_WNLGjRLNX824mfis9O {
+    overflow: hidden;
+    border-radius: var(--aika-radius-md);
+}
+
+html ._1HRiMtg_SGUiOa-NXDzZl7 ._1iqjH40fN4Diar-d-rLbR5 {
+    color: var(--aika-fg);
+}
+
+html ._3GCEyyVil-cCS-8hoI2Zo1 ._1KsYSVzmvIfRivBTcx-_GE._3_SEiDNs-lzwV7cTF6gcgt {
+    overflow: hidden;
+    border: var(--aika-hairline) solid var(--aika-border-accent);
+    border-radius: var(--aika-radius-xl);
+    background: var(--aika-bg-elevated);
+    background-image: var(--aika-card-accent-bg);
+    box-shadow: var(--aika-shadow-event);
+}
+
+html ._1KsYSVzmvIfRivBTcx-_GE img._2-IygC3-t05_RYwPl6Fkgt {
+    border-radius: 0;
+    background: var(--aika-bg-raised);
+}
+
+html ._1KsYSVzmvIfRivBTcx-_GE img.stsss-bTNuazY8FYtvTOX {
+    opacity: var(--aika-blur-cover-opacity);
+}
+
+html ._1KsYSVzmvIfRivBTcx-_GE ._3z2NYCkFizMu4fMvWTIBUG {
+    border-bottom: var(--aika-hairline) solid var(--aika-border);
+    background: radial-gradient(ellipse at bottom center, var(--aika-accent-tint), var(--aika-accent-none) 70%);
+}
+
+html ._1KsYSVzmvIfRivBTcx-_GE ._3bWTO29arCCJ6PBGRZ7fRy ._2WwG2r8yZuu2EMJgFTQZp8 .Udzrpqr8534T5DvVZveNP {
+    padding: var(--aika-badge-pad-y) var(--aika-space-2);
+    border-radius: var(--aika-radius-full);
+    background: var(--aika-accent-soft);
+    box-shadow: inset 0 0 0 var(--aika-hairline) var(--aika-border-accent);
+    color: var(--aika-accent-bright);
+    font-family: var(--aika-font-mono);
+    font-size: var(--aika-text-label);
+    letter-spacing: var(--aika-tracking-label);
+    text-transform: none;
+}
+
+html ._1KsYSVzmvIfRivBTcx-_GE :is(._4LAnPYKRPeF-QDReu_VGm, .MBkkhT4wei3tWetnWbiqn) {
+    color: var(--aika-fg-subtle);
+    font-family: var(--aika-font-mono);
+    font-size: var(--aika-text-label);
+    text-transform: none;
+}
+
+html ._1KsYSVzmvIfRivBTcx-_GE ._2VqeQaZVaUkkEWaiLkmqmT {
+    color: var(--aika-fg-subtle);
+}
+
+html ._1KsYSVzmvIfRivBTcx-_GE a.TqEPC9bhvVpZ1rb3Z8Mbd {
+    color: var(--aika-fg);
+    font-weight: var(--aika-weight-semibold);
+    letter-spacing: var(--aika-tracking-h2);
+}
+
+html ._1KsYSVzmvIfRivBTcx-_GE ._20f2sKS2M7PlPSnPCinT26 {
+    color: var(--aika-fg-muted);
+}
+
+html ._1KsYSVzmvIfRivBTcx-_GE .A_A2B6fTn_MPLlGCmsLtd {
+    color: var(--aika-fg-muted);
+}
+
+html ._1KsYSVzmvIfRivBTcx-_GE .A_A2B6fTn_MPLlGCmsLtd :is(b, strong, h1, h2, h3) {
+    color: var(--aika-fg);
+}
+
+html ._1KsYSVzmvIfRivBTcx-_GE .A_A2B6fTn_MPLlGCmsLtd a:not(.LinkButton, .WidgetTag) {
+    color: var(--aika-accent-bright);
+}
+
+html ._1KsYSVzmvIfRivBTcx-_GE .A_A2B6fTn_MPLlGCmsLtd a:not(.LinkButton, .WidgetTag):hover {
+    color: var(--aika-fg);
+}
+
+/* Картинки и встроенный YouTube (img + iframe в .uT9FPw…) — скруглены */
+html ._1KsYSVzmvIfRivBTcx-_GE .A_A2B6fTn_MPLlGCmsLtd :is(img, video, .uT9FPw-RIxscziWGUKvsY) {
+    overflow: hidden;
+    border-radius: var(--aika-radius-lg);
+}
+
+html ._1KsYSVzmvIfRivBTcx-_GE > .mKmrOjr9bGjKAolgp9NoD {
+    border-top: var(--aika-hairline) solid var(--aika-border);
+    background: var(--aika-transparent);
+}
+
+html ._1KsYSVzmvIfRivBTcx-_GE :is(._3Kelh1-_v6xHfRjF68n7NB, ._16xC0mtOWoLbvSQbmo_ycv, ._3ctGqQID5-8adtd7HlZ3YM) {
+    border-radius: var(--aika-radius-lg);
+    background: var(--aika-surface);
+    box-shadow: inset 0 0 0 var(--aika-hairline) var(--aika-border);
+}
+
+html ._1KsYSVzmvIfRivBTcx-_GE :is(._3csl-MPe-hKuT8hQpOqEG5, .QQy4BCjcpjCfAvTKAqBq3) {
+    color: var(--aika-accent-bright);
+    font-family: var(--aika-font-mono);
+}
+
+html ._1KsYSVzmvIfRivBTcx-_GE :is(._3csl-MPe-hKuT8hQpOqEG5, .QQy4BCjcpjCfAvTKAqBq3) svg {
+    fill: currentColor;
+}
+
+html ._1KsYSVzmvIfRivBTcx-_GE ._1ABCOz8DSrl-YJdh1xD-m0._1dDpSuaJBGZzS41s0SPk4c {
+    border-radius: var(--aika-radius-md);
+    background: var(--aika-surface);
+    box-shadow: var(--aika-shadow-secondary);
+    color: var(--aika-fg);
+    transition:
+        background-color var(--aika-dur-fast) var(--aika-ease-hover),
+        box-shadow var(--aika-dur-base) var(--aika-ease);
+}
+
+html ._1KsYSVzmvIfRivBTcx-_GE ._1ABCOz8DSrl-YJdh1xD-m0._1dDpSuaJBGZzS41s0SPk4c:hover {
+    background: var(--aika-surface-hover);
+    box-shadow: var(--aika-shadow-secondary-hover);
+    color: var(--aika-fg);
+}
+
+html ._1KsYSVzmvIfRivBTcx-_GE ._1ABCOz8DSrl-YJdh1xD-m0 :is(svg, svg path) {
+    fill: var(--aika-fg-muted);
+}
+
+html ._1KsYSVzmvIfRivBTcx-_GE ._1ABCOz8DSrl-YJdh1xD-m0:hover :is(svg, svg path) {
+    fill: var(--aika-accent-bright);
+}
+
+html ._2tSyrRxMCRWK6K09JErgI_ :is(._1_vCR1dPfyJ7_yukwDqblf, ._1t_97P9KMsEBaPq9y-6OUl) {
+    border: var(--aika-hairline) solid var(--aika-border-hover);
+    background: var(--aika-bg-raised);
+    box-shadow: var(--aika-highlight-top), 0 4px 20px var(--aika-shadow-near);
+    transition:
+        background-color var(--aika-dur-fast) var(--aika-ease-hover),
+        border-color var(--aika-dur-fast) var(--aika-ease-hover),
+        box-shadow var(--aika-dur-base) var(--aika-ease);
+}
+
+html ._2tSyrRxMCRWK6K09JErgI_ ._1t_97P9KMsEBaPq9y-6OUl {
+    border-radius: var(--aika-radius-md);
+}
+
+html ._2tSyrRxMCRWK6K09JErgI_ :is(._1_vCR1dPfyJ7_yukwDqblf, ._1t_97P9KMsEBaPq9y-6OUl):hover {
+    border-color: var(--aika-border-accent);
+    background: var(--aika-bg-hover);
+    box-shadow: var(--aika-highlight-top), 0 0 20px var(--aika-accent-haze);
+}
+
+html ._2tSyrRxMCRWK6K09JErgI_ ._1_vCR1dPfyJ7_yukwDqblf svg {
+    stroke: var(--aika-fg-muted);
+}
+
+html ._2tSyrRxMCRWK6K09JErgI_ ._1_vCR1dPfyJ7_yukwDqblf:hover svg {
+    stroke: var(--aika-fg);
+}
+
+html ._2tSyrRxMCRWK6K09JErgI_ ._1t_97P9KMsEBaPq9y-6OUl svg polygon {
+    fill: var(--aika-fg-muted);
+}
+
+html ._2tSyrRxMCRWK6K09JErgI_ ._1t_97P9KMsEBaPq9y-6OUl:hover svg polygon {
+    fill: var(--aika-accent-bright);
+}
+
+/* Затемнение под окном: чёрное 80 % → тёплая вуаль темы */
+html .ModalOverlayContent.ModalOverlayBackground {
+    background: var(--aika-scrim);
+}

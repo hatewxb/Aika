@@ -1383,3 +1383,224 @@ html .PlayBar .Row.SharedLibrary a.ChooseButton:hover {
     box-shadow: var(--aika-shadow-secondary-hover);
     color: var(--aika-fg);
 }
+
+/* --------------------------------------------------------------------------
+   Окно новости (клик по событию в ленте или «Что нового»): поверх страницы
+   игры .AppPartnerEventsPage — лента открытых событий .PartnerEvent.InLibraryView
+   и колонка кнопок справа (.ControlSectionRightSide: закрыть, вверх/вниз,
+   иконка игры). Steam: серо-синий радиальный градиент #42454c → #25282e,
+   радиус 4 px, голубой тип события #289cff капсом, ссылки #80bcd2, серые
+   кнопки #44444b, голубые счётчики #399aec. Хэши (0,1,0)…(0,3,0).
+   Проверено 2026-10-07 на «Ведьмак 3» (хотфикс 5.00c, крупное обновление).
+   -------------------------------------------------------------------------- */
+
+html .AppPartnerEventsContainer .PartnerEvent.InLibraryView {
+    overflow: hidden;
+    border: var(--aika-hairline) solid var(--aika-border-accent);
+    border-radius: var(--aika-radius-xl);
+    background: var(--aika-bg-elevated);
+    background-image: var(--aika-card-accent-bg);
+    box-shadow: var(--aika-shadow-event);
+}
+
+/* Обложка сверху — углы и так срезает overflow: hidden панели */
+html .PartnerEvent.InLibraryView img.EventCoverImageBackground {
+    border-radius: 0;
+    background: var(--aika-bg-raised);
+}
+
+/* Размытая обложка под текстом: серая дымка → мягкая цветная подсветка */
+html .PartnerEvent.InLibraryView img.EventBackgroundBlur {
+    opacity: var(--aika-blur-cover-opacity);
+}
+
+/* Полоса заголовка: белое радиальное свечение снизу → акцентное */
+html .PartnerEvent.InLibraryView .EventDetailTitleContainer {
+    border-bottom: var(--aika-hairline) solid var(--aika-border);
+    background: radial-gradient(ellipse at bottom center, var(--aika-accent-tint), var(--aika-accent-none) 70%);
+}
+
+/* Тип события («Крупное обновление», «Новость») — акцентный бейдж */
+html .PartnerEvent.InLibraryView .EventTypeAndTimeRow .TimeandPostedBy .EventType {
+    padding: var(--aika-badge-pad-y) var(--aika-space-2);
+    border-radius: var(--aika-radius-full);
+    background: var(--aika-accent-soft);
+    box-shadow: inset 0 0 0 var(--aika-hairline) var(--aika-border-accent);
+    color: var(--aika-accent-bright);
+    font-family: var(--aika-font-mono);
+    font-size: var(--aika-text-label);
+    letter-spacing: var(--aika-tracking-label);
+    text-transform: none;
+}
+
+/* «Опубликовано» + дата — моно, без капса */
+html .PartnerEvent.InLibraryView .EventDetailTimeInfo :is(.RightSideTitles, .ShortDateAndTime) {
+    color: var(--aika-fg-subtle);
+    font-family: var(--aika-font-mono);
+    font-size: var(--aika-text-label);
+    text-transform: none;
+}
+
+html .PartnerEvent.InLibraryView .TimeandPostedBy .PostedBy {
+    color: var(--aika-fg-subtle);
+}
+
+html .PartnerEvent.InLibraryView a.EventDetailTitle {
+    color: var(--aika-fg);
+    font-weight: var(--aika-weight-semibold);
+    letter-spacing: var(--aika-tracking-h2);
+}
+
+html .PartnerEvent.InLibraryView .EventDetailsBody {
+    color: var(--aika-fg-muted);
+}
+
+html .PartnerEvent.InLibraryView .EventDetailsBody :is(b, strong, h1, h2, h3) {
+    color: var(--aika-fg);
+}
+
+/* Ссылки в тексте: голубой #80bcd2 Steam (0,1,1) */
+html .PartnerEvent.InLibraryView .EventDetailsBody a:not(.LinkButton, .WidgetTag) {
+    color: var(--aika-accent-bright);
+}
+
+html .PartnerEvent.InLibraryView .EventDetailsBody a:not(.LinkButton, .WidgetTag):hover {
+    color: var(--aika-fg);
+}
+
+/* Картинки и видео в тексте — скруглённые */
+html .PartnerEvent.InLibraryView .EventDetailsBody :is(img, video, .PreviewYouTubeVideo) {
+    border-radius: var(--aika-radius-lg);
+}
+
+html .PartnerEvent.InLibraryView .PreviewYouTubeVideo {
+    overflow: hidden;
+}
+
+/* Заглушка YouTube-ролика: блок #16181c с PNG-логотипом Steam в голубом
+   кольце (.SteamLogoThrobber, картинка не анимирована). Блок —
+   скруглённая поверхность, вместо логотипа — вращающееся акцентное кольцо
+   (анимируется только transform). */
+html .PartnerEvent.InLibraryView .YoutubePlayer {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: var(--aika-radius-lg);
+    background: var(--aika-bg-raised);
+    box-shadow: inset 0 0 0 var(--aika-hairline) var(--aika-border);
+}
+
+html .PartnerEvent.InLibraryView .YoutubePlayer .SteamLogoThrobber {
+    width: auto;
+    height: auto;
+}
+
+html .PartnerEvent.InLibraryView .YoutubePlayer .SteamLogoThrobber .NewThrobber {
+    width: var(--aika-throbber-size);
+    height: var(--aika-throbber-size);
+    border: var(--aika-throbber-width) solid var(--aika-accent-soft);
+    border-top-color: var(--aika-accent);
+    border-radius: var(--aika-radius-full);
+    animation: aika-spin var(--aika-dur-spin) linear infinite;
+}
+
+html .PartnerEvent.InLibraryView .YoutubePlayer .SteamLogoThrobber .NewThrobber img {
+    display: none;
+}
+
+@keyframes aika-spin {
+    to { transform: rotate(1turn); }
+}
+
+/* Нижняя полоса «Нравится / Обсудить / Поделиться»: белое свечение сверху,
+   плашки rgba(30,33,38,.5), кнопки #3d4450 радиус 2 px, счётчики #399aec */
+html .PartnerEvent.InLibraryView > .Container.Panel {
+    border-top: var(--aika-hairline) solid var(--aika-border);
+    background: var(--aika-transparent);
+}
+
+html .PartnerEvent.InLibraryView :is(.VoteContainer, .DiscussContainer, .ShareContainer) {
+    border-radius: var(--aika-radius-lg);
+    background: var(--aika-surface);
+    box-shadow: inset 0 0 0 var(--aika-hairline) var(--aika-border);
+}
+
+html .PartnerEvent.InLibraryView :is(.VoteCount, .DiscussionCount) {
+    color: var(--aika-accent-bright);
+    font-family: var(--aika-font-mono);
+}
+
+html .PartnerEvent.InLibraryView :is(.VoteCount, .DiscussionCount) svg {
+    fill: currentColor;
+}
+
+html .PartnerEvent.InLibraryView .Button.DiscussionButton {
+    border-radius: var(--aika-radius-md);
+    background: var(--aika-surface);
+    box-shadow: var(--aika-shadow-secondary);
+    color: var(--aika-fg);
+    transition:
+        background-color var(--aika-dur-fast) var(--aika-ease-hover),
+        box-shadow var(--aika-dur-base) var(--aika-ease);
+}
+
+html .PartnerEvent.InLibraryView .Button.DiscussionButton:hover {
+    background: var(--aika-surface-hover);
+    box-shadow: var(--aika-shadow-secondary-hover);
+    color: var(--aika-fg);
+}
+
+/* Значки в кнопках («палец», «поделиться»): белый 66 % у svg и path */
+html .PartnerEvent.InLibraryView .Button.DiscussionButton :is(svg, svg path) {
+    fill: var(--aika-fg-muted);
+}
+
+html .PartnerEvent.InLibraryView .Button.DiscussionButton:hover :is(svg, svg path) {
+    fill: var(--aika-accent-bright);
+}
+
+/* Кнопки справа (закрыть, вверх/вниз, игра): серые #44444b с рамкой
+   #63636d и чёрной тенью 32 px → непрозрачные secondary-иконки */
+html .AppPartnerEventsBody .ControlSectionRightSide :is(.CloseButton, .ScrollButton) {
+    border: var(--aika-hairline) solid var(--aika-border-hover);
+    background: var(--aika-bg-raised);
+    box-shadow: var(--aika-highlight-top), 0 4px 20px var(--aika-shadow-near);
+    transition:
+        background-color var(--aika-dur-fast) var(--aika-ease-hover),
+        border-color var(--aika-dur-fast) var(--aika-ease-hover),
+        box-shadow var(--aika-dur-base) var(--aika-ease);
+}
+
+html .AppPartnerEventsBody .ControlSectionRightSide .ScrollButton {
+    border-radius: var(--aika-radius-md);
+}
+
+html .AppPartnerEventsBody .ControlSectionRightSide :is(.CloseButton, .ScrollButton):hover {
+    border-color: var(--aika-border-accent);
+    background: var(--aika-bg-hover);
+    box-shadow: var(--aika-highlight-top), 0 0 20px var(--aika-accent-haze);
+}
+
+html .AppPartnerEventsBody .ControlSectionRightSide :is(.CloseButton, .ScrollButton) svg {
+    color: var(--aika-fg-muted);
+    fill: var(--aika-fg-muted);
+    stroke: var(--aika-fg-muted);
+}
+
+html .AppPartnerEventsBody .ControlSectionRightSide .CloseButton:hover svg {
+    color: var(--aika-fg);
+    stroke: var(--aika-fg);
+}
+
+/* Стрелки: заливка задана у самого polygon (серо-фиолетовый #9e9ead) */
+html .AppPartnerEventsBody .ControlSectionRightSide .ScrollButton svg polygon {
+    fill: var(--aika-fg-muted);
+}
+
+html .AppPartnerEventsBody .ControlSectionRightSide .ScrollButton:not(.GameArt):hover svg polygon {
+    fill: var(--aika-accent-bright);
+}
+
+html .AppPartnerEventsBody .ControlSectionRightSide .ScrollButton.GameArt img {
+    border-radius: calc(var(--aika-radius-md) - var(--aika-hairline));
+}

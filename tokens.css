@@ -335,6 +335,17 @@
     --aika-submenu-gap: 6px;          /* видимый зазор меню → подменю (js/menu-gap.js) */
     --aika-modal-topbar: linear-gradient(to right, var(--aika-transparent), var(--aika-accent-bright) 50%, var(--aika-transparent));
     --aika-dur-shimmer: 2.8s;        /* перелив по заливке */
+    /* Кольцо загрузки вместо PNG-логотипа Steam (.SteamLogoThrobber) */
+    --aika-throbber-size: 40px;
+    --aika-throbber-width: 3px;
+    --aika-dur-spin: 0.9s;
+
+    /* Окно новости (.PartnerEvent.InLibraryView): акцентное свечение + глубина */
+    --aika-shadow-event:
+        var(--aika-highlight-top),
+        0 0 40px var(--aika-accent-haze),
+        0 8px 40px var(--aika-shadow-deep);
+    --aika-badge-pad-y: 2px;         /* вертикальный отступ бейджа-пилюли */
 
     /* Статусы (DESIGN.md §4, Status & Labels) */
     --aika-dot: 6px;                 /* точка статуса ● */
