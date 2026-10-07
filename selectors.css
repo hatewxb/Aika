@@ -1717,10 +1717,17 @@ html ._1HRiMtg_SGUiOa-NXDzZl7.AppPartnerEventsBanner {
 
 /* Баннер игры на странице её новостей (store…/news/app/…): тот же
    #3d424c с белым свечением, другой хэш — ._2zTu0OPJoqo1BXb1J9pDJ2 */
+/* Баннер закреплён сверху (position: fixed). Сплошной с линией снизу
+   давал резкий край над лентой (правка автора 2026-10-07) — подложка
+   и размытая обложка гаснут к нижнему краю */
 html ._2zTu0OPJoqo1BXb1J9pDJ2 {
-    border-bottom: var(--aika-hairline) solid var(--aika-border);
-    background: var(--aika-bg-elevated);
-    background-image: radial-gradient(ellipse at bottom center, var(--aika-accent-tint), var(--aika-accent-none) 70%);
+    border-bottom: none;
+    background: var(--aika-banner-fade);
+}
+
+html ._2zTu0OPJoqo1BXb1J9pDJ2 .wavRtSPqcvhar0kUHlKoJ ._3RHFoIvdUHn0fp8G8M258k {
+    -webkit-mask-image: var(--aika-banner-mask);
+    mask-image: var(--aika-banner-mask);
 }
 
 /* Размытая обложка игры на всю ширину баннера (.wavRt… ._3RHFo…,
@@ -2072,10 +2079,12 @@ html ._1e3WbBz7-mqMKmK8HnpzFF ._3yqpPRFLwr6ETVDgLGT37s .r3Dia2Yw2X-goqFn-_UPT ._
     background: var(--aika-transparent);
 }
 
-/* Шапка раздела прилипает к верху — нужна непрозрачная подложка
-   (у Steam background-color: inherit от раздела) */
+/* Шапка раздела прилипает к верху — за подписью нужна плотная подложка
+   (у Steam background-color: inherit от раздела). Сплошная резала страницу
+   чёрными полосами поверх пятен света (скрин «3_с…», правка автора
+   2026-10-07) — подложка гаснет к верхнему и нижнему краю */
 html ._1e3WbBz7-mqMKmK8HnpzFF ._3yqpPRFLwr6ETVDgLGT37s .r3Dia2Yw2X-goqFn-_UPT ._398u23KF15gxmeH741ZSyL._3j2deAP85R6gftsIWiHe7n {
-    background: var(--aika-bg-base);
+    background: var(--aika-sticky-fade);
 }
 
 html ._1e3WbBz7-mqMKmK8HnpzFF ._3yqpPRFLwr6ETVDgLGT37s .r3Dia2Yw2X-goqFn-_UPT ._398u23KF15gxmeH741ZSyL._3j2deAP85R6gftsIWiHe7n .bcTEUtZM5us_nPhh-83J9 {

@@ -347,6 +347,20 @@
         0 8px 40px var(--aika-shadow-deep);
     --aika-badge-pad-y: 2px;         /* вертикальный отступ бейджа-пилюли */
 
+    /* Подложка прилипающей шапки («Новостной центр»): плотная за текстом,
+       прозрачная у краёв — без резкой полосы на фоне с пятнами света */
+    --aika-sticky-fade: linear-gradient(to bottom,
+        var(--aika-transparent),
+        var(--aika-scrim) 30%,
+        var(--aika-scrim) 70%,
+        var(--aika-transparent));
+    /* Закреплённый баннер игры («Новостной центр»): плотный сверху,
+       к низу прозрачный; маска — для размытой обложки в нём */
+    --aika-banner-fade: linear-gradient(to bottom,
+        var(--aika-bg-elevated) 55%,
+        var(--aika-transparent));
+    --aika-banner-mask: linear-gradient(to bottom, var(--aika-bg-deep) 55%, var(--aika-transparent)); /* маске важна только альфа */
+
     /* Статусы (DESIGN.md §4, Status & Labels) */
     --aika-dot: 6px;                 /* точка статуса ● */
     --aika-dur-pulse: 2.4s;          /* пульс «живой» точки */
