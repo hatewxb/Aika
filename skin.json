@@ -2,7 +2,7 @@
     "name": "Aika",
     "author": "hatewxb",
     "description": "Тёплая тёмная тема для Steam: Fluent-структура, панели в духе файловой системы и мягкие пятна света на почти чёрном фоне.",
-    "version": "0.1.0a",
+    "version": "0.1.0b",
     "tags": ["Fluent", "Dark", "Warm", "Minimal", "WIP"],
 
     "RootColors": "root-colors.css",
