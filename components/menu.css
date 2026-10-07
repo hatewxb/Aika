@@ -202,3 +202,130 @@ html .HoverPosition .TextToolTip {
     font-family: var(--aika-font-ui);
     font-size: var(--aika-text-meta);
 }
+
+/* --------------------------------------------------------------------------
+   Выпадашка уведомлений (колокольчик в шапке; окно «Notifications Menu»,
+   скрины 8 и 10). Внутри нашей коробки .contextMenu Steam рисует свою:
+   .NotificationsMenu — рамка 1 px #000, две inset-тени, прямые углы и
+   серо-синий радиальный фон. Вместе с нашей скруглённой коробкой это
+   читалось двойной рамкой (правка автора 2026-10-07) — внутреннюю убираем.
+   Карточки — шаблон .AllNotificationsTemplate (обычная — чёрный 20 %,
+   непрочитанная .Unread — #3d4450 с рамкой, hover — #474f5c), значок
+   типа и время #8b929a / #67707b, точка «новое» — зелёная #57a11c.
+   Классы — читаемые имена из CSS-модуля Steam (рядом с хэшем), сила
+   Steam (0,1,0)…(0,2,0). Проверено 2026-10-07.
+   -------------------------------------------------------------------------- */
+
+html .contextMenu .contextMenuContents.NotificationsMenu {
+    border: none;
+    border-radius: var(--aika-radius-lg);
+    background: var(--aika-transparent);
+    box-shadow: none;
+}
+
+html .NotificationsMenu .NotificationHeader .AllNotificationsTitle {
+    color: var(--aika-fg);
+    font-weight: var(--aika-weight-semibold);
+}
+
+/* «Показать все»: серо-голубая #3d4450 (hover #67707b) → secondary */
+html .NotificationsMenu .NotificationHeader .AllNotificationsButton {
+    border-radius: var(--aika-radius-md);
+    background-color: var(--aika-surface);
+    box-shadow: var(--aika-shadow-secondary);
+    color: var(--aika-fg);
+    font-family: var(--aika-font-ui);
+    transition:
+        background-color var(--aika-dur-fast) var(--aika-ease-hover),
+        box-shadow var(--aika-dur-base) var(--aika-ease);
+}
+
+html .NotificationsMenu .NotificationHeader .AllNotificationsButton:hover {
+    background-color: var(--aika-surface-hover);
+    box-shadow: var(--aika-shadow-secondary-hover);
+}
+
+html .NotificationsMenu .EmptyNotificationsCtn .EmptyNotificationsTitle {
+    color: var(--aika-fg);
+}
+
+html .NotificationsMenu .EmptyNotificationsCtn .EmptyNotificationsBody {
+    color: var(--aika-fg-subtle);
+}
+
+/* Список: карточки с зазором и скруглением */
+html .NotificationsMenu .NotificationsMenuEntriesContainer {
+    gap: var(--aika-space-1);
+}
+
+html .NotificationsMenu .NotificationMenuItem {
+    overflow: hidden;
+    border-radius: var(--aika-radius-md);
+}
+
+html .NotificationsMenu .NotificationMenuItem:hover {
+    background: var(--aika-transparent);
+}
+
+html .NotificationsMenu .AllNotificationsTemplate {
+    border: var(--aika-hairline) solid var(--aika-transparent);
+    border-radius: var(--aika-radius-md);
+    background: var(--aika-surface);
+    transition:
+        background-color var(--aika-dur-fast) var(--aika-ease-hover),
+        border-color var(--aika-dur-fast) var(--aika-ease-hover);
+}
+
+html .NotificationsMenu .AllNotificationsTemplate:hover {
+    border-color: var(--aika-border-hover);
+    background: var(--aika-surface-hover);
+}
+
+/* Непрочитанное — акцентная подложка и обводка */
+html .NotificationsMenu .AllNotificationsTemplate.Unread,
+html .NotificationsMenu .AllNotificationsTemplate.Unread:hover {
+    border-color: var(--aika-border-accent);
+    background: var(--aika-accent-soft);
+}
+
+html .NotificationsMenu .AllNotificationsTemplate .StandardNotificationDescription,
+html .NotificationsMenu .AllNotificationsTemplate.Unread .StandardNotificationDescription {
+    color: var(--aika-fg);
+}
+
+html .NotificationsMenu .AllNotificationsTemplate .StandardNotificationSubText {
+    color: var(--aika-fg-muted);
+}
+
+/* Строка «значок · тип · время» */
+html .NotificationsMenu .AllNotificationsTemplate :is(.Title, .Header) {
+    color: var(--aika-fg-subtle);
+    font-family: var(--aika-font-ui);
+}
+
+html .NotificationsMenu .AllNotificationsTemplate .Timestamp {
+    color: var(--aika-fg-subtle);
+    font-family: var(--aika-font-mono);
+}
+
+html .NotificationsMenu .AllNotificationsTemplate .Icon,
+html .NotificationsMenu .AllNotificationsTemplate .Icon svg {
+    color: var(--aika-fg-subtle);
+    fill: var(--aika-fg-subtle);
+}
+
+/* Обложка/логотип слева (у Steam чёрная рамка и тень) */
+html .NotificationsMenu .AllNotificationsTemplate .AppLogo > img {
+    border: none;
+    border-radius: var(--aika-radius-xs);
+    box-shadow: var(--aika-shadow-cover);
+}
+
+/* Точка «новое»: зелёная со свечением → акцент */
+html .NotificationsMenu .AllNotificationsTemplate .NewIndicator {
+    filter: drop-shadow(0 0 4px var(--aika-accent-glow));
+}
+
+html .NotificationsMenu .AllNotificationsTemplate .NewIndicator svg {
+    color: var(--aika-accent-bright);
+}
