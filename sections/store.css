@@ -203,7 +203,9 @@ html:root:is(:has(> body.v6), :has(> body > #StoreTemplate)) {
    (ссылка на распродажу), его не трогаем.
    -------------------------------------------------------------------------- */
 
-html body.v6.v6,
+/* «Новостной центр»: html body.events_hub.v6 (0,2,2), #171a21 —
+   отсюда тройной .v6 */
+html body.v6.v6.v6,
 html body:has(> #StoreTemplate) {
     background: var(--aika-transparent);
     color: var(--aika-fg-muted);

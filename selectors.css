@@ -1723,6 +1723,14 @@ html ._2zTu0OPJoqo1BXb1J9pDJ2 {
     background-image: radial-gradient(ellipse at bottom center, var(--aika-accent-tint), var(--aika-accent-none) 70%);
 }
 
+/* Размытая обложка игры на всю ширину баннера (.wavRt… ._3RHFo…,
+   blur 60px, 40 %, opacity .6): на светлых артах (снег «Ведьмака»)
+   читалась серо-голубой полосой — гасим до тёмной цветной подсветки */
+html ._2zTu0OPJoqo1BXb1J9pDJ2 .wavRtSPqcvhar0kUHlKoJ ._3RHFoIvdUHn0fp8G8M258k {
+    filter: var(--aika-blur-cover-filter);
+    opacity: var(--aika-blur-cover-opacity);
+}
+
 html ._2zTu0OPJoqo1BXb1J9pDJ2 ._2EV_WNLGjRLNX824mfis9O {
     overflow: hidden;
     border-radius: var(--aika-radius-md);
@@ -2163,6 +2171,10 @@ html ._1E3Anhs34BXsWWWqH4RNPL .sUBHF-Qdb_RUPYOBkgO1a ._1LkWXJVxWYdKiKf2Mxq3zs[cl
     font-size: var(--aika-text-label);
     letter-spacing: var(--aika-tracking-label);
     text-transform: none;
+    /* строка — flex и последняя в колонке (flex-grow: 1 у Steam): без
+       этого пилюля тянулась на всю её высоту (в компактной карточке
+       42 px) и «сползала» вниз; держим её вверху, вровень с датой */
+    align-self: flex-start;
 }
 
 html ._1E3Anhs34BXsWWWqH4RNPL .sUBHF-Qdb_RUPYOBkgO1a ._2xdhMrjKEposPfgPK9UPe- {
