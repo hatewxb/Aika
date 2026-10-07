@@ -806,3 +806,219 @@ html .followed_game_actions .btnv6_blue_hoverfade:not(.btn_disabled):not(:disabl
 html .friends_header_bg {
     background: radial-gradient(ellipse 60% 100% at 50% 100%, var(--aika-accent-tint), var(--aika-transparent) 70%);
 }
+
+/* ==========================================================================
+   «Редактировать профиль» (steamcommunity…/edit/…, body.profile_edit_page)
+   — задача 7 (скрин «7_перекрас настроек профиля»). Здесь читаемые классы
+   Steam: заголовки, подписи, круглые переключатели, «Приватность»
+   (.ProfilePrivacy*), старые витрины во вкладке «Управление витринами»
+   (.profile_customization*, .profile_showcase_*). Хэш-классы редактора
+   (меню вкладок, сетки выбора, превью) — в selectors.css.
+   Steam: серо-голубой текст #acb2b8 / #939ea7, голубые заголовки #66c0f4,
+   голубые круглые переключатели, серо-синие плашки витрин.
+   Проверено 2026-10-07, все 10 вкладок.
+   ========================================================================== */
+
+/* Базовый текст страницы (#969696) и имя в шапке (#ebebeb) */
+html body.profile_edit_page .responsive_page_frame {
+    color: var(--aika-fg-muted);
+}
+
+html body.profile_edit_page .profile_small_header_text a.whiteLink,
+html body.profile_edit_page .profile_small_header_text a.whiteLink span {
+    color: var(--aika-fg);
+}
+
+/* Звёздочка «обязательное поле» (#c15755) */
+html body.profile_edit_page .DialogLabel .DialogInputRequirementLabel {
+    color: var(--aika-live);
+}
+
+html body.profile_edit_page :is(.DialogHeader, .profile_customization_header) {
+    color: var(--aika-fg);
+    font-weight: var(--aika-weight-semibold);
+    letter-spacing: var(--aika-tracking-h2);
+}
+
+html body.profile_edit_page .DialogBodyText {
+    color: var(--aika-fg-muted);
+}
+
+html body.profile_edit_page .DialogBodyText a {
+    color: var(--aika-accent-bright);
+}
+
+/* Подписи полей («ИМЯ ПРОФИЛЯ») — метки темы: моно, приглушённо */
+html body.profile_edit_page .DialogLabel {
+    color: var(--aika-fg-subtle);
+    font-family: var(--aika-font-mono);
+    font-size: var(--aika-text-label);
+    letter-spacing: var(--aika-tracking-label);
+}
+
+html body.profile_edit_page .DialogLabelExplainer {
+    color: var(--aika-fg-subtle);
+}
+
+html body.profile_edit_page :is(.DialogToggle_Label, .DialogToggle_Label span) {
+    color: var(--aika-fg-muted);
+}
+
+/* Круглые переключатели («Полный экран / Исходный размер»): голубой
+   градиент #00ccff → #2d73ff со свечением → акцент */
+html body.profile_edit_page .DialogRoundCheckboxField_Control {
+    background-color: var(--aika-surface-active);
+    box-shadow: inset 0 0 0 var(--aika-hairline) var(--aika-border-strong);
+}
+
+html body.profile_edit_page .DialogRoundCheckboxField_OuterCircle {
+    box-shadow: none;
+}
+
+html body.profile_edit_page .DialogRoundCheckboxField_InnerCircle {
+    background: var(--aika-accent);
+    box-shadow: 0 0 8px var(--aika-accent-glow);
+}
+
+/* --- «Приватность» -------------------------------------------------------- */
+
+html body.profile_edit_page .ProfilePrivacyRoot .ProfilePrivacyHeader {
+    color: var(--aika-fg);
+    font-weight: var(--aika-weight-semibold);
+}
+
+html body.profile_edit_page .ProfilePrivacyRoot :is(.ProfilePrivacyDesc, .ProfilePrivacyDesc p, .ProfilePrivacyCheckbox_Desc) {
+    color: var(--aika-fg-muted);
+}
+
+html body.profile_edit_page .ProfilePrivacyRoot a {
+    color: var(--aika-accent-bright);
+}
+
+html body.profile_edit_page .ProfilePrivacyRoot a:hover {
+    color: var(--aika-fg);
+}
+
+/* Значение «Открытый / Только друзья» (и только для чтения) */
+html body.profile_edit_page .ProfilePrivacyHeader :is(.ProfilePrivacyDropDown, .ProfilePrivacyDropDown .DialogDropDown_CurrentDisplay) {
+    color: var(--aika-accent-bright);
+}
+
+html body.profile_edit_page .ProfilePrivacyHeader .ProfilePrivacyDropDown svg :is(polygon, path) {
+    fill: currentColor;
+}
+
+/* Разделитель: синий градиент #3d4d5e → линия темы, гаснущая вправо */
+html body.profile_edit_page .ProfilePrivacyHR {
+    background: linear-gradient(to right, var(--aika-border-strong), var(--aika-transparent));
+}
+
+/* --- «Управление витринами»: старая вёрстка витрин ----------------------- */
+
+/* Область сортировки (#3a3e47 50 %) и плашка витрины (серо-синий градиент) */
+html body.profile_edit_page .customization_edit_area {
+    border-radius: var(--aika-radius-xl);
+    background: var(--aika-transparent);
+}
+
+html body.profile_edit_page .customization_edit_area .profile_showcase_selector {
+    overflow: hidden;
+    margin-bottom: var(--aika-space-3);
+    border: var(--aika-hairline) solid var(--aika-border);
+    border-radius: var(--aika-radius-lg);
+    background: var(--aika-card-bg);
+    box-shadow: var(--aika-highlight-top);
+}
+
+html body.profile_edit_page .profile_customization {
+    border-radius: var(--aika-radius-lg);
+    background: var(--aika-surface);
+}
+
+html body.profile_edit_page .profile_customization_block {
+    border-radius: var(--aika-radius-md);
+}
+
+/* Стрелки «вверх/вниз» — треугольники из рамок #657081 */
+html body.profile_edit_page .profile_showcase_sort_btn.profile_showcase_sort_up {
+    border-bottom-color: var(--aika-fg-subtle);
+}
+
+html body.profile_edit_page .profile_showcase_sort_btn.profile_showcase_sort_down {
+    border-top-color: var(--aika-fg-subtle);
+}
+
+html body.profile_edit_page .profile_showcase_sort_btn:hover.profile_showcase_sort_up {
+    border-bottom-color: var(--aika-accent-bright);
+}
+
+html body.profile_edit_page .profile_showcase_sort_btn:hover.profile_showcase_sort_down {
+    border-top-color: var(--aika-accent-bright);
+}
+
+/* «Выбор витрины»: уголки-скобки #4e5665 вокруг списка */
+html body.profile_edit_page :is(.showcase_selection_pre, .showcase_selection_post) {
+    border-color: var(--aika-border-strong);
+}
+
+/* Списки, поля и кнопки старой вёрстки (.gray_bevel — #3d4450,
+   голубая тень; btnv6_white_transparent — белая рамка; btn_grey_black) */
+html body.profile_edit_page select.gray_bevel,
+html body.profile_edit_page .gray_bevel:is(.for_text_input, .fullwidth) {
+    border: var(--aika-hairline) solid var(--aika-border-hover);
+    border-radius: var(--aika-radius-md);
+    background: var(--aika-bg-raised);
+    box-shadow: none;
+    color: var(--aika-fg);
+}
+
+html body.profile_edit_page .gray_bevel :is(input, textarea) {
+    background: var(--aika-transparent);
+    color: var(--aika-fg);
+}
+
+html body.profile_edit_page .customization_controls_nextprev .btnv6_white_transparent > span {
+    border-color: var(--aika-border-hover);
+    border-radius: var(--aika-radius-md);
+    color: var(--aika-fg-muted);
+}
+
+html body.profile_edit_page .customization_controls_nextprev .btnv6_white_transparent:hover > span {
+    border-color: var(--aika-border-accent);
+    background: var(--aika-surface-hover);
+    color: var(--aika-fg);
+}
+
+html body.profile_edit_page .profile_customization .btn_grey_black {
+    border-radius: var(--aika-radius-md);
+    background: var(--aika-surface);
+    box-shadow: var(--aika-shadow-secondary);
+}
+
+html body.profile_edit_page .profile_customization .btn_grey_black > span {
+    background: var(--aika-transparent);
+    color: var(--aika-fg);
+}
+
+/* Витрина «Любимая группа»: название (#ebebeb / #828282), «в игре»
+   зелёный #8bc53f → ok, «в сети» голубой #62a7e3 → акцент */
+html body.profile_edit_page .favoritegroup_showcase_group .favoritegroup_namerow {
+    color: var(--aika-fg-subtle);
+}
+
+html body.profile_edit_page .favoritegroup_showcase_group a.favoritegroup_name {
+    color: var(--aika-fg);
+}
+
+html body.profile_edit_page .favoritegroup_stats .favoritegroup_ingame .value {
+    color: var(--aika-ok);
+}
+
+html body.profile_edit_page .favoritegroup_stats .favoritegroup_online .value {
+    color: var(--aika-accent-bright);
+}
+
+html body.profile_edit_page .profile_customization .showcase_stat .label,
+html body.profile_edit_page .profile_customization .showcase_bodylabel {
+    color: var(--aika-fg-subtle);
+}

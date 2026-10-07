@@ -2303,3 +2303,354 @@ html ._1E3Anhs34BXsWWWqH4RNPL._2X_hMZpqI8fyqbeFPi4JPj ._3xvUZtQ1j-pu-l2xy-lFAq .
     border-radius: var(--aika-radius-md);
     background-color: var(--aika-bg-raised);
 }
+
+/* ==========================================================================
+   [Сообщество] «Редактировать профиль» (steamcommunity…/edit/…) — React-
+   редактор, хэш-классы. Читаемая часть — sections/community.css.
+   Карта:
+     ._2kqKZFxhF8XvzaoAekjV7m  — корень редактора (текст #acb2b8)
+     ._33Kl16vpskBOQpwINGA8ah  — меню вкладок слева:
+       ._1YOt2792y012GM8bOQs0kh a — «В профиль» (#999)
+       ._58Mghr8vhm_-IZP3Mkcb_   — разделитель (2 px, белый 10 %)
+       a._3rtIpqfC_9VWz4DRSTPach — пункт (#999, hover — выезжающий #3d4450),
+         + ._3H7Awq1oAhxrdDo3ANR4mu — выбранный (#3d4450, белый)
+       a._1xCANgh2DSCcadDX6X0PpT — «Предметы за очки» (голубой контур #78a9e2)
+     .uwqwoAlIVWyJ8l71i77-i     — раздел формы, ._2CGYg9che0ONznDOoGhp9Y — его
+       заголовок (капс #e4e4e4, линия 2 px)
+     textarea._2ipSt29jAqoPXf-_iTAL0- — «О себе»; button.Aupswi7-c-w3XwNO5cp2i
+       (.RVIs84dAE6wHcjH9tkinc) — смайлики (#2c3036); ._5BtHMjT9usALaSWHGugdV —
+       точка «новое» на ней (жёлтая)
+     .tRhOKu2T5OVX1RhENVwWb    — «?» у подписи (svg #aaa)
+     ._20EDLy9ziFgZhS3jI4b1FG  — подложка сетки выбора (чёрный 20 %, радиус 3)
+     ._1UoAvYFtO-OEv3DMwZCL8A  — блок «Ваши аватары / рамки», ._2pum1YNak3hPxNcovBkHLM — заголовок
+     Карточки выбора (у выбранной — голубая подпись #2e83c9):
+       фон профиля   — ._189ERe_A-jhzSSRw4f2Hw (+ .evPn26xhwAuh_SlWNY26E),
+                       картинка ._2Zeggw-2qC5ma2qpjzHRlF, подпись ._1xKo7wTahW2CJNXn4Gfkxj
+                       (.o0PlP8_WMy75QKdhVlbov / ._3yGh0iLXIo7GSx2Pg69p8j)
+       мини-профиль  — ._1kB6_rUcA_VRp7MER6E0Vi (+ .B-qJhQJWkxUckMndLyqeR),
+                       картинка ._1JFlRrkeYJegFK8xCBRfYw, подпись ._3-aXJM9nyOBORZvUQyQ3ap
+       игровой проф. — ._3NIiYdehUu4wAz6rNXR_OB (+ ._3nePJyNcthWMTkF4NSI7aI),
+                       картинка ._2GvFUUI49ePmg62crk2qDO, подпись .v3WjrE9N9goFIJQPWYt2y
+       «нет» (пустой вариант): ._19sKX1Sg9icPcVJAPT7kN0 / .Gd3-pJ25GXL-bDaQAnChb —
+                       серо-синий радиальный градиент
+       аватары/рамки — ._1aa4CwlUeZE1tRZGOsRPx9; выбранная рамка «без рамки» —
+                       .Z3REHSppX48KICnAjjh90 (голубое кольцо) > ._2TBs_xzgkuwXPkgIBiITOJ (#25282e)
+       значки        — ._2ODUBJas15JwSZWN9fWb07, ._3Y40HABkqaQQVn7lIX0Rm9 (#b1b1b1),
+                       .k5TyflBXF_FmpbYNKfggk (#6b6a6a)
+       группы        — ._1yHxtA_qbj9xWiLkUiovpE, .aUFBJvbETNq6EL-n8KopY
+       темы          — ._39ksjd1_LKKPt0CIOhnMF7, кружок-превью svg._36oStJXlvGWLdFxYUgNyg-
+                       (рамка #3a3e47 50 %; цвета внутри — сами темы Steam, не трогаем),
+                       подпись .mHggMG8QHavW0I9eosXGZ
+     .uyN_gy4zQkYOLt9JjhqwO svg — схема профиля без фона (серо-синие прямоугольники)
+     Превью мини-профиля — те же хэши, что в клиенте (._2jZ0A5VjGTNGTQm03FbLrF и др.)
+     footer.TT1_g1XWXbbLgxOPIpczV — подвал Valve (ссылки и значки #8b929a)
+   Сила Steam: меню (0,3,0)…(0,4,0), остальное (0,1,0)…(0,2,0).
+   Проверено: 2026-10-07, все вкладки редактора.
+   ========================================================================== */
+
+html body.profile_edit_page ._2kqKZFxhF8XvzaoAekjV7m {
+    color: var(--aika-fg-muted);
+}
+
+/* --- Меню вкладок -------------------------------------------------------- */
+
+html body.profile_edit_page ._1YOt2792y012GM8bOQs0kh a {
+    color: var(--aika-fg-subtle);
+}
+
+html body.profile_edit_page ._1YOt2792y012GM8bOQs0kh a:hover {
+    color: var(--aika-fg);
+}
+
+html body.profile_edit_page ._2kqKZFxhF8XvzaoAekjV7m ._58Mghr8vhm_-IZP3Mkcb_ {
+    border-top: var(--aika-hairline) solid var(--aika-border);
+}
+
+/* Пункт: у Steam заливка выезжает слева (background-position градиента) —
+   у нас плавная подложка, выбранный — акцент с полоской, как в настройках */
+html body.profile_edit_page ._2kqKZFxhF8XvzaoAekjV7m ._33Kl16vpskBOQpwINGA8ah a._3rtIpqfC_9VWz4DRSTPach {
+    border-radius: var(--aika-radius-md);
+    background: var(--aika-transparent);
+    color: var(--aika-fg-muted);
+    transition:
+        background-color var(--aika-dur-fast) var(--aika-ease-hover),
+        color var(--aika-dur-fast) var(--aika-ease-hover);
+}
+
+html body.profile_edit_page ._2kqKZFxhF8XvzaoAekjV7m ._33Kl16vpskBOQpwINGA8ah a._3rtIpqfC_9VWz4DRSTPach:hover {
+    background: var(--aika-surface-hover);
+    color: var(--aika-fg);
+}
+
+html body.profile_edit_page ._2kqKZFxhF8XvzaoAekjV7m ._33Kl16vpskBOQpwINGA8ah a._3rtIpqfC_9VWz4DRSTPach._3H7Awq1oAhxrdDo3ANR4mu {
+    background: var(--aika-accent-soft);
+    box-shadow: inset var(--aika-indicator) 0 0 var(--aika-accent);
+    color: var(--aika-accent-bright);
+}
+
+/* «Предметы за очки» — secondary-кнопка вместо голубого контура */
+html body.profile_edit_page ._2kqKZFxhF8XvzaoAekjV7m ._33Kl16vpskBOQpwINGA8ah a._1xCANgh2DSCcadDX6X0PpT {
+    border: none;
+    border-radius: var(--aika-radius-md);
+    background: var(--aika-surface);
+    box-shadow: var(--aika-shadow-secondary);
+    color: var(--aika-fg);
+    transition:
+        background-color var(--aika-dur-fast) var(--aika-ease-hover),
+        box-shadow var(--aika-dur-base) var(--aika-ease);
+}
+
+html body.profile_edit_page ._2kqKZFxhF8XvzaoAekjV7m ._33Kl16vpskBOQpwINGA8ah a._1xCANgh2DSCcadDX6X0PpT:hover {
+    background: var(--aika-surface-hover);
+    box-shadow: var(--aika-shadow-secondary-hover);
+    color: var(--aika-fg);
+}
+
+/* --- Форма ---------------------------------------------------------------- */
+
+/* Заголовок раздела («ОСНОВНОЕ», «О СЕБЕ»): капс #e4e4e4 и линия 2 px */
+html body.profile_edit_page .uwqwoAlIVWyJ8l71i77-i ._2CGYg9che0ONznDOoGhp9Y {
+    border-bottom: var(--aika-hairline) solid var(--aika-border);
+    color: var(--aika-fg);
+    font-weight: var(--aika-weight-semibold);
+    text-transform: none;
+}
+
+html body.profile_edit_page .tRhOKu2T5OVX1RhENVwWb > svg,
+html body.profile_edit_page .tRhOKu2T5OVX1RhENVwWb > svg path {
+    color: var(--aika-fg-subtle);
+    fill: var(--aika-fg-subtle);
+}
+
+/* «О себе» — как поля темы */
+html body.profile_edit_page textarea._2ipSt29jAqoPXf-_iTAL0- {
+    border: var(--aika-hairline) solid var(--aika-border-hover);
+    border-radius: var(--aika-radius-md);
+    background-color: var(--aika-bg-raised);
+    box-shadow: none;
+    color: var(--aika-fg);
+}
+
+html body.profile_edit_page textarea._2ipSt29jAqoPXf-_iTAL0-:focus {
+    border-color: var(--aika-border-accent);
+    box-shadow: var(--aika-shadow-input-focus);
+}
+
+/* Кнопка смайликов под «О себе» */
+html body.profile_edit_page .RVIs84dAE6wHcjH9tkinc.Aupswi7-c-w3XwNO5cp2i {
+    border: none;
+    border-radius: var(--aika-radius-md);
+    background-color: var(--aika-surface);
+    box-shadow: var(--aika-shadow-secondary);
+}
+
+html body.profile_edit_page .RVIs84dAE6wHcjH9tkinc.Aupswi7-c-w3XwNO5cp2i:hover {
+    background-color: var(--aika-surface-hover);
+}
+
+html body.profile_edit_page .RVIs84dAE6wHcjH9tkinc.Aupswi7-c-w3XwNO5cp2i svg path {
+    fill: var(--aika-fg-muted);
+}
+
+/* Точка «есть новые смайлики»: жёлтая с оранжевым ореолом → акцент */
+html body.profile_edit_page .RVIs84dAE6wHcjH9tkinc ._5BtHMjT9usALaSWHGugdV {
+    background: radial-gradient(circle, var(--aika-accent-glow), var(--aika-transparent) 70%);
+}
+
+html body.profile_edit_page .RVIs84dAE6wHcjH9tkinc ._5BtHMjT9usALaSWHGugdV .u5Kx6dkUppvb-1qV4IIuy {
+    background-color: var(--aika-accent-bright);
+}
+
+/* --- Сетки выбора --------------------------------------------------------- */
+
+html body.profile_edit_page :is(._20EDLy9ziFgZhS3jI4b1FG, ._1UoAvYFtO-OEv3DMwZCL8A) {
+    border: var(--aika-hairline) solid var(--aika-border);
+    border-radius: var(--aika-radius-xl);
+    background: var(--aika-surface);
+}
+
+html body.profile_edit_page ._1UoAvYFtO-OEv3DMwZCL8A ._2pum1YNak3hPxNcovBkHLM {
+    color: var(--aika-fg);
+    font-weight: var(--aika-weight-semibold);
+}
+
+/* Картинки карточек — скруглённые, при наведении акцентная обводка */
+html body.profile_edit_page :is(._2Zeggw-2qC5ma2qpjzHRlF, ._1JFlRrkeYJegFK8xCBRfYw, ._2GvFUUI49ePmg62crk2qDO, ._1aa4CwlUeZE1tRZGOsRPx9) {
+    overflow: hidden;
+    border-radius: var(--aika-radius-md);
+    background-color: var(--aika-bg-raised);
+    transition: box-shadow var(--aika-dur-base) var(--aika-ease);
+}
+
+html body.profile_edit_page :is(._189ERe_A-jhzSSRw4f2Hw, ._1kB6_rUcA_VRp7MER6E0Vi, ._3NIiYdehUu4wAz6rNXR_OB):hover :is(._2Zeggw-2qC5ma2qpjzHRlF, ._1JFlRrkeYJegFK8xCBRfYw, ._2GvFUUI49ePmg62crk2qDO),
+html body.profile_edit_page ._1aa4CwlUeZE1tRZGOsRPx9:hover {
+    box-shadow: 0 0 0 var(--aika-hairline) var(--aika-border-accent), 0 0 16px var(--aika-accent-haze);
+}
+
+/* Выбранная карточка: картинка — акцентное кольцо */
+html body.profile_edit_page :is(._189ERe_A-jhzSSRw4f2Hw.evPn26xhwAuh_SlWNY26E ._2Zeggw-2qC5ma2qpjzHRlF, ._1kB6_rUcA_VRp7MER6E0Vi.B-qJhQJWkxUckMndLyqeR ._1JFlRrkeYJegFK8xCBRfYw, ._3NIiYdehUu4wAz6rNXR_OB._3nePJyNcthWMTkF4NSI7aI ._2GvFUUI49ePmg62crk2qDO) {
+    box-shadow: 0 0 0 2px var(--aika-accent), 0 0 20px var(--aika-accent-glow);
+}
+
+/* Подписи карточек: название и подзаголовок */
+html body.profile_edit_page :is(._1xKo7wTahW2CJNXn4Gfkxj .o0PlP8_WMy75QKdhVlbov, ._3-aXJM9nyOBORZvUQyQ3ap ._2l5zy4BaLwvaZNuUvyQnU6, .v3WjrE9N9goFIJQPWYt2y ._3be6DMXFaQOXetdgMvAlAB) {
+    color: var(--aika-fg);
+}
+
+html body.profile_edit_page :is(._1xKo7wTahW2CJNXn4Gfkxj ._3yGh0iLXIo7GSx2Pg69p8j, ._3-aXJM9nyOBORZvUQyQ3ap .xmRMR8QAsdIDgZA0PoBxy, .v3WjrE9N9goFIJQPWYt2y ._2SYZ_HWvH4AGrrsvCxfhv) {
+    color: var(--aika-fg-subtle);
+}
+
+/* …у выбранной — акцент вместо голубого #2e83c9 */
+html body.profile_edit_page :is(._189ERe_A-jhzSSRw4f2Hw.evPn26xhwAuh_SlWNY26E ._1xKo7wTahW2CJNXn4Gfkxj, ._1kB6_rUcA_VRp7MER6E0Vi.B-qJhQJWkxUckMndLyqeR ._3-aXJM9nyOBORZvUQyQ3ap, ._3NIiYdehUu4wAz6rNXR_OB._3nePJyNcthWMTkF4NSI7aI .v3WjrE9N9goFIJQPWYt2y) :is(div, div div) {
+    color: var(--aika-accent-bright);
+}
+
+/* Пустой вариант («По умолчанию», «Отсутствует»): серо-синий радиальный
+   градиент → тёплая поверхность с мягким акцентом */
+html body.profile_edit_page :is(._1JFlRrkeYJegFK8xCBRfYw._19sKX1Sg9icPcVJAPT7kN0, ._2GvFUUI49ePmg62crk2qDO.Gd3-pJ25GXL-bDaQAnChb) {
+    background: radial-gradient(circle at 20% 30%, var(--aika-accent-tint), var(--aika-transparent) 70%), var(--aika-bg-raised);
+}
+
+/* Аватар: «без рамки» выбран — голубое кольцо #53a4c4 → акцентное */
+html body.profile_edit_page .Z3REHSppX48KICnAjjh90 {
+    border-radius: var(--aika-radius-md);
+    background: var(--aika-accent);
+    box-shadow: 0 0 16px var(--aika-accent-glow);
+}
+
+html body.profile_edit_page .Z3REHSppX48KICnAjjh90 ._2TBs_xzgkuwXPkgIBiITOJ {
+    border-radius: calc(var(--aika-radius-md) - 2px);
+    background-color: var(--aika-bg-raised);
+}
+
+/* Значки и группы: строки-карточки */
+html body.profile_edit_page :is(._2ODUBJas15JwSZWN9fWb07, ._1yHxtA_qbj9xWiLkUiovpE) {
+    border-radius: var(--aika-radius-md);
+    transition: background-color var(--aika-dur-fast) var(--aika-ease-hover);
+}
+
+html body.profile_edit_page :is(._2ODUBJas15JwSZWN9fWb07, ._1yHxtA_qbj9xWiLkUiovpE).Panel:hover {
+    background-color: var(--aika-surface-hover);
+}
+
+html body.profile_edit_page ._2ODUBJas15JwSZWN9fWb07 ._3Y40HABkqaQQVn7lIX0Rm9 {
+    color: var(--aika-fg);
+}
+
+html body.profile_edit_page ._2ODUBJas15JwSZWN9fWb07 ._3Y40HABkqaQQVn7lIX0Rm9 .k5TyflBXF_FmpbYNKfggk {
+    color: var(--aika-fg-subtle);
+}
+
+html body.profile_edit_page ._1yHxtA_qbj9xWiLkUiovpE .aUFBJvbETNq6EL-n8KopY {
+    color: var(--aika-fg);
+}
+
+html body.profile_edit_page :is(._1yHxtA_qbj9xWiLkUiovpE ._1C_n640PvrV_-DCXwOeCZY, ._2ODUBJas15JwSZWN9fWb07 ._3M7FE3-Qhs3rPPI1uEviqM) {
+    border-radius: var(--aika-radius-md);
+}
+
+/* Темы: кольцо вокруг кружка-превью */
+html body.profile_edit_page ._39ksjd1_LKKPt0CIOhnMF7 svg._36oStJXlvGWLdFxYUgNyg- {
+    border-color: var(--aika-border-hover);
+    transition: border-color var(--aika-dur-fast) var(--aika-ease-hover), box-shadow var(--aika-dur-base) var(--aika-ease);
+}
+
+html body.profile_edit_page ._39ksjd1_LKKPt0CIOhnMF7:hover svg._36oStJXlvGWLdFxYUgNyg- {
+    border-color: var(--aika-border-accent);
+    box-shadow: 0 0 16px var(--aika-accent-haze);
+}
+
+html body.profile_edit_page ._39ksjd1_LKKPt0CIOhnMF7 .mHggMG8QHavW0I9eosXGZ {
+    color: var(--aika-fg);
+}
+
+html body.profile_edit_page ._3GOAIB03esypNEP7awK6mV ._2fpuQBcIAw_0cP_FLqJqBR {
+    color: var(--aika-fg-muted);
+}
+
+/* Превью фона профиля (.jnA47pnC2fs47Uo4apcHu, чёрная область 728×281,
+   прямые углы) */
+html body.profile_edit_page .jnA47pnC2fs47Uo4apcHu {
+    overflow: hidden;
+    border: var(--aika-hairline) solid var(--aika-border);
+    border-radius: var(--aika-radius-xl);
+    background-color: var(--aika-bg-deep);
+}
+
+/* Схема профиля без фона — серо-синие блоки → нейтральные тёплые */
+html body.profile_edit_page .uyN_gy4zQkYOLt9JjhqwO svg {
+    filter: grayscale(1) sepia(0.15) brightness(0.8);
+}
+
+/* --- Превью мини-профиля (вкладки «Мини-профиль», «Игровой профиль») ----- */
+
+html body.profile_edit_page ._2QPdq7GZ_03AD1ioPixVXW {
+    overflow: hidden;
+    border-radius: var(--aika-radius-lg);
+    box-shadow: var(--aika-shadow-menu);
+}
+
+html body.profile_edit_page ._2QPdq7GZ_03AD1ioPixVXW ._2jZ0A5VjGTNGTQm03FbLrF.online ._2VUw8xyYCaD1WduLCK3nlW {
+    color: var(--aika-accent-bright);
+}
+
+html body.profile_edit_page ._2QPdq7GZ_03AD1ioPixVXW ._2jZ0A5VjGTNGTQm03FbLrF.online ._1FgWIOIaRCAekjhGj0zFWq {
+    color: var(--aika-accent);
+}
+
+html body.profile_edit_page ._2QPdq7GZ_03AD1ioPixVXW ._2jZ0A5VjGTNGTQm03FbLrF.online .avatarStatus {
+    background: var(--aika-accent);
+}
+
+html body.profile_edit_page ._2QPdq7GZ_03AD1ioPixVXW ._3Ea91LEoevcAXAuoA2-uLa {
+    color: var(--aika-fg-subtle);
+    font-family: var(--aika-font-mono);
+    text-transform: none;
+}
+
+html body.profile_edit_page ._2QPdq7GZ_03AD1ioPixVXW ._26ga2HHZL2HlK6wwFImcgX {
+    background: var(--aika-surface-translucent);
+}
+
+/* Значок и «Уровень Steam» в превью: Steam (0,4,0) */
+html body.profile_edit_page ._2QPdq7GZ_03AD1ioPixVXW ._39hariVfr4A85k8c2TC_x1 ._2mCgtDakdGp_qrKcyIcZii {
+    color: var(--aika-fg);
+}
+
+html body.profile_edit_page ._2QPdq7GZ_03AD1ioPixVXW ._39hariVfr4A85k8c2TC_x1 ._3DelZ7HZu1TfU115lLc7vl {
+    color: var(--aika-fg-subtle);
+}
+
+/* «Загрузите файл со своего устройства…» под кнопкой загрузки (#808080) */
+html body.profile_edit_page .aCrGPGVeH6HvzyPW8PaAj ._22EnaYFQb5I0kYtH2UHEhV {
+    color: var(--aika-fg-subtle);
+}
+
+html body.profile_edit_page ._2QPdq7GZ_03AD1ioPixVXW .avatarHolder,
+html body.profile_edit_page ._2QPdq7GZ_03AD1ioPixVXW .avatarHolder img.avatar {
+    border-radius: var(--aika-radius-md);
+}
+
+/* --- Подвал Valve (React-подвал сообщества) ------------------------------- */
+
+html body footer.TT1_g1XWXbbLgxOPIpczV :is(p, br) {
+    color: var(--aika-fg-subtle);
+}
+
+html body footer.TT1_g1XWXbbLgxOPIpczV h3.g8vToPr0EO3CpytRyimNA {
+    color: var(--aika-fg-muted);
+}
+
+html body footer.TT1_g1XWXbbLgxOPIpczV a.FYJ4NYxpWeIha0N1-jUcm {
+    color: var(--aika-fg-subtle);
+}
+
+html body footer.TT1_g1XWXbbLgxOPIpczV a.FYJ4NYxpWeIha0N1-jUcm:hover {
+    color: var(--aika-fg);
+}
+
+html body footer.TT1_g1XWXbbLgxOPIpczV a.FYJ4NYxpWeIha0N1-jUcm :is(svg, svg g, svg path) {
+    color: inherit;
+    fill: currentColor;
+}
