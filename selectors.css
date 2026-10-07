@@ -2753,6 +2753,19 @@ html body .QFW0BtI4l77AFmv1xLAkx ._3hEeummFKRey8l5VXxZwxz span {
     font-family: var(--aika-font-mono);
 }
 
+/* Крестик «скрыть» при наведении (._3M-7E5Nj8iNX_jL5pAQDy_, линии #8b929a) */
+html body .QFW0BtI4l77AFmv1xLAkx ._3M-7E5Nj8iNX_jL5pAQDy_ {
+    color: var(--aika-fg-subtle);
+}
+
+html body .QFW0BtI4l77AFmv1xLAkx ._3M-7E5Nj8iNX_jL5pAQDy_ svg path {
+    stroke: currentColor;
+}
+
+html body .QFW0BtI4l77AFmv1xLAkx ._3M-7E5Nj8iNX_jL5pAQDy_:hover {
+    color: var(--aika-fg);
+}
+
 html body .QFW0BtI4l77AFmv1xLAkx ._1pIhbqWsrCVPaGGYc6fT-H {
     filter: drop-shadow(0 0 4px var(--aika-accent-glow));
 }
