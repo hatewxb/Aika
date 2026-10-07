@@ -909,6 +909,9 @@ html body.profile_edit_page .ProfilePrivacyRoot a:hover {
 /* Значение «Открытый / Только друзья» (и только для чтения) */
 html body.profile_edit_page .ProfilePrivacyHeader :is(.ProfilePrivacyDropDown, .ProfilePrivacyDropDown .DialogDropDown_CurrentDisplay) {
     color: var(--aika-accent-bright);
+    /* у Steam «.ProfilePrivacyHeader .ProfilePrivacyDropDown» — underline
+       (правка автора 2026-10-07: без подчёркивания) */
+    text-decoration: none;
 }
 
 html body.profile_edit_page .ProfilePrivacyHeader .ProfilePrivacyDropDown svg :is(polygon, path) {
