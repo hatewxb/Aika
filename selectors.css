@@ -1715,6 +1715,19 @@ html ._1HRiMtg_SGUiOa-NXDzZl7.AppPartnerEventsBanner {
     background-image: radial-gradient(ellipse at bottom center, var(--aika-accent-tint), var(--aika-accent-none) 70%);
 }
 
+/* Баннер игры на странице её новостей (store…/news/app/…): тот же
+   #3d424c с белым свечением, другой хэш — ._2zTu0OPJoqo1BXb1J9pDJ2 */
+html ._2zTu0OPJoqo1BXb1J9pDJ2 {
+    border-bottom: var(--aika-hairline) solid var(--aika-border);
+    background: var(--aika-bg-elevated);
+    background-image: radial-gradient(ellipse at bottom center, var(--aika-accent-tint), var(--aika-accent-none) 70%);
+}
+
+html ._2zTu0OPJoqo1BXb1J9pDJ2 ._2EV_WNLGjRLNX824mfis9O {
+    overflow: hidden;
+    border-radius: var(--aika-radius-md);
+}
+
 html ._1HRiMtg_SGUiOa-NXDzZl7 ._2EV_WNLGjRLNX824mfis9O {
     overflow: hidden;
     border-radius: var(--aika-radius-md);
@@ -1885,4 +1898,387 @@ html ._2tSyrRxMCRWK6K09JErgI_ ._1t_97P9KMsEBaPq9y-6OUl:hover svg polygon {
 /* Затемнение под окном: чёрное 80 % → тёплая вуаль темы */
 html .ModalOverlayContent.ModalOverlayBackground {
     background: var(--aika-scrim);
+}
+
+/* ==========================================================================
+   [Магазин, новости] «Новостной центр» — сама страница (store…/news/,
+   store…/news/app/…): левое меню, разделы «Скоро» / «Новости», карточки
+   событий, блок кураторов. React-модуль без читаемых классов — только хэши.
+   Карта:
+     ._1e3WbBz7-mqMKmK8HnpzFF  — корень страницы (фон #0f1924)
+     ._18npkDI3gKg9S7EeTFOj-2  — правая колонка (фон #0f1924)
+     ._15YLDKm80opUF5Tivo7UK-  — левое меню (sticky, фон #19232f)
+       ._1ZO60tnVO9UhZWFk1zLM4r — огромный логотип Steam-фон (opacity .08)
+       ._3uZE-tI5d1lF6NQwSrxauh — заголовок «Новостной центр Steam»
+       ._3X16Tg0OrHJJL36_8dwlHo — подпись группы («Ваши новости и события»)
+       ._1n4vpyqKJYF8lc1kW9fr8- — пункт меню (+ .kJoC7bJXT-uU6GorEljio — выбранный,
+         голубой градиент #07bfff); ._11O61s8Pr7CrLbKxzm9VMK — название,
+         ._3_CIMpiaZYsgSD9rEIImZh — подпись, ._1HQl8PnDDWs3V4bob4bBNk — счётчик
+       ._1zyVyzldzUj085oNa8Y0r1 — «Опции и фильтры» (#575e69)
+       ._2vMIlVM2BeWTC0m5_Ys2WN — кнопка «свернуть меню» (»)
+       ._2XzXRucgCsdN2x7oRwSJu0 — подвал Valve
+     ._3FpvGiwJqnukNOcrsKd_sN  — раздел (+ ._1U2BW9tpHKOVi_TG0XvjT — тёмный #0c141d)
+       ._3j2deAP85R6gftsIWiHe7n — шапка раздела (sticky), ._2aVLRsz60HV81P8VKT3kQj —
+         заголовок «Скоро», .bcTEUtZM5us_nPhh-83J9 — линия
+     ._1E3Anhs34BXsWWWqH4RNPL  — событие; ._3xvUZtQ1j-pu-l2xy-lFAq — карточка
+       (радиальный белый свет снизу, разделитель #121417)
+       .d8bPiEt0DUII_mRqek_ht — картинка (#2d3138)
+       .WHJ_WMTSDKqO4yn_MLrau — игра (иконка ._3gwk6hFh7bUc2K174mzjyQ + ._71phFKOzg8aQlBU1rCA2T)
+       ._2lYFqIB0i1IONPFV4BTvfl — «В библиотеке» (#707b8f)
+       ._1M8-Pa3b3WboayCgd5VBJT — заголовок, ._2g3JjlrRkzgUWXF57w3leW — краткий текст
+       ._1LkWXJVxWYdKiKf2Mxq3zs — тип («Новость» #b0ad92, событие #d3dfa9, капс)
+       ._2xdhMrjKEposPfgPK9UPe- — дата будущего события (#07bfff),
+       ._4-fqVd8yRSHEAjj7Hkx_V — «2 мин. назад» (капс #909da7)
+       .RemindMeWidget svg — колокольчик «Напомнить» (#399aec)
+       ._3_86JJo-1O_KkOZwRl2uZ6 — «палец / комментарии / …» (#8c8c8c)
+     .IOckOLV5f75IljZ0DqXdX    — номер страницы в ряду плиток (#474e59)
+     ._3ICp4Zk0uKS3wBOo3rcx-6  — блок «Подписывайтесь на этих кураторов»
+       (бордово-синий градиент), ._1420TVzKCePW589d4gqd4d — внутренняя панель
+   Сила Steam до (0,5,0) (счётчик страниц), обычно (0,2,0)…(0,3,0).
+   Проверено: 2026-10-07, store.steampowered.com/news/ в клиенте.
+   Как найти: открыть «Новости» в магазине; аудит — tools/audit.js «Новостной центр».
+   ========================================================================== */
+
+/* Фон страницы — наш (пятна света), колонки прозрачные */
+html ._1e3WbBz7-mqMKmK8HnpzFF,
+html ._1e3WbBz7-mqMKmK8HnpzFF ._18npkDI3gKg9S7EeTFOj-2 {
+    background: var(--aika-transparent);
+}
+
+/* --- Левое меню ---------------------------------------------------------- */
+
+html ._1e3WbBz7-mqMKmK8HnpzFF ._15YLDKm80opUF5Tivo7UK- {
+    border-right: var(--aika-hairline) solid var(--aika-border);
+    background: var(--aika-bg-elevated);
+}
+
+/* Огромный логотип Steam за заголовком — акцентным оттенком */
+html ._15YLDKm80opUF5Tivo7UK- ._1ZO60tnVO9UhZWFk1zLM4r svg path {
+    fill: var(--aika-accent);
+}
+
+html ._15YLDKm80opUF5Tivo7UK- ._3uZE-tI5d1lF6NQwSrxauh {
+    color: var(--aika-fg);
+    font-weight: var(--aika-weight-semibold);
+    letter-spacing: var(--aika-tracking-h1);
+}
+
+html ._15YLDKm80opUF5Tivo7UK- ._3X16Tg0OrHJJL36_8dwlHo {
+    color: var(--aika-fg-subtle);
+    font-family: var(--aika-font-mono);
+    font-size: var(--aika-text-label);
+    letter-spacing: var(--aika-tracking-label);
+}
+
+html ._3U5MYaJE0i8UYZ_pUzyNk7 ._1n4vpyqKJYF8lc1kW9fr8- {
+    border-radius: var(--aika-radius-md);
+    background: var(--aika-transparent);
+    transition: background-color var(--aika-dur-fast) var(--aika-ease-hover);
+}
+
+html ._3U5MYaJE0i8UYZ_pUzyNk7 a:hover ._1n4vpyqKJYF8lc1kW9fr8- {
+    background: var(--aika-surface-hover);
+}
+
+/* Выбранный пункт: голубой градиент → акцентная подложка с полоской слева */
+html ._3U5MYaJE0i8UYZ_pUzyNk7 ._1n4vpyqKJYF8lc1kW9fr8-.kJoC7bJXT-uU6GorEljio,
+html ._3U5MYaJE0i8UYZ_pUzyNk7 a:hover ._1n4vpyqKJYF8lc1kW9fr8-.kJoC7bJXT-uU6GorEljio {
+    border-color: var(--aika-transparent);
+    background: var(--aika-accent-soft);
+    box-shadow: inset var(--aika-indicator) 0 0 var(--aika-accent);
+}
+
+html ._3U5MYaJE0i8UYZ_pUzyNk7 ._1n4vpyqKJYF8lc1kW9fr8- ._11O61s8Pr7CrLbKxzm9VMK {
+    color: var(--aika-fg);
+    font-weight: var(--aika-weight-medium);
+    text-transform: none;
+}
+
+html ._3U5MYaJE0i8UYZ_pUzyNk7 ._1n4vpyqKJYF8lc1kW9fr8- ._3_CIMpiaZYsgSD9rEIImZh {
+    color: var(--aika-fg-subtle);
+}
+
+html ._3U5MYaJE0i8UYZ_pUzyNk7 ._1n4vpyqKJYF8lc1kW9fr8-.kJoC7bJXT-uU6GorEljio :is(._11O61s8Pr7CrLbKxzm9VMK, ._3_CIMpiaZYsgSD9rEIImZh) {
+    color: var(--aika-accent-bright);
+}
+
+/* Счётчик («2» у «Предстоящих событий») — пилюля моно; Steam (0,3,0) */
+html ._3U5MYaJE0i8UYZ_pUzyNk7 ._1n4vpyqKJYF8lc1kW9fr8- ._1HQl8PnDDWs3V4bob4bBNk {
+    border-radius: var(--aika-radius-full);
+    background: var(--aika-accent-soft);
+    color: var(--aika-accent-bright);
+    font-family: var(--aika-font-mono);
+}
+
+/* Подпись «Поиск» над полем: капс Steam → метка темы */
+html ._15YLDKm80opUF5Tivo7UK- ._1LTVIwFRYJjiwzhWzSVOd4 .DialogLabel {
+    color: var(--aika-fg-subtle);
+    font-family: var(--aika-font-mono);
+    font-size: var(--aika-text-label);
+    letter-spacing: var(--aika-tracking-label);
+}
+
+/* «Опции и фильтры» — secondary-кнопка */
+html ._15YLDKm80opUF5Tivo7UK- ._1nf0vlWuKk9Qn7ncHC5uhq ._1zyVyzldzUj085oNa8Y0r1 {
+    border-radius: var(--aika-radius-md);
+    background: var(--aika-surface);
+    box-shadow: var(--aika-shadow-secondary);
+    color: var(--aika-fg-muted);
+    text-transform: none;
+    transition:
+        background-color var(--aika-dur-fast) var(--aika-ease-hover),
+        box-shadow var(--aika-dur-base) var(--aika-ease);
+}
+
+html ._15YLDKm80opUF5Tivo7UK- ._1nf0vlWuKk9Qn7ncHC5uhq ._1zyVyzldzUj085oNa8Y0r1:hover {
+    background: var(--aika-surface-hover);
+    box-shadow: var(--aika-shadow-secondary-hover);
+    color: var(--aika-fg);
+}
+
+/* Значок: Steam задаёт svg и fill, и color #aaa — currentColor не помог бы */
+html ._15YLDKm80opUF5Tivo7UK- ._1nf0vlWuKk9Qn7ncHC5uhq ._1zyVyzldzUj085oNa8Y0r1 :is(svg, svg *) {
+    color: inherit;
+    fill: currentColor;
+}
+
+html ._15YLDKm80opUF5Tivo7UK- ._2vMIlVM2BeWTC0m5_Ys2WN svg polyline {
+    stroke: var(--aika-fg-subtle);
+}
+
+html ._15YLDKm80opUF5Tivo7UK- ._2vMIlVM2BeWTC0m5_Ys2WN:hover svg polyline {
+    stroke: var(--aika-accent-bright);
+}
+
+html ._15YLDKm80opUF5Tivo7UK- ._2XzXRucgCsdN2x7oRwSJu0 {
+    border-top-color: var(--aika-border);
+    color: var(--aika-fg-subtle);
+}
+
+/* --- Разделы и шапки ----------------------------------------------------- */
+
+/* Steam держит фон и линии правой колонки цепочкой
+   ._1e3Wb… ._3yqpP… .r3Dia… (0,4,0)…(0,5,0) — повторяем её */
+html ._1e3WbBz7-mqMKmK8HnpzFF ._3yqpPRFLwr6ETVDgLGT37s .r3Dia2Yw2X-goqFn-_UPT ._3FpvGiwJqnukNOcrsKd_sN,
+html ._1e3WbBz7-mqMKmK8HnpzFF ._3yqpPRFLwr6ETVDgLGT37s .r3Dia2Yw2X-goqFn-_UPT ._3FpvGiwJqnukNOcrsKd_sN._1U2BW9tpHKOVi_TG0XvjT {
+    background: var(--aika-transparent);
+}
+
+/* Шапка раздела прилипает к верху — нужна непрозрачная подложка
+   (у Steam background-color: inherit от раздела) */
+html ._1e3WbBz7-mqMKmK8HnpzFF ._3yqpPRFLwr6ETVDgLGT37s .r3Dia2Yw2X-goqFn-_UPT ._398u23KF15gxmeH741ZSyL._3j2deAP85R6gftsIWiHe7n {
+    background: var(--aika-bg-base);
+}
+
+html ._1e3WbBz7-mqMKmK8HnpzFF ._3yqpPRFLwr6ETVDgLGT37s .r3Dia2Yw2X-goqFn-_UPT ._398u23KF15gxmeH741ZSyL._3j2deAP85R6gftsIWiHe7n .bcTEUtZM5us_nPhh-83J9 {
+    border-top-color: var(--aika-border);
+}
+
+html ._3j2deAP85R6gftsIWiHe7n ._2aVLRsz60HV81P8VKT3kQj {
+    color: var(--aika-fg);
+    font-weight: var(--aika-weight-semibold);
+    letter-spacing: var(--aika-tracking-h2);
+    text-transform: none;
+}
+
+/* --- Карточка события ---------------------------------------------------- */
+
+html ._1E3Anhs34BXsWWWqH4RNPL ._3xvUZtQ1j-pu-l2xy-lFAq,
+html .HorizontalTileCtn ._1E3Anhs34BXsWWWqH4RNPL ._3xvUZtQ1j-pu-l2xy-lFAq,
+html .HorizontalTileCtn ._1E3Anhs34BXsWWWqH4RNPL:not(:last-child) ._3xvUZtQ1j-pu-l2xy-lFAq {
+    overflow: hidden;
+    border: var(--aika-hairline) solid var(--aika-border);
+    border-radius: var(--aika-radius-lg);
+    background: var(--aika-card-bg);
+    box-shadow: var(--aika-highlight-top);
+    transition:
+        border-color var(--aika-dur-fast) var(--aika-ease-hover),
+        box-shadow var(--aika-dur-base) var(--aika-ease);
+}
+
+/* Наведение: у Steam «._1E3A…._2Bni…:not(…):not(…):not(…) ._3xvU…:hover»
+   (0,6,0) — серо-синий радиальный градиент и голубой текст #66c0f4.
+   Повтор класса поднимает силу до (0,7,1). */
+html ._1E3Anhs34BXsWWWqH4RNPL._1E3Anhs34BXsWWWqH4RNPL._1E3Anhs34BXsWWWqH4RNPL a:hover ._3xvUZtQ1j-pu-l2xy-lFAq._3xvUZtQ1j-pu-l2xy-lFAq._3xvUZtQ1j-pu-l2xy-lFAq {
+    border-color: var(--aika-border-accent);
+    background: var(--aika-card-accent-bg);
+    box-shadow: var(--aika-highlight-top), 0 0 20px var(--aika-accent-haze);
+    color: var(--aika-fg);
+}
+
+/* Закреплённое событие на странице игры (._2mVdtaB_oY5b1fladlbBaM):
+   бурый радиальный градиент #5e594a (0,3,0) + размытая картинка
+   .gGujG17QdIx5Nn89DjTl8 (blur 60px, 40 %) → акцентная карточка */
+html ._1E3Anhs34BXsWWWqH4RNPL._2mVdtaB_oY5b1fladlbBaM ._3xvUZtQ1j-pu-l2xy-lFAq {
+    border-color: var(--aika-border-accent);
+    background: var(--aika-card-accent-bg);
+}
+
+html ._1E3Anhs34BXsWWWqH4RNPL ._3xvUZtQ1j-pu-l2xy-lFAq .gGujG17QdIx5Nn89DjTl8 {
+    filter: var(--aika-blur-cover-filter);
+    opacity: var(--aika-blur-cover-opacity);
+}
+
+/* Плитки «Скоро» стоят вплотную — зазор между ними */
+html ._1e3WbBz7-mqMKmK8HnpzFF .HorizontalTileCtn > .Panel {
+    gap: var(--aika-space-3);
+}
+
+/* Steam (0,5,0) */
+html ._1E3Anhs34BXsWWWqH4RNPL ._3xvUZtQ1j-pu-l2xy-lFAq ._2pq2vP5kJ_wI2nw-igwJXF ._3HF9tOy_soo1B_odf1XArk .d8bPiEt0DUII_mRqek_ht {
+    border-radius: var(--aika-radius-md);
+    background-color: var(--aika-bg-raised);
+}
+
+html ._1E3Anhs34BXsWWWqH4RNPL .WHJ_WMTSDKqO4yn_MLrau ._3gwk6hFh7bUc2K174mzjyQ {
+    border-radius: var(--aika-radius-xs);
+}
+
+html ._1E3Anhs34BXsWWWqH4RNPL .WHJ_WMTSDKqO4yn_MLrau ._71phFKOzg8aQlBU1rCA2T {
+    color: var(--aika-fg-muted);
+}
+
+html ._1E3Anhs34BXsWWWqH4RNPL ._3BIx7glwN6Q0_mUUMyFyHu ._2lYFqIB0i1IONPFV4BTvfl {
+    color: var(--aika-accent-bright);
+    font-family: var(--aika-font-mono);
+    font-size: var(--aika-text-label);
+}
+
+html ._1E3Anhs34BXsWWWqH4RNPL ._1M8-Pa3b3WboayCgd5VBJT {
+    color: var(--aika-fg);
+    font-weight: var(--aika-weight-semibold);
+}
+
+html ._1E3Anhs34BXsWWWqH4RNPL ._3xvUZtQ1j-pu-l2xy-lFAq :is(._2g3JjlrRkzgUWXF57w3leW, ._1JjUp7sfpntpaOqu1_lyvO) {
+    color: var(--aika-fg-muted);
+}
+
+/* Тип события — акцентная пилюля, все виды одним цветом */
+html ._1E3Anhs34BXsWWWqH4RNPL .sUBHF-Qdb_RUPYOBkgO1a ._1LkWXJVxWYdKiKf2Mxq3zs[class] {
+    padding: 0 var(--aika-space-2);
+    border-radius: var(--aika-radius-full);
+    background: var(--aika-accent-soft);
+    color: var(--aika-accent-bright);
+    font-family: var(--aika-font-mono);
+    font-size: var(--aika-text-label);
+    letter-spacing: var(--aika-tracking-label);
+    text-transform: none;
+}
+
+html ._1E3Anhs34BXsWWWqH4RNPL .sUBHF-Qdb_RUPYOBkgO1a ._2xdhMrjKEposPfgPK9UPe- {
+    color: var(--aika-accent-bright);
+    font-family: var(--aika-font-mono);
+}
+
+html ._1E3Anhs34BXsWWWqH4RNPL .sUBHF-Qdb_RUPYOBkgO1a ._4-fqVd8yRSHEAjj7Hkx_V {
+    color: var(--aika-fg-subtle);
+    font-family: var(--aika-font-mono);
+    text-transform: none;
+}
+
+/* Идущее событие: «Сейчас» (.EVDkYKG_ikfyfH16lmQ-1 — салатовая плашка
+   #a4d007, капс) и «До окончания: 5 дн.» (.RNDf0d63hDSUu28sIkteH, #a4d007)
+   — зелёный Aika (ok), как статус «в игре» */
+html ._1E3Anhs34BXsWWWqH4RNPL .sUBHF-Qdb_RUPYOBkgO1a .RNDf0d63hDSUu28sIkteH {
+    color: var(--aika-ok);
+    font-family: var(--aika-font-mono);
+}
+
+html ._1E3Anhs34BXsWWWqH4RNPL .sUBHF-Qdb_RUPYOBkgO1a .EVDkYKG_ikfyfH16lmQ-1 {
+    padding: 0 var(--aika-space-2);
+    border-radius: var(--aika-radius-full);
+    background-color: var(--aika-ok-soft);
+    color: var(--aika-ok);
+    font-size: var(--aika-text-label);
+    letter-spacing: var(--aika-tracking-label);
+    text-transform: none;
+}
+
+html ._1E3Anhs34BXsWWWqH4RNPL .RemindMeWidget :is(svg, svg *) {
+    fill: var(--aika-accent-bright);
+}
+
+/* «Палец / комментарии / …» под карточкой */
+html ._1E3Anhs34BXsWWWqH4RNPL ._3_86JJo-1O_KkOZwRl2uZ6 svg,
+html ._1E3Anhs34BXsWWWqH4RNPL ._3_86JJo-1O_KkOZwRl2uZ6 svg path,
+html ._1E3Anhs34BXsWWWqH4RNPL ._3_86JJo-1O_KkOZwRl2uZ6 ._2se4HtRbAckWOfTCGHox0X {
+    fill: var(--aika-fg-subtle);
+}
+
+html ._1E3Anhs34BXsWWWqH4RNPL ._3_86JJo-1O_KkOZwRl2uZ6 span {
+    color: var(--aika-fg-subtle);
+    font-family: var(--aika-font-mono);
+}
+
+html ._1E3Anhs34BXsWWWqH4RNPL ._3_86JJo-1O_KkOZwRl2uZ6._3nZg0h8xaxxZeW0g870Htl svg {
+    border-radius: var(--aika-radius-xs);
+    background-color: var(--aika-surface-hover);
+    fill: var(--aika-transparent);
+}
+
+html ._1E3Anhs34BXsWWWqH4RNPL ._3_86JJo-1O_KkOZwRl2uZ6._3nZg0h8xaxxZeW0g870Htl svg circle {
+    fill: var(--aika-fg-muted);
+}
+
+/* Номер страницы в ряду плиток — Steam (0,5,0) */
+html ._1e3WbBz7-mqMKmK8HnpzFF ._3yqpPRFLwr6ETVDgLGT37s .r3Dia2Yw2X-goqFn-_UPT ._18uWsMJww9J9esJ56PvIGe .IOckOLV5f75IljZ0DqXdX,
+html ._1e3WbBz7-mqMKmK8HnpzFF .IOckOLV5f75IljZ0DqXdX.IOckOLV5f75IljZ0DqXdX.IOckOLV5f75IljZ0DqXdX.IOckOLV5f75IljZ0DqXdX {
+    background-color: var(--aika-accent-soft);
+    color: var(--aika-accent-bright);
+    font-family: var(--aika-font-mono);
+}
+
+/* --- Блок «Подписывайтесь на этих кураторов» ----------------------------- */
+
+/* Снизу у блока розовая линия #ec297b — убираем вместе с градиентом */
+html ._1e3WbBz7-mqMKmK8HnpzFF ._3ICp4Zk0uKS3wBOo3rcx-6 {
+    border-bottom-color: var(--aika-transparent);
+    background: var(--aika-transparent);
+}
+
+html ._3ICp4Zk0uKS3wBOo3rcx-6 ._1420TVzKCePW589d4gqd4d {
+    border: var(--aika-hairline) solid var(--aika-border-accent);
+    border-radius: var(--aika-radius-xl);
+    background: var(--aika-card-accent-bg);
+    box-shadow: var(--aika-highlight-top);
+}
+
+html ._3ICp4Zk0uKS3wBOo3rcx-6 ._38Zh0nmnrxXlh3yhtCnIPn {
+    color: var(--aika-fg);
+}
+
+/* Крестик «скрыть блок»: fill #8a9299 стоит на самом svg */
+html ._3ICp4Zk0uKS3wBOo3rcx-6 ._3YtGjvmV0WmN0i3sdMqGz2 :is(svg, svg *) {
+    fill: var(--aika-fg-subtle);
+}
+
+html ._3ICp4Zk0uKS3wBOo3rcx-6 .Ke5f13IVZVzYSmQVJgVyd._3odsmWB7MUrxxcucBMYcgN {
+    overflow: hidden;
+    border-radius: var(--aika-radius-lg);
+}
+
+/* «Подписаться» под куратором (#5d6675, (0,3,0)) и плитка «Открыть ещё»
+   (._2nWAPvq239PI0lGHmtFmgc, #5d6675) — secondary */
+html ._3ICp4Zk0uKS3wBOo3rcx-6 ._3Y0jFDFWk_msMNnvpgfjwB ._2y3rSYHLpo0MERj2EMWQQ9 .FollowButton._1I_eQgAgorxHE60P5m2zqq,
+html ._3ICp4Zk0uKS3wBOo3rcx-6 ._39bJZgNeIUX9mSWi0r8tNT ._2nWAPvq239PI0lGHmtFmgc {
+    border-radius: var(--aika-radius-md);
+    background-color: var(--aika-surface);
+    box-shadow: var(--aika-shadow-secondary);
+    color: var(--aika-fg);
+    transition:
+        background-color var(--aika-dur-fast) var(--aika-ease-hover),
+        box-shadow var(--aika-dur-base) var(--aika-ease);
+}
+
+html ._3ICp4Zk0uKS3wBOo3rcx-6 ._3Y0jFDFWk_msMNnvpgfjwB ._2y3rSYHLpo0MERj2EMWQQ9 .FollowButton._1I_eQgAgorxHE60P5m2zqq:hover,
+html ._3ICp4Zk0uKS3wBOo3rcx-6 ._39bJZgNeIUX9mSWi0r8tNT ._2nWAPvq239PI0lGHmtFmgc:hover {
+    background-color: var(--aika-surface-hover);
+    box-shadow: var(--aika-shadow-secondary-hover);
+}
+
+/* Компактная карточка (._2X_hMZpqI8fyqbeFPi4JPj): маленькая картинка
+   .u8z1m_ainssHj7AbLKOZs (#2d3138), Steam (0,6,0) */
+html ._1E3Anhs34BXsWWWqH4RNPL._2X_hMZpqI8fyqbeFPi4JPj ._3xvUZtQ1j-pu-l2xy-lFAq ._2pq2vP5kJ_wI2nw-igwJXF ._3HF9tOy_soo1B_odf1XArk .u8z1m_ainssHj7AbLKOZs {
+    border-radius: var(--aika-radius-md);
+    background-color: var(--aika-bg-raised);
 }
