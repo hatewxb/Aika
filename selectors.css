@@ -1733,6 +1733,18 @@ html ._1HRiMtg_SGUiOa-NXDzZl7 ._2EV_WNLGjRLNX824mfis9O {
     box-shadow: var(--aika-shadow-cover);
 }
 
+/* Шапка «Новостей Steam» (служебное приложение 593110: синий фон
+   с логотипом Steam) — в тон акцента, правка автора 2026-10-07.
+   Выбор по адресу картинки: обложки игр на их страницах новостей не
+   трогаем. Размытая копия в баннере страницы — так же. */
+html :is(._2EV_WNLGjRLNX824mfis9O, ._2zTu0OPJoqo1BXb1J9pDJ2) img[src*="/apps/593110/"] {
+    filter: var(--aika-tint-accent);
+}
+
+html ._2zTu0OPJoqo1BXb1J9pDJ2 .wavRtSPqcvhar0kUHlKoJ ._3RHFoIvdUHn0fp8G8M258k[style*="/apps/593110/"] {
+    filter: var(--aika-blur-cover-neutral);
+}
+
 html ._1HRiMtg_SGUiOa-NXDzZl7 ._1iqjH40fN4Diar-d-rLbR5 {
     font-weight: var(--aika-weight-semibold);
 }
