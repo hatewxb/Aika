@@ -1884,3 +1884,108 @@ html body.v6 .notice_box_content a {
 html body.v6 .notice_box_content a:hover {
     color: var(--aika-fg);
 }
+
+/* ==========================================================================
+   Страница игры — ранний доступ (скрин 15, SUPER PEOPLE; проверено на
+   Enshrouded). .early_access_header: рамка #4e81ae, шапка .heading —
+   голубое свечение #57a4d0 и текст #b8e0fd, «Примечание» #f9be3e,
+   полоса «Выход из раннего доступа» (#27475d → #4e81ae), «Сообщение от
+   разработчиков» #61686d, «Подробнее» — #67c1f5 на градиенте в #1b2838.
+   .early_access_banner — «Сообщайте об ошибках…»: серый градиент,
+   голубой жук (PNG), кнопка с чёрной рамкой 2 px. Steam до (0,2,1).
+   ========================================================================== */
+
+html body.v6 div.early_access_header {
+    overflow: hidden;
+    border: var(--aika-hairline) solid var(--aika-border-accent);
+    border-radius: var(--aika-radius-xl);
+    background: var(--aika-bg-elevated);
+    box-shadow: var(--aika-highlight-top);
+}
+
+html body.v6 div.early_access_header .heading {
+    border-radius: 0;
+    background: radial-gradient(ellipse at 60% 100%, var(--aika-accent-soft), var(--aika-transparent) 70%), var(--aika-accent-tint);
+    color: var(--aika-fg-muted);
+}
+
+html body.v6 div.early_access_header .heading h2 {
+    color: var(--aika-fg);
+}
+
+html body.v6 div.early_access_header .heading p {
+    color: var(--aika-fg-muted);
+}
+
+html body.v6 div.early_access_header .heading p.subtitle {
+    color: var(--aika-fg);
+}
+
+/* «Примечание:» — тёплое предупреждение */
+html body.v6 div.early_access_header .heading p > span {
+    color: var(--aika-warn);
+}
+
+html body.v6 div.early_access_header .heading a {
+    color: var(--aika-accent-bright);
+}
+
+html body.v6 div.early_access_header .leaving_early_access {
+    border-bottom: var(--aika-hairline) solid var(--aika-border-accent);
+    background: linear-gradient(to right, var(--aika-accent-soft), var(--aika-accent-tint));
+    color: var(--aika-warn);
+}
+
+html body.v6 div.early_access_header .devnotes .devs_say {
+    color: var(--aika-fg-subtle);
+    font-family: var(--aika-font-mono);
+    font-size: var(--aika-text-label);
+    letter-spacing: var(--aika-tracking-label);
+    text-transform: none;
+}
+
+html body.v6 div.early_access_header .devnotes > div {
+    color: var(--aika-fg-muted);
+}
+
+html body.v6 div.early_access_header .devnotes h3 {
+    color: var(--aika-fg);
+}
+
+/* «Подробнее» поверх обрезанного текста: градиент гаснет в фон блока */
+html body.v6 div.early_access_header .devnotes .morebutton {
+    background: linear-gradient(to right, var(--aika-transparent), var(--aika-bg-elevated) 15%);
+    color: var(--aika-accent-bright);
+    font-family: var(--aika-font-mono);
+    text-transform: none;
+}
+
+html body.v6 div.early_access_header .devnotes .morebutton:hover {
+    color: var(--aika-fg);
+}
+
+/* «Сообщайте об ошибках…» — карточка, жук в тон акцента, кнопка secondary */
+html body.v6 div.early_access_banner {
+    overflow: hidden;
+    border: var(--aika-hairline) solid var(--aika-border);
+    border-radius: var(--aika-radius-lg);
+    background: var(--aika-card-bg);
+    box-shadow: var(--aika-highlight-top);
+}
+
+html body.v6 div.early_access_banner > .img {
+    filter: var(--aika-tint-accent);
+}
+
+html body.v6 div.early_access_banner > p {
+    color: var(--aika-fg);
+}
+
+html body.v6 div.early_access_banner > a.btn_border_2px {
+    border: none;
+    box-shadow: var(--aika-shadow-secondary);
+}
+
+html body.v6 div.early_access_banner > a.btn_border_2px > span {
+    border: none;
+}
