@@ -937,6 +937,11 @@ html .Container .AdvancedSearchContainer.Extended.Extended .AdvancedSearchButton
     fill: var(--aika-accent-bright);
 }
 
+/* …и при наведении на закрытую (у Steam тот же #d3d3d3) */
+html .Container .AdvancedSearchContainer.AdvancedSearchContainer:not(.Extended) .AdvancedSearchButton.AdvancedSearchButton:hover svg path {
+    fill: var(--aika-fg);
+}
+
 /* «Показать опции доступности»: значок-стрелки #d3d3d3 */
 html .AdvancedSearchPane .AccessibilityOptionsButton svg :is(path, polygon) {
     fill: currentColor;
