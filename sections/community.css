@@ -1085,6 +1085,57 @@ html .forum_topic .forum_topic_lastpost {
     font-family: var(--aika-font-mono);
 }
 
+/* При наведении Steam красит автора и время в #70beed
+   («.forum_topic:hover …» (0,3,0); правка автора 2026-10-07) */
+html .forum_topics .forum_topic:hover .forum_topic_op {
+    color: var(--aika-accent-bright);
+}
+
+html .forum_topics .forum_topic:hover .forum_topic_lastpost {
+    color: var(--aika-fg-muted);
+}
+
+/* Награды у темы: синий award_icon_blue.svg → свой контурный значок */
+html .forum_topic .forum_topic_award_count img.reward_btn_icon {
+    width: var(--aika-icon-inline);
+    height: var(--aika-icon-inline);
+    object-position: -9999px 0;
+    background-color: var(--aika-accent-bright);
+    -webkit-mask: var(--aika-icon-award) center / contain no-repeat;
+    mask: var(--aika-icon-award) center / contain no-repeat;
+}
+
+/* Превью темы при наведении (.forum_topic_tooltip): голубая плашка
+   #417a9b с рамкой #2d566b → тултип темы (полупрозрачный) */
+html .forum_topic_tooltip {
+    border: var(--aika-hairline) solid var(--aika-border-hover);
+    border-radius: var(--aika-radius-md);
+    background-color: var(--aika-surface-translucent);
+    box-shadow: var(--aika-shadow-menu);
+    color: var(--aika-fg-muted);
+}
+
+html .forum_topic_tooltip .topic_hover_text {
+    color: var(--aika-fg);
+}
+
+html .forum_topic_tooltip .topic_hover_row {
+    color: var(--aika-fg-subtle);
+    font-family: var(--aika-font-mono);
+    font-size: var(--aika-text-label);
+}
+
+html .forum_topic_tooltip .topic_hover_row .topic_hover_data {
+    color: var(--aika-accent-bright);
+}
+
+/* Вкладки хаба игры («Все / Обсуждения / Скриншоты…»): выбранная —
+   синяя линия #1a9fff (0,2,0) → акцент */
+html .apphub_sectionTabs .apphub_sectionTab.active,
+html .apphub_sectionTabs .apphub_sectionTab.active:hover {
+    border-bottom-color: var(--aika-accent);
+}
+
 html .forum_topic :is(.forum_topic_reply_count, .forum_topic_award_count) {
     color: var(--aika-fg-muted);
     font-family: var(--aika-font-mono);
@@ -1154,15 +1205,50 @@ html .forum_area .forum_pagesize_options a.commentthread_pagination_link {
 
 /* --- Правая колонка ------------------------------------------------------- */
 
-html .discussionSearchTextContainer {
+/* Поиск по обсуждениям: у Steam поле — картинка-фон шириной «100% − 40px»,
+   справа вплотную синяя GIF-кнопка (searchbox_workshop_submit.gif).
+   У нас поле во всю ширину, кнопка — лупа внутри поля справа (правка
+   автора 2026-10-07: «значок посвежее, оформить окно поиска») */
+html .rightcol .discussionSearchTextContainer {
+    position: relative;
+    box-sizing: border-box;
+    width: 100%;
     border: var(--aika-hairline) solid var(--aika-border-hover);
     border-radius: var(--aika-radius-md);
     background: var(--aika-bg-raised);
+    transition: border-color var(--aika-dur-fast) var(--aika-ease-hover), box-shadow var(--aika-dur-base) var(--aika-ease);
+}
+
+html .rightcol .discussionSearchTextContainer:focus-within {
+    border-color: var(--aika-border-accent);
+    box-shadow: var(--aika-shadow-input-focus);
 }
 
 html .discussionSearchTextContainer input.discussionSearchText {
+    box-sizing: border-box;
+    width: calc(100% - var(--aika-space-8));
     background: var(--aika-transparent);
     color: var(--aika-fg);
+}
+
+html .rightcol .discussionSearchTextContainer img.discussionSearchTextSubmitImg {
+    position: absolute;
+    top: 50%;
+    right: var(--aika-space-3);
+    width: var(--aika-icon-inline);
+    height: var(--aika-icon-inline);
+    margin: 0;
+    transform: translateY(-50%);
+    cursor: pointer;
+    object-position: -9999px 0;
+    background-color: var(--aika-fg-muted);
+    -webkit-mask: var(--aika-icon-search) center / contain no-repeat;
+    mask: var(--aika-icon-search) center / contain no-repeat;
+    transition: background-color var(--aika-dur-fast) var(--aika-ease-hover);
+}
+
+html .rightcol .discussionSearchTextContainer img.discussionSearchTextSubmitImg:hover {
+    background-color: var(--aika-accent-bright);
 }
 
 html .rightcol .rightbox {
@@ -1195,7 +1281,11 @@ html .rightbox .rightbox_list_option .rightbox_list_selection_background {
     background: none;
 }
 
+/* Подложка выбранного шире текста: текст стоит на месте, а подсветка
+   выходит за него на отступ (у Steam текст прилипал к краю подложки) */
 html .rightbox .rightbox_list_option {
+    margin-inline: calc(-1 * var(--aika-space-2));
+    padding-inline: var(--aika-space-2);
     border-radius: var(--aika-radius-md);
 }
 
