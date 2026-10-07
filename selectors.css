@@ -2634,6 +2634,14 @@ html body.profile_edit_page ._2QPdq7GZ_03AD1ioPixVXW .avatarHolder img.avatar {
 
 /* --- Подвал Valve (React-подвал сообщества) ------------------------------- */
 
+/* Сплошной чёрный #000 во всю ширину резал страницу полосой — подвал
+   прозрачный, сверху тонкая линия, гаснущая к краям */
+html body footer.TT1_g1XWXbbLgxOPIpczV {
+    border-top: var(--aika-hairline) solid;
+    border-image: var(--aika-divider) 1;
+    background: var(--aika-transparent);
+}
+
 html body footer.TT1_g1XWXbbLgxOPIpczV :is(p, br) {
     color: var(--aika-fg-subtle);
 }

@@ -819,6 +819,13 @@ html .friends_header_bg {
    Проверено 2026-10-07, все 10 вкладок.
    ========================================================================== */
 
+/* Фон страницы: у Steam body.profile_edit_page (0,1,1) — свой серо-синий
+   градиент #262d33 → #1d1e20 поверх нашего прозрачного body (правка
+   автора 2026-10-07) — гасим, виден фон темы с пятнами света */
+html body.profile_edit_page {
+    background: var(--aika-transparent);
+}
+
 /* Базовый текст страницы (#969696) и имя в шапке (#ebebeb) */
 html body.profile_edit_page .responsive_page_frame {
     color: var(--aika-fg-muted);
