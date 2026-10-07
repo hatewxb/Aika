@@ -31,43 +31,54 @@ html:root {
 
 :root {
     /* ------------------------------------------------------------------
-       Background: warm near-blacks (not #000 — DESIGN.md §7)
+       Preset roots. A color preset (options/presets/*.css) may set any
+       --aika-preset-* below; the second var() argument is the Aika value,
+       used by the Aika preset and by "Custom colors" (which resets presets).
+       Everything else in this file is derived from these roots.
        ------------------------------------------------------------------ */
-    --aika-bg-deep: #030303;        /* the deepest layer, background edges */
-    --aika-bg-base: #070606;        /* the main canvas */
-    --aika-bg-elevated: #0E0D0C;    /* panel bodies */
-    --aika-bg-raised: #161514;      /* panel headers, inputs, menus */
-    --aika-bg-glow: #0E0C0B;        /* the center of the radial light in the base background */
+
+    /* Background: warm near-blacks (not #000 — DESIGN.md §7) */
+    --aika-bg-deep: var(--aika-preset-bg-deep, #030303);        /* the deepest layer, background edges */
+    --aika-bg-base: var(--aika-preset-bg-base, #070606);        /* the main canvas */
+    --aika-bg-elevated: var(--aika-preset-bg-elevated, #0E0D0C); /* panel bodies */
+    --aika-bg-raised: var(--aika-preset-bg-raised, #161514);    /* panel headers, inputs, menus */
+    --aika-bg-glow: var(--aika-preset-bg-glow, #0E0C0B);        /* the center of the radial light in the base background */
     /* Solid steps lighter than raised — for scales that expect an opaque
        color (the Steam store design system, sections/store.css) */
-    --aika-bg-hover: #1D1B19;
-    --aika-bg-high: #262321;
-    --aika-bg-edge: #2F2C29;
-    --aika-bg-line: #3A3633;
+    --aika-bg-hover: var(--aika-preset-bg-hover, #1D1B19);
+    --aika-bg-high: var(--aika-preset-bg-high, #262321);
+    --aika-bg-edge: var(--aika-preset-bg-edge, #2F2C29);
+    --aika-bg-line: var(--aika-preset-bg-line, #3A3633);
+
+    /* Ink: the light tone of every translucent overlay (surfaces, borders,
+       glares). Aika: a warm white */
+    --aika-ink: var(--aika-preset-ink, #FFF6EC);
 
     /* ------------------------------------------------------------------
        Surfaces (cards, list items)
        ------------------------------------------------------------------ */
-    --aika-surface: rgba(255, 246, 236, 0.04);
-    --aika-surface-hover: rgba(255, 246, 236, 0.07);
-    --aika-surface-active: rgba(255, 246, 236, 0.10);
-    --aika-card-top: rgba(255, 246, 236, 0.06);       /* card gradient at the top… */
-    --aika-card-bottom: rgba(255, 246, 236, 0.015);   /* …and at the bottom */
-    --aika-surface-translucent: rgba(14, 13, 12, 0.92); /* ONLY menus, dropdowns, tooltips */
+    --aika-surface: rgb(from var(--aika-ink) r g b / 0.04);
+    --aika-surface-hover: rgb(from var(--aika-ink) r g b / 0.07);
+    --aika-surface-active: rgb(from var(--aika-ink) r g b / 0.10);
+    --aika-card-top: rgb(from var(--aika-ink) r g b / 0.06);       /* card gradient at the top… */
+    --aika-card-bottom: rgb(from var(--aika-ink) r g b / 0.015);   /* …and at the bottom */
+    --aika-surface-translucent: rgb(from var(--aika-bg-elevated) r g b / 0.92); /* ONLY menus, dropdowns, tooltips */
     /* The video player panel over the frame (Apple-style: a dark "material"
        with blur) — author's request 2026-10-04, DESIGN.md §11 */
-    --aika-player-material: rgba(18, 16, 15, 0.52);
+    --aika-player-material: rgb(from var(--aika-bg-raised) r g b / 0.52);
     --aika-player-track: rgb(from var(--aika-fg) r g b / 0.22);
     --aika-player-buffer: rgb(from var(--aika-fg) r g b / 0.38);
 
     /* ------------------------------------------------------------------
        Text: a warm off-white (not #FFF)
        ------------------------------------------------------------------ */
-    --aika-fg: #EDE9E3;
-    --aika-fg-muted: #948F88;
-    --aika-fg-subtle: rgba(237, 233, 227, 0.52);  /* 4.8:1 on the background; at 0.45 it was 3.9:1 */
-    --aika-fg-fade: rgba(237, 233, 227, 0.7);   /* the end of the large heading gradient */
-    --aika-on-accent: #FFFAF5;                  /* text on a solid accent */
+    --aika-fg: var(--aika-preset-fg, #EDE9E3);
+    --aika-fg-muted: var(--aika-preset-fg-muted, #948F88);
+    --aika-fg-subtle: rgb(from var(--aika-fg) r g b / 0.52);  /* 4.8:1 on the background; at 0.45 it was 3.9:1 */
+    --aika-fg-fade: rgb(from var(--aika-fg) r g b / 0.7);     /* the end of the large heading gradient */
+    /* Text on a solid accent fill: light for Aika; a preset with a light
+       accent sets a dark one */
+    --aika-on-accent: var(--aika-preset-on-accent, #FFFAF5);
 
     /* ------------------------------------------------------------------
        Accent derivatives (the accent itself is in root-colors.css)
@@ -75,13 +86,14 @@ html:root {
     /* Accent button fill: the accent darkened in OKLCH so light text
        is readable (WCAG AA ≥ 4.5:1; verified in Steam 2026-10-04:
        #FFFAF5 on fill — 5.2:1, on fill-hover — 4.8:1; on the accent itself it was 3.2:1).
-       The accent itself is for indicators, glows, borders (on the background — 6.2:1). */
-    --aika-accent-fill: oklch(from var(--aika-accent) calc(l - 0.12) c h);
-    --aika-accent-fill-hover: oklch(from var(--aika-accent) calc(l - 0.10) c h);
+       The accent itself is for indicators, glows, borders (on the background — 6.2:1).
+       A preset with a light accent (dark --aika-on-accent) sets the fills itself. */
+    --aika-accent-fill: var(--aika-preset-accent-fill, oklch(from var(--aika-accent) calc(l - 0.12) c h));
+    --aika-accent-fill-hover: var(--aika-preset-accent-fill-hover, oklch(from var(--aika-accent) calc(l - 0.10) c h));
     /* "Play" (an installed game) is brighter than "Install": accent → the pink
        light spot; both ends darkened in OKLCH for white text (§11) */
     --aika-play-fill-from: var(--aika-accent-fill);
-    --aika-play-fill-to: oklch(from var(--aika-light-2) calc(l - 0.14) c h);
+    --aika-play-fill-to: var(--aika-preset-play-fill-to, oklch(from var(--aika-light-2) calc(l - 0.14) c h));
     --aika-play-glow: rgb(from var(--aika-accent) r g b / 0.55);
     --aika-play-glow-pink: rgb(from var(--aika-light-2) r g b / 0.35);
     --aika-play-highlight: rgba(255, 255, 255, 0.28);
@@ -102,9 +114,9 @@ html:root {
     /* ------------------------------------------------------------------
        Borders — almost invisible (DESIGN.md §7.5)
        ------------------------------------------------------------------ */
-    --aika-border: rgba(255, 246, 236, 0.06);
-    --aika-border-hover: rgba(255, 246, 236, 0.11);
-    --aika-border-strong: rgba(255, 246, 236, 0.10); /* inputs, icon containers */
+    --aika-border: rgb(from var(--aika-ink) r g b / 0.06);
+    --aika-border-hover: rgb(from var(--aika-ink) r g b / 0.11);
+    --aika-border-strong: rgb(from var(--aika-ink) r g b / 0.10); /* inputs, icon containers */
 
     /* ------------------------------------------------------------------
        Statuses
@@ -130,16 +142,16 @@ html:root {
     --aika-shadow-logo: rgba(0, 0, 0, 0.85);   /* the shadow behind the game logo in the store */
     --aika-shadow-logo-halo: rgba(0, 0, 0, 0.6); /* a wide halo behind the logo */
     --aika-shadow-deep: rgba(0, 0, 0, 0.5);
-    --aika-highlight: rgba(255, 246, 236, 0.08);     /* a glare along the top edge */
+    --aika-highlight: rgb(from var(--aika-ink) r g b / 0.08);     /* a glare along the top edge */
     --aika-highlight-cta: rgba(255, 255, 255, 0.2);  /* a glare on the accent button */
     --aika-shine: rgba(255, 255, 255, 0.22);         /* the shine stripe on button hover */
     --aika-shine-edge: rgba(255, 255, 255, 0);
-    --aika-grid-line: rgba(255, 246, 236, 1);        /* the background grid; the result is --aika-grid-opacity */
+    --aika-grid-line: var(--aika-ink);        /* the background grid; the result is --aika-grid-opacity */
 
     /* A darkening over images under text (DESIGN.md §9: text on
        covers — only with a darkening gradient) */
-    --aika-scrim: rgba(7, 6, 6, 0.75);
-    --aika-scrim-none: rgba(7, 6, 6, 0);
+    --aika-scrim: rgb(from var(--aika-bg-base) r g b / 0.75);
+    --aika-scrim-none: rgb(from var(--aika-bg-base) r g b / 0);
 
     /* ------------------------------------------------------------------
        Notification toasts (components/toast.css, DESIGN.md §11):
@@ -152,11 +164,11 @@ html:root {
     --aika-toast-light-3: rgb(from var(--aika-light-3) r g b / 0.30);
     --aika-toast-mark-from: rgb(from var(--aika-accent-bright) r g b / 0.55);
     --aika-toast-mark-to: rgb(from var(--aika-light-2) r g b / 0.30);
-    --aika-toast-sheen: rgba(255, 246, 236, 0.07);   /* a glare over the top half of the glass */
-    --aika-toast-rim-top: rgba(255, 246, 236, 0.22); /* a light rim on top */
+    --aika-toast-sheen: rgb(from var(--aika-ink) r g b / 0.07);   /* a glare over the top half of the glass */
+    --aika-toast-rim-top: rgb(from var(--aika-ink) r g b / 0.22); /* a light rim on top */
     --aika-toast-rim-bottom: rgba(0, 0, 0, 0.30);    /* a dark rim at the bottom */
     --aika-toast-text-shadow: rgba(0, 0, 0, 0.55);   /* text reads over any desktop */
 
     /* Fully transparent — to "remove" Steam backgrounds without bare values */
-    --aika-transparent: rgba(255, 246, 236, 0);
+    --aika-transparent: rgb(from var(--aika-ink) r g b / 0);
 }

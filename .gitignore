@@ -27,3 +27,6 @@ screenshots.txt
 # Local-only docs (design notes and agent instructions)
 DESIGN.md
 CLAUDE.md
+
+# Local color theme concepts (author drafts for presets)
+color-concepts/

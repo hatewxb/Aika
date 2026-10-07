@@ -12,4 +12,21 @@ html:root {
     --aika-preset-light-1: initial;
     --aika-preset-light-2: initial;
     --aika-preset-light-3: initial;
+    /* Roots that only some presets set: back to the Aika values */
+    --aika-preset-accent-fill: initial;
+    --aika-preset-accent-fill-hover: initial;
+    --aika-preset-on-accent: initial;
+    --aika-preset-play-fill-to: initial;
+    --aika-preset-bg-deep: initial;
+    --aika-preset-bg-base: initial;
+    --aika-preset-bg-glow: initial;
+    --aika-preset-bg-elevated: initial;
+    --aika-preset-bg-raised: initial;
+    --aika-preset-bg-hover: initial;
+    --aika-preset-bg-high: initial;
+    --aika-preset-bg-edge: initial;
+    --aika-preset-bg-line: initial;
+    --aika-preset-fg: initial;
+    --aika-preset-fg-muted: initial;
+    --aika-preset-ink: initial;
 }

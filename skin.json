@@ -27,6 +27,9 @@
             "values": {
                 "Aika": {
                     "TargetCss": { "affects": [".*"], "src": "options/presets/aika.css" }
+                },
+                "Hello Bert": {
+                    "TargetCss": { "affects": [".*"], "src": "options/presets/hello-bert.css" }
                 }
             }
         },

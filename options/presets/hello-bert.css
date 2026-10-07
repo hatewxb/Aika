@@ -1,0 +1,40 @@
+/* ==========================================================================
+   The "Hello Bert" color preset (theme settings → "Color presets").
+   Attached by Conditions from skin.json to every window and web page.
+
+   A cool scheme: ink-black canvas, slate-blue panels, silver text and a
+   bright cyan accent. Source palette: #0B0C10, #1F2833, #C5C6C7, #66FCF1,
+   #45A29E; the other background steps are interpolated between them.
+
+   The accent is light, so text on accent fills is dark (--aika-preset-on-accent)
+   and the fills are set here instead of the OKLCH darkening in colors.css.
+   ========================================================================== */
+
+:root {
+    /* Accent and light spots */
+    --aika-preset-accent: #66FCF1;              /* cyan: indicators, glows, links */
+    --aika-preset-accent-bright: #8FFDF6;
+    --aika-preset-accent-fill: #45A29E;         /* teal button fill, dark text 6.5:1 */
+    --aika-preset-accent-fill-hover: #52B6B1;
+    --aika-preset-on-accent: #0B0C10;
+    --aika-preset-play-fill-to: #66FCF1;        /* "Play": teal → cyan */
+    --aika-preset-light-1: #66FCF1;             /* spot at the top */
+    --aika-preset-light-2: #45A29E;             /* spot on the left */
+    --aika-preset-light-3: #C5C6C7;             /* silver, bottom right */
+
+    /* Background steps, darkest to lightest */
+    --aika-preset-bg-deep: #07080B;
+    --aika-preset-bg-base: #0B0C10;             /* the main canvas */
+    --aika-preset-bg-glow: #12161C;
+    --aika-preset-bg-elevated: #151A21;
+    --aika-preset-bg-raised: #1F2833;           /* panel headers, inputs, menus */
+    --aika-preset-bg-hover: #263140;
+    --aika-preset-bg-high: #2E3A4A;
+    --aika-preset-bg-edge: #364455;
+    --aika-preset-bg-line: #405063;
+
+    /* Text and the tone of translucent overlays */
+    --aika-preset-fg: #C5C6C7;
+    --aika-preset-fg-muted: #80858C;
+    --aika-preset-ink: #DDE6EA;
+}

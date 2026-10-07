@@ -137,8 +137,13 @@
 | 2026-10-07 | Discussions, search (screenshot "17_d search"): a blue square remained to the right of the field — it's a ::before on .discussionSearchTextContainer with Steam's button image (right: -40px); killed (content: none). Lesson: elementsFromPoint and my collector don't see pseudo-elements — for "extra" images next to fields check ::before/::after (tools/audit.js checks them) | sections/community.css |
 | 2026-10-07 | Version 0.1.0b, the second release on GitHub (tag v0.1.0b, the Aika-0.1.0b.zip archive — the same contents as 0.1.0a: theme files + README, without CLAUDE/DESIGN/ROADMAP/tools/screenshots). Privacy checked: the files and changes since 0.1.0a contain no account name, profile ID, friend nicknames, paths with the user name; the new binaries are only OFL fonts with licenses | skin.json, README.md, DESIGN.md |
 | 2026-10-07 | Repository localized to English: code comments, README, ROADMAP, skin.json (setting names and descriptions), commit history messages; DESIGN.md and CLAUDE.md removed from the repository and its history (kept locally); the repository made public | all files |
+| 2026-10-08 | Full color presets: a preset can now set the background steps, text, the overlay tone (--aika-ink, was hardcoded 255,246,236), the accent fills and text on the accent; hardcoded copies (scrim, translucent menus, player material, fg-subtle/fade, borders, glares) derived from the roots; Aika values kept as var() fallbacks. The second preset "Hello Bert" (cyan on ink-black, dark text on teal fills); verified live by injecting the preset — roots and derived colors switch, Aika values unchanged without it. Local color-concepts/ folder for scheme drafts (ignored) | colors.css, options/presets/hello-bert.css, options/colors-manual.css, skin.json, .gitignore |
 
 ## Waiting for the author to check in Steam
+
+- [ ] **Restart Steam** (a new Conditions value), theme settings → "Color presets" →
+      "Hello Bert": the whole client turns cool (ink-black, slate panels, cyan accent,
+      dark text on accent buttons and "Play"); switching back to "Aika" — unchanged warm look.
 
 - [ ] **Restart Steam** (a new Patch for profile screenshots), open
       the profile → "Content" → "Screenshots": per-game shelves, carousels scroll
