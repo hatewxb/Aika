@@ -1712,13 +1712,18 @@ html .TitleBar .Button.ParentalToggleButton._3arz-hc3FJ0QKXLPRUSaah:not(._2lStU4
 /* Плашка раздела над окном новости: сплошная с линией снизу давала резкий
    край над страницей (скрин «3_e», правка автора 2026-10-07) — гаснет
    к низу, как баннер игры (._2zTu0…) */
+/* Тень Steam снизу (0 0 10px #000) тоже давала тёмную полосу — убираем */
 html ._1HRiMtg_SGUiOa-NXDzZl7.AppPartnerEventsBanner {
     border-bottom: none;
     background: var(--aika-banner-fade);
+    box-shadow: none;
 }
 
+/* Размытая обложка раздела: у «Новости Steam» это синий баннер Steam —
+   даже приглушённый давал синий отлив (правка автора 2026-10-07: «синий
+   градиент, не наши цвета») — обесцвечиваем в тёплую нейтраль */
 html ._1HRiMtg_SGUiOa-NXDzZl7 .wavRtSPqcvhar0kUHlKoJ ._3RHFoIvdUHn0fp8G8M258k {
-    filter: var(--aika-blur-cover-filter);
+    filter: var(--aika-blur-cover-neutral);
     opacity: var(--aika-blur-cover-opacity);
     -webkit-mask-image: var(--aika-banner-mask);
     mask-image: var(--aika-banner-mask);
