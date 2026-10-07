@@ -1855,3 +1855,32 @@ html body.v6 .FollowButton:hover {
 html body.v6 .FollowButton .FollowBtnText {
     color: inherit;
 }
+
+/* ==========================================================================
+   Страница игры — предупреждения у блока покупки (скрин 16, Spec Ops:
+   The Line): «Не поддерживается русский язык», «Внимание: … больше не
+   доступна», «… СНГ». Steam: .notice_box_content — рамка #a25024,
+   радиус 3, жирное начало #f47b20, текст #acb2b8 (0,1,0)…(0,1,1).
+   Делаем карточкой-предупреждением темы (warn). Проверено 2026-10-07.
+   ========================================================================== */
+
+html body.v6 .notice_box_content {
+    padding: var(--aika-space-3) var(--aika-space-4);
+    border: var(--aika-hairline) solid var(--aika-warn-border);
+    border-radius: var(--aika-radius-lg);
+    background: var(--aika-warn-soft);
+    color: var(--aika-fg-muted);
+}
+
+html body.v6 .notice_box_content b {
+    color: var(--aika-warn);
+    font-weight: var(--aika-weight-semibold);
+}
+
+html body.v6 .notice_box_content a {
+    color: var(--aika-accent-bright);
+}
+
+html body.v6 .notice_box_content a:hover {
+    color: var(--aika-fg);
+}
