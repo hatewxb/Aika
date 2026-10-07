@@ -1033,3 +1033,243 @@ html body.profile_edit_page .profile_customization .showcase_stat .label,
 html body.profile_edit_page .profile_customization .showcase_bodylabel {
     color: var(--aika-fg-subtle);
 }
+
+/* ==========================================================================
+   Обсуждения игры (steamcommunity…/app/…/discussions/…; скрин 17, задача 17).
+   Старая вёрстка, читаемые классы. Steam: строки тем .forum_topic —
+   голубой #5485b7 40 % (hover #75ccff 50 %), «ЗАКРЕПЛЕНО» салатовым
+   #aedd08, автор и время #8ed1f9, ответы #c6d4df; значки — PNG (конверт,
+   замок, «ответы»); пагинация на #151f2c 70 %; правая колонка .rightbox —
+   чёрный градиент, разделители #1e323f, выбранный форум — картинка-стрелка
+   (голубая), «Новое обсуждение» — синяя кнопка, «Подписаться» — голубой
+   текст. Проверено 2026-10-07 на Enshrouded.
+   ========================================================================== */
+
+/* --- Список тем ----------------------------------------------------------- */
+
+html .forum_topics .forum_topic {
+    margin-bottom: var(--aika-space-1);
+    border: var(--aika-hairline) solid var(--aika-border);
+    border-radius: var(--aika-radius-md);
+    background-color: var(--aika-surface);
+    transition:
+        background-color var(--aika-dur-fast) var(--aika-ease-hover),
+        border-color var(--aika-dur-fast) var(--aika-ease-hover);
+}
+
+html .forum_topics .forum_topic:hover {
+    border-color: var(--aika-border-accent);
+    background-color: var(--aika-accent-tint);
+}
+
+/* Непрочитанные — чуть заметнее (у Steam тот же голубой) */
+html .forum_topics .forum_topic.unread {
+    background-color: var(--aika-surface-hover);
+}
+
+html .forum_topics .forum_topic.unread:hover {
+    background-color: var(--aika-accent-tint);
+}
+
+html .forum_topic .forum_topic_name,
+html .forum_topic.unread .forum_topic_name {
+    color: var(--aika-fg);
+}
+
+html .forum_topic .forum_topic_op {
+    color: var(--aika-accent-bright);
+}
+
+html .forum_topic .forum_topic_lastpost {
+    color: var(--aika-fg-subtle);
+    font-family: var(--aika-font-mono);
+}
+
+html .forum_topic :is(.forum_topic_reply_count, .forum_topic_award_count) {
+    color: var(--aika-fg-muted);
+    font-family: var(--aika-font-mono);
+}
+
+/* «ЗАКРЕПЛЕНО:» — акцент вместо салатового */
+html .forum_topic .forum_topic_label.sticky_label {
+    color: var(--aika-accent-bright);
+}
+
+/* Значки тем и ответов (PNG: голубой конверт, белый замок, пузырь) —
+   в тон акцента / приглушённо */
+html .forum_topic .forum_topic_icon img {
+    filter: var(--aika-tint-accent);
+}
+
+html .forum_topic .forum_topic_reply_count img {
+    opacity: var(--aika-icon-dim);
+}
+
+/* --- Пагинация ------------------------------------------------------------ */
+
+html .forum_area .forum_paging {
+    border: var(--aika-hairline) solid var(--aika-border);
+    border-radius: var(--aika-radius-md);
+    background-color: var(--aika-surface);
+    color: var(--aika-fg-subtle);
+}
+
+html .forum_paging .forum_paging_summary,
+html .forum_paging .forum_paging_summary span {
+    color: var(--aika-fg-subtle);
+    font-family: var(--aika-font-mono);
+}
+
+html .forum_paging a.forum_paging_pagelink {
+    color: var(--aika-fg-muted);
+    font-family: var(--aika-font-mono);
+}
+
+html .forum_paging a.forum_paging_pagelink:hover {
+    color: var(--aika-fg);
+}
+
+html .forum_paging a.forum_paging_pagelink.active {
+    color: var(--aika-accent-bright);
+}
+
+html .forum_paging a.pagebtn {
+    border-radius: var(--aika-radius-xs);
+    background-color: var(--aika-surface-hover);
+    color: var(--aika-fg);
+}
+
+html .forum_paging a.pagebtn.disabled {
+    opacity: var(--aika-disabled-opacity);
+}
+
+html .forum_area .forum_pagesize_options,
+html .forum_area .forum_pagesize_options .commentthread_pagination_link {
+    color: var(--aika-fg-subtle);
+}
+
+html .forum_area .forum_pagesize_options a.commentthread_pagination_link {
+    color: var(--aika-fg-muted);
+}
+
+/* --- Правая колонка ------------------------------------------------------- */
+
+html .discussionSearchTextContainer {
+    border: var(--aika-hairline) solid var(--aika-border-hover);
+    border-radius: var(--aika-radius-md);
+    background: var(--aika-bg-raised);
+}
+
+html .discussionSearchTextContainer input.discussionSearchText {
+    background: var(--aika-transparent);
+    color: var(--aika-fg);
+}
+
+html .rightcol .rightbox {
+    overflow: hidden;
+    margin-bottom: var(--aika-space-3);
+    border: var(--aika-hairline) solid var(--aika-border);
+    border-radius: var(--aika-radius-lg);
+    background: var(--aika-card-bg);
+    color: var(--aika-fg-muted);
+}
+
+html .rightcol .rightbox .rule {
+    border-top: none;
+    background: var(--aika-divider);
+}
+
+html .rightcol .rightbox :is(.rightcol_minor_text, .rightbox_content_header, .rightbox_list_header > div) {
+    color: var(--aika-fg-subtle);
+}
+
+html .rightcol .rightbox :is(.rightbox_content_header, .rightbox_list_header > div) {
+    font-family: var(--aika-font-mono);
+    font-size: var(--aika-text-label);
+    letter-spacing: var(--aika-tracking-label);
+}
+
+/* Список форумов: выбранный — картинка-стрелка голубая → акцентная
+   подложка с полоской */
+html .rightbox .rightbox_list_option .rightbox_list_selection_background {
+    background: none;
+}
+
+html .rightbox .rightbox_list_option {
+    border-radius: var(--aika-radius-md);
+}
+
+html .rightbox .rightbox_list_option.selected {
+    background: var(--aika-accent-soft);
+    box-shadow: inset var(--aika-indicator) 0 0 var(--aika-accent);
+}
+
+html .rightbox .rightbox_list_option .forum_list_name a.whiteLink {
+    color: var(--aika-fg);
+}
+
+html .rightbox .rightbox_list_option.selected .forum_list_name a.whiteLink {
+    color: var(--aika-accent-bright);
+}
+
+html .rightbox .rightbox_list_option .forum_list_postcount {
+    color: var(--aika-fg-muted);
+    font-family: var(--aika-font-mono);
+}
+
+html .rightbox .weblink a {
+    color: var(--aika-fg-muted);
+}
+
+html .rightbox .weblink a:hover {
+    color: var(--aika-fg);
+}
+
+html .rightbox .weblink img {
+    opacity: var(--aika-icon-dim);
+}
+
+/* «Подписаться на форум» (btn_grey_black, голубой текст) и «Новое
+   обсуждение» (btn_darkblue_white_innerfade — синяя, цвет !important) */
+html .rightbox .btn_grey_black {
+    border-radius: var(--aika-radius-md);
+    background: var(--aika-surface);
+    box-shadow: var(--aika-shadow-secondary);
+}
+
+html .rightbox .btn_grey_black > span {
+    border-radius: var(--aika-radius-md);
+    background: var(--aika-transparent);
+    color: var(--aika-fg);
+}
+
+html .rightbox .btn_grey_black:hover {
+    background: var(--aika-surface-hover);
+}
+
+html .rightbox .btn_darkblue_white_innerfade {
+    border-radius: var(--aika-radius-md);
+    background: var(--aika-accent-fill);
+    box-shadow: var(--aika-shadow-cta);
+    color: var(--aika-on-accent) !important; /* у Steam #a4d7f5 !important */
+}
+
+html .rightbox .btn_darkblue_white_innerfade > span {
+    background: var(--aika-transparent);
+}
+
+html .rightbox .btn_darkblue_white_innerfade:hover {
+    background: var(--aika-accent-fill-hover);
+    color: var(--aika-on-accent) !important; /* у Steam #fff !important */
+}
+
+/* «Сайт сообщества» в шапке (btnv6_blue_hoverfade, голубой текст) */
+html .apphub_OtherSiteInfo a.btnv6_blue_hoverfade {
+    border-radius: var(--aika-radius-md);
+    background: var(--aika-surface);
+    box-shadow: var(--aika-shadow-secondary);
+}
+
+html .apphub_OtherSiteInfo a.btnv6_blue_hoverfade > span {
+    color: var(--aika-fg);
+}
