@@ -1604,3 +1604,143 @@ html .AppPartnerEventsBody .ControlSectionRightSide .ScrollButton:not(.GameArt):
 html .AppPartnerEventsBody .ControlSectionRightSide .ScrollButton.GameArt img {
     border-radius: calc(var(--aika-radius-md) - var(--aika-hairline));
 }
+
+/* --------------------------------------------------------------------------
+   Достижения игры (страница игры → «Мои достижения»; скрин 13, PEAK):
+   оверлей .AchievementsOverlayContainer > .AchievementsPageContainer.
+   Steam: панель с серо-синим радиальным градиентом #42454c → #25282e,
+   радиус 4 (0,3,0); шапка гаснет в #0e141b; прогресс — голубой #1a9fff
+   на #3d4450; строки #23262e; подписи капсом #dcdedf; вкладка — белый 15 %;
+   круглая «закрыть» #44444b. Проверено 2026-10-07.
+   -------------------------------------------------------------------------- */
+
+html .AchievementsOverlayContainer .AchievementsPageContainer > .GamepadPage {
+    overflow: hidden;
+    border: var(--aika-hairline) solid var(--aika-border-accent);
+    border-radius: var(--aika-radius-xl);
+    background: var(--aika-bg-elevated);
+    background-image: var(--aika-card-accent-bg);
+    box-shadow: var(--aika-shadow-event);
+}
+
+/* Шапка с обложкой: гаснет в фон панели, а не в синий #0e141b */
+html .AchievementsPageContainer .Background .Blur {
+    background: linear-gradient(to bottom, var(--aika-transparent), var(--aika-bg-elevated));
+}
+
+/* «Получено 51 из 64» + прогресс */
+html .AchievementsPageContainer .StatsBlock {
+    border: var(--aika-hairline) solid var(--aika-border);
+    border-radius: var(--aika-radius-lg);
+    background-color: var(--aika-surface-translucent);
+}
+
+html .AchievementsPageContainer .StatLabelAndValue .ProgressLabel .Label {
+    color: var(--aika-fg);
+    font-family: var(--aika-font-mono);
+    font-size: var(--aika-text-label);
+    letter-spacing: var(--aika-tracking-label);
+}
+
+/* Полосы прогресса (общая и у отдельных достижений) */
+html .AchievementsPageContainer .ProgressBar.ProgressBar {
+    background: var(--aika-surface-active);
+}
+
+/* Заливку Steam ставит inline: background: var(--gpColor-Blue, #1a9fff) —
+   подменяем саму переменную в пределах страницы */
+html .AchievementsPageContainer {
+    --gpColor-Blue: var(--aika-accent);
+}
+
+html .AchievementsPageContainer .ProgressBar .Percent.Percent {
+    box-shadow: 0 0 8px var(--aika-accent-glow);
+}
+
+/* Вкладки «Мои / Глобальные достижения» */
+html .AchievementsPageContainer .Tab .TabTitle {
+    color: var(--aika-fg-muted);
+}
+
+html .AchievementsPageContainer .Tab.Selected.Selected {
+    background-color: var(--aika-accent-soft);
+    box-shadow: inset 0 0 0 var(--aika-hairline) var(--aika-border-accent);
+    color: var(--aika-accent-bright);
+}
+
+html .AchievementsPageContainer .Tab.Selected .TabTitle {
+    color: var(--aika-accent-bright);
+}
+
+/* Строки достижений */
+html .AchievementsPageContainer .AchievementList .AchievementListItemBase {
+    border: var(--aika-hairline) solid var(--aika-border);
+    border-radius: var(--aika-radius-lg);
+    background-color: var(--aika-surface);
+    transition:
+        background-color var(--aika-dur-fast) var(--aika-ease-hover),
+        border-color var(--aika-dur-fast) var(--aika-ease-hover);
+}
+
+html .AchievementsPageContainer .AchievementList .AchievementListItemBase:hover {
+    border-color: var(--aika-border-hover);
+    background-color: var(--aika-surface-hover);
+}
+
+html .AchievementListItemBase .AchievementContent .AchievementTitle {
+    color: var(--aika-fg);
+}
+
+html .AchievementListItemBase .AchievementContent .AchievementDescription {
+    color: var(--aika-fg-muted);
+}
+
+html .AchievementListItemBase .AchievementContent .AchievementGlobalPercentage,
+html .AchievementListItemBase .UnlockDate {
+    color: var(--aika-fg-subtle);
+    font-family: var(--aika-font-mono);
+}
+
+/* Прокручиваемая часть и список: сплошной синеватый #0e141b → прозрачно
+   (под ними фон панели) */
+html .AchievementsPageContainer :is(.Page.ScrollPanel, .AchievementList) {
+    background: var(--aika-transparent);
+}
+
+/* «Глобальные достижения»: строка #23262e, полоса доли игроков
+   (.ProgressFill — заливка строки на долю процента) серая, процент белый */
+html .AchievementsPageContainer .AchievementList .GlobalAchievementListItem {
+    overflow: hidden;
+    border: var(--aika-hairline) solid var(--aika-border);
+    border-radius: var(--aika-radius-lg);
+    background: var(--aika-surface);
+}
+
+html .AchievementsPageContainer .GlobalAchievementListItem .Content .ProgressFill {
+    background-color: var(--aika-accent-tint);
+}
+
+html .AchievementsPageContainer .GlobalAchievementListItem .Content .Info .Title {
+    color: var(--aika-fg);
+}
+
+html .AchievementsPageContainer .GlobalAchievementListItem .Content .Info .Description {
+    color: var(--aika-fg-muted);
+}
+
+html .AchievementsPageContainer .GlobalAchievementListItem .Content .Percent {
+    color: var(--aika-accent-bright);
+    font-family: var(--aika-font-mono);
+}
+
+/* Круглая «закрыть» справа сверху — как кнопки окна новости */
+html .AchievementsOverlayContainer .AchievementsPageContainer > .CloseButton {
+    border: var(--aika-hairline) solid var(--aika-border-hover);
+    background: var(--aika-bg-raised);
+    box-shadow: var(--aika-highlight-top), 0 4px 20px var(--aika-shadow-near);
+}
+
+html .AchievementsOverlayContainer .AchievementsPageContainer > .CloseButton:hover {
+    border-color: var(--aika-border-accent);
+    background: var(--aika-bg-hover);
+}
