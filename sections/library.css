@@ -887,3 +887,57 @@ html .AppPortraitHover .PlaytimeDetails .Header {
     font-size: var(--aika-text-label);
     letter-spacing: var(--aika-tracking-label);
 }
+
+/* --------------------------------------------------------------------------
+   «Фильтры библиотеки» (кнопка фильтра у поиска, .AdvancedSearchPane;
+   скрин 12). Steam: плашка #3f4047 с чёрной тенью, радиус 4 (0,4,0),
+   голубые подписи групп #26b7ff капсом (0,3,0), значения списков #ccc.
+   Всплывающая панель — полупрозрачная, как меню. Проверено 2026-10-07.
+   -------------------------------------------------------------------------- */
+
+html .AdvancedSearchContainer .AdvancedSearchPaneContainer .AdvancedSearchPane.AdvancedSearchPane {
+    border-radius: var(--aika-radius-xl);
+    background-color: var(--aika-surface-translucent);
+    box-shadow: var(--aika-shadow-menu);
+}
+
+html .AdvancedSearchPane .Header {
+    color: var(--aika-fg);
+    font-weight: var(--aika-weight-semibold);
+}
+
+/* Подписи групп («ИГРОКИ», «ЖАНР») — моно-метки акцентом */
+html .AdvancedSearchPane .FilterBucket .FilterBucketLabel {
+    color: var(--aika-accent-bright);
+    font-family: var(--aika-font-mono);
+    font-size: var(--aika-text-label);
+    letter-spacing: var(--aika-tracking-label);
+}
+
+html .AdvancedSearchPane .FilterBucket .Row {
+    color: var(--aika-fg-muted);
+}
+
+html .AdvancedSearchPane .CompatDropDown .DialogDropDown_CurrentDisplay,
+html .AdvancedSearchPane .CompatDropDown .DialogDropDown_CurrentDisplay * {
+    color: var(--aika-fg);
+}
+
+html .AdvancedSearchPane .CompatDropDown .DialogDropDown_Arrow svg polygon {
+    fill: var(--aika-fg-muted);
+}
+
+html .AdvancedSearchPane .SearchFilterInput {
+    color: var(--aika-fg);
+}
+
+/* Кнопка фильтра, пока панель открыта (.Extended): у Steam значок #d3d3d3
+   (0,4,2) — у нас акцент, видно, что фильтры открыты */
+html .Container .AdvancedSearchContainer.Extended .AdvancedSearchButton svg path {
+    fill: var(--aika-accent-bright);
+}
+
+/* «Показать опции доступности»: значок-стрелки #d3d3d3 */
+html .AdvancedSearchPane .AccessibilityOptionsButton svg :is(path, polygon) {
+    fill: currentColor;
+}
