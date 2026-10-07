@@ -1517,11 +1517,24 @@ html body.v6 .highlight_ctn:has(> .aika-store-logo) {
     position: relative;
 }
 
+/* У Steam «.widestore #game_highlights» — backdrop-filter: blur(7px), это
+   отдельный контекст наложения: z-index логотипа работает только внутри
+   блока, и во время распродажи баннер (.saleEventBannerBig, z 100, выше
+   по странице) перекрывал верх логотипа (скрин 11, STEEP). Поднимаем
+   весь блок трейлера над баннером — пересекаются они только логотипом. */
+html body.v6 #game_highlights:has(.aika-store-logo) {
+    position: relative;
+    z-index: var(--aika-z-store-logo);
+}
+
 html body.v6 .highlight_ctn > .aika-store-logo {
     position: absolute;
     top: 0;
     left: calc(50% - var(--aika-store-highlight-gutter) / 2);
-    z-index: 30;
+    /* было 30: во время распродажи вместо полосы с названием стоит
+       баннер (.saleEventBannerBig, z 100) — верх логотипа уходил под него
+       (скрин 11, STEEP) */
+    z-index: var(--aika-z-store-logo);
     display: flex;
     align-items: center;
     justify-content: center;
