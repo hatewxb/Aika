@@ -711,12 +711,16 @@ html body.v6 [data-featuretarget="store-menu-v7"] .hWF8eniTajf4-mfZvbK3F ._2faI2
 }
 
 /* Метка жанра на плитке «Ваши любимые жанры» (.NOctYARrXun3C2m8ZOA3u,
-   у Steam белая плашка с тёмным текстом) */
-html body.v6 [data-featuretarget="store-menu-v7"] .NOctYARrXun3C2m8ZOA3u,
-html body.v6 [data-featuretarget="store-menu-v7"] .NOctYARrXun3C2m8ZOA3u > div {
-    border-radius: var(--aika-radius-xs);
-    background-color: var(--aika-surface-translucent);
+   у Steam белая плашка с тёмным текстом). Тёмная плашка (наша, двойная —
+   на метке и на вложенном div) читалась чёрным прямоугольником поверх
+   картинки (скрин 14, правка автора 2026-10-07) — без подложки, светлый
+   текст с тенью */
+html body.v6 [data-featuretarget="store-menu-v7"] .pL9V4hzvI0RysTdCufdAS .NOctYARrXun3C2m8ZOA3u,
+html body.v6 [data-featuretarget="store-menu-v7"] .pL9V4hzvI0RysTdCufdAS .NOctYARrXun3C2m8ZOA3u > div {
+    background: var(--aika-transparent);
     color: var(--aika-fg);
+    font-weight: var(--aika-weight-semibold);
+    text-shadow: var(--aika-genre-label-shadow);
 }
 
 html body.v6 .h2B3SGR_w4RWdrnsRZEcD ._19o1GB7ysfrWKLYpqZ6aXu,

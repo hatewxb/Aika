@@ -285,6 +285,8 @@
     /* Перекраска картинки в тон акцента (sepia даёт ~38°, +205° ≈ 243° —
        оттенок --aika-accent). Для фирменных синих картинок Steam
        (шапка «Новости Steam») */
+    /* Подпись поверх картинки без подложки (метка жанра в поиске магазина) */
+    --aika-genre-label-shadow: 0 1px 2px var(--aika-shadow-deep), 0 0 8px var(--aika-shadow-deep);
     --aika-tint-accent: grayscale(1) sepia(1) saturate(2.4) hue-rotate(205deg) brightness(0.95);
 
     /* Иконки верхних вкладок (nav.css). Свои простые SVG 24×24, линия 1.75;
