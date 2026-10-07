@@ -1,21 +1,21 @@
 /* ==========================================================================
-   components/nav.css — навигация в духе Fluent (DESIGN.md §4, Navigation).
+   components/nav.css — Fluent-style navigation (DESIGN.md §4, Navigation).
 
-   Левая панель библиотеки (сняты через CDP 2026-10-04):
-     .HomeBox .Bar[.Selected]          — пункт «Библиотека» (домашняя)
-     .CollectionsButton .Bar           — кнопка «Коллекции»
-     .SearchInput input                — поиск по названию
+   The library's left panel (captured via CDP 2026-10-04):
+     .HomeBox .Bar[.Selected]          — the "Library" item (home)
+     .CollectionsButton .Bar           — the "Collections" button
+     .SearchInput input                — search by name
      .ReactVirtualized__List .Container:has(> .GameListEntryContainer)
-                                       — строка игры; .Installed / .Uninstalled
-   Выбранная строка игры — .Container.Selected (проверено 2026-10-04).
+                                       — a game row; .Installed / .Uninstalled
+   The selected game row is .Container.Selected (verified 2026-10-04).
 
-   Индикатор выбора — вертикальная полоска 3 px акцента слева со
-   скруглёнными концами, появляется scaleY 0 → 1 (при --aika-motion: 0 —
-   сразу). Классы .aika-nav-item[.is-selected] — для своей разметки.
+   The selection indicator is a vertical 3 px accent bar on the left with
+   rounded ends, it appears via scaleY 0 → 1 (with --aika-motion: 0 —
+   instantly). The .aika-nav-item[.is-selected] classes are for our own markup.
    ========================================================================== */
 
 /* --------------------------------------------------------------------------
-   Общий вид пункта и индикатор
+   Shared item look and indicator
    -------------------------------------------------------------------------- */
 
 @keyframes aika-indicator-in {
@@ -63,9 +63,9 @@ html .PagedSettingsDialog_PageList .PagedSettingsDialog_PageListItem.Active::bef
 }
 
 /* --------------------------------------------------------------------------
-   Строки списка игр
-   Steam: hover — «._2-O4…:hover» (0,2,0), цвета состояний — до (0,3,0).
-   У нас html + 3 класса — (0,3,1)…(0,4,1).
+   Game list rows
+   Steam: hover — "._2-O4…:hover" (0,2,0), state colors — up to (0,3,0).
+   Ours: html + 3 classes — (0,3,1)…(0,4,1).
    -------------------------------------------------------------------------- */
 
 html .ReactVirtualized__List .Container:has(> .GameListEntryContainer) {
@@ -79,8 +79,8 @@ html .ReactVirtualized__List .Container:has(> .GameListEntryContainer) {
         color var(--aika-dur-fast) var(--aika-ease-hover);
 }
 
-/* Установленные — ярче, неустановленные — приглушены (DESIGN.md §9:
-   состояние видно и по иконке статуса Steam, не только по цвету) */
+/* Installed — brighter, not installed — muted (DESIGN.md §9:
+   the state is also visible from Steam's status icon, not only from color) */
 html .ReactVirtualized__List .Container.Installed:has(> .GameListEntryContainer) {
     color: var(--aika-fg);
 }
@@ -90,8 +90,8 @@ html .ReactVirtualized__List .Container:has(> .GameListEntryContainer):hover {
     color: var(--aika-fg);
 }
 
-/* Выбранная строка — после hover, чтобы при наведении не терять акцент;
-   тень выбора Steam («._1UBp…» = .Selected) убираем */
+/* The selected row — after hover, so the accent isn't lost on hover;
+   Steam's selection shadow ("._1UBp…" = .Selected) is removed */
 html .ReactVirtualized__List .Container.Selected:has(> .GameListEntryContainer),
 html .ReactVirtualized__List .Container.Selected:has(> .GameListEntryContainer):hover {
     background-color: var(--aika-accent-soft);
@@ -99,18 +99,18 @@ html .ReactVirtualized__List .Container.Selected:has(> .GameListEntryContainer):
     color: var(--aika-fg);
 }
 
-/* Состояния строки (правка автора 2026-10-06, на примере Pratfall —
-   «Обновление в очереди»). Steam (снято через CDP 2026-10-06):
+/* Row states (author's fix 2026-10-06, using Pratfall as the example —
+   "Update queued"). Steam (captured via CDP 2026-10-06):
      .Container.Updating / .Synchronizing / .CloudError / .CloudOutOfDate —
-       название #26b7ff, вес 300; .Running — #adff2f;
-     .DownloadProgress — подпись справа («Обновление в очереди»), #74d1ff;
-     .AppIconDownloading — иконка с кольцом прогресса: иконка
-       brightness(0.4), кольцо — svg circle #74d1ff ((0,4,1)).
-   У нас: обновление и синхронизация — целиком акцент (название, подпись,
-   кольцо), иконка затемнена слабее — игра не выглядит неустановленной;
-   ошибка облака — --aika-live, «облако устарело» — --aika-warn,
-   запущена — --aika-ok. Цвет держится и при наведении, и у выбранной
-   строки — поэтому блок после правил hover / .Selected. */
+       title #26b7ff, weight 300; .Running — #adff2f;
+     .DownloadProgress — the caption on the right ("Update queued"), #74d1ff;
+     .AppIconDownloading — an icon with a progress ring: the icon is
+       brightness(0.4), the ring is an svg circle #74d1ff ((0,4,1)).
+   Ours: update and sync — fully accent (title, caption,
+   ring), the icon is dimmed less — the game doesn't look uninstalled;
+   cloud error — --aika-live, "cloud out of date" — --aika-warn,
+   running — --aika-ok. The color holds on hover and on the selected
+   row too — so the block comes after the hover / .Selected rules. */
 html .ReactVirtualized__List .Container:is(.Updating, .Synchronizing):has(> .GameListEntryContainer),
 html .ReactVirtualized__List .Container:is(.Updating, .Synchronizing):has(> .GameListEntryContainer):is(:hover, .Selected) {
     color: var(--aika-accent-bright);
@@ -134,7 +134,7 @@ html .ReactVirtualized__List .Container.Running:has(> .GameListEntryContainer):i
     color: var(--aika-ok);
 }
 
-/* Подпись справа — цветом строки; у запущенной Steam красит её отдельно */
+/* The caption on the right — in the row color; Steam colors it separately for a running game */
 html .ReactVirtualized__List .Container .GameListEntryContainer .DownloadProgress {
     color: inherit;
 }
@@ -143,8 +143,8 @@ html .ReactVirtualized__List .Container .GameListEntryContainer .DownloadDash {
     color: var(--aika-fg-subtle);
 }
 
-/* Иконка с кольцом прогресса: затемнение слабее, кольцо — цветом строки.
-   [class] у svg — чтобы перебить тройной хэш Steam (0,4,1) */
+/* The icon with a progress ring: dimmed less, the ring in the row color.
+   [class] on the svg — to beat Steam's triple hash (0,4,1) */
 html .ReactVirtualized__List .GameListEntryContainer .AppIconDownloading .GameIcon {
     filter: var(--aika-download-icon-dim);
 }
@@ -157,11 +157,11 @@ html .ReactVirtualized__List .GameListEntryContainer .AppIconDownloading svg[cla
     stroke: currentColor;
 }
 
-/* Строка, по которой открыто контекстное меню (ПКМ): Steam даёт
-   .HasContextMenuOpen серо-голубую рамку #506588, фон #293344, на hover
-   #586f96 (до (0,3,0)). Снято 2026-10-06 (правка автора). Рамку 1 px Steam
-   оставляем — только цвет, чтобы строка не прыгала: акцентная рамка,
-   фон как при наведении; у выбранной строки — её акцентный фон. */
+/* The row a context menu is open on (right-click): Steam gives
+   .HasContextMenuOpen a gray-blue border #506588, background #293344, on hover
+   #586f96 (up to (0,3,0)). Captured 2026-10-06 (author's fix). Steam's 1 px border
+   stays — only its color changes so the row doesn't jump: an accent border,
+   the hover background; on the selected row — its accent background. */
 html .ReactVirtualized__List .Container.HasContextMenuOpen:has(> .GameListEntryContainer),
 html .ReactVirtualized__List .Container.HasContextMenuOpen:has(> .GameListEntryContainer):hover {
     border-color: var(--aika-border-accent);
@@ -174,34 +174,34 @@ html .ReactVirtualized__List .Container.Selected.HasContextMenuOpen:has(> .GameL
     background-color: var(--aika-accent-soft);
 }
 
-/* Steam при наведении на выбранную строку красит синим не её саму, а
-   потомков: «._1UBp…._2-O4… :hover» (пробел перед :hover, (0,3,0)) —
-   внутренний .GameListEntryContainer и всё, что под курсором.
-   Потомки выбранной строки — без своего фона, акцент даёт строка. */
+/* When hovering the selected row Steam paints blue not the row itself but
+   its descendants: "._1UBp…._2-O4… :hover" (a space before :hover, (0,3,0)) —
+   the inner .GameListEntryContainer and everything under the cursor.
+   Descendants of the selected row have no background of their own, the row gives the accent. */
 html .ReactVirtualized__List .Container.Selected .GameListEntryContainer,
 html .ReactVirtualized__List .Container.Selected .GameListEntryContainer * {
     background-color: var(--aika-transparent);
 }
 
-/* Название игры: Steam красит сам <span> у установленных («._2ws8… span»,
-   белый, вес 500) — берём цвет строки */
+/* Game title: Steam colors the <span> itself for installed ones ("._2ws8… span",
+   white, weight 500) — use the row color */
 html .ReactVirtualized__List .Container:has(> .GameListEntryContainer) .GameListEntryContainer > span {
     color: inherit;
     font-weight: var(--aika-weight-regular);
 }
 
-/* Иконка игры — скругление в тон строке */
+/* The game icon — rounding to match the row */
 html .ReactVirtualized__List .GameListEntryContainer .GameIcon {
     border-radius: var(--aika-radius-xs);
 }
 
 /* --------------------------------------------------------------------------
-   Поиск в левой панели. Steam красит поле правилом (0,3,0) и рисует
-   иконку лупы фоном — иконку и подсказку Steam оставляем, фон и рамку — наши.
+   Search in the left panel. Steam paints the field with a (0,3,0) rule and draws
+   the magnifier icon as a background — Steam's icon and placeholder stay, the background and border are ours.
    -------------------------------------------------------------------------- */
 
-/* Фон — полупрозрачная тёплая поверхность (как карточки): непрозрачный
-   --aika-bg-raised выглядел тёмной дырой на панели со светом (автор, 2026-10-04) */
+/* Background — a translucent warm surface (like the cards): an opaque
+   --aika-bg-raised looked like a dark hole on the lit panel (author, 2026-10-04) */
 html .Container > .SearchInput input.DialogTextInputBase {
     background-color: var(--aika-surface-hover);
     transition:
@@ -224,17 +224,17 @@ html .Container > .SearchInput input.DialogTextInputBase:focus {
 }
 
 /* --------------------------------------------------------------------------
-   Верхние вкладки — иконки вместо подписей (по просьбе автора)
+   Top tabs — icons instead of labels (at the author's request)
 
-   Steam (сняты через CDP 2026-10-04):
+   Steam (captured via CDP 2026-10-04):
      .SuperNav > .SuperNavMenu[.Selected] > .MenuButton
-   Своих классов у вкладок нет, порядок постоянный:
-     1 Магазин · 2 Библиотека · 3 Сообщество · 4 профиль (ник в <span>) ·
-     5 Консоль (только в режиме -dev).
-   Профиль ищем по <span> (:has), остальные — по позиции среди div.
-   Подпись Steam остаётся в DOM (font-size: 0) — её читают экранные чтецы.
-   Steam: hover и выбор — (0,4,0), синяя линия выбора — в ::after;
-   у нас (0,4,1)+.
+   The tabs have no classes of their own, the order is fixed:
+     1 Store · 2 Library · 3 Community · 4 profile (nickname in a <span>) ·
+     5 Console (only in -dev mode).
+   The profile is found by its <span> (:has), the rest by position among the divs.
+   Steam's label stays in the DOM (font-size: 0) — screen readers read it.
+   Steam: hover and selection — (0,4,0), the blue selection line is in ::after;
+   ours is (0,4,1)+.
    -------------------------------------------------------------------------- */
 
 html .SuperNav .SuperNavMenu > .MenuButton {
@@ -273,7 +273,7 @@ html .SuperNav .SuperNavMenu:hover > .MenuButton::before {
     transform: translateY(var(--aika-lift-sm));
 }
 
-/* Выбранная вкладка: иконка акцентом + линия-индикатор снизу */
+/* The selected tab: the icon in accent + an indicator line below */
 html .SuperNav .SuperNavMenu.Selected > .MenuButton {
     color: var(--aika-accent-bright);
     font-weight: var(--aika-weight-regular);
@@ -288,16 +288,16 @@ html .SuperNav .SuperNavMenu.Selected > .MenuButton::after {
     box-shadow: 0 0 var(--aika-space-2) var(--aika-accent-glow);
 }
 
-/* Положение вкладок (по центру / слева) — настройка темы «Верхняя панель»:
-   центрирование — options/tabs-center.css (по умолчанию). Здесь — только
-   отступы кнопок, общие для обоих вариантов. */
+/* Tab position (center / left) is the "Top bar" theme setting:
+   centering is options/tabs-center.css (the default). Here — only
+   the button spacing shared by both variants. */
 html .SuperNav .SuperNavMenu > .MenuButton {
     padding-inline: var(--aika-space-3);
 }
 
-/* Полоса вкладок выше (у Steam .SuperNavBar — height/min-height 32 px, (0,1,0)),
-   чтобы иконкам с подписью-индикатором хватало места; кнопки — по центру
-   по вертикали */
+/* A taller tab bar (Steam's .SuperNavBar has height/min-height 32 px, (0,1,0)),
+   so icons with an indicator caption have room; the buttons are centered
+   vertically */
 html .TopBar .SuperNavBar {
     height: var(--aika-supernav-height);
     min-height: var(--aika-supernav-height);

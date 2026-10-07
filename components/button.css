@@ -1,27 +1,27 @@
 /* ==========================================================================
-   components/button.css — кнопки (DESIGN.md §4, Buttons).
+   components/button.css — buttons (DESIGN.md §4, Buttons).
 
-   Варианты: primary (CTA), secondary, ghost. Каждый селектор — список:
-   свой класс .aika-button--* (для разметки, которую добавит JS) +
-   читаемые классы общих кнопок Steam. Это не хэши, Steam использует
-   их во всех окнах, поэтому они здесь, а не в selectors.css.
+   Variants: primary (CTA), secondary, ghost. Each selector is a list:
+   our .aika-button--* class (for markup that JS will add) +
+   readable classes of Steam's common buttons. These aren't hashes, Steam uses
+   them in every window, so they're here and not in selectors.css.
 
-   Кнопки Steam (сняты через CDP 2026-10-04):
-     buttonbutton.DialogButton.Primary    — «Сохранить», «Готово»… в диалогах и библиотеке
-     buttonbutton.DialogButton.Secondary  — второстепенные кнопки диалогов
-     div.PlayButton                 — ИГРАТЬ / УСТАНОВИТЬ на странице игры
-     .Disabled                      — неактивная кнопка (класс, не атрибут)
+   Steam buttons (captured via CDP 2026-10-04):
+     buttonbutton.DialogButton.Primary    — "Save", "Done"… in dialogs and the library
+     buttonbutton.DialogButton.Secondary  — secondary dialog buttons
+     div.PlayButton                 — PLAY / INSTALL on the game page
+     .Disabled                      — an inactive button (a class, not an attribute)
 
-   Shine — на ::after: ::before у DialogButton занят Steam, а ::after
-   у Secondary — тоже (там «»»), поэтому shine только у primary.
+   Shine is on ::after: Steam uses ::before on DialogButton, and ::after
+   on Secondary too (there it's «»»), so only primary has shine.
 
-   Специфичность: Steam пишет button.DialogButton.Primary (0,2,1), поэтому
-   у нас тег button + префикс html — (0,2,2), перебиваем без !important.
-   Фокус — кольцо outline из base.css, со свечением теней не конфликтует.
+   Specificity: Steam writes button.DialogButton.Primary (0,2,1), so
+   we use the button tag + an html prefix — (0,2,2), winning without !important.
+   Focus is the outline ring from base.css, it doesn't clash with shadow glows.
    ========================================================================== */
 
 /* --------------------------------------------------------------------------
-   Общая основа
+   Shared base
    -------------------------------------------------------------------------- */
 
 html :is(.aika-button, button.DialogButton, .PlayButton) {
@@ -40,7 +40,7 @@ html :is(.aika-button, button.DialogButton, .PlayButton) {
 }
 
 /* --------------------------------------------------------------------------
-   Primary — главное действие: акцент, свечение, shine
+   Primary — the main action: accent, glow, shine
    -------------------------------------------------------------------------- */
 
 html :is(.aika-button--primary, button.DialogButton.Primary, .PlayButton) {
@@ -63,8 +63,8 @@ html :is(.aika-button--primary, button.DialogButton.Primary, .PlayButton):not(.D
     transform: scale(var(--aika-press-scale));
 }
 
-/* Shine: полоса за левым краем, на hover пробегает вправо.
-   При --aika-motion: 0 полоса невидима (opacity = 0). */
+/* Shine: a stripe beyond the left edge, sweeps right on hover.
+   With --aika-motion: 0 the stripe is invisible (opacity = 0). */
 html :is(.aika-button--primary, button.DialogButton.Primary, .PlayButton)::after {
     content: "";
     position: absolute;
@@ -80,9 +80,9 @@ html :is(.aika-button--primary, button.DialogButton.Primary, .PlayButton):not(.D
     transition: transform var(--aika-dur-enter) var(--aika-ease);
 }
 
-/* «Играть / Установить»: Steam красит иконку зелёным/голубым хэш-правилами
-   (до (0,4,1) на hover), а подпись — во внутреннем <span> капсом, вес 300.
-   Иконка и подпись — цветом текста на акценте. */
+/* "Play / Install": Steam colors the icon green/blue with hash rules
+   (up to (0,4,1) on hover), and the label sits in an inner <span>, uppercase, weight 300.
+   Icon and label use the text-on-accent color. */
 html .PlayButtonContainer .PlayButton svg.SVGIcon_Button,
 html .PlayButtonContainer .PlayButton:hover svg.SVGIcon_Button {
     color: var(--aika-on-accent);
@@ -97,10 +97,10 @@ html .PlayButtonContainer .PlayButton * {
 }
 
 /* --------------------------------------------------------------------------
-   Primary-иконка — квадратная кнопка ▶ на обложках в полках библиотеки
-   («Недавние» и т.п.). Steam: .LibraryItemBox .LibraryItemActionButton,
-   у установленной игры ещё .Play (зелёный градиент хэш-правилом (0,3,0),
-   иконка — до (0,5,0) на hover). Снято через CDP 2026-10-04.
+   Primary icon — the square ▶ button on covers in library shelves
+   ("Recent" etc.). Steam: .LibraryItemBox .LibraryItemActionButton,
+   an installed game also has .Play (a green gradient via a hash rule (0,3,0),
+   the icon — up to (0,5,0) on hover). Captured via CDP 2026-10-04.
    -------------------------------------------------------------------------- */
 
 html .LibraryItemBox .LibraryItemActionButton,
@@ -133,7 +133,7 @@ html .LibraryItemBox .LibraryItemActionButton .SVGIcon_Button {
 }
 
 /* --------------------------------------------------------------------------
-   Secondary — поверхность, рамка inset-тенью
+   Secondary — a surface, border via an inset shadow
    -------------------------------------------------------------------------- */
 
 html :is(.aika-button--secondary, button.DialogButton.Secondary) {
@@ -155,7 +155,7 @@ html :is(.aika-button--secondary, button.DialogButton.Secondary):not(.Disabled, 
 }
 
 /* --------------------------------------------------------------------------
-   Ghost — без фона; у Steam прямого аналога нет, только свой класс
+   Ghost — no background; Steam has no direct equivalent, our own class only
    -------------------------------------------------------------------------- */
 
 .aika-button--ghost {
@@ -173,7 +173,7 @@ html :is(.aika-button--secondary, button.DialogButton.Secondary):not(.Disabled, 
     transform: scale(var(--aika-press-scale));
 }
 
-/* Стрелка → у текстовой кнопки: <span class="aika-button__arrow">→</span> */
+/* The → arrow on a text button: <span class="aika-button__arrow">→</span> */
 .aika-button__arrow {
     display: inline-block;
     transition: transform var(--aika-dur-base) var(--aika-ease);
@@ -184,7 +184,7 @@ html :is(.aika-button--secondary, button.DialogButton.Secondary):not(.Disabled, 
 }
 
 /* --------------------------------------------------------------------------
-   Disabled — приглушена, без свечения и hover-эффектов
+   Disabled — muted, no glow or hover effects
    -------------------------------------------------------------------------- */
 
 html :is(.aika-button, button.DialogButton, .PlayButton):is(.Disabled, :disabled) {
@@ -193,8 +193,8 @@ html :is(.aika-button, button.DialogButton, .PlayButton):is(.Disabled, :disabled
     cursor: default;
 }
 
-/* Неактивная primary в отдельных местах (например, «Сохранить» в фильтрах
-   библиотеки) Steam красит синим хэш-правилом (0,3,0) — у нас (0,3,1) */
+/* An inactive primary in some places (e.g. "Save" in the library
+   filters) is painted blue by Steam with a hash rule (0,3,0) — ours is (0,3,1) */
 html :is(button.DialogButton.Primary):is(.Disabled, :disabled) {
     background: var(--aika-accent-fill);
     color: var(--aika-on-accent);

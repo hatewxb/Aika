@@ -1,22 +1,22 @@
 /* ==========================================================================
-   main.css — точка входа для окон клиента Steam.
-   Подключается через Patches в skin.json: главное окно (^Steam$),
-   модальные окна (.ModalDialogPopup) и окно друзей (.friendsui-container).
+   main.css — entry point for Steam client windows.
+   Attached via Patches in skin.json: the main window (^Steam$),
+   modal windows (.ModalDialogPopup) and the friends window (.friendsui-container).
 
-   Здесь только @import — стилей в этом файле нет.
-   @import обязан стоять в самом начале файла, до любых правил.
-   Порядок важен (DESIGN.md §0): каждый следующий файл может
-   переопределять предыдущий.
+   Only @import here — this file has no styles.
+   @import must come at the very start of the file, before any rules.
+   Order matters (DESIGN.md §0): each next file may
+   override the previous one.
    ========================================================================== */
 
-/* 1. Фундамент: цвета из настроек → палитра → токены → основа → фон */
+/* 1. Foundation: colors from settings → palette → tokens → base → background */
 @import url("./root-colors.css");
 @import url("./colors.css");
 @import url("./tokens.css");
 @import url("./base.css");
 @import url("./background.css");
 
-/* 2. Компоненты (components/): button → card → panel → status → input → nav → menu → progress */
+/* 2. Components (components/): button → card → panel → status → input → nav → menu → progress */
 @import url("./components/button.css");
 @import url("./components/card.css");
 @import url("./components/panel.css");
@@ -27,7 +27,7 @@
 @import url("./components/progress.css");
 @import url("./components/window.css");
 
-/* 3. Разделы клиента (стабильные селекторы) */
+/* 3. Client sections (stable selectors) */
 @import url("./sections/library.css");
 @import url("./sections/game-page.css");
 @import url("./sections/downloads.css");
@@ -35,5 +35,5 @@
 @import url("./sections/friends.css");
 @import url("./sections/settings.css");
 
-/* 4. Нестабильные классы Steam — последними, чтобы перебивать всё выше */
+/* 4. Unstable Steam classes — last, to override everything above */
 @import url("./selectors.css");

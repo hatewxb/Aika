@@ -1,17 +1,17 @@
-// store-logo.js — логотип игры вместо текстового названия на странице игры
-// в магазине (store.steampowered.com/app/<appid>/). Идея автора, 2026-10-04.
+// store-logo.js — the game logo instead of the text title on the store game page
+// (store.steampowered.com/app/<appid>/). The author's idea, 2026-10-04.
 //
-// Логотип — тот же, что в библиотеке клиента («Логотип» в карточке игры):
-// common.library_assets_full.library_logo из appinfo. Его файл лежит
-// на CDN Steam по пути с хэшем:
+// The logo is the same as in the client library ("Logo" in the game card):
+// common.library_assets_full.library_logo from appinfo. Its file lives
+// on the Steam CDN at a path with a hash:
 //   shared.fastly.steamstatic.com/store_item_assets/steam/apps/<appid>/<hash>/logo.png
-// Хэш страница магазина не знает (в HTML его нет, API магазина его не отдаёт,
-// локальный кэш клиента steamloopback.host странице недоступен), поэтому
-// берём appinfo с публичного api.steamcmd.net (CORS открыт) и кэшируем
-// в localStorage. Запасной путь — старый адрес без хэша (есть у старых игр).
-// Нет логотипа — ничего не меняем, остаётся текстовое название (CSS-фолбэк).
+// The store page doesn't know the hash (it's not in the HTML, the store API doesn't return it,
+// the client's local cache at steamloopback.host is unreachable from the page), so
+// we take appinfo from the public api.steamcmd.net (CORS is open) and cache it
+// in localStorage. Fallback — the old hashless address (old games have it).
+// No logo — change nothing, the text title stays (CSS fallback).
 //
-// Вид и положение — sections/store.css («Логотип игры над трейлером»).
+// Look and position — sections/store.css ("Game logo above the trailer").
 
 (() => {
   "use strict";
@@ -30,20 +30,20 @@
     try {
       const v = JSON.parse(localStorage.getItem(CACHE_KEY));
       if (v && Date.now() - v.t < CACHE_DAYS * 864e5) return v;
-    } catch (e) { /* хранилище недоступно — просто без кэша */ }
+    } catch (e) { /* storage unavailable — just no cache */ }
     return null;
   };
   const cacheSet = (file) => {
-    try { localStorage.setItem(CACHE_KEY, JSON.stringify({ t: Date.now(), file })); } catch (e) { /* без кэша */ }
+    try { localStorage.setItem(CACHE_KEY, JSON.stringify({ t: Date.now(), file })); } catch (e) { /* no cache */ }
   };
 
-  // Имя файла логотипа (с хэшем) из appinfo; null — логотипа нет
+  // Logo file name (with hash) from appinfo; null — no logo
   const fetchLogoFile = async () => {
     const cached = cacheGet();
     if (cached) return cached.file;
     try {
       const r = await fetch("https://api.steamcmd.net/v1/info/" + appid);
-      if (!r.ok) return undefined; // сеть / сервис — не кэшируем, попробуем позже
+      if (!r.ok) return undefined; // network / service — don't cache, try later
       const j = await r.json();
       const logo = j?.data?.[appid]?.common?.library_assets_full?.library_logo;
       const img = logo?.image2x || logo?.image;

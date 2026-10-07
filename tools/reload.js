@@ -1,7 +1,7 @@
-// Перезагрузить CSS темы в окне Steam без перезапуска:
-// обновить HTTP-кэш всех .css темы и пересоздать <link> точки входа.
-//   node tools/reload.js                         — главное окно, main.css
-//   node tools/reload.js "Games Root Menu" popup.css — окно-меню (link добавится, если его нет)
+// Reload the theme CSS in a Steam window without restarting:
+// refresh the HTTP cache of every theme .css and recreate the entry point <link>.
+//   node tools/reload.js                         — main window, main.css
+//   node tools/reload.js "Games Root Menu" popup.css — a menu window (the link is added if missing)
 const fs = require("fs"), path = require("path");
 const target = require("./target");
 const root = path.resolve(__dirname, "..");

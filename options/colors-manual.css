@@ -1,9 +1,9 @@
 /* ==========================================================================
-   «Свои цвета» (настройки темы → «Расширенное» → да).
-   Сбрасывает значения цветового пресета в initial — тогда var() в colors.css
-   берёт запасное значение: цвета из редактора Millennium (--aika-user-*,
-   root-colors.css). html:root (0,1,1) сильнее :root пресета (0,1,0) —
-   порядок подключения не важен.
+   "Custom colors" (theme settings → "Advanced" → yes).
+   Resets the color preset values to initial — then var() in colors.css
+   takes its fallback: the colors from the Millennium editor (--aika-user-*,
+   root-colors.css). html:root (0,1,1) beats the preset's :root (0,1,0) —
+   load order does not matter.
    ========================================================================== */
 
 html:root {

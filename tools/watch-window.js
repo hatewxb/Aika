@@ -1,7 +1,7 @@
-// Ждёт появления окна Steam (по части заголовка) и сразу снимает его:
-// классы <html>/<body>, подключены ли стили темы, дерево элементов
-// с цветами. Нужен для короткоживущих окон (всплывающие уведомления).
-//   node tools/watch-window.js "<часть заголовка>" <файл-результата> [секунд, по умолчанию 600]
+// Waits for a Steam window to appear (by part of its title) and captures it at once:
+// <html>/<body> classes, whether the theme styles are attached, the element tree
+// with colors. Needed for short-lived windows (notification toasts).
+//   node tools/watch-window.js "<part of title>" <output file> [seconds, default 600]
 const fs = require("fs");
 const [part, outFile, secs = "600"] = process.argv.slice(2);
 const deadline = Date.now() + Number(secs) * 1000;
@@ -25,7 +25,7 @@ const snapshot = `(() => {
       const list = await (await fetch("http://localhost:8080/json")).json();
       const page = list.find(p => p.title.includes(part));
       if (page) {
-        // окно отрисовывается не мгновенно — даём ему кадр-другой
+        // the window doesn't paint instantly — give it a frame or two
         await new Promise(r => setTimeout(r, 400));
         const ws = new WebSocket(page.webSocketDebuggerUrl);
         ws.onopen = () => ws.send(JSON.stringify({ id: 1, method: "Runtime.evaluate", params: { expression: snapshot, returnByValue: true } }));
@@ -33,15 +33,15 @@ const snapshot = `(() => {
           const m = JSON.parse(e.data);
           if (m.id === 1) {
             fs.writeFileSync(outFile, page.title + "\n" + (m.result.result.value || JSON.stringify(m.result)));
-            console.log("снято: " + page.title);
+            console.log("captured: " + page.title);
             process.exit(0);
           }
         };
         return;
       }
-    } catch (e) { /* Steam мог быть занят — пробуем дальше */ }
+    } catch (e) { /* Steam may have been busy — keep trying */ }
     await new Promise(r => setTimeout(r, 250));
   }
-  console.log("окно не появилось");
+  console.log("the window never appeared");
   process.exit(1);
 })();

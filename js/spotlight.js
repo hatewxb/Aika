@@ -1,15 +1,15 @@
-// spotlight.js — свечение за курсором на крупных поверхностях клиента
-// (DESIGN.md §1 «Spotlight за курсором», §4 Cards). Подключён Patch'ем
-// к главному окну (skin.json, «^Steam$»).
+// spotlight.js — cursor glow on large client surfaces
+// (DESIGN.md §1 "Spotlight under the cursor", §4 Cards). Attached by a Patch
+// to the main window (skin.json, "^Steam$").
 //
-// Один пассивный обработчик pointermove на документе, не чаще кадра:
-// находит ближайшую поверхность из SURFACES и пишет координаты курсора
-// в её --aika-spot-x / --aika-spot-y. Само свечение — CSS
-// (components/card.css, «Spotlight на поверхностях Steam»); без скрипта
-// оно светит из верхнего центра (значения токенов по умолчанию).
+// One passive pointermove handler on the document, at most once per frame:
+// finds the nearest surface from SURFACES and writes the cursor coordinates
+// into its --aika-spot-x / --aika-spot-y. The glow itself is CSS
+// (components/card.css, "Spotlight on Steam surfaces"); without the script
+// it shines from the top center (the default token values).
 //
-// Только крупные блоки, которых на экране единицы (не списки и не обложки
-// в сетке — DESIGN.md §7, производительность).
+// Only large blocks that appear a few at a time (not lists and not covers
+// in a grid — DESIGN.md §7, performance).
 
 (() => {
   "use strict";
@@ -17,9 +17,9 @@
   window.__aikaSpotlight = true;
 
   const SURFACES = [
-    ".AppDetailsSection",                               // панели страницы игры
-    ".PartnerEventRowCapsule_Container.HoversEnabled",   // карточки «Что нового»
-    ".CSSGrid.Grid .Collection",                         // плитки коллекций
+    ".AppDetailsSection",                               // game page panels
+    ".PartnerEventRowCapsule_Container.HoversEnabled",   // "What's New" cards
+    ".CSSGrid.Grid .Collection",                         // collection tiles
   ].join(", ");
 
   let frame = 0;

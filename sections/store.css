@@ -1,39 +1,39 @@
 /* ==========================================================================
-   store.css — магазин.
+   store.css — the store.
 
-   Магазин в Steam — это две разные вещи:
-   а) «рамка» внутри главного окна (адресная строка, кнопки назад/вперёд,
-      подменю магазина) — сюда она попадает через main.css;
-   б) сами веб-страницы store.steampowered.com — отдельный документ,
-      сюда они попадают через webkit.css (поле Steam-WebKit в skin.json).
+   The store in Steam is two different things:
+   a) the "frame" inside the main window (the address bar, back/forward buttons,
+      the store submenu) — it gets here via main.css;
+   b) the store.steampowered.com web pages themselves — a separate document,
+      they get here via webkit.css (the Steam-WebKit field in skin.json).
 
-   Так как файл подключается в обоих местах, правила для разных
-   документов должны быть разделены по корневым селекторам.
+   Since the file is imported in both places, rules for different
+   documents must be separated by root selectors.
 
-   Разделы файла:
-   1. Панель браузера (адрес, обновить).                       TODO: назад/вперёд
-   2. Веб-магазин, главная: переменные дизайн-системы, фон, меню, поиск,
-      цены, кнопки покупки, капсулы, вкладки, карточка при наведении.
-   3. Страница игры (app/…): сводка, правая колонка, покупка, DLC,
-      описание и требования, контроллеры, карусели внизу.
-      Хэш-части (плеер скриншотов, обзоры, панели каруселей) — selectors.css.
-   TODO: список желаемого, корзина, поиск (search/…), меню «Просмотр…».
+   File sections:
+   1. The browser bar (address, reload).                       TODO: back/forward
+   2. The web store, home: design system variables, background, menu, search,
+      prices, purchase buttons, capsules, tabs, the hover card.
+   3. The game page (app/…): summary, right column, purchase, DLC,
+      description and requirements, controllers, carousels at the bottom.
+      Hash parts (screenshot player, reviews, carousel panels) — selectors.css.
+   TODO: wishlist, cart, search (search/…), the "Browse…" menu.
    ========================================================================== */
 
 /* --------------------------------------------------------------------------
-   1. Панель браузера клиента над веб-страницами (магазин, сообщество)
-      (снято через CDP 2026-10-04, главное окно):
+   1. The client browser bar above web pages (store, community)
+      (captured via CDP 2026-10-04, main window):
         .BrowserWrapper > .URLBar
-          > .StatusIcon.ReloadButton          — обновить
-          > .URLBarText (.StatusIcon.LockIcon + .URL) — адрес
-      Steam: полоса #171d25 с синеватыми inset-линиями, адрес серым 11 px,
-      hover — #23262e; хэши (0,2,0)…(0,4,0). Делаем прозрачную полосу
-      с тонкой линией снизу, адрес — моно-пилюля нашей поверхности.
-      Красный «небезопасно» (хэш-класс) не трогаем — это смысловой цвет.
+          > .StatusIcon.ReloadButton          — reload
+          > .URLBarText (.StatusIcon.LockIcon + .URL) — the address
+      Steam: a #171d25 strip with bluish inset lines, the address in gray 11 px,
+      hover — #23262e; hashes (0,2,0)…(0,4,0). We make a transparent strip
+      with a thin line below, the address is a mono pill on our surface.
+      The red "insecure" (a hash class) is left alone — it's a semantic color.
    -------------------------------------------------------------------------- */
 
-/* .ContentFrame — чтобы перебить и вариант развёрнутого окна
-   («.Maximized .хэш .хэш», (0,3,0)) */
+/* .ContentFrame — to also beat the maximized window variant
+   (".Maximized .hash .hash", (0,3,0)) */
 html .ContentFrame .BrowserWrapper > .URLBar {
     background: var(--aika-transparent);
     box-shadow: inset 0 calc(-1 * var(--aika-hairline)) 0 0 var(--aika-border);
@@ -67,34 +67,34 @@ html .BrowserWrapper > .URLBar > .URLBarText:hover :is(.URL, .StatusIcon) {
 }
 
 /* ==========================================================================
-   2. Веб-магазин store.steampowered.com (документ Steam-WebKit).
-      Снято через CDP 2026-10-04 (главная, идёт сезонная распродажа).
+   2. The web store store.steampowered.com (a Steam-WebKit document).
+      Captured via CDP 2026-10-04 (home page, during a seasonal sale).
 
-      Все правила — под body.v6: этот класс есть только у страниц магазина,
-      в главное окно (сюда же через main.css) они не попадают.
+      All rules are under body.v6: only store pages have this class,
+      so they don't reach the main window (which also gets this file via main.css).
 
-      Магазин v7 красится своими CSS-переменными: старые «контейнерные»
-      (--light-ctn-bg, --price-dark-bg, --green, --blue…) задаются на :root
-      и на `:root .seasonal_sale` (0,2,0) — сезонный скин распродажи;
-      новые React-блоки берут --font-family и --color-text-light-*.
-      Переназначаем их на палитру Aika один раз — так переживается и смена
-      скина распродажи, и обновления вёрстки.
+      Store v7 is painted with its own CSS variables: the old "container" ones
+      (--light-ctn-bg, --price-dark-bg, --green, --blue…) are set on :root
+      and on `:root .seasonal_sale` (0,2,0) — the seasonal sale skin;
+      the new React blocks take --font-family and --color-text-light-*.
+      We remap them to the Aika palette once — this survives both a sale skin
+      change and markup updates.
 
-      Два уровня:
-      а) :root документа магазина — html:root:has(> body.v6), (0,2,2):
-         шкалы дизайн-системы (Radix-подобные --color-greyneutral-1…12 —
-         «dull», --color-blue-1…12 — «accent»), тексты --color-text-light-*,
-         шрифт. Производные (--color-dull-N, --color-text-body-*) Steam
-         объявляет на :root через var() — они вычисляются там же, поэтому
-         подменять надо исходные шкалы на :root, а не на body.
-         Шкала: 1–2 холст, 3–5 поверхности, 6–8 границы, 9–10 сплошные,
-         11 — вторичный текст, 12 — основной.
-      б) body.v6 — :root body.v6 (0,2,1): старые переменные, которые
-         сезонный скин переобъявляет на body.
+      Two levels:
+      a) the store document's :root — html:root:has(> body.v6), (0,2,2):
+         the design system scales (Radix-like --color-greyneutral-1…12 —
+         "dull", --color-blue-1…12 — "accent"), the --color-text-light-* texts,
+         the font. Steam declares the derivatives (--color-dull-N, --color-text-body-*)
+         on :root via var() — they're computed right there, so
+         the source scales must be replaced on :root, not on body.
+         Scale: 1–2 canvas, 3–5 surfaces, 6–8 borders, 9–10 solids,
+         11 — secondary text, 12 — primary.
+      b) body.v6 — :root body.v6 (0,2,1): the old variables that the
+         seasonal skin redeclares on body.
    ========================================================================== */
 
-/* Новый движок магазина (список желаемого и др., 2026): body без .v6,
-   всё внутри #StoreTemplate — те же шкалы, другой корень */
+/* The new store engine (wishlist etc., 2026): body without .v6,
+   everything inside #StoreTemplate — the same scales, a different root */
 html:root:is(:has(> body.v6), :has(> body > #StoreTemplate)) {
     --font-family: var(--aika-font-ui);
     --color-text-light-title: var(--aika-fg);
@@ -129,7 +129,7 @@ html:root:is(:has(> body.v6), :has(> body > #StoreTemplate)) {
     --color-blue-11: var(--aika-accent-bright);
     --color-blue-12: var(--aika-fg);
 
-    /* «Зелёный магазина» — поддерживается, куплено, выгодно: ok Aika */
+    /* "Store green" — supported, owned, a good deal: Aika ok */
     --color-storegreen-1: var(--aika-ok-dim);
     --color-storegreen-2: var(--aika-ok-dim);
     --color-storegreen-3: var(--aika-ok-dim);
@@ -143,8 +143,8 @@ html:root:is(:has(> body.v6), :has(> body > #StoreTemplate)) {
     --color-storegreen-11: var(--aika-ok);
     --color-storegreen-12: var(--aika-fg);
 
-    /* Нейтральные React-магазина (мега-меню и др.): Steam их не объявляет,
-       берёт фолбэк из var(--Neutrals-*, #…) — объявляем сами */
+    /* React store neutrals (mega menu etc.): Steam doesn't declare them,
+       it takes the fallback from var(--Neutrals-*, #…) — we declare them ourselves */
     --Neutrals-white: var(--aika-fg);
     --Neutrals-lightestGrey: var(--aika-fg-muted);
     --Neutrals-lighterGrey: var(--aika-fg-subtle);
@@ -153,12 +153,12 @@ html:root:is(:has(> body.v6), :has(> body > #StoreTemplate)) {
     --Text-Main: var(--aika-on-accent);
     --Blues-darkestGrey: var(--aika-fg);
 
-    /* Всплывающие панели (popover) нового движка: фон и тень через
-       var(--popover-*, …), Steam их не объявляет */
+    /* New engine popovers: background and shadow via
+       var(--popover-*, …), Steam doesn't declare them */
     --popover-background: var(--aika-surface-translucent);
     --popover-shadow: var(--aika-shadow-menu);
 
-    /* Подвал (React, footer#footer): у Steam rgba(15,25,36,.9) */
+    /* Footer (React, footer#footer): Steam has rgba(15,25,36,.9) */
     --footer-bg-color: var(--aika-bg-elevated);
 }
 
@@ -169,7 +169,7 @@ html:root:is(:has(> body.v6), :has(> body > #StoreTemplate)) {
     --dimmestlight-fg: var(--aika-border-hover);
     --bright-fg: var(--aika-fg);
 
-    /* Контейнеры: секции, плашки, подложки цен */
+    /* Containers: sections, plates, price backings */
     --page-background: var(--aika-bg-deep);
     --light-ctn-bg: var(--aika-surface);
     --light-ctn-bg-hover: var(--aika-surface-hover);
@@ -186,8 +186,8 @@ html:root:is(:has(> body.v6), :has(> body > #StoreTemplate)) {
     --multi-color-bg-gradient-2: var(--aika-card-accent-bg);
     --hightlight-bottom: var(--aika-highlight-top);
 
-    /* Смысловые: скидка — зелёный Aika (как у Steam — «выгодно»),
-       синий Steam — акцент */
+    /* Semantic: a discount — Aika green (like Steam — "a good deal"),
+       Steam blue — accent */
     --green: var(--aika-ok);
     --green-mid: var(--aika-ok);
     --blue: var(--aika-accent-fill);
@@ -197,14 +197,14 @@ html:root:is(:has(> body.v6), :has(> body > #StoreTemplate)) {
 }
 
 /* --------------------------------------------------------------------------
-   Фон страницы: у Steam body.v7 — радиальный синий, у распродажи
-   body.v7.seasonal_sale (0,2,1) — обои скина. Гасим — виден наш фон
-   из background.css. Баннер-«takeover» распродажи сверху — это контент
-   (ссылка на распродажу), его не трогаем.
+   Page background: Steam's body.v7 is a radial blue, during a sale
+   body.v7.seasonal_sale (0,2,1) — the skin wallpaper. Kill it — our background
+   from background.css shows. The sale "takeover" banner at the top is content
+   (a link to the sale), it's left alone.
    -------------------------------------------------------------------------- */
 
-/* «Новостной центр»: html body.events_hub.v6 (0,2,2), #171a21 —
-   отсюда тройной .v6 */
+/* "News Hub": html body.events_hub.v6 (0,2,2), #171a21 —
+   hence the triple .v6 */
 html body.v6.v6.v6,
 html body:has(> #StoreTemplate) {
     background: var(--aika-transparent);
@@ -213,17 +213,17 @@ html body:has(> #StoreTemplate) {
 }
 
 /* --------------------------------------------------------------------------
-   Меню магазина (React, хэш-классы) — стабильные якоря:
+   The store menu (React, hash classes) — stable anchors:
      [data-featuretarget="store-menu-v7"] [role="navigation"]
-       button[role="button"][aria-expanded]  — «Просмотр», «Рекомендации»…
+       button[role="button"][aria-expanded]  — "Browse", "Recommendations"…
        form[role="search"] > div > input[name="term"] + button[type="submit"]
-       a[href*="/wishlist/"]                 — «Список желаемого» + счётчик
-   У Steam: белый текст Motiva 13 px, поиск — белая плашка 12 % + синяя
-   квадратная кнопка #1a9fff, скругление 2 px.
+       a[href*="/wishlist/"]                 — "Wishlist" + counter
+   Steam: white Motiva text 13 px, search — a white 12 % plate + a blue
+   square button #1a9fff, 2 px rounding.
    -------------------------------------------------------------------------- */
 
-/* Полоса меню — родитель навигации: у Steam радиальный сине-серый градиент
-   и серая рамка. Во всю ширину окна — без скругления, линия снизу. */
+/* The menu strip — the navigation's parent: Steam has a radial blue-gray gradient
+   and a gray border. Full window width — no rounding, a line below. */
 html body.v6 [data-featuretarget="store-menu-v7"] :has(> [role="navigation"]) {
     border-color: var(--aika-border);
     background: var(--aika-bg-elevated);
@@ -245,14 +245,14 @@ html body.v6 [data-featuretarget="store-menu-v7"] [role="navigation"] button[ari
     color: var(--aika-fg);
 }
 
-/* Счётчик списка желаемого — моно, как остальные числа темы */
+/* The wishlist counter — mono, like the theme's other numbers */
 html body.v6 [data-featuretarget="store-menu-v7"] a[href*="/wishlist/"] span {
     color: var(--aika-fg-subtle);
     font-family: var(--aika-font-mono);
 }
 
-/* Поиск — поле Aika (components/input.css): приподнятая поверхность,
-   тонкая рамка, на фокусе — акцентное кольцо */
+/* Search — the Aika field (components/input.css): a raised surface,
+   a thin border, an accent ring on focus */
 html body.v6 [data-featuretarget="store-menu-v7"] form[role="search"] {
     overflow: hidden;
     border-radius: var(--aika-radius-md);
@@ -288,10 +288,10 @@ html body.v6 [data-featuretarget="store-menu-v7"] form[role="search"] button[typ
     color: var(--aika-accent-bright);
 }
 
-/* Подсказки поиска — выпадашка под полем (хэш-классы, держимся структуры:
-   form + div > div[inert, пока закрыто] > div — коробка, > a — «Расширенный
-   поиск»). У Steam серо-синий градиент и плашка ссылки. Делаем как меню
-   Aika (components/menu.css): полупрозрачная поверхность, рамка, тень. */
+/* Search suggestions — a dropdown under the field (hash classes, we rely on structure:
+   form + div > div[inert while closed] > div — the box, > a — "Advanced
+   search"). Steam has a gray-blue gradient and a link plate. We make it like the
+   Aika menu (components/menu.css): a translucent surface, a border, a shadow. */
 html body.v6 [data-featuretarget="store-menu-v7"] form[role="search"] + div > div > div {
     border-radius: var(--aika-radius-lg);
     background: var(--aika-surface-translucent);
@@ -314,11 +314,11 @@ html body.v6 [data-featuretarget="store-menu-v7"] form[role="search"] + div > di
     background: var(--aika-surface-hover);
 }
 
-/* Пустой запрос: группы «Часто ищут» (строки — обложка + название)
-   и «Ваши любимые жанры» (плитки с картинкой и меткой). Группа —
-   коробка > div > [заголовок, список > a]. У Steam строки и плитки —
-   серо-голубые градиенты, метка жанра — белая плашка. Цветные подложки
-   картинок жанров оставляем (своя у каждого жанра, как плитки категорий). */
+/* Empty query: the "Frequently searched" groups (rows — cover + title)
+   and "Your favorite genres" (tiles with an image and a label). A group is
+   box > div > [heading, list > a]. Steam's rows and tiles are
+   gray-blue gradients, the genre label is a white plate. The colored backings
+   of genre images stay (each genre has its own, like category tiles). */
 html body.v6 [data-featuretarget="store-menu-v7"] form[role="search"] + div > div > div > div > div:first-child {
     color: var(--aika-fg-subtle);
     font-size: var(--aika-text-label);
@@ -338,7 +338,7 @@ html body.v6 [data-featuretarget="store-menu-v7"] form[role="search"] + div > di
     background: var(--aika-surface-hover);
 }
 
-/* Обложка в строке «Часто ищут» и подложка картинки — без серо-голубого */
+/* The cover in a "Frequently searched" row and the image backing — without gray-blue */
 html body.v6 [data-featuretarget="store-menu-v7"] form[role="search"] + div > div > div > div > div > a > div:has(> img) {
     overflow: hidden;
     border-radius: var(--aika-radius-md);
@@ -346,13 +346,13 @@ html body.v6 [data-featuretarget="store-menu-v7"] form[role="search"] + div > di
     background-image: none;
 }
 
-/* Метка жанра на плитке (белая плашка) — в selectors.css по её классу:
-   структурное правило задевало текст строк «Часто ищут» */
+/* The genre label on a tile (a white plate) — in selectors.css by its class:
+   a structural rule hit the text of "Frequently searched" rows */
 
 /* --------------------------------------------------------------------------
-   Цены и скидки (.discount_block — общий блок всего магазина).
-   Steam: плашки без скругления, % — чёрным на --green, старая цена
-   серо-голубая, новая — белая/салатовая. Цены — моно (DESIGN.md §5).
+   Prices and discounts (.discount_block — the shared block across the store).
+   Steam: plates without rounding, % in black on --green, the old price
+   gray-blue, the new one white/lime. Prices are mono (DESIGN.md §5).
    -------------------------------------------------------------------------- */
 
 html body.v6 .discount_block {
@@ -367,9 +367,9 @@ html body.v6 .discount_block .discount_pct {
     font-weight: var(--aika-weight-semibold);
 }
 
-/* Цены: у Steam вес 300 — моно-шрифт на 11–13 px становится бледным
-   (правка автора 2026-10-04: «цифры еле различимые»). Подложка под
-   ценами, итоговая — полужирная, старая — приглушённая, но читаемая. */
+/* Prices: Steam uses weight 300 — a mono font at 11–13 px gets faint
+   (author's fix 2026-10-04: "the digits are barely legible"). A backing under
+   the prices, the final one is semibold, the old one is muted but readable. */
 html body.v6 .discount_block .discount_prices {
     background: var(--aika-bg-raised);
     font-family: var(--aika-font-mono);
@@ -386,16 +386,16 @@ html body.v6 .discount_block .discount_prices .discount_final_price {
     font-weight: var(--aika-weight-semibold);
 }
 
-/* Без скидки (.no_discount): цена одна, на той же подложке */
+/* No discount (.no_discount): one price, on the same backing */
 html body.v6 .discount_block.no_discount .discount_prices .discount_final_price {
     color: var(--aika-fg);
 }
 
 /* --------------------------------------------------------------------------
-   Кнопки покупки: .btn_green_steamui («В корзину») — primary Aika,
-   .btn_blue_steamui — secondary. Цвет у Steam на внутреннем <span>
-   (0,1,1) — градиент и скругление 2 px; hover — цепочка из четырёх
-   :not() (0,6,1), её повторяем.
+   Purchase buttons: .btn_green_steamui ("Add to Cart") — Aika primary,
+   .btn_blue_steamui — secondary. Steam puts the color on the inner <span>
+   (0,1,1) — a gradient and 2 px rounding; hover — a chain of four
+   :not() (0,6,1), we repeat it.
    -------------------------------------------------------------------------- */
 
 html body.v6 :is(.btn_green_steamui, .btn_blue_steamui) {
@@ -437,9 +437,9 @@ html body.v6 .btn_blue_steamui:not(.btn_disabled):not(:disabled):not(.btn_active
 }
 
 /* --------------------------------------------------------------------------
-   Капсулы главной карусели (.hero_capsule): инфо-блок справа от обложки
-   берёт --blue-gradient-bg-muted-opaque (переназначен выше), метки жанров —
-   --mid-ctn-bg. Здесь — скругления и флаг «в списке желаемого».
+   Main carousel capsules (.hero_capsule): the info block to the right of the cover
+   takes --blue-gradient-bg-muted-opaque (remapped above), genre labels —
+   --mid-ctn-bg. Here — rounding and the "on wishlist" flag.
    -------------------------------------------------------------------------- */
 
 html body.v6 .hero_capsule {
@@ -452,19 +452,19 @@ html body.v6 .hero_capsule .hero_tag {
     color: var(--aika-fg-muted);
 }
 
-/* Флаг «В списке желаемого» / «В библиотеке» — бейдж Aika.
-   У Steam body.v7 .ds_flag.ds_wishlist_flag (0,3,1) — :is() даёт нам (0,3,2) */
+/* The "On Wishlist" / "In Library" flag — an Aika badge.
+   Steam has body.v7 .ds_flag.ds_wishlist_flag (0,3,1) — :is() gives us (0,3,2) */
 html body.v6 :is(.ds_flag.ds_wishlist_flag, .ds_flag.ds_owned_flag, .ds_flag) {
     border-radius: var(--aika-radius-xs);
     background-color: var(--aika-accent-fill);
     color: var(--aika-on-accent);
     font-family: var(--aika-font-mono);
-    box-shadow: var(--aika-shadow-card); /* у Steam чёрная тень 90 % */
+    box-shadow: var(--aika-shadow-card); /* Steam: a black 90 % shadow */
 }
 
-/* Оценка обзоров: все «…положительные» (Steam — один класс .positive,
-   голубой) — зелёный ok Aika (просьба автора 2026-10-04: зелёные, не
-   фиолетовые), «Смешанные» — тёплый, «Отрицательные» — live */
+/* Review scores: all "…Positive" (Steam — one .positive class,
+   light blue) — Aika ok green (author's request 2026-10-04: green, not
+   purple), "Mixed" — warm, "Negative" — live */
 html body.v6 .game_review_summary.positive {
     color: var(--aika-ok);
 }
@@ -477,22 +477,22 @@ html body.v6 .game_review_summary.negative {
     color: var(--aika-live);
 }
 
-/* «!» — у обзоров был всплеск активности */
+/* "!" — the reviews had an activity spike */
 html body.v6 .review_anomaly_icon {
     color: var(--aika-fg-subtle);
 }
 
 /* --------------------------------------------------------------------------
-   Разделы главной: подзаголовки, «Ещё» (.btnv6_white_transparent — у Steam
-   серая плашка #ccc, текст с !important белым), баннер подарочных карт
+   Home sections: subheadings, "More" (.btnv6_white_transparent — Steam has
+   a gray #ccc plate, text white with !important), the gift card banner
    -------------------------------------------------------------------------- */
 
 html body.v6 .home_section_subtitle {
     color: var(--aika-fg-muted);
 }
 
-/* У Steam .home_pagecontent_ctn.featured_special_deals .ctn_background
-   .btnv6_white_transparent (0,4,0); :is() с длинной веткой даёт (0,4,2) */
+/* Steam has .home_pagecontent_ctn.featured_special_deals .ctn_background
+   .btnv6_white_transparent (0,4,0); :is() with a long branch gives (0,4,2) */
 html body.v6 :is(.home_pagecontent_ctn .ctn_background, .home_pagecontent_ctn) .btnv6_white_transparent {
     border-radius: var(--aika-radius-md);
     background: var(--aika-surface);
@@ -508,15 +508,15 @@ html body.v6 :is(.home_pagecontent_ctn .ctn_background, .home_pagecontent_ctn) .
     color: var(--aika-fg);
 }
 
-/* Капсулы распродаж и подборок: скругление, полоса меток снизу — в нём же */
+/* Sale and collection capsules: rounding, the label strip at the bottom — inside it */
 html body.v6 a.sale_capsule {
     overflow: hidden;
     border-radius: var(--aika-radius-lg);
 }
 
-/* Вкладки «Новинки и популярное / Лидеры продаж…»: у Steam белый текст,
-   активная — синяя линия 3 px снизу. Fluent: приглушённые, активная —
-   основной текст и акцентная линия. */
+/* The "New & Trending / Top Sellers…" tabs: Steam has white text,
+   the active one — a blue 3 px line below. Fluent: muted, the active one —
+   the primary text and an accent line. */
 html body.v6 .home_tabs_row_ctn .home_tab_button {
     color: var(--aika-fg-muted);
     transition: color var(--aika-dur-fast) var(--aika-ease-hover);
@@ -531,7 +531,7 @@ html body.v6 .home_tabs_row_ctn .home_tab_button.active {
     border-bottom-color: var(--aika-accent);
 }
 
-/* Строки списков во вкладках и превью справа (фон — из переменных) */
+/* List rows in the tabs and the preview on the right (the background comes from variables) */
 html body.v6 a.tab_row_item {
     overflow: hidden;
     border-radius: var(--aika-radius-md);
@@ -543,10 +543,10 @@ html body.v6 .tab_preview {
 }
 
 /* --------------------------------------------------------------------------
-   Всплывающая карточка игры при наведении на капсулу (.game_hover_box) —
-   тултип Aika (components/menu.css): полупрозрачная поверхность, рамка,
-   многослойная тень. У Steam серо-синий градиент, метки #A7BACC,
-   правила до (0,2,1) — у нас html body.v6 + те же классы.
+   The game popup card on hovering a capsule (.game_hover_box) —
+   an Aika tooltip (components/menu.css): a translucent surface, a border,
+   a layered shadow. Steam has a gray-blue gradient, labels #A7BACC,
+   rules up to (0,2,1) — ours are html body.v6 + the same classes.
    -------------------------------------------------------------------------- */
 
 html body.v6 .game_hover_box.hover_box {
@@ -578,7 +578,7 @@ html body.v6 .game_hover_box .hover_tag_row .app_tag {
     color: var(--aika-fg-muted);
 }
 
-/* Подвал: фон и цвета — из шкал выше; во всю ширину — линия сверху */
+/* Footer: background and colors from the scales above; full width — a line on top */
 html body.v6 footer#footer {
     box-shadow: inset 0 var(--aika-hairline) 0 0 var(--aika-border);
 }
@@ -590,28 +590,28 @@ html body.v6 a.home_gift_card_link {
 }
 
 /* ==========================================================================
-   3. Страница игры в магазине (store.steampowered.com/app/…)
-      Снято через CDP 2026-10-04 (ELDEN RING, body.v6.app.game_bg).
-      Старая вёрстка: классы читаемые, цвета зашиты в правила (не в
-      переменные), сила — (0,1,0)…(0,3,0); html body.v6 даёт запас.
+   3. The store game page (store.steampowered.com/app/…)
+      Captured via CDP 2026-10-04 (ELDEN RING, body.v6.app.game_bg).
+      Old markup: readable classes, colors hard-coded in rules (not in
+      variables), strength (0,1,0)…(0,3,0); html body.v6 gives a margin.
    ========================================================================== */
 
 /* --------------------------------------------------------------------------
-   Верх страницы: у .game_page_background_ctn синий радиальный свет
-   (#254b79). Размытая цветная копия обложки внутри (img.gameColor) —
-   своя у каждой игры, её оставляем; свет — акцентный.
+   The top of the page: .game_page_background_ctn has a blue radial light
+   (#254b79). The blurred colored copy of the cover inside (img.gameColor) is
+   unique to each game, it stays; the light is accent.
    -------------------------------------------------------------------------- */
 
 html body.v6 .game_page_background_ctn {
     background: var(--aika-store-app-glow);
 }
 
-/* Подсветка под полосой очереди — синий радиальный (hsl 212) */
+/* The highlight under the queue bar — a blue radial (hsl 212) */
 html body.v6 .game_background_lighten {
     background: var(--aika-store-queue-glow);
 }
 
-/* Хлебные крошки «Все игры > Экшены > …» */
+/* The "All Games > Action > …" breadcrumbs */
 html body.v6 .breadcrumbs,
 html body.v6 .breadcrumbs .blockbg {
     color: var(--aika-fg-subtle);
@@ -627,27 +627,27 @@ html body.v6 .breadcrumbs a:hover {
 }
 
 /* --------------------------------------------------------------------------
-   Синие «призрачные» кнопки .btnv6_blue_hoverfade («Центр сообщества»,
-   «Добавить в желаемое», «Подписаться», «Скрыть», «Ещё»): у Steam
-   голубой 20 %, hover — сине-голубой градиент. Делаем secondary Aika.
+   Blue "ghost" buttons .btnv6_blue_hoverfade ("Community Hub",
+   "Add to your wishlist", "Follow", "Ignore", "More"): Steam has
+   light blue 20 %, hover — a blue-cyan gradient. We make them Aika secondary.
    -------------------------------------------------------------------------- */
 
 html body.v6 .btnv6_blue_hoverfade,
 html body.v6 .glance_ctn .more_btn {
     border-radius: var(--aika-radius-md);
     background: var(--aika-surface);
-    color: var(--aika-fg) !important; /* у Steam #67c1f5 !important */
+    color: var(--aika-fg) !important; /* Steam: #67c1f5 !important */
     box-shadow: var(--aika-shadow-secondary);
     transition:
         background-color var(--aika-dur-fast) var(--aika-ease-hover),
         box-shadow var(--aika-dur-fast) var(--aika-ease-hover);
 }
 
-/* У Steam hover — четыре :not() подряд, (0,6,0); повторяем цепочку */
+/* Steam's hover is four :not() in a row, (0,6,0); we repeat the chain */
 html body.v6 .btnv6_blue_hoverfade:not(.btn_disabled):not(:disabled):not(.btn_active):not(.active):hover,
 html body.v6 .glance_ctn .more_btn:hover {
     background: var(--aika-surface-hover);
-    color: var(--aika-fg) !important; /* у Steam #fff !important */
+    color: var(--aika-fg) !important; /* Steam: #fff !important */
     box-shadow: var(--aika-shadow-secondary-hover);
 }
 
@@ -655,17 +655,17 @@ html body.v6 .btnv6_blue_hoverfade > span {
     border-radius: var(--aika-radius-md);
 }
 
-/* Нажатые: «В списке желаемого», «Вы подписаны», открытое меню очереди */
+/* Pressed: "On Wishlist", "Following", the open queue menu */
 html body.v6 :is(.btnv6_blue_hoverfade.btn_active, .btnv6_blue_hoverfade.active, .btnv6_blue_hoverfade.queue_btn_active, .queue_btn_menu > .queue_menu_arrow.queue_btn_active) {
     background: var(--aika-accent-soft);
-    color: var(--aika-accent-bright) !important; /* у Steam #fff !important */
+    color: var(--aika-accent-bright) !important; /* Steam: #fff !important */
     box-shadow: inset 0 0 0 var(--aika-hairline) var(--aika-border-accent);
 }
 
 /* --------------------------------------------------------------------------
-   Краткая сводка справа от скриншотов (.glance_ctn): подписи
-   «Обзоры / Дата выхода / Разработчик» — #798a95, ссылки — голубые,
-   метки (.app_tag) — голубые 20 %, hover — градиент.
+   The quick summary to the right of the screenshots (.glance_ctn): the captions
+   "Reviews / Release date / Developer" — #798a95, links — light blue,
+   tags (.app_tag) — light blue 20 %, hover — a gradient.
    -------------------------------------------------------------------------- */
 
 html body.v6 .glance_ctn :is(.subtitle, .user_reviews_summary_row .responsive_hidden, .glance_tags_label) {
@@ -709,8 +709,8 @@ html body.v6 .glance_tags .app_tag:hover {
 }
 
 /* --------------------------------------------------------------------------
-   Правая колонка (.rightcol.game_meta_data .block): у Steam чёрный
-   полупрозрачный градиент без скругления. Делаем карточками Aika.
+   The right column (.rightcol.game_meta_data .block): Steam has a black
+   translucent gradient without rounding. We make them Aika cards.
    -------------------------------------------------------------------------- */
 
 html body.v6 .rightcol.game_meta_data .block {
@@ -719,7 +719,7 @@ html body.v6 .rightcol.game_meta_data .block {
     box-shadow: var(--aika-shadow-card);
 }
 
-/* «Это интересно…» — шапка над причинами рекомендации (у Steam чёрная 20 %) */
+/* "Is this game relevant to you?" — the header above the recommendation reasons (Steam: black 20 %) */
 html body.v6 .rightcol.game_meta_data .block.heading {
     background: var(--aika-card-accent-bg);
     color: var(--aika-fg);
@@ -741,13 +741,13 @@ html body.v6 .details_block b {
     font-weight: var(--aika-weight-regular);
 }
 
-/* «Похожие недавние» (иконки игр под причинами) */
+/* "Similar recent" (game icons under the reasons) */
 html body.v6 .similar_recent_apps_container a.similarapp {
     color: var(--aika-fg-subtle);
 }
 
-/* Возможности («Для одного игрока», «Достижения»…): строки-плашки
-   с голубой подложкой 10 %, ссылочные — hover градиентом */
+/* Features ("Single-player", "Steam Achievements"…): plate rows
+   with a light-blue 10 % backing, linked ones — a gradient on hover */
 html body.v6 .game_area_details_specs_ctn {
     overflow: hidden;
     border-radius: var(--aika-radius-md);
@@ -772,7 +772,7 @@ html body.v6 a.game_area_details_specs_ctn:hover .label {
     color: var(--aika-fg);
 }
 
-/* Ссылки-полосы в «Подробности» («Посетить сайт», «Просмотреть обновления»…) */
+/* Strip links in "Details" ("Visit the website", "View update history"…) */
 html body.v6 .block a.linkbar {
     border-radius: var(--aika-radius-md);
     background: var(--aika-surface);
@@ -787,7 +787,7 @@ html body.v6 .block a.linkbar:hover {
     color: var(--aika-fg);
 }
 
-/* Сторонний DRM / EULA — тёплый warn Aika вместо бронзы */
+/* Third-party DRM / EULA — Aika's warm warn instead of bronze */
 html body.v6 .DRM_notice {
     border-radius: var(--aika-radius-md);
     background: var(--aika-warn-soft);
@@ -795,7 +795,7 @@ html body.v6 .DRM_notice {
     box-shadow: inset 0 0 0 var(--aika-hairline) var(--aika-warn-border);
 }
 
-/* Таблица языков: голубые ✓, серые разделители #626366 */
+/* The language table: light-blue ✓, gray dividers #626366 */
 html body.v6 .game_language_options tr {
     border-bottom-color: var(--aika-border);
 }
@@ -816,7 +816,7 @@ html body.v6 .game_language_options tr.unsupported td {
     color: var(--aika-fg-subtle);
 }
 
-/* Предметы магазина очков и «+N» */
+/* Points Shop items and "+N" */
 html body.v6 .communitylink_points_shop_images a.communitylink_points_shop_item {
     overflow: hidden;
     border-radius: var(--aika-radius-md);
@@ -829,9 +829,9 @@ html body.v6 .communitylink_points_shop_images a.communitylink_achivement_plusmo
 }
 
 /* --------------------------------------------------------------------------
-   Блок покупки (.game_area_purchase_game): у Steam светло-голубой
-   диагональный градиент, цена — на чёрной плашке без скругления.
-   Карточка Aika, цена — моно на приподнятой подложке.
+   The purchase block (.game_area_purchase_game): Steam has a light-blue
+   diagonal gradient, the price on a black plate without rounding.
+   An Aika card, the price is mono on a raised backing.
    -------------------------------------------------------------------------- */
 
 html body.v6 :is(.game_area_purchase_game, .game_area_offsite_purchase) {
@@ -841,7 +841,7 @@ html body.v6 :is(.game_area_purchase_game, .game_area_offsite_purchase) {
     box-shadow: var(--aika-shadow-card);
 }
 
-/* Активна пробная подписка — у Steam зелёный градиент: ok Aika */
+/* An active trial subscription — Steam has a green gradient: Aika ok */
 html body.v6 .game_area_purchase_game.pt_active {
     background: var(--aika-ok-soft);
     color: var(--aika-fg);
@@ -863,7 +863,7 @@ html body.v6 .game_purchase_action .game_purchase_price {
     font-family: var(--aika-font-mono);
 }
 
-/* «Включает N предметов: …» */
+/* "Includes N items: …" */
 html body.v6 .package_contents {
     color: var(--aika-fg-subtle);
 }
@@ -882,15 +882,15 @@ html body.v6 .package_contents_capsule a {
     border-radius: var(--aika-radius-md);
 }
 
-/* «Сравнить издания» */
+/* "Compare editions" */
 html body.v6 button.game_purchase_options_editions_header_compare_button {
     border-color: var(--aika-border-strong);
     border-radius: var(--aika-radius-md);
     color: var(--aika-fg-muted);
 }
 
-/* Заголовки разделов («Загружаемый контент для этой игры»): у Steam
-   h2.gradientbg — синий градиент; пометка справа — серая рамка */
+/* Section headings ("Downloadable content for this game"): Steam has
+   h2.gradientbg — a blue gradient; the note on the right — a gray border */
 html body.v6 .game_area_purchase h2.gradientbg,
 html body.v6 .early_access_announcements h2 {
     border-bottom: var(--aika-hairline) solid var(--aika-border);
@@ -906,7 +906,7 @@ html body.v6 .early_access_announcements h2 a {
     color: var(--aika-fg-muted);
 }
 
-/* Строки DLC: серо-голубой градиент, «рекомендуемое» — #417a9b */
+/* DLC rows: a gray-blue gradient, "recommended" — #417a9b */
 html body.v6 .game_area_dlc_row {
     border-radius: var(--aika-radius-md);
     background: var(--aika-surface);
@@ -936,20 +936,20 @@ html body.v6 .gameDlcBlocks .game_purchase_price {
 }
 
 /* --------------------------------------------------------------------------
-   Описание и системные требования
+   Description and system requirements
    -------------------------------------------------------------------------- */
 
-/* Шрифт: "Motiva Sans" на веб-страницах подменён на Inter (web-fonts.css).
-   Arial Steam ставит отдельно — подписи требований (strong), «Подписаться»
-   в каруселях (Arial у хэш-правила), жирные вставки (b). */
+/* Font: "Motiva Sans" on web pages is swapped for Inter (web-fonts.css).
+   Steam sets Arial separately — the requirement labels (strong), "Follow"
+   in carousels (Arial in a hash rule), bold inserts (b). */
 html body.v6 .page_content_ctn :is(b, strong),
 html body.v6 .related_items_ctn :is(.FollowButton, .btnv6_grey_black) {
     font-family: var(--aika-font-ui);
 }
 
-/* «Об этой игре»: текст — Inter с нашим межстрочным, заголовки разделов
-   страницы («Об этой игре», «Системные требования», «Загружаемый
-   контент…») — у Steam 14 px Motiva с картинкой-линейкой снизу */
+/* "About this game": the text is Inter with our line height, the page section
+   headings ("About this game", "System requirements", "Downloadable
+   content…") — Steam has 14 px Motiva with a ruler image below */
 html body.v6 .game_area_description {
     color: var(--aika-fg-muted);
     font-size: var(--aika-text-body);
@@ -969,19 +969,19 @@ html body.v6 .game_area_description h2 {
     text-transform: none;
 }
 
-/* Заголовки внутри текста от издателя (h2.bb_tag) — без линейки */
+/* Headings inside the publisher's text (h2.bb_tag) — no ruler */
 html body.v6 .game_area_description h2.bb_tag {
     border-bottom: none;
     color: var(--aika-fg);
 }
 
-/* Картинки, гифки и ролики в описании (.bb_img_ctn > img/video.bb_img) */
+/* Images, gifs and videos in the description (.bb_img_ctn > img/video.bb_img) */
 html body.v6 .game_area_description :is(.bb_img_ctn, img.bb_img, video.bb_img) {
     overflow: hidden;
     border-radius: var(--aika-radius-lg);
 }
 
-/* «Читать дальше» — у Steam голубой текст на синей полосе
+/* "Read more" — Steam has light-blue text on a blue strip
    (.widestore .game_page_autocollapse_readmore, (0,2,0)) */
 html body.v6.widestore .game_page_autocollapse_readmore {
     border-radius: var(--aika-radius-md);
@@ -1010,7 +1010,7 @@ html body.v6 .game_area_sys_req_note {
     color: var(--aika-fg-subtle);
 }
 
-/* Вкладки ОС в требованиях (Windows / macOS / SteamOS) */
+/* OS tabs in the requirements (Windows / macOS / SteamOS) */
 html body.v6 .sysreq_tabs {
     background: var(--aika-transparent);
     box-shadow: inset 0 calc(-1 * var(--aika-hairline)) 0 0 var(--aika-border);
@@ -1031,21 +1031,21 @@ html body.v6 .sysreq_tab.active {
     box-shadow: inset 0 calc(-1 * var(--aika-indicator)) 0 0 var(--aika-accent);
 }
 
-/* «Ещё от …» / «Похожие» внизу: полоса с белым радиальным светом
-   снизу — гасим, виден наш фон */
+/* "More from …" / "More like this" at the bottom: a strip with a white radial light
+   from below — kill it, our background shows */
 html body.v6 .related_items_ctn {
     background: var(--aika-transparent);
     box-shadow: inset 0 var(--aika-hairline) 0 0 var(--aika-border);
 }
 
-/* Блок кураторов: «Вы не подписаны ни на одного куратора…» */
+/* The curators block: "You are not following any curators…" */
 html body.v6 .steam_curators_block .no_curators_followed {
     border-radius: var(--aika-radius-lg);
     background: var(--aika-surface);
     color: var(--aika-fg-muted);
 }
 
-/* «Подписаться» на кураторов справа в шапке блока — голубые 20 % */
+/* "Follow" for curators on the right of the block header — light blue 20 % */
 html body.v6 .game_description_column .block .block_header .right a {
     border-radius: var(--aika-radius-md);
     background-color: var(--aika-surface);
@@ -1056,24 +1056,24 @@ html body.v6 .game_description_column .block .block_header .right a:hover {
     background-color: var(--aika-surface-hover);
 }
 
-/* Стрелка меню очереди («▾» рядом со «Скрыть»): у Steam
+/* The queue menu arrow ("▾" next to "Ignore"): Steam has
    .queue_btn_menu > .queue_menu_arrow, color #67c1f5 !important */
 html body.v6 .queue_btn_menu > .queue_menu_arrow:not(.queue_btn_active) {
     background: var(--aika-surface);
-    color: var(--aika-fg) !important; /* у Steam !important */
+    color: var(--aika-fg) !important; /* Steam: !important */
 }
 
 /* --------------------------------------------------------------------------
-   Контроллеры (React, под «Возможностями»): #category_block > div без
-   класса — те же строки «значок + подпись», что и .game_area_details_specs_ctn
-   (у Steam значок на #101822, подпись голубая 10 %). Классы внутри —
-   хэши, держимся структуры: строки — a и summary (раскрывающийся список),
-   части строки — их прямые потомки. Зелёный «Ваш контроллер…» берёт
-   --color-storegreen-7 (переназначен выше на ok).
+   Controllers (React, under "Features"): #category_block > div without
+   a class — the same "icon + caption" rows as .game_area_details_specs_ctn
+   (Steam: the icon on #101822, the caption light blue 10 %). The classes inside are
+   hashes, we rely on structure: rows are a and summary (an expandable list),
+   the row parts are their direct children. The green "Your controller…" takes
+   --color-storegreen-7 (remapped to ok above).
    -------------------------------------------------------------------------- */
 
-/* Строка — a/summary из двух частей (значок + подпись); так же устроен
-   раскрывающийся список (details) в .game_area_features_list_ctn */
+/* A row is a/summary with two parts (icon + caption); the expandable
+   list (details) in .game_area_features_list_ctn is built the same way */
 html body.v6 #category_block :is(a, summary):not(.game_area_details_specs_ctn):has(> :is(div, span) + :is(div, span)) {
     overflow: hidden;
     border-radius: var(--aika-radius-md);
@@ -1096,7 +1096,7 @@ html body.v6 #category_block :is(a, summary):not(.game_area_details_specs_ctn):h
     color: inherit;
 }
 
-/* Строки внутри раскрывающегося списка: li > a > span (подпись одна) */
+/* Rows inside the expandable list: li > a > span (a single caption) */
 html body.v6 #category_block details li > a {
     overflow: hidden;
     border-radius: var(--aika-radius-md);
@@ -1119,26 +1119,26 @@ html body.v6 #category_block details li > a > span span {
     color: inherit;
 }
 
-/* Ссылка-«?» в заголовке списка (серая 10 %) */
+/* The "?" link in the list heading (gray 10 %) */
 html body.v6 #category_block details > summary > span > a {
     border-radius: var(--aika-radius-xs);
     background: var(--aika-surface-active);
 }
 
-/* Подписи групп («Полная поддержка контроллеров», «Xbox», «PlayStation») */
+/* Group captions ("Full controller support", "Xbox", "PlayStation") */
 html body.v6 #category_block :is(div, li) > :is(div, span):not(:has(*)):not(:is(a, summary) > *) {
     color: var(--aika-fg-subtle);
 }
 
-/* Описание возрастного рейтинга — у Steam
-   .shared_game_rating p.descriptorText с !important */
+/* The age rating description — Steam has
+   .shared_game_rating p.descriptorText with !important */
 html body.v6 .shared_game_rating p.descriptorText {
-    color: var(--aika-fg-muted) !important; /* у Steam #c6d4df !important */
+    color: var(--aika-fg-muted) !important; /* Steam: #c6d4df !important */
 }
 
 /* --------------------------------------------------------------------------
-   «Достижения в Steam» справа (React в .noOpinionatedGlobalStyles, хэши):
-   у Steam — тот же чёрный градиент, что у .block, иконки без скругления.
+   "Steam Achievements" on the right (React in .noOpinionatedGlobalStyles, hashes):
+   Steam has the same black gradient as .block, icons without rounding.
    -------------------------------------------------------------------------- */
 
 html body.v6 .rightcol.game_meta_data .noOpinionatedGlobalStyles > div {
@@ -1158,19 +1158,19 @@ html body.v6 .rightcol.game_meta_data .noOpinionatedGlobalStyles > div a > div >
     border-radius: var(--aika-radius-md);
 }
 
-/* Иконки достижений: у Steam серая тень 33 % */
+/* Achievement icons: Steam has a gray 33 % shadow */
 html body.v6 .rightcol.game_meta_data .noOpinionatedGlobalStyles > div a > div > div img {
     box-shadow: var(--aika-shadow-cover);
 }
 
-/* Описание: копирайт под требованиями (#game_area_legal, #566168) */
+/* Description: the copyright under the requirements (#game_area_legal, #566168) */
 html body.v6 #game_area_legal p {
     color: var(--aika-fg-subtle);
 }
 
-/* «Последние события» (React, .early_access_announcements): карточки
-   событий (a.OtherEvents_EventCtn — серый радиальный градиент)
-   и кнопка «Все обновления» (белая рамка 40 %) */
+/* "Recent Events" (React, .early_access_announcements): event
+   cards (a.OtherEvents_EventCtn — a gray radial gradient)
+   and the "All updates" button (a white 40 % border) */
 html body.v6 .early_access_announcements a.OtherEvents_EventCtn {
     border-radius: var(--aika-radius-lg);
     background: var(--aika-card-bg);
@@ -1183,7 +1183,7 @@ html body.v6 .early_access_announcements a.OtherEvents_EventCtn:hover {
     box-shadow: var(--aika-shadow-card-hover);
 }
 
-/* Дата события (белый 50 % у Steam) — строка с датой внутри карточки */
+/* The event date (Steam: white 50 %) — the date line inside the card */
 html body.v6 a.OtherEvents_EventCtn > div > div:has(> div > span) {
     color: var(--aika-fg-subtle);
     font-family: var(--aika-font-mono);
@@ -1196,11 +1196,11 @@ html body.v6 .early_access_announcements > div > .Focusable {
 }
 
 /* --------------------------------------------------------------------------
-   Цена на капсулах React-каруселей («Ещё от…», «Похожие»):
-   .StoreSalePriceWidgetContainer.Discounted > [скидка] + [старая / новая].
-   У Steam: подложка #344654, скидка — салатовый #beee11 на #4c6b22,
-   старая цена — #738895. Как у .discount_block выше: зелёный Aika, моно.
-   Части без читаемых классов — по порядку.
+   Prices on React carousel capsules ("More from…", "More like this"):
+   .StoreSalePriceWidgetContainer.Discounted > [discount] + [old / new].
+   Steam: a #344654 backing, the discount — lime #beee11 on #4c6b22,
+   the old price — #738895. Like .discount_block above: Aika green, mono.
+   Parts without readable classes — by order.
    -------------------------------------------------------------------------- */
 
 html body.v6 .StoreSalePriceWidgetContainer {
@@ -1211,7 +1211,7 @@ html body.v6 .StoreSalePriceWidgetContainer {
     font-family: var(--aika-font-mono);
 }
 
-/* Пометка вместо цены («Предзаказ»): у Steam салатовый на #344654 */
+/* A note instead of a price ("Pre-Purchase"): Steam has lime on #344654 */
 html body.v6 .StoreSalePriceWidgetContainer > div > span {
     border-radius: var(--aika-radius-xs);
     background: var(--aika-accent-soft);
@@ -1233,20 +1233,20 @@ html body.v6 .StoreSalePriceWidgetContainer.Discounted > div:last-child > div:la
     font-weight: var(--aika-weight-semibold);
 }
 
-/* Кнопки шапки карусели: «Подписаться» (FollowButton) и «Просмотреть все»
-   (.btnv6_grey_black). У Steam — #212c3d, голубой текст с !important
-   (хэш-правило (0,3,0)), hover — #54a5d4. */
+/* Carousel header buttons: "Follow" (FollowButton) and "See all"
+   (.btnv6_grey_black). Steam has #212c3d, light-blue text with !important
+   (a hash rule (0,3,0)), hover — #54a5d4. */
 html body.v6 .related_items_ctn :is(.FollowButton, .btnv6_grey_black) {
     border-radius: var(--aika-radius-md);
     background: var(--aika-surface);
-    color: var(--aika-fg) !important; /* у Steam #66c0f4 !important */
+    color: var(--aika-fg) !important; /* Steam: #66c0f4 !important */
     box-shadow: var(--aika-shadow-secondary);
 }
 
 html body.v6 .related_items_ctn .FollowButton:hover,
 html body.v6 .related_items_ctn .btnv6_grey_black:not(.btn_disabled):not(:disabled):not(.btn_active):not(.active):hover {
     background: var(--aika-surface-hover);
-    color: var(--aika-fg) !important; /* у Steam #fff !important */
+    color: var(--aika-fg) !important; /* Steam: #fff !important */
     box-shadow: var(--aika-shadow-secondary-hover);
 }
 
@@ -1254,10 +1254,10 @@ html body.v6 .related_items_ctn :is(.FollowButton, .btnv6_grey_black) * {
     color: inherit;
 }
 
-/* Капсулы каруселей («Больше продуктов», «Похожие товары»): React,
-   обёртка с overflow: hidden и скруглением 3 px — без читаемого класса,
-   берём её как родителя ссылки с .CapsuleImageCtn. Полоса цены снизу
-   (.CapsuleBottomBar) — у Steam чёрная. */
+/* Carousel capsules ("More products", "More like this"): React,
+   a wrapper with overflow: hidden and 3 px rounding — no readable class,
+   we take it as the parent of the link with .CapsuleImageCtn. The price strip at the bottom
+   (.CapsuleBottomBar) — black in Steam. */
 html body.v6 .related_items_ctn div:has(> a .CapsuleImageCtn) {
     overflow: hidden;
     border-radius: var(--aika-radius-lg);
@@ -1277,9 +1277,9 @@ html body.v6 .related_items_ctn .CapsuleBottomBar .StoreSalePriceWidgetContainer
     border-radius: 0;
 }
 
-/* Метки на капсулах («В библиотеке», «В списке желаемого»):
-   у Steam голубая / светло-серая плашка, чёрный капс, чёрная тень.
-   Общий вид здесь, различие цвета — в selectors.css (хэш-модификатор). */
+/* Labels on capsules ("In Library", "On Wishlist"):
+   Steam has a light-blue / light-gray plate, black caps, a black shadow.
+   The shared look is here, the color difference is in selectors.css (a hash modifier). */
 html body.v6 .CapsuleDecorators > span {
     border-radius: var(--aika-radius-xs);
     background-color: var(--aika-bg-high);
@@ -1288,18 +1288,18 @@ html body.v6 .CapsuleDecorators > span {
     box-shadow: var(--aika-shadow-card);
 }
 
-/* Metacritic — цвет оценки смысловой (шкала Metacritic), только скругление */
+/* Metacritic — the score color is semantic (the Metacritic scale), rounding only */
 html body.v6 #game_area_metascore .score {
     border-radius: var(--aika-radius-md);
 }
 
 /* ==========================================================================
-   4. Поиск (store.steampowered.com/search/, body.v6.search_page)
-      Снято через CDP 2026-10-04 (запрос «souls»). Старая вёрстка,
-      классы читаемые, правила Steam до (1,0,0) у #term.
+   4. Search (store.steampowered.com/search/, body.v6.search_page)
+      Captured via CDP 2026-10-04 (query "souls"). Old markup,
+      readable classes, Steam's rules up to (1,0,0) on #term.
    ========================================================================== */
 
-/* Метки запроса над результатами («souls ×») */
+/* Query tags above the results ("souls ×") */
 html body.v6 .termcontainer .searchtag {
     border-radius: var(--aika-radius-full);
     background: var(--aika-accent-soft);
@@ -1310,7 +1310,7 @@ html body.v6 .termcontainer .searchtag .label {
     color: inherit;
 }
 
-/* Полоса поиска: поле #term (голубое 20 %), сортировка (.dselect_container) */
+/* The search strip: the #term field (light blue 20 %), sorting (.dselect_container) */
 html body.v6 .searchbar {
     border-radius: var(--aika-radius-lg);
     background: var(--aika-surface);
@@ -1343,7 +1343,7 @@ html body.v6 .search_filter_suggest:focus {
     box-shadow: var(--aika-shadow-input-focus);
 }
 
-/* Выпадающий список сортировки: кнопка и раскрытый список (.dropcontainer ul) */
+/* The sort dropdown: the button and the open list (.dropcontainer ul) */
 html body.v6 .dselect_container button.trigger {
     border-radius: var(--aika-radius-md);
     background: var(--aika-surface);
@@ -1374,7 +1374,7 @@ html body.v6 .dselect_container .dropcontainer ul a:hover {
     color: var(--aika-fg);
 }
 
-/* «Скрыто из-за настроек» — у Steam светло-жёлтый текст на чёрном 20 % */
+/* "Hidden due to preferences" — Steam has light-yellow text on black 20 % */
 html body.v6 .search_results_filtered_warning > div {
     background-color: var(--aika-warn-soft);
     color: var(--aika-warn);
@@ -1392,7 +1392,7 @@ html body.v6 .search_results_filtered_warning > div:only-child {
     border-radius: var(--aika-radius-md);
 }
 
-/* Строка результата: у Steam чёрная 20 %, hover — 40 % и голубая рамка */
+/* A result row: Steam has black 20 %, hover — 40 % and a light-blue border */
 html body.v6 .search_result_row,
 html body.v6 .search_result_row:hover {
     overflow: hidden;
@@ -1437,7 +1437,7 @@ html body.v6 .search_result_row .search_reviewscore .game_review_summary.none {
     color: var(--aika-fg-subtle);
 }
 
-/* Скидка в строке: у Steam .search_discount_block — свои зелёный и серый */
+/* The discount in a row: Steam's .search_discount_block has its own green and gray */
 html body.v6 .discount_block.search_discount_block .discount_pct {
     background: var(--aika-ok);
 }
@@ -1450,8 +1450,8 @@ html body.v6 .discount_block.search_discount_block .discount_prices .discount_fi
     color: var(--aika-fg);
 }
 
-/* Фильтры справа (.search_collapse_block): заголовок блока — белая 10 %
-   полоса, пункты-флажки — голубые, выбранный — голубой градиент */
+/* Filters on the right (.search_collapse_block): the block heading is a white 10 %
+   strip, the checkbox items are light blue, the selected one — a light-blue gradient */
 html body.v6.search_page .rightcol .block {
     overflow: hidden;
     border-radius: var(--aika-radius-lg);
@@ -1505,23 +1505,23 @@ html body.v6 .see_all_expander {
 }
 
 /* --------------------------------------------------------------------------
-   Логотип игры над трейлером (идея автора 2026-10-04; js/store-logo.js).
-   Скрипт кладёт .aika-store-logo > img в .highlight_ctn и ставит
-   html.aika-has-logo. Логотип по центру окна трейлера/скриншотов, его
-   центр — на верхней кромке окна: верхняя половина заходит на полосу
-   с названием, нижняя слегка перекрывает трейлер. Сзади — тень.
-   Без скрипта или без логотипа — текстовое название Steam как было.
+   The game logo above the trailer (author's idea 2026-10-04; js/store-logo.js).
+   The script puts .aika-store-logo > img into .highlight_ctn and sets
+   html.aika-has-logo. The logo is centered on the trailer/screenshot window, its
+   center is on the window's top edge: the top half overlaps the strip
+   with the title, the bottom slightly overlaps the trailer. A shadow behind it.
+   Without the script or without a logo — Steam's text title as before.
    -------------------------------------------------------------------------- */
 
 html body.v6 .highlight_ctn:has(> .aika-store-logo) {
     position: relative;
 }
 
-/* У Steam «.widestore #game_highlights» — backdrop-filter: blur(7px), это
-   отдельный контекст наложения: z-index логотипа работает только внутри
-   блока, и во время распродажи баннер (.saleEventBannerBig, z 100, выше
-   по странице) перекрывал верх логотипа (скрин 11, STEEP). Поднимаем
-   весь блок трейлера над баннером — пересекаются они только логотипом. */
+/* Steam's ".widestore #game_highlights" has backdrop-filter: blur(7px), which is
+   a separate stacking context: the logo's z-index only works inside
+   the block, and during a sale the banner (.saleEventBannerBig, z 100, higher
+   on the page) covered the top of the logo (screenshot 11, STEEP). We raise
+   the whole trailer block above the banner — they only overlap at the logo. */
 html body.v6 #game_highlights:has(.aika-store-logo) {
     position: relative;
     z-index: var(--aika-z-store-logo);
@@ -1531,9 +1531,9 @@ html body.v6 .highlight_ctn > .aika-store-logo {
     position: absolute;
     top: 0;
     left: calc(50% - var(--aika-store-highlight-gutter) / 2);
-    /* было 30: во время распродажи вместо полосы с названием стоит
-       баннер (.saleEventBannerBig, z 100) — верх логотипа уходил под него
-       (скрин 11, STEEP) */
+    /* was 30: during a sale a banner stands instead of the title strip
+       (.saleEventBannerBig, z 100) — the top of the logo went under it
+       (screenshot 11, STEEP) */
     z-index: var(--aika-z-store-logo);
     display: flex;
     align-items: center;
@@ -1559,7 +1559,7 @@ html body.v6 .highlight_ctn > .aika-store-logo img {
     }
 }
 
-/* Текстовое название — только для экранных чтецов, место под логотип */
+/* The text title — only for screen readers, the space goes to the logo */
 html.aika-has-logo body.v6 .apphub_AppName {
     position: absolute;
     width: 1px;
@@ -1570,13 +1570,13 @@ html.aika-has-logo body.v6 .apphub_AppName {
 }
 
 /* ==========================================================================
-   5. Страница игры, которая уже есть в библиотеке (правка автора 2026-10-04,
-      проверено на PEAK): полоса «PEAK уже находится в вашей библиотеке»
-      (.game_area_already_owned — салатовый градиент, текст #a3cf06),
-      блок под ней (.game_area_play_stats — серо-голубая карточка: «Играть»,
-      часы, «Написать обзор»), метка «В библиотеке» у вариантов покупки
-      (.package_in_library_flag.in_own_library — салатовая), затухание над
-      «Читать дальше». Классы читаемые, сила Steam до (0,3,1)/(0,6,0) у hover.
+   5. The page of a game already in the library (author's fix 2026-10-04,
+      verified on PEAK): the "PEAK is already in your Steam Library" strip
+      (.game_area_already_owned — a lime gradient, text #a3cf06),
+      the block under it (.game_area_play_stats — a gray-blue card: "Play",
+      hours, "Write a review"), the "In Library" label on purchase options
+      (.package_in_library_flag.in_own_library — lime), the fade above
+      "Read more". Readable classes, Steam's strength up to (0,3,1)/(0,6,0) on hover.
    ========================================================================== */
 
 html body.v6 .game_area_already_owned:not(.master_sub) {
@@ -1590,7 +1590,7 @@ html body.v6 .game_area_already_owned .already_in_library {
     color: var(--aika-fg);
 }
 
-/* Метка «В библиотеке» на полосе: у Steam своя чёрная тень и иконка-PNG */
+/* The "In Library" label on the strip: Steam has its own black shadow and a PNG icon */
 html body.v6 .game_area_already_owned .ds_flag {
     border-radius: var(--aika-radius-xs);
     box-shadow: var(--aika-shadow-card);
@@ -1608,13 +1608,13 @@ html body.v6 .game_area_play_stats .details_block.hours_played {
     font-family: var(--aika-font-mono);
 }
 
-/* «Играть» и «Опубликовать» (.btnv6_lightblue_blue — светло-голубой
-   градиент, тёмно-синий текст с !important) — primary Aika */
+/* "Play" and "Post" (.btnv6_lightblue_blue — a light-blue
+   gradient, dark blue text with !important) — Aika primary */
 html body.v6 .btnv6_lightblue_blue {
     border-color: var(--aika-transparent);
     border-radius: var(--aika-radius-md);
     background: var(--aika-accent-fill);
-    color: var(--aika-on-accent) !important; /* у Steam #2B5066 !important */
+    color: var(--aika-on-accent) !important; /* Steam: #2B5066 !important */
     box-shadow: var(--aika-shadow-cta);
     transition:
         background-color var(--aika-dur-fast) var(--aika-ease-hover),
@@ -1623,7 +1623,7 @@ html body.v6 .btnv6_lightblue_blue {
 
 html body.v6 .btnv6_lightblue_blue:not(.btn_disabled):not(:disabled):not(.btn_active):not(.active):hover {
     background: var(--aika-accent-fill-hover);
-    color: var(--aika-on-accent) !important; /* у Steam #fff !important */
+    color: var(--aika-on-accent) !important; /* Steam: #fff !important */
     box-shadow: var(--aika-shadow-cta-hover);
 }
 
@@ -1632,8 +1632,8 @@ html body.v6 .btnv6_lightblue_blue > span {
     text-shadow: none;
 }
 
-/* «Написать обзор продукта PEAK»: заголовок (#66c0f4), пояснение, аватар
-   с рамкой статуса, поле (#222b35), настройки видимости/языка (чёрная 20 %) */
+/* "Write a review for PEAK": the heading (#66c0f4), the hint, the avatar
+   with a status frame, the field (#222b35), visibility/language settings (black 20 %) */
 html body.v6 .game_area_play_stats #review_create h2 {
     color: var(--aika-fg);
 }
@@ -1687,8 +1687,8 @@ html body.v6 .avatar_block :is(.avatar_block_status_online, .avatar_block_status
     background: var(--aika-bg-high);
 }
 
-/* «В библиотеке» у вариантов покупки: своя — accent, семейная — тоже,
-   с более тёмной заливкой */
+/* "In Library" on purchase options: own — accent, family — too,
+   with a darker fill */
 html body.v6 .package_in_library_flag {
     border-radius: var(--aika-radius-xs);
     box-shadow: var(--aika-shadow-card);
@@ -1704,10 +1704,10 @@ html body.v6 .package_in_library_flag.in_family_library {
     color: var(--aika-fg);
 }
 
-/* Затухание над «Читать дальше» (.widestore …_fade — голубая PNG-полоса).
-   В описании — в фон страницы; в правой колонке блок лежит на карточке
-   (.rightcol .block — градиент), там цвет фона не угадать — без подложки,
-   затухание делает маска на самом содержимом. */
+/* The fade above "Read more" (.widestore …_fade — a light-blue PNG strip).
+   In the description — into the page background; in the right column the block sits on a card
+   (.rightcol .block — a gradient), the background color can't be guessed there — no backing,
+   a mask on the content itself does the fade. */
 html body.v6.widestore .game_page_autocollapse_fade {
     border-radius: 0 0 var(--aika-radius-lg) var(--aika-radius-lg);
     background: var(--aika-store-collapse-fade);
@@ -1722,23 +1722,23 @@ html body.v6.widestore .rightcol .game_page_autocollapse_ctn.collapsed .game_pag
     mask-image: var(--aika-store-collapse-mask);
 }
 
-/* Аватар в форме обзора: у Steam «#review_create .avatar» (1,1,0) обнуляет скругление */
+/* The avatar in the review form: Steam's "#review_create .avatar" (1,1,0) zeroes the rounding */
 html body.v6 #review_create .avatar_block .avatar,
 html body.v6 #review_create .avatar_block .avatar img {
     border-radius: var(--aika-radius-md);
 }
 
-/* «Скидка закончится …» над ценой (#7cb8e4) — warn: срок предложения */
+/* "Offer ends …" above the price (#7cb8e4) — warn: the offer deadline */
 html body.v6 .game_purchase_discount_countdown {
     color: var(--aika-warn);
     font-family: var(--aika-font-mono);
 }
 
 /* --------------------------------------------------------------------------
-   Друзья, у которых есть игра (.friend_blocks_grid .friend_block_holder,
-   правая колонка): аватар в рамке статуса (Steam — голубой / салатовый /
-   серый градиенты и JPG-подложки), скругление 0. Как в components/status.css:
-   в игре — ok, в сети — акцент, не в сети — приглушённо.
+   Friends who own the game (.friend_blocks_grid .friend_block_holder,
+   the right column): the avatar in a status frame (Steam — light-blue / lime /
+   gray gradients and JPG backings), rounding 0. As in components/status.css:
+   in game — ok, online — accent, offline — muted.
    -------------------------------------------------------------------------- */
 
 html body.v6 .friend_block_holder .friend_block_avatar,
@@ -1772,9 +1772,9 @@ html body.v6 .friend_block_holder:hover {
 }
 
 /* --------------------------------------------------------------------------
-   Набор (bundle) в покупке: подпись «Набор» (#a4d7f5), пояснение,
-   старая скидка набора (.bundle_base_discount #626366), превью состава
-   (.bundle_contents_preview — капсулы без скругления, чёрная тень)
+   A bundle in the purchase block: the "Bundle" caption (#a4d7f5), the hint,
+   the bundle's base discount (.bundle_base_discount #626366), the contents preview
+   (.bundle_contents_preview — capsules without rounding, a black shadow)
    -------------------------------------------------------------------------- */
 
 html body.v6 .bundle_label {
@@ -1802,8 +1802,8 @@ html body.v6 .bundle_contents_preview.collapsed a.bundle_contents_preview_item {
     box-shadow: var(--aika-shadow-card);
 }
 
-/* Описание: абзацы внутри списков (у Steam #acb2b8 на .bb_paragraph),
-   кнопка «развернуть» (🔎) на картинках — и в описании, и в других блоках */
+/* Description: paragraphs inside lists (Steam has #acb2b8 on .bb_paragraph),
+   the "expand" button (🔎) on images — both in the description and in other blocks */
 html body.v6 .game_area_description .bb_ul .bb_paragraph {
     color: var(--aika-fg-muted);
 }
@@ -1814,17 +1814,17 @@ html body.v6 .bb_img_icons .bb_img_expand {
     color: var(--aika-fg);
 }
 
-/* Обложка игры над краткой сводкой справа (#gameHeaderImageCtn
-   img.game_header_image_full) — у Steam без скругления (правка автора) */
+/* The game cover above the quick summary on the right (#gameHeaderImageCtn
+   img.game_header_image_full) — no rounding in Steam (author's fix) */
 html body.v6 #gameHeaderImageCtn img.game_header_image_full {
     border-radius: var(--aika-radius-lg);
     box-shadow: var(--aika-shadow-card);
 }
 
 /* --------------------------------------------------------------------------
-   Корзина с товарами (2026-10-04): кнопка «Корзина N» в меню магазина
-   (a[href*="/cart"], у Steam #1a9fff, когда в корзине что-то есть) —
-   акцент; «Подписаться» (FollowButton, #54a5d4) везде — вторичная Aika
+   A cart with items (2026-10-04): the "Cart N" button in the store menu
+   (a[href*="/cart"], Steam: #1a9fff when the cart isn't empty) —
+   accent; "Follow" (FollowButton, #54a5d4) everywhere — Aika secondary
    -------------------------------------------------------------------------- */
 
 html body.v6 [data-featuretarget="store-menu-v7"] a[href*="/cart"] {
@@ -1857,11 +1857,11 @@ html body.v6 .FollowButton .FollowBtnText {
 }
 
 /* ==========================================================================
-   Страница игры — предупреждения у блока покупки (скрин 16, Spec Ops:
-   The Line): «Не поддерживается русский язык», «Внимание: … больше не
-   доступна», «… СНГ». Steam: .notice_box_content — рамка #a25024,
-   радиус 3, жирное начало #f47b20, текст #acb2b8 (0,1,0)…(0,1,1).
-   Делаем карточкой-предупреждением темы (warn). Проверено 2026-10-07.
+   Game page — warnings by the purchase block (screenshot 16, Spec Ops:
+   The Line): "Russian language not supported", "Notice: … is no longer
+   available", "… CIS". Steam: .notice_box_content — a #a25024 border,
+   radius 3, a bold start #f47b20, text #acb2b8 (0,1,0)…(0,1,1).
+   We make it the theme's warning card (warn). Verified 2026-10-07.
    ========================================================================== */
 
 html body.v6 .notice_box_content {
@@ -1886,13 +1886,13 @@ html body.v6 .notice_box_content a:hover {
 }
 
 /* ==========================================================================
-   Страница игры — ранний доступ (скрин 15, SUPER PEOPLE; проверено на
-   Enshrouded). .early_access_header: рамка #4e81ae, шапка .heading —
-   голубое свечение #57a4d0 и текст #b8e0fd, «Примечание» #f9be3e,
-   полоса «Выход из раннего доступа» (#27475d → #4e81ae), «Сообщение от
-   разработчиков» #61686d, «Подробнее» — #67c1f5 на градиенте в #1b2838.
-   .early_access_banner — «Сообщайте об ошибках…»: серый градиент,
-   голубой жук (PNG), кнопка с чёрной рамкой 2 px. Steam до (0,2,1).
+   Game page — Early Access (screenshot 15, SUPER PEOPLE; verified on
+   Enshrouded). .early_access_header: a #4e81ae border, the .heading header —
+   a light-blue glow #57a4d0 and text #b8e0fd, "Note" #f9be3e,
+   the "Leaving Early Access" strip (#27475d → #4e81ae), "Message from
+   the developers" #61686d, "Read more" — #67c1f5 on a gradient into #1b2838.
+   .early_access_banner — "Report bugs…": a gray gradient,
+   a light-blue bug (PNG), a button with a black 2 px border. Steam up to (0,2,1).
    ========================================================================== */
 
 html body.v6 div.early_access_header {
@@ -1921,7 +1921,7 @@ html body.v6 div.early_access_header .heading p.subtitle {
     color: var(--aika-fg);
 }
 
-/* «Примечание:» — тёплое предупреждение */
+/* "Note:" — a warm warning */
 html body.v6 div.early_access_header .heading p > span {
     color: var(--aika-warn);
 }
@@ -1952,7 +1952,7 @@ html body.v6 div.early_access_header .devnotes h3 {
     color: var(--aika-fg);
 }
 
-/* «Подробнее» поверх обрезанного текста: градиент гаснет в фон блока */
+/* "Read more" over the clipped text: the gradient fades into the block background */
 html body.v6 div.early_access_header .devnotes .morebutton {
     background: linear-gradient(to right, var(--aika-transparent), var(--aika-bg-elevated) 15%);
     color: var(--aika-accent-bright);
@@ -1964,7 +1964,7 @@ html body.v6 div.early_access_header .devnotes .morebutton:hover {
     color: var(--aika-fg);
 }
 
-/* «Сообщайте об ошибках…» — карточка, жук в тон акцента, кнопка secondary */
+/* "Report bugs…" — a card, the bug in accent tone, a secondary button */
 html body.v6 div.early_access_banner {
     overflow: hidden;
     border: var(--aika-hairline) solid var(--aika-border);

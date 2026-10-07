@@ -1,6 +1,6 @@
-// Какие CSS-правила задают свойства у элемента — от сильного к слабому.
-// Нужно, чтобы понять, какую специфичность Steam надо перебить.
-//   node tools/rules.js [окно|ws://…] "<селектор>" "background,color"
+// Which CSS rules set properties on an element — strongest to weakest.
+// Used to find out which Steam specificity has to be beaten.
+//   node tools/rules.js [window|ws://…] "<selector>" "background,color"
 const target = require("./target");
 const args = process.argv.slice(2);
 const props = args.pop(), sel = args.pop();
@@ -14,7 +14,7 @@ const want = props.split(",");
     await send("DOM.enable"); await send("CSS.enable");
     const doc = await send("DOM.getDocument", { depth: 0 });
     const q = await send("DOM.querySelector", { nodeId: doc.root.nodeId, selector: sel });
-    if (!q.nodeId) { console.log("элемент не найден:", sel); process.exit(1); }
+    if (!q.nodeId) { console.log("element not found:", sel); process.exit(1); }
     const res = await send("CSS.getMatchedStylesForNode", { nodeId: q.nodeId });
     for (const m of (res.matchedCSSRules || []).reverse()) {
       const hit = m.rule.style.cssProperties.filter(p => want.some(w => p.name === w || p.name.startsWith(w + "-")) && p.value);

@@ -1,27 +1,27 @@
 /* ==========================================================================
-   settings.css — окно настроек Steam (и другие модальные окна).
+   settings.css — the Steam settings window (and other modal windows).
 
-   Модальные окна опознаются по классу .ModalDialogPopup (по документации
-   Millennium; на него срабатывает Patch в skin.json).
-   TODO: проверить в DevTools, что окно настроек действительно имеет
-   этот класс, и как называется его окно в списке localhost:8080.
+   Modal windows are identified by the .ModalDialogPopup class (per the
+   Millennium docs; the Patch in skin.json matches it).
+   TODO: verify in DevTools that the settings window really has
+   this class, and what its window is called in the localhost:8080 list.
 
-   План:
-   1. Фон окна — прозрачный, под ним наш фон.                 TODO: классы
-   2. Левое меню разделов: пункты, активный пункт — Fluent-индикатор
-      из components/nav.css.                                  TODO: классы
-   3. Правая часть: заголовки, строки настроек, разделители.  TODO: классы
-   4. Элементы управления: переключатели, выпадающие списки,
-      кнопки, поля ввода, ползунки.                           TODO: классы
+   Plan:
+   1. Window background — transparent, our background below.                 TODO: classes
+   2. The left section menu: items, the active item — the Fluent indicator
+      from components/nav.css.                                  TODO: classes
+   3. The right side: headings, setting rows, separators.  TODO: classes
+   4. Controls: toggles, dropdowns,
+      buttons, inputs, sliders.                           TODO: classes
    ========================================================================== */
 
 /* ==========================================================================
-   Окно «Настройки» (html.ModalDialogPopup.MillenniumWindow_Settings;
-   в localhost:8080 — «Настройки»). Снято через CDP 2026-10-04.
-   Читаемые классы: .PagedSettingsDialog_* (меню разделов), .Field (строка
-   настройки), .SettingsDialogFatButton (крупные кнопки). У Steam к ним
-   хэши-двойники, сила — до (0,3,1). Выбранный раздел — общий
-   Fluent-индикатор (components/nav.css).
+   The "Settings" window (html.ModalDialogPopup.MillenniumWindow_Settings;
+   in localhost:8080 — "Settings"). Captured via CDP 2026-10-04.
+   Readable classes: .PagedSettingsDialog_* (section menu), .Field (a setting
+   row), .SettingsDialogFatButton (large buttons). Steam has hash twins
+   for them, strength up to (0,3,1). The selected section uses the shared
+   Fluent indicator (components/nav.css).
    ========================================================================== */
 
 html .ModalPosition_Content {
@@ -30,14 +30,14 @@ html .ModalPosition_Content {
 }
 
 /* --------------------------------------------------------------------------
-   Левая колонка — как левая панель библиотеки (правка автора 2026-10-04:
-   «меню не подходит под стилистику»). У Steam: сплошной #2a2d34, пункты
-   прижаты к краю окна, синий заголовок, серые разделители.
-   У нас: колонка прозрачная (виден фон темы и пятна света) с тонкой линией
-   справа; заголовок — градиентный текст; пункты с отступом от краёв,
-   значок — в маленьком скруглённом контейнере (DESIGN §4, контейнеры
-   иконок); выбранный — акцентная карточка, контейнер значка залит
-   акцентом, слева — Fluent-индикатор (components/nav.css).
+   The left column — like the library's left panel (author's fix 2026-10-04:
+   "the menu doesn't fit the style"). Steam: solid #2a2d34, items
+   pressed to the window edge, a blue heading, gray separators.
+   Ours: a transparent column (the theme background and light spots show) with a thin line
+   on the right; the heading is gradient text; items inset from the edges,
+   the icon in a small rounded container (DESIGN §4, icon
+   containers); the selected one is an accent card, the icon container is filled
+   with the accent, on the left — the Fluent indicator (components/nav.css).
    -------------------------------------------------------------------------- */
 
 html .PagedSettingsDialog .PagedSettingsDialog_PageListColumn {
@@ -89,7 +89,7 @@ html .PagedSettingsDialog_PageList .PagedSettingsDialog_PageListItem .PageListIt
     color: inherit;
 }
 
-/* Контейнер значка */
+/* Icon container */
 html .PagedSettingsDialog_PageList .PagedSettingsDialog_PageListItem .PageListItem_Icon {
     display: flex;
     flex: none;
@@ -127,14 +127,14 @@ html .PagedSettingsDialog_PageList .PagedSettingsDialog_PageListItem .PageListIt
     fill: currentColor;
 }
 
-/* Разделители групп (.PageListSeparator, #3d4450) */
+/* Group separators (.PageListSeparator, #3d4450) */
 html .PagedSettingsDialog_PageList .PageListSeparator {
     margin: var(--aika-space-2) var(--aika-space-3);
     background: var(--aika-border);
 }
 
-/* Правая колонка: у Steam #25282e с серым радиальным светом, внутри
-   содержимое на #171d25 — одна приподнятая поверхность */
+/* The right column: Steam has #25282e with a gray radial light, the content
+   inside on #171d25 — one raised surface */
 html .PagedSettingsDialog .PagedSettingDialog_ContentColumn {
     background: var(--aika-bg-elevated);
     box-shadow: inset var(--aika-hairline) 0 0 0 var(--aika-border);
@@ -144,9 +144,9 @@ html .PagedSettingsDialog .PagedSettingDialog_ContentColumn > .DialogContent {
     background: var(--aika-transparent);
 }
 
-/* Строка настройки и её подписи (на всех страницах; .Field у Steam —
-   хэш-двойник (0,2,0), #23262e). Похожие плашки: .FakeContainer
-   («Загрузки»), .InfoRow (участники семьи), карточки режима записи */
+/* A setting row and its captions (on every page; Steam's .Field is a
+   hash twin (0,2,0), #23262e). Similar plates: .FakeContainer
+   ("Downloads"), .InfoRow (family members), recording mode cards */
 html .PagedSettingsDialog :is(.Field, .FakeContainer, .InfoRow) {
     border-radius: var(--aika-radius-md);
     background: var(--aika-surface);
@@ -165,7 +165,7 @@ html .PagedSettingsDialog .SettingsDialogDescriptionText a {
     color: var(--aika-accent-bright);
 }
 
-/* Подзаголовки разделов («Чат», «Уведомления»…) — подпись капсом */
+/* Section subheadings ("Chat", "Notifications"…) — an uppercase caption */
 html .PagedSettingsDialog .SettingsDialogSubHeader {
     color: var(--aika-fg-subtle);
     font-size: var(--aika-text-label);
@@ -174,7 +174,7 @@ html .PagedSettingsDialog .SettingsDialogSubHeader {
     text-transform: uppercase;
 }
 
-/* Галочка «значение по умолчанию» у ползунков */
+/* The "default value" checkmark on sliders */
 html .PagedSettingsDialog .DefaultValueTick svg path {
     fill: var(--aika-fg-subtle);
 }
@@ -183,7 +183,7 @@ html .PagedSettingsDialog .FieldLabel .EntryValue {
     color: var(--aika-fg-subtle);
 }
 
-/* Крупные кнопки (Семейный доступ и т. п.) — у Steam #23262e (0,3,1) */
+/* Large buttons (Family Sharing etc.) — Steam: #23262e (0,3,1) */
 html .PagedSettingsDialog button.SettingsDialogFatButton.DialogButton {
     border-radius: var(--aika-radius-lg);
     background: var(--aika-card-bg);
@@ -200,10 +200,10 @@ html .PagedSettingsDialog button.SettingsDialogFatButton .Details {
 }
 
 /* --------------------------------------------------------------------------
-   Отдельные страницы
+   Individual pages
    -------------------------------------------------------------------------- */
 
-/* «Семья»: название группы и значок, «Это вы» (салатовая плашка) */
+/* "Family": the group name and icon, "This is you" (a lime plate) */
 html .PagedSettingsDialog .FamilyNameRow :is(.FamilyName, .YourFamily) {
     color: var(--aika-fg-muted);
 }
@@ -218,13 +218,13 @@ html .PagedSettingsDialog .FamilyMemberStatus .MeBadge {
     color: var(--aika-bg-deep);
 }
 
-/* «Безопасность»: щит Steam Guard зелёный — ok Aika */
+/* "Security": the green Steam Guard shield — Aika ok */
 html .PagedSettingsDialog .Status svg.SteamGuardIcon path {
     fill: var(--aika-ok);
 }
 
-/* «Библиотека»: переключатель-группа (.Shared_Radio_Group, #2a2e36),
-   выбранный вариант — синий радиальный */
+/* "Library": a segmented group (.Shared_Radio_Group, #2a2e36),
+   the selected option — radial blue */
 html .PagedSettingsDialog .Shared_Radio_Group {
     overflow: hidden;
     border-radius: var(--aika-radius-md);
@@ -242,7 +242,7 @@ html .PagedSettingsDialog .Shared_Radio_Group > .Button:hover {
     color: var(--aika-fg);
 }
 
-/* «Запись игр»: карточки режима (.RecordingModeOption), точка выбора (.Pip) */
+/* "Game Recording": mode cards (.RecordingModeOption), the selection dot (.Pip) */
 html .PagedSettingsDialog .RecordingMode .RecordingModeOption {
     border-radius: var(--aika-radius-lg);
     background: var(--aika-surface);
@@ -266,7 +266,7 @@ html .PagedSettingsDialog .RecordingMode .RecordingModeOption .Pip.ActivePip {
     background: var(--aika-accent);
 }
 
-/* «Хранилище»: имя диска, полоса заполнения (штриховка #363d48), подписи */
+/* "Storage": drive name, usage bar (hatching #363d48), captions */
 html .PagedSettingsDialog .DriveUsage .DriveName {
     color: var(--aika-fg-subtle);
 }
@@ -286,9 +286,9 @@ html .PagedSettingsDialog .DriveUsage .OtherInfo svg path {
     fill: var(--aika-fg-subtle);
 }
 
-/* Диаграмма занятого места: у Steam своя краска на каждую категорию
-   (.DriveUsageBar.DriveUsage* и точки легенды .DriveUsageDot.DriveUsage*,
-   (0,1,0)). Переводим в палитру Aika, сохраняя различимость. */
+/* The used-space chart: Steam has its own paint for each category
+   (.DriveUsageBar.DriveUsage* and the legend dots .DriveUsageDot.DriveUsage*,
+   (0,1,0)). We map them to the Aika palette, keeping them distinguishable. */
 html .PagedSettingsDialog .DriveUsage :is(.DriveUsageBar, .DriveUsageDot).DriveUsageGames {
     background-color: var(--aika-accent);
 }
@@ -336,13 +336,13 @@ html .PagedSettingsDialog .AppsGrid .AppHeader .AppHeaderValue {
     font-family: var(--aika-font-mono);
 }
 
-/* «Семья»: значок у названия — у Steam color на самом svg (0,3,1) */
+/* "Family": the icon next to the name — Steam sets color on the svg itself (0,3,1) */
 html .PagedSettingsDialog .FamilyGroup .FamilyNameRow .YourFamily > svg {
     color: var(--aika-fg-muted);
 }
 
-/* «Запись игр», вступление (.IntroContainer .SinglePageIntro): у Steam
-   тёмно-синий радиальный фон, золотые заголовки и кружки-значки */
+/* "Game Recording", intro (.IntroContainer .SinglePageIntro): Steam has
+   a dark blue radial background, gold headings and circle icons */
 html .PagedSettingsDialog .DialogBody .IntroContainer {
     background: var(--aika-scrim);
 }
@@ -377,8 +377,8 @@ html .PagedSettingsDialog .IntroContainer .Bullet.Muted .Content :is(.Title, .Sl
     color: var(--aika-fg-subtle);
 }
 
-/* «Хранилище», список игр: сведения (.AppInfoItem — значок, подпись,
-   значение), флажки выбора (у Steam (0,3,0) #3d4450), кнопки действий
+/* "Storage", game list: details (.AppInfoItem — icon, caption,
+   value), selection checkboxes (Steam (0,3,0) #3d4450), action buttons
    (.AppActionBar button.ActionButton — (0,3,0)) */
 html .PagedSettingsDialog .AppInfo .AppInfoItem :is(.AppUsageText, svg) {
     color: var(--aika-fg-subtle);
@@ -408,30 +408,30 @@ html .PagedSettingsDialog .AppActionBar button.ActionButton.DialogButton:not(.Di
     background: var(--aika-surface-hover);
 }
 
-/* Звезда «библиотека по умолчанию» у имени диска (жёлтая): цвет —
-   на самом svg, path берёт currentColor */
+/* The "default library" star next to the drive name (yellow): the color is
+   on the svg itself, the path takes currentColor */
 html .PagedSettingsDialog .DriveName .tool-tip-source > svg {
     color: var(--aika-warn);
 }
 
-/* Разделы при наведении: Steam темнит значок (#3d4450) под светлую
-   подложку — у нас значок цвета текста */
+/* Sections on hover: Steam darkens the icon (#3d4450) for a light
+   backing — ours is the text color */
 html .PagedSettingsDialog_PageList .PagedSettingsDialog_PageListItem:not(.Active):hover :is(.PageListItem_Title, .PageListItem_Icon, .PageListItem_Icon svg) {
     color: var(--aika-fg);
 }
 
 /* ==========================================================================
-   Окно «Свойства» игры (html.ModalDialogPopup.MillenniumWindow_GameProperties) —
-   тот же .PagedSettingsDialog, что и настройки; всё выше действует и здесь.
-   Ниже — то, чего нет в настройках. Снято через CDP 2026-10-04 (PEAK, все
-   8 разделов). Steam здесь сильнее: «.хэш.хэш:not(.хэш) .кнопка» (0,4,0),
-   «.хэш .DialogBody .хэш» (0,3,0) — поэтому префикс
+   The game "Properties" window (html.ModalDialogPopup.MillenniumWindow_GameProperties) —
+   the same .PagedSettingsDialog as settings; everything above applies here too.
+   Below — what settings don't have. Captured via CDP 2026-10-04 (PEAK, all
+   8 sections). Steam is stronger here: ".hash.hash:not(.hash) .button" (0,4,0),
+   ".hash .DialogBody .hash" (0,3,0) — hence the prefix
    :is(.PagedSettingsDialog, .AppProperties.PagedSettingsDialog .DialogBody)
-   (специфичность :is() — по самому сильному варианту, (0,3,0)).
+   (the :is() specificity is that of its strongest option, (0,3,0)).
    ========================================================================== */
 
-/* Обычный текст тела раздела (#8b929a) и подсветка значений («BlueHighlight»,
-   #1a9fff: размер на диске, облако) */
+/* Regular section body text (#8b929a) and value highlighting ("BlueHighlight",
+   #1a9fff: size on disk, cloud) */
 html :is(.PagedSettingsDialog, .AppProperties.PagedSettingsDialog .DialogBody) .DialogBody {
     color: var(--aika-fg-muted);
 }
@@ -457,8 +457,8 @@ html :is(.PagedSettingsDialog, .AppProperties.PagedSettingsDialog .DialogBody) .
     color: var(--aika-fg-subtle);
 }
 
-/* Кнопки разделов («Обзор…», «Проверить целостность…», «Проверить код»):
-   .SettingsDialogButton.DialogButton — у Steam rgba(59,63,72,.5) (0,2,0) */
+/* Section buttons ("Browse…", "Verify integrity…", "Check code"):
+   .SettingsDialogButton.DialogButton — Steam: rgba(59,63,72,.5) (0,2,0) */
 html :is(.PagedSettingsDialog, .AppProperties.PagedSettingsDialog .DialogBody) button.SettingsDialogButton.DialogButton {
     border-radius: var(--aika-radius-md);
     background: var(--aika-surface);
@@ -471,7 +471,7 @@ html :is(.PagedSettingsDialog, .AppProperties.PagedSettingsDialog .DialogBody) b
     box-shadow: var(--aika-shadow-secondary-hover);
 }
 
-/* Выпадашка с подписью и пояснением («Обновления»: когда обновлять) */
+/* A dropdown with a caption and a hint ("Updates": when to update) */
 html :is(.PagedSettingsDialog, .AppProperties.PagedSettingsDialog .DialogBody) .DropDownLabelContainer .DropDownLabelTitle {
     color: var(--aika-fg);
 }
@@ -480,8 +480,8 @@ html :is(.PagedSettingsDialog, .AppProperties.PagedSettingsDialog .DialogBody) .
     color: var(--aika-fg-subtle);
 }
 
-/* «Версии и бета-версии»: шапка таблицы (#3d4450), строки (#2c303a),
-   кружок выбора (рамка #1c9fff) */
+/* "Betas": the table header (#3d4450), rows (#2c303a),
+   the selection circle (border #1c9fff) */
 html :is(.PagedSettingsDialog, .AppProperties.PagedSettingsDialog .DialogBody) .BetaHeaderRow {
     border-radius: var(--aika-radius-md) var(--aika-radius-md) 0 0;
     background: var(--aika-surface-active);
@@ -519,7 +519,7 @@ html :is(.PagedSettingsDialog, .AppProperties.PagedSettingsDialog .DialogBody) .
     color: var(--aika-fg);
 }
 
-/* «Контроллер»: таблица статуса Steam Input (#3b3f48 20 %) */
+/* "Controller": the Steam Input status table (#3b3f48 20 %) */
 html :is(.PagedSettingsDialog, .AppProperties.PagedSettingsDialog .DialogBody) .SteamInputStatusGrid {
     border-radius: var(--aika-radius-md);
     background: var(--aika-surface);
@@ -533,8 +533,8 @@ html :is(.PagedSettingsDialog, .AppProperties.PagedSettingsDialog .DialogBody) .
     color: var(--aika-fg);
 }
 
-/* Выбранная бета-версия: полоска слева (.BetaRadioButton, border-left #1c9fff
-   правилом сильнее (0,3,0)) — акцентный индикатор, строка — акцентная подложка */
+/* The selected beta: a strip on the left (.BetaRadioButton, border-left #1c9fff
+   via a stronger rule (0,3,0)) — an accent indicator, the row gets an accent backing */
 html :is(.PagedSettingsDialog, .AppProperties.PagedSettingsDialog .DialogBody) .BetasTable .BetaRow.Selected .BetaRadioButton {
     border-left-color: var(--aika-accent);
 }
@@ -544,11 +544,11 @@ html :is(.PagedSettingsDialog, .AppProperties.PagedSettingsDialog .DialogBody) .
 }
 
 /* --------------------------------------------------------------------------
-   «Голос», «Трансляция» (2026-10-04, правка автора: «Настройки микрофона
-   голубые»): полоса уровня микрофона (.MicrophoneTest .ProgressBar #3d4450
-   > .Percent #1a9fff), общие полосы .DialogProgressBar_* (синий градиент,
-   рамка #2a2d33), блок клавиши «нажми и говори», ссылка «Настроить
-   микрофон» (a.ConfigureMic, #6dcff6)
+   "Voice", "Broadcasting" (2026-10-04, author's fix: "the microphone settings
+   are blue"): the microphone level bar (.MicrophoneTest .ProgressBar #3d4450
+   > .Percent #1a9fff), the shared .DialogProgressBar_* bars (a blue gradient,
+   border #2a2d33), the push-to-talk key block, the "Configure
+   microphone" link (a.ConfigureMic, #6dcff6)
    -------------------------------------------------------------------------- */
 
 html .PagedSettingsDialog .MicrophoneTest .ProgressBar {
@@ -589,12 +589,12 @@ html .PagedSettingsDialog .FieldLabel a:hover {
 }
 
 /* ==========================================================================
-   Диалоги внутри окна (.ModalOverlayContent > .ModalPosition >
-   .ModalPosition_Content > .DialogContent) — напр. «Установка» игры
-   (.InstallRequestModal). У Steam — #25282e с серым радиальным светом,
-   без скругления. Снято через CDP 2026-10-04 (установка Among Us).
-   Окна-диалоги целиком (настройки, свойства) — не трогаем: там
-   .ModalPosition_Content во всё окно.
+   Dialogs inside a window (.ModalOverlayContent > .ModalPosition >
+   .ModalPosition_Content > .DialogContent) — e.g. a game's "Install"
+   (.InstallRequestModal). Steam: #25282e with a gray radial light,
+   no rounding. Captured via CDP 2026-10-04 (installing Among Us).
+   Whole dialog windows (settings, properties) are left alone: there
+   .ModalPosition_Content fills the whole window.
    ========================================================================== */
 
 html .ModalOverlayContent .ModalPosition_Content {
@@ -603,7 +603,7 @@ html .ModalOverlayContent .ModalPosition_Content {
     box-shadow: var(--aika-shadow-menu);
 }
 
-/* Линия над диалогом — без синего Steam, в акценте темы */
+/* The line above the dialog — not Steam's blue, in the theme accent */
 html .ModalPosition_Content .ModalPosition_TopBar {
     background: var(--aika-modal-topbar);
     opacity: var(--aika-modal-topbar-opacity);
@@ -614,7 +614,7 @@ html .ModalOverlayContent .ModalPosition_Content > .DialogContent {
     color: var(--aika-fg-muted);
 }
 
-/* «Установка»: список устанавливаемого, размер, ярлыки, выбор папки */
+/* "Install": the list of what's installed, size, shortcuts, folder choice */
 html .InstallRequestModal :is(.AppsToInstall, .AppToInstall) {
     border-color: var(--aika-border);
 }
@@ -637,8 +637,8 @@ html .ModalOverlayContent .DialogCheckbox_Container .DialogToggle_Label span {
     color: var(--aika-fg-muted);
 }
 
-/* Папки установки (.FolderOption, выбранная — .Active; у Steam #3d4450
-   и синий #1a9fff, (0,3,0) с .DesktopUI) */
+/* Install folders (.FolderOption, the selected one — .Active; Steam has #3d4450
+   and blue #1a9fff, (0,3,0) with .DesktopUI) */
 html .InstallRequestModal .FolderSelector .FolderOption {
     border-radius: var(--aika-radius-md);
     background: var(--aika-surface);
@@ -664,13 +664,13 @@ html .InstallRequestModal .FolderOption .FolderFlag svg path {
 }
 
 /* ==========================================================================
-   Ввод ПИН-кода: семейный просмотр («Чтобы выйти из семейного просмотра,
-   введите свой ПИН-код») и режим киоска. Диалог внутри главного окна:
+   PIN entry: Family View ("To exit Family View,
+   enter your PIN") and kiosk mode. A dialog inside the main window:
    .GenericConfirmDialog > … > .DialogBodyText > .Body (ErrorText,
-   описание, input.TextInput[type=password]). У Steam: Motiva Sans, белый
-   заголовок 22 px, поле — серо-синее, 3 px, 35 px, max-width 25 %.
-   Класса-корня у диалога нет (ParentalUnlock в DOM не попадает) —
-   узнаём по полю пароля в .Body. Снято через CDP 2026-10-06.
+   description, input.TextInput[type=password]). Steam: Motiva Sans, a white
+   22 px heading, a gray-blue field, 3 px, 35 px, max-width 25 %.
+   The dialog has no root class (ParentalUnlock doesn't reach the DOM) —
+   we recognize it by the password field in .Body. Captured via CDP 2026-10-06.
    ========================================================================== */
 
 html .GenericConfirmDialog:has(.Body > input.TextInput[type="password"]) .DialogHeader {
@@ -693,9 +693,9 @@ html .GenericConfirmDialog .Body:has(> input.TextInput[type="password"]) .ErrorT
     font-family: var(--aika-font-ui);
 }
 
-/* Поле: четыре ячейки. Точки — моно-шрифтом с шагом --aika-pin-pitch,
-   первая сдвинута на середину ячейки; под каждой ячейкой — черта
-   (повторяющийся градиент). Цвет черты — --aika-pin-line (по состоянию). */
+/* The field: four cells. The dots are monospace with a --aika-pin-pitch step,
+   the first shifted to the cell center; under each cell — a dash
+   (a repeating gradient). The dash color is --aika-pin-line (by state). */
 html .GenericConfirmDialog .Body > input.TextInput[type="password"] {
     --aika-pin-line: var(--aika-border-strong);
     box-sizing: content-box;

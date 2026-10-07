@@ -1,16 +1,16 @@
 /* ==========================================================================
-   components/input.css — поля ввода и выпадающие списки (DESIGN.md §4, Inputs).
+   components/input.css — text fields and dropdowns (DESIGN.md §4, Inputs).
 
-   Steam (сняты через CDP 2026-10-04):
-     input.DialogTextInputBase  — текстовые поля во всех диалогах
-     button._DialogInputContainer.DialogDropDown — выпадающий список
-   Базовое правило Steam — «.DialogTextInputBase, ._DialogInputContainer»
-   (0,1,0); у нас html + тег/класс — сильнее, без !important.
+   Steam (captured via CDP 2026-10-04):
+     input.DialogTextInputBase  — text fields in every dialog
+     button._DialogInputContainer.DialogDropDown — a dropdown
+   Steam's base rule is ".DialogTextInputBase, ._DialogInputContainer"
+   (0,1,0); ours is html + tag/class — stronger, without !important.
 
-   Отдельные поля с хэш-правилами (поиск в левой панели библиотеки)
-   доделываются в разделах / selectors.css.
-   Переключатели (.Toggle > .ToggleRail + .ToggleSwitch, включён — .On)
-   и флажки (.DialogCheckbox) — сняты в окне настроек 2026-10-04, см. конец файла.
+   Individual fields with hash rules (the search in the library's left panel)
+   are finished in sections / selectors.css.
+   Toggles (.Toggle > .ToggleRail + .ToggleSwitch, on — .On)
+   and checkboxes (.DialogCheckbox) — captured in the settings window 2026-10-04, see the end of the file.
    ========================================================================== */
 
 html :is(.aika-input, input.DialogTextInputBase, button._DialogInputContainer) {
@@ -30,8 +30,8 @@ html :is(.aika-input, input.DialogTextInputBase, button._DialogInputContainer):h
     border-color: var(--aika-border-hover);
 }
 
-/* Фокус: рамка акцента + мягкое кольцо. Оно и есть индикатор фокуса,
-   поэтому outline из base.css здесь не нужен — иначе два кольца. */
+/* Focus: an accent border + a soft ring. That ring is the focus indicator,
+   so the outline from base.css isn't needed here — otherwise there'd be two rings. */
 html :is(.aika-input, input.DialogTextInputBase, button._DialogInputContainer):focus-visible,
 html :is(.aika-input, input.DialogTextInputBase):focus {
     border-color: var(--aika-accent);
@@ -43,20 +43,20 @@ html :is(.aika-input, input.DialogTextInputBase)::placeholder {
     color: var(--aika-fg-subtle);
 }
 
-/* Открытый выпадающий список — как в фокусе */
+/* An open dropdown — same as focused */
 html button._DialogInputContainer[aria-expanded="true"] {
     border-color: var(--aika-accent);
     box-shadow: var(--aika-shadow-input-focus);
 }
 
-/* Списки в фильтрах библиотеки (.CompatDropDown, «Поддержка геймпада» и т.п.):
-   Steam перекрашивает их правилом (0,2,0) — возвращаем наш фон */
+/* Dropdowns in the library filters (.CompatDropDown, "Controller support" etc.):
+   Steam repaints them with a (0,2,0) rule — restore our background */
 html .CompatDropDown button._DialogInputContainer {
     background-color: var(--aika-bg-raised);
 }
 
-/* Стрелка выпадающего списка: Steam красит её серым rgb(150,150,150) правилом
-   до (0,3,1), а местами голубым — у нас (0,3,3)…(0,4,3) */
+/* The dropdown arrow: Steam paints it gray rgb(150,150,150) with a rule
+   up to (0,3,1), and light blue in places — ours is (0,3,3)…(0,4,3) */
 html button._DialogInputContainer .DialogDropDown_Arrow svg.SVGIcon_Button,
 html button._DialogInputContainer .DialogDropDown_Arrow svg.SVGIcon_Button polygon {
     fill: var(--aika-fg-subtle);
@@ -68,9 +68,9 @@ html button._DialogInputContainer:hover .DialogDropDown_Arrow svg.SVGIcon_Button
 }
 
 /* --------------------------------------------------------------------------
-   Переключатели: .Toggle(.On) > .ToggleRail (белая 15 %) + .ToggleSwitch
-   (белый кружок). Steam — хэш-двойники (0,1,0)…(0,3,0).
-   Включён — акцентная дорожка, кружок светлый.
+   Toggles: .Toggle(.On) > .ToggleRail (white 15 %) + .ToggleSwitch
+   (a white knob). Steam — hash twins (0,1,0)…(0,3,0).
+   On — an accent track, a light knob.
    -------------------------------------------------------------------------- */
 
 html .Toggle .ToggleRail {
@@ -84,9 +84,9 @@ html .Toggle:hover .ToggleRail {
     background: var(--aika-surface-hover);
 }
 
-/* Включён — основной лавандовый акцент (не --aika-accent-fill: тот затемнён
-   под белый текст кнопок и на маленькой дорожке читается сине-индиговым —
-   правка автора 2026-10-04: «свитчи голубые»), мягкое свечение */
+/* On — the main lavender accent (not --aika-accent-fill: that one is darkened
+   for white button text and reads blue-indigo on a small track —
+   author's fix 2026-10-04: "the switches are blue"), a soft glow */
 html .Toggle.On .ToggleRail {
     background: var(--aika-accent);
     box-shadow: 0 0 var(--aika-space-2) var(--aika-accent-glow);
@@ -103,9 +103,9 @@ html .Toggle .ToggleSwitch {
 }
 
 /* --------------------------------------------------------------------------
-   Флажки .DialogCheckbox (чёрный 27 %, hover — почти чёрный). Отдельные
-   места с особой раскраской (красный «заблокировать» у приглашений и т. п.)
-   Steam оформляет своими правилами — не трогаем.
+   .DialogCheckbox checkboxes (black 27 %, hover — almost black). Individual
+   places with special coloring (the red "block" on invites etc.)
+   are styled by Steam's own rules — we leave them alone.
    -------------------------------------------------------------------------- */
 
 html .DialogCheckbox {
@@ -124,26 +124,26 @@ html .DialogCheckbox svg path {
     fill: var(--aika-accent-bright);
 }
 
-/* Кольцо вокруг переключателя при наведении/фокусе (у Steam белое 30 %,
-   «.хэш:not(.хэш):hover» (0,3,0) — у нас :not() тоже) */
+/* The ring around a toggle on hover/focus (Steam: white 30 %,
+   ".hash:not(.hash):hover" (0,3,0) — we use :not() too) */
 html .Toggle:not(.Disabled):is(:hover, :focus-visible, .gpfocus) {
     box-shadow: 0 0 0 var(--aika-space-1) var(--aika-accent-haze);
 }
 
-/* Выпадающий список на hover в окнах-диалогах: у Steam
-   «.хэш .DialogDropDown:hover» (0,3,0) — серый #464d58 (напр., выбор диска
-   в «Хранилище»). Повторяем наш hover сильнее. */
+/* A dropdown on hover in dialog windows: Steam has
+   ".hash .DialogDropDown:hover" (0,3,0) — gray #464d58 (e.g. picking a drive
+   in "Storage"). We repeat our hover, stronger. */
 html button._DialogInputContainer.DialogDropDown:not(.Disabled):hover {
     background-color: var(--aika-surface-hover);
     color: var(--aika-fg);
 }
 
 /* --------------------------------------------------------------------------
-   Раскрытый список выпадашки внутри окна (.DialogMenuPosition >
-   .DialogDropDownMenu._DialogInputContainer, пункты .DialogDropDownMenu_Item) —
-   напр., выбор диска в «Хранилище». У Steam — #373c44 со скруглением 3 px,
-   выбранный/под мышью пункт #3e444d, (0,2,0). Как меню Aika
-   (components/menu.css): полупрозрачная поверхность, тень, скругления.
+   An open dropdown list inside a window (.DialogMenuPosition >
+   .DialogDropDownMenu._DialogInputContainer, items .DialogDropDownMenu_Item) —
+   e.g. picking a drive in "Storage". Steam: #373c44 with 3 px rounding,
+   the selected/hovered item #3e444d, (0,2,0). Like the Aika menu
+   (components/menu.css): a translucent surface, a shadow, rounding.
    -------------------------------------------------------------------------- */
 
 html .DialogDropDownMenu._DialogInputContainer {
@@ -165,7 +165,7 @@ html .DialogDropDownMenu .DialogDropDownMenu_Item:is(:hover, :focus, .ContextMen
     color: var(--aika-fg);
 }
 
-/* Пункты-диски: имя, размер (моно), значок; «Добавить папку…» */
+/* Drive items: name, size (mono), icon; "Add Drive…" */
 html .DialogDropDownMenu .InstallDropdownOption .DriveName {
     color: var(--aika-fg);
 }
@@ -183,12 +183,12 @@ html .DialogDropDownMenu .AddFolderDropdownOption {
     color: var(--aika-fg-muted);
 }
 
-/* Звезда «по умолчанию» у диска (жёлтая, color на svg) */
+/* The "default" star on a drive (yellow, color on the svg) */
 html :is(.DialogDropDownMenu, .DialogDropDown) .DriveName .tool-tip-source > svg {
     color: var(--aika-warn);
 }
 
-/* То же в закрытом поле выпадашки (текущий диск) */
+/* The same in the closed dropdown field (the current drive) */
 html .DialogDropDown .InstallDropdownOption .DriveName {
     color: var(--aika-fg);
 }
@@ -202,10 +202,10 @@ html .DialogDropDown .InstallDropdownOption > svg path {
     fill: var(--aika-fg-subtle);
 }
 
-/* Заливка «вкл.» на самом деле рисуется ::before дорожки: Steam сдвигает
-   его translateX (выкл. — уезжает влево), цвет #1a9fff (0,1,1).
-   Скрывался от проверки computed-стилей самого .ToggleRail — нашёлся
-   по скриншоту автора 2026-10-04. */
+/* The "on" fill is actually drawn by the track's ::before: Steam shifts
+   it with translateX (off — slides away to the left), color #1a9fff (0,1,1).
+   It hid from checking the computed styles of .ToggleRail itself — found
+   from the author's screenshot 2026-10-04. */
 html .Toggle .ToggleRail {
     overflow: hidden;
 }
@@ -219,11 +219,11 @@ html .Toggle.On:hover .ToggleRail::before {
 }
 
 /* --------------------------------------------------------------------------
-   Ползунки (.SliderControl > .SliderTrack(::before — заливка) + .SliderHandle):
-   заливка у Steam — var(--left-track-color, #1a9fff) на ::before, дорожка —
-   белая 15 %, ручка — белый кружок с чёрной тенью. Найдено аудитом
-   псевдоэлементов 2026-10-04 (настройки: «Доступность», «Голос», «Музыка»).
-   Плеер магазина задаёт свои значения в selectors.css — там сильнее.
+   Sliders (.SliderControl > .SliderTrack(::before — the fill) + .SliderHandle):
+   Steam's fill is var(--left-track-color, #1a9fff) on ::before, the track is
+   white 15 %, the handle is a white knob with a black shadow. Found by an audit
+   of pseudo-elements 2026-10-04 (settings: "Accessibility", "Voice", "Music").
+   The store player sets its own values in selectors.css — stronger there.
    -------------------------------------------------------------------------- */
 
 html .SliderControl .SliderTrack {
@@ -248,8 +248,8 @@ html .SliderControl .SliderHandle {
 }
 
 /* --------------------------------------------------------------------------
-   Группа-переключатель (.Shared_Radio_Group > .Button.RadioButton, выбранный —
-   .Active; у Steam синий радиальный градиент, разделители — ::before #3d4450)
+   A segmented toggle group (.Shared_Radio_Group > .Button.RadioButton, the selected one —
+   .Active; Steam has a blue radial gradient, dividers — ::before #3d4450)
    -------------------------------------------------------------------------- */
 
 html .Shared_Radio_Group > .Button.RadioButton.Active,
@@ -259,7 +259,7 @@ html .Shared_Radio_Group > .Button.RadioButton.Active:hover {
     box-shadow: inset 0 0 0 var(--aika-hairline) var(--aika-border-accent);
 }
 
-/* Разделитель между невыбранными: у Steam «.хэш:not(.хэш) + .хэш:not(.хэш)::before» (0,4,1) */
+/* The divider between unselected ones: Steam has ".hash:not(.hash) + .hash:not(.hash)::before" (0,4,1) */
 html .Shared_Radio_Group > .Button.RadioButton:not(.Active) + .Button.RadioButton:not(.Active)::before {
     background: var(--aika-border);
 }

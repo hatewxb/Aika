@@ -1,37 +1,37 @@
-// Положение и движение окна всплывающего уведомления.
+// Position and motion of the notification toast window.
 //
-// Окна уведомлений ведёт SharedJSContext (window.opener этого окна): каждый
-// кадр считает их место и зовёт SteamClient.Window.MoveTo этого окна.
-// Появление и уход у Steam — линейный сдвиг на высоту окна за 300 мс.
-// Здесь:
-//   1. отступы стопки от края экрана — токены --aika-toast-inset-*;
-//   2. MoveTo подменён: окно не прыгает за линейными шагами Steam, а
-//      догоняет цель по пружине без перелёта — так же плавно встают
-//      соседние уведомления, когда приходит новое или уходит старое;
-//   3. карточка проявляется по кривой --aika-ease, а когда Steam начинает
-//      убирать уведомление — окно замирает, карточка уплывает к краю по
+// Notification windows are driven by SharedJSContext (this window's window.opener): every
+// frame it computes their place and calls SteamClient.Window.MoveTo for this window.
+// Steam's enter and leave is a linear shift by the window height over 300 ms.
+// Here:
+//   1. the stack offsets from the screen edge — tokens --aika-toast-inset-*;
+//   2. MoveTo is replaced: the window doesn't jump along Steam's linear steps but
+//      follows the target on a spring without overshoot — neighboring
+//      notifications settle just as smoothly when a new one arrives or an old one leaves;
+//   3. the card fades in along the --aika-ease curve, and when Steam starts
+//      removing the notification the window freezes and the card floats to the edge along
 //      --aika-ease-leave.
 //
-// Всё считается в кадрах opener'а: окно уведомления Chromium считает
-// скрытым (document.visibilityState = "hidden", проверено 2026-10-06) —
-// в нём не идут ни requestAnimationFrame, ни CSS-анимации, таймеры
-// замедлены. Карточку двигают CSS-переменные на <html>, которые здесь
-// выставляются каждый кадр (components/toast.css, .aika-toast-motion).
-// Если устройство Steam поменяется, всё молча откатывается к его поведению.
+// Everything is computed in the opener's frames: Chromium considers the notification
+// window hidden (document.visibilityState = "hidden", verified 2026-10-06) —
+// neither requestAnimationFrame nor CSS animations run in it, timers
+// are throttled. The card is moved by CSS variables on <html> that are
+// set here every frame (components/toast.css, .aika-toast-motion).
+// If Steam's internals change, everything silently falls back to its behavior.
 
 const steam = window.opener;
 const win = window.SteamClient?.Window;
 const root = document.documentElement;
 
-// Состояния уведомления в SharedJSContext (enum в коде Steam, 2026-10-06):
-// 1 — появление, 2 — показ, 3 — уход, 4 — закончено (окно спрятано)
+// Notification states in SharedJSContext (an enum in Steam's code, 2026-10-06):
+// 1 — entering, 2 — shown, 3 — leaving, 4 — finished (window hidden)
 const LEAVING = 3, FINISHED = 4;
 
 /* --------------------------------------------------------------------------
-   1. Отступы от края экрана (над панелью задач и сбоку)
-   NotificationPosition окна Steam: угол экрана + отступы, по умолчанию 0.
-   Цикл Steam замечает новые отступы в следующем кадре. Угол не трогаем
-   (-1). Значение живёт до перезапуска Steam — ставим при каждом уведомлении.
+   1. Offsets from the screen edge (above the taskbar and on the side)
+   NotificationPosition of the Steam window: a screen corner + offsets, 0 by default.
+   Steam's loop picks up new offsets in the next frame. The corner stays untouched
+   (-1). The value lives until Steam restarts — we set it on every notification.
    -------------------------------------------------------------------------- */
 
 function setInsets(css) {
@@ -43,17 +43,17 @@ function setInsets(css) {
         const pos = main.NotificationPosition;
         if (pos.horizontalInset !== x || pos.verticalInset !== y) main.SetNotificationPosition(-1, x, y);
     } catch (e) {
-        // уведомления просто встанут по-старому
+        // notifications will just settle the old way
     }
 }
 
 /* --------------------------------------------------------------------------
-   Запись об этом уведомлении в SharedJSContext.
-   Стопка уведомлений Steam — React-компонент; его первый хук useState
-   держит массив записей { m_popup, m_eState, … }, m_popup — это окно.
-   Компонент — предок портала, в котором нарисована карточка; свежий массив
-   бывает и в текущем узле, и в его копии (alternate) — смотрим оба.
-   Запись — один и тот же объект, Steam меняет его поля на месте.
+   The record for this notification in SharedJSContext.
+   Steam's notification stack is a React component; its first useState hook
+   holds an array of records { m_popup, m_eState, … }, m_popup is the window.
+   The component is an ancestor of the portal the card is rendered in; a fresh array
+   can be in the current node or in its copy (alternate) — we check both.
+   The record is the same object, Steam changes its fields in place.
    -------------------------------------------------------------------------- */
 
 let entry = null;
@@ -75,10 +75,10 @@ function findEntry() {
 }
 
 /* --------------------------------------------------------------------------
-   Кривые и значения — из токенов (tokens.css)
+   Curves and values — from the tokens (tokens.css)
    -------------------------------------------------------------------------- */
 
-// cubic-bezier(x1, y1, x2, y2) → функция прогресса 0…1 (как в CSS)
+// cubic-bezier(x1, y1, x2, y2) → a 0…1 progress function (as in CSS)
 function bezier(text, fallback) {
     const m = /cubic-bezier\(([^)]+)\)/.exec(text);
     const p = m ? m[1].split(",").map(Number) : fallback;
@@ -101,7 +101,7 @@ function bezier(text, fallback) {
 function readTokens() {
     const css = getComputedStyle(root);
     const num = name => parseFloat(css.getPropertyValue(name));
-    if (Number.isNaN(num("--aika-dur-enter"))) return null;    // CSS темы ещё не загружен
+    if (Number.isNaN(num("--aika-dur-enter"))) return null;    // the theme CSS isn't loaded yet
     const motion = num("--aika-motion");
     return {
         css,
@@ -120,8 +120,8 @@ function readTokens() {
 }
 
 /* --------------------------------------------------------------------------
-   3. Карточка: появление и уход.
-   in — прогресс появления (0 → 1), out — ухода (0 → 1), обе по кривым.
+   3. The card: enter and leave.
+   in — enter progress (0 → 1), out — leave progress (0 → 1), both along curves.
    -------------------------------------------------------------------------- */
 
 function paintCard(tk, inP, outP) {
@@ -139,14 +139,14 @@ function paintCard(tk, inP, outP) {
 }
 
 /* --------------------------------------------------------------------------
-   2. Пружина вместо линейных шагов Steam.
-   Критическое затухание (без перелёта): ускорение = ω²·(цель − x) − 2ω·v.
-   ω = 24 — окно встаёт примерно через 200 мс после того, как цель
-   остановилась. Первый вызов — как есть: до него положение окна неизвестно.
+   2. A spring instead of Steam's linear steps.
+   Critical damping (no overshoot): acceleration = ω²·(target − x) − 2ω·v.
+   ω = 24 — the window settles about 200 ms after the target
+   stops. The first call is taken as is: the window position is unknown before it.
    -------------------------------------------------------------------------- */
 
 const OMEGA = 24;
-const ENTER_WAIT_MS = 200;   // не дольше — если Steam окно так и не сдвинул
+const ENTER_WAIT_MS = 200;   // no longer — in case Steam never moved the window
 const spring = { pos: null, vel: { x: 0, y: 0 }, target: null, shown: null, dpi: 1 };
 let moveTo = null;
 
@@ -169,15 +169,15 @@ function stepSpring(dt) {
 }
 
 /* --------------------------------------------------------------------------
-   Запуск: один цикл кадров opener'а на всё
+   Start: one loop over the opener's frames for everything
    -------------------------------------------------------------------------- */
 
 if (steam?.requestAnimationFrame && win?.MoveTo) {
     const clock = () => steam.performance.now();
     let tk = null, insetsSet = false;
     let enterStart = null, leaveStart = null, last = clock(), hadCard = false, cardSeen = null;
-    // Steam начинает поднимать окно не сразу (~100 мс после появления
-    // карточки) — проявление карточки стартует вместе с первым сдвигом окна
+    // Steam doesn't start raising the window right away (~100 ms after the card
+    // appears) — the card fade-in starts together with the first window shift
     let windowMoved = false;
 
     root.classList.add("aika-toast-motion");
@@ -192,7 +192,7 @@ if (steam?.requestAnimationFrame && win?.MoveTo) {
             spring.target = { x, y };
             return moveTo(x, y, d);
         }
-        // Уходит: окно стоит на месте, карточка уплывает сама
+        // Leaving: the window stays put, the card floats away on its own
         if (leaveStart !== null) return;
         windowMoved = true;
         spring.target = { x, y };
@@ -200,9 +200,9 @@ if (steam?.requestAnimationFrame && win?.MoveTo) {
 
     const frame = () => {
         try {
-            // Окно закрыли (например, кликом) — цикл живёт в SharedJSContext,
-            // его надо остановить самим. Карточки может ещё не быть: скрипт
-            // приходит раньше, чем Steam её дорисует.
+            // The window was closed (e.g. by a click) — the loop lives in SharedJSContext,
+            // we have to stop it ourselves. The card may not exist yet: the script
+            // arrives before Steam finishes drawing it.
             const card = document.querySelector(".DesktopToastPopup");
             if (window.closed || (hadCard && !card)) return;
             hadCard = hadCard || !!card;
@@ -223,13 +223,13 @@ if (steam?.requestAnimationFrame && win?.MoveTo) {
                 const outP = leaveStart === null ? 0 : tk.easeOut(Math.min(1, (now - leaveStart) / tk.leaveMs));
                 paintCard(tk, inP, outP);
                 stepSpring(dt);
-                if (me && me.m_eState >= FINISHED) return;     // окно спрятано — цикл больше не нужен
+                if (me && me.m_eState >= FINISHED) return;     // window hidden — the loop is no longer needed
             }
             steam.requestAnimationFrame(frame);
         } catch (e) {
-            // окно закрыто или Steam изменился — останавливаемся и
-            // возвращаем карточку как есть, чтобы она не осталась прозрачной
-            try { root.classList.remove("aika-toast-motion"); } catch (e2) { /* окна уже нет */ }
+            // the window was closed or Steam changed — stop and
+            // return the card as is so it isn't left transparent
+            try { root.classList.remove("aika-toast-motion"); } catch (e2) { /* the window is gone */ }
         }
     };
     steam.requestAnimationFrame(frame);

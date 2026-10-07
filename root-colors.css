@@ -1,49 +1,49 @@
 /* ==========================================================================
-   root-colors.css — цвета, которые можно менять в настройках Millennium.
-   Указан в skin.json как RootColors. Остальная палитра — в colors.css.
+   root-colors.css — colors that can be changed in Millennium settings.
+   Listed in skin.json as RootColors. The rest of the palette is in colors.css.
 
-   ПРАВИЛА ЭТОГО ФАЙЛА (Millennium v3.5.0, проверено 2026-10-04):
-   - Только непрозрачные #hex. Любое нецветное значение роняет Steam
-     при запуске, а у rgba() Millennium обнуляет дробную альфу
-     (0.30 → 0.00) и подставляет испорченное значение поверх темы.
-   - Комментарий @name — отдельным блоком над переменной. Строки
-     с комментарием в конце Millennium пропускает.
-   - Millennium сохраняет значения в millennium\config\config.json
-     (themeColors.Aika) и вставляет их поверх CSS. После смены
-     значений здесь их нужно сбросить в настройках темы.
+   RULES FOR THIS FILE (Millennium v3.5.0, verified 2026-10-04):
+   - Opaque #hex only. Any non-color value crashes Steam
+     on startup, and for rgba() Millennium zeroes the fractional alpha
+     (0.30 → 0.00) and injects the broken value on top of the theme.
+   - The @name comment goes in its own block above the variable. Millennium
+     skips lines with a trailing comment.
+   - Millennium stores the values in millennium\config\config.json
+     (themeColors.Aika) and injects them on top of the CSS. After changing
+     the values here, reset them in the theme settings.
 
-   Это «свои цвета» (вкладка «Расширенное» в настройках темы): переменные
-   --aika-user-*. Итоговые --aika-accent, --aika-light-1… считаются
-   в colors.css — из выбранного цветового пресета (options/presets/,
-   переменные --aika-preset-*), а если пресет выключен (включены свои
-   цвета) — из этих значений. Производные (свечение, мягкий фон, рамки)
-   считаются из итогового --aika-accent.
+   These are the "custom colors" (the "Advanced" tab in the theme settings): the
+   --aika-user-* variables. The final --aika-accent, --aika-light-1… are computed
+   in colors.css — from the selected color preset (options/presets/,
+   --aika-preset-* variables), or, if the preset is off (custom colors
+   are on), from these values. Derived ones (glow, soft background, borders)
+   are computed from the final --aika-accent.
    ========================================================================== */
 
 :root {
     /*
-     * @name Акцент
-     * @description Действия, выбор, ссылки. Пресеты: #8B7FF0 лаванда-индиго, #5E6AD2 Linear-индиго, #B79CF0 лаванда, #D97757 коралл Claude
+     * @name Accent
+     * @description Actions, selection, links. Presets: #8B7FF0 lavender indigo, #5E6AD2 Linear indigo, #B79CF0 lavender, #D97757 Claude coral
      */
     --aika-user-accent: #8B7FF0;
     /*
-     * @name Акцент: наведение
-     * @description Чуть светлее акцента. Пресеты: #A497F5, #7480E0, #C8B2F5, #E58A6B
+     * @name Accent: hover
+     * @description Slightly lighter than the accent. Presets: #A497F5, #7480E0, #C8B2F5, #E58A6B
      */
     --aika-user-accent-bright: #A497F5;
     /*
-     * @name Свет: основной
-     * @description Пятно света сверху, обычно совпадает с акцентом
+     * @name Light: main
+     * @description The light spot at the top, usually the same as the accent
      */
     --aika-user-light-1: #8B7FF0;
     /*
-     * @name Свет: розовый
-     * @description Пятно света слева
+     * @name Light: pink
+     * @description The light spot on the left
      */
     --aika-user-light-2: #C77DBA;
     /*
-     * @name Свет: тёплый
-     * @description Пятно света справа внизу
+     * @name Light: warm
+     * @description The light spot at the bottom right
      */
     --aika-user-light-3: #D9906A;
 }

@@ -1,28 +1,28 @@
-// content-shelves.js — «Контент» → «Скриншоты» по играм (идея автора, 2026-10-05).
-// Подключён Patch'ем к steamcommunity.com/(id|profiles)/<кто>/screenshots
-// (skin.json). Вид — sections/content.css («Полки по играм»).
+// content-shelves.js — "Content" → "Screenshots" grouped by game (the author's idea, 2026-10-05).
+// Attached by a Patch to steamcommunity.com/(id|profiles)/<who>/screenshots
+// (skin.json). Look — sections/content.css ("Per-game shelves").
 //
-// Steam показывает все скриншоты одной «стеной» вперемешку. Вместо неё
-// строим полку на каждую игру: иконка + название (ссылка на фильтр по игре),
-// ниже — горизонтальная карусель скриншотов.
+// Steam shows all screenshots as one mixed "wall". Instead we build
+// a shelf per game: icon + title (a link to the per-game filter),
+// with a horizontal screenshot carousel below.
 //
-// Откуда данные:
-// - список игр — из фильтра «Фильтровать по игре» (#sharedfiles_filterselect_app_…,
+// Where the data comes from:
+// - the game list — from the "Filter by game" filter (#sharedfiles_filterselect_app_…,
 //   onclick SelectSharedFilesContentFilter({ 'appid': '…' }));
-// - порядок полок — сначала игры со свежих скриншотов на странице
-//   (у каждого .profile_media_item есть data-appid), затем остальные по списку;
-// - скриншоты игры — та же страница с ?appid=<id>&view=grid (50 штук,
-//   тот же сайт и та же сессия). Полка грузится, только когда подъезжает
-//   к экрану (IntersectionObserver) — Steam отдаёт скрины небыстро;
-// - картинки — уменьшенные копии с CDN Steam (параметры imw/imh, как у самого
+// - shelf order — first the games of the latest screenshots on the page
+//   (every .profile_media_item has data-appid), then the rest of the list;
+// - a game's screenshots — the same page with ?appid=<id>&view=grid (50 of them,
+//   same site and same session). A shelf loads only when it approaches
+//   the viewport (IntersectionObserver) — Steam serves screenshots slowly;
+// - images — downscaled copies from the Steam CDN (imw/imh parameters, like
 //   Steam), <img loading="lazy">;
-// - иконка игры — common.icon из appinfo с api.steamcmd.net (как в
-//   store-logo.js), кэш в localStorage на 7 дней; нет иконки — плитка
-//   с первой буквой названия.
+// - game icon — common.icon from appinfo at api.steamcmd.net (as in
+//   store-logo.js), cached in localStorage for 7 days; no icon — a tile
+//   with the first letter of the title.
 //
-// Группируем только «Все игры» своих скриншотов (browsefilter=myfiles, без
-// appid). Отфильтровано по игре, «Избранное» или включено «Управление
-// скриншотами» (выбор галочками — на стене Steam) — остаётся стена Steam.
+// We group only "All games" of one's own screenshots (browsefilter=myfiles, no
+// appid). Filtered by game, "Favorites", or "Manage screenshots" turned on
+// (selecting with checkboxes happens on Steam's wall) — Steam's wall stays.
 
 (() => {
   "use strict";
@@ -39,7 +39,7 @@
   const CLASS_ON = "aika-shelves";
   const ICON_CDN = "https://shared.fastly.steamstatic.com/community_assets/images/apps/";
   const CACHE_DAYS = 7;
-  // Уменьшенная копия: Steam сам так режет UGC-картинки (imw/imh, без полей)
+  // Downscaled copy: Steam itself crops UGC images this way (imw/imh, no padding)
   const THUMB = "?imw=640&imh=360&ima=fit&impolicy=Letterbox&imcolor=%23000000&letterbox=false";
   const RU = (document.documentElement.lang || navigator.language || "").startsWith("ru");
   const L = RU
@@ -53,8 +53,8 @@
     return e;
   };
 
-  // Адрес страницы скриншотов с фильтром по игре (как у Steam: сортировка
-  // и доступ — текущие)
+  // The screenshots page address filtered by game (as Steam does: the current
+  // sort and visibility)
   const gameUrl = (appid, extra) => {
     const p = new URLSearchParams(location.search);
     p.set("appid", appid);
@@ -64,19 +64,19 @@
     return location.pathname + "?" + p;
   };
 
-  // ---------- иконки игр ----------
+  // ---------- game icons ----------
   const cacheGet = (key) => {
     try {
       const v = JSON.parse(localStorage.getItem(key));
       if (v && Date.now() - v.t < CACHE_DAYS * 864e5) return v;
-    } catch (e) { /* хранилище недоступно — без кэша */ }
+    } catch (e) { /* storage unavailable — no cache */ }
     return null;
   };
   const cacheSet = (key, value) => {
-    try { localStorage.setItem(key, JSON.stringify({ t: Date.now(), value })); } catch (e) { /* без кэша */ }
+    try { localStorage.setItem(key, JSON.stringify({ t: Date.now(), value })); } catch (e) { /* no cache */ }
   };
 
-  // Адрес иконки или null (нет иконки); undefined — сервис недоступен
+  // Icon address or null (no icon); undefined — the service is unavailable
   const iconUrl = async (appid) => {
     const key = "aika-icon-v1-" + appid;
     const cached = cacheGet(key);
@@ -103,11 +103,11 @@
       img.src = url;
       box.append(img);
     }
-    // буква — под картинкой: видна, пока картинка грузится или если её нет
+    // the letter sits under the image: visible while the image loads or if there is none
     box.dataset.letter = (name.trim()[0] || "?").toUpperCase();
   };
 
-  // ---------- скриншоты игры ----------
+  // ---------- game screenshots ----------
   const parseShots = (html) => {
     const doc = new DOMParser().parseFromString(html, "text/html");
     const shots = [...doc.querySelectorAll(".profile_media_item[data-publishedfileid]")].map((a) => {
@@ -124,8 +124,8 @@
     return { shots, hasMore };
   };
 
-  // Steam на пачку одновременных запросов отвечает пустыми страницами —
-  // грузим не больше двух полок сразу, пустой ответ переспрашиваем
+  // Steam answers a burst of simultaneous requests with empty pages —
+  // load at most two shelves at once, re-request an empty response
   const MAX_PARALLEL = 2;
   const RETRIES = 2;
   const queue = [];
@@ -177,7 +177,7 @@
     updateNav(shelf);
   };
 
-  // ---------- карусель ----------
+  // ---------- carousel ----------
   const updateNav = (shelf) => {
     const t = shelf.querySelector(".aika-shelf-track");
     const max = t.scrollWidth - t.clientWidth;
@@ -209,7 +209,7 @@
     head.append(title, nav);
 
     const track = el("div", "aika-shelf-track");
-    // заглушки, пока Steam отдаёт страницу игры
+    // placeholders while Steam serves the game page
     for (let i = 0; i < 4; i++) track.append(el("span", "aika-shot aika-shot-skeleton"));
     let raf = 0;
     track.addEventListener("scroll", () => {
@@ -221,7 +221,7 @@
     return shelf;
   };
 
-  // ---------- сборка ----------
+  // ---------- assembly ----------
   const ready = (fn) =>
     document.readyState === "loading" ? document.addEventListener("DOMContentLoaded", fn, { once: true }) : fn();
 
@@ -238,7 +238,7 @@
       .filter((g) => g.appid && g.appid !== "0");
     if (!games.length) return;
 
-    // Порядок: игры свежих скриншотов (стена — от новых к старым) — первыми
+    // Order: games of the latest screenshots (the wall goes newest to oldest) come first
     const recent = [...new Set([...wall.querySelectorAll(".profile_media_item[data-appid]")].map((a) => a.dataset.appid))];
     const rank = (g) => { const i = recent.indexOf(g.appid); return i < 0 ? recent.length : i; };
     games.sort((a, b) => rank(a) - rank(b));
@@ -259,7 +259,7 @@
     }
     controls.after(list);
 
-    // Стена Steam скрыта — её подгрузка при прокрутке не нужна
+    // Steam's wall is hidden — its scroll-loading isn't needed
     const infinite = window.InfiniteScrollingCheckForMoreContent;
     const setOn = (on) => {
       ROOT.classList.toggle(CLASS_ON, on);
@@ -269,7 +269,7 @@
     };
     setOn(true);
 
-    // «Управление скриншотами» — выбор галочками на стене Steam: показываем её
+    // "Manage screenshots" — selecting with checkboxes on Steam's wall: show it
     document.querySelector("#ScreenshotManagementToggle")?.addEventListener("click", () => setOn(false));
 
     addEventListener("resize", () => list.querySelectorAll(".aika-shelf").forEach(updateNav), { passive: true });

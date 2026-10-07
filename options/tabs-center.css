@@ -1,12 +1,12 @@
 /* ==========================================================================
-   Вкладки «Магазин / Библиотека / …» по центру верхней панели
-   (настройки темы → «Верхняя панель» → «По центру», по умолчанию).
-   Вариант «Слева» этот файл не подключает — вкладки стоят как у Steam.
+   The "Store / Library / …" tabs centered in the top bar
+   (theme settings → "Top bar" → "Center", the default).
+   The "Left" option doesn't load this file — tabs stay where Steam puts them.
 
-   .SuperNav — flex: [← →] + .MenuWrapper×N. Автоотступы с двух сторон
-   у группы вкладок и невидимый противовес справа (::after) шириной со
-   стрелки + отступ полосы — центр группы совпадает с центром окна
-   (проверено замером 2026-10-04).
+   .SuperNav — flex: [← →] + .MenuWrapper×N. Auto margins on both sides
+   of the tab group plus an invisible counterweight on the right (::after) as wide
+   as the arrows + bar padding — the group center matches the window center
+   (verified by measurement 2026-10-04).
    ========================================================================== */
 
 html .SuperNav > div.MenuWrapper:first-of-type {

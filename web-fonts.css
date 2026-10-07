@@ -1,20 +1,20 @@
 /* ==========================================================================
-   web-fonts.css — шрифт Aika на веб-страницах Steam (магазин, сообщество).
-   Подключается только из webkit.css, сразу после base.css.
+   web-fonts.css — the Aika font on Steam web pages (store, community).
+   Imported only from webkit.css, right after base.css.
 
-   Старая вёрстка магазина и многие React-блоки зашивают "Motiva Sans"
-   прямо в правила элементов (font-family: "Motiva Sans", Arial, …),
-   поэтому наследование от body не помогает, а перечислять все элементы
-   (часто с хэш-классами) — бесконечно. Вместо этого объявляем
-   "Motiva Sans" заново с файлом Inter: у грани с теми же дескрипторами
-   (вес и начертание) выигрывает объявленная позже, а наш <link>
-   подключается после motiva_sans.css Steam. Грани — те же, что
-   у Steam в public/shared/css/motiva_sans.css (проверено 2026-10-04).
+   The old store markup and many React blocks hard-code "Motiva Sans"
+   right in element rules (font-family: "Motiva Sans", Arial, …),
+   so inheriting from body doesn't help, and listing every element
+   (often with hashed classes) is endless. Instead we declare
+   "Motiva Sans" again with the Inter file: for faces with the same descriptors
+   (weight and style) the later declaration wins, and our <link>
+   is attached after Steam's motiva_sans.css. The faces are the same as
+   Steam's in public/shared/css/motiva_sans.css (verified 2026-10-04).
 
-   Лёгкие веса (200, 300) Inter рисует как ExtraLight/Light — у Steam
-   ими набраны крупные заголовки, читаемость нормальная.
-   Курсив Inter не поставляется — italic-грани рисуются наклоном.
-   Моно-элементы темы задают --aika-font-mono явно и не затрагиваются.
+   Inter renders the light weights (200, 300) as ExtraLight/Light — Steam
+   sets large headings in them, readability is fine.
+   Inter italic isn't shipped — italic faces are rendered as synthetic slant.
+   The theme's mono elements set --aika-font-mono explicitly and are unaffected.
    ========================================================================== */
 
 @font-face {

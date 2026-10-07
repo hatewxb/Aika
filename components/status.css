@@ -1,24 +1,24 @@
 /* ==========================================================================
-   components/status.css — статусы, метки, бейджи, мета (DESIGN.md §4, Status & Labels).
+   components/status.css — statuses, labels, badges, meta (DESIGN.md §4, Status & Labels).
 
-   Тексты Steam не подменяем и не дописываем (никаких «//», «>», путей):
-   автор попросил оставить надписи как в Steam, меняем только стиль.
+   We don't replace or add to Steam's texts (no "//", ">", paths):
+   the author asked to keep the labels as in Steam, we only change the style.
 
-   Свои классы:
-     .aika-status[--ok|--live|--warn]  — точка + слово
-     .aika-status--pulse               — «живая» точка медленно пульсирует
-     .aika-label                       — моно-метка над заголовком
-     .aika-badge                       — пилюля с акцентной рамкой
-     .aika-meta                        — мета-строка, моно, tabular-nums
+   Own classes:
+     .aika-status[--ok|--live|--warn]  — a dot + a word
+     .aika-status--pulse               — a "live" dot pulses slowly
+     .aika-label                       — a mono label above a heading
+     .aika-badge                       — a pill with an accent border
+     .aika-meta                        — a meta line, mono, tabular-nums
 
-   Steam (сняты через CDP 2026-10-04), панель «Играть» на странице игры:
-     .GameStat .PlayBarLabel        — подпись («Последний запуск») → метка
-     .GameStat .PlayBarDetailLabel  — значение («6,86 Гбайт»)      → мета
+   Steam (captured via CDP 2026-10-04), the "Play" bar on the game page:
+     .GameStat .PlayBarLabel        — the caption ("Last played") → label
+     .GameStat .PlayBarDetailLabel  — the value ("6.86 GB")      → meta
    ========================================================================== */
 
 /* --------------------------------------------------------------------------
-   Метка и мета — общая моно-типографика.
-   Регистр подписей Steam не трогаем (у Steam — капс).
+   Label and meta share mono typography.
+   We don't change the case of Steam's captions (Steam uses uppercase).
    -------------------------------------------------------------------------- */
 
 .aika-label,
@@ -45,7 +45,7 @@ html .GameStat .PlayBarDetailLabel {
 }
 
 /* --------------------------------------------------------------------------
-   Статус: точка + слово (состояние не только цветом — DESIGN.md §9)
+   Status: a dot + a word (the state isn't conveyed by color alone — DESIGN.md §9)
    -------------------------------------------------------------------------- */
 
 .aika-status {
@@ -68,7 +68,7 @@ html .GameStat .PlayBarDetailLabel {
 .aika-status--live { --aika-status-color: var(--aika-live); }
 .aika-status--warn { --aika-status-color: var(--aika-warn); }
 
-/* Пульс: только opacity; при --aika-motion: 0 точка не гаснет */
+/* Pulse: opacity only; with --aika-motion: 0 the dot doesn't fade */
 @keyframes aika-pulse {
     50% {
         opacity: calc(1 - (1 - var(--aika-pulse-dim)) * var(--aika-motion));
@@ -80,7 +80,7 @@ html .GameStat .PlayBarDetailLabel {
 }
 
 /* --------------------------------------------------------------------------
-   Бейдж
+   Badge
    -------------------------------------------------------------------------- */
 
 .aika-badge {
@@ -97,11 +97,11 @@ html .GameStat .PlayBarDetailLabel {
 }
 
 /* --------------------------------------------------------------------------
-   Аватары и статусы игроков (страница игры, лента, друзья).
-   Steam: .avatarHolder img.avatar — рамка rgb(56,60,67) и тень;
-   имя игрока: .LabelHolder.ingame / .online / .offline .playerName,
-   в ленте — .ActorName.ingame .playerName.
-   Смысл цветов сохраняем: в игре — ok, в сети — акцент, не в сети — приглушённо.
+   Player avatars and statuses (game page, feed, friends).
+   Steam: .avatarHolder img.avatar — a rgb(56,60,67) border and a shadow;
+   the player name: .LabelHolder.ingame / .online / .offline .playerName,
+   in the feed — .ActorName.ingame .playerName.
+   The color meaning is kept: in game — ok, online — accent, offline — muted.
    -------------------------------------------------------------------------- */
 
 html .avatarHolder img.avatar {
@@ -126,15 +126,15 @@ html .LabelHolder :is(.richPresenceLabel .PlaytimeStatus, .playerNicknameBracket
     color: var(--aika-fg-subtle);
 }
 
-/* Строка «в игре …» / «был в сети …» под именем: у Steam там
-   «color: gray !important» — отвечаем тем же, только здесь */
+/* The "in game …" / "last online …" line under the name: Steam has
+   "color: gray !important" there — we answer in kind, only here */
 html .LabelHolder .richPresenceLabel .PlaytimeStatus {
     color: var(--aika-fg-subtle) !important;
 }
 
-/* Время в игре — моно, как статистика панели «Играть» (просьба автора
-   2026-10-04): «31,3 ч. за последнее время» у друзей, «Вы играли 884,1 ч.»
-   в блоке обзора, время скриншота в ленте. Текст Steam не меняем. */
+/* Play time is mono, like the "Play" bar stats (author's request
+   2026-10-04): "31.3 hrs past 2 weeks" for friends, "You played 884.1 hrs"
+   in the review block, the screenshot time in the feed. Steam's text is unchanged. */
 html .LabelHolder .richPresenceLabel .PlaytimeStatus,
 html .AppDetailsSectionContainer .PlayedForTime,
 html .ActivityPublishedScreenshot .ActiveScreenshot .TimeStamp {
@@ -147,8 +147,8 @@ html .ActivityPublishedScreenshot .ActiveScreenshot .TimeStamp {
     color: var(--aika-fg-subtle);
 }
 
-/* Значки рядом с именем друга (телефон, Steam Deck, VR) и «Zzz» отошедшего:
-   Steam красит их голубым статуса «в сети» правилом (0,3,1) */
+/* Icons next to a friend's name (phone, Steam Deck, VR) and the away "Zzz":
+   Steam colors them with the "online" light blue via a (0,3,1) rule */
 html .LabelHolder.online .statusAndName .PersonaStatusIcon svg path,
 html .LabelHolder.online .statusAndName .SnoozeContainer .SnoozeZ {
     fill: var(--aika-accent-bright);
@@ -161,14 +161,14 @@ html .LabelHolder.ingame .statusAndName .SnoozeContainer .SnoozeZ {
     color: var(--aika-ok);
 }
 
-/* «в игре …» / «был в сети» под ником друга не в сети: серый #6e6e6e (0,2,0) */
+/* "in game …" / "last online" under an offline friend's nickname: gray #6e6e6e (0,2,0) */
 html .LabelHolder.offline .richPresenceContainer .richPresenceLabel {
     color: var(--aika-fg-subtle);
 }
 
-/* Полоска статуса справа/снизу у аватара (.avatarHolder .avatarStatus):
-   у Steam голубой / салатовый градиент «в сети» / «в игре» (0,2,0).
-   Смысл тот же: в сети — акцент, в игре — ok. */
+/* The status strip right/below the avatar (.avatarHolder .avatarStatus):
+   Steam has a light-blue / lime "online" / "in game" gradient (0,2,0).
+   Same meaning: online — accent, in game — ok. */
 html .avatarHolder.online .avatarStatus {
     background: var(--aika-accent-bright);
 }
@@ -178,15 +178,15 @@ html .avatarHolder.ingame .avatarStatus {
 }
 
 /* --------------------------------------------------------------------------
-   Мини-профиль при наведении на друга (.miniProfileHoverInner.miniProfile —
-   список друзей, чат, библиотека). Классы-хэши Steam дублируются
-   читаемыми: .miniProfileContent, .miniProfilePlayer.in-game/.online/.offline,
+   The mini profile on hovering a friend (.miniProfileHoverInner.miniProfile —
+   friends list, chat, library). Steam's hash classes are duplicated by
+   readable ones: .miniProfileContent, .miniProfilePlayer.in-game/.online/.offline,
    .personaName(.hasNickname) > .personaNameLabel, .miniProfileGameContainer
    (.miniProfileBackdropBlur) > .gameContent.persona > .gameState/.richPresence,
-   .featuredTitle/.featuredSubTitle. Сила Steam — до (0,6,0) (имя «в игре»
-   с :not()), поэтому цепочки длинные. Фон профиля пользователя и цвета
-   кольца уровня (.friendPlayerLevel.lvl_N — шкала уровней Steam) не трогаем.
-   Проверено: 2026-10-04, окно чата, наведение на вкладку друга.
+   .featuredTitle/.featuredSubTitle. Steam's strength goes up to (0,6,0) (the "in game" name
+   with :not()), so the chains are long. The user's profile background and the
+   level ring colors (.friendPlayerLevel.lvl_N — Steam's level scale) are untouched.
+   Verified: 2026-10-04, the chat window, hovering a friend's tab.
    -------------------------------------------------------------------------- */
 
 html .miniProfileHoverInner.miniProfile {
@@ -212,15 +212,15 @@ html .miniProfile .miniProfileContent .miniProfilePlayer.offline .personaName .p
     color: var(--aika-fg-muted);
 }
 
-/* Вторая строка — настоящее имя под псевдонимом */
+/* The second line — the real name under the alias */
 html .miniProfile .miniProfileContent .persona .personaName.hasNickname,
 html .miniProfile .miniProfileContent .persona .personaName.hasNickname .personaNameLabel,
 html .miniProfile .miniProfileContent .personaName .playerNicknameBracket {
     color: var(--aika-fg-subtle);
 }
 
-/* Полосы поверх фона профиля (игра, витрина): у Steam тёмно-серый
-   полупрозрачный градиент с размытием — тёмный «материал» Aika */
+/* Strips over the profile background (game, showcase): Steam has a dark gray
+   translucent gradient with blur — Aika's dark "material" */
 html .miniProfile .miniProfileContent .miniProfileBackdropBlur {
     background: var(--aika-surface-translucent);
 }
@@ -241,15 +241,15 @@ html .miniProfile .miniProfileBottom .miniProfileFeaturedContainer .featuredLabe
     color: var(--aika-fg-subtle);
 }
 
-/* Строка под именем «в сети» (.LabelHolder.online .richPresenceLabel):
-   у Steam приглушённый голубой #4c91ac (0,2,0) — приглушённый акцент
-   (окно настроек, шапка аккаунта; в окне друзей — sections/friends.css) */
+/* The line under an "online" name (.LabelHolder.online .richPresenceLabel):
+   Steam has a muted light blue #4c91ac (0,2,0) — a muted accent
+   (the settings window, the account header; in the friends window — sections/friends.css) */
 html .LabelHolder.online .richPresenceContainer .richPresenceLabel {
     color: var(--aika-accent-mid);
 }
 
-/* Имя игрока со статусом прямо на контейнере (.PlayerName.online — «Семья»
-   в настройках; превью .FakeFriend > .online — «Друзья и чат») */
+/* A player name with the status right on the container (.PlayerName.online — "Family"
+   in settings; the .FakeFriend > .online preview — "Friends & Chat") */
 html :is(.PlayerName, .FakeFriend > .noContextMenu).online .statusAndName .playerName {
     color: var(--aika-accent-bright);
 }
@@ -279,13 +279,13 @@ html :is(.PlayerName, .FakeFriend > .noContextMenu).offline .richPresenceContain
 }
 
 /* --------------------------------------------------------------------------
-   Значки статуса друга — свои, в цвете статуса (просьба автора 2026-10-04):
-   «отошёл / не беспокоить» (.SnoozeContainer — у Steam три прыгающие буквы
-   .SnoozeZ) — луна с «z»; «с телефона» (.PersonaStatusIcon.MobilePhoneIcon —
-   svg Steam) — контурный телефон. Иконки — маски из tokens.css, цвет —
-   currentColor: в игре — ok, в сети — акцент. Класс статуса (.online /
-   .ingame) у Steam стоит прямо на этих элементах. Остальные значки
-   (Steam Deck, VR…) — svg Steam в цвете статуса.
+   Friend status icons — our own, in the status color (author's request 2026-10-04):
+   "away / busy" (.SnoozeContainer — Steam has three jumping letters
+   .SnoozeZ) — a moon with a "z"; "on mobile" (.PersonaStatusIcon.MobilePhoneIcon —
+   Steam's svg) — an outline phone. The icons are masks from tokens.css, the color is
+   currentColor: in game — ok, online — accent. Steam puts the status class (.online /
+   .ingame) right on these elements. Other icons
+   (Steam Deck, VR…) are Steam's svg in the status color.
    -------------------------------------------------------------------------- */
 
 html :is(.SnoozeContainer, .PersonaStatusIcon).online {
@@ -333,7 +333,7 @@ html .PersonaStatusIcon.MobilePhoneIcon::before {
     mask-image: var(--aika-icon-mobile);
 }
 
-/* Луна на аватаре — в тёмном кружке, чтобы читалась поверх картинки */
+/* The moon on the avatar — in a dark circle so it reads over the picture */
 html .avatarHolder .SnoozeContainer {
     box-sizing: content-box;
     width: var(--aika-status-icon-size);
@@ -355,8 +355,8 @@ html .PersonaStatusIcon:is(.online, .ingame, .offline) svg path {
     fill: currentColor;
 }
 
-/* Строка «во что играет» у друга в игре (.LabelHolder.ingame .richPresenceLabel,
-   у Steam #91c257 и тёмно-зелёный у «отошёл», (0,3,0)) — ok Aika */
+/* The "now playing" line of a friend in game (.LabelHolder.ingame .richPresenceLabel,
+   Steam: #91c257 and dark green for "away", (0,3,0)) — Aika ok */
 html .LabelHolder.ingame .richPresenceContainer .richPresenceLabel,
 html .LabelHolder.ingame .richPresenceContainer .richPresenceLabel a {
     color: var(--aika-ok);
@@ -366,16 +366,16 @@ html .LabelHolder.ingame.awayOrSnooze .richPresenceContainer .richPresenceLabel 
     color: var(--aika-ok-mid);
 }
 
-/* Значок «друг сейчас играет» (.FriendIsPlaying svg, салатовый 70 %) */
+/* The "friend is playing now" icon (.FriendIsPlaying svg, lime 70 %) */
 html .FriendIsPlaying svg :is(path, circle) {
     fill: var(--aika-ok);
 }
 
-/* Полоска статуса у миниатюр друзей (.avatarHolder .avatarStatus.right / .bottom,
-   «Друзей, игравших недавно / раньше» на странице игры и др.): у Steam —
-   прямая линия 2 px вплотную к аватару, под скруглёнными углами торчала
-   (правка автора 2026-10-05). Делаем короткую скруглённую пилюлю
-   с отступом — как Fluent-индикатор. */
+/* The status strip on friend thumbnails (.avatarHolder .avatarStatus.right / .bottom,
+   "Friends who played recently / previously" on the game page etc.): Steam has
+   a straight 2 px line flush with the avatar, it stuck out under the rounded corners
+   (author's fix 2026-10-05). We make a short rounded pill
+   with an offset — like a Fluent indicator. */
 html .avatarHolder:has(> .avatarStatus) {
     position: relative;
 }
@@ -398,25 +398,25 @@ html .avatarHolder > .avatarStatus.bottom {
     height: var(--aika-indicator);
 }
 
-/* Мини-профиль из «Играющих друзей» на странице игры в библиотеке
-   (.HoverPosition > div > .miniProfile — без .miniProfileHoverInner,
-   поэтому скругление выше не срабатывало). Внизу — блок времени игры
+/* The mini profile from "Friends who play" on the library game page
+   (.HoverPosition > div > .miniProfile — without .miniProfileHoverInner,
+   so the rounding above didn't apply). At the bottom — the play time block
    (.PlaytimeSection > .GameLogo + .PlaytimeContent > .TimePlayed):
-   у Steam голубое радиальное свечение и бирюзовые цифры #b5ffff, сила
-   до (0,3,0). Делаем тёплое свечение акцента из левого угла и линию-
-   разделитель сверху, цифры — основным цветом, подписи — приглушённо.
-   Проверено: 2026-10-05, PEAK, наведение на друга в «Играющих друзьях». */
+   Steam has a light-blue radial glow and teal digits #b5ffff, strength
+   up to (0,3,0). We make a warm accent glow from the left corner and a divider
+   line on top, digits in the main color, captions muted.
+   Verified: 2026-10-05, PEAK, hovering a friend in "Friends who play". */
 html .HoverPosition .miniProfile {
     overflow: hidden;
     border-radius: var(--aika-radius-lg);
     box-shadow: var(--aika-shadow-menu);
 }
 
-/* Только полный вариант — отдельная полоса внизу с логотипом игры (друг
-   не в игре). Когда друг в игре, Steam рисует компактный вариант без
-   логотипа (хэш-модификатор: без фона и отступов) справа от логотипа,
-   под строкой статуса — там наша подложка с линией читалась отдельным
-   сиреневым прямоугольником поверх строки (скрин 6, 2026-10-07). */
+/* Only the full variant — a separate strip at the bottom with the game logo (the friend
+   isn't in game). When the friend is in game, Steam draws a compact variant without
+   the logo (a hash modifier: no background or padding) to the right of the logo,
+   under the status line — there our backing with a line read as a separate
+   lilac rectangle over the line (screenshot 6, 2026-10-07). */
 html .miniProfile .PlaytimeSection:has(> .GameLogo) {
     border-top: 1px solid var(--aika-border);
     background: radial-gradient(circle at left top, var(--aika-accent-glow) 0%, transparent 70%),

@@ -1,7 +1,7 @@
 {
     "name": "Aika",
     "author": "hatewxb",
-    "description": "Тёплая тёмная тема для Steam: Fluent-структура, панели в духе файловой системы и мягкие пятна света на почти чёрном фоне.",
+    "description": "A warm dark theme for Steam: Fluent structure, file-system-style panels and soft spots of light on a near-black background.",
     "version": "0.1.0b",
     "tags": ["Fluent", "Dark", "Warm", "Minimal", "WIP"],
 
@@ -9,20 +9,20 @@
     "Steam-WebKit": "webkit.css",
 
     "Conditions": {
-        "Положение вкладок": {
-            "description": "Где стоят вкладки «Магазин», «Библиотека», «Сообщество» и профиль в верхней панели.",
-            "tab": "Верхняя панель",
-            "default": "По центру",
+        "Tab position": {
+            "description": "Where the Store, Library, Community and profile tabs sit in the top bar.",
+            "tab": "Top bar",
+            "default": "Center",
             "values": {
-                "По центру": {
+                "Center": {
                     "TargetCss": { "affects": ["^Steam$"], "src": "options/tabs-center.css" }
                 },
-                "Слева": {}
+                "Left": {}
             }
         },
-        "Пресет": {
-            "description": "Набор цветов темы: акцент и пятна света. Чтобы задать цвета вручную, включите «Свои цвета» во вкладке «Расширенное».",
-            "tab": "Цветовые пресеты",
+        "Preset": {
+            "description": "The theme color set: the accent and the light spots. To set colors manually, turn on \"Custom colors\" in the \"Advanced\" tab.",
+            "tab": "Color presets",
             "default": "Aika",
             "values": {
                 "Aika": {
@@ -30,9 +30,9 @@
                 }
             }
         },
-        "Свои цвета": {
-            "description": "Использовать цвета из редактора цветов темы вместо пресета. Сами цвета (акцент, наведение, три пятна света) настраиваются в разделе цветов этой темы.",
-            "tab": "Расширенное",
+        "Custom colors": {
+            "description": "Use the colors from the theme color editor instead of the preset. The colors themselves (accent, hover, three light spots) are set in this theme's colors section.",
+            "tab": "Advanced",
             "default": "no",
             "values": {
                 "no": {},
@@ -41,9 +41,9 @@
                 }
             }
         },
-        "Свечение за курсором": {
-            "description": "Мягкое свечение акцента под курсором на крупных блоках библиотеки (панели страницы игры, «Что нового», коллекции).",
-            "tab": "Расширенное",
+        "Cursor glow": {
+            "description": "A soft accent glow under the cursor on large library blocks (game page panels, What's New, collections).",
+            "tab": "Advanced",
             "default": "yes",
             "values": {
                 "yes": {},
@@ -52,20 +52,20 @@
                 }
             }
         },
-        "Надпись в уведомлениях": {
-            "description": "Шрифт надписи «Aika» на фоне всплывающих уведомлений.",
-            "tab": "Уведомления",
-            "default": "Готическая",
+        "Notification wordmark": {
+            "description": "The font of the \"Aika\" wordmark in the background of notification toasts.",
+            "tab": "Notifications",
+            "default": "Gothic",
             "values": {
-                "Готическая": {},
-                "Японская": {
+                "Gothic": {},
+                "Japanese": {
                     "TargetCss": { "affects": [".*"], "src": "options/toast-mark-brush.css" }
                 }
             }
         },
-        "Плотность уведомлений": {
-            "description": "Насколько уведомление закрывает рабочий стол: меньше — прозрачнее.",
-            "tab": "Уведомления",
+        "Notification opacity": {
+            "description": "How much a notification covers the desktop: lower is more transparent.",
+            "tab": "Notifications",
             "default": 62,
             "slider": {
                 "cssVariable": "--aika-setting-toast-tint",
@@ -75,9 +75,9 @@
                 "unit": "%"
             }
         },
-        "Радиус свечения": {
-            "description": "Размер свечения за курсором, в пикселях.",
-            "tab": "Расширенное",
+        "Glow radius": {
+            "description": "The size of the cursor glow, in pixels.",
+            "tab": "Advanced",
             "default": 160,
             "slider": {
                 "cssVariable": "--aika-setting-spot-size",

@@ -2,56 +2,57 @@
 
 # Aika
 
-**Тёплая тёмная тема для Steam** · [Millennium](https://steambrew.app) · 0.1.0b (WIP) · автор **hatewxb**
+**A warm dark theme for Steam** · [Millennium](https://steambrew.app) · 0.1.0b (WIP) · by **hatewxb**
 
-![Aika — страница игры в библиотеке](screenshots/library-game.png)
+![Aika — a game page in the library](screenshots/library-game.png)
 
 </div>
 
-Спокойный тёмный интерфейс на почти чёрном фоне с мягкими пятнами тёплого
-света. Fluent-структура, скругления, один фирменный акцент вместо
-«стимовского» голубого. Тексты Steam тема не меняет, только вид.
+A calm dark interface on a near-black background with soft spots of warm
+light. Fluent structure, rounded corners, one signature accent instead of
+Steam's light blue. The theme doesn't change any Steam text, only the look.
 
-- **Логотип игры над трейлером** в магазине и **плеер трейлеров** в духе Apple.
-- **Скриншоты по играм** в профиле: полка-карусель на каждую игру.
-- **Свечение за курсором** на крупных блоках библиотеки.
-- **Вкладки верхней панели по центру** (можно вернуть влево).
+- **Game logo above the trailer** in the store and an Apple-style **trailer player**.
+- **Screenshots grouped by game** in the profile: a carousel shelf per game.
+- **Cursor glow** on large library blocks.
+- **Top bar tabs centered** (can be moved back to the left).
 
-## Скриншоты
+## Screenshots
 
-| Библиотека | Магазин |
+| Library | Store |
 |:--:|:--:|
-| ![Библиотека](screenshots/library-home.jpg) | ![Магазин](screenshots/store-home.jpg) |
-| **Страница игры в магазине** | **Друзья** |
-| ![Страница игры в магазине](screenshots/store-app.jpg) | ![Друзья](screenshots/community-friends.png) |
-| **Скриншоты по играм** | **Настройки** |
-| ![Скриншоты по играм](screenshots/community-screenshots.png) | ![Настройки](screenshots/settings.png) |
+| ![Library](screenshots/library-home.jpg) | ![Store](screenshots/store-home.jpg) |
+| **Store game page** | **Friends** |
+| ![Store game page](screenshots/store-app.jpg) | ![Friends](screenshots/community-friends.png) |
+| **Screenshots by game** | **Settings** |
+| ![Screenshots by game](screenshots/community-screenshots.png) | ![Settings](screenshots/settings.png) |
 
-## Установка
+## Installation
 
-1. Установите [Millennium](https://steambrew.app).
-2. Скачайте `Aika-<версия>.zip` из [Releases](../../releases).
-3. Распакуйте папку `Aika` в `C:\Program Files (x86)\Steam\millennium\themes\`.
-4. Steam → **Millennium → Themes** → **Aika**. Если скрипты тем выключены — включите.
+1. Install [Millennium](https://steambrew.app).
+2. Download `Aika-<version>.zip` from [Releases](../../releases).
+3. Extract the `Aika` folder into `C:\Program Files (x86)\Steam\millennium\themes\`.
+4. Steam → **Millennium → Themes** → **Aika**. If theme scripts are disabled, enable them.
 
-Настройки темы (шестерёнка у Aika в Millennium): положение вкладок,
-цветовой пресет, свои цвета, свечение за курсором и его радиус.
+Theme settings (the gear next to Aika in Millennium): tab position,
+color preset, custom colors, cursor glow and its radius, notification
+wordmark and opacity.
 
 ## Roadmap
 
-| Раздел | Готово | Не сделано |
+| Section | Done | Not done yet |
 |:--|:--|:--|
-| Библиотека | Главная, список игр, страница игры, новости игры, достижения, фильтры, коллекции | Длинные названия игр при наведении |
-| Магазин | Главная, меню, страница игры (ранний доступ, предупреждения), поиск, желаемое, корзина, «Новостной центр» | Оформление заказа, бесплатные выходные и пробный период |
-| Сообщество | Активность, друзья, скриншоты, иллюстрации, видео, редактирование профиля, уведомления, обсуждения игры | Мастерская, коллекции, профиль, остальное в центре сообщества игры |
-| Друзья и чат | Список друзей, личный чат, мини-профили | Групповой и голосовой чат, запросы в друзья |
-| Загрузки | Всё | — |
-| Настройки и окна | Настройки, свойства игры, диалоги, ПИН-код семейного просмотра | Окно входа |
-| Общее | Меню, подсказки, выпадашка уведомлений, всплывающие уведомления (сообщение, «играет в», загрузка) — жидкое стекло, плавное появление | Другие уведомления, пресеты, Big Picture, оверлей |
+| Library | Home, game list, game page, game news, achievements, filters, collections | Long game titles on hover |
+| Store | Home, menu, game page (Early Access, warnings), search, wishlist, cart, News Hub | Checkout, free weekends and trials |
+| Community | Activity, friends, screenshots, artwork, videos, profile editing, notifications, game discussions | Workshop, collections, profile, the rest of the game community hub |
+| Friends & chat | Friends list, direct chat, mini profiles | Group and voice chat, friend requests |
+| Downloads | Everything | — |
+| Settings & windows | Settings, game properties, dialogs, Family View PIN | Login window |
+| General | Menus, tooltips, notifications dropdown, notification toasts (message, "now playing", download) — liquid glass, smooth entrance | Other notifications, presets, Big Picture, overlay |
 
-## Лицензии
+## Licenses
 
-Шрифты Inter, Geist Mono, Fraunces, UnifrakturMaguntia и Shojumaru —
-SIL Open Font License 1.1 (`assets/fonts/OFL-*.txt`). Жидкое стекло
-уведомлений — [hyalite](https://github.com/VII-Cae/hyalite--liquid-glass),
+The Inter, Geist Mono, Fraunces, UnifrakturMaguntia and Shojumaru fonts are
+licensed under the SIL Open Font License 1.1 (`assets/fonts/OFL-*.txt`). The
+notification liquid glass is [hyalite](https://github.com/VII-Cae/hyalite--liquid-glass),
 MIT (`js/vendor/LICENSE-hyalite.txt`).

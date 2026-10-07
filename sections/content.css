@@ -1,25 +1,25 @@
 /* ==========================================================================
-   sections/content.css — «Контент» профиля: скриншоты, иллюстрации, видео,
-   работы в Мастерской, коллекции (steamcommunity.com/(id|profiles)/…/
+   sections/content.css — profile "Content": screenshots, artwork, videos,
+   Workshop items, collections (steamcommunity.com/(id|profiles)/…/
    screenshots | images | videos | myworkshopfiles …).
-   Подключается через webkit.css. Снято через CDP 2026-10-05, старая вёрстка,
-   классы и id читаемые, сила Steam — id + класс (1,1,0) максимум:
-     #BG_top_sharedfiles (.sharedfiles_header_ctn) — шапка: #HeaderUserAvatar,
+   Imported via webkit.css. Captured via CDP 2026-10-05, old markup,
+   readable classes and ids, Steam's strength is id + class (1,1,0) at most:
+     #BG_top_sharedfiles (.sharedfiles_header_ctn) — the header: #HeaderUserAvatar,
        #HeaderUserBreadcrumbs = #HeaderUserInfoName a » .HeaderUserInfoSection a,
-       #FilterContainer — «Фильтровать по игре», «Показать» (.favoritesRadioText);
-     .sharedfiles_tabs_ctn .sectionTabs .sectionTab[.active] — вкладки;
-     #ScreenshotManagementControlsTop — полоса «Отображаются / сортировка /
-       доступ / Управление скриншотами / Загрузить»;
+       #FilterContainer — "Filter by game", "Show" (.favoritesRadioText);
+     .sharedfiles_tabs_ctn .sectionTabs .sectionTab[.active] — tabs;
+     #ScreenshotManagementControlsTop — the "Showing / sort /
+       visibility / Manage screenshots / Upload" strip;
      .sharedfiles_filterselect > .sharedfiles_filterselect_activeoption —
-       выпадашки (PNG-стрелка), список — .popup_block >
+       dropdowns (a PNG arrow), the list — .popup_block >
        .sharedfiles_filterselect_options.shadow_content > .option;
-     #image_wall .imageWallRow … a.profile_media_item > .imgWallItem — стена
-       (картинка фоном, рамка 1px black).
-   Полки по играм (.aika-shelves-list) строит js/content-shelves.js.
+     #image_wall .imageWallRow … a.profile_media_item > .imgWallItem — the wall
+       (image as background, a 1px black border).
+   Per-game shelves (.aika-shelves-list) are built by js/content-shelves.js.
    ========================================================================== */
 
 /* --------------------------------------------------------------------------
-   Шапка «Имя » Скриншоты»: у Steam серо-синяя плашка #3a3e4780
+   The "Name » Screenshots" header: Steam has a gray-blue plate #3a3e4780
    -------------------------------------------------------------------------- */
 
 html #BG_top_sharedfiles {
@@ -31,7 +31,7 @@ html #BG_top_sharedfiles {
     box-shadow: var(--aika-shadow-card);
 }
 
-/* Аватар: рамка статуса Steam — голубой градиент */
+/* Avatar: Steam's status frame — a light-blue gradient */
 html #HeaderUserAvatar .playerAvatar {
     border-radius: var(--aika-radius-md);
     background: var(--aika-fg-subtle);
@@ -50,7 +50,7 @@ html #HeaderUserAvatar .playerAvatar img:not(.profile_avatar_frame img) {
     background: var(--aika-bg-raised);
 }
 
-/* Рамка предмета профиля — как есть, без подложки статуса */
+/* The profile item frame — as is, without the status backing */
 html #HeaderUserAvatar .playerAvatar:has(.profile_avatar_frame img) {
     background: var(--aika-transparent);
 }
@@ -60,8 +60,8 @@ html #HeaderUserAvatar .playerAvatar .profile_avatar_frame img {
     background: none;
 }
 
-/* Путь «Имя » Скриншоты»: имя — крупно, » — акцентом, раздел — светлым акцентом;
-   линия под ним у Steam серая #4c4c4c — разделитель Aika */
+/* The "Name » Screenshots" path: name — large, » — accent, section — light accent;
+   Steam's line under it is gray #4c4c4c — the Aika divider */
 html #BG_top_sharedfiles #HeaderUserBreadcrumbs {
     border-bottom-color: var(--aika-border);
 }
@@ -90,9 +90,9 @@ html #HeaderUserBreadcrumbs .HeaderUserInfoSection a:hover {
     color: var(--aika-fg);
 }
 
-/* Выбранная игра в фильтре (#searchedForApp.profileAppFilter.searchedForTerm,
-   клик сбрасывает фильтр): у Steam зелёная плашка #68932f, текст #d2ff96 —
-   чип акцента; крестик-PNG Steam оставляем, приглушённым */
+/* The selected game in the filter (#searchedForApp.profileAppFilter.searchedForTerm,
+   a click clears the filter): Steam has a green plate #68932f, text #d2ff96 —
+   an accent chip; Steam's PNG cross stays, muted */
 html .sharedfiles_header_ctn .profileAppFilter.searchedForTerm {
     padding: var(--aika-space-1) var(--aika-space-3);
     border: var(--aika-hairline) solid var(--aika-border-accent);
@@ -113,7 +113,7 @@ html .sharedfiles_header_ctn .profileAppFilter.searchedForTerm .searchedForTermI
     opacity: 0.6;
 }
 
-/* Подписи «Фильтровать по игре:», «Показать:» и радио-кнопки */
+/* The "Filter by game:", "Show:" labels and radio buttons */
 html #FilterContainer .sharedfiles_usercontrols_label {
     color: var(--aika-fg-subtle);
 }
@@ -127,8 +127,8 @@ html #FilterContainer .favoritesRadio {
 }
 
 /* --------------------------------------------------------------------------
-   Вкладки «Скриншоты / Иллюстрации / Видео / …»: неактивные приглушённые,
-   активная — линия акцента (sections/community.css), hover — светлее
+   The "Screenshots / Artwork / Videos / …" tabs: inactive ones muted,
+   the active one — an accent line (sections/community.css), hover — lighter
    -------------------------------------------------------------------------- */
 
 html .sharedfiles_tabs_ctn .sectionTabs .sectionTab {
@@ -142,7 +142,7 @@ html .sharedfiles_tabs_ctn .sectionTabs .sectionTab.active {
 }
 
 /* --------------------------------------------------------------------------
-   Полоса управления: у Steam чёрная 0.3 без скругления
+   The management strip: Steam has black 0.3 without rounding
    -------------------------------------------------------------------------- */
 
 html :is(#image_wall, #video_wall) #ScreenshotManagementControlsTop {
@@ -160,8 +160,8 @@ html :is(#image_wall, #video_wall) #ScreenshotManagementControlsTop .ScreenshotM
     color: var(--aika-fg-subtle);
 }
 
-/* «Управление скриншотами» / «Загрузить скриншоты…»: у Steam светло-серые
-   плашки #e8e8e8 с серым текстом и PNG-стрелкой — вторичные кнопки Aika */
+/* "Manage screenshots" / "Upload screenshots…": Steam has light-gray
+   #e8e8e8 plates with gray text and a PNG arrow — Aika secondary buttons */
 html :is(#image_wall, #video_wall) .AdditionalSharedFilesControls {
     margin-left: auto;
 }
@@ -185,7 +185,7 @@ html :is(#image_wall, #video_wall) .AdditionalSharedFilesControls :is(#Screensho
 }
 
 /* --------------------------------------------------------------------------
-   Выпадашки (игра, вид, сортировка, доступ): как components/input.css
+   Dropdowns (game, view, sort, visibility): like components/input.css
    -------------------------------------------------------------------------- */
 
 html #mainContents_sharedfiles div.sharedfiles_filterselect {
@@ -225,7 +225,7 @@ html #mainContents_sharedfiles div.sharedfiles_filterselect:hover div.sharedfile
     color: var(--aika-fg);
 }
 
-/* Список: PNG-тени Steam прячем, плашка — меню Aika */
+/* The list: Steam's PNG shadows hidden, the plate is an Aika menu */
 html #mainContents_sharedfiles .popup_block :is(.shadow_left, .shadow_right, .shadow_bl, .shadow_bottom, .shadow_br) {
     display: none;
 }
@@ -261,8 +261,8 @@ html #mainContents_sharedfiles .popup_block .sharedfiles_filterselect_options in
     color: var(--aika-fg);
 }
 
-/* Список игр под полем поиска: у Steam голубые линии #79a1db сверху и снизу;
-   лупа-PNG рядом с полем — лишняя */
+/* The game list under the search field: Steam has light-blue #79a1db lines above and below;
+   the PNG magnifier next to the field is unnecessary */
 html #mainContents_sharedfiles .popup_block div#sharedfiles_filterselect_app_filterable {
     border-color: var(--aika-border);
 }
@@ -278,8 +278,8 @@ html #mainContents_sharedfiles .popup_block .sharedfiles_filterselect_options in
 }
 
 /* --------------------------------------------------------------------------
-   Стена Steam (фильтр по игре, «Управление скриншотами»): скруглённые
-   карточки вместо рамки 1px black
+   Steam's wall (filtered by game, "Manage screenshots"): rounded
+   cards instead of a 1px black border
    -------------------------------------------------------------------------- */
 
 html #image_wall .profile_media_item .imgWallItem {
@@ -297,8 +297,8 @@ html #image_wall .profile_media_item:hover .imgWallItem {
     transform: translateY(calc(-1 * var(--aika-lift-sm)));
 }
 
-/* Пусто («Не удалось найти подходящие видео.»): у Steam чёрная 0.4 плашка
-   без скругления — тихая карточка Aika */
+/* Empty ("No matching videos found."): Steam has a black 0.4 plate
+   without rounding — a quiet Aika card */
 html #BatchScreenshotManagement #NoItemsContainer {
     border: var(--aika-hairline) dashed var(--aika-border-strong);
     border-radius: var(--aika-radius-xl);
@@ -306,10 +306,10 @@ html #BatchScreenshotManagement #NoItemsContainer {
     color: var(--aika-fg-subtle);
 }
 
-/* Подпись при наведении (.imgWallHover > .imgWallHoverBottom >
-   .imgWallHoverDescription > q — название иллюстрации / скриншота):
-   у Steam голубой текст #7cc5fb прямо по картинке — светлый текст
-   на затемнении снизу */
+/* The hover caption (.imgWallHover > .imgWallHoverBottom >
+   .imgWallHoverDescription > q — the artwork / screenshot title):
+   Steam has light-blue #7cc5fb text right on the image — light text
+   on a darkening at the bottom */
 html #image_wall .imgWallHover .imgWallHoverBottom {
     background: linear-gradient(to top, var(--aika-scrim), var(--aika-scrim-none));
 }
@@ -319,7 +319,7 @@ html #image_wall .imgWallHover .imgWallHoverDescription q {
 }
 
 /* ==========================================================================
-   Полки по играм (js/content-shelves.js): пока они есть, стена Steam скрыта
+   Per-game shelves (js/content-shelves.js): while they exist, Steam's wall is hidden
    ========================================================================== */
 
 html.aika-shelves #image_wall #BatchScreenshotManagement,
@@ -329,7 +329,7 @@ html:not(.aika-shelves) .aika-shelves-list {
     display: none;
 }
 
-/* «Отображаются: стеной / сеткой» — к полкам не относится */
+/* "Showing: wall / grid" — doesn't apply to shelves */
 html.aika-shelves #image_wall #ScreenshotManagementControlsTop :is(.ScreenshotManagementLabel, .ScreenshotManagementLabel + div) {
     display: none;
 }
@@ -351,7 +351,7 @@ html.aika-shelves #image_wall #ScreenshotManagementControlsTop :is(.ScreenshotMa
     from { opacity: 0; transform: translateY(var(--aika-appear-shift)); }
 }
 
-/* Заголовок полки: иконка + название игры (ссылка на фильтр), справа стрелки */
+/* Shelf header: icon + game title (a link to the filter), arrows on the right */
 .aika-shelf-head {
     display: flex;
     align-items: center;
@@ -380,7 +380,7 @@ html.aika-shelves #image_wall #ScreenshotManagementControlsTop :is(.ScreenshotMa
     box-shadow: 0 0 0 var(--aika-hairline) var(--aika-border), var(--aika-shadow-cover);
 }
 
-/* Первая буква названия — пока иконка грузится или если её нет */
+/* The first letter of the title — while the icon loads or if there is none */
 .aika-shelf-icon::before {
     content: attr(data-letter);
     position: absolute;
@@ -422,7 +422,7 @@ html.aika-shelves #image_wall #ScreenshotManagementControlsTop :is(.ScreenshotMa
     color: var(--aika-accent-bright);
 }
 
-/* Стрелки карусели: появляются, когда есть куда листать */
+/* Carousel arrows: appear when there is somewhere to scroll */
 .aika-shelf-nav {
     display: flex;
     flex: none;
@@ -480,7 +480,7 @@ html.aika-shelves #image_wall #ScreenshotManagementControlsTop :is(.ScreenshotMa
     box-shadow: var(--aika-shadow-focus);
 }
 
-/* Лента: горизонтальная прокрутка с привязкой к карточкам, края гаснут */
+/* The strip: horizontal scrolling snapping to cards, fading edges */
 .aika-shelf-track {
     display: flex;
     gap: var(--aika-space-3);
@@ -513,7 +513,7 @@ html.aika-shelves #image_wall #ScreenshotManagementControlsTop :is(.ScreenshotMa
     mask: linear-gradient(to right, transparent, #000 var(--aika-space-8), #000 calc(100% - var(--aika-space-8)), transparent);
 }
 
-/* Карточка скриншота: скруглённая, ширина — по пропорциям кадра */
+/* A screenshot card: rounded, width follows the frame proportions */
 .aika-shot {
     position: relative;
     flex: none;
@@ -558,7 +558,7 @@ a.aika-shot:focus-visible {
     box-shadow: var(--aika-shadow-focus);
 }
 
-/* Заглушка, пока Steam отдаёт страницу игры: мерцание как у прогресса */
+/* A placeholder while Steam serves the game page: a shimmer like the progress bar */
 .aika-shot-skeleton {
     background:
         linear-gradient(100deg, var(--aika-transparent) 30%, var(--aika-surface-hover) 50%, var(--aika-transparent) 70%)
@@ -572,7 +572,7 @@ a.aika-shot:focus-visible {
     to { background-position: -200% 0, 0 0; }
 }
 
-/* «Все скриншоты игры» — последняя карточка-стрелка */
+/* "All screenshots of the game" — the last arrow card */
 .aika-shot-more {
     display: grid;
     aspect-ratio: auto;
@@ -603,7 +603,7 @@ a.aika-shot:focus-visible {
     transform: rotate(-90deg);
 }
 
-/* Нет скриншотов (удалены / скрыты) или Steam не ответил — полку не показываем */
+/* No screenshots (deleted / hidden) or Steam didn't respond — the shelf isn't shown */
 .aika-shelf.is-empty,
 .aika-shelf.is-error {
     display: none;

@@ -1,26 +1,26 @@
 /* ==========================================================================
-   components/menu.css — меню, выпадающие списки, тултипы (DESIGN.md §4, Menus).
+   components/menu.css — menus, dropdowns, tooltips (DESIGN.md §4, Menus).
 
-   Меню Steam — отдельные окна (Steam / Вид / Игры…, контекстные меню,
-   Supernav у вкладок, списки DialogDropDown). Их <html> — .ContextMenuPopup,
-   <body> — .ContextMenuPopupBody; html и body прозрачные, поэтому
-   скругления видны. Подключается через popup.css (Patch в skin.json).
+   Steam menus are separate windows (Steam / View / Games…, context menus,
+   Supernav on the tabs, DialogDropDown lists). Their <html> is .ContextMenuPopup,
+   <body> is .ContextMenuPopupBody; html and body are transparent, so the
+   rounding is visible. Imported via popup.css (a Patch in skin.json).
 
-   Steam (сняты через CDP 2026-10-04):
-     .contextMenu > .contextMenuContents     — коробка меню
-       .contextMenuItem[.MenuItem][.disabled] — пункт
-       hr.MenuItem.Separator                  — разделитель
-   Hover пункта у Steam — светлая заливка «.DesktopUI ._1n7W…:hover» (0,3,0),
-   у неактивного — (0,4,0); коробку Steam держит правилами до (0,2,1),
-   поэтому у нас html body .contextMenu.ContextMenuPosition (0,2,2).
-   Подсветка с клавиатуры — хэш-класс, см. selectors.css.
+   Steam (captured via CDP 2026-10-04):
+     .contextMenu > .contextMenuContents     — the menu box
+       .contextMenuItem[.MenuItem][.disabled] — an item
+       hr.MenuItem.Separator                  — a separator
+   Steam's item hover is a light fill ".DesktopUI ._1n7W…:hover" (0,3,0),
+   for a disabled one — (0,4,0); Steam holds the box with rules up to (0,2,1),
+   so ours is html body .contextMenu.ContextMenuPosition (0,2,2).
+   Keyboard highlight is a hash class, see selectors.css.
 
-   Это единственное место с полупрозрачной поверхностью (translucent).
+   This is the only place with a translucent surface.
    ========================================================================== */
 
-/* Без scale: Steam меряет коробку меню (с transform) в момент появления
-   и по ней задаёт размер окна — при scale(0.97) окно выходило на ~3 %
-   уже меню и правый край со скруглением обрезался (2026-10-04) */
+/* No scale: Steam measures the menu box (with transform) when it appears
+   and sizes the window from it — with scale(0.97) the window came out ~3 %
+   narrower than the menu and the rounded right edge was clipped (2026-10-04) */
 @keyframes aika-menu-in {
     from {
         opacity: 0;
@@ -29,7 +29,7 @@
 }
 
 /* --------------------------------------------------------------------------
-   Коробка меню
+   Menu box
    -------------------------------------------------------------------------- */
 
 .aika-menu,
@@ -49,7 +49,7 @@ html .contextMenu .contextMenuContents {
 }
 
 /* --------------------------------------------------------------------------
-   Пункты
+   Items
    -------------------------------------------------------------------------- */
 
 .aika-menu__item,
@@ -67,7 +67,7 @@ html .contextMenu .contextMenuContents .contextMenuItem:not(.disabled):hover {
     color: var(--aika-fg);
 }
 
-/* Steam на hover красит вложенный текст тёмным (0,4,0) — берём цвет пункта */
+/* On hover Steam paints the nested text dark (0,4,0) — use the item color */
 html .contextMenu .contextMenuContents .contextMenuItem:not(.disabled):hover * {
     color: inherit;
 }
@@ -76,14 +76,14 @@ html .contextMenu .contextMenuContents .contextMenuItem.disabled {
     color: var(--aika-fg-subtle);
 }
 
-/* Пункт-действие в контекстном меню игры (ПКМ в списке библиотеки;
-   меню рисуется внутри главного окна). У Steam — .ContextMenuAction
-   с классом действия: «зелёные» (.Play, .Launch, .Stream, .Connect,
-   .PlayMusic) и «синие» (.Install, .Download, .Update, .Resume…),
-   градиенты (0,3,0), на hover (0,3,1), текст капсом. Снято 2026-10-06.
-   Как на странице игры: «Играть» — яркая (--aika-play-fill),
-   остальные действия — обычный акцент. Подпись — без капса, как
-   у кнопки «Играть» (components/button.css). */
+/* An action item in the game context menu (right-click in the library list;
+   the menu is drawn inside the main window). Steam: .ContextMenuAction
+   with an action class: "green" (.Play, .Launch, .Stream, .Connect,
+   .PlayMusic) and "blue" (.Install, .Download, .Update, .Resume…),
+   gradients (0,3,0), on hover (0,3,1), uppercase text. Captured 2026-10-06.
+   Like on the game page: "Play" is bright (--aika-play-fill),
+   other actions use the regular accent. The label isn't uppercase, like
+   the "Play" button (components/button.css). */
 html .contextMenu .contextMenuContents .contextMenuItem.ContextMenuAction {
     background: var(--aika-accent-fill);
     box-shadow: var(--aika-shadow-cta);
@@ -116,17 +116,17 @@ html .contextMenu .contextMenuContents .contextMenuItem.ContextMenuAction svg :i
     fill: currentColor;
 }
 
-/* Действие отделено от обычных пунктов ниже */
+/* The action is separated from the regular items below */
 html .contextMenu .contextMenuContents .contextMenuItem.ContextMenuAction + .contextMenuItem {
     margin-top: var(--aika-space-1);
 }
 
-/* Разделитель — тонкая линия с отступами */
+/* Separator — a thin line with margins */
 .aika-menu__separator,
 html .contextMenu .contextMenuContents hr.Separator {
-    /* width: auto — у Steam width: 100% (хэш (0,2,0)): вместе с нашими
-       боковыми полями линия вылезала за коробку на 16 px, Steam мерил
-       меню вместе с ней, а окно выходило уже коробки */
+    /* width: auto — Steam has width: 100% (hash (0,2,0)): together with our
+       side padding the line stuck out of the box by 16 px, Steam measured
+       the menu including it, and the window came out narrower than the box */
     width: auto;
     height: var(--aika-hairline);
     margin: var(--aika-space-1) var(--aika-space-2);
@@ -135,7 +135,7 @@ html .contextMenu .contextMenuContents hr.Separator {
 }
 
 /* --------------------------------------------------------------------------
-   «Уменьшить движение»: без анимации появления
+   "Reduce motion": no entrance animation
    -------------------------------------------------------------------------- */
 
 @media (prefers-reduced-motion: reduce) {
@@ -146,9 +146,9 @@ html .contextMenu .contextMenuContents hr.Separator {
 }
 
 /* --------------------------------------------------------------------------
-   Меню аккаунта (окно «Account Menu», .AccountMenuPopup): имя аккаунта
-   и баланс кошелька Steam красит голубым #4cb4ff (хэш (0,2,0)).
-   Имя — светлое, баланс — моно акцентом.
+   The account menu (the "Account Menu" window, .AccountMenuPopup): Steam paints the account name
+   and the Steam wallet balance light blue #4cb4ff (hash (0,2,0)).
+   The name is light, the balance is mono in accent.
    -------------------------------------------------------------------------- */
 
 html .AccountMenuPopup .LogoutButton .AccountName {
@@ -162,18 +162,18 @@ html .AccountMenuPopup .LogoutButton .WalletBalance {
 }
 
 /* --------------------------------------------------------------------------
-   Размер коробки меню (проверено через CDP 2026-10-04)
+   Menu box size (verified via CDP 2026-10-04)
 
-   1. Скругление справа обрезалось у всех меню: padding коробки прибавлялся
-      к ширине (content-box), а окно меню Steam делает по ширине содержимого —
-      коробка выходила на 8 px шире окна (916 при 910, у аккаунта 314 при 308).
-   2. Меню вкладок («Магазин», «Библиотека»… — окна «… Supernav») и аккаунта
-      были шире текста: Steam ставит inline min-width (видели 908 px).
-      Окно меню Steam подгоняет под измеренную ширину коробки, поэтому
-      ширина по содержимому даёт окно по самой длинной надписи + равные
-      поля слева и справа (padding пункта). Inline-стиль перебивается
-      только !important. Выпадающие списки (DialogDropDown) не трогаем:
-      там min-width — ширина поля, так и должно быть.
+   1. The right rounding was clipped on every menu: the box padding was added
+      to the width (content-box), while Steam sizes the menu window to the content —
+      the box came out 8 px wider than the window (916 vs 910, the account one 314 vs 308).
+   2. Tab menus ("Store", "Library"… — the "… Supernav" windows) and the account menu
+      were wider than the text: Steam sets an inline min-width (seen 908 px).
+      Steam fits the menu window to the measured box width, so
+      sizing to content gives a window as wide as the longest label + equal
+      padding on the left and right (the item padding). The inline style can only be
+      overridden with !important. Dropdowns (DialogDropDown) are left alone:
+      there min-width is the field width, as it should be.
    -------------------------------------------------------------------------- */
 
 html body .contextMenu.ContextMenuPosition {
@@ -186,10 +186,10 @@ html:is([class*="_Supernav"], .Account_Menu) body .contextMenu.ContextMenuPositi
 }
 
 /* --------------------------------------------------------------------------
-   Всплывающие подсказки клиента (.HoverPosition > .TextToolTip; снято через
-   CDP 2026-10-04, наведение на шестерёнку «Загрузок»). Steam: светлая
-   плашка с радиальным градиентом, тёмный текст, Motiva Sans, хэш (0,1,0).
-   Подсказка — одно из мест с полупрозрачной поверхностью (DESIGN.md §11).
+   Client tooltips (.HoverPosition > .TextToolTip; captured via
+   CDP 2026-10-04, hovering the "Downloads" gear). Steam: a light
+   plate with a radial gradient, dark text, Motiva Sans, hash (0,1,0).
+   A tooltip is one of the places with a translucent surface (DESIGN.md §11).
    -------------------------------------------------------------------------- */
 
 html .HoverPosition .TextToolTip {
@@ -204,16 +204,16 @@ html .HoverPosition .TextToolTip {
 }
 
 /* --------------------------------------------------------------------------
-   Выпадашка уведомлений (колокольчик в шапке; окно «Notifications Menu»,
-   скрины 8 и 10). Внутри нашей коробки .contextMenu Steam рисует свою:
-   .NotificationsMenu — рамка 1 px #000, две inset-тени, прямые углы и
-   серо-синий радиальный фон. Вместе с нашей скруглённой коробкой это
-   читалось двойной рамкой (правка автора 2026-10-07) — внутреннюю убираем.
-   Карточки — шаблон .AllNotificationsTemplate (обычная — чёрный 20 %,
-   непрочитанная .Unread — #3d4450 с рамкой, hover — #474f5c), значок
-   типа и время #8b929a / #67707b, точка «новое» — зелёная #57a11c.
-   Классы — читаемые имена из CSS-модуля Steam (рядом с хэшем), сила
-   Steam (0,1,0)…(0,2,0). Проверено 2026-10-07.
+   The notifications dropdown (the bell in the header; the "Notifications Menu" window,
+   screenshots 8 and 10). Inside our .contextMenu box Steam draws its own:
+   .NotificationsMenu — a 1 px #000 border, two inset shadows, square corners and
+   a gray-blue radial background. Together with our rounded box it
+   read as a double frame (author's fix 2026-10-07) — the inner one is removed.
+   Cards use the .AllNotificationsTemplate template (regular — black 20 %,
+   unread .Unread — #3d4450 with a border, hover — #474f5c), the type
+   icon and time #8b929a / #67707b, the "new" dot is green #57a11c.
+   Classes are readable names from Steam's CSS module (next to the hash), Steam's
+   strength is (0,1,0)…(0,2,0). Verified 2026-10-07.
    -------------------------------------------------------------------------- */
 
 html .contextMenu .contextMenuContents.NotificationsMenu {
@@ -228,7 +228,7 @@ html .NotificationsMenu .NotificationHeader .AllNotificationsTitle {
     font-weight: var(--aika-weight-semibold);
 }
 
-/* «Показать все»: серо-голубая #3d4450 (hover #67707b) → secondary */
+/* "View all": gray-blue #3d4450 (hover #67707b) → secondary */
 html .NotificationsMenu .NotificationHeader .AllNotificationsButton {
     border-radius: var(--aika-radius-md);
     background-color: var(--aika-surface);
@@ -253,7 +253,7 @@ html .NotificationsMenu .EmptyNotificationsCtn .EmptyNotificationsBody {
     color: var(--aika-fg-subtle);
 }
 
-/* Список: карточки с зазором и скруглением */
+/* The list: cards with a gap and rounding */
 html .NotificationsMenu .NotificationsMenuEntriesContainer {
     gap: var(--aika-space-1);
 }
@@ -281,7 +281,7 @@ html .NotificationsMenu .AllNotificationsTemplate:hover {
     background: var(--aika-surface-hover);
 }
 
-/* Непрочитанное — акцентная подложка и обводка */
+/* Unread — an accent backing and outline */
 html .NotificationsMenu .AllNotificationsTemplate.Unread,
 html .NotificationsMenu .AllNotificationsTemplate.Unread:hover {
     border-color: var(--aika-border-accent);
@@ -297,7 +297,7 @@ html .NotificationsMenu .AllNotificationsTemplate .StandardNotificationSubText {
     color: var(--aika-fg-muted);
 }
 
-/* Строка «значок · тип · время» */
+/* The "icon · type · time" line */
 html .NotificationsMenu .AllNotificationsTemplate :is(.Title, .Header) {
     color: var(--aika-fg-subtle);
     font-family: var(--aika-font-ui);
@@ -314,14 +314,14 @@ html .NotificationsMenu .AllNotificationsTemplate .Icon svg {
     fill: var(--aika-fg-subtle);
 }
 
-/* Обложка/логотип слева (у Steam чёрная рамка и тень) */
+/* The cover/logo on the left (Steam: a black border and shadow) */
 html .NotificationsMenu .AllNotificationsTemplate .AppLogo > img {
     border: none;
     border-radius: var(--aika-radius-xs);
     box-shadow: var(--aika-shadow-cover);
 }
 
-/* Точка «новое»: зелёная со свечением → акцент */
+/* The "new" dot: green with a glow → accent */
 html .NotificationsMenu .AllNotificationsTemplate .NewIndicator {
     filter: drop-shadow(0 0 4px var(--aika-accent-glow));
 }

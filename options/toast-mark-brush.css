@@ -1,7 +1,7 @@
 /* ==========================================================================
-   Надпись «Aika» в уведомлениях — «японская кисть» (Shojumaru) вместо
-   готики. Conditions «Надпись в уведомлениях» → «Японская» (вкладка
-   «Уведомления»). У Shojumaru буквы шире — надпись чуть меньше и ровнее.
+   The "Aika" wordmark in notifications as a "Japanese brush" (Shojumaru)
+   instead of blackletter. Conditions "Notification wordmark" → "Japanese"
+   ("Notifications" tab). Shojumaru letters are wider — the mark is a bit smaller and calmer.
    ========================================================================== */
 
 html:root {

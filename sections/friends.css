@@ -1,32 +1,32 @@
 /* ==========================================================================
-   friends.css — список друзей и окна чата (отдельное окно Steam).
+   friends.css — the friends list and chat windows (a separate Steam window).
 
-   Окно друзей опознаётся по классу .friendsui-container (по документации
-   Millennium именно на него срабатывает Patch в skin.json). Этим классом
-   можно ограничивать правила, чтобы они не задевали главное окно:
+   The friends window is identified by the .friendsui-container class (according to the
+   Millennium docs, that's what the Patch in skin.json matches). This class
+   can scope rules so they don't affect the main window:
 
-       .friendsui-container <селектор> { … }
+       .friendsui-container <selector> { … }
 
-   План:
-   1. Корневой контейнер окна — прозрачный фон.               TODO: классы
-   2. Шапка с аватаром, статусом и кнопками.                  TODO: классы
-   3. Список друзей: группы, строка друга, статусы
-      (в сети / в игре / не в сети) через акцентные цвета.    TODO: классы
-   4. Окно чата: вкладки, сообщения (свои/чужие — разные поверхности),
-      поле ввода — components/input.css.               TODO: классы
+   Plan:
+   1. The window's root container — a transparent background. TODO: classes
+   2. The header with avatar, status and buttons.                  TODO: classes
+   3. The friends list: groups, a friend row, statuses
+      (online / in game / offline) via accent colors.    TODO: classes
+   4. The chat window: tabs, messages (own/others' — different surfaces),
+      the input field — components/input.css.               TODO: classes
    ========================================================================== */
 
 /* ==========================================================================
-   1. Список друзей (окно «Список друзей», html.friendsui-container).
-      Снято через CDP 2026-10-04. Классы читаемые, правила Steam
-      (0,1,0)…(0,3,0); хэш у имени (.nOdcT-…) дублирует .playerName.
-      Статусы — как в components/status.css: в игре — ok, в сети — акцент,
-      не в сети — приглушённо. Здесь класс статуса — .labelHolder
-      (со строчной), а не .LabelHolder клиента.
+   1. Friends list (the "Friends List" window, html.friendsui-container).
+      Captured via CDP 2026-10-04. Classes are readable, Steam's rules are
+      (0,1,0)…(0,3,0); the hash on the name (.nOdcT-…) duplicates .playerName.
+      Statuses — as in components/status.css: in game — ok, online — accent,
+      offline — muted. Here the status class is .labelHolder
+      (lowercase), not the client's .LabelHolder.
    ========================================================================== */
 
-/* Фон: у списка свой серо-синий радиальный градиент, у шапки — #1c232c,
-   у подвала — #22252b. Гасим — виден фон темы окна. */
+/* Background: the list has its own gray-blue radial gradient, the header — #1c232c,
+   the footer — #22252b. Kill them — the theme's window background shows. */
 html.friendsui-container .friendlistListContainer {
     background: var(--aika-transparent);
 }
@@ -45,7 +45,7 @@ html.friendsui-container .friendListFooter {
     box-shadow: inset 0 var(--aika-hairline) 0 0 var(--aika-border);
 }
 
-/* Имена и строка «во что играет» по статусу */
+/* Names and the "now playing" line by status */
 html.friendsui-container .labelHolder.online .playerName {
     color: var(--aika-accent-bright);
 }
@@ -72,7 +72,7 @@ html.friendsui-container .labelHolder.ingame .ContextMenuButton svg :is(polygon,
     fill: var(--aika-ok);
 }
 
-/* Отошёл / не беспокоить в игре — у Steam тёмно-зелёный */
+/* Away / busy in game — dark green in Steam */
 html.friendsui-container .labelHolder.ingame.awayOrSnooze .richPresenceLabel {
     color: var(--aika-ok-mid);
 }
@@ -81,7 +81,7 @@ html.friendsui-container :is(.labelHolder, .friend) .playerNicknameBracket {
     color: var(--aika-fg-subtle);
 }
 
-/* Строка друга: hover — наша поверхность со скруглением */
+/* A friend row: hover — our surface with rounding */
 html.friendsui-container .friendsContainer .friend {
     border-radius: var(--aika-radius-md);
     color: var(--aika-fg-muted);
@@ -92,7 +92,7 @@ html.friendsui-container .friendsContainer .friend:hover {
     background-color: var(--aika-surface-hover);
 }
 
-/* Избранные друзья сверху (.quickAccessFriends): плитки и значок игры */
+/* Favorite friends at the top (.quickAccessFriends): tiles and the game icon */
 html.friendsui-container .quickAccessFriends .friend {
     border-radius: var(--aika-radius-md);
 }
@@ -103,7 +103,7 @@ html.friendsui-container .FavoriteFriend_GameIcon {
     background-color: var(--aika-bg-high);
 }
 
-/* Вкладки «Друзья / Chats» (.socialListTab, активная — .activeTab #434953) */
+/* The "Friends / Chats" tabs (.socialListTab, the active one — .activeTab #434953) */
 html.friendsui-container .socialTabContainer .socialListTab {
     border-radius: var(--aika-radius-md) var(--aika-radius-md) 0 0;
     color: var(--aika-fg-subtle);
@@ -119,7 +119,7 @@ html.friendsui-container .socialTabContainer .socialListTab .tabLabel {
     color: inherit;
 }
 
-/* Кнопки шапки: поиск, «добавить друга» */
+/* Header buttons: search, "add friend" */
 html.friendsui-container .friendListHeaderContainer :is(.searchIconButton, .friendListButton) svg :is(path, circle) {
     fill: var(--aika-fg-muted);
 }
@@ -128,7 +128,7 @@ html.friendsui-container .friendListHeaderContainer :is(.searchIconButton, .frie
     fill: var(--aika-fg);
 }
 
-/* Группы: заголовок, счётчик, «+» раскрытия, линии группы игроков */
+/* Groups: header, counter, the expand "+", player group lines */
 html.friendsui-container .friendGroup .groupName {
     color: var(--aika-fg-muted);
 }
@@ -160,7 +160,7 @@ html.friendsui-container .SteamPlayerGroupFooterLabel {
     color: var(--aika-ok-mid);
 }
 
-/* Раздел групповых чатов (.friendsListSectionTitle — полоса #434953) */
+/* The group chats section (.friendsListSectionTitle — a #434953 strip) */
 html.friendsui-container .friendsListSectionTitle {
     background-color: var(--aika-surface);
     color: var(--aika-fg-muted);
@@ -176,13 +176,13 @@ html.friendsui-container .ChatRoomList_Empty {
     color: var(--aika-fg-subtle);
 }
 
-/* Уточнения по силе Steam:
-   — линия над первой строкой группы игроков: .friend.firstInGroup … (0,3,0);
-   — верхняя линия группы «В сети»: .FriendsListContent .friendlistListContainer
-     .friendGroup.onlineFriends (0,4,0), голубая; заголовки групп «В сети /
-     Не в сети» — то же + .groupName (0,5,0);
-   — стрелка меню у имени — на самом <svg> (fill), не на path;
-   — «создать чат»: svg берёт currentColor кнопки (#ccc). */
+/* Adjustments for Steam's strength:
+   — the line above the first row of a player group: .friend.firstInGroup … (0,3,0);
+   — the top line of the "Online" group: .FriendsListContent .friendlistListContainer
+     .friendGroup.onlineFriends (0,4,0), light blue; the "Online /
+     Offline" group headers — the same + .groupName (0,5,0);
+   — the menu arrow next to the name is on the <svg> itself (fill), not on the path;
+   — "create chat": the svg takes the button's currentColor (#ccc). */
 html.friendsui-container .friend.firstInGroup .SteamPlayerGroupLines {
     border-top-color: var(--aika-border-strong);
 }
@@ -211,14 +211,14 @@ html.friendsui-container .friendsListSectionTitle .createChatRoomButton:hover {
     color: var(--aika-fg);
 }
 
-/* Линии группы игроков: у Steam border-inline-start / border-top / border-bottom
-   #74859b правилами .friend.inGroup / .firstInGroup / .lastInGroup (0,3,0) */
+/* Player group lines: Steam has border-inline-start / border-top / border-bottom
+   #74859b via .friend.inGroup / .firstInGroup / .lastInGroup rules (0,3,0) */
 html.friendsui-container :is(.friend.firstInGroup, .friend.inGroup, .friend.lastInGroup, .SteamPlayerGroupFooter) .SteamPlayerGroupLines {
     border-color: var(--aika-border-strong);
 }
 
-/* Полоса фокуса окна сверху (.singleWindowFocusBar — сине-бирюзовый
-   градиент, гаснет маской книзу) — акцентная */
+/* The window focus strip at the top (.singleWindowFocusBar — a blue-teal
+   gradient, masked to fade downward) — accent */
 html.friendsui-container .singleWindowFocusBar {
     background: linear-gradient(to right, var(--aika-accent), var(--aika-accent-bright));
 }
@@ -228,12 +228,12 @@ html.friendsui-container .friendsListSectionTitle:hover {
 }
 
 /* ==========================================================================
-   2. Окно чата (html.friendsui-container.ChatPopup; вкладки чатов, история,
-      поле ввода). Снято через CDP 2026-10-04 (личный чат). Правила Steam
-      до (0,3,0), часть — хэши-двойники читаемых классов.
+   2. The chat window (html.friendsui-container.ChatPopup; chat tabs, history,
+      input field). Captured via CDP 2026-10-04 (a direct chat). Steam's rules
+      go up to (0,3,0), some are hash twins of readable classes.
    ========================================================================== */
 
-/* Полоса вкладок (.titleBarContainer.ChatTabs, #1c232c) и вкладка (.ChatTab) */
+/* The tab strip (.titleBarContainer.ChatTabs, #1c232c) and a tab (.ChatTab) */
 html.friendsui-container .titleBarContainer.ChatTabs {
     border-color: var(--aika-border);
     background-color: var(--aika-bg-elevated);
@@ -249,13 +249,13 @@ html.friendsui-container .ChatTabs .ChatTab .friend {
     border-radius: var(--aika-radius-md);
 }
 
-/* Шапка чата (.chatWindow .chatHeader — серый градиент) */
+/* The chat header (.chatWindow .chatHeader — a gray gradient) */
 html.friendsui-container .chatWindow .chatHeader {
     background: var(--aika-transparent);
     box-shadow: inset 0 calc(-1 * var(--aika-hairline)) 0 0 var(--aika-border);
 }
 
-/* История: разделители по времени, имена по статусу, время, текст */
+/* History: time dividers, names by status, time, text */
 html.friendsui-container .chatHistory .msg.timeDivision {
     color: var(--aika-fg-subtle);
     font-family: var(--aika-font-mono);
@@ -287,13 +287,13 @@ html.friendsui-container .ChatMessageBlock .msgText {
     color: var(--aika-fg);
 }
 
-/* Свои сообщения — приглушённее (у Steam .isCurrentUser .msgText #969aa1) */
+/* Own messages — more muted (Steam: .isCurrentUser .msgText #969aa1) */
 html.friendsui-container .MultiUserChat .isCurrentUser .msgText,
 html.friendsui-container .ChatMessageBlock .msgText :is(.gameInviteSelf, .gameInviteDismissed) > div {
     color: var(--aika-fg-muted);
 }
 
-/* «Вниз к новым» */
+/* "Jump to new" */
 html.friendsui-container .ScrollToBottomButton > span {
     border-radius: var(--aika-radius-full);
     background: var(--aika-surface-translucent);
@@ -301,7 +301,7 @@ html.friendsui-container .ScrollToBottomButton > span {
     box-shadow: var(--aika-shadow-menu);
 }
 
-/* «Пригласить ещё друга» в шапке */
+/* "Invite another friend" in the header */
 html.friendsui-container .inviteAnotherFriendButton .SVGIcon_Button,
 html.friendsui-container .inviteAnotherFriendButton .SVGIcon_Button * {
     fill: var(--aika-fg-subtle);
@@ -312,8 +312,8 @@ html.friendsui-container .inviteAnotherFriendButton:hover .SVGIcon_Button * {
     fill: var(--aika-fg);
 }
 
-/* Поле ввода (form.chatEntryControls — #1b1c20 с чёрной тенью внутрь),
-   textarea — прозрачная; на фокусе — акцентное кольцо */
+/* The input field (form.chatEntryControls — #1b1c20 with a black inset shadow),
+   the textarea is transparent; on focus — an accent ring */
 html.friendsui-container .chatEntry form.chatEntryControls {
     overflow: hidden;
     border-radius: var(--aika-radius-lg);
@@ -337,8 +337,8 @@ html.friendsui-container .chatEntry form.chatEntryControls textarea.chatTextarea
     color: var(--aika-fg-subtle);
 }
 
-/* Кнопки у поля: отправить, смайлы/вложения (.chatEntryActionsGroup),
-   голос (.VoiceToggle). У Steam #2c3036, значки #898989 */
+/* Buttons next to the field: send, emoticons/attachments (.chatEntryActionsGroup),
+   voice (.VoiceToggle). Steam: #2c3036, icons #898989 */
 html.friendsui-container .chatEntry button.chatSubmitButton,
 html.friendsui-container .chatEntry button.VoiceToggle {
     border-radius: var(--aika-radius-md);
@@ -359,9 +359,9 @@ html.friendsui-container .chatEntry form.chatEntryControls button.chatSubmitButt
     background-color: var(--aika-transparent);
 }
 
-/* Активная «Отправить» (есть текст): у Steam синий градиент в
-   background-image — «._3Ule… .RVIs…:not(.jaQN…)» (0,3,0). Делаем
-   primary Aika: акцентная заливка, светлый значок. */
+/* The active "Send" (there is text): Steam has a blue gradient in
+   background-image — "._3Ule… .RVIs…:not(.jaQN…)" (0,3,0). We make it an
+   Aika primary: accent fill, a light icon. */
 html.friendsui-container .chatEntry form.chatEntryControls button.chatSubmitButton:not(.disabled) {
     margin: var(--aika-space-1);
     border-radius: var(--aika-radius-md);
@@ -389,20 +389,20 @@ html.friendsui-container .chatEntry .chatEntryActionsGroup {
     border-radius: var(--aika-radius-md);
 }
 
-/* Голос неактивен: у Steam зелёное радиальное свечение под кнопкой */
+/* Voice inactive: Steam has a green radial glow under the button */
 html.friendsui-container .ChatMessageEntryVoice.Inactive {
     border-radius: var(--aika-radius-md);
     background: var(--aika-transparent);
 }
 
-/* Обёртки значков внутри кнопок (.tool-tip-source, .VoiceToggleIconCtn)
-   задают свой color #898989 — значок берёт цвет кнопки */
+/* Icon wrappers inside buttons (.tool-tip-source, .VoiceToggleIconCtn)
+   set their own color #898989 — the icon takes the button color */
 html.friendsui-container .chatEntry :is(button.chatSubmitButton, button.VoiceToggle) :is(.tool-tip-source, .VoiceToggleIconCtn, svg) {
     color: inherit;
 }
 
-/* Закреплённые сверху (.quickAccessFriend): цвет статуса задаётся всей
-   плитке (.friend.online — голубой #6dcff6, наследуют имя и значки) */
+/* Pinned at the top (.quickAccessFriend): the status color is set on the whole
+   tile (.friend.online — light blue #6dcff6, the name and icons inherit it) */
 html.friendsui-container .friend.online {
     color: var(--aika-accent-bright);
 }
@@ -415,11 +415,11 @@ html.friendsui-container .quickAccessFriends .friend.online .playerName {
     color: var(--aika-accent-bright);
 }
 
-/* Поиск по друзьям (лупа во вкладке «Друзья»): кнопка .TabSearchButton
-   (#2c3036 50 %), полоса .socialSearchContainer (#434953), поле
-   .friendSearchInput[type=text] (#262930, тёмная тень внутрь; на фокусе —
-   #2c3036, (0,3,0)). Поле Aika: приподнятая поверхность, тонкая рамка,
-   на фокусе — акцентное кольцо. */
+/* Searching friends (the magnifier in the "Friends" tab): the .TabSearchButton
+   (#2c3036 50 %), the .socialSearchContainer strip (#434953), the
+   .friendSearchInput[type=text] field (#262930, a dark inset shadow; on focus —
+   #2c3036, (0,3,0)). The Aika field: a raised surface, a thin border,
+   an accent ring on focus. */
 html.friendsui-container .friendsTabButtonsContainer .TabSearchButton {
     border-radius: var(--aika-radius-md);
     background-color: var(--aika-surface);

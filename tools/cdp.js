@@ -1,6 +1,6 @@
-// Выполнить JS-выражение в окне Steam и вывести результат.
-//   node tools/cdp.js [окно|ws://…] "<выражение>"
-//   node tools/cdp.js "document.title"                 — главное окно «Steam»
+// Run a JS expression in a Steam window and print the result.
+//   node tools/cdp.js [window|ws://…] "<expression>"
+//   node tools/cdp.js "document.title"                 — the main "Steam" window
 //   node tools/cdp.js "Games Root Menu" "document.body.className"
 const target = require("./target");
 const args = process.argv.slice(2);

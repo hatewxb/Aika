@@ -1,8 +1,8 @@
-// Настоящий клик мышью по элементу (через CDP Input): React-обработчики
-// Steam на синтетический el.click() часто не реагируют.
-//   node tools/click.js [окно|ws://…] "<селектор>"          — один клик
-//   node tools/click.js [окно|ws://…] "<селектор>" double   — двойной
-//   node tools/click.js [окно|ws://…] "<селектор>" right    — правой кнопкой (контекстное меню)
+// A real mouse click on an element (via CDP Input): Steam's React handlers
+// often ignore a synthetic el.click().
+//   node tools/click.js [window|ws://…] "<selector>"          — single click
+//   node tools/click.js [window|ws://…] "<selector>" double   — double click
+//   node tools/click.js [window|ws://…] "<selector>" right    — right click (context menu)
 const target = require("./target");
 const args = process.argv.slice(2);
 const double = args[args.length - 1] === "double" ? (args.pop(), true) : false;
@@ -23,14 +23,14 @@ const sel = args.pop();
         e.scrollIntoView({ block: "nearest" }); const r = e.getBoundingClientRect();
         return { x: r.left + r.width / 2, y: r.top + r.height / 2 }; })()` });
     const p = r.result.value;
-    if (!p) { console.log("элемент не найден: " + sel); process.exit(1); }
+    if (!p) { console.log("element not found: " + sel); process.exit(1); }
     const { x, y } = p;
     await send("Input.dispatchMouseEvent", { type: "mouseMoved", x, y });
     for (let n = 1; n <= (double ? 2 : 1); n++) {
       await send("Input.dispatchMouseEvent", { type: "mousePressed", x, y, button, clickCount: n });
       await send("Input.dispatchMouseEvent", { type: "mouseReleased", x, y, button, clickCount: n });
     }
-    console.log(`клик: ${Math.round(x)},${Math.round(y)}${double ? " ×2" : ""}`);
+    console.log(`click: ${Math.round(x)},${Math.round(y)}${double ? " ×2" : ""}`);
     process.exit(0);
   };
   setTimeout(() => { console.log("timeout"); process.exit(1); }, 10000);

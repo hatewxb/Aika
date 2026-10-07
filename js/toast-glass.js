@@ -1,26 +1,26 @@
-// Жидкое стекло на всплывающих уведомлениях Steam (сообщение, «играет в»,
-// загрузка завершена…). Подключается из js/toast.js.
+// Liquid glass on Steam notification toasts (a message, "now playing",
+// download complete…). Loaded from js/toast.js.
 //
-// Окно уведомления — отдельное окно ОС: рабочий стол за ним странице
-// недоступен, преломлять его нельзя. Преломляется «сцена» внутри карточки —
-// тонировка, пятна света и надпись «Aika» (components/toast.css).
+// A notification window is a separate OS window: the page can't reach the
+// desktop behind it, so it can't be refracted. What refracts is the "scene" inside the card —
+// the tint, the light spots and the "Aika" wordmark (components/toast.css).
 //
-// Сцена — свой слой .aika-toast-scene, и hyalite (js/vendor/hyalite.js, MIT)
-// гнёт его в режиме self (filter на самом слое). Не backdrop-filter: Chromium
-// рисует отфильтрованный фон поверх исходного, и полупрозрачная карточка
-// от двух слоёв становится почти непрозрачной (проверено 2026-10-06).
-// Без JS сцена рисуется на самой карточке, без преломления.
+// The scene is its own .aika-toast-scene layer, and hyalite (js/vendor/hyalite.js, MIT)
+// bends it in self mode (a filter on the layer itself). Not backdrop-filter: Chromium
+// paints the filtered backdrop over the original, and a translucent card
+// becomes almost opaque from the two layers (verified 2026-10-06).
+// Without JS the scene is drawn on the card itself, without refraction.
 import "./vendor/hyalite.js";
 
 const glass = window.Hyalite;
 
-// CEF Steam — Chromium, но userAgent у него свой: не полагаемся на проверку
-// движка внутри hyalite.
+// Steam's CEF is Chromium, but its userAgent is custom: we don't rely on the
+// engine check inside hyalite.
 glass.force(true);
 
-// Слой добавляется в конец карточки: React Steam вставляет и убирает свои
-// узлы по ссылкам на них, лишний последний узел ему не мешает. Порядок
-// рисования задаёт z-index в CSS.
+// The layer is appended at the end of the card: Steam's React inserts and removes its
+// nodes by reference, an extra last node doesn't bother it. Paint order
+// is set by z-index in CSS.
 function addScene(popup) {
     if (popup.querySelector(":scope > .aika-toast-scene")) return;
     const scene = document.createElement("div");
@@ -40,8 +40,8 @@ function scan() {
 scan();
 new MutationObserver(scan).observe(document.body, { childList: true, subtree: true });
 
-// Карточка маленькая (283×70): узкий скос, чтобы надпись и пятна
-// изгибались у края, а середина оставалась ровной.
+// The card is small (283×70): a narrow bevel so the wordmark and spots
+// bend near the edge while the middle stays flat.
 glass.watch(document.body, ".aika-toast-scene", {
     self: true,
     bevel: 20,

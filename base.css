@@ -1,22 +1,22 @@
 /* ==========================================================================
-   base.css — основа для всех окон (DESIGN.md §3.3, §9):
-   шрифты, базовая типографика, выделение, фокус, скроллбары, reduced-motion.
+   base.css — the foundation for every window (DESIGN.md §3.3, §9):
+   fonts, base typography, selection, focus, scrollbars, reduced-motion.
 
-   Только стандартные селекторы — без классов Steam.
+   Standard selectors only — no Steam classes.
    ========================================================================== */
 
 /* --------------------------------------------------------------------------
-   Шрифты — локально, все OFL (лицензии рядом в assets/fonts/OFL-*.txt).
-   Переменные TTF из github.com/google/fonts: один файл на все веса.
-   Путь относительный — от этого файла.
+   Fonts are local, all OFL (licenses next to them in assets/fonts/OFL-*.txt).
+   Variable TTFs from github.com/google/fonts: one file for all weights.
+   The path is relative — to this file.
 
-   Кириллица: у Inter и Geist Mono есть (проверено в Steam 2026-10-04);
-   у Fraunces нет — русские крупные заголовки уйдут в фолбэк (Georgia).
+   Cyrillic: Inter and Geist Mono have it (verified in Steam 2026-10-04);
+   Fraunces doesn't — large Russian headings fall back (Georgia).
 
-   Веса Inter и Geist Mono — от 400: Steam местами просит 100 и 300
-   (под свой Motiva Sans), а у переменного Inter это настоящие Thin/Light —
-   текст становится нечитаемым. Браузер прижимает запрошенный вес
-   к диапазону из @font-face, так что 100/300 рисуются как 400.
+   Inter and Geist Mono weights start at 400: Steam sometimes asks for 100 and 300
+   (for its Motiva Sans), and in the variable Inter those are real Thin/Light —
+   the text becomes unreadable. The browser clamps the requested weight
+   to the @font-face range, so 100/300 render as 400.
    -------------------------------------------------------------------------- */
 
 @font-face {
@@ -43,10 +43,10 @@
     font-display: swap;
 }
 
-/* Надпись «Aika» на фоне уведомлений (components/toast.css): готический
-   UnifrakturMaguntia и латиница «под японскую кисть» Shojumaru. Только
-   латиница — для одного слова этого хватает. Выбор — Conditions
-   «Надпись в уведомлениях». */
+/* The "Aika" wordmark on the notification background (components/toast.css): blackletter
+   UnifrakturMaguntia and the "Japanese brush" Latin Shojumaru. Latin
+   only — enough for one word. Chosen via Conditions
+   "Notification wordmark". */
 @font-face {
     font-family: "UnifrakturMaguntia";
     src: url("./assets/fonts/UnifrakturMaguntia-Book.ttf") format("truetype");
@@ -64,8 +64,8 @@
 }
 
 /* --------------------------------------------------------------------------
-   Типографика по умолчанию. Элементы Steam со своим font-family
-   переопределяются в sections/ — здесь только наследуемая основа.
+   Default typography. Steam elements with their own font-family
+   are overridden in sections/ — only the inherited base here.
    -------------------------------------------------------------------------- */
 
 body {
@@ -75,19 +75,19 @@ body {
     text-rendering: optimizeLegibility;
 }
 
-/* Поля и кнопки по умолчанию не наследуют шрифт — исправляем.
-   :where() — нулевая специфичность, разделы легко уточняют. */
+/* Inputs and buttons don't inherit the font by default — fix that.
+   :where() — zero specificity, sections can refine it easily. */
 :where(button, input, textarea, select) {
     font-family: inherit;
 }
 
-/* Цифры в мета-данных не прыгают (DESIGN.md §3.3, Meta) */
+/* Digits in metadata don't jump (DESIGN.md §3.3, Meta) */
 :where(time, progress, meter) {
     font-variant-numeric: tabular-nums;
 }
 
 /* --------------------------------------------------------------------------
-   Выделение и фокус
+   Selection and focus
    -------------------------------------------------------------------------- */
 
 ::selection {
@@ -95,18 +95,18 @@ body {
     color: var(--aika-fg);
 }
 
-/* Фокус всегда виден: кольцо акцента с зазором (DESIGN.md §9).
-   Глобально — outline со смещением, а не box-shadow: тени элементов Steam
-   перебили бы кольцо, и фокус пропал бы. В своих компонентах можно
-   использовать --aika-shadow-focus. Скругление outline в Chromium
-   повторяет border-radius элемента. */
+/* Focus is always visible: an accent ring with a gap (DESIGN.md §9).
+   Globally — an offset outline, not box-shadow: Steam element shadows
+   would override the ring and focus would disappear. Our own components may
+   use --aika-shadow-focus. In Chromium the outline rounding
+   follows the element's border-radius. */
 :where(:focus-visible) {
     outline: calc(var(--aika-focus-ring) - var(--aika-focus-gap)) solid var(--aika-accent-ring);
     outline-offset: var(--aika-focus-gap);
 }
 
 /* --------------------------------------------------------------------------
-   Полосы прокрутки: тонкие, трек прозрачный, ярче на hover
+   Scrollbars: thin, transparent track, brighter on hover
    -------------------------------------------------------------------------- */
 
 ::-webkit-scrollbar {
@@ -132,9 +132,9 @@ body {
 }
 
 /* --------------------------------------------------------------------------
-   «Уменьшить движение»: выключаем всё декоративное (DESIGN.md §9).
-   Компоненты умножают амплитуды на --aika-motion, фон дополнительно
-   снимает анимации в background.css.
+   "Reduce motion": turn off everything decorative (DESIGN.md §9).
+   Components multiply amplitudes by --aika-motion, the background also
+   removes its animations in background.css.
    -------------------------------------------------------------------------- */
 
 @media (prefers-reduced-motion: reduce) {

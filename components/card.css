@@ -1,16 +1,16 @@
 /* ==========================================================================
-   components/card.css — карточки (DESIGN.md §4, Cards).
+   components/card.css — cards (DESIGN.md §4, Cards).
 
-   1. Свои карточки .aika-card (для разметки, которую добавит JS):
-      варианты default / --translucent / --accent; hover — подъём,
-      многослойная тень, градиентная рамка и spotlight.
-   2. Обложки игр в библиотеке (.LibraryItemBox) — облегчённая версия:
-      только подъём, рамка и простая тень. Их на экране десятки, поэтому
-      никаких spotlight, свечений и дополнительных псевдоэлементов.
+   1. Our own .aika-card cards (for markup that JS will add):
+      default / --translucent / --accent variants; hover — lift,
+      layered shadow, gradient border and spotlight.
+   2. Game covers in the library (.LibraryItemBox) — a lightweight version:
+      only lift, border and a simple shadow. There are dozens on screen, so
+      no spotlight, glows or extra pseudo-elements.
    ========================================================================== */
 
 /* --------------------------------------------------------------------------
-   1. Своя карточка
+   1. Our own card
    -------------------------------------------------------------------------- */
 
 .aika-card {
@@ -28,7 +28,7 @@
     box-shadow: var(--aika-shadow-card-hover), var(--aika-highlight-top);
 }
 
-/* Spotlight: мягкое пятно акцента — за курсором (JS) или из верхнего центра */
+/* Spotlight: a soft accent spot — following the cursor (JS) or from the top center */
 .aika-card::before {
     content: "";
     position: absolute;
@@ -44,7 +44,7 @@
     pointer-events: none;
 }
 
-/* Градиентная рамка: акцент сверху, гаснет книзу (DESIGN.md §3.4) */
+/* Gradient border: accent at the top, fading downward (DESIGN.md §3.4) */
 .aika-card::after {
     content: "";
     position: absolute;
@@ -65,32 +65,32 @@
     opacity: 1;
 }
 
-/* Полупрозрачная — только для меню и всплывающих слоёв */
+/* Translucent — only for menus and popup layers */
 .aika-card--translucent {
     background: var(--aika-surface-translucent);
     box-shadow: var(--aika-shadow-card), inset 0 0 0 var(--aika-hairline) var(--aika-border-hover);
 }
 
-/* Акцентная — выделенные блоки («Рекомендуемое») */
+/* Accent — highlighted blocks ("Featured") */
 .aika-card--accent {
     background: var(--aika-card-accent-bg);
     box-shadow: var(--aika-shadow-card), inset 0 0 0 var(--aika-hairline) var(--aika-border-accent);
 }
 
 /* --------------------------------------------------------------------------
-   2. Обложки игр в библиотеке — облегчённая карточка
+   2. Game covers in the library — a lightweight card
 
-   Steam (сняты через CDP 2026-10-04):
-     .Draggable[.HoversEnabled] > .LibraryItemBox — обложка (полки «Недавние»,
-                                               сетка коллекций); HoversEnabled на
-                                               обёртке — режим с hover-эффектом
-     .LibraryItemBox.Landscape               — широкая обложка (полки)
-     .LibraryItemBoxShine                    — блик Steam поверх обложки, оставляем
+   Steam (captured via CDP 2026-10-04):
+     .Draggable[.HoversEnabled] > .LibraryItemBox — a cover ("Recent" shelves,
+                                               the collections grid); HoversEnabled on
+                                               the wrapper — the hover-effect mode
+     .LibraryItemBox.Landscape               — a wide cover (shelves)
+     .LibraryItemBoxShine                    — Steam's glare over the cover, kept
 
-   Steam на hover наклоняет обложку в 3D (rotateX + translateZ) хэш-правилом
-   (0,4,0). Меняем на ровный подъём: .Draggable.HoversEnabled .LibraryItemBox:hover
-   с префиксом html — (0,4,1). Фильтр яркости и зум картинки — Steam'овские,
-   их не трогаем.
+   On hover Steam tilts the cover in 3D (rotateX + translateZ) with a hash rule
+   (0,4,0). We replace it with a flat lift: .Draggable.HoversEnabled .LibraryItemBox:hover
+   with an html prefix — (0,4,1). The brightness filter and image zoom are Steam's,
+   we leave them alone.
    -------------------------------------------------------------------------- */
 
 html .Draggable .LibraryItemBox {
@@ -111,8 +111,8 @@ html .Draggable.HoversEnabled .LibraryItemBox:hover:active {
     transform: translateY(var(--aika-lift-md)) scale(var(--aika-press-scale));
 }
 
-/* Подпись под обложкой (.LibraryItemBoxSubscript, соседний элемент):
-   Steam наклоняет её вместе с обложкой — поднимаем синхронно */
+/* The caption under the cover (.LibraryItemBoxSubscript, a sibling element):
+   Steam tilts it together with the cover — we lift it in sync */
 html .Draggable.HoversEnabled .LibraryItemBox ~ .LibraryItemBoxSubscript {
     transition: transform var(--aika-dur-base) var(--aika-ease);
 }
@@ -122,12 +122,12 @@ html .Draggable.HoversEnabled .LibraryItemBox:hover ~ .LibraryItemBoxSubscript {
 }
 
 /* --------------------------------------------------------------------------
-   Spotlight на крупных поверхностях Steam (DESIGN.md §1, §4; js/spotlight.js):
-   панели страницы игры, карточки «Что нового», плитки коллекций — их на
-   экране единицы. ::after — радиальное акцентное свечение под курсором,
-   поверх содержимого в режиме screen (подсвечивает, не перекрывает текст).
-   Координаты — --aika-spot-x/y от скрипта; без скрипта — верхний центр.
-   Псевдоэлементы у этих блоков свободны (проверено 2026-10-04).
+   Spotlight on large Steam surfaces (DESIGN.md §1, §4; js/spotlight.js):
+   game page panels, "What's New" cards, collection tiles — only a few of them
+   on screen. ::after — a radial accent glow under the cursor,
+   over the content in screen mode (it lights up, doesn't cover text).
+   Coordinates — --aika-spot-x/y from the script; without the script — top center.
+   The pseudo-elements of these blocks are free (verified 2026-10-04).
    -------------------------------------------------------------------------- */
 
 html :is(.AppDetailsSection, .PartnerEventRowCapsule_Container.HoversEnabled, .CSSGrid.Grid .Collection) {

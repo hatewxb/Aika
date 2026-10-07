@@ -1,10 +1,10 @@
 /* ==========================================================================
-   popup.css — точка входа для окон-меню Steam (контекстные меню,
-   меню Steam / Вид / Игры…, Supernav, выпадающие списки).
-   Подключается через Patches в skin.json по классу .ContextMenuPopup.
+   popup.css — entry point for Steam menu windows (context menus,
+   the Steam / View / Games… menus, Supernav, dropdowns).
+   Attached via Patches in skin.json by the .ContextMenuPopup class.
 
-   Только @import. Без background.css: окна меню маленькие и прозрачные,
-   фон с пятнами света в них не нужен.
+   @import only. No background.css: menu windows are small and transparent,
+   they don't need the background with light spots.
    ========================================================================== */
 
 @import url("./root-colors.css");

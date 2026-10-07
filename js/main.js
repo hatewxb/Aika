@@ -1,4 +1,4 @@
-// Точка входа JS для главного окна (Patch «^Steam$» в skin.json):
-// свечение за курсором и зазор между меню и подменю.
+// JS entry point for the main window (Patch "^Steam$" in skin.json):
+// cursor glow and the gap between a menu and its submenu.
 import "./spotlight.js";
 import "./menu-gap.js";

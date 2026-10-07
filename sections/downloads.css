@@ -1,32 +1,32 @@
 /* ==========================================================================
-   sections/downloads.css — страница «Загрузки» (DESIGN.md §5).
+   sections/downloads.css — the "Downloads" page (DESIGN.md §5).
 
-   Структура (снята через CDP 2026-10-04, без активной загрузки):
+   Structure (captured via CDP 2026-10-04, with no active download):
      .DownloadsPage
-       .TopSection > .Section.Active           — верхняя полоса
-         .HeroAndLogo[.Empty]                  — баннер текущей загрузки
-                                                 (пусто — синий градиент)
-         .DownloadGraphWrapper .DownloadGraph  — график: .DiskGraph svg
-                                                 path.GraphLine — диск
+       .TopSection > .Section.Active           — the top strip
+         .HeroAndLogo[.Empty]                  — the current download banner
+                                                 (empty — a blue gradient)
+         .DownloadGraphWrapper .DownloadGraph  — the graph: .DiskGraph svg
+                                                 path.GraphLine — disk
          .DownloadGraphStatsWrapper .SingleStat
            .LegendRow (.LegendBox.Network svg + .LegendText) + .Stat .Figure
-       .TopSection > .SettingsButton button    — шестерёнка
-       .ItemLists > .Section[.EmptyQueue]      — «Очередь», «Запланировано»…
+       .TopSection > .SettingsButton button    — the gear
+       .ItemLists > .Section[.EmptyQueue]      — "Up Next", "Scheduled"…
          h3.SectionTitle > .TitleAndCount (.Count) + .AutoUpdate
-         .SectionList > .EmptyTransfers > .Text — «В очереди нет загрузок»
-   Steam: серо-синий радиальный фон, #0e141b, синий баннер, Motiva Sans,
-   хэши (0,1,0)…(0,3,0). Цвета графика: сеть — акцент, диск — тёплое
-   пятно света (у Steam синий и зелёный — два разных ряда, смысл тот же).
+         .SectionList > .EmptyTransfers > .Text — "There are no downloads in the queue"
+   Steam: a gray-blue radial background, #0e141b, a blue banner, Motiva Sans,
+   hashes (0,1,0)…(0,3,0). Graph colors: network — accent, disk — the warm
+   light spot (Steam uses blue and green — two different series, same idea).
 
-   Активная загрузка (снято 2026-10-04 на установке Among Us) — в конце файла.
+   Active download (captured 2026-10-04 while installing Among Us) — at the end of the file.
    ========================================================================== */
 
-/* Фон страницы — прозрачный: под ним фон Aika */
+/* Page background is transparent: the Aika background shows through */
 html .DownloadsPage {
     background: var(--aika-transparent);
 }
 
-/* Верхняя полоса — панель с отступом и скруглением */
+/* The top strip — a panel with margin and rounding */
 html .DownloadsPage .TopSection > .Section.Active {
     overflow: hidden;
     margin: var(--aika-hero-inset);
@@ -36,12 +36,12 @@ html .DownloadsPage .TopSection > .Section.Active {
     box-shadow: var(--aika-shadow-panel);
 }
 
-/* Пустой баннер: синий градиент Steam → мягкий акцентный свет */
+/* Empty banner: Steam's blue gradient → a soft accent light */
 html .DownloadsPage .GraphAndStats .HeroAndLogo.Empty {
     background: linear-gradient(to right, var(--aika-accent-soft), var(--aika-accent-none));
 }
 
-/* Легенда и цифры */
+/* Legend and numbers */
 html .DownloadsPage .DownloadGraphStats .LegendRow .LegendText {
     color: var(--aika-fg-subtle);
     font-family: var(--aika-font-mono);
@@ -61,7 +61,7 @@ html .DownloadsPage .DownloadGraph .DiskGraph svg path.GraphLine {
     stroke: var(--aika-light-3);
 }
 
-/* Шестерёнка: у Steam #3d4450 правилом с удвоенным хэшем (0,2,0)… */
+/* The gear: Steam uses #3d4450 via a doubled-hash rule (0,2,0)… */
 html .DownloadsPage .TopSection .SettingsButton button.DialogButton.Secondary {
     border-radius: var(--aika-radius-md);
     background: var(--aika-surface);
@@ -76,7 +76,7 @@ html .DownloadsPage .TopSection .SettingsButton button.DialogButton svg path {
     fill: var(--aika-fg-muted);
 }
 
-/* Разделы очереди: заголовок, счётчик, автообновление */
+/* Queue sections: header, counter, auto-update */
 html .DownloadsPage .ItemLists .Section h3.SectionTitle {
     color: var(--aika-fg);
     font-family: var(--aika-font-ui);
@@ -99,17 +99,17 @@ html .DownloadsPage .ItemLists .Section .SectionList .EmptyTransfers .Text {
 }
 
 /* ==========================================================================
-   Активная загрузка (снято через CDP 2026-10-04, установка Among Us).
-     .HeroAndLogo .HeroContainer .HeroGradient — затухание обложки в синий;
-     .DownloadSectionActiveItem — строка: .DragHandle, .ActiveItemProgressBar >
-       .ProgressDetails (.Value.InProgress / .Denominator) + две полосы
+   Active download (captured via CDP 2026-10-04, installing Among Us).
+     .HeroAndLogo .HeroContainer .HeroGradient — the cover fading into blue;
+     .DownloadSectionActiveItem — the row: .DragHandle, .ActiveItemProgressBar >
+       .ProgressDetails (.Value.InProgress / .Denominator) + two bars
        .DetailsProgressContainer.ProgressBar.Network / .Disk > .DetailsProgressBar
-       (синяя 50 % / салатовая, дорожка #3d4450), .DownloadTimeRemaining;
-     .SectionItemButtons .Buttons button.DialogButton — пауза / пуск
-       (у Steam сине-голубой градиент, (0,4,1) с :enabled);
-     нижняя панель: .DetailedDownloadProgress — .Icon > .IconBevel (белый
-       блик), .ProgressBar.AnimateProgress::after (#1a9fff), .StatusLine .Status.
-   Цвета как на графике: сеть — акцент, диск — тёплое пятно света.
+       (blue 50 % / lime, track #3d4450), .DownloadTimeRemaining;
+     .SectionItemButtons .Buttons button.DialogButton — pause / resume
+       (Steam: a blue-cyan gradient, (0,4,1) with :enabled);
+     bottom panel: .DetailedDownloadProgress — .Icon > .IconBevel (white
+       glare), .ProgressBar.AnimateProgress::after (#1a9fff), .StatusLine .Status.
+   Colors as on the graph: network — accent, disk — the warm light spot.
    ========================================================================== */
 
 html .DownloadsPage .HeroAndLogo .HeroGradient {
@@ -158,8 +158,8 @@ html .DownloadSectionActiveItem .DownloadTimeRemaining span {
     font-family: var(--aika-font-mono);
 }
 
-/* Пауза / пуск у активной загрузки (строка — .SectionItem.Active):
-   круглая primary Aika */
+/* Pause / resume on the active download (the row is .SectionItem.Active):
+   a round Aika primary */
 html .DownloadsPage .SectionItem.Active .SectionItemButtons .Buttons button.Button.DialogButton,
 html .DownloadsPage .SectionItem.Active:hover .SectionItemButtons .Buttons button.Button.DialogButton:enabled {
     border-radius: var(--aika-radius-full);
@@ -174,7 +174,7 @@ html .DownloadsPage .SectionItem.Active:hover .SectionItemButtons .Buttons butto
     box-shadow: var(--aika-shadow-cta-hover);
 }
 
-/* Нижняя панель: значок загрузки, полоса, подписи */
+/* Bottom panel: the download icon, the bar, the captions */
 html .DetailedDownloadProgress .Icon {
     border-radius: var(--aika-radius-md);
 }
@@ -201,13 +201,13 @@ html .DetailedDownloadProgress .StatusLine .Status {
     font-family: var(--aika-font-mono);
 }
 
-/* Столбики скорости на графике (rect.GraphBar.GraphBarDownload, синие 50 %) —
-   полупрозрачный акцент, как линия сети */
+/* Speed bars on the graph (rect.GraphBar.GraphBarDownload, blue 50 %) —
+   translucent accent, like the network line */
 html .DownloadsPage .DiskGraph svg rect.GraphBar.GraphBarDownload {
     fill: var(--aika-border-accent);
 }
 
-/* «Завершённые»: «Убрать всё» (.RemoveAllButton, #3d4450) */
+/* "Completed": "Clear All" (.RemoveAllButton, #3d4450) */
 html .DownloadsPage .Section h3 button.RemoveAllButton.DialogButton {
     border-radius: var(--aika-radius-md);
     background: var(--aika-surface);
@@ -219,10 +219,10 @@ html .DownloadsPage .Section h3 button.RemoveAllButton.DialogButton:hover {
     color: var(--aika-fg);
 }
 
-/* Строка в списках (.SectionItem): hover — #3d4450 (0,2,0); её кнопки
-   («Убрать из очереди», «Вверх», «Играть»…) — #3d4450 → #67707b на hover
-   строки (0,4,0) → #8b929a на hover кнопки (0,5,0). Активная загрузка
-   (.DownloadSectionActiveItem) — свои, primary, выше. */
+/* A row in the lists (.SectionItem): hover — #3d4450 (0,2,0); its buttons
+   ("Remove from queue", "Move up", "Play"…) — #3d4450 → #67707b on row
+   hover (0,4,0) → #8b929a on button hover (0,5,0). The active download
+   (.DownloadSectionActiveItem) has its own, primary, above. */
 html .DownloadsPage .SectionItem {
     border-radius: var(--aika-radius-md);
     transition: background-color var(--aika-dur-fast) var(--aika-ease-hover);
@@ -248,13 +248,13 @@ html .DownloadsPage .SectionItem .SectionItemButtons .Buttons button.Button.Dial
     color: inherit;
 }
 
-/* Рамка активной загрузки при наведении (.DownloadSectionActiveItem .HoverRing, #3d4450) */
+/* The active download ring on hover (.DownloadSectionActiveItem .HoverRing, #3d4450) */
 html .DownloadSectionActiveItem .HoverRing {
     border-color: var(--aika-border-accent);
     border-radius: var(--aika-radius-lg);
 }
 
-/* Значок игры у активной загрузки: белый блик-фаска (.DownloadGameIconBevel) */
+/* The game icon of the active download: a white glare bevel (.DownloadGameIconBevel) */
 html .HeroAndLogo .GameIconAndName .DownloadGameIconBevel {
     border-radius: var(--aika-radius-xs);
     background-image: none;

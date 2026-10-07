@@ -1,14 +1,14 @@
-// Тестовое всплывающее уведомление Steam + проверка стилей темы в нём.
-// Steam сам умеет показывать тестовые уведомления (NotificationStore.Test…
-// в SharedJSContext) — ждать настоящего сообщения не нужно.
-//   node tools/toast-test.js [message|ingame|online|download] [inject|-] [снимок.png]
-//     inject — подгрузить в окно свежие toast.css и js/toast.js
-//              (до перезапуска Steam, пока новые Patches не подхвачены)
-// Выводит: подключённые стили/скрипты, есть ли слой сцены и фильтр hyalite
-// на нём, шрифт надписи «Aika» и загружен ли он.
+// A test Steam notification toast + a check of the theme styles in it.
+// Steam can show test notifications itself (NotificationStore.Test…
+// in SharedJSContext) — no need to wait for a real message.
+//   node tools/toast-test.js [message|ingame|online|download] [inject|-] [shot.png]
+//     inject — load fresh toast.css and js/toast.js into the window
+//              (until Steam restarts and picks up new Patches)
+// Prints: attached styles/scripts, whether the scene layer and the hyalite filter
+// on it exist, the "Aika" wordmark font and whether it has loaded.
 const [kind = "message", mode = "", shotFile] = process.argv.slice(2);
 const calls = {
-  message: `NotificationStore.TestFriendMessage(null, "Привет! Проверка уведомления Aika")`,
+  message: `NotificationStore.TestFriendMessage(null, "Hi! Aika notification test")`,
   ingame: `NotificationStore.TestFriendIngame("Portal 2")`,
   online: `NotificationStore.TestFriendOnline()`,
   download: `NotificationStore.TestDownloadComplete(570)`
@@ -67,25 +67,25 @@ const pages = async () => (await fetch("http://localhost:8080/json")).json();
     if (page) {
       const ws = await open(page.webSocketDebuggerUrl);
       if (mode === "inject") await evaluate(ws, 2, inject);
-      // AIKA_EXTRA_CSS="…" — пробный CSS поверх темы (подобрать значения до правки файлов)
+      // AIKA_EXTRA_CSS="…" — trial CSS on top of the theme (tune values before editing files)
       if (process.env.AIKA_EXTRA_CSS) await evaluate(ws, 5, `document.head.append(Object.assign(document.createElement("style"), { textContent: ${JSON.stringify(process.env.AIKA_EXTRA_CSS)} }))`);
-      // AIKA_EVAL="…" — пробный JS в окне (напр. Hyalite.setOpts({...})), результат печатается
+      // AIKA_EVAL="…" — trial JS in the window (e.g. Hyalite.setOpts({...})), the result is printed
       if (process.env.AIKA_EVAL) console.log("eval:", JSON.stringify(await evaluate(ws, 6, process.env.AIKA_EVAL)));
       console.log(page.title, JSON.stringify(await evaluate(ws, 3, report), null, 1));
-      // В отличие от главного окна, окно уведомления снимается
-      // (прозрачные углы на снимке — белые)
+      // Unlike the main window, a notification window can be captured
+      // (transparent corners come out white in the shot)
       if (shotFile) {
         const shot = await new Promise(res => {
           ws.addEventListener("message", e => { const m = JSON.parse(e.data); if (m.id === 4) res(m.result); });
           ws.send(JSON.stringify({ id: 4, method: "Page.captureScreenshot", params: { format: "png" } }));
         });
         if (shot?.data) require("fs").writeFileSync(shotFile, Buffer.from(shot.data, "base64"));
-        console.log(shot?.data ? "снимок: " + shotFile : "снимок не получился");
+        console.log(shot?.data ? "screenshot: " + shotFile : "screenshot failed");
       }
       process.exit(0);
     }
     await new Promise(r => setTimeout(r, 150));
   }
-  console.log("окно уведомления не появилось (включён семейный просмотр? в нём уведомления не показываются)");
+  console.log("notification window never appeared (Family View on? notifications aren't shown in it)");
   process.exit(1);
 })();

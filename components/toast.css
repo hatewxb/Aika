@@ -1,38 +1,38 @@
 /* ==========================================================================
-   components/toast.css — всплывающее уведомление клиента: жидкое стекло
-   (DESIGN.md §11, 2026-10-06 — единственное место со стеклом в теме).
+   components/toast.css — the client notification toast: liquid glass
+   (DESIGN.md §11, 2026-10-06 — the only place with glass in the theme).
 
-   Слои карточки, снизу вверх:
-     .DesktopToastPopup          — карточка (прозрачная, скругление);
-       .aika-toast-scene         — слой из js/toast-glass.js: тонировка, пятна
-                                   и .aika-toast-mark — надпись «Aika» (готика /
-                                   «японская кисть», Conditions «Надпись
-                                   в уведомлениях») вместо узора-логотипа Steam;
-                                   hyalite гнёт его у краёв (filter: --hyalite);
-     .DesktopToastTemplate       — содержимое Steam, блик и кромка стекла.
+   Card layers, bottom to top:
+     .DesktopToastPopup          — the card (transparent, rounded);
+       .aika-toast-scene         — the layer from js/toast-glass.js: tint, spots
+                                   and .aika-toast-mark — the "Aika" wordmark (blackletter /
+                                   "Japanese brush", Conditions "Notification
+                                   wordmark") instead of Steam's logo pattern;
+                                   hyalite bends it near the edges (filter: --hyalite);
+     .DesktopToastTemplate       — Steam's content, the glare and the glass rim.
 
-   Отступы: карточка на --aika-toast-gap ниже окна — это зазор между
-   уведомлениями (окна Steam стоят вплотную); отступы стопки от края
-   экрана задаёт js/toast-motion.js (токены --aika-toast-inset-*).
+   Spacing: the card sits --aika-toast-gap below the window top — that's the gap between
+   notifications (Steam's windows stack flush); the stack's offsets from the
+   screen edge are set by js/toast-motion.js (tokens --aika-toast-inset-*).
 
-   Рабочий стол за окном стекло не преломляет и не размывает: окно
-   уведомления — отдельное окно ОС, страница его не видит. Почему не
+   The glass doesn't refract or blur the desktop behind the window: a notification
+   window is a separate OS window, the page can't see it. Why not
    backdrop-filter — js/toast-glass.js.
 
-   Steam (снято 2026-10-06 через NotificationStore.TestFriendMessage /
-   TestFriendIngame в SharedJSContext и tools/watch-window.js):
+   Steam (captured 2026-10-06 via NotificationStore.TestFriendMessage /
+   TestFriendIngame in SharedJSContext and tools/watch-window.js):
      body.DesktopToastContainer (283×70) > div > .DesktopToastPopup —
-       карточка (серо-синий радиальный градиент);
-       .DesktopToastBackground svg — узор-логотип Steam;
-       .DesktopToastTemplate — содержимое:
-         .StandardLogoDimensions (аватар/обложка 44×44),
-         .AvatarStatus.online|.ingame|.offline — полоска статуса 3×44,
-         .Content > .Header (.Icon + .Title | .IngameTitle — имя друга)
-                  > .Body (.GroupMessageUserName — имя,
-                           .GroupMessageBody — текст сообщения,
-                           .FriendInGameAppColor — название игры),
+       the card (a gray-blue radial gradient);
+       .DesktopToastBackground svg — Steam's logo pattern;
+       .DesktopToastTemplate — the content:
+         .StandardLogoDimensions (avatar/cover 44×44),
+         .AvatarStatus.online|.ingame|.offline — a 3×44 status strip,
+         .Content > .Header (.Icon + .Title | .IngameTitle — the friend's name)
+                  > .Body (.GroupMessageUserName — the name,
+                           .GroupMessageBody — the message text,
+                           .FriendInGameAppColor — the game title),
          .StandardNotificationDescription / .StandardNotificationSubText —
-           «Загрузка завершена» и другие системные.
+           "Download complete" and other system ones.
    ========================================================================== */
 
 html:has(> body.DesktopToastContainer),
@@ -41,9 +41,9 @@ html body.DesktopToastContainer {
 }
 
 /* --------------------------------------------------------------------------
-   Карточка и сцена под стеклом.
-   Сцена — слой .aika-toast-scene из js/toast-glass.js (его гнёт hyalite);
-   без JS те же тонировка, пятна и надпись рисуются на самой карточке.
+   The card and the scene under the glass.
+   The scene is the .aika-toast-scene layer from js/toast-glass.js (hyalite bends it);
+   without JS the same tint, spots and wordmark are drawn on the card itself.
    -------------------------------------------------------------------------- */
 
 html .DesktopToastContainer .DesktopToastPopup {
@@ -56,11 +56,11 @@ html .DesktopToastContainer .DesktopToastPopup {
     background: var(--aika-transparent);
 }
 
-/* Появление и уход. CSS-анимации в окне уведомления не идут (Chromium
-   считает его скрытым), поэтому кадры считает js/toast-motion.js в цикле
-   SharedJSContext и выставляет переменные на <html>; класс
-   .aika-toast-motion — только когда скрипт работает. Кривые и амплитуды —
-   токены --aika-ease, --aika-ease-leave, --aika-toast-enter-*, -leave-*. */
+/* Enter and leave. CSS animations don't run in a notification window (Chromium
+   considers it hidden), so js/toast-motion.js computes the frames in a
+   SharedJSContext loop and sets variables on <html>; the
+   .aika-toast-motion class is present only while the script works. Curves and amplitudes —
+   tokens --aika-ease, --aika-ease-leave, --aika-toast-enter-*, -leave-*. */
 html.aika-toast-motion .DesktopToastContainer .DesktopToastPopup {
     opacity: var(--aika-toast-alpha, 1);
     transform:
@@ -87,8 +87,8 @@ html .DesktopToastContainer .aika-toast-scene {
     pointer-events: none;
 }
 
-/* Узор-логотип Steam заменяет надпись «Aika»; подсветку Steam при наведении
-   (::before, голубая) — тоже убираем */
+/* The "Aika" wordmark replaces Steam's logo pattern; Steam's hover highlight
+   (::before, light blue) is removed too */
 html .DesktopToastContainer .DesktopToastPopup .DesktopToastBackground,
 html .DesktopToastContainer .DesktopToastPopup::before {
     display: none;
@@ -115,8 +115,8 @@ html .DesktopToastContainer .aika-toast-mark {
 }
 
 /* --------------------------------------------------------------------------
-   Стекло: содержимое Steam поверх сцены, блик сверху и тонкая кромка
-   (в режиме self hyalite кромку не рисует — она здесь)
+   Glass: Steam's content above the scene, a glare on top and a thin rim
+   (in self mode hyalite doesn't draw a rim — it's here)
    -------------------------------------------------------------------------- */
 
 html .DesktopToastContainer .DesktopToastPopup .DesktopToastTemplate {
@@ -134,7 +134,7 @@ html .DesktopToastContainer .DesktopToastPopup .DesktopToastTemplate {
 }
 
 /* --------------------------------------------------------------------------
-   Содержимое — поверх стекла, с тенью: читается над любым рабочим столом
+   Content — above the glass, with a shadow: readable over any desktop
    -------------------------------------------------------------------------- */
 
 html .DesktopToastContainer .DesktopToastTemplate :is(.Content, .AppLogo, .StandardLogoDimensions) {
@@ -151,7 +151,7 @@ html .DesktopToastContainer .DesktopToastTemplate .AppLogo :is(.Container, img) 
     border-radius: var(--aika-radius-md);
 }
 
-/* Полоска статуса у аватара — пилюля в цветах темы */
+/* The status strip next to the avatar — a pill in theme colors */
 html .DesktopToastContainer .DesktopToastTemplate .AvatarStatus {
     margin-left: var(--aika-space-1);
     border-radius: var(--aika-radius-full);
@@ -182,7 +182,7 @@ html .DesktopToastContainer .DesktopToastTemplate .Header .Title {
     text-transform: uppercase;
 }
 
-/* Имя друга: в сообщении и в «играет в» */
+/* The friend's name: in a message and in "now playing" */
 html .DesktopToastContainer .DesktopToastTemplate :is(.GroupMessageUserName, .IngameTitle),
 html .DesktopToastContainer .DesktopToastTemplate .StandardNotificationDescription {
     color: var(--aika-fg);
@@ -199,7 +199,7 @@ html .DesktopToastContainer .DesktopToastTemplate .GroupMessageBody .GroupMessag
     color: var(--aika-accent-bright);
 }
 
-/* Во что играет — как в списке друзей (sections/friends.css) */
+/* What they're playing — like in the friends list (sections/friends.css) */
 html .DesktopToastContainer .DesktopToastTemplate .FriendInGameAppColor {
     color: var(--aika-ok);
     font-weight: var(--aika-weight-medium);

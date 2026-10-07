@@ -1,4 +1,4 @@
-// Точка входа для окна всплывающего уведомления (Patch по
-// .DesktopToastContainer в skin.json): стекло и движение.
+// Entry point for the notification toast window (Patch on
+// .DesktopToastContainer in skin.json): glass and motion.
 import "./toast-glass.js";
 import "./toast-motion.js";

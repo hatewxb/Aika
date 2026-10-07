@@ -1,15 +1,15 @@
-// menu-gap.js — зазор между контекстным меню и его подменю (правка автора
-// 2026-10-06: «между выпадающими меню слишком маленькие отступы»).
+// menu-gap.js — a gap between a context menu and its submenu (author's fix
+// 2026-10-06: "the gaps between dropdown menus are too small").
 //
-// Контекстные меню библиотеки (ПКМ по игре) рисуются внутри главного
-// окна: корневое меню и подменю — соседние .contextMenu в одном
-// контейнере, без отличающих классов. Steam ставит подменю вплотную
-// к краю пункта — с нашими полями меню оно заходит на родителя на 4 px.
-// Открывается оно вправо или, если не помещается, влево — CSS этого
-// не знает, поэтому здесь: сравниваем подменю с меню перед ним и
-// сдвигаем в сторону раскрытия так, чтобы между краями было
+// Library context menus (right-click on a game) are drawn inside the main
+// window: the root menu and the submenu are sibling .contextMenu elements in one
+// container, with no distinguishing classes. Steam places the submenu flush
+// against the item edge — with our menu padding it overlaps the parent by 4 px.
+// It opens to the right or, if it doesn't fit, to the left — CSS can't
+// know that, so here: we compare the submenu with the menu before it and
+// shift it toward the opening side so that the edges are
 // --aika-submenu-gap (tokens.css).
-// Сдвиг — свойство translate: top/left, которые пишет Steam, не трогаем.
+// The shift uses the translate property: the top/left that Steam writes stay untouched.
 
 (() => {
     "use strict";
@@ -23,7 +23,7 @@
         return Number.isNaN(v) ? 0 : v;
     }
 
-    // Меню, после которого стоит это подменю (его родитель)
+    // The menu this submenu follows (its parent)
     function parentMenu(menu) {
         for (let e = menu.previousElementSibling; e; e = e.previousElementSibling) {
             if (e.matches(MENU) && e.offsetWidth) return e;
@@ -37,11 +37,11 @@
             menu.style.removeProperty("translate");
             return;
         }
-        // Меряем без нашего сдвига, иначе сторона «плывёт» при повторе
+        // Measure without our shift, otherwise the side "drifts" on repeat
         menu.style.removeProperty("translate");
         const m = menu.getBoundingClientRect(), p = parent.getBoundingClientRect();
         const toRight = m.left + m.width / 2 >= p.left + p.width / 2;
-        // Видимый зазор между краями коробок — ровно --aika-submenu-gap
+        // The visible gap between the box edges is exactly --aika-submenu-gap
         const shift = toRight ? gap() - (m.left - p.right) : (p.left - m.right) - gap();
         menu.style.translate = `${Math.round(shift)}px 0`;
     }
@@ -53,8 +53,8 @@
         queue.forEach(place);
         queue.clear();
     };
-    // Наш translate тоже меняет атрибут style — реагируем только на
-    // смену top/left (их пишет Steam), иначе наблюдатель зациклится
+    // Our translate also changes the style attribute — react only to
+    // top/left changes (Steam writes them), otherwise the observer loops
     const schedule = menu => {
         const at = menu.style.top + "|" + menu.style.left;
         if (menu.__aikaGapAt === at) return;
@@ -63,8 +63,8 @@
         if (!frame) frame = requestAnimationFrame(flush);
     };
 
-    // Новые меню и смена их места (Steam переставляет подменю, когда
-    // наводят на другой пункт со стрелкой)
+    // New menus and their moves (Steam repositions the submenu when
+    // another item with an arrow is hovered)
     new MutationObserver(records => {
         for (const r of records) {
             if (r.type === "attributes") {

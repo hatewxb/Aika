@@ -1,8 +1,8 @@
-// Аудит окна Steam: какие видимые элементы ещё в цветах Steam и какие
-// «плашки» без скругления. Цвета сравниваются с палитрой темы (все
-// --aika-* на :root, переведённые в rgb), с допуском.
-//   node tools/audit.js [окно|ws://…] [colors|radius|all] [область-селектор]
-// Вывод сгруппирован: «путь читаемых классов → свойство → значение × сколько».
+// Steam window audit: which visible elements still use Steam colors and which
+// "plates" have no rounding. Colors are compared with the theme palette (all
+// --aika-* on :root, converted to rgb), with a tolerance.
+//   node tools/audit.js [window|ws://…] [colors|radius|all] [scope selector]
+// Output is grouped: "path of readable classes → property → value × count".
 const target = require("./target");
 const args = process.argv.slice(2);
 const scope = args.length >= 3 ? args.pop() : "body";
@@ -14,13 +14,13 @@ const names = [...new Set(["colors.css", "root-colors.css"].flatMap(f =>
 
 const expr = `(() => {
   const MODE = ${JSON.stringify(mode)}, SCOPE = ${JSON.stringify(scope)}, NAMES = ${JSON.stringify(names)};
-  // Скрытое окно (другой раздел клиента) не проигрывает CSS-переходы —
-  // цвета застывают на старте. Доводим переходы до конца.
+  // A hidden window (another client section) doesn't run CSS transitions —
+  // colors freeze at the start. Finish the transitions.
   for (const a of document.getAnimations()) if (a instanceof CSSTransition) a.finish();
   const cv = document.createElement("canvas"); cv.width = cv.height = 1;
   const cx = cv.getContext("2d", { willReadFrequently: true });
   const probe = document.createElement("div"); document.body.append(probe);
-  // Любой CSS-цвет → [r,g,b,a]
+  // Any CSS color → [r,g,b,a]
   const rgba = c => {
     probe.style.color = ""; probe.style.color = c;
     const cc = getComputedStyle(probe).color;
@@ -29,13 +29,13 @@ const expr = `(() => {
     cx.clearRect(0, 0, 1, 1); cx.fillStyle = cc; cx.fillRect(0, 0, 1, 1);
     const d = cx.getImageData(0, 0, 1, 1).data; return [d[0], d[1], d[2], d[3] / 255];
   };
-  // Палитра темы: имена токенов из colors.css / root-colors.css (передаются из Node —
-  // наши таблицы стилей с другого домена, их правила из окна не читаются)
+  // Theme palette: token names from colors.css / root-colors.css (passed from Node —
+  // our stylesheets are on another domain, their rules can't be read from the window)
   const root = getComputedStyle(document.documentElement);
   const pal = NAMES.map(n => [n, rgba(root.getPropertyValue(n).trim())]);
   const near = (a, b) => Math.abs(a[0]-b[0]) + Math.abs(a[1]-b[1]) + Math.abs(a[2]-b[2]) < 18 && Math.abs(a[3]-b[3]) < 0.06;
   const ours = c => c[3] === 0 || pal.some(([, p]) => near(c, p))
-    || (c[0] > 245 && c[1] > 240 && c[2] > 235 && c[3] === 1); // тёплый белый текста на акценте
+    || (c[0] > 245 && c[1] > 240 && c[2] > 235 && c[3] === 1); // warm white text on accent
   const label = el => { const parts = []; let e = el;
     for (let i = 0; i < 4 && e && e !== document.body; i++, e = e.parentElement) {
       const r = [...(e.classList || [])].filter(c => !/^_|[0-9]{2}/.test(c) && !/^(Focusable|Panel)$/.test(c)).slice(0, 2).join(".");
@@ -65,13 +65,13 @@ const expr = `(() => {
           { add(label(el), "border " + s["border" + side + "Color"]); break; }
       }
       if (s.boxShadow !== "none") {
-        // Части тени; нулевые (0 0 0 0) ничего не рисуют — пропускаем
+        // Shadow parts; zero ones (0 0 0 0) draw nothing — skip
         const partsSh = s.boxShadow.split(/,(?![^()]*\\))/).filter(p => !/^\\s*\\S+\\([^)]*\\)\\s+0px 0px 0px 0px/.test(p) && !/^\\s*\\S+\\([^)]*\\)\\s+0px 0px( 0px)?\\s*(inset)?\\s*$/.test(p));
         const cols = partsSh.join(",").match(/(rgba?|oklch|color)\\([^()]*\\)/g) || [];
         if (cols.some(c => !ours(rgba(c)))) add(label(el), "shadow " + partsSh.join(",").slice(0, 60)); }
-      // Псевдоэлементы: Steam рисует ими заливки (напр. «вкл.» у переключателя —
-      // .ToggleRail::before), computed самого элемента их не показывает
-      // у <img> псевдоэлементы не рисуются (кроме битых картинок) — пропускаем
+      // Pseudo-elements: Steam paints fills with them (e.g. "on" of a toggle —
+      // .ToggleRail::before), the element's own computed style doesn't show them
+      // pseudo-elements aren't drawn on <img> (except broken images) — skip
       if (!(el instanceof HTMLImageElement)) for (const ps of ["::before", "::after"]) {
         const p = getComputedStyle(el, ps);
         if (p.content === "none" || p.content === "normal" || p.display === "none" || p.opacity === "0") continue;
@@ -89,15 +89,15 @@ const expr = `(() => {
         || (parseFloat(s.borderTopWidth) > 0 && s.borderTopStyle !== "none" && rgba(s.borderTopColor)[3] > 0.02)
         || s.boxShadow !== "none";
       const radius = parseFloat(s.borderTopLeftRadius) + parseFloat(s.borderBottomRightRadius);
-      // Обрезан скруглённым родителем (overflow + radius) — углы и так круглые
+      // Clipped by a rounded parent (overflow + radius) — the corners are round anyway
       let clipped = false;
       for (let p = el.parentElement, i = 0; p && i < 6 && !clipped; p = p.parentElement, i++) {
         const ps = getComputedStyle(p);
         clipped = ps.overflow !== "visible" && parseFloat(ps.borderTopLeftRadius) >= 2;
       }
-      const fullHeight = r.height > innerHeight * 0.8; // панели во всю высоту окна стоят вплотную к краям
+      const fullHeight = r.height > innerHeight * 0.8; // full-height panels sit flush against the edges
       if (visible && !clipped && !fullHeight && radius < 2 && r.width > 16 && r.height > 12 && r.width < innerWidth * 0.9 && !(el instanceof SVGElement))
-        add(label(el), "без скругления " + Math.round(r.width) + "x" + Math.round(r.height));
+        add(label(el), "no rounding " + Math.round(r.width) + "x" + Math.round(r.height));
     }
   }
   probe.remove();

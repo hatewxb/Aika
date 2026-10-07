@@ -1,23 +1,23 @@
 /* ==========================================================================
-   components/panel.css — панель (DESIGN.md §4, File Panel).
+   components/panel.css — the panel (DESIGN.md §4, File Panel).
 
-   Заголовок-полоса 34 px (--aika-bg-raised, линия снизу, моно-подпись)
-   + тело --aika-bg-elevated, общая обводка и мягкая глубина.
-   Подписи — штатные тексты Steam, без путей и расширений
-   («game/…txt», «─ □ ✕», end_of_list): автор попросил оставить
-   надписи как в Steam, а стиль — наш (2026-10-04).
+   A 34 px header strip (--aika-bg-raised, a line below, a mono caption)
+   + a --aika-bg-elevated body, a shared outline and soft depth.
+   Captions are Steam's own texts, no paths or extensions
+   ("game/…txt", "─ □ ✕", end_of_list): the author asked to keep
+   the labels as in Steam, with our style (2026-10-04).
 
-   1. Свои панели: .aika-panel > .aika-panel__header + .aika-panel__body.
-   2. Блоки страницы игры Steam (сняты через CDP 2026-10-04):
-        .AppDetailsSection                         — блок
-          > h2.SectionHeader > .Label > .LabelText — заголовок
-          > .AppDetailsSectionContainer             — тело
-      Steam: заголовок (0,2,0); фон тела в правой колонке — «._3-V8… > div»
-      с !important, поэтому фон и тень тела — тоже !important (только они).
+   1. Our own panels: .aika-panel > .aika-panel__header + .aika-panel__body.
+   2. Steam game page blocks (captured via CDP 2026-10-04):
+        .AppDetailsSection                         — the block
+          > h2.SectionHeader > .Label > .LabelText — the header
+          > .AppDetailsSectionContainer             — the body
+      Steam: header (0,2,0); the body background in the right column is "._3-V8… > div"
+      with !important, so the body background and shadow are !important too (only those).
    ========================================================================== */
 
 /* --------------------------------------------------------------------------
-   Общая рамка панели
+   Panel outline
    -------------------------------------------------------------------------- */
 
 .aika-panel,
@@ -27,7 +27,7 @@ html .AppDetailsSection {
 }
 
 /* --------------------------------------------------------------------------
-   Заголовок. Регистр — как у Steam (капс), трекинг меток.
+   Header. Case as in Steam (uppercase), label tracking.
    -------------------------------------------------------------------------- */
 
 .aika-panel__header,
@@ -49,7 +49,7 @@ html .AppDetailsSection > h2.SectionHeader {
 }
 
 /* --------------------------------------------------------------------------
-   Тело
+   Body
    -------------------------------------------------------------------------- */
 
 .aika-panel__body {
@@ -58,8 +58,8 @@ html .AppDetailsSection > h2.SectionHeader {
     background: var(--aika-bg-elevated);
 }
 
-/* margin-inline: 0 — у Steam тело смещено внутрь на 10 px, а заголовок
-   и обводка панели — во всю ширину блока: края не совпадали */
+/* margin-inline: 0 — Steam indents the body by 10 px, while the header
+   and the panel outline span the full block width: the edges didn't line up */
 html .AppDetailsSection > .AppDetailsSectionContainer {
     margin-inline: 0;
     border-radius: 0 0 var(--aika-radius-xl) var(--aika-radius-xl);
@@ -67,32 +67,32 @@ html .AppDetailsSection > .AppDetailsSectionContainer {
     box-shadow: none !important;
 }
 
-/* Между заголовком и телом Steam оставляет 6 px (хэш-правило (0,2,0)) —
-   была видна щель между полосой заголовка и фоном тела */
+/* Steam leaves 6 px between the header and the body (hash rule (0,2,0)) —
+   a gap was visible between the header strip and the body background */
 html .AppDetailsSection > h2.SectionHeader + .AppDetailsSectionContainer {
     margin-top: 0;
 }
 
-/* Блок без заголовка (ссылки «Магазин / Обсуждения…») — скругление со всех сторон */
+/* A block without a header (the "Store / Discussions…" links) — rounded on all sides */
 html .AppDetailsSection:not(:has(> h2.SectionHeader)) > .AppDetailsSectionContainer {
     border-radius: var(--aika-radius-xl);
     box-shadow: var(--aika-shadow-panel) !important;
 }
 
-/* …а у самого такого блока Steam есть внутренний отступ, и обводка
-   секции была шире тела — обводка и тень только на теле */
+/* …and that Steam block itself has inner padding, and the section
+   outline was wider than the body — the outline and shadow are on the body only */
 html .AppDetailsSection:not(:has(> h2.SectionHeader)) {
     box-shadow: none;
 }
 
 /* --------------------------------------------------------------------------
-   Появление панелей страницы игры со stagger (DESIGN.md §8, Entrance):
-   fade up + лёгкий scale, соседние блоки — с задержкой --aika-stagger.
-   Чистый CSS: анимация срабатывает, когда Steam вставляет блок в DOM
-   (при открытии страницы игры); панели не виртуализированы и Steam не
-   двигает их transform'ом — конфликта нет (проверено 2026-10-04).
-   Задержка — по позиции блока в своей колонке (до 6-го, дальше — как 6-й).
-   Колонки сняты на PEAK: .RightColumn / .LeftColumn > .SeekTarget > панель.
+   Game page panels appear with a stagger (DESIGN.md §8, Entrance):
+   fade up + a slight scale, neighboring blocks delayed by --aika-stagger.
+   Pure CSS: the animation fires when Steam inserts the block into the DOM
+   (when the game page opens); the panels aren't virtualized and Steam doesn't
+   move them with transform — no conflict (verified 2026-10-04).
+   The delay depends on the block's position in its column (up to the 6th, beyond — like the 6th).
+   Columns captured on PEAK: .RightColumn / .LeftColumn > .SeekTarget > panel.
    -------------------------------------------------------------------------- */
 
 @keyframes aika-panel-appear {
@@ -106,8 +106,8 @@ html .AppDetailsSection {
     animation: aika-panel-appear var(--aika-dur-enter) var(--aika-ease) both;
 }
 
-/* Каждая панель — в своей обёртке .SeekTarget внутри .RightColumn /
-   .LeftColumn: позиция — у обёртки */
+/* Each panel is in its own .SeekTarget wrapper inside .RightColumn /
+   .LeftColumn: the position belongs to the wrapper */
 html :is(.RightColumn, .LeftColumn) > .SeekTarget:nth-child(2) > .AppDetailsSection { animation-delay: calc(var(--aika-stagger) * 1); }
 html :is(.RightColumn, .LeftColumn) > .SeekTarget:nth-child(3) > .AppDetailsSection { animation-delay: calc(var(--aika-stagger) * 2); }
 html :is(.RightColumn, .LeftColumn) > .SeekTarget:nth-child(4) > .AppDetailsSection { animation-delay: calc(var(--aika-stagger) * 3); }

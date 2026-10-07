@@ -1,10 +1,10 @@
 /* ==========================================================================
-   webkit.css — точка входа для веб-страниц внутри Steam
-   (магазин store.steampowered.com, сообщество steamcommunity.com).
-   Подключается через поле Steam-WebKit в skin.json.
+   webkit.css — entry point for web pages inside Steam
+   (the store at store.steampowered.com, the community at steamcommunity.com).
+   Attached via the Steam-WebKit field in skin.json.
 
-   Это отдельные документы, в них main.css не попадает — поэтому
-   фундамент подключается здесь повторно.
+   These are separate documents that main.css never reaches — so the
+   foundation is imported here again.
    ========================================================================== */
 
 @import url("./root-colors.css");

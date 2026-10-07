@@ -1,12 +1,12 @@
 /* ==========================================================================
-   tokens.css — все нецветные токены Aika (DESIGN.md §3).
-   Цвета — в colors.css (так нужно Millennium, см. DESIGN.md §0).
-   Составные значения (тени, градиенты) собираются здесь из цветов colors.css.
+   tokens.css — all non-color Aika tokens (DESIGN.md §3).
+   Colors are in colors.css (Millennium requires it, see DESIGN.md §0).
+   Composite values (shadows, gradients) are assembled here from the colors.css colors.
    ========================================================================== */
 
 :root {
     /* ------------------------------------------------------------------
-       Типографика (DESIGN.md §3.3). Шрифты — @font-face в base.css.
+       Typography (DESIGN.md §3.3). Fonts — @font-face in base.css.
        ------------------------------------------------------------------ */
     --aika-font-ui: "Inter", "Geist", "Segoe UI Variable", "Segoe UI", system-ui, sans-serif;
     --aika-font-mono: "Geist Mono", "JetBrains Mono", "Cascadia Code", monospace;
@@ -34,32 +34,32 @@
     --aika-leading-heading: 1.15;
     --aika-leading-body: 1.55;
 
-    /* Заголовки: вертикальный градиентный текст (DESIGN.md §3.3) */
+    /* Headings: vertical gradient text (DESIGN.md §3.3) */
     --aika-text-gradient: linear-gradient(to bottom, var(--aika-fg), var(--aika-fg-fade));
 
     /* ------------------------------------------------------------------
-       Скругления (DESIGN.md §3.4)
+       Radii (DESIGN.md §3.4)
        ------------------------------------------------------------------ */
-    --aika-radius-xs: 3px;      /* чекбоксы [ ] */
-    --aika-radius-md: 8px;      /* кнопки, поля, пункты меню */
-    --aika-radius-lg: 12px;     /* карточки, обложки, меню, контейнеры иконок */
-    --aika-radius-xl: 16px;     /* панели, крупные контейнеры */
-    --aika-radius-full: 999px;  /* бейджи, статусы, переключатели */
+    --aika-radius-xs: 3px;      /* checkboxes [ ] */
+    --aika-radius-md: 8px;      /* buttons, fields, menu items */
+    --aika-radius-lg: 12px;     /* cards, covers, menus, icon containers */
+    --aika-radius-xl: 16px;     /* panels, large containers */
+    --aika-radius-full: 999px;  /* badges, statuses, toggles */
 
     /* ------------------------------------------------------------------
-       Линии
+       Lines
        ------------------------------------------------------------------ */
-    --aika-hairline: 1px;       /* обводки, блики */
-    --aika-indicator: 3px;      /* Fluent-индикатор выбранного пункта */
-    --aika-focus-gap: 2px;      /* зазор цвета фона в кольце фокуса */
-    --aika-focus-ring: 4px;     /* внешний край кольца фокуса */
-    --aika-input-ring: 3px;     /* свечение поля ввода в фокусе */
+    --aika-hairline: 1px;       /* outlines, glares */
+    --aika-indicator: 3px;      /* the Fluent indicator of the selected item */
+    --aika-focus-gap: 2px;      /* the background-colored gap in the focus ring */
+    --aika-focus-ring: 4px;     /* the outer edge of the focus ring */
+    --aika-input-ring: 3px;     /* the glow of a focused input */
 
-    /* Разделитель блоков: градиентная линия (DESIGN.md §5, «Ритм») */
+    /* Block divider: a gradient line (DESIGN.md §5, "Rhythm") */
     --aika-divider: linear-gradient(to right, var(--aika-transparent), var(--aika-border-strong), var(--aika-transparent));
 
     /* ------------------------------------------------------------------
-       Тени — «никогда не одна» (DESIGN.md §3.5)
+       Shadows — "never just one" (DESIGN.md §3.5)
        ------------------------------------------------------------------ */
     --aika-shadow-card:
         0 0 0 var(--aika-hairline) var(--aika-border),
@@ -76,16 +76,16 @@
         0 4px 12px var(--aika-accent-glow),
         inset 0 var(--aika-hairline) 0 0 var(--aika-highlight-cta);
 
-    /* CTA на hover — свечение сильнее; при нажатии — меньше */
+    /* CTA on hover — a stronger glow; when pressed — weaker */
     --aika-shadow-cta-hover:
         0 0 0 var(--aika-hairline) var(--aika-accent-ring),
         0 6px 24px var(--aika-accent-glow),
         inset 0 var(--aika-hairline) 0 0 var(--aika-highlight-cta);
 
-    /* «Играть»: двойное свечение (акцент + розовый), блик сверху ярче */
+    /* "Play": a double glow (accent + pink), a brighter glare on top */
     --aika-play-fill: linear-gradient(110deg, var(--aika-play-fill-from), var(--aika-play-fill-to) 50%, var(--aika-play-fill-from));
     --aika-play-fill-size: 200% 100%;
-    --aika-dur-play-flow: 6s;        /* медленный перелив заливки */
+    --aika-dur-play-flow: 6s;        /* a slow shimmer of the fill */
     --aika-shadow-play:
         0 0 0 var(--aika-hairline) var(--aika-accent-ring),
         0 4px 16px var(--aika-play-glow),
@@ -104,7 +104,7 @@
 
     --aika-highlight-top: inset 0 var(--aika-hairline) 0 0 var(--aika-highlight);
 
-    /* Secondary-кнопка: рамка inset-тенью вместо border (DESIGN.md §3.4) */
+    /* Secondary button: the border via an inset shadow instead of border (DESIGN.md §3.4) */
     --aika-shadow-secondary:
         inset 0 0 0 var(--aika-hairline) var(--aika-border-hover),
         var(--aika-highlight-top);
@@ -114,23 +114,23 @@
         var(--aika-highlight-top),
         0 0 20px var(--aika-accent-haze);
 
-    /* Файловая панель: обводка + мягкая глубина (DESIGN.md §4, File Panel) */
+    /* File panel: an outline + soft depth (DESIGN.md §4, File Panel) */
     --aika-shadow-panel:
         0 0 0 var(--aika-hairline) var(--aika-border),
         0 2px 20px var(--aika-shadow-near),
         0 0 40px var(--aika-shadow-far);
 
-    /* Поле ввода в фокусе: кольцо мягкого акцента (DESIGN.md §4, Inputs) */
+    /* A focused input: a soft accent ring (DESIGN.md §4, Inputs) */
     --aika-shadow-input-focus: 0 0 0 var(--aika-input-ring) var(--aika-accent-soft);
 
-    /* Обложка в больших сетках — облегчённая карточка (DESIGN.md §4, Cards):
-       рамка + одна мягкая тень, без свечения акцента */
+    /* A cover in large grids — a lightweight card (DESIGN.md §4, Cards):
+       a border + one soft shadow, no accent glow */
     --aika-shadow-cover:
         0 0 0 var(--aika-hairline) var(--aika-border),
         0 4px 16px var(--aika-shadow-near);
 
-    /* 3D-витрина обложек в плитке коллекции (library.css) — тень вниз-влево,
-       как у Steam, цвет — наш */
+    /* The 3D cover showcase in a collection tile (library.css) — a shadow down-left,
+       as in Steam, the color is ours */
     --aika-shadow-case: -8px 14px 12px var(--aika-shadow-deep);
     --aika-shadow-case-hover: -12px 18px 24px var(--aika-shadow-deep);
 
@@ -138,59 +138,59 @@
         0 0 0 var(--aika-hairline) var(--aika-border-hover),
         0 12px 28px var(--aika-shadow-deep);
 
-    /* Карточки: фон, вариант accent, градиентная рамка, spotlight */
+    /* Cards: background, the accent variant, the gradient border, spotlight */
     --aika-card-bg: linear-gradient(to bottom, var(--aika-card-top), var(--aika-card-bottom));
     --aika-card-accent-bg: linear-gradient(to bottom, var(--aika-accent-tint), var(--aika-card-bottom));
     --aika-card-border-gradient: linear-gradient(to bottom, var(--aika-border-accent), var(--aika-transparent));
-    /* Непрозрачная приподнятая поверхность (инфо-блоки капсул магазина) */
+    /* An opaque raised surface (store capsule info blocks) */
     --aika-raised-bg: linear-gradient(to bottom, var(--aika-bg-raised), var(--aika-bg-elevated));
-    /* Магазин, страница игры: свет сверху (вместо синего #254b79 Steam),
-       подсветка под полосой очереди, полоса «Читать дальше» */
+    /* Store, game page: light from the top (instead of Steam's blue #254b79),
+       a highlight under the queue bar, the "Read more" strip */
     --aika-store-app-glow: radial-gradient(1000px 500px at 23% top, var(--aika-accent-haze), var(--aika-transparent));
     --aika-store-queue-glow: radial-gradient(1000px 153px at 50% top, var(--aika-accent-tint), var(--aika-transparent));
     --aika-store-readmore-bg: linear-gradient(90deg, var(--aika-transparent), var(--aika-accent-tint) 33%, var(--aika-accent-tint) 66%, var(--aika-transparent));
     --aika-store-readmore-hover-bg: linear-gradient(90deg, var(--aika-transparent), var(--aika-accent-soft) 33%, var(--aika-accent-soft) 66%, var(--aika-transparent));
-    /* Загрузки: затухание обложки активной загрузки вправо, к графику
-       (у Steam — в синий #0056d6). В нейтральный тёплый фон: затухание
-       в приглушённый акцент читалось синеватым (правка автора 2026-10-05) */
+    /* Downloads: the active download cover fades to the right, toward the graph
+       (Steam fades into blue #0056d6). Into a neutral warm background: fading
+       into a muted accent read as bluish (author's fix 2026-10-05) */
     --aika-download-hero-fade: linear-gradient(to right, var(--aika-transparent) 15%, var(--aika-bg-elevated) 90%);
-    /* Баннер в мега-меню магазина: затемнение картинки слева направо */
+    /* The banner in the store mega menu: the image darkens left to right */
     --aika-store-banner-shade: linear-gradient(270deg, var(--aika-scrim-none) 37%, var(--aika-bg-base) 81%);
-    /* Видеоплеер магазина (selectors.css): плавающая панель управления */
+    /* The store video player (selectors.css): a floating control panel */
     --aika-player-blur: blur(24px) saturate(160%);
-    --aika-player-inset: var(--aika-space-3);       /* отступ панели от краёв кадра */
+    --aika-player-inset: var(--aika-space-3);       /* the panel offset from the frame edges */
     --aika-player-track-height: 4px;
     --aika-player-track-height-hover: 7px;
     --aika-player-button: 30px;
-    /* Логотип игры над трейлером в магазине (js/store-logo.js, store.css) */
+    /* The game logo above the trailer in the store (js/store-logo.js, store.css) */
     --aika-store-logo-max-width: 56%;
     --aika-store-logo-max-height: 132px;
-    /* У .highlight_overflow справа margin 16 px (Steam) — центр окна трейлера
-       левее центра .highlight_ctn на половину этого отступа */
+    /* .highlight_overflow has a 16 px right margin (Steam) — the trailer window center
+       is left of the .highlight_ctn center by half of that margin */
     --aika-store-highlight-gutter: 16px;
-    /* Три слоя: широкий ореол, мягкая тень вниз, плотная кромка (правка автора:
-       «увеличь тень за логотипом») */
+    /* Three layers: a wide halo, a soft drop shadow, a dense edge (author's fix:
+       "make the shadow behind the logo bigger") */
     --aika-store-logo-shadow:
         drop-shadow(0 0 36px var(--aika-shadow-logo-halo))
         drop-shadow(0 10px 28px var(--aika-shadow-logo))
         drop-shadow(0 2px 4px var(--aika-shadow-logo));
-    /* Затухание свёрнутого описания над «Читать дальше» — в фон страницы
-       (у Steam — голубая PNG-полоса) */
+    /* The collapsed description fades into the page background above "Read more"
+       (Steam uses a light-blue PNG strip) */
     --aika-store-collapse-fade: linear-gradient(to bottom, var(--aika-transparent), var(--aika-bg-deep) 85%);
     --aika-store-collapse-mask: linear-gradient(to bottom, black 55%, transparent);
-    /* Затухание текста свёрнутого обзора — в цвет фона под карточкой */
+    /* The collapsed review text fades into the background color under the card */
     --aika-store-review-fade: linear-gradient(to bottom, var(--aika-transparent), var(--aika-bg-elevated));
-    /* Spotlight: точку задаёт JS (--aika-spot-x/y на элементе), без JS —
-       верх-центр. Сам градиент собирается в card.css, а не здесь: var()
-       в токене :root вычислился бы один раз и не видел значений элемента. */
+    /* Spotlight: JS sets the point (--aika-spot-x/y on the element), without JS —
+       top center. The gradient itself is assembled in card.css, not here: var()
+       in a :root token would be computed once and wouldn't see the element's values. */
     --aika-spot-x: 50%;
     --aika-spot-y: 0%;
-    /* Радиус свечения за курсором — ползунок «Радиус свечения» в настройках
-       темы («Расширенное», Millennium выставляет --aika-setting-spot-size);
-       по умолчанию небольшой (правка автора 2026-10-05: «еле видимым») */
+    /* The cursor glow radius — the "Glow radius" slider in the theme
+       settings ("Advanced", Millennium sets --aika-setting-spot-size);
+       small by default (author's fix 2026-10-05: "barely visible") */
     --aika-spot-size: var(--aika-setting-spot-size, 160px);
 
-    /* Shine: косая светлая полоса, пробегает по CTA на hover */
+    /* Shine: a slanted light stripe that sweeps over a CTA on hover */
     --aika-shine-gradient: linear-gradient(
         105deg,
         var(--aika-shine-edge) 30%,
@@ -198,52 +198,52 @@
         var(--aika-shine-edge) 70%
     );
 
-    /* Кольцо фокуса: зазор цвета фона + акцент (DESIGN.md §4, Interactive States) */
+    /* Focus ring: a background-colored gap + accent (DESIGN.md §4, Interactive States) */
     --aika-shadow-focus:
         0 0 0 var(--aika-focus-gap) var(--aika-bg-base),
         0 0 0 var(--aika-focus-ring) var(--aika-accent-ring);
 
     /* ------------------------------------------------------------------
-       Движение (DESIGN.md §3.6, §8)
+       Motion (DESIGN.md §3.6, §8)
        ------------------------------------------------------------------ */
-    --aika-ease: cubic-bezier(0.16, 1, 0.3, 1);   /* expo-out, без overshoot */
+    --aika-ease: cubic-bezier(0.16, 1, 0.3, 1);   /* expo-out, no overshoot */
     --aika-ease-hover: ease-out;
-    --aika-ease-term: steps(2, end);              /* мигающий курсор, пульс статуса */
-    --aika-ease-ambient: ease-in-out;             /* пятна фона */
+    --aika-ease-term: steps(2, end);              /* blinking cursor, status pulse */
+    --aika-ease-ambient: ease-in-out;             /* background spots */
     --aika-dur-fast: 150ms;
     --aika-dur-base: 250ms;
     --aika-dur-enter: 500ms;
     --aika-dur-ambient: 10s;
-    /* Разные периоды у пятен, чтобы движение не выглядело синхронным (9–12 s) */
+    /* Different periods for the spots so the motion doesn't look synchronized (9–12 s) */
     --aika-dur-ambient-alt: 12s;
     --aika-dur-ambient-short: 9s;
-    /* Раскрытие блоков Steam («Об игре» на странице игры) — тайминг Steam,
-       чтобы наши свойства ехали вместе с его высотой */
+    /* Expanding Steam blocks ("About this game" on the game page) — Steam's timing,
+       so our properties move together with its height */
     --aika-dur-expand: 300ms;
     --aika-ease-expand: ease-in-out;
     --aika-delay-expand-overflow: 1.25s;
 
-    /* 1 — декоративное движение включено, 0 — выключено */
+    /* 1 — decorative motion on, 0 — off */
     --aika-motion: 1;
 
-    --aika-lift-sm: -1px;        /* hover кнопок */
-    --aika-lift-md: -4px;        /* hover карточек (≤ 6 px, DESIGN.md §7.3) */
-    --aika-nudge: 2px;           /* сдвиг стрелки → на hover */
+    --aika-lift-sm: -1px;        /* button hover */
+    --aika-lift-md: -4px;        /* card hover (≤ 6 px, DESIGN.md §7.3) */
+    --aika-nudge: 2px;           /* the → arrow shift on hover */
     --aika-press-scale: 0.98;
-    --aika-appear-scale: 0.97;   /* стартовый масштаб меню */
-    --aika-appear-shift: 12px;   /* fade up при появлении блоков */
-    --aika-menu-shift: 4px;      /* появление меню */
-    --aika-stagger: 60ms;        /* задержка между соседними блоками (40–80 ms) */
+    --aika-appear-scale: 0.97;   /* the starting menu scale */
+    --aika-appear-shift: 12px;   /* fade up when blocks appear */
+    --aika-menu-shift: 4px;      /* menu appearance */
+    --aika-stagger: 60ms;        /* the delay between neighboring blocks (40–80 ms) */
 
     --aika-disabled-opacity: 0.4;
-    --aika-icon-dim: 0.6;        /* приглушённые значки-картинки (PNG Steam) */
+    --aika-icon-dim: 0.6;        /* muted image icons (Steam PNGs) */
 
-    /* Shine-полоса: старт и финиш сдвига (в долях ширины кнопки) */
+    /* Shine stripe: start and end of the shift (as a fraction of the button width) */
     --aika-shine-from: -100%;
     --aika-shine-to: 100%;
 
     /* ------------------------------------------------------------------
-       Отступы: шаг 4 px (DESIGN.md §3.7)
+       Spacing: a 4 px step (DESIGN.md §3.7)
        ------------------------------------------------------------------ */
     --aika-space-1: 4px;
     --aika-space-2: 8px;
@@ -256,136 +256,136 @@
     --aika-space-9: 48px;
     --aika-space-10: 64px;
 
-    --aika-panel-header: 34px;   /* высота заголовка файловой панели (32–36) */
+    --aika-panel-header: 34px;   /* file panel header height (32–36) */
 
-    /* Навигация (DESIGN.md §4, Navigation) */
-    --aika-nav-inset: 6px;           /* отступ строки списка от краёв панели */
-    --aika-nav-pad: 6px;             /* внутренний отступ строки слева */
-    --aika-indicator-inset: 25%;     /* индикатор выбора: отступ сверху и снизу */
-    /* Меню (DESIGN.md §4, Menus): тень у всплывающих слоёв */
+    /* Navigation (DESIGN.md §4, Navigation) */
+    --aika-nav-inset: 6px;           /* list row offset from the panel edges */
+    --aika-nav-pad: 6px;             /* the row's inner left padding */
+    --aika-indicator-inset: 25%;     /* selection indicator: top and bottom inset */
+    /* Menus (DESIGN.md §4, Menus): the shadow of popup layers */
     --aika-shadow-menu:
         inset 0 0 0 var(--aika-hairline) var(--aika-border-hover),
         var(--aika-highlight-top),
         0 8px 32px var(--aika-shadow-deep);
 
-    /* Герой страницы игры (game-page.css) */
+    /* The game page hero (game-page.css) */
     --aika-hero-fade: linear-gradient(to bottom, var(--aika-transparent) 35%, var(--aika-bg-base) 100%);
-    --aika-hero-scroll-range: 320px;   /* за сколько прокрутки баннер гаснет */
-    --aika-hero-scroll-opacity: 0.55;  /* до какой яркости */
-    --aika-hero-inset: 10px;           /* поля героя и «Играть» — как у блоков Steam ниже (10 px) */
-    --aika-hero-glow: 0 0 24px var(--aika-accent-haze);  /* свечение вокруг блока героя */
-    --aika-hero-edge-fade: 32px;       /* затухание боков отражения баннера (2 × radius-xl) */
-    /* Размытая обложка под «Крупным обновлением»: растянута за края карточки,
-       чтобы не было светлого кольца от blur по контуру */
+    --aika-hero-scroll-range: 320px;   /* how much scrolling fades the banner */
+    --aika-hero-scroll-opacity: 0.55;  /* down to what brightness */
+    --aika-hero-inset: 10px;           /* hero and "Play" margins — like the Steam blocks below (10 px) */
+    --aika-hero-glow: 0 0 24px var(--aika-accent-haze);  /* the glow around the hero block */
+    --aika-hero-edge-fade: 32px;       /* the side fade of the banner reflection (2 × radius-xl) */
+    /* The blurred cover under a "Major update": stretched past the card edges
+       so blur doesn't leave a light ring along the outline */
     --aika-blur-cover-scale: 1.4;
     --aika-blur-cover-opacity: 0.35;
     --aika-blur-cover-filter: blur(32px) brightness(0.5) saturate(1.2);
-    /* То же, но без цвета обложки (тёплая нейтраль): там, где обложка —
-       фирменный синий Steam и читается чужим цветом */
+    /* The same but without the cover color (a warm neutral): where the cover is
+       Steam's brand blue and reads as a foreign color */
     --aika-blur-cover-neutral: blur(32px) grayscale(1) sepia(0.2) brightness(0.5);
-    /* Перекраска картинки в тон акцента (sepia даёт ~38°, +205° ≈ 243° —
-       оттенок --aika-accent). Для фирменных синих картинок Steam
-       (шапка «Новости Steam») */
-    /* Подпись поверх картинки без подложки (метка жанра в поиске магазина) */
+    /* Recoloring an image to the accent hue (sepia gives ~38°, +205° ≈ 243° —
+       the --aika-accent hue). For Steam's brand-blue images
+       (the "Steam News" header) */
+    /* A caption over an image without a backing (the genre label in store search) */
     --aika-genre-label-shadow: 0 1px 2px var(--aika-shadow-deep), 0 0 8px var(--aika-shadow-deep);
     --aika-tint-accent: grayscale(1) sepia(1) saturate(2.4) hue-rotate(205deg) brightness(0.95);
 
-    /* Иконки верхних вкладок (nav.css). Свои простые SVG 24×24, линия 1.75;
-       используются как mask-image, поэтому цвет внутри не важен — фигуру
-       красит currentColor вкладки. */
+    /* Top tab icons (nav.css). Our own simple 24×24 SVGs, 1.75 stroke;
+       used as mask-image, so the color inside doesn't matter — the shape
+       is painted with the tab's currentColor. */
     --aika-tab-icon-size: 26px;
-    /* Высота полосы вкладок (.SuperNavBar, у Steam 32 px — иконки 26 px
-       с отступами не помещались; правка автора 2026-10-05) */
+    /* The tab bar height (.SuperNavBar, 32 px in Steam — 26 px icons
+       with padding didn't fit; author's fix 2026-10-05) */
     --aika-supernav-height: 46px;
-    /* Противовес справа от вкладок (components/nav.css), чтобы они стояли
-       ровно по центру окна: стрелки «назад / вперёд» (32 + 24 px) плюс левый
-       отступ полосы .SuperNavBar (11 px Steam) */
+    /* The counterweight to the right of the tabs (components/nav.css), so they sit
+       exactly in the window center: the "back / forward" arrows (32 + 24 px) plus the left
+       padding of the .SuperNavBar strip (Steam's 11 px) */
     --aika-supernav-arrows-width: 67px;
     --aika-icon-store: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='1.75' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M5 8h14l-1.2 11.2a2 2 0 0 1-2 1.8H8.2a2 2 0 0 1-2-1.8z'/%3E%3Cpath d='M9 8V6.5a3 3 0 0 1 6 0V8'/%3E%3C/svg%3E");
     --aika-icon-library: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='1.75' stroke-linejoin='round'%3E%3Crect x='3.5' y='3.5' width='7' height='7' rx='2'/%3E%3Crect x='13.5' y='3.5' width='7' height='7' rx='2'/%3E%3Crect x='3.5' y='13.5' width='7' height='7' rx='2'/%3E%3Crect x='13.5' y='13.5' width='7' height='7' rx='2'/%3E%3C/svg%3E");
     --aika-icon-community: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='1.75' stroke-linecap='round'%3E%3Ccircle cx='9' cy='8.5' r='3.25'/%3E%3Cpath d='M3 19.5c0-3.3 2.7-5.5 6-5.5s6 2.2 6 5.5'/%3E%3Ccircle cx='17' cy='9.5' r='2.5'/%3E%3Cpath d='M16.5 14.2c2.6.3 4.5 2.3 4.5 5.3'/%3E%3C/svg%3E");
     --aika-icon-profile: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='1.75' stroke-linecap='round'%3E%3Ccircle cx='12' cy='8' r='4'/%3E%3Cpath d='M4.5 20.5c0-4 3.4-6.5 7.5-6.5s7.5 2.5 7.5 6.5'/%3E%3C/svg%3E");
     --aika-icon-console: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='1.75' stroke-linecap='round' stroke-linejoin='round'%3E%3Crect x='3' y='4.5' width='18' height='15' rx='3'/%3E%3Cpath d='M7.5 9.5l3 2.5-3 2.5'/%3E%3Cpath d='M12.5 15h4'/%3E%3C/svg%3E");
-    /* Значки статуса друга (components/status.css), линия 2 — читаются
-       на 12–16 px: «отошёл / не беспокоить» — луна с «z» (вместо трёх букв Z
-       Steam), «с телефона» — контурный телефон */
+    /* Friend status icons (components/status.css), stroke 2 — readable
+       at 12–16 px: "away / busy" — a moon with a "z" (instead of Steam's three
+       Z letters), "on mobile" — an outline phone */
     --aika-icon-snooze: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M12 4.5a7 7 0 0 0 7.5 9.5A8 8 0 1 1 12 4.5z'/%3E%3Cpath d='M16 2.5h4l-4 4.5h4'/%3E%3C/svg%3E");
     --aika-icon-mobile: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Crect x='6.5' y='2.5' width='11' height='19' rx='3'/%3E%3Cpath d='M10.5 18h3'/%3E%3C/svg%3E");
     --aika-status-icon-size: 12px;
-    /* Меню разделов настроек (sections/settings.css): контейнер значка и значок */
+    /* The settings section menu (sections/settings.css): the icon container and the icon */
     --aika-settings-icon-box: 28px;
     --aika-settings-icon: 16px;
-    /* «Контент» → полки скриншотов по играм (sections/content.css):
-       иконка игры, круглые стрелки, высота ленты, карточка «ещё» */
+    /* "Content" → per-game screenshot shelves (sections/content.css):
+       game icon, round arrows, strip height, the "more" card */
     --aika-shelf-icon: 32px;
     --aika-shelf-arrow: 32px;
     --aika-shot-height: 180px;
     --aika-shot-more-width: 112px;
 
-    /* Кнопки окна в духе Windows 11 (components/window.css): тонкие глифы
-       10×10, линия 1; как mask-image — цвет берётся из currentColor */
+    /* Windows 11-style window buttons (components/window.css): thin
+       10×10 glyphs, stroke 1; as mask-image — the color comes from currentColor */
     --aika-window-icon-size: 10px;
-    --aika-window-button-width: 46px;   /* ширина кнопок окна, как в Windows 11 */
-    --aika-window-button-height: 32px;  /* высота шапки окна Steam */
+    --aika-window-button-width: 46px;   /* window button width, as in Windows 11 */
+    --aika-window-button-height: 32px;  /* the Steam window header height */
     --aika-icon-win-minimize: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 10 10' fill='none' stroke='black' stroke-width='1'%3E%3Cpath d='M0 5.5h10'/%3E%3C/svg%3E");
     --aika-icon-win-maximize: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 10 10' fill='none' stroke='black' stroke-width='1'%3E%3Crect x='.5' y='.5' width='9' height='9' rx='1.75'/%3E%3C/svg%3E");
     --aika-icon-win-restore: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 10 10' fill='none' stroke='black' stroke-width='1'%3E%3Crect x='.5' y='2.5' width='7' height='7' rx='1.5'/%3E%3Cpath d='M2.5 2.5V2A1.5 1.5 0 0 1 4 .5h4A1.5 1.5 0 0 1 9.5 2v4A1.5 1.5 0 0 1 8 7.5h-.5'/%3E%3C/svg%3E");
     --aika-icon-win-close: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 10 10' fill='none' stroke='black' stroke-width='1' stroke-linecap='round'%3E%3Cpath d='M.75.75l8.5 8.5M9.25.75l-8.5 8.5'/%3E%3C/svg%3E");
-    /* Стрелка выпадающего списка ▾ (community.css) */
-    /* Лупа (поиск по обсуждениям вместо синей GIF-кнопки Steam) и награда
-       (вместо синего award_icon_blue.svg) — маски, цвет задаёт background */
+    /* The dropdown arrow ▾ (community.css) */
+    /* The magnifier (discussion search instead of Steam's blue GIF button) and the award
+       (instead of the blue award_icon_blue.svg) — masks, the color is set by background */
     --aika-icon-search: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Ccircle cx='11' cy='11' r='6.5'/%3E%3Cpath d='M16 16l4.5 4.5'/%3E%3C/svg%3E");
     --aika-icon-award: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='1.75' stroke-linecap='round' stroke-linejoin='round'%3E%3Ccircle cx='12' cy='9' r='5.5'/%3E%3Cpath d='M8.5 13.5L7 21l5-2.5 5 2.5-1.5-7.5'/%3E%3C/svg%3E");
-    --aika-icon-inline: 16px;   /* значок в строке текста (награда, лупа) */
+    --aika-icon-inline: 16px;   /* an icon in a line of text (award, magnifier) */
     --aika-icon-chevron-down: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 12' fill='none' stroke='black' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M3 4.5l3 3 3-3'/%3E%3C/svg%3E");
     --aika-chevron-size: 12px;
 
-    /* Прогресс (DESIGN.md §4, Progress) */
+    /* Progress (DESIGN.md §4, Progress) */
     --aika-progress-height: 4px;
     --aika-progress-fill: linear-gradient(to right, var(--aika-accent), var(--aika-accent-bright));
-    /* Линия над диалогами внутри окна (.ModalPosition_TopBar; у Steam —
-       синий градиент #00ccff → #3366ff): акцент, гаснущий к краям */
+    /* The line above dialogs inside a window (.ModalPosition_TopBar; Steam has
+       a blue gradient #00ccff → #3366ff): the accent fading toward the edges */
     --aika-modal-topbar-opacity: 0.6;
-    --aika-download-icon-dim: brightness(0.7);   /* иконка игры под кольцом загрузки (у Steam 0.4) */
-    --aika-submenu-gap: 6px;          /* видимый зазор меню → подменю (js/menu-gap.js) */
+    --aika-download-icon-dim: brightness(0.7);   /* the game icon under the download ring (0.4 in Steam) */
+    --aika-submenu-gap: 6px;          /* the visible menu → submenu gap (js/menu-gap.js) */
     --aika-modal-topbar: linear-gradient(to right, var(--aika-transparent), var(--aika-accent-bright) 50%, var(--aika-transparent));
-    --aika-dur-shimmer: 2.8s;        /* перелив по заливке */
-    /* Кольцо загрузки вместо PNG-логотипа Steam (.SteamLogoThrobber) */
+    --aika-dur-shimmer: 2.8s;        /* the shimmer over the fill */
+    /* A loading ring instead of Steam's PNG logo (.SteamLogoThrobber) */
     --aika-throbber-size: 40px;
     --aika-throbber-width: 3px;
     --aika-dur-spin: 0.9s;
 
-    /* Окно новости (.PartnerEvent.InLibraryView): акцентное свечение + глубина */
+    /* The news window (.PartnerEvent.InLibraryView): an accent glow + depth */
     --aika-shadow-event:
         var(--aika-highlight-top),
         0 0 40px var(--aika-accent-haze),
         0 8px 40px var(--aika-shadow-deep);
-    --aika-badge-pad-y: 2px;         /* вертикальный отступ бейджа-пилюли */
+    --aika-badge-pad-y: 2px;         /* the vertical padding of a pill badge */
 
-    /* Подложка прилипающей шапки («Новостной центр»): плотная за текстом,
-       прозрачная у краёв — без резкой полосы на фоне с пятнами света */
+    /* The sticky header backing ("News Hub"): dense behind the text,
+       transparent at the edges — no hard strip on the lit background */
     --aika-sticky-fade: linear-gradient(to bottom,
         var(--aika-transparent),
         var(--aika-scrim) 30%,
         var(--aika-scrim) 70%,
         var(--aika-transparent));
-    /* Закреплённый баннер игры («Новостной центр»): плотный сверху,
-       к низу прозрачный; маска — для размытой обложки в нём */
+    /* The pinned game banner ("News Hub"): dense at the top,
+       transparent toward the bottom; the mask is for the blurred cover in it */
     --aika-banner-fade: linear-gradient(to bottom,
         var(--aika-bg-elevated) 55%,
         var(--aika-transparent));
-    --aika-banner-mask: linear-gradient(to bottom, var(--aika-bg-deep) 55%, var(--aika-transparent)); /* маске важна только альфа */
+    --aika-banner-mask: linear-gradient(to bottom, var(--aika-bg-deep) 55%, var(--aika-transparent)); /* only the alpha matters to a mask */
 
-    /* Статусы (DESIGN.md §4, Status & Labels) */
-    --aika-dot: 6px;                 /* точка статуса ● */
-    --aika-dur-pulse: 2.4s;          /* пульс «живой» точки */
-    --aika-pulse-dim: 0.35;          /* минимальная яркость точки в пульсе */
+    /* Statuses (DESIGN.md §4, Status & Labels) */
+    --aika-dot: 6px;                 /* the status dot ● */
+    --aika-dur-pulse: 2.4s;          /* the pulse of a "live" dot */
+    --aika-pulse-dim: 0.35;          /* the minimum dot brightness in the pulse */
 
     /* ------------------------------------------------------------------
-       Фон (DESIGN.md §3.2)
+       Background (DESIGN.md §3.2)
        ------------------------------------------------------------------ */
 
-    /* Layer 1 — база: радиальный свет сверху */
+    /* Layer 1 — base: radial light from the top */
     --aika-bg-gradient: radial-gradient(
         ellipse at top,
         var(--aika-bg-glow) 0%,
@@ -393,61 +393,61 @@
         var(--aika-bg-deep) 100%
     );
 
-    /* Layer 2 — шум против полос (banding). Непрозрачность общая
-       с сеткой — --aika-grid-opacity (один слой, см. background.css) */
+    /* Layer 2 — noise against banding. The opacity is shared
+       with the grid — --aika-grid-opacity (one layer, see background.css) */
     --aika-noise-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
 
-    /* Layer 3 — пятна света: размер в долях окна, положение, яркость, размытие */
+    /* Layer 3 — light spots: size as a fraction of the window, position, brightness, blur */
     --aika-light-shape: 50%;
-    --aika-light-aspect: 1.6;          /* эллипс: шире, чем выше */
+    --aika-light-aspect: 1.6;          /* an ellipse: wider than tall */
 
-    --aika-light-1-size: 70vw;         /* верх-центр */
+    --aika-light-1-size: 70vw;         /* top center */
     --aika-light-1-x: 15vw;
     --aika-light-1-y: -30vw;
     --aika-light-1-opacity: 0.25;
     --aika-light-1-blur: 140px;
 
-    --aika-light-2-size: 50vw;         /* слева */
+    --aika-light-2-size: 50vw;         /* left */
     --aika-light-2-x: -20vw;
     --aika-light-2-y: 25vh;
     --aika-light-2-opacity: 0.12;
     --aika-light-2-blur: 120px;
 
-    --aika-light-3-size: 45vw;         /* справа-снизу, пульсирует */
+    --aika-light-3-size: 45vw;         /* bottom right, pulsing */
     --aika-light-3-x: 65vw;
     --aika-light-3-y: 60vh;
     --aika-light-3-opacity: 0.10;
     --aika-light-3-blur: 110px;
 
-    /* Амплитуда плавания (умножается на --aika-motion) */
+    /* Drift amplitude (multiplied by --aika-motion) */
     --aika-light-drift: -20px;
     --aika-light-rotate: 1deg;
-    --aika-light-pulse: 1.08;          /* масштаб на пике пульсации тёплого пятна */
+    --aika-light-pulse: 1.08;          /* the scale at the peak of the warm spot's pulse */
 
-    /* Layer 4 — сетка (и шум), затухает к краям */
+    /* Layer 4 — the grid (and noise), fading toward the edges */
     --aika-grid-size: 56px;
     --aika-grid-opacity: 0.02;
     --aika-grid-mask: radial-gradient(ellipse at center, var(--aika-grid-line) 0%, var(--aika-transparent) 75%);
 
-    /* Слои фона в корневом контексте наложения: пятна → сетка/шум → интерфейс */
+    /* Background layers in the root stacking context: spots → grid/noise → interface */
     --aika-z-lights: -2;
     --aika-z-texture: -1;
-    /* «Играть» под баннером — над выезжающим блоком «Об игре» (у Steam z 36) */
+    /* "Play" under the banner — above the sliding "About this game" block (z 36 in Steam) */
     --aika-z-playbar: 37;
-    /* Логотип игры в магазине: над баннером распродажи (у Steam z 100,
-       блок события 101), но под подсказками (1526), модалками (1500)
-       и меню (10000) */
+    /* The game logo in the store: above the sale banner (z 100 in Steam,
+       the event block 101), but below tooltips (1526), modals (1500)
+       and menus (10000) */
     --aika-z-store-logo: 110;
 
     /* ------------------------------------------------------------------
-       Полосы прокрутки
+       Scrollbars
        ------------------------------------------------------------------ */
     --aika-scrollbar-size: 10px;
-    --aika-scrollbar-inset: 3px;   /* прозрачная рамка: ползунок тоньше полосы */
+    --aika-scrollbar-inset: 3px;   /* a transparent border: the thumb is thinner than the track */
 
     /* ------------------------------------------------------------------
-       Всплывающие уведомления (components/toast.css). Шрифт надписи —
-       Conditions «Надпись в уведомлениях» (options/toast-mark-*.css).
+       Notification toasts (components/toast.css). The wordmark font —
+       Conditions "Notification wordmark" (options/toast-mark-*.css).
        ------------------------------------------------------------------ */
     --aika-toast-mark-font: var(--aika-font-gothic);
     --aika-toast-mark-size: 54px;
@@ -455,45 +455,45 @@
     --aika-toast-mark-bottom: 0px;
     --aika-toast-mark-tilt: -6deg;
     --aika-toast-text-shadow-size: 0 1px 2px;
-    /* Положение окон уведомлений. Окна Steam ставит вплотную друг к другу
-       (шаг = высота окна, 70 px), поэтому зазор между ними — прозрачная
-       полоса внизу каждого окна, карточка на --aika-toast-gap ниже окна.
-       Отступы от края рабочей области (над панелью задач и сбоку) —
-       настоящие отступы Steam: js/toast-glass.js читает эти два токена
-       и передаёт их в SetNotificationPosition. Нижний отступ складывается
-       с зазором: над панелью задач — inset-y + gap. */
+    /* Notification window placement. Steam stacks the windows flush
+       (step = window height, 70 px), so the gap between them is a transparent
+       strip at the bottom of each window, the card sits --aika-toast-gap below the window top.
+       The offsets from the work area edge (above the taskbar and on the side) are
+       real Steam offsets: js/toast-glass.js reads these two tokens
+       and passes them to SetNotificationPosition. The bottom offset adds up
+       with the gap: above the taskbar — inset-y + gap. */
     --aika-toast-gap: 8px;
     --aika-toast-inset-x: 16px;
     --aika-toast-inset-y: 8px;
-    --aika-toast-pad-y: 6px;    /* поля карточки по вертикали (у Steam 10 px) */
-    /* Появление и уход карточки — считает js/toast-motion.js (окно при
-       этом ведёт пружина). Появление — --aika-dur-enter по --aika-ease.
-       Амплитуды умножаются на --aika-motion: при «уменьшить движение»
-       остаётся только прозрачность. */
+    --aika-toast-pad-y: 6px;    /* the card's vertical padding (10 px in Steam) */
+    /* The card's enter and leave are computed by js/toast-motion.js (the window
+       meanwhile follows a spring). Enter — --aika-dur-enter along --aika-ease.
+       Amplitudes are multiplied by --aika-motion: with "reduce motion"
+       only opacity remains. */
     --aika-toast-enter-shift: 10px;
     --aika-toast-enter-scale: 0.94;
     --aika-toast-enter-blur: 6px;
     --aika-toast-leave-shift: 28px;
     --aika-toast-leave-scale: 0.97;
     --aika-toast-leave-blur: 4px;
-    /* Уход — ускорение (expo-in), успевает до того, как Steam
-       спрячет окно (через 300 мс после начала ухода) */
+    /* Leave — an acceleration (expo-in), it finishes before Steam
+       hides the window (300 ms after the leave starts) */
     --aika-toast-dur-leave: 280ms;
     --aika-ease-leave: cubic-bezier(0.7, 0, 0.84, 0);
 
     /* ------------------------------------------------------------------
-       Поле ПИН-кода (семейный просмотр, режим киоска; sections/settings.css):
-       четыре ячейки с подчёркиванием, точки встают ровно в ячейки.
-       Ширина символа Geist Mono — 0.6em (проверено 2026-10-06), поэтому
-       шаг ячейки = символ + letter-spacing.
+       The PIN field (Family View, kiosk mode; sections/settings.css):
+       four underlined cells, the dots land exactly in the cells.
+       The Geist Mono glyph width is 0.6em (verified 2026-10-06), so
+       the cell step = glyph + letter-spacing.
        ------------------------------------------------------------------ */
     --aika-pin-digits: 4;
-    --aika-pin-pitch: 44px;           /* шаг ячейки */
+    --aika-pin-pitch: 44px;           /* the cell step */
     --aika-pin-font-size: 28px;
-    --aika-pin-glyph: 0.6em;          /* ширина символа Geist Mono */
+    --aika-pin-glyph: 0.6em;          /* the Geist Mono glyph width */
     --aika-pin-height: 60px;
-    --aika-pin-line-inset: 8px;       /* поля подчёркивания внутри ячейки */
-    --aika-pin-line-bottom: 12px;     /* подчёркивание от низа поля */
+    --aika-pin-line-inset: 8px;       /* underline margins inside the cell */
+    --aika-pin-line-bottom: 12px;     /* the underline offset from the field bottom */
     --aika-pin-line-width: 2px;
 }
 

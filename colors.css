@@ -1,26 +1,26 @@
 /* ==========================================================================
-   colors.css — палитра Aika (DESIGN.md §3.1). Только цвета.
+   colors.css — the Aika palette (DESIGN.md §3.1). Colors only.
 
-   Цвета, которые можно менять в настройках Millennium (акцент и пятна
-   света), — в root-colors.css: только он подключён как RootColors.
-   Этот файл Millennium не разбирает, поэтому здесь можно rgba() и
-   relative color syntax (CEF Steam поддерживает, проверено 2026-10-04).
+   Colors that can be changed in Millennium settings (the accent and the light
+   spots) are in root-colors.css: only it is attached as RootColors.
+   Millennium doesn't parse this file, so rgba() and
+   relative color syntax are fine here (Steam's CEF supports it, verified 2026-10-04).
 
-   Производные акцента считаются из --aika-accent: сменили акцент
-   в настройках — поменялись свечение, мягкий фон и рамки.
+   Accent derivatives are computed from --aika-accent: change the accent
+   in settings — the glow, soft background and borders change too.
    ========================================================================== */
 
-/* Итоговые настраиваемые цвета — под html:root (0,1,1): Millennium
-   вставляет сохранённые цвета темы своим <style> «:root {…}» поверх CSS,
-   в том числе под старыми именами (--aika-accent…, до 2026-10-04) —
-   они не должны перебить пресет. */
+/* The final customizable colors — under html:root (0,1,1): Millennium
+   injects the saved theme colors with its own <style> ":root {…}" on top of the CSS,
+   including under old names (--aika-accent…, before 2026-10-04) —
+   they must not override the preset. */
 html:root {
     /* ------------------------------------------------------------------
-       Итоговые настраиваемые цвета (настройки темы в Millennium):
-       цветовой пресет (--aika-preset-*, options/presets/*.css) — если
-       выбран; иначе свои цвета (--aika-user-*, root-colors.css, вкладка
-       «Расширенное»). «Свои цвета: да» сбрасывает --aika-preset-* в initial
-       (options/colors-manual.css) — тогда var() берёт запасное значение.
+       The final customizable colors (theme settings in Millennium):
+       the color preset (--aika-preset-*, options/presets/*.css) — if
+       selected; otherwise the custom colors (--aika-user-*, root-colors.css, the
+       "Advanced" tab). "Custom colors: yes" resets --aika-preset-* to initial
+       (options/colors-manual.css) — then var() takes the fallback.
        ------------------------------------------------------------------ */
     --aika-accent: var(--aika-preset-accent, var(--aika-user-accent));
     --aika-accent-bright: var(--aika-preset-accent-bright, var(--aika-user-accent-bright));
@@ -31,132 +31,132 @@ html:root {
 
 :root {
     /* ------------------------------------------------------------------
-       Фон: тёплые почти-чёрные (не #000 — DESIGN.md §7)
+       Background: warm near-blacks (not #000 — DESIGN.md §7)
        ------------------------------------------------------------------ */
-    --aika-bg-deep: #030303;        /* самый глубокий слой, края фона */
-    --aika-bg-base: #070606;        /* основной холст */
-    --aika-bg-elevated: #0E0D0C;    /* тело панелей */
-    --aika-bg-raised: #161514;      /* заголовки панелей, поля ввода, меню */
-    --aika-bg-glow: #0E0C0B;        /* центр радиального света в базе фона */
-    /* Сплошные ступени светлее raised — для шкал, которые ждут непрозрачный
-       цвет (дизайн-система магазина Steam, sections/store.css) */
+    --aika-bg-deep: #030303;        /* the deepest layer, background edges */
+    --aika-bg-base: #070606;        /* the main canvas */
+    --aika-bg-elevated: #0E0D0C;    /* panel bodies */
+    --aika-bg-raised: #161514;      /* panel headers, inputs, menus */
+    --aika-bg-glow: #0E0C0B;        /* the center of the radial light in the base background */
+    /* Solid steps lighter than raised — for scales that expect an opaque
+       color (the Steam store design system, sections/store.css) */
     --aika-bg-hover: #1D1B19;
     --aika-bg-high: #262321;
     --aika-bg-edge: #2F2C29;
     --aika-bg-line: #3A3633;
 
     /* ------------------------------------------------------------------
-       Поверхности (карточки, пункты списков)
+       Surfaces (cards, list items)
        ------------------------------------------------------------------ */
     --aika-surface: rgba(255, 246, 236, 0.04);
     --aika-surface-hover: rgba(255, 246, 236, 0.07);
     --aika-surface-active: rgba(255, 246, 236, 0.10);
-    --aika-card-top: rgba(255, 246, 236, 0.06);       /* градиент карточки сверху… */
-    --aika-card-bottom: rgba(255, 246, 236, 0.015);   /* …и снизу */
-    --aika-surface-translucent: rgba(14, 13, 12, 0.92); /* ТОЛЬКО меню, выпадашки, тултипы */
-    /* Панель видеоплеера поверх кадра (в духе Apple: тёмный «материал»
-       с размытием) — просьба автора 2026-10-04, DESIGN.md §11 */
+    --aika-card-top: rgba(255, 246, 236, 0.06);       /* card gradient at the top… */
+    --aika-card-bottom: rgba(255, 246, 236, 0.015);   /* …and at the bottom */
+    --aika-surface-translucent: rgba(14, 13, 12, 0.92); /* ONLY menus, dropdowns, tooltips */
+    /* The video player panel over the frame (Apple-style: a dark "material"
+       with blur) — author's request 2026-10-04, DESIGN.md §11 */
     --aika-player-material: rgba(18, 16, 15, 0.52);
     --aika-player-track: rgb(from var(--aika-fg) r g b / 0.22);
     --aika-player-buffer: rgb(from var(--aika-fg) r g b / 0.38);
 
     /* ------------------------------------------------------------------
-       Текст: тёплый off-white (не #FFF)
+       Text: a warm off-white (not #FFF)
        ------------------------------------------------------------------ */
     --aika-fg: #EDE9E3;
     --aika-fg-muted: #948F88;
-    --aika-fg-subtle: rgba(237, 233, 227, 0.52);  /* 4.8:1 на фоне; при 0.45 было 3.9:1 */
-    --aika-fg-fade: rgba(237, 233, 227, 0.7);   /* конец градиента крупных заголовков */
-    --aika-on-accent: #FFFAF5;                  /* текст на сплошном акценте */
+    --aika-fg-subtle: rgba(237, 233, 227, 0.52);  /* 4.8:1 on the background; at 0.45 it was 3.9:1 */
+    --aika-fg-fade: rgba(237, 233, 227, 0.7);   /* the end of the large heading gradient */
+    --aika-on-accent: #FFFAF5;                  /* text on a solid accent */
 
     /* ------------------------------------------------------------------
-       Производные акцента (сам акцент — в root-colors.css)
+       Accent derivatives (the accent itself is in root-colors.css)
        ------------------------------------------------------------------ */
-    /* Заливка акцентных кнопок: акцент темнее в OKLCH, чтобы светлый текст
-       читался (WCAG AA ≥ 4.5:1; проверено в Steam 2026-10-04:
-       #FFFAF5 на fill — 5.2:1, на fill-hover — 4.8:1; на самом акценте было 3.2:1).
-       Сам акцент — для индикаторов, свечений, рамок (на фоне — 6.2:1). */
+    /* Accent button fill: the accent darkened in OKLCH so light text
+       is readable (WCAG AA ≥ 4.5:1; verified in Steam 2026-10-04:
+       #FFFAF5 on fill — 5.2:1, on fill-hover — 4.8:1; on the accent itself it was 3.2:1).
+       The accent itself is for indicators, glows, borders (on the background — 6.2:1). */
     --aika-accent-fill: oklch(from var(--aika-accent) calc(l - 0.12) c h);
     --aika-accent-fill-hover: oklch(from var(--aika-accent) calc(l - 0.10) c h);
-    /* «Играть» (установленная игра) — ярче «Установить»: акцент → розовое
-       пятно света; оба конца затемнены в OKLCH ради белого текста (§11) */
+    /* "Play" (an installed game) is brighter than "Install": accent → the pink
+       light spot; both ends darkened in OKLCH for white text (§11) */
     --aika-play-fill-from: var(--aika-accent-fill);
     --aika-play-fill-to: oklch(from var(--aika-light-2) calc(l - 0.14) c h);
     --aika-play-glow: rgb(from var(--aika-accent) r g b / 0.55);
     --aika-play-glow-pink: rgb(from var(--aika-light-2) r g b / 0.35);
     --aika-play-highlight: rgba(255, 255, 255, 0.28);
-    --aika-accent-glow: rgb(from var(--aika-accent) r g b / 0.30);    /* свечение */
-    --aika-accent-soft: rgb(from var(--aika-accent) r g b / 0.12);    /* фон выбранного */
-    --aika-accent-ring: rgb(from var(--aika-accent) r g b / 0.5);     /* фокус, обводка CTA */
-    --aika-accent-haze: rgb(from var(--aika-accent) r g b / 0.10);    /* дальнее свечение на hover */
+    --aika-accent-glow: rgb(from var(--aika-accent) r g b / 0.30);    /* glow */
+    --aika-accent-soft: rgb(from var(--aika-accent) r g b / 0.12);    /* selected background */
+    --aika-accent-ring: rgb(from var(--aika-accent) r g b / 0.5);     /* focus, CTA outline */
+    --aika-accent-haze: rgb(from var(--aika-accent) r g b / 0.10);    /* distant glow on hover */
     --aika-border-accent: rgb(from var(--aika-accent) r g b / 0.32);
-    --aika-accent-spot: rgb(from var(--aika-accent) r g b / 0.06);    /* spotlight: еле заметно (2026-10-05) */
-    --aika-accent-tint: rgb(from var(--aika-accent) r g b / 0.08);    /* фон карточки accent */
-    --aika-accent-none: rgb(from var(--aika-accent) r g b / 0);       /* конец градиентов акцента */
-    /* Сплошные тёмные ступени акцента (акцент, подмешанный в холст) —
-       для шкал, которые ждут непрозрачный цвет (магазин, sections/store.css) */
+    --aika-accent-spot: rgb(from var(--aika-accent) r g b / 0.06);    /* spotlight: barely visible (2026-10-05) */
+    --aika-accent-tint: rgb(from var(--aika-accent) r g b / 0.08);    /* accent card background */
+    --aika-accent-none: rgb(from var(--aika-accent) r g b / 0);       /* the end of accent gradients */
+    /* Solid dark accent steps (the accent mixed into the canvas) —
+       for scales that expect an opaque color (the store, sections/store.css) */
     --aika-accent-deep: color-mix(in oklab, var(--aika-accent) 12%, var(--aika-bg-base));
     --aika-accent-dim: color-mix(in oklab, var(--aika-accent) 28%, var(--aika-bg-base));
     --aika-accent-mid: color-mix(in oklab, var(--aika-accent) 55%, var(--aika-bg-base));
 
     /* ------------------------------------------------------------------
-       Границы — почти невидимые (DESIGN.md §7.5)
+       Borders — almost invisible (DESIGN.md §7.5)
        ------------------------------------------------------------------ */
     --aika-border: rgba(255, 246, 236, 0.06);
     --aika-border-hover: rgba(255, 246, 236, 0.11);
-    --aika-border-strong: rgba(255, 246, 236, 0.10); /* поля ввода, контейнеры иконок */
+    --aika-border-strong: rgba(255, 246, 236, 0.10); /* inputs, icon containers */
 
     /* ------------------------------------------------------------------
-       Статусы
+       Statuses
        ------------------------------------------------------------------ */
-    --aika-ok: #8BD49C;     /* онлайн, установлено, ✓ */
-    --aika-live: #F07A6B;   /* live, ошибки, ✕ */
-    --aika-close-hover: #C42B1C;   /* «закрыть окно» на hover — красный Windows 11 (белый глиф 5.9:1) */
-    --aika-warn: #E8C170;   /* предупреждения, away */
-    --aika-warn-soft: rgb(from var(--aika-warn) r g b / 0.10);    /* фон предупреждения */
+    --aika-ok: #8BD49C;     /* online, installed, ✓ */
+    --aika-live: #F07A6B;   /* live, errors, ✕ */
+    --aika-close-hover: #C42B1C;   /* "close window" on hover — Windows 11 red (white glyph 5.9:1) */
+    --aika-warn: #E8C170;   /* warnings, away */
+    --aika-warn-soft: rgb(from var(--aika-warn) r g b / 0.10);    /* warning background */
     --aika-warn-border: rgb(from var(--aika-warn) r g b / 0.28);
-    --aika-ok-soft: rgb(from var(--aika-ok) r g b / 0.14);        /* фон «активно / успешно» */
-    --aika-live-soft: rgb(from var(--aika-live) r g b / 0.14);    /* фон «не рекомендую» и т. п. */
-    /* Непрозрачные ступени ok для шкал, которые ждут сплошной цвет
-       (--color-storegreen-* магазина, sections/store.css) */
+    --aika-ok-soft: rgb(from var(--aika-ok) r g b / 0.14);        /* "active / success" background */
+    --aika-live-soft: rgb(from var(--aika-live) r g b / 0.14);    /* "not recommended" etc. background */
+    /* Opaque ok steps for scales that expect a solid color
+       (the store's --color-storegreen-*, sections/store.css) */
     --aika-ok-dim: color-mix(in oklab, var(--aika-ok) 22%, var(--aika-bg-base));
     --aika-ok-mid: color-mix(in oklab, var(--aika-ok) 50%, var(--aika-bg-base));
 
     /* ------------------------------------------------------------------
-       Цвета внутри теней и бликов (DESIGN.md §3.5)
+       Colors inside shadows and glares (DESIGN.md §3.5)
        ------------------------------------------------------------------ */
     --aika-shadow-near: rgba(0, 0, 0, 0.4);
     --aika-shadow-far: rgba(0, 0, 0, 0.2);
-    --aika-shadow-logo: rgba(0, 0, 0, 0.85);   /* тень за логотипом игры в магазине */
-    --aika-shadow-logo-halo: rgba(0, 0, 0, 0.6); /* широкий ореол за логотипом */
+    --aika-shadow-logo: rgba(0, 0, 0, 0.85);   /* the shadow behind the game logo in the store */
+    --aika-shadow-logo-halo: rgba(0, 0, 0, 0.6); /* a wide halo behind the logo */
     --aika-shadow-deep: rgba(0, 0, 0, 0.5);
-    --aika-highlight: rgba(255, 246, 236, 0.08);     /* блик по верхнему краю */
-    --aika-highlight-cta: rgba(255, 255, 255, 0.2);  /* блик на акцентной кнопке */
-    --aika-shine: rgba(255, 255, 255, 0.22);         /* полоса shine на hover кнопки */
+    --aika-highlight: rgba(255, 246, 236, 0.08);     /* a glare along the top edge */
+    --aika-highlight-cta: rgba(255, 255, 255, 0.2);  /* a glare on the accent button */
+    --aika-shine: rgba(255, 255, 255, 0.22);         /* the shine stripe on button hover */
     --aika-shine-edge: rgba(255, 255, 255, 0);
-    --aika-grid-line: rgba(255, 246, 236, 1);        /* сетка фона; итог — --aika-grid-opacity */
+    --aika-grid-line: rgba(255, 246, 236, 1);        /* the background grid; the result is --aika-grid-opacity */
 
-    /* Затемнение поверх картинок под текстом (DESIGN.md §9: текст на
-       обложках — только с затемняющим градиентом) */
+    /* A darkening over images under text (DESIGN.md §9: text on
+       covers — only with a darkening gradient) */
     --aika-scrim: rgba(7, 6, 6, 0.75);
     --aika-scrim-none: rgba(7, 6, 6, 0);
 
     /* ------------------------------------------------------------------
-       Всплывающие уведомления (components/toast.css, DESIGN.md §11):
-       полупрозрачная карточка над рабочим столом, под стеклом — пятна
-       света и надпись «Aika». Плотность тонировки — ползунок
-       «Плотность уведомлений» (--aika-setting-toast-tint, проценты).
+       Notification toasts (components/toast.css, DESIGN.md §11):
+       a translucent card over the desktop, under the glass — the light
+       spots and the "Aika" wordmark. The tint density is the
+       "Notification opacity" slider (--aika-setting-toast-tint, percent).
        ------------------------------------------------------------------ */
     --aika-toast-tint: color-mix(in srgb, var(--aika-bg-base) var(--aika-setting-toast-tint, 62%), transparent);
     --aika-toast-light-1: rgb(from var(--aika-light-1) r g b / 0.55);
     --aika-toast-light-3: rgb(from var(--aika-light-3) r g b / 0.30);
     --aika-toast-mark-from: rgb(from var(--aika-accent-bright) r g b / 0.55);
     --aika-toast-mark-to: rgb(from var(--aika-light-2) r g b / 0.30);
-    --aika-toast-sheen: rgba(255, 246, 236, 0.07);   /* блик по верхней половине стекла */
-    --aika-toast-rim-top: rgba(255, 246, 236, 0.22); /* светлая кромка сверху */
-    --aika-toast-rim-bottom: rgba(0, 0, 0, 0.30);    /* тёмная кромка снизу */
-    --aika-toast-text-shadow: rgba(0, 0, 0, 0.55);   /* текст читается над любым рабочим столом */
+    --aika-toast-sheen: rgba(255, 246, 236, 0.07);   /* a glare over the top half of the glass */
+    --aika-toast-rim-top: rgba(255, 246, 236, 0.22); /* a light rim on top */
+    --aika-toast-rim-bottom: rgba(0, 0, 0, 0.30);    /* a dark rim at the bottom */
+    --aika-toast-text-shadow: rgba(0, 0, 0, 0.55);   /* text reads over any desktop */
 
-    /* Полностью прозрачный — чтобы «убирать» фоны Steam без голых значений */
+    /* Fully transparent — to "remove" Steam backgrounds without bare values */
     --aika-transparent: rgba(255, 246, 236, 0);
 }

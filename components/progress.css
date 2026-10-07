@@ -1,18 +1,18 @@
 /* ==========================================================================
-   components/progress.css — полосы прогресса (DESIGN.md §4, Progress).
+   components/progress.css — progress bars (DESIGN.md §4, Progress).
 
-   Трек 4 px --aika-surface, заливка — градиент акцента; по заливке
-   медленно бежит светлая полоса (transform псевдоэлемента — не
-   background-position, анимируем только transform/opacity). При
-   --aika-motion: 0 полосы нет. Проценты и скорость — .aika-meta.
+   A 4 px --aika-surface track, the fill is an accent gradient; a light
+   stripe slowly runs across the fill (transform of a pseudo-element, not
+   background-position — we animate only transform/opacity). With
+   --aika-motion: 0 there is no stripe. Percent and speed use .aika-meta.
 
-   Свои классы: .aika-progress > .aika-progress__fill (ширина — inline).
+   Own classes: .aika-progress > .aika-progress__fill (width is inline).
 
-   Steam (сняты через CDP 2026-10-04):
-     .AchievementProgressContainer > .AchievementProgress — достижения
-       на странице игры; Steam (0,1,0), у нас (0,1,1)…(0,2,1).
-   TODO: полоса загрузки в нижней панели и на странице «Загрузки» —
-   классы снять, когда будет идти загрузка (сейчас её нет в DOM).
+   Steam (captured via CDP 2026-10-04):
+     .AchievementProgressContainer > .AchievementProgress — achievements
+       on the game page; Steam (0,1,0), ours (0,1,1)…(0,2,1).
+   TODO: the download bar in the bottom panel and on the "Downloads" page —
+   capture the classes while a download is running (it's not in the DOM now).
    ========================================================================== */
 
 @keyframes aika-shimmer {
@@ -24,7 +24,7 @@
     }
 }
 
-/* Трек */
+/* Track */
 .aika-progress,
 html .AchievementProgressContainer {
     position: relative;
@@ -34,7 +34,7 @@ html .AchievementProgressContainer {
     background: var(--aika-surface);
 }
 
-/* Заливка */
+/* Fill */
 .aika-progress__fill,
 html .AchievementProgressContainer .AchievementProgress {
     position: relative;
@@ -44,7 +44,7 @@ html .AchievementProgressContainer .AchievementProgress {
     background: var(--aika-progress-fill);
 }
 
-/* Перелив */
+/* Shimmer */
 .aika-progress__fill::after,
 html .AchievementProgressContainer .AchievementProgress::after {
     content: "";

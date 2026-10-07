@@ -1,25 +1,25 @@
 /* ==========================================================================
-   background.css — многослойный фон Aika (DESIGN.md §3.2).
+   background.css — the layered Aika background (DESIGN.md §3.2).
 
-   Слои снизу вверх (все — позади интерфейса):
-     html            — Layer 1, база: радиальный свет сверху glow → base → deep
-     html::before    — Layer 3, пятно 1: основное, верх-центр (--aika-light-1)
-     html::after     — Layer 3, пятно 2: розовое, слева (--aika-light-2)
-     body::before    — Layer 3, пятно 3: тёплое, справа-снизу, пульсирует
-     body::after     — Layer 4 + Layer 2: сетка и шум одним слоем
+   Layers bottom to top (all behind the interface):
+     html            — Layer 1, base: radial light from the top glow → base → deep
+     html::before    — Layer 3, spot 1: the main one, top center (--aika-light-1)
+     html::after     — Layer 3, spot 2: pink, on the left (--aika-light-2)
+     body::before    — Layer 3, spot 3: warm, bottom right, pulsing
+     body::after     — Layer 4 + Layer 2: grid and noise in one layer
 
-   Почему сетка и шум в одном слое: у html/body всего четыре псевдоэлемента,
-   а слоёв пять. У них одинаковая непрозрачность (0.02), поэтому слой
-   общий; маска гасит к краям и сетку, и шум — на почти чёрных краях
-   полос (banding) всё равно не видно.
+   Why grid and noise share a layer: html/body have only four pseudo-elements,
+   and there are five layers. They have the same opacity (0.02), so the layer
+   is shared; the mask fades both grid and noise toward the edges — banding
+   isn't visible on the near-black edges anyway.
 
-   Пятна — крупные статичные слои: blur на них допустим (DESIGN.md §0),
-   двигаются только через transform.
-   Отключить движение: --aika-motion: 0 или системное «уменьшить движение».
+   Spots are large static layers: blur on them is acceptable (DESIGN.md §0),
+   they move only via transform.
+   Disable motion: --aika-motion: 0 or the system "reduce motion".
    ========================================================================== */
 
 /* --------------------------------------------------------------------------
-   Layer 1 — база
+   Layer 1 — base
    -------------------------------------------------------------------------- */
 
 html {
@@ -32,15 +32,15 @@ body {
     background: var(--aika-transparent);
 }
 
-/* Корневая обёртка окна Steam (div.Wrapper.ForceOpaqueBackground).
-   Steam красит её в сплошной чёрный на всё окно — из-за неё фон не виден.
-   Читаемый класс (не хэш). Проверено: 2026-10-04 через DevTools. */
+/* The root wrapper of the Steam window (div.Wrapper.ForceOpaqueBackground).
+   Steam paints it solid black over the whole window — it hides the background.
+   A readable class (not a hash). Verified: 2026-10-04 via DevTools. */
 .Wrapper.ForceOpaqueBackground {
     background: var(--aika-transparent);
 }
 
 /* --------------------------------------------------------------------------
-   Layer 3 — пятна света
+   Layer 3 — light spots
    -------------------------------------------------------------------------- */
 
 html::before,
@@ -58,7 +58,7 @@ body::before {
     animation-iteration-count: infinite;
 }
 
-/* 1 — основное, верх-центр, цвет акцента */
+/* 1 — the main one, top center, accent color */
 html::before {
     width: var(--aika-light-1-size);
     left: var(--aika-light-1-x);
@@ -69,7 +69,7 @@ html::before {
     animation-duration: var(--aika-dur-ambient);
 }
 
-/* 2 — фиолетово-розовое, слева */
+/* 2 — violet-pink, on the left */
 html::after {
     width: var(--aika-light-2-size);
     left: var(--aika-light-2-x);
@@ -81,7 +81,7 @@ html::after {
     animation-direction: reverse;
 }
 
-/* 3 — тёплое (Claude), справа-снизу: плывёт и медленно «дышит» */
+/* 3 — warm (Claude), bottom right: drifts and slowly "breathes" */
 body::before {
     width: var(--aika-light-3-size);
     left: var(--aika-light-3-x);
@@ -93,7 +93,7 @@ body::before {
     animation-duration: var(--aika-dur-ambient-short);
 }
 
-/* Амплитуды умножаются на --aika-motion: при 0 все transform нулевые */
+/* Amplitudes are multiplied by --aika-motion: at 0 every transform is zero */
 @keyframes aika-float {
     0%, 100% {
         transform: translate3d(0, 0, 0) rotate(0deg);
@@ -118,7 +118,7 @@ body::before {
 }
 
 /* --------------------------------------------------------------------------
-   Layer 4 + Layer 2 — сетка и шум: поверх пятен, под интерфейсом
+   Layer 4 + Layer 2 — grid and noise: above the spots, below the interface
    -------------------------------------------------------------------------- */
 
 body::after {
@@ -142,8 +142,8 @@ body::after {
 }
 
 /* --------------------------------------------------------------------------
-   «Уменьшить движение»: пятна стоят (--aika-motion обнуляется в base.css,
-   а здесь анимация снимается совсем, чтобы не тратить кадры)
+   "Reduce motion": the spots stand still (--aika-motion is zeroed in base.css,
+   and here the animation is removed entirely to save frames)
    -------------------------------------------------------------------------- */
 
 @media (prefers-reduced-motion: reduce) {

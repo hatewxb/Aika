@@ -1,27 +1,27 @@
 /* ==========================================================================
-   sections/game-page.css — страница игры в библиотеке (DESIGN.md §5).
+   sections/game-page.css — the game page in the library (DESIGN.md §5).
 
-   Структура (снята через CDP 2026-10-04):
+   Structure (captured via CDP 2026-10-04):
      .AppDetailsMain
-       .PlayBar.Container > .PlayBar.Glassy   — липкая панель «Играть»
+       .PlayBar.Container > .PlayBar.Glassy   — the sticky "Play" bar
          .PlayButtonContainer[.ShowingStreaming]
            .PlayButton                         — components/button.css
-           .StreamingSelector                  — стрелка выбора устройства
-         .StatusAndStats .GameStat             — статистика (components/status.css)
-         .AppButtonsContainer .MenuButton      — настройки, избранное
-       .Header .TopCapsule                     — герой: фон-баннер + логотип
+           .StreamingSelector                  — the device selection arrow
+         .StatusAndStats .GameStat             — stats (components/status.css)
+         .AppButtonsContainer .MenuButton      — settings, favorite
+       .Header .TopCapsule                     — the hero: banner background + logo
        .AppDetailsOverviewPanel
-         .AppDetailsSection …                  — блоки (components/panel.css)
+         .AppDetailsSection …                  — blocks (components/panel.css)
 
-   Название игры — картинка-логотип Steam, текста нет; Display-антиква
-   здесь пока не применяется.
-   TODO: герой — затемняющий градиент под баннером, scroll-эффект
-   (DESIGN.md §8), когда снимем классы баннера.
+   The game title is Steam's logo image, there is no text; the Display serif
+   isn't applied here yet.
+   TODO: the hero — a darkening gradient under the banner, a scroll effect
+   (DESIGN.md §8), once we capture the banner classes.
    ========================================================================== */
 
 /* --------------------------------------------------------------------------
-   Панель «Играть»: сплошная приподнятая поверхность вместо голубого
-   градиента Steam («._3DeO… ._3fLo…», (0,2,0)), тонкая линия сверху
+   The "Play" bar: a solid raised surface instead of Steam's light-blue
+   gradient ("._3DeO… ._3fLo…", (0,2,0)), a thin line on top
    -------------------------------------------------------------------------- */
 
 html .PlayBar.Glassy {
@@ -30,14 +30,14 @@ html .PlayBar.Glassy {
     box-shadow: var(--aika-highlight-top);
 }
 
-/* Серая подложка Steam вокруг «Играть» */
+/* Steam's gray backing around "Play" */
 html .PlayBar .PlayButtonContainer {
     background: var(--aika-transparent);
 }
 
-/* «Играть» + стрелка стриминга — одна акцентная кнопка из двух частей.
-   Стрелка у установленной игры зелёная на hover — правило Steam (0,4,0),
-   иконка (0,4,1); у нас (0,4,1)…(0,5,2). */
+/* "Play" + the streaming arrow — one accent button in two parts.
+   The arrow of an installed game turns green on hover — a Steam rule (0,4,0),
+   the icon (0,4,1); ours are (0,4,1)…(0,5,2). */
 html .PlayButtonContainer.ShowingStreaming .PlayButton {
     border-radius: var(--aika-radius-md) 0 0 var(--aika-radius-md);
 }
@@ -63,12 +63,12 @@ html .PlayBar .PlayButtonContainer .StreamingSelector.ButtonChild:hover svg {
     fill: var(--aika-on-accent);
 }
 
-/* «Играть» у установленной игры — ярче «Установить» (правка автора
-   2026-10-06). Steam различает их контейнером: у «Играть» —
-   .PlayButtonContainer.Green (иконка SVGIcon_Play), у «Установить» —
-   без .Green (SVGIcon_Download); «Установить» остаётся обычной
-   акцентной кнопкой. Заливка — акцент → розовое пятно света с медленным
-   переливом, свечение двойное. */
+/* "Play" on an installed game is brighter than "Install" (author's fix
+   2026-10-06). Steam tells them apart by the container: "Play" has
+   .PlayButtonContainer.Green (the SVGIcon_Play icon), "Install" —
+   no .Green (SVGIcon_Download); "Install" stays a regular
+   accent button. The fill is accent → the pink light spot with a slow
+   shimmer, the glow is doubled. */
 html .PlayBar .PlayButtonContainer.Green :is(.PlayButton, .StreamingSelector.ButtonChild) {
     background: var(--aika-play-fill);
     background-size: var(--aika-play-fill-size);
@@ -93,7 +93,7 @@ html .PlayBar .PlayButtonContainer.Green :is(.PlayButton, .StreamingSelector.But
     }
 }
 
-/* Кнопки справа (шестерёнка, звезда) — secondary-иконки */
+/* Buttons on the right (gear, star) — secondary icons */
 html .AppButtonsContainer .MenuButton {
     border-radius: var(--aika-radius-md);
     background-color: var(--aika-surface);
@@ -109,11 +109,11 @@ html .AppButtonsContainer .MenuButton:hover {
 }
 
 /* --------------------------------------------------------------------------
-   Герой: баннер плавно уходит в фон, логотип остаётся поверх.
-   Steam сам делает параллакс баннера (на .HeaderBackgroundImage —
-   translateZ(-1) scale(2) внутри контейнера с перспективой), поэтому
-   transform баннера не трогаем: затемнение — слоем ::after внутри него,
-   затухание при прокрутке — только opacity картинки.
+   The hero: the banner fades smoothly into the background, the logo stays on top.
+   Steam does the banner parallax itself (on .HeaderBackgroundImage —
+   translateZ(-1) scale(2) inside a container with perspective), so
+   the banner's transform is untouched: the darkening is an ::after layer inside it,
+   the scroll fade is only the image's opacity.
    -------------------------------------------------------------------------- */
 
 html .TopCapsule .HeaderBackgroundImage::after {
@@ -124,9 +124,9 @@ html .TopCapsule .HeaderBackgroundImage::after {
     pointer-events: none;
 }
 
-/* Затухание при прокрутке (DESIGN.md §8): один раз по ходу скролла,
-   только при поддержке scroll-driven animations; при --aika-motion: 0
-   яркость не меняется */
+/* The fade on scroll (DESIGN.md §8): once over the course of the scroll,
+   only with scroll-driven animations support; with --aika-motion: 0
+   the brightness doesn't change */
 @keyframes aika-hero-fade-out {
     to {
         opacity: calc(1 - (1 - var(--aika-hero-scroll-opacity)) * var(--aika-motion));
@@ -148,17 +148,17 @@ html .TopCapsule .HeaderBackgroundImage::after {
 }
 
 /* --------------------------------------------------------------------------
-   Герой + панель «Играть» — один блок со скруглением и акцентной обводкой
-   (просьба автора 2026-10-04). В DOM это разные ветки: .Header (баннер)
-   и .AppDetailsOverviewPanel .Container.InPage > .PlayBar, поэтому
-   блок собран из двух половин: у героя — верхние углы и обводка сверху
-   и по бокам, у панели — нижние углы и обводка снизу и по бокам.
+   Hero + the "Play" bar — one block with rounding and an accent outline
+   (author's request 2026-10-04). In the DOM they're different branches: .Header (banner)
+   and .AppDetailsOverviewPanel .Container.InPage > .PlayBar, so
+   the block is built from two halves: the hero has the top corners and the outline on top
+   and the sides, the bar has the bottom corners and the outline at the bottom and the sides.
 
-   Обрезать героя через overflow/clip-path нельзя: .TopCapsule —
-   preserve-3d, параллакс баннера сломается, а «отражение» баннера
-   (.ImgBlurBackdrop) под панелью пропадёт. Поэтому скругляем сами
-   картинки (они плоские внутри 3D-слоя), а обводку рисуем ::before
-   поверх. Затемнение (::after) и затухание при прокрутке — как были.
+   The hero can't be clipped with overflow/clip-path: .TopCapsule is
+   preserve-3d, the banner parallax would break, and the banner "reflection"
+   (.ImgBlurBackdrop) under the bar would disappear. So we round the
+   images themselves (they're flat inside the 3D layer), and draw the outline with ::before
+   on top. The darkening (::after) and the scroll fade stay as they were.
    -------------------------------------------------------------------------- */
 
 html .AppDetailsMain .Header.HeaderLoaded {
@@ -179,18 +179,18 @@ html .AppDetailsMain .Header.HeaderLoaded::before {
     pointer-events: none;
 }
 
-/* Баннер — в 3D-слое (translateZ(-1) scale(2), перспектива у контейнера
-   прокрутки): сдвиг в разметке он показывает вдвое меньше, и после
-   полей героя съезжал на половину поля влево-вверх. Сдвигаем на поле. */
+/* The banner is in a 3D layer (translateZ(-1) scale(2), perspective on the scroll
+   container): it shows an offset in the markup at half size, and after
+   the hero margins it slid by half a margin up-left. We shift it by the margin. */
 html .TopCapsule .HeaderBackgroundImage {
     top: var(--aika-hero-inset);
     left: var(--aika-hero-inset);
 }
 
-/* Steam делает картинку выше героя (326 при 271): низ торчал из-под
-   скруглённых углов панели «Играть». Высота — по герою; при прокрутке
-   баннер едет вниз относительно героя (параллакс), так что видимая
-   часть героя остаётся закрытой. Отражение (.ImgBlurBackdrop) не трогаем. */
+/* Steam makes the image taller than the hero (326 vs 271): the bottom stuck out from under
+   the rounded corners of the "Play" bar. The height follows the hero; on scroll
+   the banner moves down relative to the hero (parallax), so the visible
+   part of the hero stays covered. The reflection (.ImgBlurBackdrop) is untouched. */
 html .TopCapsule .HeaderBackgroundImage > :is(.ImgContainer, img.ImgBlur:not(.ImgBlurBackdrop)) {
     max-height: 100%;
     border-radius: var(--aika-radius-xl) var(--aika-radius-xl) 0 0;
@@ -202,10 +202,10 @@ html .AppDetailsOverviewPanel .Container.InPage {
     margin-inline: var(--aika-hero-inset);
 }
 
-/* Отражение баннера под панелью (.ImgBlurBackdrop, отражено scaleY(-1),
-   opacity 0.2) — прямоугольник с прямыми боками: у скруглённых нижних
-   углов «Играть» были видны его грани. Гасим бока маской поверх
-   вертикального затухания Steam (хэш (0,2,0)). */
+/* The banner reflection under the bar (.ImgBlurBackdrop, mirrored with scaleY(-1),
+   opacity 0.2) is a rectangle with straight sides: its edges showed at the rounded
+   bottom corners of "Play". We fade the sides with a mask on top of
+   Steam's vertical fade (hash (0,2,0)). */
 html .TopCapsule .HeaderBackgroundImage > img.ImgBlurBackdrop {
     -webkit-mask-image:
         linear-gradient(to top, var(--aika-bg-deep) 0%, var(--aika-transparent) 100%),
@@ -217,8 +217,8 @@ html .TopCapsule .HeaderBackgroundImage > img.ImgBlurBackdrop {
     mask-composite: intersect;
 }
 
-/* Внутренние отступы «Играть»: у Steam сверху 10, снизу 7 px — кнопка
-   сидела не по центру. Поровну. */
+/* The inner padding of "Play": Steam has 10 px on top, 7 px at the bottom — the button
+   sat off center. Equal now. */
 html .PlayBar.Glassy > .InnerContainer {
     padding-block: var(--aika-space-2);
 }
@@ -231,7 +231,7 @@ html .AppDetailsOverviewPanel .Container.InPage > .PlayBar.Glassy {
     clip-path: inset(0 -40px -40px -40px);
 }
 
-/* Чипы коллекций на баннере («КООП» и т.п.) — бейджи-пилюли */
+/* Collection chips on the banner ("CO-OP" etc.) — pill badges */
 html .HeaderFeatures .InCollection {
     padding: 0 var(--aika-space-2);
     border-radius: var(--aika-radius-full);
@@ -249,9 +249,9 @@ html .HeaderFeatures .InCollection:hover {
 }
 
 /* --------------------------------------------------------------------------
-   Блок описания (.AppGameInfoContainer): постер, описание, разработчики,
-   возможности — как панель: тёмное тело, обводка, скругление xl.
-   Steam: фон (0,1,0), тень постера (0,2,0), кнопка лупы (0,2,0).
+   The description block (.AppGameInfoContainer): poster, description, developers,
+   features — like a panel: a dark body, an outline, xl rounding.
+   Steam: background (0,1,0), poster shadow (0,2,0), magnifier button (0,2,0).
    -------------------------------------------------------------------------- */
 
 html .AppGameInfoContainer > .Container {
@@ -260,21 +260,21 @@ html .AppGameInfoContainer > .Container {
     box-shadow: var(--aika-shadow-panel);
 }
 
-/* Постер — скругление обложки и простая тень */
+/* Poster — cover rounding and a simple shadow */
 html .AppGameInfoContainer .Portrait .PortraitImage {
     border-radius: var(--aika-radius-lg);
     overflow: hidden;
     box-shadow: var(--aika-shadow-cover);
 }
 
-/* Кнопка увеличения постера — secondary-иконка */
+/* The poster zoom button — a secondary icon */
 html .AppGameInfoContainer .Portrait .ZoomInButton {
     border-radius: var(--aika-radius-md);
     background-color: var(--aika-bg-raised);
     box-shadow: inset 0 0 0 var(--aika-hairline) var(--aika-border-hover);
 }
 
-/* Возможности (одиночная игра, достижения…) — строки с мягким hover */
+/* Features (single-player, achievements…) — rows with a soft hover */
 html .AppGameInfoContainer .FeaturesList > .Container {
     border-radius: var(--aika-radius-md);
     transition: background-color var(--aika-dur-fast) var(--aika-ease-hover);
@@ -285,8 +285,8 @@ html .AppGameInfoContainer .FeaturesList > .Container:hover {
 }
 
 /* --------------------------------------------------------------------------
-   Блок «предзаказ / не куплено» (.PrePurchaseContainer): 3D-куб с обложкой,
-   описание и кнопки. Steam красит его в сине-сиреневые градиенты — наш свет.
+   The "pre-purchase / not owned" block (.PrePurchaseContainer): a 3D cube with the cover,
+   description and buttons. Steam paints it in blue-lilac gradients — our light.
    -------------------------------------------------------------------------- */
 
 html .InnerContainer .PrePurchaseContainer {
@@ -299,8 +299,8 @@ html .PrePurchaseContainer .GroundPlane {
     background: radial-gradient(50% 50% at 35% 90%, var(--aika-accent-glow), var(--aika-accent-none));
 }
 
-/* Steam держит эти элементы цепочками (0,4,0)…(0,5,0) — у нас полные
-   читаемые цепочки + html */
+/* Steam holds these elements with chains (0,4,0)…(0,5,0) — ours are full
+   readable chains + html */
 html .PrePurchaseContainer .CubeFace.CubeFaceBottom .CubeFaceShadow {
     background: var(--aika-shadow-deep);
 }
@@ -313,7 +313,7 @@ html .PrePurchaseContainer .PrePurchaseDesc .Desc {
     color: var(--aika-fg-muted);
 }
 
-/* Обёртка «Играть» — прозрачная; соседняя кнопка — secondary */
+/* The "Play" wrapper is transparent; the neighboring button is secondary */
 html .PrePurchaseContainer .CubeContainer .PrePurchaseDesc .PrePurchaseActionsContainer div.PrePurchaseActions {
     background: var(--aika-transparent);
 }
@@ -334,13 +334,13 @@ html .PrePurchaseContainer .PrePurchaseActions .PlayButton svg.SVGIcon_Button sv
 }
 
 /* ==========================================================================
-   Палитра Aika для оставшихся элементов страницы игры (аудит
-   tools/audit.js, 2026-10-04). Нейтральные серые Steam → наши тёплые,
-   синие акценты Steam → наш акцент. Смысловые цвета (в игре, редкое
-   достижение) — сохраняем смысл.
+   The Aika palette for the remaining game page elements (the
+   tools/audit.js audit, 2026-10-04). Steam's neutral grays → our warm ones,
+   Steam's blue accents → our accent. Semantic colors (in game, a rare
+   achievement) keep their meaning.
    ========================================================================== */
 
-/* Фон страницы и стекло под блоками — прозрачные: виден фон Aika */
+/* The page background and the glass under the blocks are transparent: the Aika background shows */
 html .AppDetailsMain > .Container > .Body.ScrollContainer {
     background: var(--aika-transparent);
 }
@@ -349,13 +349,13 @@ html .AppDetailsOverviewPanel .Backdrop .BackdropGlass {
     background: var(--aika-transparent);
 }
 
-/* Чипы коллекций: у Steam своя белая рамка поверх нашей */
+/* Collection chips: Steam puts its own white border over ours */
 html .HeaderFeatures .InCollection {
     border-color: var(--aika-transparent);
 }
 
 /* --------------------------------------------------------------------------
-   Панель «Играть»: иконки статистики и кнопок
+   The "Play" bar: stat and button icons
    -------------------------------------------------------------------------- */
 
 html .PlayBar .GameStat :is(.GameStatIconForced, .GameStatIcon) svg :is(path, circle) {
@@ -377,7 +377,7 @@ html .PlayBar .AppButtonsContainer .MenuButton.FavoriteButton:hover svg path {
 }
 
 /* --------------------------------------------------------------------------
-   Блок описания и ссылки
+   The description block and links
    -------------------------------------------------------------------------- */
 
 html .AppGameInfoContainer .Description .GameDescription {
@@ -410,8 +410,8 @@ html .LinksSectionBody .LinkInner:hover .Link .Text {
     color: var(--aika-fg);
 }
 
-/* Подложка ссылки: у Steam скругление 2 px и серо-синий hover — хэш (0,3,0)
-   с :hover; у нас html + три класса + :hover */
+/* The link backing: Steam has 2 px rounding and a gray-blue hover — a hash (0,3,0)
+   with :hover; ours is html + three classes + :hover */
 html .LinksSectionBody .LinkInner .Anchor .Link {
     border-radius: var(--aika-radius-md);
     transition: background-color var(--aika-dur-fast) var(--aika-ease-hover);
@@ -427,8 +427,8 @@ html .LinksSectionBody .MenuButton svg circle {
 }
 
 /* --------------------------------------------------------------------------
-   Отзыв («Рекомендуете?», .Spotlights .ReviewContainer) — панель,
-   синие кнопки Steam → акцент
+   The review ("Recommend?", .Spotlights .ReviewContainer) — a panel,
+   Steam's blue buttons → accent
    -------------------------------------------------------------------------- */
 
 html .Spotlights .ReviewContainer {
@@ -467,7 +467,7 @@ html .Spotlights .ReviewContainer button.ReviewThumbButton svg.ThumbIcon path {
 }
 
 /* --------------------------------------------------------------------------
-   Друзья и достижения в правой колонке
+   Friends and achievements in the right column
    -------------------------------------------------------------------------- */
 
 html .AppDetailsSectionContainer .Body .Subsection .SubsectionHeader {
@@ -482,15 +482,15 @@ html .AppDetailsSectionContainer .Friends button.ShowMore.TextButton:hover {
     color: var(--aika-accent-bright);
 }
 
-/* Полоса «Открыто N из M» — поверхность вместо серо-синего градиента */
+/* The "Unlocked N of M" bar — a surface instead of a gray-blue gradient */
 html .AppDetailsSectionContainer .Highlight.HighlightDiv {
     border-radius: var(--aika-radius-lg);
     background: var(--aika-surface);
     box-shadow: inset 0 0 0 var(--aika-hairline) var(--aika-border);
 }
 
-/* «Вы получили все достижения» — акцентная полоса и медаль в цветах Aika
-   (у Steam — сине-голубой градиент из <defs> и жёлтый круг) */
+/* "You've unlocked all achievements" — an accent bar and a medal in Aika colors
+   (Steam has a blue-cyan gradient from <defs> and a yellow circle) */
 html .AppDetailsSectionContainer .Highlight.HighlightDiv.AllAchieved {
     background: var(--aika-accent-soft);
     box-shadow: inset 0 0 0 var(--aika-hairline) var(--aika-border-accent);
@@ -522,13 +522,13 @@ html :is(.PrimaryAchievement, .RightAchievementSection) .TextSection .Desc {
     color: var(--aika-fg-muted);
 }
 
-/* Иконки достижений — скругление; золотое свечение редких — Steam'овское */
+/* Achievement icons — rounding; the gold glow of rare ones is Steam's */
 html .AchievementIconWrapper img.Icon {
     border-radius: var(--aika-radius-md);
 }
 
 /* --------------------------------------------------------------------------
-   Лента активности: поле поста, кнопки, события, лайки
+   The activity feed: the post field, buttons, events, likes
    -------------------------------------------------------------------------- */
 
 html .PostTextEntry:is(.AddToFeed, .AddReply) textarea.PostTextEntryArea {
@@ -585,8 +585,8 @@ html .RatingBar :is(.CommentButton, .LikeButton):hover svg.RatingIcon :is(*) {
 }
 
 /* --------------------------------------------------------------------------
-   Нижние блоки: скриншоты, коллекционные карточки, контент сообщества,
-   голосование (аудит 2026-10-04)
+   Lower blocks: screenshots, trading cards, community content,
+   voting (audit 2026-10-04)
    -------------------------------------------------------------------------- */
 
 html .AppDetailsSectionContainer .Screenshots .Thumbnail {
@@ -600,13 +600,13 @@ html .CardsSection .CardWrapper .Card .CardContainer {
     background-color: var(--aika-bg-raised);
 }
 
-/* Наведение на карточку: у Steam одна чёрная тень (хэш (0,3,0) с :hover) →
-   наша многослойная */
+/* Card hover: Steam has a single black shadow (hash (0,3,0) with :hover) →
+   our layered one */
 html .CardsSection .CardWrapper .Card:hover .CardContainer {
     box-shadow: var(--aika-shadow-card-hover);
 }
 
-/* Пустые ячейки-заглушки в «Контенте сообщества» */
+/* Empty placeholder cells in "Community Content" */
 html .AppOverviewRow .CommunityItem.Blank {
     border-radius: var(--aika-radius-lg);
     background-color: var(--aika-surface);
@@ -624,25 +624,25 @@ html .AppDetailsSectionContainer .VoteUpDownContainer button.AppDetailsButton:ho
     color: var(--aika-fg);
 }
 
-/* Липкая копия панели «Играть» (висит сверху при прокрутке) — нижние углы
-   скруглены; панель внутри страницы под баннером остаётся вровень с краями */
+/* The sticky copy of the "Play" bar (hangs at the top on scroll) — the bottom corners
+   are rounded; the in-page bar under the banner stays flush with the edges */
 html .AppDetailsMain > .PlayBar.Container > .PlayBar.Glassy {
     border-radius: 0 0 var(--aika-radius-lg) var(--aika-radius-lg);
 }
 
 /* --------------------------------------------------------------------------
-   Лента активности на странице игры (.ActivityFeedContainer)
+   The activity feed on the game page (.ActivityFeedContainer)
 
-   Steam сжимает заголовок и тело ленты по содержимому (~482 px), а тело
-   панели — во всю колонку: справа от поля поста и событий оставалась
-   пустая тёмная полоса. Растягиваем заголовок и содержимое на всю ширину.
+   Steam shrinks the feed header and body to the content (~482 px), while the panel
+   body spans the whole column: to the right of the post field and events there was
+   an empty dark strip. We stretch the header and content to full width.
    -------------------------------------------------------------------------- */
 
-/* Правая колонка у Steam — float: right, левая течёт вокруг неё. Блоки
-   левой колонки делаем отдельным блочным контекстом (flow-root): тогда
-   блок целиком встаёт рядом с правой колонкой и сжимается до свободного
-   места, а не уезжает под неё (что было при width: 100% у потомков)
-   и не тянет тёмное тело под правую колонку (что было у Steam). */
+/* Steam's right column is float: right, the left one flows around it. We make the
+   left column blocks a separate block formatting context (flow-root): then
+   the whole block sits next to the right column and shrinks to the free
+   space instead of sliding under it (which happened with width: 100% on descendants)
+   and doesn't stretch the dark body under the right column (which Steam did). */
 html .ColumnContainer .LeftColumn > .SeekTarget > .AppDetailsSection {
     display: flow-root;
 }
@@ -659,7 +659,7 @@ html .ActivityFeedContainer > .AppDetailsSectionContainer > .Body.InnerContainer
     gap: var(--aika-space-2);
 }
 
-/* Дата дня в ленте */
+/* The day's date in the feed */
 html .ActivityFeedContainer .AppActivityDay .AppActivityDate {
     color: var(--aika-fg-subtle);
     font-family: var(--aika-font-mono);
@@ -667,14 +667,14 @@ html .ActivityFeedContainer .AppActivityDay .AppActivityDate {
     letter-spacing: var(--aika-tracking-label);
 }
 
-/* Строка «Имя получает достижение» */
+/* The "Name unlocked an achievement" line */
 html .ActivityFeedContainer .EventHeadline {
     color: var(--aika-fg-muted);
 }
 
-/* Новости (.PartnerEvent, «Небольшое обновление…»): у Steam рамка
-   сделана border-image (PNG) — с ней скругление не работает. Заменяем
-   на нашу карточку. Steam (0,1,0). */
+/* News (.PartnerEvent, "Small update…"): Steam's border is
+   made with border-image (PNG) — rounding doesn't work with it. We replace it
+   with our card. Steam (0,1,0). */
 html .ActivityFeedContainer .PartnerEvent {
     border: var(--aika-hairline) solid var(--aika-border);
     border-image: none;
@@ -706,28 +706,28 @@ html .ActivityFeedContainer .PartnerEvent .PartnerEventTextOnly_Icon svg path {
     fill: var(--aika-accent-bright);
 }
 
-/* Кнопка «Показать больше» внизу ленты — во всю ширину */
+/* The "Show more" button at the bottom of the feed — full width */
 html .ActivityFeedContainer .Body.InnerContainer > button.FetchMoreContainer {
     align-self: stretch;
-    /* Steam «.ActivityFeedContainer-хэш .кнопка» (0,2,0): радиус 2 px и серо-синий фон */
+    /* Steam ".ActivityFeedContainer-hash .button" (0,2,0): 2 px radius and a gray-blue background */
     border-radius: var(--aika-radius-md);
     color: var(--aika-fg-muted);
 }
 
-/* Мелкие иконки достижений и «+N» в блоке достижений */
+/* Small achievement icons and "+N" in the achievements block */
 html .Additional .ItemWrapper .AdditionalItem {
     overflow: hidden;
     border-radius: var(--aika-radius-md);
     background-color: var(--aika-bg-raised);
 }
 
-/* Разделитель «Не получено» */
+/* The "Locked" divider */
 html .AppDetailsSectionContainer .UnachievedSection.ShowDivider {
     border-color: var(--aika-border);
 }
 
 /* --------------------------------------------------------------------------
-   Контент сообщества: арты, руководства (.CommunityItem.Large / .Small)
+   Community content: artwork, guides (.CommunityItem.Large / .Small)
    -------------------------------------------------------------------------- */
 
 html .AppOverviewRow .CommunityItem:not(.Blank) {
@@ -737,7 +737,7 @@ html .AppOverviewRow .CommunityItem:not(.Blank) {
     box-shadow: var(--aika-shadow-cover);
 }
 
-/* Подпись арта поверх картинки */
+/* The artwork caption over the image */
 html .CommunityItem .ArtItem .BottomSection {
     background: var(--aika-bg-elevated);
     box-shadow: none;
@@ -747,7 +747,7 @@ html .CommunityItem .ArtItem .BottomSection .DescriptionRow {
     color: var(--aika-fg-muted);
 }
 
-/* Автор сверху поверх картинки — наше затемнение */
+/* The author on top over the image — our darkening */
 html .CommunityItem .AuthorSection {
     background: linear-gradient(to bottom, var(--aika-scrim), var(--aika-scrim-none));
 }
@@ -756,7 +756,7 @@ html .CommunityItem .AuthorSection .AuthorName {
     color: var(--aika-fg-muted);
 }
 
-/* Руководства */
+/* Guides */
 html .CommunityItem .Guide .GuideTitle {
     color: var(--aika-fg);
 }
@@ -769,7 +769,7 @@ html .CommunityItem .Guide .BottomSection .Description {
     color: var(--aika-fg-muted);
 }
 
-/* Реакции, счётчики, меню */
+/* Reactions, counters, menu */
 html .CommunityItem .Controls .Control .Button svg.Reactions path {
     fill: var(--aika-accent-bright);
 }
@@ -783,10 +783,10 @@ html .CommunityItem .MenuButton svg.SVGIcon_Button path {
     fill: var(--aika-fg-muted);
 }
 
-/* Новости с картинкой (.PartnerEventMediumImage и др.): внутри карточки
-   у Steam свой контейнер с градиентной «подсветкой» — без скругления,
-   и карточка его не обрезала. Обрезаем по скруглению, подсветку Steam
-   заменяем нашей поверхностью, картинку скругляем. */
+/* News with an image (.PartnerEventMediumImage etc.): inside the card
+   Steam has its own container with a gradient "glow" — without rounding,
+   and the card didn't clip it. We clip by the rounding, replace Steam's glow
+   with our surface, and round the image. */
 html .ActivityFeedContainer .PartnerEvent {
     overflow: hidden;
 }
@@ -808,8 +808,8 @@ html .ActivityFeedContainer .PartnerEvent :is(.PartnerEventMediumImage_Summary, 
     color: var(--aika-fg-muted);
 }
 
-/* Иконка «Установить»: стрелка — вложенный <svg> со своей голубой
-   заливкой Steam «:not(._1Pb6…) > ._2AzIX… svg» */
+/* The "Install" icon: the arrow is a nested <svg> with its own light-blue
+   Steam fill ":not(._1Pb6…) > ._2AzIX… svg" */
 html .PlayButtonContainer .PlayButton svg.SVGIcon_Button svg,
 html .PlayButtonContainer .PlayButton svg.SVGIcon_Button svg path,
 html .PlayButtonContainer .PlayButton:hover svg.SVGIcon_Button svg,
@@ -817,13 +817,13 @@ html .PlayButtonContainer .PlayButton:hover svg.SVGIcon_Button svg path {
     fill: var(--aika-on-accent);
 }
 
-/* Значок «?» у заголовков блоков */
+/* The "?" icon next to block headings */
 html .AppDetailsSection > h2.SectionHeader .MoreInfoIcon .MoreInfoIconQuestionMark {
     color: var(--aika-fg-subtle);
 }
 
-/* Реакции поверх превью видео в «Контенте сообщества» — светлые плашки
-   Steam → наши тёмные */
+/* Reactions over video previews in "Community Content" — Steam's light plates
+   → our dark ones */
 html .CommunityItem .Controls .Control {
     border-radius: var(--aika-radius-md);
     background-color: var(--aika-bg-raised);
@@ -831,9 +831,9 @@ html .CommunityItem .Controls .Control {
 }
 
 /* --------------------------------------------------------------------------
-   «Коллекционные карточки» (значок) и «Мастерская» (работа в тренде):
-   у Steam общая подложка .Highlight — серо-синий градиент, скругление 2 px,
-   тень. Хэш-правила (0,1,0)…(0,4,0); у нас полные читаемые цепочки + html.
+   "Trading Cards" (the badge) and "Workshop" (a trending item):
+   Steam has a shared .Highlight backing — a gray-blue gradient, 2 px rounding,
+   a shadow. Hash rules (0,1,0)…(0,4,0); ours are full readable chains + html.
    -------------------------------------------------------------------------- */
 
 html .AppDetailsSectionContainer .Highlight:is(.BadgeSection, .WorkshopHightlight) {
@@ -844,7 +844,7 @@ html .AppDetailsSectionContainer .Highlight:is(.BadgeSection, .WorkshopHightligh
     color: var(--aika-fg-muted);
 }
 
-/* В блоке тело идёт сразу за подложкой — отступ по краям тела панели */
+/* In the block the body follows the backing directly — padding along the panel body edges */
 html .AppDetailsSectionContainer > .Highlight.BadgeSection,
 html .AppDetailsSectionContainer > .Panel > .Highlight.WorkshopHightlight {
     margin: var(--aika-space-3);
@@ -854,8 +854,8 @@ html .Highlight.BadgeSection .BadgeInfo .BadgeName {
     color: var(--aika-fg);
 }
 
-/* Значок ещё не создан — пустой пунктирный круг: серый Steam → наша рамка
-   (у Steam хэш (0,2,0); у нас html + три класса) */
+/* A badge not crafted yet — an empty dashed circle: Steam's gray → our border
+   (Steam: hash (0,2,0); ours: html + three classes) */
 html .Highlight.BadgeSection .Badge.EmptyCircle {
     border-color: var(--aika-border-hover);
 }
@@ -866,7 +866,7 @@ html .Highlight.BadgeSection .BadgeInfo .BadgeLevel {
     font-size: var(--aika-text-meta);
 }
 
-/* «Поздравляем! Значок максимального уровня» — голубой Steam → акцент */
+/* "Congratulations! Max level badge" — Steam's light blue → accent */
 html .AppDetailsSectionContainer .Body .CardsLeft {
     color: var(--aika-fg-muted);
 }
@@ -875,7 +875,7 @@ html .AppDetailsSectionContainer .Body .CardsLeft.BadgeMaxed {
     color: var(--aika-accent-bright);
 }
 
-/* Мастерская: «Работа в тренде», название, описание, «Подробнее» */
+/* Workshop: "Trending item", title, description, "Learn more" */
 html .FeaturedItem .FeaturedItemDetailsContainer .FeaturedItemHeader {
     color: var(--aika-accent-bright);
     font-family: var(--aika-font-mono);
@@ -912,14 +912,14 @@ html .WorkshopHightlight .FeaturedItem .FeaturedItemHideButton svg {
     fill: var(--aika-fg-subtle);
 }
 
-/* Низ блока Мастерской: картинка-фон workshopbackground.png на сером */
+/* The bottom of the Workshop block: the workshopbackground.png background image on gray */
 html .WorkshopSection .AppDetailsSectionContainer .Body.WorkshopContainer {
     border-radius: 0 0 var(--aika-radius-xl) var(--aika-radius-xl);
     background: var(--aika-transparent);
 }
 
 /* --------------------------------------------------------------------------
-   Доп. контент: обложки DLC — скругление, без «стеклянного» блика Steam
+   Extra content: DLC covers — rounding, without Steam's "glass" glare
    -------------------------------------------------------------------------- */
 
 html .AppDetailsSectionContainer .DLC .Item .DLCArt {
@@ -936,9 +936,9 @@ html .AppDetailsSectionContainer .DLC .DLCArt > .Gloss {
 }
 
 /* --------------------------------------------------------------------------
-   Лента: комментарии под событием (скриншоты, статусы) —
-   .ActivityCommentThread. Steam: подложка rgba(36,40,47,.8), серые время,
-   текст, «палец вверх»; цепочки хэшей до (0,6,0).
+   The feed: comments under an event (screenshots, statuses) —
+   .ActivityCommentThread. Steam: a rgba(36,40,47,.8) backing, gray time,
+   text, "thumbs up"; hash chains up to (0,6,0).
    -------------------------------------------------------------------------- */
 
 html .Event .CommentThread .ActivityCommentThread {
@@ -972,7 +972,7 @@ html .ActivityCommentThread .Comment .HeaderandBody .CommentBody .CommentControl
     fill: var(--aika-live);
 }
 
-/* Реакции (смайлик) рядом с «комментарии / нравится» */
+/* Reactions (a smiley) next to "comments / like" */
 html .RatingBar .Reactions .ReactionCount {
     color: var(--aika-fg-subtle);
 }
@@ -990,7 +990,7 @@ html .RatingBar .Reactions:hover .ReactionIcon svg :is(*) {
     fill: var(--aika-fg);
 }
 
-/* Подпись к скриншоту: голубая плашка-градиент → наша поверхность */
+/* The screenshot caption: a light-blue gradient plate → our surface */
 html .ActivityPublishedScreenshot .ActiveScreenshot .ScreenshotCaption {
     border-radius: 0 var(--aika-radius-md) 0 0;
     background: var(--aika-scrim);
@@ -1005,15 +1005,15 @@ html .ActivityPublishedScreenshot .ActiveScreenshot .ScreenshotCaption .CaptionQ
     color: var(--aika-accent-bright);
 }
 
-/* Текст статуса друга («мне сегодня 5 лет…») */
+/* A friend's status text ("I'm 5 years old today…") */
 html .Event .EventBody .ActivityPublishedStatus {
     color: var(--aika-fg);
 }
 
 /* --------------------------------------------------------------------------
-   «Достижения» в панели «Играть» (.GameStat.MiniAchievements): кубок —
-   акцентом (у Steam контур — градиент url(#svgid…) внутри SVG), полоса
-   прогресса — наша. Steam: полоса #2d73ff на #151619, хэши (0,2,0).
+   "Achievements" in the "Play" bar (.GameStat.MiniAchievements): the trophy in
+   accent (Steam's outline is a url(#svgid…) gradient inside the SVG), the progress
+   bar is ours. Steam: a #2d73ff bar on #151619, hashes (0,2,0).
    -------------------------------------------------------------------------- */
 
 html .PlayBar .GameStat.MiniAchievements .AchievementSVG svg :is(path, circle) {
@@ -1032,8 +1032,8 @@ html .PlayBar .GameStat.MiniAchievements .AchievementProgressRow .DetailsProgres
     box-shadow: 0 0 8px var(--aika-accent-glow);
 }
 
-/* Друг в блоке «Друзья, которые играют» (.AvatarAndLabel): на hover у Steam
-   голубая подложка rgba(103,137,161,.2) без скругления (хэш:hover (0,2,0)) */
+/* A friend in the "Friends who play" block (.AvatarAndLabel): on hover Steam has
+   a light-blue backing rgba(103,137,161,.2) without rounding (hash:hover (0,2,0)) */
 html .FriendsSection .Friends .AvatarAndLabel {
     border-radius: var(--aika-radius-md);
     transition: background-color var(--aika-dur-fast) var(--aika-ease-hover);
@@ -1044,11 +1044,11 @@ html .FriendsSection .Friends .AvatarAndLabel:hover {
 }
 
 /* --------------------------------------------------------------------------
-   Блок «Об игре» (кнопка «i» в «Играть» → .AppGameInfoContainer,
-   .AppDetailsExpanded / .AppDetailsCollapsed, высота — inline-стилем
-   с анимацией). У Steam он вплотную под панелью и выше её (z 36 против 1):
-   свечение «Играть» пряталось под ним. Панель поднимаем над блоком,
-   блок опускаем на поле и выравниваем по краям героя.
+   The "About this game" block (the "i" button in "Play" → .AppGameInfoContainer,
+   .AppDetailsExpanded / .AppDetailsCollapsed, the height is an inline style
+   with animation). Steam puts it flush under the bar and above it (z 36 vs 1):
+   the "Play" glow hid under it. We raise the bar above the block,
+   lower the block by the margin and align it with the hero edges.
    -------------------------------------------------------------------------- */
 
 html .AppDetailsOverviewPanel > .Container > .Container.InPage {
@@ -1072,17 +1072,17 @@ html .AppDetailsOverviewPanel .AppGameInfoContainer.AppDetailsExpanded {
     margin-top: var(--aika-hero-inset);
 }
 
-/* Тень-заглушка на время анимации: скругление как у блока */
+/* The placeholder shadow during the animation: rounding like the block's */
 html .AppDetailsOverviewPanel .AppGameInfoContainer .GameInfoShadow {
     border-radius: var(--aika-radius-xl);
     background-color: var(--aika-shadow-deep);
 }
 
 /* --------------------------------------------------------------------------
-   «Вышел новый контент» (.Rollup > .Contents): карусель DLC/обновлений
-   в теле блока. Steam: серая радиальная подсветка, чёрные тени, блик
-   на обложках, Motiva Sans у «Показать все в магазине», хэши (0,2,0)…(0,3,0).
-   Карточка — акцентная (это новинка), обложки скруглены.
+   "New content released" (.Rollup > .Contents): a DLC/update carousel
+   in the block body. Steam: a gray radial glow, black shadows, a glare
+   on covers, Motiva Sans on "View all in store", hashes (0,2,0)…(0,3,0).
+   The card is accent (it's something new), covers are rounded.
    -------------------------------------------------------------------------- */
 
 html .InnerContainer .Rollup > .Contents {
@@ -1140,16 +1140,16 @@ html .Rollup .ViewAllRow a.ViewAll {
         color var(--aika-dur-fast) var(--aika-ease-hover);
 }
 
-/* Steam на hover — сиреневая подложка rgba(173,101,186,.22) */
+/* Steam on hover — a lilac backing rgba(173,101,186,.22) */
 html .Rollup .ViewAllRow a.ViewAll:hover {
     background-color: var(--aika-accent-soft);
     color: var(--aika-fg);
 }
 
 /* --------------------------------------------------------------------------
-   Верх ленты: поле «Расскажите об этой игре друзьям…» и «Показать
-   последние новости» — компактнее (просьба автора 2026-10-04) и нашим
-   шрифтом: Steam ставит Motiva Sans прямо на элементы (хэш (0,1,0)).
+   The top of the feed: the "Tell your friends about this game…" field and "Show
+   latest news" — more compact (author's request 2026-10-04) and in our
+   font: Steam sets Motiva Sans right on the elements (hash (0,1,0)).
    -------------------------------------------------------------------------- */
 
 html .ActivityFeedContainer .Body.InnerContainer > .PostTextEntry.AddToFeed {
@@ -1179,8 +1179,8 @@ html .ActivityFeedContainer .Body.InnerContainer > .ViewLastNews:hover span {
 }
 
 /* --------------------------------------------------------------------------
-   Скриншоты в ленте: миниатюры под большим кадром (.CarouselThumbs).
-   Выбранная (.Active) у Steam — голубая рамка #2db9ff, углы прямые.
+   Screenshots in the feed: thumbnails under the large frame (.CarouselThumbs).
+   Steam's selected one (.Active) has a light-blue #2db9ff border, square corners.
    -------------------------------------------------------------------------- */
 
 html .ActivityPublishedScreenshot .ScreenshotCarousel .CarouselThumbs .CarouselThumb,
@@ -1193,8 +1193,8 @@ html .ActivityPublishedScreenshot .ScreenshotCarousel .CarouselThumbs .CarouselT
     box-shadow: 0 0 12px var(--aika-accent-glow);
 }
 
-/* Лайк, который поставил сам пользователь (.UserRated) — голубой → акцент;
-   «N оценок» рядом — приглушённо */
+/* A like the user gave themselves (.UserRated) — light blue → accent;
+   "N ratings" next to it — muted */
 html .RatingBar .LikeButton .LikeIcon svg.RatingIcon.UserRated,
 html .RatingBar .LikeButton .LikeIcon svg.RatingIcon.UserRated path {
     fill: var(--aika-accent-bright);
@@ -1204,23 +1204,23 @@ html .ActivityCommentThreadMinimized .RatingContainer .RatingBar .RatingDetails 
     color: var(--aika-fg-subtle);
 }
 
-/* Название игры в строке события («… в Одни из нас»): серый #a0a0a0 (0,3,0) */
+/* The game title in an event line ("… in The Last of Us"): gray #a0a0a0 (0,3,0) */
 html .Event .EventHeadline .SpanEvent .HeadlineGameName {
     color: var(--aika-fg);
 }
 
-/* Иконки достижений: чёрная тень Steam (0,1,0) → наша тень обложки.
-   Золотое свечение редких (.IconGlow) — знак редкости, не трогаем. */
+/* Achievement icons: Steam's black shadow (0,1,0) → our cover shadow.
+   The gold glow of rare ones (.IconGlow) is a rarity sign, left alone. */
 html .AchievementHoverContainer .AchievementIconWrapper img.Icon:not(.IconGlow) {
     box-shadow: var(--aika-shadow-cover);
 }
 
 /* --------------------------------------------------------------------------
-   «Крупное обновление» в ленте (.Event.PartnerEventLargeUpdate >
-   .MajorUpdateContentContainer): голубая полоса слева
-   (.LeftSideMajorUpdateBar, торчит за край карточки), серая радиальная
-   подсветка, голубой тип события. Хэши (0,1,0), hover — (0,2,0).
-   Делаем акцентной карточкой: это главное событие ленты.
+   "Major update" in the feed (.Event.PartnerEventLargeUpdate >
+   .MajorUpdateContentContainer): a light-blue strip on the left
+   (.LeftSideMajorUpdateBar, sticking out past the card edge), a gray radial
+   glow, a light-blue event type. Hashes (0,1,0), hover — (0,2,0).
+   We make it an accent card: it's the main feed event.
    -------------------------------------------------------------------------- */
 
 html .ActivityFeedContainer .PartnerEventLargeUpdate.PartnerEventLargeUpdate {
@@ -1229,16 +1229,16 @@ html .ActivityFeedContainer .PartnerEventLargeUpdate.PartnerEventLargeUpdate {
     box-shadow: none;
 }
 
-/* Полоса слева торчит за край карточки на 22 px и читалась как налипшая
-   рамка — убираем: акцент и так в обводке карточки */
+/* The strip on the left sticks out past the card edge by 22 px and read as a stuck-on
+   border — removed: the accent is already in the card outline */
 html .PartnerEventLargeUpdate .MajorUpdateContentContainer .LeftSideMajorUpdateBar {
     display: none;
 }
 
-/* Размытая копия обложки под текстом (.Blur, blur 32px): к краям размытие
-   прозрачнеет, и сквозь него по контуру проступал фон карточки — тонкое
-   синее «кольцо». Растягиваем за края (края уходят под overflow: hidden)
-   и оставляем мягкой цветной подсветкой вместо серой. Steam (0,2,0). */
+/* The blurred cover copy under the text (.Blur, blur 32px): toward the edges the blur
+   becomes transparent, and the card background showed through along the outline — a thin
+   blue "ring". We stretch it past the edges (the edges go under overflow: hidden)
+   and keep it as a soft colored glow instead of gray. Steam (0,2,0). */
 html .PartnerEventLargeUpdate .PartnerEventLargeImage_Contents img.PartnerEventLargeImage_Image.Blur {
     transform: scale(var(--aika-blur-cover-scale));
     filter: var(--aika-blur-cover-filter);
@@ -1283,9 +1283,9 @@ html .PartnerEventLargeUpdate .PartnerEventLargeImage_TextColumn .PartnerEventLa
 }
 
 /* --------------------------------------------------------------------------
-   Скрытые достижения («?» вместо иконки, .HiddenLabel) и строка «+N других»
-   (.Featured.RemainderContainer) в ленте и блоке достижений. Steam: серая
-   градиентная плитка без скругления, белёсые подписи, хэши (0,1,0)…(0,3,0).
+   Hidden achievements ("?" instead of an icon, .HiddenLabel) and the "+N more" line
+   (.Featured.RemainderContainer) in the feed and the achievements block. Steam: a gray
+   gradient tile without rounding, whitish captions, hashes (0,1,0)…(0,3,0).
    -------------------------------------------------------------------------- */
 
 html .AchievementHoverContainer .HiddenLabel {
@@ -1313,15 +1313,15 @@ html .Featured.RemainderContainer .Remainder .RemainderText {
     font-family: var(--aika-font-mono);
 }
 
-/* Краткий текст новости без картинки: серо-голубой Steam (0,1,0) */
+/* Short news text without an image: Steam's gray-blue (0,1,0) */
 html .ActivityFeedContainer .PartnerEventTextOnly_LimitedSummary .PartnerEventTextOnly_Summary {
     color: var(--aika-fg-muted);
 }
 
-/* «Избранное» — закреплённое событие вверху ленты (.PartnerEventFeatured:
-   полоса-заголовок .PartnerEventFeaturedHeader + та же карточка крупного
-   обновления). Steam: ярко-голубой градиент на полосе и вокруг, (0,2,0).
-   У нас — единая акцентная карточка: полоса — акцентный заголовок панели. */
+/* "Featured" — a pinned event at the top of the feed (.PartnerEventFeatured:
+   the .PartnerEventFeaturedHeader header strip + the same major update
+   card). Steam: a bright light-blue gradient on the strip and around it, (0,2,0).
+   Ours is a single accent card: the strip is an accent panel header. */
 html .ActivityFeedContainer .PartnerEventLargeUpdate.PartnerEventFeatured {
     overflow: hidden;
     border: var(--aika-hairline) solid var(--aika-border-accent);
@@ -1338,7 +1338,7 @@ html .ActivityFeedContainer .PartnerEventFeatured .PartnerEventFeaturedHeader {
     letter-spacing: var(--aika-tracking-label);
 }
 
-/* Внутренняя карточка в «Избранном» — без своей рамки и углов: рамка общая */
+/* The inner card in "Featured" — without its own border and corners: the border is shared */
 html .PartnerEventFeatured .MajorUpdateContentContainer .PartnerEventLargeImage_Container {
     border: none;
     border-radius: 0;
@@ -1349,16 +1349,16 @@ html .PartnerEventFeatured .MajorUpdateContentContainer .LeftSideMajorUpdateBar 
     display: none;
 }
 
-/* Дата рядом с типом события («2 окт.») */
+/* The date next to the event type ("Oct 2") */
 html .PartnerEventLargeImage_TextColumn .PartnerEventType .DayPosted {
     color: var(--aika-fg-subtle);
     font-family: var(--aika-font-mono);
 }
 
 /* --------------------------------------------------------------------------
-   Семейная библиотека в «Играть» (.Row.SharedLibrary): «Вы играете в копию
-   от …» + друг + «Сменить предпочтительную копию» (a.ChooseButton —
-   голубая ссылка #6dcff6, (0,2,0)). Ссылку делаем secondary-кнопкой.
+   Family Library in "Play" (.Row.SharedLibrary): "You're playing a copy
+   from …" + a friend + "Change preferred copy" (a.ChooseButton —
+   a light-blue link #6dcff6, (0,2,0)). We make the link a secondary button.
    -------------------------------------------------------------------------- */
 
 html .PlayBar .InnerContainer .Row.SharedLibrary {
@@ -1385,13 +1385,13 @@ html .PlayBar .Row.SharedLibrary a.ChooseButton:hover {
 }
 
 /* --------------------------------------------------------------------------
-   Окно новости (клик по событию в ленте или «Что нового»): поверх страницы
-   игры .AppPartnerEventsPage — лента открытых событий .PartnerEvent.InLibraryView
-   и колонка кнопок справа (.ControlSectionRightSide: закрыть, вверх/вниз,
-   иконка игры). Steam: серо-синий радиальный градиент #42454c → #25282e,
-   радиус 4 px, голубой тип события #289cff капсом, ссылки #80bcd2, серые
-   кнопки #44444b, голубые счётчики #399aec. Хэши (0,1,0)…(0,3,0).
-   Проверено 2026-10-07 на «Ведьмак 3» (хотфикс 5.00c, крупное обновление).
+   The news window (a click on a feed event or "What's New"): over the game
+   page .AppPartnerEventsPage — a feed of open events .PartnerEvent.InLibraryView
+   and a button column on the right (.ControlSectionRightSide: close, up/down,
+   game icon). Steam: a gray-blue radial gradient #42454c → #25282e,
+   4 px radius, a light-blue event type #289cff in caps, links #80bcd2, gray
+   buttons #44444b, light-blue counters #399aec. Hashes (0,1,0)…(0,3,0).
+   Verified 2026-10-07 on "The Witcher 3" (hotfix 5.00c, a major update).
    -------------------------------------------------------------------------- */
 
 html .AppPartnerEventsContainer .PartnerEvent.InLibraryView {
@@ -1403,24 +1403,24 @@ html .AppPartnerEventsContainer .PartnerEvent.InLibraryView {
     box-shadow: var(--aika-shadow-event);
 }
 
-/* Обложка сверху — углы и так срезает overflow: hidden панели */
+/* The cover on top — the panel's overflow: hidden clips the corners anyway */
 html .PartnerEvent.InLibraryView img.EventCoverImageBackground {
     border-radius: 0;
     background: var(--aika-bg-raised);
 }
 
-/* Размытая обложка под текстом: серая дымка → мягкая цветная подсветка */
+/* The blurred cover under the text: a gray haze → a soft colored glow */
 html .PartnerEvent.InLibraryView img.EventBackgroundBlur {
     opacity: var(--aika-blur-cover-opacity);
 }
 
-/* Полоса заголовка: белое радиальное свечение снизу → акцентное */
+/* The header strip: a white radial glow from below → accent */
 html .PartnerEvent.InLibraryView .EventDetailTitleContainer {
     border-bottom: var(--aika-hairline) solid var(--aika-border);
     background: radial-gradient(ellipse at bottom center, var(--aika-accent-tint), var(--aika-accent-none) 70%);
 }
 
-/* Тип события («Крупное обновление», «Новость») — акцентный бейдж */
+/* The event type ("Major update", "News") — an accent badge */
 html .PartnerEvent.InLibraryView .EventTypeAndTimeRow .TimeandPostedBy .EventType {
     padding: var(--aika-badge-pad-y) var(--aika-space-2);
     border-radius: var(--aika-radius-full);
@@ -1433,7 +1433,7 @@ html .PartnerEvent.InLibraryView .EventTypeAndTimeRow .TimeandPostedBy .EventTyp
     text-transform: none;
 }
 
-/* «Опубликовано» + дата — моно, без капса */
+/* "Posted" + date — mono, no caps */
 html .PartnerEvent.InLibraryView .EventDetailTimeInfo :is(.RightSideTitles, .ShortDateAndTime) {
     color: var(--aika-fg-subtle);
     font-family: var(--aika-font-mono);
@@ -1459,7 +1459,7 @@ html .PartnerEvent.InLibraryView .EventDetailsBody :is(b, strong, h1, h2, h3) {
     color: var(--aika-fg);
 }
 
-/* Ссылки в тексте: голубой #80bcd2 Steam (0,1,1) */
+/* Links in the text: Steam's light blue #80bcd2 (0,1,1) */
 html .PartnerEvent.InLibraryView .EventDetailsBody a:not(.LinkButton, .WidgetTag) {
     color: var(--aika-accent-bright);
 }
@@ -1468,7 +1468,7 @@ html .PartnerEvent.InLibraryView .EventDetailsBody a:not(.LinkButton, .WidgetTag
     color: var(--aika-fg);
 }
 
-/* Картинки и видео в тексте — скруглённые */
+/* Images and videos in the text — rounded */
 html .PartnerEvent.InLibraryView .EventDetailsBody :is(img, video, .PreviewYouTubeVideo) {
     border-radius: var(--aika-radius-lg);
 }
@@ -1477,10 +1477,10 @@ html .PartnerEvent.InLibraryView .PreviewYouTubeVideo {
     overflow: hidden;
 }
 
-/* Заглушка YouTube-ролика: блок #16181c с PNG-логотипом Steam в голубом
-   кольце (.SteamLogoThrobber, картинка не анимирована). Блок —
-   скруглённая поверхность, вместо логотипа — вращающееся акцентное кольцо
-   (анимируется только transform). */
+/* The YouTube video placeholder: a #16181c block with Steam's PNG logo in a light-blue
+   ring (.SteamLogoThrobber, the image isn't animated). The block is
+   a rounded surface, instead of the logo — a spinning accent ring
+   (only transform is animated). */
 html .PartnerEvent.InLibraryView .YoutubePlayer {
     display: flex;
     align-items: center;
@@ -1512,8 +1512,8 @@ html .PartnerEvent.InLibraryView .YoutubePlayer .SteamLogoThrobber .NewThrobber 
     to { transform: rotate(1turn); }
 }
 
-/* Нижняя полоса «Нравится / Обсудить / Поделиться»: белое свечение сверху,
-   плашки rgba(30,33,38,.5), кнопки #3d4450 радиус 2 px, счётчики #399aec */
+/* The bottom "Like / Discuss / Share" strip: a white glow on top,
+   rgba(30,33,38,.5) plates, #3d4450 buttons with a 2 px radius, counters #399aec */
 html .PartnerEvent.InLibraryView > .Container.Panel {
     border-top: var(--aika-hairline) solid var(--aika-border);
     background: var(--aika-transparent);
@@ -1550,7 +1550,7 @@ html .PartnerEvent.InLibraryView .Button.DiscussionButton:hover {
     color: var(--aika-fg);
 }
 
-/* Значки в кнопках («палец», «поделиться»): белый 66 % у svg и path */
+/* Icons in buttons ("thumb", "share"): white 66 % on the svg and path */
 html .PartnerEvent.InLibraryView .Button.DiscussionButton :is(svg, svg path) {
     fill: var(--aika-fg-muted);
 }
@@ -1559,8 +1559,8 @@ html .PartnerEvent.InLibraryView .Button.DiscussionButton:hover :is(svg, svg pat
     fill: var(--aika-accent-bright);
 }
 
-/* Кнопки справа (закрыть, вверх/вниз, игра): серые #44444b с рамкой
-   #63636d и чёрной тенью 32 px → непрозрачные secondary-иконки */
+/* Buttons on the right (close, up/down, game): gray #44444b with a
+   #63636d border and a 32 px black shadow → opaque secondary icons */
 html .AppPartnerEventsBody .ControlSectionRightSide :is(.CloseButton, .ScrollButton) {
     border: var(--aika-hairline) solid var(--aika-border-hover);
     background: var(--aika-bg-raised);
@@ -1592,7 +1592,7 @@ html .AppPartnerEventsBody .ControlSectionRightSide .CloseButton:hover svg {
     stroke: var(--aika-fg);
 }
 
-/* Стрелки: заливка задана у самого polygon (серо-фиолетовый #9e9ead) */
+/* Arrows: the fill is set on the polygon itself (gray-violet #9e9ead) */
 html .AppPartnerEventsBody .ControlSectionRightSide .ScrollButton svg polygon {
     fill: var(--aika-fg-muted);
 }
@@ -1606,12 +1606,12 @@ html .AppPartnerEventsBody .ControlSectionRightSide .ScrollButton.GameArt img {
 }
 
 /* --------------------------------------------------------------------------
-   Достижения игры (страница игры → «Мои достижения»; скрин 13, PEAK):
-   оверлей .AchievementsOverlayContainer > .AchievementsPageContainer.
-   Steam: панель с серо-синим радиальным градиентом #42454c → #25282e,
-   радиус 4 (0,3,0); шапка гаснет в #0e141b; прогресс — голубой #1a9fff
-   на #3d4450; строки #23262e; подписи капсом #dcdedf; вкладка — белый 15 %;
-   круглая «закрыть» #44444b. Проверено 2026-10-07.
+   Game achievements (game page → "My Achievements"; screenshot 13, PEAK):
+   the .AchievementsOverlayContainer > .AchievementsPageContainer overlay.
+   Steam: a panel with a gray-blue radial gradient #42454c → #25282e,
+   radius 4 (0,3,0); the header fades into #0e141b; progress — light blue #1a9fff
+   on #3d4450; rows #23262e; captions in caps #dcdedf; the tab — white 15 %;
+   a round "close" #44444b. Verified 2026-10-07.
    -------------------------------------------------------------------------- */
 
 html .AchievementsOverlayContainer .AchievementsPageContainer > .GamepadPage {
@@ -1623,12 +1623,12 @@ html .AchievementsOverlayContainer .AchievementsPageContainer > .GamepadPage {
     box-shadow: var(--aika-shadow-event);
 }
 
-/* Шапка с обложкой: гаснет в фон панели, а не в синий #0e141b */
+/* The header with the cover: fades into the panel background, not into blue #0e141b */
 html .AchievementsPageContainer .Background .Blur {
     background: linear-gradient(to bottom, var(--aika-transparent), var(--aika-bg-elevated));
 }
 
-/* «Получено 51 из 64» + прогресс */
+/* "Unlocked 51 of 64" + progress */
 html .AchievementsPageContainer .StatsBlock {
     border: var(--aika-hairline) solid var(--aika-border);
     border-radius: var(--aika-radius-lg);
@@ -1642,13 +1642,13 @@ html .AchievementsPageContainer .StatLabelAndValue .ProgressLabel .Label {
     letter-spacing: var(--aika-tracking-label);
 }
 
-/* Полосы прогресса (общая и у отдельных достижений) */
+/* Progress bars (the overall one and on individual achievements) */
 html .AchievementsPageContainer .ProgressBar.ProgressBar {
     background: var(--aika-surface-active);
 }
 
-/* Заливку Steam ставит inline: background: var(--gpColor-Blue, #1a9fff) —
-   подменяем саму переменную в пределах страницы */
+/* Steam sets the fill inline: background: var(--gpColor-Blue, #1a9fff) —
+   we override the variable itself within the page */
 html .AchievementsPageContainer {
     --gpColor-Blue: var(--aika-accent);
 }
@@ -1657,7 +1657,7 @@ html .AchievementsPageContainer .ProgressBar .Percent.Percent {
     box-shadow: 0 0 8px var(--aika-accent-glow);
 }
 
-/* Вкладки «Мои / Глобальные достижения» */
+/* The "My / Global achievements" tabs */
 html .AchievementsPageContainer .Tab .TabTitle {
     color: var(--aika-fg-muted);
 }
@@ -1672,7 +1672,7 @@ html .AchievementsPageContainer .Tab.Selected .TabTitle {
     color: var(--aika-accent-bright);
 }
 
-/* Строки достижений */
+/* Achievement rows */
 html .AchievementsPageContainer .AchievementList .AchievementListItemBase {
     border: var(--aika-hairline) solid var(--aika-border);
     border-radius: var(--aika-radius-lg);
@@ -1701,14 +1701,14 @@ html .AchievementListItemBase .UnlockDate {
     font-family: var(--aika-font-mono);
 }
 
-/* Прокручиваемая часть и список: сплошной синеватый #0e141b → прозрачно
-   (под ними фон панели) */
+/* The scrollable part and the list: solid bluish #0e141b → transparent
+   (the panel background below) */
 html .AchievementsPageContainer :is(.Page.ScrollPanel, .AchievementList) {
     background: var(--aika-transparent);
 }
 
-/* «Глобальные достижения»: строка #23262e, полоса доли игроков
-   (.ProgressFill — заливка строки на долю процента) серая, процент белый */
+/* "Global achievements": a #23262e row, the player-share bar
+   (.ProgressFill — the row fill to the percentage) is gray, the percent is white */
 html .AchievementsPageContainer .AchievementList .GlobalAchievementListItem {
     overflow: hidden;
     border: var(--aika-hairline) solid var(--aika-border);
@@ -1733,7 +1733,7 @@ html .AchievementsPageContainer .GlobalAchievementListItem .Content .Percent {
     font-family: var(--aika-font-mono);
 }
 
-/* Круглая «закрыть» справа сверху — как кнопки окна новости */
+/* The round "close" at the top right — like the news window buttons */
 html .AchievementsOverlayContainer .AchievementsPageContainer > .CloseButton {
     border: var(--aika-hairline) solid var(--aika-border-hover);
     background: var(--aika-bg-raised);

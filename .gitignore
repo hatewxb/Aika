@@ -1,25 +1,29 @@
-# Системный мусор Windows / macOS
+# Windows / macOS system junk
 Thumbs.db
 desktop.ini
 .DS_Store
 
-# Редакторы
+# Editors
 .vscode/
 .idea/
 *.swp
 
-# Логи и временные файлы
+# Logs and temporary files
 *.log
 *.tmp
 
-# Если позже появится сборка (Sass, PostCSS и т.п.)
+# In case a build step appears later (Sass, PostCSS etc.)
 node_modules/
 dist/
 
-# Локальные заметки и скриншоты для отладки
+# Local notes and debug screenshots
 scratch/
 
-# Локальные настройки Claude Code, скрины для отладки, памятка по скриншотам README
+# Local Claude Code settings, debug screenshots, the README screenshots note
 .claude/
 SSforClaude/
 screenshots.txt
+
+# Local-only docs (design notes and agent instructions)
+DESIGN.md
+CLAUDE.md

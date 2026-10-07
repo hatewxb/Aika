@@ -1,27 +1,27 @@
 /* ==========================================================================
-   community.css — веб-страницы сообщества (steamcommunity.com).
-   Подключается через webkit.css (поле Steam-WebKit в skin.json).
+   community.css — community web pages (steamcommunity.com).
+   Imported via webkit.css (the Steam-WebKit field in skin.json).
 
-   1. «Активность друзей» (/id/…/home/, меню профиля → «Активность»).
-      Классы у сайта читаемые, сняты через CDP 2026-10-04:
-        #blotter_page                         — вся страница
-          .friend_activity_header             — заголовок h1 + поиск
-          #friendactivity_right_column .box   — блоки правой колонки
-          #blotter_content                    — лента:
-            .blotter_status_entry             — поле «написать статус»
-            .blotter_day > .blotter_day_header_date — дата дня
-            .blotter_block                    — событие (карточка):
-              .blotter_author_block           — полоса «кто и что сделал»
-              .blotter_gamepurchase_content   — логотипы игр
-              .blotter_comment_thread         — комментарии
-              .blotter_daily_rollup           — свёрнутые события дня
-      Правила Steam — (0,1,0)…(1,1,0); у нас всё под #blotter_page —
-      сильнее, без !important (кроме цвета кнопок: у Steam там !important).
-      Тексты сайта не меняем — только стиль (DESIGN.md §11).
+   1. "Friend Activity" (/id/…/home/, profile menu → "Activity").
+      The site's classes are readable, captured via CDP 2026-10-04:
+        #blotter_page                         — the whole page
+          .friend_activity_header             — the h1 heading + search
+          #friendactivity_right_column .box   — right column blocks
+          #blotter_content                    — the feed:
+            .blotter_status_entry             — the "post a status" field
+            .blotter_day > .blotter_day_header_date — the day's date
+            .blotter_block                    — an event (a card):
+              .blotter_author_block           — the "who did what" strip
+              .blotter_gamepurchase_content   — game logos
+              .blotter_comment_thread         — comments
+              .blotter_daily_rollup           — the day's collapsed events
+      Steam's rules are (0,1,0)…(1,1,0); ours are all under #blotter_page —
+      stronger, without !important (except button colors: Steam uses !important there).
+      We don't change the site's texts — only the style (DESIGN.md §11).
    ========================================================================== */
 
 /* --------------------------------------------------------------------------
-   Заголовок страницы
+   Page heading
    -------------------------------------------------------------------------- */
 
 html #blotter_page .friend_activity_header h1 {
@@ -40,7 +40,7 @@ html #blotter_page .blotter_page_title a:hover {
 }
 
 /* --------------------------------------------------------------------------
-   Ссылки: имена друзей, названия игр
+   Links: friend names, game titles
    -------------------------------------------------------------------------- */
 
 html #blotter_page :is(#blotter_content, #friendactivity_right_column) a {
@@ -52,17 +52,17 @@ html #blotter_page :is(#blotter_content, #friendactivity_right_column) a:hover {
     color: var(--aika-accent-bright);
 }
 
-/* Ник, который дал сам пользователь, — «(Имя)» после имени друга */
+/* The nickname the user set themselves — "(Name)" after the friend's name */
 html #blotter_page .nickname_block,
 html #blotter_page .nickname_block .nickname_name {
     color: var(--aika-fg-subtle);
 }
 
 /* --------------------------------------------------------------------------
-   Аватары. Steam: .playerAvatar.online/.in-game/.offline — рамка градиентом
-   статуса, у img — свой градиент. Смысл цветов как в components/status.css:
-   в игре — ok, в сети — акцент, не в сети — приглушённо.
-   Рамку предмета профиля (.profile_avatar_frame) не трогаем.
+   Avatars. Steam: .playerAvatar.online/.in-game/.offline — a status gradient
+   border, the img has its own gradient. Color meaning as in components/status.css:
+   in game — ok, online — accent, offline — muted.
+   The profile item frame (.profile_avatar_frame) is left alone.
    -------------------------------------------------------------------------- */
 
 html :is(#blotter_page, .profile_small_header_avatar) .playerAvatar {
@@ -78,27 +78,27 @@ html :is(#blotter_page, .profile_small_header_avatar) .playerAvatar.in-game {
     background: var(--aika-ok);
 }
 
-/* Только сам аватар: у картинки рамки предмета (.profile_avatar_frame img)
-   прозрачная середина — наш фон заливал её и закрывал аватар под ней */
+/* Only the avatar itself: the profile item frame image (.profile_avatar_frame img)
+   has a transparent middle — our background filled it and covered the avatar beneath */
 html :is(#blotter_page, .profile_small_header_avatar) .playerAvatar img:not(.profile_avatar_frame img) {
     border-radius: var(--aika-radius-md);
     background: var(--aika-bg-raised);
 }
 
-/* Рамка предмета профиля — как у Steam: без фона и скругления.
-   Steam красит её градиентом статуса (.playerAvatar.online img, (0,2,1)) */
+/* The profile item frame — as in Steam: no background or rounding.
+   Steam paints it with the status gradient (.playerAvatar.online img, (0,2,1)) */
 html :is(#blotter_page, .profile_small_header_avatar) .playerAvatar .profile_avatar_frame img {
     border-radius: 0;
     background: var(--aika-transparent);
 }
 
-/* С рамкой подложка статуса аватара не нужна — статус виден по рамке
-   предмета, а цветной квадрат выглядывал бы из-под неё */
+/* With a frame the avatar status backing isn't needed — the status shows from the item
+   frame, and a colored square would peek out from under it */
 html :is(#blotter_page, .profile_small_header_avatar) .playerAvatar:has(.profile_avatar_frame img) {
     background: var(--aika-transparent);
 }
 
-/* Маленькие аватары в свёрнутых событиях */
+/* Small avatars in collapsed events */
 html #blotter_page .blotter_playerAvatarSmall {
     border-radius: var(--aika-radius-xs);
     background-color: var(--aika-fg-subtle);
@@ -117,8 +117,8 @@ html #blotter_page .blotter_playerAvatarSmall img {
 }
 
 /* --------------------------------------------------------------------------
-   Правая колонка: «Список друзей», «Добавить друзей», меню профиля,
-   группы, события — карточки
+   The right column: "Friends List", "Add Friends", the profile menu,
+   groups, events — cards
    -------------------------------------------------------------------------- */
 
 html #blotter_page #friendactivity_right_column :is(.box, .friends_add_block, .blotter_eventsblock) {
@@ -149,7 +149,7 @@ html #blotter_page .friends_link_block .profile_link_block_text_friends {
     font-size: var(--aika-text-meta);
 }
 
-/* Подписи блоков: «Добавить друзей», «Запланированные события» */
+/* Block captions: "Add Friends", "Scheduled Events" */
 html #blotter_page :is(.profile_add_friends_title, .blotter_eventsblock_title) {
     color: var(--aika-fg-muted);
     font-family: var(--aika-font-mono);
@@ -161,7 +161,7 @@ html #blotter_page .blotter_eventsblock .eventSubLinks {
     color: var(--aika-fg-subtle);
 }
 
-/* Имя пользователя в меню профиля: Steam .persona.online — голубой */
+/* The user name in the profile menu: Steam's .persona.online — light blue */
 html #blotter_page .friendName.persona {
     color: var(--aika-fg-subtle);
 }
@@ -175,8 +175,8 @@ html #blotter_page .friendName.persona.in-game {
 }
 
 /* --------------------------------------------------------------------------
-   Поля: поиск в шапке, «Добавить друзей», «написать статус», комментарии.
-   Как components/input.css: фон raised, рамка border-strong, фокус — акцент.
+   Fields: the header search, "Add Friends", "post a status", comments.
+   Like components/input.css: raised background, border-strong border, accent focus.
    -------------------------------------------------------------------------- */
 
 html #blotter_page :is(#headerSearch, .profileFriendSearchBox, .commentthread_entry_quotebox) {
@@ -197,7 +197,7 @@ html #blotter_page :is(#headerSearch, .profileFriendSearchBox, .commentthread_en
     box-shadow: var(--aika-shadow-input-focus);
 }
 
-/* Сами input/textarea внутри — прозрачные, рамку даёт обёртка */
+/* The input/textarea themselves are transparent, the wrapper gives the border */
 html #blotter_page :is(#headerSearch, .profileFriendSearchBox, .commentthread_entry_quotebox) :is(input, textarea) {
     border: none;
     background: var(--aika-transparent);
@@ -211,11 +211,11 @@ html #blotter_page :is(input, textarea)::placeholder {
 }
 
 /* --------------------------------------------------------------------------
-   Кнопки сайта. У Steam цвет текста — !important, поэтому и у нас.
-     .btn_grey_grey              — «👍» под событием  → secondary
-     .btn_grey_white_innerfade   — «Отправить» статус → secondary
-     .btn_green_white_innerfade  — «Отправить» комментарий → primary
-   Градиент у Steam и на <a>, и на внутреннем <span>.
+   Site buttons. Steam's text color is !important, so ours is too.
+     .btn_grey_grey              — "👍" under an event  → secondary
+     .btn_grey_white_innerfade   — "Post" a status → secondary
+     .btn_green_white_innerfade  — "Post" a comment → primary
+   Steam puts the gradient both on the <a> and on the inner <span>.
    -------------------------------------------------------------------------- */
 
 html #blotter_page :is(.btn_grey_grey, .btn_grey_white_innerfade, .btn_green_white_innerfade, .btn_grey_black) {
@@ -260,7 +260,7 @@ html #blotter_page :is(.btn_grey_grey, .btn_grey_white_innerfade, .btn_green_whi
 }
 
 /* --------------------------------------------------------------------------
-   Поле «написать статус» вверху ленты
+   The "post a status" field at the top of the feed
    -------------------------------------------------------------------------- */
 
 html #blotter_page .blotter_status_entry .commentthread_entry {
@@ -271,7 +271,7 @@ html #blotter_page .blotter_status_entry .commentthread_entry {
 }
 
 /* --------------------------------------------------------------------------
-   Дата дня: моно-метка + линия
+   The day's date: a mono label + a line
    -------------------------------------------------------------------------- */
 
 html #blotter_page .blotter_day_header_date {
@@ -287,8 +287,8 @@ html #blotter_page .blotter_day_header_divider {
 }
 
 /* --------------------------------------------------------------------------
-   Событие — карточка. Steam: .blotter_block — голубая заливка 0.2,
-   полоса автора и комментарии — свои тёмные фоны с синими линиями.
+   An event is a card. Steam: .blotter_block — a light-blue 0.2 fill,
+   the author strip and comments — their own dark backgrounds with blue lines.
    -------------------------------------------------------------------------- */
 
 html #blotter_page .blotter_block {
@@ -299,14 +299,14 @@ html #blotter_page .blotter_block {
     box-shadow: var(--aika-highlight-top);
 }
 
-/* Полоса «кто и что сделал» — как заголовок панели */
+/* The "who did what" strip — like a panel header */
 html #blotter_page .blotter_author_block {
     border-bottom: var(--aika-hairline) solid var(--aika-border);
     background: var(--aika-bg-raised);
     color: var(--aika-fg-muted);
 }
 
-/* Свёрнутые события дня — фон даёт карточка */
+/* The day's collapsed events — the card gives the background */
 html #blotter_page .blotter_daily_rollup {
     background: var(--aika-transparent);
     color: var(--aika-fg-muted);
@@ -316,7 +316,7 @@ html #blotter_page .blotter_daily_rollup_line + .blotter_daily_rollup_line {
     border-top: var(--aika-hairline) solid var(--aika-border);
 }
 
-/* Логотипы купленных игр и «+N» */
+/* Purchased game logos and "+N" */
 html #blotter_page .blotter_gamepurchase_logo img {
     border-radius: var(--aika-radius-md);
 }
@@ -332,7 +332,7 @@ html #blotter_page .blotter_voters_names {
     color: var(--aika-fg-muted);
 }
 
-/* Комментарии под событием */
+/* Comments under an event */
 html #blotter_page .blotter_comment_thread {
     border-top: var(--aika-hairline) solid var(--aika-border);
     background: var(--aika-transparent);
@@ -346,16 +346,16 @@ html #blotter_page .commentthread_comment_container .commentthread_comment {
     border-radius: var(--aika-radius-md);
 }
 
-/* Скриншот во всю ширину карточки: поля вокруг картинки — глубокий фон
-   вместо чёрного 0.5 */
+/* A full-width screenshot in a card: the margins around the image are the deep background
+   instead of black 0.5 */
 html #blotter_page .blotter_screenshot_image {
     background: var(--aika-bg-deep);
 }
 
 /* --------------------------------------------------------------------------
-   Ссылка-карточка на работу из Мастерской / руководство
-   (.dynamiclink_box внутри .blotter_workshopitem). Steam: голубой
-   градиент 60°, имя голубое с точечным подчёркиванием.
+   A link card to a Workshop item / guide
+   (.dynamiclink_box inside .blotter_workshopitem). Steam: a light-blue
+   60° gradient, a light-blue name with a dotted underline.
    -------------------------------------------------------------------------- */
 
 html #blotter_page .dynamiclink_box {
@@ -397,11 +397,11 @@ html #blotter_page .dynamiclink_box .dynamiclink_description {
 }
 
 /* --------------------------------------------------------------------------
-   «Связать с игрой» у поля статуса (#blotter_appselect_app, onclick ShowMenu):
-   у Steam — PNG-градиент и PNG-стрелка, текст капсом в самом DOM (не меняем).
-   Делаем как наш выпадающий список (components/input.css). Список игр —
-   #blotter_appselect_app_options.popup_block: голубая плашка, PNG-тени
-   (.shadow_left… ), поле фильтра — сине-серое.
+   "Link to a game" next to the status field (#blotter_appselect_app, onclick ShowMenu):
+   Steam has a PNG gradient and a PNG arrow, uppercase text in the DOM itself (not changed).
+   We make it like our dropdown (components/input.css). The game list —
+   #blotter_appselect_app_options.popup_block: a light-blue plate, PNG shadows
+   (.shadow_left… ), a blue-gray filter field.
    -------------------------------------------------------------------------- */
 
 html #blotter_page .blotter_status_entry #blotter_appselect_app.blotter_appselect {
@@ -444,7 +444,7 @@ html #blotter_page #blotter_appselect_app:hover #blotter_appselect_app_activeopt
     color: var(--aika-fg);
 }
 
-/* Список игр */
+/* The game list */
 html #blotter_page #blotter_appselect_app_options :is(.shadow_left, .shadow_right, .shadow_bl, .shadow_bottom, .shadow_br) {
     display: none;
 }
@@ -472,7 +472,7 @@ html #blotter_page #blotter_appselect_options #blotter_appselect_app_filter:focu
     outline: none;
 }
 
-/* Лупа-GIF Steam рядом с фильтром */
+/* Steam's magnifier GIF next to the filter */
 html #blotter_page #blotter_appselect_options #blotter_appselect_search_img {
     display: none;
 }
@@ -491,19 +491,19 @@ html #blotter_page #blotter_appselect_options #blotter_appselect_suggestions div
 }
 
 /* ==========================================================================
-   Друзья (steamcommunity.com/id/…/friends/), снято через CDP 2026-10-04.
-   Старая вёрстка, классы читаемые, сила Steam (0,1,0)…(0,3,0).
-     .friends_header_* — шапка (аватар, имя); .friends_nav — левое меню
-       (h4 — разделы, a.icon_item[.active] + span.count);
-     .profile_friends.title_bar — полоса поиска и «Управлять» (#015e80),
-       .friends_search_text_box — поле; .manage_friends_panel — панель выбора;
-     .state_block — «В игре / В сети / Не в сети»;
-     .friend_block_v2.persona.(in-game|online|offline) — карточка друга:
-       .player_avatar.friend_block_link_overlay — аватар с полосой статуса
-       справа (border-right 4px), .friend_block_content — имя,
-       .friend_small_text/.friend_game_link — игра (#a3cf06),
-       .player_nickname_hint, .friend_last_online_text — серое.
-   Статусы — как во всей теме: в игре — ok, в сети — акцент, не в сети — приглушённо.
+   Friends (steamcommunity.com/id/…/friends/), captured via CDP 2026-10-04.
+   Old markup, readable classes, Steam's strength (0,1,0)…(0,3,0).
+     .friends_header_* — the header (avatar, name); .friends_nav — the left menu
+       (h4 — sections, a.icon_item[.active] + span.count);
+     .profile_friends.title_bar — the search and "Manage" strip (#015e80),
+       .friends_search_text_box — the field; .manage_friends_panel — the selection panel;
+     .state_block — "In-Game / Online / Offline";
+     .friend_block_v2.persona.(in-game|online|offline) — a friend card:
+       .player_avatar.friend_block_link_overlay — the avatar with a status strip
+       on the right (border-right 4px), .friend_block_content — the name,
+       .friend_small_text/.friend_game_link — the game (#a3cf06),
+       .player_nickname_hint, .friend_last_online_text — gray.
+   Statuses — as everywhere in the theme: in game — ok, online — accent, offline — muted.
    ========================================================================== */
 
 html .friends_header_avatar > a img,
@@ -517,7 +517,7 @@ html .friends_header_name a {
     color: var(--aika-fg);
 }
 
-/* Левое меню */
+/* The left menu */
 html .friends_nav h4 {
     color: var(--aika-fg-subtle);
     font-size: var(--aika-text-label);
@@ -552,7 +552,7 @@ html .friends_nav .hr {
     border-bottom-color: var(--aika-border);
 }
 
-/* Полоса поиска / управления */
+/* The search / manage strip */
 html .profile_friends.title_bar,
 html .profile_groups.title_bar {
     border-radius: var(--aika-radius-lg);
@@ -593,7 +593,7 @@ html .profile_friends .state_block {
     letter-spacing: var(--aika-tracking-label);
 }
 
-/* Карточка друга */
+/* A friend card */
 html .friend_block_v2 {
     border-color: var(--aika-transparent);
     border-radius: var(--aika-radius-md);
@@ -636,7 +636,7 @@ html .friend_block_v2 .player_nickname_hint .friend_last_online_text {
     color: var(--aika-fg-subtle);
 }
 
-/* Отметка выбора в режиме «Управлять» (.indicator, #afc0ca) */
+/* The selection mark in "Manage" mode (.indicator, #afc0ca) */
 html .friend_block_v2 .indicator {
     background-color: var(--aika-surface-active);
     color: var(--aika-fg);
@@ -648,11 +648,11 @@ html .friend_block_v2.selected .indicator {
 }
 
 /* --------------------------------------------------------------------------
-   Мини-профиль сайта при наведении на друга (.miniprofile_hover; есть
-   и в магазине, и в сообществе). Как клиентский (components/status.css):
-   рамка аватара и имя по статусу, полосы поверх фона профиля — тёмный
-   материал, игра — ok. Фон профиля пользователя, рамку-предмет и кольцо
-   уровня (.friendPlayerLevel.lvl_N) не трогаем.
+   The site's mini profile on hovering a friend (.miniprofile_hover; it exists
+   both in the store and in the community). Like the client one (components/status.css):
+   avatar frame and name by status, strips over the profile background — a dark
+   material, the game — ok. The user's profile background, the item frame and the level
+   ring (.friendPlayerLevel.lvl_N) are left alone.
    -------------------------------------------------------------------------- */
 
 html .miniprofile_hover .miniprofile_container {
@@ -708,22 +708,22 @@ html .miniprofile_playtimesection .playtimecontent .timeplayed {
     font-family: var(--aika-font-mono);
 }
 
-/* Фон мини-профиля по умолчанию (у друга нет своего фона профиля):
-   серо-синий радиальный — наш тёплый, со светом акцента */
+/* The default mini profile background (the friend has no profile background of their own):
+   gray-blue radial — ours is warm, with accent light */
 html .miniprofile_container .miniprofile_background {
     background: radial-gradient(ellipse farthest-corner at 20% 30%, var(--aika-accent-dim), var(--aika-bg-elevated) 70%);
 }
 
-/* Подпись статуса под именем («В сети», «Не в сети») */
+/* The status caption under the name ("Online", "Offline") */
 html .miniprofile_playersection .player_content .friend_status_online { color: var(--aika-accent-bright); }
 html .miniprofile_playersection .player_content .friend_status_in-game { color: var(--aika-ok); }
 html .miniprofile_playersection .player_content .friend_status_offline { color: var(--aika-fg-subtle); }
 
 /* --------------------------------------------------------------------------
-   Разделы меню друзей (2026-10-04): пустые состояния, «Недавно играли»,
-   заблокированные, группы; «Подписки на игры» (body.flat_page — другая
-   вёрстка: шапка профиля .profile_small_header_*, вкладки, строки игр).
-   Аватар в шапке профиля — общие правила аватаров выше.
+   Friends menu sections (2026-10-04): empty states, "Recently Played With",
+   blocked, groups; "Followed Games" (body.flat_page — different
+   markup: the profile header .profile_small_header_*, tabs, game rows).
+   The avatar in the profile header — the shared avatar rules above.
    -------------------------------------------------------------------------- */
 
 html .friends_container .search_results_none {
@@ -742,12 +742,12 @@ html .profile_friends .noCoplayHistory {
     color: var(--aika-fg-muted);
 }
 
-/* «Заблокирован» (#da2525) — live Aika */
+/* "Blocked" (#da2525) — Aika live */
 html .friend_block_v2 .friend_small_text .blocked_text {
     color: var(--aika-live);
 }
 
-/* Группы и приглашения (.group_block.invite_row — как карточка друга) */
+/* Groups and invites (.group_block.invite_row — like a friend card) */
 html .group_block.invite_row {
     border-radius: var(--aika-radius-lg);
     background: var(--aika-card-bg);
@@ -758,12 +758,12 @@ html .group_block .groupTitle a {
     color: var(--aika-fg);
 }
 
-/* «Публичная» (.pubGroup, оранжевый #d05f29) — warn */
+/* "Public" (.pubGroup, orange #d05f29) — warn */
 html .pubGroup {
     color: var(--aika-warn);
 }
 
-/* Шапка профиля на подстраницах (.profile_small_header_*) */
+/* The profile header on subpages (.profile_small_header_*) */
 html .profile_small_header_bg .profile_small_header_texture {
     border-radius: var(--aika-radius-lg);
     background-color: var(--aika-surface);
@@ -773,12 +773,12 @@ html .profile_small_header_text .profile_small_header_arrow {
     color: var(--aika-fg-subtle);
 }
 
-/* Вкладки разделов (.sectionTabs .sectionTab.active — синяя линия) */
+/* Section tabs (.sectionTabs .sectionTab.active — a blue line) */
 html .sectionTabs .sectionTab.active {
     border-color: var(--aika-accent);
 }
 
-/* «Подписки на игры»: строки игр, метка «В желаемом», кнопки */
+/* "Followed Games": game rows, the "On Wishlist" label, buttons */
 html .games_list_rows .gameListRow {
     border-radius: var(--aika-radius-lg);
     background-color: var(--aika-surface);
@@ -793,41 +793,41 @@ html .gameListRow .ds_flag {
 html .followed_game_actions .btnv6_blue_hoverfade {
     border-radius: var(--aika-radius-md);
     background: var(--aika-surface);
-    color: var(--aika-fg) !important; /* у Steam #67c1f5 !important */
+    color: var(--aika-fg) !important; /* Steam: #67c1f5 !important */
 }
 
 html .followed_game_actions .btnv6_blue_hoverfade:not(.btn_disabled):not(:disabled):not(.btn_active):not(.active):hover {
     background: var(--aika-surface-hover);
-    color: var(--aika-fg) !important; /* у Steam #fff !important */
+    color: var(--aika-fg) !important; /* Steam: #fff !important */
 }
 
-/* Подсветка за шапкой «Друзья» (.friends_header_bg — картинка bg_highlight.png,
-   голубое свечение снизу) — мягкий свет акцента (правка автора 2026-10-05) */
+/* The highlight behind the "Friends" header (.friends_header_bg — the bg_highlight.png image,
+   a light-blue glow from below) — a soft accent light (author's fix 2026-10-05) */
 html .friends_header_bg {
     background: radial-gradient(ellipse 60% 100% at 50% 100%, var(--aika-accent-tint), var(--aika-transparent) 70%);
 }
 
 /* ==========================================================================
-   «Редактировать профиль» (steamcommunity…/edit/…, body.profile_edit_page)
-   — задача 7 (скрин «7_перекрас настроек профиля»). Здесь читаемые классы
-   Steam: заголовки, подписи, круглые переключатели, «Приватность»
-   (.ProfilePrivacy*), старые витрины во вкладке «Управление витринами»
-   (.profile_customization*, .profile_showcase_*). Хэш-классы редактора
-   (меню вкладок, сетки выбора, превью) — в selectors.css.
-   Steam: серо-голубой текст #acb2b8 / #939ea7, голубые заголовки #66c0f4,
-   голубые круглые переключатели, серо-синие плашки витрин.
-   Проверено 2026-10-07, все 10 вкладок.
+   "Edit Profile" (steamcommunity…/edit/…, body.profile_edit_page)
+   — task 7 (screenshot "7_profile settings recolor"). Here are Steam's readable
+   classes: headings, captions, round toggles, "Privacy"
+   (.ProfilePrivacy*), the old showcases in the "Manage Showcases" tab
+   (.profile_customization*, .profile_showcase_*). The editor's hash classes
+   (tab menu, selection grids, previews) are in selectors.css.
+   Steam: gray-blue text #acb2b8 / #939ea7, light-blue headings #66c0f4,
+   light-blue round toggles, gray-blue showcase plates.
+   Verified 2026-10-07, all 10 tabs.
    ========================================================================== */
 
-/* Фон страницы: у Steam body.profile_edit_page (0,1,1) — свой серо-синий
-   градиент #262d33 → #1d1e20 поверх нашего прозрачного body (правка
-   автора 2026-10-07) — гасим, виден фон темы с пятнами света */
+/* Page background: Steam's body.profile_edit_page (0,1,1) has its own gray-blue
+   gradient #262d33 → #1d1e20 over our transparent body (author's
+   fix 2026-10-07) — kill it, the theme background with light spots shows */
 html body.profile_edit_page {
     background: var(--aika-transparent);
 }
 
-/* Базовый текст страницы (#969696) и имя в шапке (#ebebeb) */
-/* (и на остальных страницах профиля с той же шапкой — уведомления и др.) */
+/* The base page text (#969696) and the name in the header (#ebebeb) */
+/* (also on the other profile pages with the same header — notifications etc.) */
 html body:is(.profile_edit_page, .migrated_profile_page) .responsive_page_frame {
     color: var(--aika-fg-muted);
 }
@@ -837,7 +837,7 @@ html .profile_small_header_text a.whiteLink span {
     color: var(--aika-fg);
 }
 
-/* Звёздочка «обязательное поле» (#c15755) */
+/* The "required field" asterisk (#c15755) */
 html body.profile_edit_page .DialogLabel .DialogInputRequirementLabel {
     color: var(--aika-live);
 }
@@ -856,7 +856,7 @@ html body.profile_edit_page .DialogBodyText a {
     color: var(--aika-accent-bright);
 }
 
-/* Подписи полей («ИМЯ ПРОФИЛЯ») — метки темы: моно, приглушённо */
+/* Field captions ("PROFILE NAME") — theme labels: mono, muted */
 html body.profile_edit_page .DialogLabel {
     color: var(--aika-fg-subtle);
     font-family: var(--aika-font-mono);
@@ -872,8 +872,8 @@ html body.profile_edit_page :is(.DialogToggle_Label, .DialogToggle_Label span) {
     color: var(--aika-fg-muted);
 }
 
-/* Круглые переключатели («Полный экран / Исходный размер»): голубой
-   градиент #00ccff → #2d73ff со свечением → акцент */
+/* Round toggles ("Full screen / Original size"): a light-blue
+   gradient #00ccff → #2d73ff with a glow → accent */
 html body.profile_edit_page .DialogRoundCheckboxField_Control {
     background-color: var(--aika-surface-active);
     box-shadow: inset 0 0 0 var(--aika-hairline) var(--aika-border-strong);
@@ -888,7 +888,7 @@ html body.profile_edit_page .DialogRoundCheckboxField_InnerCircle {
     box-shadow: 0 0 8px var(--aika-accent-glow);
 }
 
-/* --- «Приватность» -------------------------------------------------------- */
+/* --- "Privacy" ------------------------------------------------------------- */
 
 html body.profile_edit_page .ProfilePrivacyRoot .ProfilePrivacyHeader {
     color: var(--aika-fg);
@@ -907,11 +907,11 @@ html body.profile_edit_page .ProfilePrivacyRoot a:hover {
     color: var(--aika-fg);
 }
 
-/* Значение «Открытый / Только друзья» (и только для чтения) */
+/* The "Public / Friends Only" value (and read-only) */
 html body.profile_edit_page .ProfilePrivacyHeader :is(.ProfilePrivacyDropDown, .ProfilePrivacyDropDown .DialogDropDown_CurrentDisplay) {
     color: var(--aika-accent-bright);
-    /* у Steam «.ProfilePrivacyHeader .ProfilePrivacyDropDown» — underline
-       (правка автора 2026-10-07: без подчёркивания) */
+    /* Steam has ".ProfilePrivacyHeader .ProfilePrivacyDropDown" — underline
+       (author's fix 2026-10-07: no underline) */
     text-decoration: none;
 }
 
@@ -919,14 +919,14 @@ html body.profile_edit_page .ProfilePrivacyHeader .ProfilePrivacyDropDown svg :i
     fill: currentColor;
 }
 
-/* Разделитель: синий градиент #3d4d5e → линия темы, гаснущая вправо */
+/* Divider: a blue gradient #3d4d5e → the theme line fading to the right */
 html body.profile_edit_page .ProfilePrivacyHR {
     background: linear-gradient(to right, var(--aika-border-strong), var(--aika-transparent));
 }
 
-/* --- «Управление витринами»: старая вёрстка витрин ----------------------- */
+/* --- "Manage Showcases": the old showcase markup ---------------------------- */
 
-/* Область сортировки (#3a3e47 50 %) и плашка витрины (серо-синий градиент) */
+/* The sorting area (#3a3e47 50 %) and the showcase plate (a gray-blue gradient) */
 html body.profile_edit_page .customization_edit_area {
     border-radius: var(--aika-radius-xl);
     background: var(--aika-transparent);
@@ -950,7 +950,7 @@ html body.profile_edit_page .profile_customization_block {
     border-radius: var(--aika-radius-md);
 }
 
-/* Стрелки «вверх/вниз» — треугольники из рамок #657081 */
+/* The "up/down" arrows — triangles made of #657081 borders */
 html body.profile_edit_page .profile_showcase_sort_btn.profile_showcase_sort_up {
     border-bottom-color: var(--aika-fg-subtle);
 }
@@ -967,13 +967,13 @@ html body.profile_edit_page .profile_showcase_sort_btn:hover.profile_showcase_so
     border-top-color: var(--aika-accent-bright);
 }
 
-/* «Выбор витрины»: уголки-скобки #4e5665 вокруг списка */
+/* "Select showcase": #4e5665 bracket corners around the list */
 html body.profile_edit_page :is(.showcase_selection_pre, .showcase_selection_post) {
     border-color: var(--aika-border-strong);
 }
 
-/* Списки, поля и кнопки старой вёрстки (.gray_bevel — #3d4450,
-   голубая тень; btnv6_white_transparent — белая рамка; btn_grey_black) */
+/* Lists, fields and buttons of the old markup (.gray_bevel — #3d4450,
+   a light-blue shadow; btnv6_white_transparent — a white border; btn_grey_black) */
 html body.profile_edit_page select.gray_bevel,
 html body.profile_edit_page .gray_bevel:is(.for_text_input, .fullwidth) {
     border: var(--aika-hairline) solid var(--aika-border-hover);
@@ -1011,8 +1011,8 @@ html body.profile_edit_page .profile_customization .btn_grey_black > span {
     color: var(--aika-fg);
 }
 
-/* Витрина «Любимая группа»: название (#ebebeb / #828282), «в игре»
-   зелёный #8bc53f → ok, «в сети» голубой #62a7e3 → акцент */
+/* The "Favorite Group" showcase: the name (#ebebeb / #828282), "in game"
+   green #8bc53f → ok, "online" light blue #62a7e3 → accent */
 html body.profile_edit_page .favoritegroup_showcase_group .favoritegroup_namerow {
     color: var(--aika-fg-subtle);
 }
@@ -1035,17 +1035,17 @@ html body.profile_edit_page .profile_customization .showcase_bodylabel {
 }
 
 /* ==========================================================================
-   Обсуждения игры (steamcommunity…/app/…/discussions/…; скрин 17, задача 17).
-   Старая вёрстка, читаемые классы. Steam: строки тем .forum_topic —
-   голубой #5485b7 40 % (hover #75ccff 50 %), «ЗАКРЕПЛЕНО» салатовым
-   #aedd08, автор и время #8ed1f9, ответы #c6d4df; значки — PNG (конверт,
-   замок, «ответы»); пагинация на #151f2c 70 %; правая колонка .rightbox —
-   чёрный градиент, разделители #1e323f, выбранный форум — картинка-стрелка
-   (голубая), «Новое обсуждение» — синяя кнопка, «Подписаться» — голубой
-   текст. Проверено 2026-10-07 на Enshrouded.
+   Game discussions (steamcommunity…/app/…/discussions/…; screenshot 17, task 17).
+   Old markup, readable classes. Steam: .forum_topic topic rows —
+   light blue #5485b7 40 % (hover #75ccff 50 %), "PINNED" in lime
+   #aedd08, author and time #8ed1f9, replies #c6d4df; icons are PNGs (envelope,
+   lock, "replies"); pagination on #151f2c 70 %; the right column .rightbox —
+   a black gradient, dividers #1e323f, the selected forum — an arrow image
+   (light blue), "New discussion" — a blue button, "Subscribe" — light-blue
+   text. Verified 2026-10-07 on Enshrouded.
    ========================================================================== */
 
-/* --- Список тем ----------------------------------------------------------- */
+/* --- Topic list ------------------------------------------------------------ */
 
 html .forum_topics .forum_topic {
     margin-bottom: var(--aika-space-1);
@@ -1062,7 +1062,7 @@ html .forum_topics .forum_topic:hover {
     background-color: var(--aika-accent-tint);
 }
 
-/* Непрочитанные — чуть заметнее (у Steam тот же голубой) */
+/* Unread — slightly more prominent (Steam uses the same light blue) */
 html .forum_topics .forum_topic.unread {
     background-color: var(--aika-surface-hover);
 }
@@ -1085,8 +1085,8 @@ html .forum_topic .forum_topic_lastpost {
     font-family: var(--aika-font-mono);
 }
 
-/* При наведении Steam красит автора и время в #70beed
-   («.forum_topic:hover …» (0,3,0); правка автора 2026-10-07) */
+/* On hover Steam paints the author and time #70beed
+   (".forum_topic:hover …" (0,3,0); author's fix 2026-10-07) */
 html .forum_topics .forum_topic:hover .forum_topic_op {
     color: var(--aika-accent-bright);
 }
@@ -1095,7 +1095,7 @@ html .forum_topics .forum_topic:hover .forum_topic_lastpost {
     color: var(--aika-fg-muted);
 }
 
-/* Награды у темы: синий award_icon_blue.svg → свой контурный значок */
+/* Topic awards: the blue award_icon_blue.svg → our own outline icon */
 html .forum_topic .forum_topic_award_count img.reward_btn_icon {
     width: var(--aika-icon-inline);
     height: var(--aika-icon-inline);
@@ -1105,8 +1105,8 @@ html .forum_topic .forum_topic_award_count img.reward_btn_icon {
     mask: var(--aika-icon-award) center / contain no-repeat;
 }
 
-/* Превью темы при наведении (.forum_topic_tooltip): голубая плашка
-   #417a9b с рамкой #2d566b → тултип темы (полупрозрачный) */
+/* The topic preview on hover (.forum_topic_tooltip): a light-blue plate
+   #417a9b with a #2d566b border → the theme tooltip (translucent) */
 html .forum_topic_tooltip {
     border: var(--aika-hairline) solid var(--aika-border-hover);
     border-radius: var(--aika-radius-md);
@@ -1129,8 +1129,8 @@ html .forum_topic_tooltip .topic_hover_row .topic_hover_data {
     color: var(--aika-accent-bright);
 }
 
-/* Вкладки хаба игры («Все / Обсуждения / Скриншоты…»): выбранная —
-   синяя линия #1a9fff (0,2,0) → акцент */
+/* Game hub tabs ("All / Discussions / Screenshots…"): the selected one —
+   a blue line #1a9fff (0,2,0) → accent */
 html .apphub_sectionTabs .apphub_sectionTab.active,
 html .apphub_sectionTabs .apphub_sectionTab.active:hover {
     border-bottom-color: var(--aika-accent);
@@ -1141,13 +1141,13 @@ html .forum_topic :is(.forum_topic_reply_count, .forum_topic_award_count) {
     font-family: var(--aika-font-mono);
 }
 
-/* «ЗАКРЕПЛЕНО:» — акцент вместо салатового */
+/* "PINNED:" — accent instead of lime */
 html .forum_topic .forum_topic_label.sticky_label {
     color: var(--aika-accent-bright);
 }
 
-/* Значки тем и ответов (PNG: голубой конверт, белый замок, пузырь) —
-   в тон акцента / приглушённо */
+/* Topic and reply icons (PNG: a light-blue envelope, a white lock, a bubble) —
+   in accent tone / muted */
 html .forum_topic .forum_topic_icon img {
     filter: var(--aika-tint-accent);
 }
@@ -1156,7 +1156,7 @@ html .forum_topic .forum_topic_reply_count img {
     opacity: var(--aika-icon-dim);
 }
 
-/* --- Пагинация ------------------------------------------------------------ */
+/* --- Pagination ------------------------------------------------------------ */
 
 html .forum_area .forum_paging {
     border: var(--aika-hairline) solid var(--aika-border);
@@ -1203,12 +1203,12 @@ html .forum_area .forum_pagesize_options a.commentthread_pagination_link {
     color: var(--aika-fg-muted);
 }
 
-/* --- Правая колонка ------------------------------------------------------- */
+/* --- Right column ---------------------------------------------------------- */
 
-/* Поиск по обсуждениям: у Steam поле — картинка-фон шириной «100% − 40px»,
-   справа вплотную синяя GIF-кнопка (searchbox_workshop_submit.gif).
-   У нас поле во всю ширину, кнопка — лупа внутри поля справа (правка
-   автора 2026-10-07: «значок посвежее, оформить окно поиска») */
+/* Discussion search: Steam's field is a background image "100% − 40px" wide,
+   with a blue GIF button flush on the right (searchbox_workshop_submit.gif).
+   Ours is a full-width field with a magnifier button inside it on the right (author's
+   fix 2026-10-07: "a fresher icon, style the search box") */
 html .rightcol .discussionSearchTextContainer {
     position: relative;
     box-sizing: border-box;
@@ -1219,9 +1219,9 @@ html .rightcol .discussionSearchTextContainer {
     transition: border-color var(--aika-dur-fast) var(--aika-ease-hover), box-shadow var(--aika-dur-base) var(--aika-ease);
 }
 
-/* Синий квадрат справа от поля — ::before с картинкой кнопки Steam
-   (right: -40px, 40×46) — убираем: кнопка у нас — лупа внутри поля
-   (скрин «17_d поиск») */
+/* The blue square to the right of the field — a ::before with Steam's button image
+   (right: -40px, 40×46) — removed: our button is a magnifier inside the field
+   (screenshot "17_d search") */
 html .rightcol .discussionSearchTextContainer::before {
     content: none;
 }
@@ -1282,14 +1282,14 @@ html .rightcol .rightbox :is(.rightbox_content_header, .rightbox_list_header > d
     letter-spacing: var(--aika-tracking-label);
 }
 
-/* Список форумов: выбранный — картинка-стрелка голубая → акцентная
-   подложка с полоской */
+/* The forum list: the selected one — a light-blue arrow image → an accent
+   backing with a strip */
 html .rightbox .rightbox_list_option .rightbox_list_selection_background {
     background: none;
 }
 
-/* Подложка выбранного шире текста: текст стоит на месте, а подсветка
-   выходит за него на отступ (у Steam текст прилипал к краю подложки) */
+/* The selected backing is wider than the text: the text stays put, and the highlight
+   extends past it by the padding (in Steam the text stuck to the backing edge) */
 html .rightbox .rightbox_list_option {
     margin-inline: calc(-1 * var(--aika-space-2));
     padding-inline: var(--aika-space-2);
@@ -1326,8 +1326,8 @@ html .rightbox .weblink img {
     opacity: var(--aika-icon-dim);
 }
 
-/* «Подписаться на форум» (btn_grey_black, голубой текст) и «Новое
-   обсуждение» (btn_darkblue_white_innerfade — синяя, цвет !important) */
+/* "Subscribe to forum" (btn_grey_black, light-blue text) and "New
+   discussion" (btn_darkblue_white_innerfade — blue, color !important) */
 html .rightbox .btn_grey_black {
     border-radius: var(--aika-radius-md);
     background: var(--aika-surface);
@@ -1348,7 +1348,7 @@ html .rightbox .btn_darkblue_white_innerfade {
     border-radius: var(--aika-radius-md);
     background: var(--aika-accent-fill);
     box-shadow: var(--aika-shadow-cta);
-    color: var(--aika-on-accent) !important; /* у Steam #a4d7f5 !important */
+    color: var(--aika-on-accent) !important; /* Steam: #a4d7f5 !important */
 }
 
 html .rightbox .btn_darkblue_white_innerfade > span {
@@ -1357,10 +1357,10 @@ html .rightbox .btn_darkblue_white_innerfade > span {
 
 html .rightbox .btn_darkblue_white_innerfade:hover {
     background: var(--aika-accent-fill-hover);
-    color: var(--aika-on-accent) !important; /* у Steam #fff !important */
+    color: var(--aika-on-accent) !important; /* Steam: #fff !important */
 }
 
-/* «Сайт сообщества» в шапке (btnv6_blue_hoverfade, голубой текст) */
+/* "Community site" in the header (btnv6_blue_hoverfade, light-blue text) */
 html .apphub_OtherSiteInfo a.btnv6_blue_hoverfade {
     border-radius: var(--aika-radius-md);
     background: var(--aika-surface);
