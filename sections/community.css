@@ -1219,6 +1219,13 @@ html .rightcol .discussionSearchTextContainer {
     transition: border-color var(--aika-dur-fast) var(--aika-ease-hover), box-shadow var(--aika-dur-base) var(--aika-ease);
 }
 
+/* Синий квадрат справа от поля — ::before с картинкой кнопки Steam
+   (right: -40px, 40×46) — убираем: кнопка у нас — лупа внутри поля
+   (скрин «17_d поиск») */
+html .rightcol .discussionSearchTextContainer::before {
+    content: none;
+}
+
 html .rightcol .discussionSearchTextContainer:focus-within {
     border-color: var(--aika-border-accent);
     box-shadow: var(--aika-shadow-input-focus);
