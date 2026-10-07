@@ -933,7 +933,7 @@ html .AdvancedSearchPane .SearchFilterInput {
 
 /* Кнопка фильтра, пока панель открыта (.Extended): у Steam значок #d3d3d3
    (0,4,2) — у нас акцент, видно, что фильтры открыты */
-html .Container .AdvancedSearchContainer.Extended .AdvancedSearchButton svg path {
+html .Container .AdvancedSearchContainer.Extended.Extended .AdvancedSearchButton.AdvancedSearchButton svg path {
     fill: var(--aika-accent-bright);
 }
 
