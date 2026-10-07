@@ -2662,3 +2662,143 @@ html body footer.TT1_g1XWXbbLgxOPIpczV a.FYJ4NYxpWeIha0N1-jUcm :is(svg, svg g, s
     color: inherit;
     fill: currentColor;
 }
+
+/* ==========================================================================
+   [Сообщество] Страница уведомлений (steamcommunity…/notifications, задача 9,
+   скрин «9_уведомления страница перекрас»). Карточки — тот же шаблон, что
+   в выпадашке клиента (components/menu.css, .AllNotificationsTemplate), но
+   веб-сборка без читаемых имён — только хэши (CSS-модуль 75883 Steam):
+     ._1cj-7JmCC_IQ4ZdxxUo43Q   — колонка списка; ._1bLYafVT6_4DisbgdimwXc /
+       ._3iXuG9K_6ttnP8gOhOR7Iv — заголовок «Уведомления (не прочитано: 0)»
+     .QFW0BtI4l77AFmv1xLAkx     — карточка (AllNotificationsTemplate, чёрный 20 %),
+       + ._1B1XTNsfuwOaDPAkkr8M42 — непрочитанная (Unread)
+       ._1VRx9qVxigUC4qeM0NWNMR — обложка, ._1SQjN025UZ0z_8AkWHCsGd — текст,
+       ._3u0Sb5gUTscs0TQlKpA7WZ — строка «значок · тип · время»:
+         ._2auM-VHPU-KKomAWyuWrSV (значок #8b929a), ._2MGSmn9lIFnmLVIX49POSx (тип #8b929a),
+         ._7XKFnSNjW_tHfyxaezoD3 (время #67707b)
+       ._26v9mHAi56x63OwY-jxett — название (#dcdedf), ._3hEeummFKRey8l5VXxZwxz — подпись (#8b929a)
+       ._1pIhbqWsrCVPaGGYc6fT-H — точка «новое» (зелёная)
+     .Lakql1yamweHbP1OPuahF     — заглушка загрузки (#323640, мерцание салатовое
+       #bff6ab: ._2macs5lWMPN5NfDpGE3Iyh, ._2a2loheX4ZKGZCGNEdAT3h, ._3Ivl8dbxH6D6LwaSLTNTLe)
+     ._1uSw_aqus0W7yb3vT9_-22   — правая колонка (чёрный 20 %): ._4T-jWhXP-AWt4AatyamIk —
+       «ФИЛЬТР» (капс #9298a0), ._3R-McPl3j1ANvRa0U9reMV — «Действия в сообществе»
+       (линия #67707b сверху)
+   Сила Steam (0,1,0)…(0,2,0). Проверено: 2026-10-07.
+   ========================================================================== */
+
+html body ._1bLYafVT6_4DisbgdimwXc ._3iXuG9K_6ttnP8gOhOR7Iv {
+    color: var(--aika-fg);
+    font-weight: var(--aika-weight-semibold);
+}
+
+/* Список: карточки с зазором */
+html body ._1cj-7JmCC_IQ4ZdxxUo43Q .KG3qM6Y1DpK-afn15yeaT {
+    display: flex;
+    flex-direction: column;
+    gap: var(--aika-space-2);
+}
+
+html body .QFW0BtI4l77AFmv1xLAkx {
+    overflow: hidden;
+    border: var(--aika-hairline) solid var(--aika-border);
+    border-radius: var(--aika-radius-lg);
+    background: var(--aika-card-bg);
+    box-shadow: var(--aika-highlight-top);
+    transition:
+        border-color var(--aika-dur-fast) var(--aika-ease-hover),
+        box-shadow var(--aika-dur-base) var(--aika-ease);
+}
+
+html body .QFW0BtI4l77AFmv1xLAkx:hover {
+    border-color: var(--aika-border-accent);
+    background: var(--aika-card-accent-bg);
+    box-shadow: var(--aika-highlight-top), 0 0 20px var(--aika-accent-haze);
+}
+
+html body .QFW0BtI4l77AFmv1xLAkx._1B1XTNsfuwOaDPAkkr8M42 {
+    border-color: var(--aika-border-accent);
+    background: var(--aika-card-accent-bg);
+}
+
+html body .QFW0BtI4l77AFmv1xLAkx ._1VRx9qVxigUC4qeM0NWNMR img {
+    border-radius: var(--aika-radius-md);
+}
+
+html body .QFW0BtI4l77AFmv1xLAkx ._3u0Sb5gUTscs0TQlKpA7WZ ._2MGSmn9lIFnmLVIX49POSx {
+    color: var(--aika-fg-subtle);
+}
+
+html body .QFW0BtI4l77AFmv1xLAkx ._3u0Sb5gUTscs0TQlKpA7WZ ._7XKFnSNjW_tHfyxaezoD3 {
+    color: var(--aika-fg-subtle);
+    font-family: var(--aika-font-mono);
+}
+
+html body .QFW0BtI4l77AFmv1xLAkx ._2auM-VHPU-KKomAWyuWrSV,
+html body .QFW0BtI4l77AFmv1xLAkx ._2auM-VHPU-KKomAWyuWrSV :is(svg, svg path) {
+    color: var(--aika-fg-subtle);
+    fill: var(--aika-fg-subtle);
+}
+
+html body .QFW0BtI4l77AFmv1xLAkx ._26v9mHAi56x63OwY-jxett {
+    color: var(--aika-fg);
+}
+
+html body .QFW0BtI4l77AFmv1xLAkx ._3hEeummFKRey8l5VXxZwxz {
+    color: var(--aika-fg-muted);
+}
+
+/* Цена в подписи («274,00₴») — моно */
+html body .QFW0BtI4l77AFmv1xLAkx ._3hEeummFKRey8l5VXxZwxz span {
+    color: var(--aika-fg);
+    font-family: var(--aika-font-mono);
+}
+
+html body .QFW0BtI4l77AFmv1xLAkx ._1pIhbqWsrCVPaGGYc6fT-H {
+    filter: drop-shadow(0 0 4px var(--aika-accent-glow));
+}
+
+html body .QFW0BtI4l77AFmv1xLAkx ._1pIhbqWsrCVPaGGYc6fT-H svg {
+    color: var(--aika-accent-bright);
+}
+
+/* Заглушка загрузки: серо-синяя с салатовым мерцанием → поверхность
+   и мягкий акцент */
+html body .QFW0BtI4l77AFmv1xLAkx .Lakql1yamweHbP1OPuahF {
+    background-color: var(--aika-bg-raised);
+}
+
+html body .Lakql1yamweHbP1OPuahF :is(._2macs5lWMPN5NfDpGE3Iyh, ._2a2loheX4ZKGZCGNEdAT3h, ._3Ivl8dbxH6D6LwaSLTNTLe) {
+    border-radius: var(--aika-radius-xs);
+    background-image: linear-gradient(to right, var(--aika-transparent) 33.33%, var(--aika-accent-soft) 50%, var(--aika-transparent) 66.66%);
+}
+
+/* --- Правая колонка ------------------------------------------------------- */
+
+html body ._1uSw_aqus0W7yb3vT9_-22 {
+    border: var(--aika-hairline) solid var(--aika-border);
+    border-radius: var(--aika-radius-xl);
+    background-color: var(--aika-surface);
+}
+
+html body ._1uSw_aqus0W7yb3vT9_-22 ._4T-jWhXP-AWt4AatyamIk {
+    color: var(--aika-fg-subtle);
+    font-family: var(--aika-font-mono);
+    font-size: var(--aika-text-label);
+    letter-spacing: var(--aika-tracking-label);
+}
+
+html body ._1uSw_aqus0W7yb3vT9_-22 :is(.DialogToggle_Label, .DialogToggle_Label span) {
+    color: var(--aika-fg-muted);
+}
+
+html body ._1uSw_aqus0W7yb3vT9_-22 ._3R-McPl3j1ANvRa0U9reMV {
+    border-top-color: var(--aika-border);
+}
+
+html body ._1uSw_aqus0W7yb3vT9_-22 ._3R-McPl3j1ANvRa0U9reMV a {
+    color: var(--aika-accent-bright);
+}
+
+html body ._1uSw_aqus0W7yb3vT9_-22 ._3R-McPl3j1ANvRa0U9reMV a:hover {
+    color: var(--aika-fg);
+}

@@ -827,12 +827,13 @@ html body.profile_edit_page {
 }
 
 /* Базовый текст страницы (#969696) и имя в шапке (#ebebeb) */
-html body.profile_edit_page .responsive_page_frame {
+/* (и на остальных страницах профиля с той же шапкой — уведомления и др.) */
+html body:is(.profile_edit_page, .migrated_profile_page) .responsive_page_frame {
     color: var(--aika-fg-muted);
 }
 
-html body.profile_edit_page .profile_small_header_text a.whiteLink,
-html body.profile_edit_page .profile_small_header_text a.whiteLink span {
+html .profile_small_header_text a.whiteLink,
+html .profile_small_header_text a.whiteLink span {
     color: var(--aika-fg);
 }
 
