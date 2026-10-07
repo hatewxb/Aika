@@ -829,3 +829,61 @@ html .AppGridSectionHeader .AppGridSectionLabel {
 html .AppGridSectionHeader {
     border-radius: var(--aika-radius-md);
 }
+
+/* --------------------------------------------------------------------------
+   Подсказка при наведении на обложку игры (полки «Недавние игры»,
+   коллекции): .HoverPosition > .AppPortraitHover — название, скриншоты,
+   «Копий в семейной библиотеке», «Вы играли». Steam: прямоугольная
+   плашка #363c45 с тенью, под ней — обложка с blur(18px) opacity(50%)
+   (вместе читаются серо-голубым), подписи капсом. Хэши (0,1,0)…(0,2,0).
+   Делаем как тултипы темы: тёмная полупрозрачная карточка, скругление;
+   обложка под ней — тёмная цветная подсветка.
+   Проверено 2026-10-07 (скрин 5 — Valheim; вживую — Forza Horizon 5).
+   -------------------------------------------------------------------------- */
+
+html .HoverPosition .AppPortraitHover {
+    overflow: hidden;
+    border-radius: var(--aika-radius-lg);
+    background-color: var(--aika-surface-translucent);
+    box-shadow: var(--aika-shadow-menu);
+}
+
+html .AppPortraitHover .CapsuleBackgroundContainer .CapsuleBackground {
+    filter: var(--aika-blur-cover-filter);
+    opacity: var(--aika-blur-cover-opacity);
+}
+
+html .AppPortraitHover .AppTitleContainer .AppTitle {
+    color: var(--aika-fg);
+    font-weight: var(--aika-weight-semibold);
+}
+
+/* Скриншоты игры — скруглённый кадр */
+html .AppPortraitHover .ScreenshotCrossfade {
+    overflow: hidden;
+    border-radius: var(--aika-radius-md);
+    background: var(--aika-bg-raised);
+}
+
+/* «Копий в семейной библиотеке: 3» и прочие статусы: капс #d7d7d7 */
+html .AppPortraitHover .AppStatus {
+    color: var(--aika-fg-muted);
+    text-transform: none;
+}
+
+html .AppPortraitHover .AppStatus .Owners {
+    color: var(--aika-fg);
+}
+
+/* «Вы играли» + время — как в «Играть»: подпись-метка и моно-значения */
+html .AppPortraitHover .PlaytimeDetails {
+    border-radius: var(--aika-radius-md);
+    color: var(--aika-fg-muted);
+    font-family: var(--aika-font-mono);
+}
+
+html .AppPortraitHover .PlaytimeDetails .Header {
+    color: var(--aika-fg-subtle);
+    font-size: var(--aika-text-label);
+    letter-spacing: var(--aika-tracking-label);
+}
