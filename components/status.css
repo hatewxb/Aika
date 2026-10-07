@@ -412,7 +412,12 @@ html .HoverPosition .miniProfile {
     box-shadow: var(--aika-shadow-menu);
 }
 
-html .miniProfile .PlaytimeSection {
+/* Только полный вариант — отдельная полоса внизу с логотипом игры (друг
+   не в игре). Когда друг в игре, Steam рисует компактный вариант без
+   логотипа (хэш-модификатор: без фона и отступов) справа от логотипа,
+   под строкой статуса — там наша подложка с линией читалась отдельным
+   сиреневым прямоугольником поверх строки (скрин 6, 2026-10-07). */
+html .miniProfile .PlaytimeSection:has(> .GameLogo) {
     border-top: 1px solid var(--aika-border);
     background: radial-gradient(circle at left top, var(--aika-accent-glow) 0%, transparent 70%),
                 var(--aika-surface-translucent);
