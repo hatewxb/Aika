@@ -1,5 +1,5 @@
-// store-hero.js — the "Cinematic" store game page (theme settings → "Store" →
-// "Game page"; the author's idea 2026-10-08, the layout follows a key-store
+// store-hero.js — the "Cinematic" store game page (theme settings → "Main" →
+// "Store", the default; the author's idea 2026-10-08, the layout follows a key-store
 // product page). Only runs when options/store-cinematic.css is on (it sets
 // --aika-store-layout: cinematic and hides Steam's top block).
 //
@@ -282,9 +282,11 @@ const buildPrice = (base) => {
   if (!base) return null;
   const block = base.querySelector(".discount_block:not(.no_discount)");
   if (block) {
-    return el("div", "aika-cine-price", {}, [
+    // A sale: the final price in the discount color, the old one struck, the percent
+    return el("div", "aika-cine-price is-sale", {}, [
       el("span", "aika-cine-price-final", { text: block.querySelector(".discount_final_price")?.textContent.trim() }),
       el("s", "aika-cine-price-orig", { text: block.querySelector(".discount_original_price")?.textContent.trim() }),
+      el("span", "aika-cine-price-pct", { text: block.querySelector(".discount_pct")?.textContent.trim() }),
     ]);
   }
   const plain = base.querySelector(".discount_block.no_discount .discount_final_price, .game_purchase_price");

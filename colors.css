@@ -19,7 +19,7 @@ html:root {
        The final customizable colors (theme settings in Millennium):
        the color preset (--aika-preset-*, options/presets/*.css) — if
        selected; otherwise the custom colors (--aika-user-*, root-colors.css, the
-       "Advanced" tab). "Custom colors: yes" resets --aika-preset-* to initial
+       "Colors" page). "Advanced → Custom colors: yes" resets --aika-preset-* to initial
        (options/colors-manual.css) — then var() takes the fallback.
        ------------------------------------------------------------------ */
     --aika-accent: var(--aika-preset-accent, var(--aika-user-accent));
@@ -163,6 +163,8 @@ html:root {
     /* Trailer segments and the viewer scrub bar: the track and the watched part */
     --aika-cine-seg-track: rgb(from var(--aika-fg) r g b / 0.22);
     --aika-cine-seg-fill: var(--aika-fg);
+    /* The glow under a discounted price in the hero */
+    --aika-cine-sale-haze: rgb(from var(--aika-ok) r g b / 0.35);
 
     /* ------------------------------------------------------------------
        Notification toasts (components/toast.css, DESIGN.md §11):

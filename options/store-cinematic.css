@@ -1,5 +1,6 @@
 /* ==========================================================================
-   "Store → Game page → Cinematic" (theme settings; the default is "Classic").
+   "Main → Store → Cinematic" (theme settings; the default since 2026-10-08,
+   "Classic" brings back Steam's layout).
 
    A flag for js/store-hero.js plus hiding Steam's top block right away,
    before the script builds the hero — so the classic layout never flashes.

@@ -12,7 +12,8 @@
      (themeColors.Aika) and injects them on top of the CSS. After changing
      the values here, reset them in the theme settings.
 
-   These are the "custom colors" (the "Advanced" tab in the theme settings): the
+   These are the "custom colors" (the "Colors" page of the theme settings,
+   used when "Advanced → Custom colors" is on): the
    --aika-user-* variables. The final --aika-accent, --aika-light-1… are computed
    in colors.css — from the selected color preset (options/presets/,
    --aika-preset-* variables), or, if the preset is off (custom colors
@@ -27,7 +28,7 @@
      */
     --aika-user-accent: #8B7FF0;
     /*
-     * @name Accent: hover
+     * @name Accent hover
      * @description Slightly lighter than the accent. Presets: #A497F5, #7480E0, #C8B2F5, #E58A6B
      */
     --aika-user-accent-bright: #A497F5;

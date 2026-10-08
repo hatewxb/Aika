@@ -178,7 +178,7 @@
        (Steam uses a light-blue PNG strip) */
     --aika-store-collapse-fade: linear-gradient(to bottom, var(--aika-transparent), var(--aika-bg-deep) 85%);
     --aika-store-collapse-mask: linear-gradient(to bottom, black 55%, transparent);
-    /* The cinematic store page (options "Store → Game page → Cinematic",
+    /* The cinematic store page (option "Main → Store → Cinematic",
        js/store-hero.js, sections/store-cinematic.css) */
     --aika-cine-hero-min: 560px;              /* the hero never gets shorter */
     --aika-cine-content: 1200px;              /* = Steam's .widestore .page_content */
@@ -189,6 +189,7 @@
     --aika-cine-button: 48px;                 /* "Buy", "Media", the heart */
     --aika-cine-price-size: clamp(28px, 2.4vw, 36px);
     --aika-cine-text-shadow: 0 1px 12px var(--aika-cine-shade-strong);
+    --aika-cine-sale-glow: 0 0 18px var(--aika-cine-sale-haze), 0 1px 12px var(--aika-cine-shade-strong);
     --aika-cine-fade: 1200ms;                 /* poster → trailer, trailer → trailer */
     --aika-cine-shade:
         linear-gradient(to top, var(--aika-cine-shade-strong) 0%, var(--aika-cine-shade-mid) 40%, var(--aika-scrim-none) 72%),

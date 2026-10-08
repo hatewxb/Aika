@@ -1,5 +1,5 @@
 /* ==========================================================================
-   "Cursor glow: no" (theme settings → "Advanced").
+   "Cursor glow: no" (theme settings → "Main").
    Removes the glow layer (::after) from large client blocks
    (components/card.css). js/spotlight.js keeps writing coordinates —
    without the layer they affect nothing.

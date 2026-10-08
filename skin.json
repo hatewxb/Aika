@@ -9,9 +9,9 @@
     "Steam-WebKit": "webkit.css",
 
     "Conditions": {
-        "Tab position": {
+        "Top bar": {
             "description": "Where the Store, Library, Community and profile tabs sit in the top bar.",
-            "tab": "Top bar",
+            "tab": "Main",
             "default": "Center",
             "values": {
                 "Center": {
@@ -20,9 +20,43 @@
                 "Left": {}
             }
         },
-        "Preset": {
+        "Store": {
+            "description": "The layout of a game's store page. Cinematic: the trailers play muted over the whole window behind the logo, price and buttons, with a media gallery below; the editions and everything else stay as in Classic. Needs theme scripts.",
+            "tab": "Main",
+            "default": "Cinematic",
+            "values": {
+                "Cinematic": {
+                    "TargetCss": { "affects": [".*"], "src": "options/store-cinematic.css" }
+                },
+                "Classic": {}
+            }
+        },
+        "Cursor glow": {
+            "description": "A soft accent glow under the cursor on large library blocks (game page panels, What's New, collections).",
+            "tab": "Main",
+            "default": "yes",
+            "values": {
+                "yes": {},
+                "no": {
+                    "TargetCss": { "affects": ["^Steam$"], "src": "options/spotlight-off.css" }
+                }
+            }
+        },
+        "Cursor glow radius": {
+            "description": "The size of the cursor glow, in pixels.",
+            "tab": "Main",
+            "default": 160,
+            "slider": {
+                "cssVariable": "--aika-setting-spot-size",
+                "min": 60,
+                "max": 400,
+                "step": 20,
+                "unit": "px"
+            }
+        },
+        "Color preset": {
             "description": "The theme color set: the accent and the light spots. To set colors manually, turn on \"Custom colors\" in the \"Advanced\" tab.",
-            "tab": "Color presets",
+            "tab": "Main",
             "default": "Aika",
             "values": {
                 "Aika": {
@@ -33,42 +67,9 @@
                 }
             }
         },
-        "Game page": {
-            "description": "The layout of a game's store page. Cinematic: the trailers play muted over the whole window behind the logo, price and buttons, with a media gallery below; the editions and everything else stay as in Classic. Needs theme scripts.",
-            "tab": "Store",
-            "default": "Classic",
-            "values": {
-                "Classic": {},
-                "Cinematic": {
-                    "TargetCss": { "affects": [".*"], "src": "options/store-cinematic.css" }
-                }
-            }
-        },
-        "Custom colors": {
-            "description": "Use the colors from the theme color editor instead of the preset. The colors themselves (accent, hover, three light spots) are set in this theme's colors section.",
-            "tab": "Advanced",
-            "default": "no",
-            "values": {
-                "no": {},
-                "yes": {
-                    "TargetCss": { "affects": [".*"], "src": "options/colors-manual.css" }
-                }
-            }
-        },
-        "Cursor glow": {
-            "description": "A soft accent glow under the cursor on large library blocks (game page panels, What's New, collections).",
-            "tab": "Advanced",
-            "default": "yes",
-            "values": {
-                "yes": {},
-                "no": {
-                    "TargetCss": { "affects": ["^Steam$"], "src": "options/spotlight-off.css" }
-                }
-            }
-        },
         "Notification wordmark": {
             "description": "The font of the \"Aika\" wordmark in the background of notification toasts.",
-            "tab": "Notifications",
+            "tab": "Main",
             "default": "Gothic",
             "values": {
                 "Gothic": {},
@@ -79,7 +80,7 @@
         },
         "Notification opacity": {
             "description": "How much a notification covers the desktop: lower is more transparent.",
-            "tab": "Notifications",
+            "tab": "Main",
             "default": 62,
             "slider": {
                 "cssVariable": "--aika-setting-toast-tint",
@@ -89,16 +90,15 @@
                 "unit": "%"
             }
         },
-        "Glow radius": {
-            "description": "The size of the cursor glow, in pixels.",
+        "Custom colors": {
+            "description": "Use your own colors instead of the preset. The colors themselves (accent, accent hover, three light spots) are on the \"Colors\" page below.",
             "tab": "Advanced",
-            "default": 160,
-            "slider": {
-                "cssVariable": "--aika-setting-spot-size",
-                "min": 60,
-                "max": 400,
-                "step": 20,
-                "unit": "px"
+            "default": "no",
+            "values": {
+                "no": {},
+                "yes": {
+                    "TargetCss": { "affects": [".*"], "src": "options/colors-manual.css" }
+                }
             }
         }
     },

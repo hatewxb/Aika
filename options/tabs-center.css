@@ -1,6 +1,6 @@
 /* ==========================================================================
    The "Store / Library / …" tabs centered in the top bar
-   (theme settings → "Top bar" → "Center", the default).
+   (theme settings → "Main → Top bar" → "Center", the default).
    The "Left" option doesn't load this file — tabs stay where Steam puts them.
 
    .SuperNav — flex: [← →] + .MenuWrapper×N. Auto margins on both sides
