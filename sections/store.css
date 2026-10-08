@@ -669,7 +669,7 @@ html body.v6 .btnv6_blue_hoverfade > span {
 }
 
 /* Pressed: "On Wishlist", "Following", the open queue menu */
-html body.v6 :is(.btnv6_blue_hoverfade.btn_active, .btnv6_blue_hoverfade.active, .btnv6_blue_hoverfade.queue_btn_active, .queue_btn_menu > .queue_menu_arrow.queue_btn_active) {
+html body.v6 :is(.btnv6_blue_hoverfade.btn_active, .btnv6_blue_hoverfade.active, .btnv6_blue_hoverfade.queue_btn_active) {
     background: var(--aika-accent-soft);
     color: var(--aika-accent-bright) !important; /* Steam: #fff !important */
     box-shadow: inset 0 0 0 var(--aika-hairline) var(--aika-border-accent);
@@ -754,9 +754,24 @@ html body.v6 .details_block b {
     font-weight: var(--aika-weight-regular);
 }
 
-/* "Similar recent" (game icons under the reasons) */
+/* "Similar to what you played" (capsules under the reasons): play time —
+   mono (DESIGN.md §11), capsules rounded */
 html body.v6 .similar_recent_apps_container a.similarapp {
+    margin-right: var(--aika-space-2);
     color: var(--aika-fg-subtle);
+    font-family: var(--aika-font-mono);
+    font-size: var(--aika-text-meta);
+}
+
+html body.v6 .similar_recent_apps_container a.similarapp img {
+    border-radius: var(--aika-radius-md);
+    box-shadow: var(--aika-shadow-cover);
+}
+
+/* Dividers between the reasons (author's report 2026-10-08: "blue lines"):
+   Steam: .block.recommendation_reasons hr — #273747 */
+html body.v6 .block.recommendation_reasons hr {
+    background-color: var(--aika-border-hover);
 }
 
 /* Features ("Single-player", "Steam Achievements"…): plate rows
@@ -1069,11 +1084,160 @@ html body.v6 .game_description_column .block .block_header .right a:hover {
     background-color: var(--aika-surface-hover);
 }
 
-/* The queue menu arrow ("▾" next to "Ignore"): Steam has
-   .queue_btn_menu > .queue_menu_arrow, color #67c1f5 !important */
-html body.v6 .queue_btn_menu > .queue_menu_arrow:not(.queue_btn_active) {
+/* The queue menu arrow ("▾" next to "Ignore"; screenshot 19): Steam has
+   .queue_btn_menu > .queue_menu_arrow, color #67c1f5 !important, a PNG arrow,
+   and keeps .queue_btn_active on it even while the menu is closed — so it is
+   a plain secondary button (not "pressed"), the arrow — our chevron mask */
+html body.v6 .queue_btn_menu > .queue_menu_arrow {
     background: var(--aika-surface);
-    color: var(--aika-fg) !important; /* Steam: !important */
+    color: var(--aika-fg-muted) !important; /* Steam: !important */
+    box-shadow: var(--aika-shadow-secondary);
+    transition:
+        background-color var(--aika-dur-fast) var(--aika-ease-hover),
+        color var(--aika-dur-fast) var(--aika-ease-hover);
+}
+
+html body.v6 .queue_btn_menu:hover > .queue_menu_arrow {
+    background: var(--aika-surface-hover);
+    color: var(--aika-fg) !important;
+}
+
+html body.v6 .queue_btn_menu > .queue_menu_arrow > span {
+    display: block;
+    width: var(--aika-icon-inline);
+    height: 100%;
+    background: currentColor;
+    mask: var(--aika-icon-chevron-down) center / var(--aika-icon-inline) no-repeat;
+}
+
+html body.v6 .queue_btn_menu > .queue_menu_arrow > span img {
+    display: none;
+}
+
+/* Icons inside store buttons (Steam's icons_16 sprite: a light-blue arrow
+   on "Your recommendation queue →", a blue flag on "Report"; screenshots 19, 24) —
+   our masks in the button text color */
+html body.v6 .btnv6_blue_hoverfade i.ico16:is(.arrow_next, .reportv6) {
+    background: currentColor;
+    mask: var(--aika-icon-arrow-right) center / contain no-repeat;
+}
+
+html body.v6 .btnv6_blue_hoverfade i.ico16.reportv6 {
+    mask-image: var(--aika-icon-flag);
+}
+
+/* "Report" — a square icon button (Steam: the icon + a &nbsp; for width) */
+html body.v6 #ReportAppBtn {
+    color: var(--aika-fg-muted) !important; /* Steam: !important */
+}
+
+html body.v6 #ReportAppBtn:hover {
+    color: var(--aika-live) !important;
+}
+
+/* The "Embed / Report" row (author's report 2026-10-08: "the flag sits
+   unevenly"): Steam lines the buttons up on the text baseline — the icon-only
+   button (font-size 0) jumped 4 px up and was 1 px taller. A flex row, centered;
+   "Report" — a square as tall as "Embed", the icon centered without Steam's
+   .ico16 7 px margin */
+html body.v6 #shareEmbedRow {
+    display: flex;
+    align-items: center;
+    gap: var(--aika-space-2);
+}
+
+html body.v6 #shareEmbedRow > a {
+    display: inline-flex;
+    margin: 0;
+}
+
+/* flex, not grid: the &nbsp; text node would be a second grid row */
+html body.v6 #ReportAppBtn > span {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-sizing: border-box;
+    width: var(--aika-store-btn-height);
+    height: var(--aika-store-btn-height);
+    padding: 0;
+    font-size: 0;
+}
+
+html body.v6 #ReportAppBtn i.ico16.reportv6 {
+    width: var(--aika-icon-report);
+    height: var(--aika-icon-report);
+    margin: 0;
+}
+
+/* The recommendation queue (screenshot 26): "Next" — Steam's gold gradient
+   arrow (.next_in_queue_content + a border triangle in ::after) — the Aika
+   primary with an arrow; the hint under the buttons (#ffcc6a on a gold
+   gradient) — a quiet warn note */
+html body.v6 .btn_next_in_queue {
+    background: var(--aika-transparent);
+}
+
+html body.v6 .btn_next_in_queue::after {
+    display: none;
+}
+
+html body.v6 .btn_next_in_queue .next_in_queue_content {
+    display: flex;
+    flex-direction: row; /* Steam: column — the arrow fell under the text */
+    align-items: center;
+    justify-content: center;
+    padding-inline: var(--aika-space-4);
+    gap: var(--aika-space-3);
+    border-radius: var(--aika-radius-md);
+    background: var(--aika-accent-fill);
+    color: var(--aika-on-accent);
+    box-shadow: var(--aika-shadow-cta);
+    transition:
+        background-color var(--aika-dur-fast) var(--aika-ease-hover),
+        box-shadow var(--aika-dur-base) var(--aika-ease),
+        transform var(--aika-dur-base) var(--aika-ease);
+}
+
+html body.v6 .btn_next_in_queue .next_in_queue_content::after {
+    content: "";
+    flex: none;
+    width: var(--aika-icon-inline);
+    height: var(--aika-icon-inline);
+    background: currentColor;
+    mask: var(--aika-icon-arrow-right) center / contain no-repeat;
+    transition: transform var(--aika-dur-base) var(--aika-ease);
+}
+
+html body.v6 .btn_next_in_queue:hover .next_in_queue_content {
+    background: var(--aika-accent-fill-hover);
+    box-shadow: var(--aika-shadow-cta-hover);
+    transform: translateY(var(--aika-lift-sm));
+}
+
+html body.v6 .btn_next_in_queue:hover .next_in_queue_content::after {
+    transform: translateX(var(--aika-nudge));
+}
+
+html body.v6 .btn_next_in_queue .next_in_queue_content > span {
+    color: var(--aika-on-accent);
+    font-weight: var(--aika-weight-semibold);
+}
+
+html body.v6 .btn_next_in_queue .queue_sub_text {
+    color: var(--aika-on-accent);
+    font-family: var(--aika-font-mono);
+    font-weight: var(--aika-weight-regular);
+    text-transform: none;
+    opacity: 0.72;
+}
+
+html body.v6 .queue_controls_description {
+    width: fit-content;
+    padding: var(--aika-space-1) var(--aika-space-3);
+    border-radius: var(--aika-radius-full);
+    background: var(--aika-warn-soft);
+    color: var(--aika-warn);
+    box-shadow: inset 0 0 0 var(--aika-hairline) var(--aika-warn-border);
 }
 
 /* --------------------------------------------------------------------------

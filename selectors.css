@@ -943,6 +943,18 @@ html body.v6 [data-featuretarget="store-menu-v7"] a._1vPyDoJDpPKIAmF1YMCtY0 svg 
     fill: currentColor;
 }
 
+/* [Store] "NEW" in the price widget of store carousels ("More like this",
+   screenshot 27): ._1so1AGD_m_uIBFDEc1ImOu .kT9bBl6aBZQ-0xiRlMWzc — Steam:
+   #3a9bed with white caps (0,2,0). An ok pill, like "NEW" in the menus.
+   Verified: 2026-10-08, WARDOGS. */
+html body.v6 .StoreSalePriceWidgetContainer .kT9bBl6aBZQ-0xiRlMWzc {
+    background: var(--aika-ok-soft);
+    color: var(--aika-ok);
+    font-family: var(--aika-font-mono);
+    font-weight: var(--aika-weight-semibold);
+    box-shadow: inset 0 0 0 var(--aika-hairline) var(--aika-ok-mid);
+}
+
 /* [Store] The cart (store.steampowered.com/cart/, body.v6.ShoppingCart, React):
      .XjPmFc2t_i1DAuEXEbIX — the list block ("Your cart is empty"; black 25 %);
      ._2bIzQo07mxubFvscA8RIA8 — the total (country, sum, "Continue to payment"),
