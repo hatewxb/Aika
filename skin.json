@@ -33,6 +33,17 @@
                 }
             }
         },
+        "Game page": {
+            "description": "The layout of a game's store page. Cinematic: the trailers play muted over the whole window behind the logo, price and buttons, with a media gallery below; the editions and everything else stay as in Classic. Needs theme scripts.",
+            "tab": "Store",
+            "default": "Classic",
+            "values": {
+                "Classic": {},
+                "Cinematic": {
+                    "TargetCss": { "affects": [".*"], "src": "options/store-cinematic.css" }
+                }
+            }
+        },
         "Custom colors": {
             "description": "Use the colors from the theme color editor instead of the preset. The colors themselves (accent, hover, three light spots) are set in this theme's colors section.",
             "tab": "Advanced",
@@ -117,7 +128,7 @@
         },
         {
             "MatchRegexString": "^https://store\\.steampowered\\.com/app/.*",
-            "TargetJs": "js/store-logo.js"
+            "TargetJs": "js/store-app.js"
         },
         {
             "MatchRegexString": "^https://steamcommunity\\.com/(id|profiles)/[^/]+/screenshots.*",

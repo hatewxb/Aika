@@ -1,0 +1,907 @@
+/* ==========================================================================
+   sections/store-cinematic.css — the "Cinematic" store game page
+   (theme settings → "Store" → "Game page"; author's idea 2026-10-08).
+
+   The markup is ours (js/store-hero.js), all of it under html.aika-cine:
+     .aika-cine-hero     — the whole window: the poster, then the trailers muted
+                           with a crossfade; logo, badges, description, price,
+                           buttons at the bottom left; trailer segments bottom right
+     .aika-cine-facts    — Steam's release date, developer/publisher, tags and
+                           Community Hub button, moved here from the hidden top block
+     .aika-cine-media    — the gallery carousel
+     .aika-cine-viewer   — the full-window viewer (images, trailers with sound)
+   Steam's top block is hidden by options/store-cinematic.css. Everything below
+   (editions, description, reviews) is Steam's, styled by store.css as before.
+
+   Translucency: badges, secondary buttons and the player capsule sit over
+   the video — the store player material (DESIGN.md §11, "Video player").
+   ========================================================================== */
+
+/* --------------------------------------------------------------------------
+   Hero
+   -------------------------------------------------------------------------- */
+
+html.aika-cine .aika-cine-hero {
+    position: relative;
+    isolation: isolate;
+    display: flex;
+    /* The window below the store menu (--aika-cine-top — set by the script) */
+    min-height: max(var(--aika-cine-hero-min), calc(100vh - var(--aika-cine-top, 0px)));
+    font-family: var(--aika-font-ui);
+    color: var(--aika-fg);
+}
+
+html.aika-cine .aika-cine-stage {
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    overflow: hidden;
+    background: var(--aika-bg-deep);
+    mask-image: var(--aika-cine-stage-mask);
+    pointer-events: none;
+}
+
+html.aika-cine :is(.aika-cine-poster, .aika-cine-video) {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    opacity: 0;
+    transition: opacity var(--aika-cine-fade) var(--aika-ease);
+}
+
+html.aika-cine :is(.aika-cine-poster, .aika-cine-video).is-on {
+    opacity: 1;
+}
+
+/* Over the video: dark toward the bottom and the left (text side), a light
+   veil at the top under the store menu (DESIGN.md §9: text on images — only
+   over a darkening gradient) */
+html.aika-cine .aika-cine-shade {
+    position: absolute;
+    inset: 0;
+    background: var(--aika-cine-shade);
+}
+
+html.aika-cine .aika-cine-inner {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    width: min(100%, var(--aika-cine-content) + 2 * var(--aika-cine-gutter));
+    margin-inline: auto;
+    box-sizing: border-box;
+    padding: var(--aika-space-6) var(--aika-cine-gutter) var(--aika-space-10);
+}
+
+html.aika-cine .aika-cine-main {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: var(--aika-space-4);
+    margin-top: auto;
+    max-width: var(--aika-cine-text-width);
+    animation: aika-cine-rise var(--aika-dur-enter) var(--aika-ease) both;
+}
+
+@keyframes aika-cine-rise {
+    from { opacity: 0; transform: translateY(var(--aika-appear-shift)); }
+}
+
+/* Steam's breadcrumbs, moved to the top of the hero */
+html.aika-cine .aika-cine-inner > .breadcrumbs {
+    margin: 0;
+    padding: 0;
+    font-size: var(--aika-text-meta);
+}
+
+html.aika-cine .aika-cine-inner > .breadcrumbs .blockbg {
+    background: none;
+    padding: 0;
+    color: var(--aika-fg-subtle);
+}
+
+html.aika-cine .aika-cine-inner > .breadcrumbs a {
+    color: var(--aika-fg-muted);
+    transition: color var(--aika-dur-fast) var(--aika-ease-hover);
+}
+
+html.aika-cine .aika-cine-inner > .breadcrumbs a:hover {
+    color: var(--aika-fg);
+}
+
+/* Title: the logo; the text stays for screen readers. No logo — the text in
+   the display face with the gradient (DESIGN.md §3.3) */
+/* Same specificity margin over Steam's body.v6 h1/h2 rules */
+html.aika-cine body .aika-cine-hero h1.aika-cine-title {
+    margin: 0;
+    font-family: var(--aika-font-display);
+    font-size: var(--aika-text-display);
+    font-weight: var(--aika-weight-medium);
+    letter-spacing: var(--aika-tracking-display);
+    line-height: var(--aika-leading-heading);
+    background: var(--aika-text-gradient);
+    background-clip: text;
+    color: transparent;
+}
+
+html.aika-cine .aika-cine-logo {
+    display: none;
+    max-width: var(--aika-cine-logo-max-width);
+    max-height: var(--aika-cine-logo-max-height);
+    object-fit: contain;
+    object-position: left bottom;
+    filter: var(--aika-store-logo-shadow);
+}
+
+/* A dark logo (js/store-hero.js measures it) — a light silhouette */
+html.aika-cine .aika-cine-logo.is-dark {
+    filter: brightness(0) invert(1) var(--aika-store-logo-shadow);
+}
+
+html.aika-cine .aika-cine-title.has-logo .aika-cine-logo {
+    display: block;
+    animation: aika-cine-rise var(--aika-dur-enter) var(--aika-ease) both;
+}
+
+html.aika-cine .aika-cine-title.has-logo .aika-cine-title-text {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip-path: inset(50%);
+    white-space: nowrap;
+}
+
+html.aika-cine .aika-cine-desc {
+    margin: 0;
+    font-size: var(--aika-text-h3);
+    line-height: var(--aika-leading-body);
+    color: var(--aika-fg);
+    text-shadow: var(--aika-cine-text-shadow);
+}
+
+html.aika-cine .aika-cine-desc:empty {
+    display: none;
+}
+
+/* --------------------------------------------------------------------------
+   Badges: the discount with Steam's countdown, the review summary
+   -------------------------------------------------------------------------- */
+
+html.aika-cine .aika-cine-badges {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--aika-space-2);
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+html.aika-cine .aika-cine-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--aika-space-2);
+    min-height: var(--aika-cine-badge-height);
+    padding: var(--aika-cine-badge-inset) var(--aika-space-3) var(--aika-cine-badge-inset) var(--aika-cine-badge-inset);
+    border-radius: var(--aika-radius-full);
+    background: var(--aika-player-material);
+    backdrop-filter: var(--aika-player-blur);
+    box-shadow: var(--aika-shadow-secondary);
+    font-size: var(--aika-text-meta);
+    font-weight: var(--aika-weight-medium);
+    color: var(--aika-fg);
+}
+
+html.aika-cine .aika-cine-badge-pct {
+    padding: var(--aika-cine-badge-inset) var(--aika-space-2);
+    border-radius: var(--aika-radius-full);
+    background: var(--aika-ok);
+    color: var(--aika-bg-deep);
+    font-family: var(--aika-font-mono);
+    font-weight: var(--aika-weight-semibold);
+}
+
+html.aika-cine .aika-cine-badge-sale:not(:has(.aika-cine-badge-timer)) {
+    padding-right: var(--aika-cine-badge-inset);
+}
+
+html.aika-cine .aika-cine-badge-timer {
+    font-family: var(--aika-font-mono);
+    font-variant-numeric: tabular-nums;
+    color: var(--aika-fg);
+}
+
+html.aika-cine .aika-cine-badge-reviews {
+    padding-left: var(--aika-space-3);
+}
+
+html.aika-cine .aika-cine-badge-link {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--aika-space-2);
+    color: inherit;
+    text-decoration: none;
+}
+
+html.aika-cine .aika-cine-badge-dot {
+    width: var(--aika-dot);
+    height: var(--aika-dot);
+    border-radius: var(--aika-radius-full);
+    background: var(--aika-fg-muted);
+}
+
+html.aika-cine .aika-cine-badge-reviews[data-tone="ok"] .aika-cine-badge-dot { background: var(--aika-ok); }
+html.aika-cine .aika-cine-badge-reviews[data-tone="warn"] .aika-cine-badge-dot { background: var(--aika-warn); }
+html.aika-cine .aika-cine-badge-reviews[data-tone="live"] .aika-cine-badge-dot { background: var(--aika-live); }
+
+html.aika-cine .aika-cine-badge-reviews[data-tone="ok"] .aika-cine-badge-text { color: var(--aika-ok); }
+html.aika-cine .aika-cine-badge-reviews[data-tone="warn"] .aika-cine-badge-text { color: var(--aika-warn); }
+html.aika-cine .aika-cine-badge-reviews[data-tone="live"] .aika-cine-badge-text { color: var(--aika-live); }
+
+html.aika-cine .aika-cine-badge-meta {
+    font-family: var(--aika-font-mono);
+    font-variant-numeric: tabular-nums;
+    color: var(--aika-fg-muted);
+}
+
+html.aika-cine .aika-cine-badge-link:hover .aika-cine-badge-meta {
+    color: var(--aika-fg);
+}
+
+/* --------------------------------------------------------------------------
+   Price and actions
+   -------------------------------------------------------------------------- */
+
+html.aika-cine .aika-cine-price {
+    display: flex;
+    align-items: baseline;
+    gap: var(--aika-space-3);
+    margin-top: var(--aika-space-1);
+    font-family: var(--aika-font-mono);
+    font-variant-numeric: tabular-nums;
+}
+
+html.aika-cine .aika-cine-price-final {
+    font-size: var(--aika-cine-price-size);
+    font-weight: var(--aika-weight-semibold);
+    letter-spacing: var(--aika-tracking-h1);
+    color: var(--aika-fg);
+}
+
+html.aika-cine .aika-cine-price-orig {
+    font-size: var(--aika-text-body);
+    color: var(--aika-fg-muted);
+}
+
+html.aika-cine .aika-cine-actions {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: var(--aika-space-2);
+}
+
+/* Pills like the reference store; the look itself — components/button.css */
+html.aika-cine .aika-cine-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--aika-space-2);
+    height: var(--aika-cine-button);
+    min-width: var(--aika-cine-button);
+    padding: 0 var(--aika-space-6);
+    border-radius: var(--aika-radius-full);
+    font-size: var(--aika-text-h3);
+    font-weight: var(--aika-weight-semibold);
+    cursor: pointer;
+}
+
+html.aika-cine .aika-cine-btn.aika-button--secondary {
+    background: var(--aika-player-material);
+    backdrop-filter: var(--aika-player-blur);
+    color: var(--aika-fg);
+}
+
+html.aika-cine .aika-cine-wish {
+    padding: 0;
+    color: var(--aika-fg-muted);
+}
+
+html.aika-cine .aika-cine-wish[aria-pressed="true"] {
+    color: var(--aika-live);
+}
+
+html.aika-cine .aika-cine-wish:hover {
+    color: var(--aika-fg);
+}
+
+html.aika-cine .aika-cine-wish[aria-pressed="true"]:hover {
+    color: var(--aika-live);
+}
+
+html.aika-cine .aika-cine-icon {
+    display: inline-flex;
+    width: var(--aika-cine-icon);
+    height: var(--aika-cine-icon);
+    flex: none;
+}
+
+html.aika-cine .aika-cine-icon svg {
+    width: 100%;
+    height: 100%;
+}
+
+/* Steam's "In library" flag instead of the heart */
+html.aika-cine .aika-cine-owned {
+    display: inline-flex;
+    align-items: center;
+    height: var(--aika-cine-button);
+    padding: 0 var(--aika-space-5);
+    border-radius: var(--aika-radius-full);
+    background: var(--aika-ok-soft);
+    box-shadow: inset 0 0 0 var(--aika-hairline) var(--aika-ok-mid);
+    backdrop-filter: var(--aika-player-blur);
+    font-family: var(--aika-font-mono);
+    font-size: var(--aika-text-meta);
+    font-weight: var(--aika-weight-semibold);
+    color: var(--aika-ok);
+}
+
+/* --------------------------------------------------------------------------
+   Trailer segments (bottom right): which trailer plays; click — switch
+   -------------------------------------------------------------------------- */
+
+html.aika-cine .aika-cine-reel {
+    position: absolute;
+    right: var(--aika-cine-gutter);
+    bottom: var(--aika-space-10);
+    display: flex;
+    gap: var(--aika-space-1);
+}
+
+html.aika-cine .aika-cine-seg {
+    position: relative;
+    width: var(--aika-cine-seg-width);
+    height: var(--aika-space-5);
+    padding: 0;
+    border: none;
+    background: none;
+    cursor: pointer;
+}
+
+/* The bar itself is thin; the button around it is a comfortable hit area */
+html.aika-cine .aika-cine-seg::before,
+html.aika-cine .aika-cine-seg-fill {
+    content: "";
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 50%;
+    height: var(--aika-cine-seg-height);
+    margin-top: calc(var(--aika-cine-seg-height) / -2);
+    border-radius: var(--aika-radius-full);
+}
+
+html.aika-cine .aika-cine-seg::before {
+    background: var(--aika-cine-seg-track);
+    transition: background-color var(--aika-dur-fast) var(--aika-ease-hover);
+}
+
+html.aika-cine .aika-cine-seg:hover::before {
+    background: var(--aika-fg-subtle);
+}
+
+html.aika-cine .aika-cine-seg-fill {
+    background: var(--aika-cine-seg-fill);
+    transform: scaleX(0);
+    transform-origin: left;
+}
+
+html.aika-cine .aika-cine-seg.is-done .aika-cine-seg-fill {
+    transform: scaleX(1);
+    opacity: 0.6;
+}
+
+html.aika-cine .aika-cine-seg.is-current .aika-cine-seg-fill {
+    transform: scaleX(var(--aika-cine-seg, 0));
+}
+
+/* --------------------------------------------------------------------------
+   Facts strip: Steam's nodes (release date, developer, publisher, tags, hub)
+   -------------------------------------------------------------------------- */
+
+html.aika-cine .aika-cine-facts-inner {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: var(--aika-space-4) var(--aika-space-7);
+    width: min(100%, var(--aika-cine-content) + 2 * var(--aika-cine-gutter));
+    margin-inline: auto;
+    box-sizing: border-box;
+    padding: var(--aika-space-2) var(--aika-cine-gutter) var(--aika-space-6);
+}
+
+html.aika-cine .aika-cine-facts-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--aika-space-2) var(--aika-space-6);
+}
+
+html.aika-cine .aika-cine-facts-list > :is(.release_date, .dev_row) {
+    display: flex;
+    flex-direction: column;
+    gap: var(--aika-cine-badge-inset);
+    margin: 0;
+    padding: 0;
+}
+
+html.aika-cine .aika-cine-facts-list .subtitle,
+html.aika-cine .aika-cine-facts-list .column {
+    float: none;
+    width: auto;
+    padding: 0;
+}
+
+html.aika-cine .aika-cine-facts-list .subtitle {
+    font-family: var(--aika-font-mono);
+    font-size: var(--aika-text-label);
+    color: var(--aika-fg-subtle);
+}
+
+html.aika-cine .aika-cine-facts-list :is(.date, .summary) {
+    font-size: var(--aika-text-body);
+    color: var(--aika-fg);
+}
+
+html.aika-cine .aika-cine-facts-list .date {
+    font-family: var(--aika-font-mono);
+}
+
+html.aika-cine .aika-cine-facts .glance_tags_ctn {
+    flex: 1 1 var(--aika-cine-tags-basis);
+    margin: 0;
+    padding: 0;
+}
+
+html.aika-cine .aika-cine-facts .glance_tags_label {
+    display: none;
+}
+
+html.aika-cine .aika-cine-facts .glance_tags {
+    max-height: none;
+    margin: 0;
+}
+
+html.aika-cine .aika-cine-facts .apphub_OtherSiteInfo {
+    float: none;
+    margin-left: auto;
+}
+
+/* --------------------------------------------------------------------------
+   Media: a carousel of 16:9 cards with round arrows over the edges
+   -------------------------------------------------------------------------- */
+
+html.aika-cine .aika-cine-media-inner {
+    width: min(100%, var(--aika-cine-content) + 2 * var(--aika-cine-gutter));
+    margin-inline: auto;
+    box-sizing: border-box;
+    padding: var(--aika-space-4) var(--aika-cine-gutter) var(--aika-space-8);
+}
+
+html.aika-cine .aika-cine-media-head {
+    display: flex;
+    align-items: baseline;
+    gap: var(--aika-space-3);
+    margin-bottom: var(--aika-space-4);
+}
+
+/* Steam: body.v6 h2:not(.BB_Header2) (0,2,2) — Motiva 14px */
+html.aika-cine body .aika-cine-media h2.aika-cine-media-title {
+    margin: 0;
+    font-family: var(--aika-font-ui);
+    font-size: var(--aika-text-h1);
+    font-weight: var(--aika-weight-semibold);
+    letter-spacing: var(--aika-tracking-h1);
+    text-transform: none;
+    color: var(--aika-fg);
+}
+
+html.aika-cine .aika-cine-media-count {
+    font-family: var(--aika-font-mono);
+    font-size: var(--aika-text-meta);
+    color: var(--aika-fg-subtle);
+}
+
+html.aika-cine .aika-cine-carousel {
+    position: relative;
+}
+
+html.aika-cine .aika-cine-track {
+    display: flex;
+    gap: var(--aika-space-4);
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    scrollbar-width: none;
+    /* Room for the hover lift and the card shadow */
+    padding-block: var(--aika-space-2);
+    margin-block: calc(-1 * var(--aika-space-2));
+}
+
+html.aika-cine .aika-cine-track::-webkit-scrollbar {
+    display: none;
+}
+
+html.aika-cine .aika-cine-card {
+    position: relative;
+    flex: 0 0 var(--aika-cine-card-width);
+    aspect-ratio: 16 / 9;
+    padding: 0;
+    border: none;
+    border-radius: var(--aika-radius-xl);
+    overflow: hidden;
+    background: var(--aika-bg-raised);
+    box-shadow: var(--aika-shadow-cover);
+    scroll-snap-align: start;
+    cursor: pointer;
+    transition:
+        transform var(--aika-dur-base) var(--aika-ease),
+        box-shadow var(--aika-dur-base) var(--aika-ease);
+}
+
+html.aika-cine .aika-cine-card:hover {
+    transform: translateY(var(--aika-lift-sm));
+    box-shadow: var(--aika-shadow-cover-hover);
+}
+
+html.aika-cine .aika-cine-card:active {
+    transform: scale(var(--aika-press-scale));
+}
+
+html.aika-cine :is(.aika-cine-card-img, .aika-cine-card-video) {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+html.aika-cine .aika-cine-card-video {
+    opacity: 0;
+    transition: opacity var(--aika-dur-base) var(--aika-ease);
+}
+
+html.aika-cine .aika-cine-card-video.is-on {
+    opacity: 1;
+}
+
+/* Trailer cards: a dim + a round play mark (Steam's trailer posters are small) */
+html.aika-cine .aika-cine-card[data-kind="video"]::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: var(--aika-scrim);
+    opacity: 0.5;
+    transition: opacity var(--aika-dur-base) var(--aika-ease);
+    pointer-events: none;
+}
+
+html.aika-cine .aika-cine-card[data-kind="video"]:hover::after {
+    opacity: 0;
+}
+
+html.aika-cine .aika-cine-card-play {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    z-index: 1;
+    display: grid;
+    place-items: center;
+    width: var(--aika-cine-arrow);
+    height: var(--aika-cine-arrow);
+    margin: calc(var(--aika-cine-arrow) / -2) 0 0 calc(var(--aika-cine-arrow) / -2);
+    border-radius: var(--aika-radius-full);
+    background: var(--aika-player-material);
+    backdrop-filter: var(--aika-player-blur);
+    box-shadow: var(--aika-shadow-secondary);
+    color: var(--aika-fg);
+    transition: opacity var(--aika-dur-base) var(--aika-ease);
+}
+
+html.aika-cine .aika-cine-card:hover .aika-cine-card-play {
+    opacity: 0;
+}
+
+html.aika-cine .aika-cine-arrow {
+    position: absolute;
+    top: 50%;
+    z-index: 2;
+    display: grid;
+    place-items: center;
+    width: var(--aika-cine-arrow);
+    height: var(--aika-cine-arrow);
+    margin-top: calc(var(--aika-cine-arrow) / -2);
+    padding: 0;
+    border: none;
+    border-radius: var(--aika-radius-full);
+    background: var(--aika-player-material);
+    backdrop-filter: var(--aika-player-blur);
+    box-shadow: var(--aika-shadow-secondary);
+    color: var(--aika-fg);
+    cursor: pointer;
+    transition:
+        opacity var(--aika-dur-base) var(--aika-ease),
+        transform var(--aika-dur-base) var(--aika-ease),
+        box-shadow var(--aika-dur-base) var(--aika-ease);
+}
+
+html.aika-cine .aika-cine-arrow-prev { left: calc(var(--aika-cine-arrow) / -2); }
+html.aika-cine .aika-cine-arrow-next { right: calc(var(--aika-cine-arrow) / -2); }
+
+html.aika-cine .aika-cine-arrow:hover {
+    box-shadow: var(--aika-shadow-secondary-hover);
+}
+
+html.aika-cine .aika-cine-arrow:active {
+    transform: scale(var(--aika-press-scale));
+}
+
+html.aika-cine .aika-cine-arrow:disabled {
+    opacity: 0;
+    pointer-events: none;
+}
+
+/* --------------------------------------------------------------------------
+   Viewer: full window; images and trailers (with sound, the Aika capsule)
+   -------------------------------------------------------------------------- */
+
+html.aika-cine-locked,
+html.aika-cine-locked body {
+    overflow: hidden;
+}
+
+html.aika-cine .aika-cine-viewer {
+    position: fixed;
+    inset: 0;
+    z-index: var(--aika-z-cine-viewer);
+    display: grid;
+    place-items: center;
+    padding: var(--aika-cine-viewer-pad);
+    background: var(--aika-cine-viewer-backdrop);
+    font-family: var(--aika-font-ui);
+    color: var(--aika-fg);
+    opacity: 0;
+    transition: opacity var(--aika-dur-base) var(--aika-ease);
+}
+
+html.aika-cine .aika-cine-viewer[hidden] {
+    display: none;
+}
+
+html.aika-cine .aika-cine-viewer.is-open {
+    opacity: 1;
+}
+
+html.aika-cine .aika-cine-viewer-frame {
+    display: grid;
+    place-items: center;
+    width: 100%;
+    height: 100%;
+    min-height: 0;
+}
+
+html.aika-cine .aika-cine-viewer-media {
+    max-width: 100%;
+    max-height: 100%;
+    border-radius: var(--aika-radius-xl);
+    box-shadow: var(--aika-shadow-card);
+}
+
+html.aika-cine img.aika-cine-viewer-media {
+    opacity: 0;
+    transform: scale(var(--aika-appear-scale));
+    transition:
+        opacity var(--aika-dur-base) var(--aika-ease),
+        transform var(--aika-dur-enter) var(--aika-ease);
+}
+
+html.aika-cine img.aika-cine-viewer-media.is-on {
+    opacity: 1;
+    transform: none;
+}
+
+html.aika-cine .aika-cine-viewer-btn {
+    position: absolute;
+    display: grid;
+    place-items: center;
+    width: var(--aika-cine-arrow);
+    height: var(--aika-cine-arrow);
+    padding: 0;
+    border: none;
+    border-radius: var(--aika-radius-full);
+    background: var(--aika-surface);
+    box-shadow: var(--aika-shadow-secondary);
+    color: var(--aika-fg);
+    cursor: pointer;
+    transition:
+        background-color var(--aika-dur-fast) var(--aika-ease-hover),
+        box-shadow var(--aika-dur-base) var(--aika-ease),
+        transform var(--aika-dur-base) var(--aika-ease);
+}
+
+html.aika-cine .aika-cine-viewer-btn:hover {
+    background: var(--aika-surface-hover);
+    box-shadow: var(--aika-shadow-secondary-hover);
+}
+
+html.aika-cine .aika-cine-viewer-btn:active {
+    transform: scale(var(--aika-press-scale));
+}
+
+html.aika-cine .aika-cine-viewer-btn[hidden] {
+    display: none;
+}
+
+html.aika-cine .aika-cine-viewer-close { top: var(--aika-space-4); right: var(--aika-space-4); }
+html.aika-cine .aika-cine-viewer-prev { left: var(--aika-space-4); top: 50%; margin-top: calc(var(--aika-cine-arrow) / -2); }
+html.aika-cine .aika-cine-viewer-next { right: var(--aika-space-4); top: 50%; margin-top: calc(var(--aika-cine-arrow) / -2); }
+
+html.aika-cine .aika-cine-viewer-count {
+    position: absolute;
+    top: var(--aika-space-4);
+    left: 50%;
+    transform: translateX(-50%);
+    line-height: var(--aika-cine-arrow);
+    font-family: var(--aika-font-mono);
+    font-size: var(--aika-text-meta);
+    font-variant-numeric: tabular-nums;
+    color: var(--aika-fg-muted);
+}
+
+/* The trailer: the video + a floating capsule (as the store player, DESIGN.md §11) */
+html.aika-cine .aika-cine-player {
+    position: relative;
+    display: grid;
+    max-width: 100%;
+    max-height: 100%;
+    aspect-ratio: 16 / 9;
+    width: min(100%, (100vh - 2 * var(--aika-cine-viewer-pad)) * 16 / 9);
+}
+
+html.aika-cine .aika-cine-player .aika-cine-viewer-media {
+    width: 100%;
+    height: 100%;
+    background: var(--aika-bg-deep);
+    cursor: pointer;
+}
+
+html.aika-cine .aika-cine-player:fullscreen .aika-cine-viewer-media {
+    border-radius: 0;
+}
+
+html.aika-cine .aika-cine-capsule {
+    position: absolute;
+    left: var(--aika-player-inset);
+    right: var(--aika-player-inset);
+    bottom: var(--aika-player-inset);
+    display: flex;
+    align-items: center;
+    gap: var(--aika-space-2);
+    padding: var(--aika-space-1) var(--aika-space-3) var(--aika-space-1) var(--aika-space-1);
+    border-radius: var(--aika-radius-full);
+    background: var(--aika-player-material);
+    backdrop-filter: var(--aika-player-blur);
+    box-shadow: var(--aika-shadow-secondary);
+    opacity: 0;
+    transform: translateY(var(--aika-nudge));
+    transition:
+        opacity var(--aika-dur-base) var(--aika-ease),
+        transform var(--aika-dur-base) var(--aika-ease);
+}
+
+html.aika-cine .aika-cine-player:hover .aika-cine-capsule,
+html.aika-cine .aika-cine-player:focus-within .aika-cine-capsule,
+html.aika-cine .aika-cine-player.is-paused .aika-cine-capsule {
+    opacity: 1;
+    transform: none;
+}
+
+html.aika-cine .aika-cine-player-btn {
+    display: grid;
+    place-items: center;
+    width: var(--aika-player-button);
+    height: var(--aika-player-button);
+    flex: none;
+    padding: 0;
+    border: none;
+    border-radius: var(--aika-radius-full);
+    background: none;
+    color: var(--aika-fg);
+    cursor: pointer;
+    transition: background-color var(--aika-dur-fast) var(--aika-ease-hover);
+}
+
+html.aika-cine .aika-cine-player-btn:hover {
+    background: var(--aika-surface-hover);
+}
+
+html.aika-cine .aika-cine-player-btn .aika-cine-icon {
+    width: var(--aika-cine-icon-sm);
+    height: var(--aika-cine-icon-sm);
+}
+
+html.aika-cine .aika-cine-scrub {
+    position: relative;
+    flex: 1;
+    height: var(--aika-space-5);
+    cursor: pointer;
+    touch-action: none;
+}
+
+html.aika-cine .aika-cine-scrub::before,
+html.aika-cine :is(.aika-cine-scrub-fill, .aika-cine-scrub-buf) {
+    content: "";
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 50%;
+    height: var(--aika-player-track-height);
+    margin-top: calc(var(--aika-player-track-height) / -2);
+    border-radius: var(--aika-radius-full);
+    transition:
+        height var(--aika-dur-fast) var(--aika-ease-hover),
+        margin var(--aika-dur-fast) var(--aika-ease-hover);
+}
+
+html.aika-cine .aika-cine-scrub:hover::before,
+html.aika-cine .aika-cine-scrub:hover :is(.aika-cine-scrub-fill, .aika-cine-scrub-buf) {
+    height: var(--aika-player-track-height-hover);
+    margin-top: calc(var(--aika-player-track-height-hover) / -2);
+}
+
+html.aika-cine .aika-cine-scrub::before {
+    background: var(--aika-player-track);
+}
+
+html.aika-cine .aika-cine-scrub-buf {
+    background: var(--aika-player-buffer);
+    transform: scaleX(var(--aika-cine-seg, 0));
+    transform-origin: left;
+}
+
+html.aika-cine .aika-cine-scrub-fill {
+    background: var(--aika-cine-seg-fill);
+    transform: scaleX(var(--aika-cine-seg, 0));
+    transform-origin: left;
+}
+
+html.aika-cine .aika-cine-player-time {
+    flex: none;
+    font-family: var(--aika-font-mono);
+    font-size: var(--aika-text-meta);
+    font-variant-numeric: tabular-nums;
+    color: var(--aika-fg-muted);
+}
+
+/* --------------------------------------------------------------------------
+   Narrow window: two cards per view, the segments under the buttons
+   -------------------------------------------------------------------------- */
+
+@media (max-width: 1100px) {
+    html.aika-cine .aika-cine-card {
+        flex-basis: var(--aika-cine-card-width-narrow);
+    }
+
+    html.aika-cine .aika-cine-reel {
+        position: static;
+        margin-top: var(--aika-space-5);
+    }
+
+    html.aika-cine .aika-cine-arrow-prev { left: var(--aika-space-2); }
+    html.aika-cine .aika-cine-arrow-next { right: var(--aika-space-2); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    html.aika-cine :is(.aika-cine-main, .aika-cine-title.has-logo .aika-cine-logo) {
+        animation: none;
+    }
+}

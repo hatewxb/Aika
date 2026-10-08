@@ -13,6 +13,8 @@ light. Fluent structure, rounded corners, one signature accent instead of
 Steam's light blue. The theme doesn't change any Steam text, only the look.
 
 - **Game logo above the trailer** in the store and an Apple-style **trailer player**.
+- **Cinematic store game page** (optional): trailers play muted behind the logo,
+  price and buttons over the whole window, with a media gallery and viewer.
 - **Screenshots grouped by game** in the profile: a carousel shelf per game.
 - **Cursor glow** on large library blocks.
 - **Top bar tabs centered** (can be moved back to the left).
@@ -35,7 +37,7 @@ Steam's light blue. The theme doesn't change any Steam text, only the look.
 4. Steam → **Millennium → Themes** → **Aika**. If theme scripts are disabled, enable them.
 
 Theme settings (the gear next to Aika in Millennium): tab position,
-color preset, custom colors, cursor glow and its radius, notification
+color preset, store game page layout (Classic / Cinematic), custom colors, cursor glow and its radius, notification
 wordmark and opacity.
 
 ## Roadmap

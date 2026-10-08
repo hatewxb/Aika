@@ -1,0 +1,17 @@
+/* ==========================================================================
+   "Store → Game page → Cinematic" (theme settings; the default is "Classic").
+
+   A flag for js/store-hero.js plus hiding Steam's top block right away,
+   before the script builds the hero — so the classic layout never flashes.
+   If the script can't build the page (no trailer/screenshot data, an age
+   gate…) it sets html.aika-cine-off and Steam's block comes back.
+   The look of the cinematic page — sections/store-cinematic.css.
+   ========================================================================== */
+
+:root {
+    --aika-store-layout: cinematic;
+}
+
+html:not(.aika-cine-off) body.v6 .game_page_background.game .page_top_area {
+    display: none;
+}

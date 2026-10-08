@@ -11,18 +11,21 @@
 // in localStorage. Fallback — the old hashless address (old games have it).
 // No logo — change nothing, the text title stays (CSS fallback).
 //
+// The same appinfo gives the library hero art (library_hero) — the poster
+// of the "Cinematic" game page (js/store-hero.js). Both are shared through
+// window.__aikaStoreAssets: a promise of { logo, hero } (URLs or null).
+//
 // Look and position — sections/store.css ("Game logo above the trailer").
 
 (() => {
   "use strict";
 
   const match = location.pathname.match(/^\/app\/(\d+)/);
-  if (!match || window.__aikaStoreLogo) return;
-  window.__aikaStoreLogo = true;
+  if (!match || window.__aikaStoreAssets) return;
 
   const appid = match[1];
   const CDN = "https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/" + appid + "/";
-  const CACHE_KEY = "aika-logo-v1-" + appid;
+  const CACHE_KEY = "aika-appart-v2-" + appid;
   const CACHE_DAYS = 7;
   const LANG = (document.documentElement.lang || "en").startsWith("ru") ? "russian" : "english";
 
@@ -33,25 +36,30 @@
     } catch (e) { /* storage unavailable — just no cache */ }
     return null;
   };
-  const cacheSet = (file) => {
-    try { localStorage.setItem(CACHE_KEY, JSON.stringify({ t: Date.now(), file })); } catch (e) { /* no cache */ }
+  const cacheSet = (files) => {
+    try { localStorage.setItem(CACHE_KEY, JSON.stringify({ t: Date.now(), ...files })); } catch (e) { /* no cache */ }
   };
 
-  // Logo file name (with hash) from appinfo; null — no logo
-  const fetchLogoFile = async () => {
+  // A localized file name from a library_assets_full entry; null — no such asset
+  const pick = (asset) => {
+    const img = asset?.image2x || asset?.image;
+    return img ? (img[LANG] || img.english || Object.values(img)[0]) : null;
+  };
+
+  // Logo and hero file names (with hash) from appinfo
+  const fetchFiles = async () => {
     const cached = cacheGet();
-    if (cached) return cached.file;
+    if (cached) return cached;
     try {
       const r = await fetch("https://api.steamcmd.net/v1/info/" + appid);
-      if (!r.ok) return undefined; // network / service — don't cache, try later
+      if (!r.ok) return {}; // network / service — don't cache, try later
       const j = await r.json();
-      const logo = j?.data?.[appid]?.common?.library_assets_full?.library_logo;
-      const img = logo?.image2x || logo?.image;
-      const file = img ? (img[LANG] || img.english || Object.values(img)[0]) : null;
-      cacheSet(file);
-      return file;
+      const assets = j?.data?.[appid]?.common?.library_assets_full;
+      const files = { file: pick(assets?.library_logo), hero: pick(assets?.library_hero) };
+      cacheSet(files);
+      return files;
     } catch (e) {
-      return undefined;
+      return {};
     }
   };
 
@@ -62,22 +70,32 @@
     i.src = src;
   });
 
+  const firstLoading = async (candidates) => {
+    for (const c of candidates) if (await loads(c)) return c;
+    return null;
+  };
+
   const ready = (fn) =>
     document.readyState === "loading" ? document.addEventListener("DOMContentLoaded", fn, { once: true }) : fn();
+
+  const files = fetchFiles();
+
+  window.__aikaStoreAssets = (async () => {
+    const f = await files;
+    const [logo, hero] = await Promise.all([
+      firstLoading([f.file && CDN + f.file, CDN + "logo_2x.png", CDN + "logo.png"].filter(Boolean)),
+      // The hero is only checked here, the page shows it itself (no double download:
+      // the browser caches it)
+      f.hero ? Promise.resolve(CDN + f.hero) : firstLoading([CDN + "library_hero.jpg"]),
+    ]);
+    return { logo, hero };
+  })();
 
   ready(async () => {
     const host = document.querySelector(".highlight_ctn");
     if (!host) return;
 
-    const file = await fetchLogoFile();
-    const candidates = [];
-    if (file) candidates.push(CDN + file);
-    candidates.push(CDN + "logo_2x.png", CDN + "logo.png");
-
-    let src = null;
-    for (const c of candidates) {
-      if (await loads(c)) { src = c; break; }
-    }
+    const { logo: src } = await window.__aikaStoreAssets;
     if (!src) return;
 
     const name = document.querySelector(".apphub_AppName")?.textContent.trim() || "";

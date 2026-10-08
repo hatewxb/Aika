@@ -153,6 +153,17 @@ html:root {
     --aika-scrim: rgb(from var(--aika-bg-base) r g b / 0.75);
     --aika-scrim-none: rgb(from var(--aika-bg-base) r g b / 0);
 
+    /* The cinematic store page (sections/store-cinematic.css): the trailer is
+       darkened toward the bottom-left, where the text and buttons are */
+    --aika-cine-shade-strong: rgb(from var(--aika-bg-base) r g b / 0.92);
+    --aika-cine-shade-mid: rgb(from var(--aika-bg-base) r g b / 0.62);
+    --aika-cine-shade-soft: rgb(from var(--aika-bg-base) r g b / 0.25);
+    /* The media viewer backdrop: almost opaque, the page barely shows through */
+    --aika-cine-viewer-backdrop: rgb(from var(--aika-bg-deep) r g b / 0.94);
+    /* Trailer segments and the viewer scrub bar: the track and the watched part */
+    --aika-cine-seg-track: rgb(from var(--aika-fg) r g b / 0.22);
+    --aika-cine-seg-fill: var(--aika-fg);
+
     /* ------------------------------------------------------------------
        Notification toasts (components/toast.css, DESIGN.md §11):
        a translucent card over the desktop, under the glass — the light

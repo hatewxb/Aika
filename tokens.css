@@ -178,6 +178,35 @@
        (Steam uses a light-blue PNG strip) */
     --aika-store-collapse-fade: linear-gradient(to bottom, var(--aika-transparent), var(--aika-bg-deep) 85%);
     --aika-store-collapse-mask: linear-gradient(to bottom, black 55%, transparent);
+    /* The cinematic store page (options "Store → Game page → Cinematic",
+       js/store-hero.js, sections/store-cinematic.css) */
+    --aika-cine-hero-min: 560px;              /* the hero never gets shorter */
+    --aika-cine-content: 1200px;              /* = Steam's .widestore .page_content */
+    --aika-cine-gutter: clamp(16px, 4vw, 58px);
+    --aika-cine-logo-max-width: min(520px, 46vw);
+    --aika-cine-logo-max-height: clamp(96px, 16vh, 180px);
+    --aika-cine-text-width: 620px;            /* the description line length */
+    --aika-cine-button: 48px;                 /* "Buy", "Media", the heart */
+    --aika-cine-price-size: clamp(28px, 2.4vw, 36px);
+    --aika-cine-text-shadow: 0 1px 12px var(--aika-cine-shade-strong);
+    --aika-cine-fade: 1200ms;                 /* poster → trailer, trailer → trailer */
+    --aika-cine-shade:
+        linear-gradient(to top, var(--aika-cine-shade-strong) 0%, var(--aika-cine-shade-mid) 40%, var(--aika-scrim-none) 72%),
+        linear-gradient(to right, var(--aika-cine-shade-mid) 0%, var(--aika-cine-shade-soft) 45%, var(--aika-scrim-none) 70%),
+        linear-gradient(to bottom, var(--aika-cine-shade-mid) 0%, var(--aika-scrim-none) 18%);
+    /* The stage fades out at the bottom into the page background (whatever it is) */
+    --aika-cine-stage-mask: linear-gradient(to bottom, black 78%, transparent);
+    --aika-cine-seg-width: 28px;              /* a trailer segment, bottom right */
+    --aika-cine-seg-height: 3px;
+    --aika-cine-card-width: calc((100% - 2 * var(--aika-space-4)) / 3);
+    --aika-cine-card-width-narrow: calc((100% - var(--aika-space-4)) / 2);
+    --aika-cine-arrow: 44px;
+    --aika-cine-viewer-pad: clamp(16px, 4vw, 64px);
+    --aika-cine-badge-height: 28px;
+    --aika-cine-badge-inset: 3px;           /* the discount pill inside its badge */
+    --aika-cine-icon: 20px;
+    --aika-cine-icon-sm: 18px;              /* player capsule icons */
+    --aika-cine-tags-basis: 360px;          /* the tag cloud in the facts strip */
     /* The collapsed review text fades into the background color under the card */
     --aika-store-review-fade: linear-gradient(to bottom, var(--aika-transparent), var(--aika-bg-elevated));
     /* Spotlight: JS sets the point (--aika-spot-x/y on the element), without JS —
@@ -438,6 +467,9 @@
        the event block 101), but below tooltips (1526), modals (1500)
        and menus (10000) */
     --aika-z-store-logo: 110;
+    /* The cinematic page media viewer: above Steam's menus (10000) — it is
+       a full-window modal */
+    --aika-z-cine-viewer: 10050;
 
     /* ------------------------------------------------------------------
        Scrollbars
