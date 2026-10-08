@@ -955,6 +955,22 @@ html body.v6 .StoreSalePriceWidgetContainer .kT9bBl6aBZQ-0xiRlMWzc {
     box-shadow: inset 0 0 0 var(--aika-hairline) var(--aika-ok-mid);
 }
 
+/* [Store] The "Early Access review" label in user reviews (screenshot 25):
+   ._2OpCkQAxn48FmAJ4KO84_C — Steam: #4d6c8b, uppercase 11 px. An accent pill,
+   mono, Steam's text as written (no caps), like the Early Access marks elsewhere.
+   Verified: 2026-10-08, Phasmophobia (reviews, both columns). */
+html body.v6 ._2OpCkQAxn48FmAJ4KO84_C {
+    width: fit-content;
+    padding: 0 var(--aika-space-2);
+    border-radius: var(--aika-radius-full);
+    background: var(--aika-accent-soft);
+    color: var(--aika-accent-bright);
+    font-family: var(--aika-font-mono);
+    font-size: var(--aika-text-label);
+    text-transform: none;
+    box-shadow: inset 0 0 0 var(--aika-hairline) var(--aika-border-accent);
+}
+
 /* [Store] The cart (store.steampowered.com/cart/, body.v6.ShoppingCart, React):
      .XjPmFc2t_i1DAuEXEbIX — the list block ("Your cart is empty"; black 25 %);
      ._2bIzQo07mxubFvscA8RIA8 — the total (country, sum, "Continue to payment"),

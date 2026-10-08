@@ -2166,3 +2166,36 @@ html body.v6 div.early_access_banner > a.btn_border_2px {
 html body.v6 div.early_access_banner > a.btn_border_2px > span {
     border: none;
 }
+
+/* --------------------------------------------------------------------------
+   Game notices above the purchase block (React, [data-featuretarget^=
+   "game-notice-"]; screenshot 23 — "VR supported", Phasmophobia):
+   Steam: a #ffc82c icon tile + a blue-gray gradient strip (#2c3c49 → …),
+   2 px corners. An Aika card: the icon on an accent tint in the accent,
+   the text on the card surface. Structure only — the classes inside are hashes:
+     > div > div            — the notice
+       > div:first-child    — the icon tile (svg in currentColor)
+       > div:last-child     — the text
+   -------------------------------------------------------------------------- */
+
+html body.v6 [data-featuretarget^="game-notice-"] > div > div {
+    overflow: hidden;
+    border-radius: var(--aika-radius-lg);
+    box-shadow: inset 0 0 0 var(--aika-hairline) var(--aika-border-accent);
+}
+
+html body.v6 [data-featuretarget^="game-notice-"] > div > div > div:first-child {
+    border-radius: 0;
+    background: var(--aika-accent-soft);
+    color: var(--aika-accent-bright);
+}
+
+html body.v6 [data-featuretarget^="game-notice-"] > div > div > div:first-child svg {
+    color: var(--aika-accent-bright);
+}
+
+html body.v6 [data-featuretarget^="game-notice-"] > div > div > div:last-child {
+    border-radius: 0;
+    background: var(--aika-card-accent-bg);
+    color: var(--aika-fg-muted);
+}
