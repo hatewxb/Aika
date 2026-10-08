@@ -106,7 +106,16 @@ const expr = `(() => {
 
 (async () => {
   const ws = new WebSocket(await target(win));
-  ws.onopen = () => ws.send(JSON.stringify({ id: 1, method: "Runtime.evaluate", params: { expression: expr, returnByValue: true } }));
+  // Community pages load prototype.js, which replaces Array.prototype.map & co.
+  // with versions that break here — borrow clean ones from a blank iframe for the
+  // run and put the page's back afterwards
+  const wrapped = `(() => {
+    const f = document.createElement("iframe"); document.documentElement.append(f);
+    const N = f.contentWindow.Array.prototype, keys = ["map", "filter", "some", "every", "find", "forEach", "reduce", "join", "includes", "flat", "flatMap"];
+    const saved = {}; for (const k of keys) { saved[k] = Array.prototype[k]; Array.prototype[k] = N[k]; }
+    try { return ${expr}; } finally { for (const k of keys) Array.prototype[k] = saved[k]; f.remove(); }
+  })()`;
+  ws.onopen = () => ws.send(JSON.stringify({ id: 1, method: "Runtime.evaluate", params: { expression: wrapped, returnByValue: true } }));
   ws.onmessage = e => { const m = JSON.parse(e.data); if (m.id === 1) { const v = m.result.result.value; console.log(v ?? JSON.stringify(m.result).slice(0, 2000)); process.exit(0); } };
   setTimeout(() => { console.log("timeout"); process.exit(1); }, 20000);
 })();

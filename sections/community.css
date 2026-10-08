@@ -1370,3 +1370,70 @@ html .apphub_OtherSiteInfo a.btnv6_blue_hoverfade {
 html .apphub_OtherSiteInfo a.btnv6_blue_hoverfade > span {
     color: var(--aika-fg);
 }
+
+/* ==========================================================================
+   The "Family View" web page (community/store pages while Family View is on —
+   author's request 2026-10-08). Stable anchors #parental_main and
+   #parental_main_content; inside — React hashes, so structure only:
+     form > div          — the panel (flex column, centered; Steam: black 30 %
+                           + a blue key image keybg.png)
+       > div:first-child — "Family View"
+       > div:nth-child(2) — "To exit Family View, enter your PIN below."
+       input[type=password] — the PIN (components/input.css, shared with the client)
+       button.DialogButton.Primary — "OK" (components/button.css)
+       > a               — "I forgot my PIN"
+   Steam: a full-width #1b2838 band with a blue-teal glow (colored_body_top.png).
+   Ours: the Aika background, the panel — an accent card with our lock icon.
+   ========================================================================== */
+
+html body #parental_main {
+    background: var(--aika-transparent);
+}
+
+html body #parental_main_content form > div {
+    gap: var(--aika-space-2);
+    padding: var(--aika-space-7) var(--aika-space-6);
+    border-radius: var(--aika-radius-xl);
+    background: var(--aika-card-accent-bg), var(--aika-bg-elevated);
+    box-shadow:
+        inset 0 0 0 var(--aika-hairline) var(--aika-border-accent),
+        var(--aika-highlight-top),
+        var(--aika-shadow-panel);
+}
+
+/* The lock — instead of Steam's blue key picture */
+html body #parental_main_content form > div::before {
+    content: "";
+    width: var(--aika-family-lock);
+    height: var(--aika-family-lock);
+    margin-bottom: var(--aika-space-2);
+    background: var(--aika-accent-bright);
+    mask: var(--aika-icon-lock) center / contain no-repeat;
+    filter: drop-shadow(0 0 12px var(--aika-accent-glow));
+}
+
+html body #parental_main_content form > div > div:first-child {
+    color: var(--aika-fg);
+    font-family: var(--aika-font-ui);
+    font-size: var(--aika-text-h2);
+    font-weight: var(--aika-weight-semibold);
+    letter-spacing: var(--aika-tracking-h2);
+}
+
+html body #parental_main_content form > div > div:nth-child(2) {
+    margin-bottom: var(--aika-space-3);
+    color: var(--aika-fg-muted);
+    font-family: var(--aika-font-ui);
+    font-size: var(--aika-text-body);
+}
+
+html body #parental_main_content form > div > a {
+    margin-top: var(--aika-space-2);
+    color: var(--aika-accent-bright);
+    font-size: var(--aika-text-meta);
+    transition: color var(--aika-dur-fast) var(--aika-ease-hover);
+}
+
+html body #parental_main_content form > div > a:hover {
+    color: var(--aika-fg);
+}

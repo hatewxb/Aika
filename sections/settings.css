@@ -693,47 +693,5 @@ html .GenericConfirmDialog .Body:has(> input.TextInput[type="password"]) .ErrorT
     font-family: var(--aika-font-ui);
 }
 
-/* The field: four cells. The dots are monospace with a --aika-pin-pitch step,
-   the first shifted to the cell center; under each cell — a dash
-   (a repeating gradient). The dash color is --aika-pin-line (by state). */
-html .GenericConfirmDialog .Body > input.TextInput[type="password"] {
-    --aika-pin-line: var(--aika-border-strong);
-    box-sizing: content-box;
-    width: calc(var(--aika-pin-digits) * var(--aika-pin-pitch));
-    max-width: none;
-    height: var(--aika-pin-height);
-    padding: 0 var(--aika-space-3);
-    border: var(--aika-hairline) solid var(--aika-border-strong);
-    border-radius: var(--aika-radius-lg);
-    background:
-        repeating-linear-gradient(
-            90deg,
-            var(--aika-transparent) 0 var(--aika-pin-line-inset),
-            var(--aika-pin-line) var(--aika-pin-line-inset) calc(var(--aika-pin-pitch) - var(--aika-pin-line-inset)),
-            var(--aika-transparent) calc(var(--aika-pin-pitch) - var(--aika-pin-line-inset)) var(--aika-pin-pitch)
-        )
-        var(--aika-space-3) calc(100% - var(--aika-pin-line-bottom)) / calc(var(--aika-pin-digits) * var(--aika-pin-pitch)) var(--aika-pin-line-width) no-repeat,
-        var(--aika-bg-raised);
-    box-shadow: none;
-    color: var(--aika-fg);
-    caret-color: var(--aika-accent);
-    font-family: var(--aika-font-mono);
-    font-size: var(--aika-pin-font-size);
-    letter-spacing: calc(var(--aika-pin-pitch) - var(--aika-pin-glyph));
-    text-align: left;
-    text-indent: calc((var(--aika-pin-pitch) - var(--aika-pin-glyph)) / 2);
-    transition:
-        border-color var(--aika-dur-fast) var(--aika-ease-hover),
-        box-shadow var(--aika-dur-base) var(--aika-ease);
-}
+/* The field itself — components/input.css (shared with the Family View web page) */
 
-html .GenericConfirmDialog .Body > input.TextInput[type="password"]:hover {
-    border-color: var(--aika-border-hover);
-}
-
-html .GenericConfirmDialog .Body > input.TextInput[type="password"]:focus {
-    --aika-pin-line: var(--aika-border-accent);
-    border-color: var(--aika-accent);
-    box-shadow: var(--aika-shadow-input-focus);
-    outline: none;
-}

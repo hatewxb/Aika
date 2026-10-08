@@ -374,6 +374,9 @@
     /* Store: the report flag (SF Symbols-like: a pole and a waving flag) and an arrow → */
     --aika-icon-flag: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M5.5 21V4.5'/%3E%3Cpath d='M5.5 4.8c2.4-1.6 4.8-1.6 7.2 0s4.8 1.6 7.2 0v8.6c-2.4 1.6-4.8 1.6-7.2 0s-4.8-1.6-7.2 0'/%3E%3C/svg%3E");
     --aika-icon-arrow-right: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M5 12h14M13 6l6 6-6 6'/%3E%3C/svg%3E");
+    /* A padlock (SF Symbols-like) — the Family View web page */
+    --aika-icon-lock: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='1.7' stroke-linecap='round' stroke-linejoin='round'%3E%3Crect x='5' y='10.5' width='14' height='10' rx='2.5'/%3E%3Cpath d='M8 10.5V7.5a4 4 0 0 1 8 0v3'/%3E%3Ccircle cx='12' cy='15.5' r='1' fill='black'/%3E%3C/svg%3E");
+    --aika-family-lock: 40px;
     --aika-icon-inline: 16px;
     --aika-icon-report: 17px;   /* the report flag, a touch larger than inline icons */
     --aika-store-btn-height: 30px;  /* Steam's .btn_medium > span line height */   /* an icon in a line of text (award, magnifier) */
