@@ -2,7 +2,7 @@
 
 # Aika
 
-**A warm dark theme for Steam** · [Millennium](https://steambrew.app) · 0.1.0b (WIP) · by **hatewxb**
+**A warm dark theme for Steam** · [Millennium](https://steambrew.app) · 0.1.1b (WIP) · by **hatewxb**
 
 ![Aika — a game page in the library](screenshots/library-game.png)
 
@@ -47,12 +47,12 @@ colors, set on the **Colors** page.
 | Section | Done | Not done yet |
 |:--|:--|:--|
 | Library | Home, game list, game page, game news, achievements, filters, collections | Long game titles on hover |
-| Store | Home, menu, game page (Early Access, warnings), search, wishlist, cart, News Hub | Checkout, free weekends and trials |
-| Community | Activity, friends, screenshots, artwork, videos, profile editing, notifications, game discussions | Workshop, collections, profile, the rest of the game community hub |
+| Store | Home, menu capsule and all menus, game page (Classic and Cinematic, Early Access, warnings, queue), search, wishlist, cart, News Hub | Checkout, free weekends and trials |
+| Community | Activity, friends, screenshots, artwork, videos, profile editing, notifications, discussions home, game discussions | Workshop, collections, profile, the rest of the game community hub |
 | Friends & chat | Friends list, direct chat, mini profiles | Group and voice chat, friend requests |
 | Downloads | Everything | — |
-| Settings & windows | Settings, game properties, dialogs, Family View PIN | Login window |
-| General | Menus, tooltips, notifications dropdown, notification toasts (message, "now playing", download) — liquid glass, smooth entrance | Other notifications, presets, Big Picture, overlay |
+| Settings & windows | Settings, game properties, dialogs, Family View (client PIN and web page) | Login window |
+| General | Menus, tooltips, notifications dropdown, notification toasts (message, "now playing", download) — liquid glass, smooth entrance; color presets (Aika, Hello Bert) | Other notifications, Big Picture, overlay |
 
 ## Licenses
 

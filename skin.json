@@ -2,7 +2,7 @@
     "name": "Aika",
     "author": "hatewxb",
     "description": "A warm dark theme for Steam: Fluent structure, file-system-style panels and soft spots of light on a near-black background.",
-    "version": "0.1.0b",
+    "version": "0.1.1b",
     "tags": ["Fluent", "Dark", "Warm", "Minimal", "WIP"],
 
     "RootColors": "root-colors.css",
