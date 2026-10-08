@@ -16,7 +16,8 @@
          .SectionList > .EmptyTransfers > .Text — "There are no downloads in the queue"
    Steam: a gray-blue radial background, #0e141b, a blue banner, Motiva Sans,
    hashes (0,1,0)…(0,3,0). Graph colors: network — accent, disk — the warm
-   light spot (Steam uses blue and green — two different series, same idea).
+   light spot → since 2026-10-08 the secondary (pink) light spot, --aika-download-disk
+   (Steam uses blue and green — two different series, same idea).
 
    Active download (captured 2026-10-04 while installing Among Us) — at the end of the file.
    ========================================================================== */
@@ -58,7 +59,13 @@ html .DownloadsPage .LegendRow .LegendBox.Network svg {
 }
 
 html .DownloadsPage .DownloadGraph .DiskGraph svg path.GraphLine {
-    stroke: var(--aika-light-3);
+    stroke: var(--aika-download-disk);
+}
+
+/* The disk legend swatch (a 2 px line; Steam: #59bf40 via hashes (0,2,0)) —
+   the same color as the disk line and bar (author's fix 2026-10-08, screenshot 21) */
+html .DownloadsPage .LegendRow .LegendBox.Disk {
+    background-color: var(--aika-download-disk);
 }
 
 /* The gear: Steam uses #3d4450 via a doubled-hash rule (0,2,0)… */
@@ -109,7 +116,7 @@ html .DownloadsPage .ItemLists .Section .SectionList .EmptyTransfers .Text {
        (Steam: a blue-cyan gradient, (0,4,1) with :enabled);
      bottom panel: .DetailedDownloadProgress — .Icon > .IconBevel (white
        glare), .ProgressBar.AnimateProgress::after (#1a9fff), .StatusLine .Status.
-   Colors as on the graph: network — accent, disk — the warm light spot.
+   Colors as on the graph: network — accent, disk — --aika-download-disk.
    ========================================================================== */
 
 html .DownloadsPage .HeroAndLogo .HeroGradient {
@@ -149,7 +156,7 @@ html .ActiveItemProgressBar .DetailsProgressContainer.ProgressBar.Network .Detai
 
 html .ActiveItemProgressBar .DetailsProgressContainer.ProgressBar.Disk .DetailsProgressBar {
     border-radius: var(--aika-radius-full);
-    background-color: var(--aika-light-3);
+    background-color: var(--aika-download-disk);
 }
 
 html .DownloadSectionActiveItem .DownloadTimeRemaining,

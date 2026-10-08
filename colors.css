@@ -161,6 +161,9 @@ html:root {
     /* The store menu capsule: the menu material, a bit more see-through than
        --aika-surface-translucent — it floats over banners and trailers */
     --aika-storebar-material: rgb(from var(--aika-bg-elevated) r g b / 0.8);
+    /* Downloads: the disk series (graph line, legend, "Updating files" bar) —
+       the secondary light spot (author's fix 2026-10-08: "disk usage — secondary") */
+    --aika-download-disk: var(--aika-light-2);
     /* The media viewer backdrop: almost opaque, the page barely shows through */
     --aika-cine-viewer-backdrop: rgb(from var(--aika-bg-deep) r g b / 0.94);
     /* Trailer segments and the viewer scrub bar: the track and the watched part */
