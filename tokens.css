@@ -178,6 +178,11 @@
        (Steam uses a light-blue PNG strip) */
     --aika-store-collapse-fade: linear-gradient(to bottom, var(--aika-transparent), var(--aika-bg-deep) 85%);
     --aika-store-collapse-mask: linear-gradient(to bottom, black 55%, transparent);
+    /* The store menu capsule (sections/store.css): as wide as Steam's menu row
+       (1216 px), a gap from the window top and sides */
+    --aika-storebar-content: 1216px;
+    --aika-storebar-top: var(--aika-space-2);
+    --aika-storebar-gutter: var(--aika-space-6);
     /* The cinematic store page (option "Main → Store → Cinematic",
        js/store-hero.js, sections/store-cinematic.css) */
     --aika-cine-hero-min: 560px;              /* the hero never gets shorter */

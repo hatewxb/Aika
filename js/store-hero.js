@@ -753,7 +753,11 @@ const build = () => {
   root.classList.add("aika-cine");
   silenceSteamPlayer();
 
-  // The hero fills the window below the store menu
+  // The store menu is a floating capsule (store.css): the trailer runs under it
+  // to the window top — pull the hero up by the space Steam keeps for the menu
+  built.hero.style.setProperty("--aika-cine-under", built.hero.getBoundingClientRect().top + scrollY + "px");
+
+  // The hero fills the window
   const fit = () => built.hero.style.setProperty("--aika-cine-top", built.hero.getBoundingClientRect().top + scrollY + "px");
   fit();
   addEventListener("resize", fit, { passive: true });

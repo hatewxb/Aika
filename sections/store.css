@@ -222,12 +222,25 @@ html body:has(> #StoreTemplate) {
    square button #1a9fff, 2 px rounding.
    -------------------------------------------------------------------------- */
 
-/* The menu strip — the navigation's parent: Steam has a radial blue-gray gradient
-   and a gray border. Full window width — no rounding, a line below. */
+/* The menu strip — the navigation's parent (Steam: a full-width radial
+   blue-gray gradient). A floating capsule as wide as the content, sticky with
+   the page; an open menu unfolds from it into a rounded card (author's request
+   2026-10-08: "the black strip doesn't fit the style"). The menu material —
+   translucent with blur (DESIGN.md §11: menus are the translucent layer); on the
+   cinematic game page the trailer runs under it. The open part — selectors.css. */
 html body.v6 [data-featuretarget="store-menu-v7"] :has(> [role="navigation"]) {
-    border-color: var(--aika-border);
-    background: var(--aika-bg-elevated);
-    box-shadow: inset 0 calc(-1 * var(--aika-hairline)) 0 0 var(--aika-border);
+    box-sizing: border-box;
+    width: min(100% - 2 * var(--aika-storebar-gutter), var(--aika-storebar-content) + 2 * var(--aika-space-4));
+    margin: var(--aika-storebar-top) auto 0;
+    padding-inline: var(--aika-space-4);
+    border: none;
+    border-radius: var(--aika-radius-xl);
+    background: var(--aika-storebar-material);
+    backdrop-filter: var(--aika-player-blur);
+    box-shadow:
+        inset 0 0 0 var(--aika-hairline) var(--aika-border-hover),
+        var(--aika-highlight-top),
+        var(--aika-shadow-menu);
 }
 
 html body.v6 [data-featuretarget="store-menu-v7"] [role="navigation"] :is(button[role="button"], a) {

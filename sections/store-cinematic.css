@@ -25,7 +25,10 @@ html.aika-cine .aika-cine-hero {
     position: relative;
     isolation: isolate;
     display: flex;
-    /* The window below the store menu (--aika-cine-top — set by the script) */
+    /* Under the floating store menu up to the window top (--aika-cine-under —
+       the space Steam keeps for the menu, set by the script) */
+    margin-top: calc(-1 * var(--aika-cine-under, 0px));
+    /* The whole window (--aika-cine-top — set by the script, 0 once pulled up) */
     min-height: max(var(--aika-cine-hero-min), calc(100vh - var(--aika-cine-top, 0px)));
     font-family: var(--aika-font-ui);
     color: var(--aika-fg);
@@ -71,7 +74,7 @@ html.aika-cine .aika-cine-inner {
     width: min(100%, var(--aika-cine-content) + 2 * var(--aika-cine-gutter));
     margin-inline: auto;
     box-sizing: border-box;
-    padding: var(--aika-space-6) var(--aika-cine-gutter) var(--aika-space-10);
+    padding: calc(var(--aika-cine-under, 0px) + var(--aika-space-6)) var(--aika-cine-gutter) var(--aika-space-10);
 }
 
 html.aika-cine .aika-cine-main {

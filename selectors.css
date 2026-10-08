@@ -796,6 +796,153 @@ html body.v6 [data-featuretarget="store-menu-v7"] .-bDCBiZsIWB-_6IzGxbhz ._15eaL
     color: var(--aika-fg-subtle);
 }
 
+/* [Store] The menu capsule, open (sections/store.css makes the strip
+   a floating capsule; the open part unfolds inside it):
+     .oeCR-_-EhS8CaxEaFAqDZ > ._2RyPu-qJzs6novxZiGSDf- — the open part
+       (Steam stretches it to the window width with its own backdrop);
+     .h2B3SGR_w4RWdrnsRZEcD ._19o1GB7ysfrWKLYpqZ6aXu — the page darkening: Steam puts
+       it in the flow under the strip, so beside the narrower capsule the page
+       stayed bright — fixed over the whole window, under the capsule (z 1).
+   The menus besides "Browse" (author's request 2026-10-08, screenshot 18):
+     "Recommendations": ._3Z1skIYVoqLbYiP2wy46Ce — a game row (a gray-blue
+       gradient, 2 px), ._2qsM52VkK9BR1Vi0HBOrtY — its capsule cell;
+       ._2-rKQdmSx7Khacm27tXK0K — the "Your calendar" card (blue-gray),
+       ._2ZuAr_P2w3N45sg9qxA2Vc — "NEW" (green #51da2e),
+       ._1PSb462Tg4S8M046QIk4PM — "Open calendar";
+     "Categories": ._36Qgx6aYS9HfYORRauakKF — a favorite genre tile (a tinted
+       gradient over art, square), ._3HqvlP8tdG4sTsVC0ANwfg — its label
+       (a white plate; with our light text it was unreadable),
+       ._2oz62CVNbwTn7KrUUwRdRw — a tag pill (light-blue on blue 20 %);
+     "Ways to Play", "Special Sections": ._1vPyDoJDpPKIAmF1YMCtY0 — a large
+       tile (#44a5dd → #4275d3), Steam rule (0,3,0).
+   Verified: 2026-10-08, store home (opening each menu). */
+html body.v6 [data-featuretarget="store-menu-v7"] :is(.oeCR-_-EhS8CaxEaFAqDZ, ._2RyPu-qJzs6novxZiGSDf-) {
+    width: auto;
+    background: var(--aika-transparent);
+    box-shadow: none;
+}
+
+html body.v6 .h2B3SGR_w4RWdrnsRZEcD ._19o1GB7ysfrWKLYpqZ6aXu {
+    position: fixed;
+    inset: 0;
+    height: auto;
+    z-index: 0;
+}
+
+html body.v6 [data-featuretarget="store-menu-v7"] a._3Z1skIYVoqLbYiP2wy46Ce {
+    overflow: hidden;
+    border-radius: var(--aika-radius-md);
+    background: var(--aika-surface);
+    color: var(--aika-fg);
+    box-shadow: inset 0 0 0 var(--aika-hairline) var(--aika-border);
+    transition:
+        background-color var(--aika-dur-fast) var(--aika-ease-hover),
+        box-shadow var(--aika-dur-base) var(--aika-ease);
+}
+
+html body.v6 [data-featuretarget="store-menu-v7"] a._3Z1skIYVoqLbYiP2wy46Ce:hover {
+    background: var(--aika-surface-hover);
+    box-shadow: inset 0 0 0 var(--aika-hairline) var(--aika-border-accent);
+}
+
+html body.v6 [data-featuretarget="store-menu-v7"] ._2qsM52VkK9BR1Vi0HBOrtY {
+    background: var(--aika-transparent);
+}
+
+html body.v6 [data-featuretarget="store-menu-v7"] ._2-rKQdmSx7Khacm27tXK0K {
+    overflow: hidden;
+    border-radius: var(--aika-radius-lg);
+    background: var(--aika-card-accent-bg);
+    box-shadow: inset 0 0 0 var(--aika-hairline) var(--aika-border-accent);
+}
+
+html body.v6 [data-featuretarget="store-menu-v7"] ._2ZuAr_P2w3N45sg9qxA2Vc {
+    padding-inline: var(--aika-space-2);
+    border-radius: var(--aika-radius-full);
+    background: var(--aika-ok-soft);
+    color: var(--aika-ok);
+    font-family: var(--aika-font-mono);
+    box-shadow: inset 0 0 0 var(--aika-hairline) var(--aika-ok-mid);
+}
+
+html body.v6 [data-featuretarget="store-menu-v7"] ._1PSb462Tg4S8M046QIk4PM {
+    border-radius: var(--aika-radius-md);
+    background: var(--aika-accent-fill);
+    color: var(--aika-on-accent);
+    box-shadow: var(--aika-shadow-cta);
+    transition:
+        background-color var(--aika-dur-fast) var(--aika-ease-hover),
+        box-shadow var(--aika-dur-base) var(--aika-ease);
+}
+
+html body.v6 [data-featuretarget="store-menu-v7"] ._1PSb462Tg4S8M046QIk4PM:hover {
+    background: var(--aika-accent-fill-hover);
+    box-shadow: var(--aika-shadow-cta-hover);
+}
+
+/* Genre tiles: rounded, the art and its tint stay; the label — no plate,
+   light text with a shadow (as the search dropdown genres, screenshot 14) */
+html body.v6 [data-featuretarget="store-menu-v7"] ._36Qgx6aYS9HfYORRauakKF {
+    overflow: hidden;
+    border-radius: var(--aika-radius-lg);
+    box-shadow: var(--aika-shadow-cover);
+    transition: box-shadow var(--aika-dur-base) var(--aika-ease);
+}
+
+html body.v6 [data-featuretarget="store-menu-v7"] ._36Qgx6aYS9HfYORRauakKF:hover {
+    box-shadow: var(--aika-shadow-cover-hover);
+}
+
+html body.v6 [data-featuretarget="store-menu-v7"] ._3HqvlP8tdG4sTsVC0ANwfg {
+    background: var(--aika-transparent);
+    color: var(--aika-fg);
+    font-weight: var(--aika-weight-semibold);
+    text-shadow: var(--aika-genre-label-shadow);
+}
+
+/* Tags — Aika pills (status.css badges): a surface, a thin border, accent on hover */
+html body.v6 [data-featuretarget="store-menu-v7"] a._2oz62CVNbwTn7KrUUwRdRw {
+    border-radius: var(--aika-radius-full);
+    background: var(--aika-surface);
+    color: var(--aika-fg-muted);
+    box-shadow: inset 0 0 0 var(--aika-hairline) var(--aika-border-hover);
+    transition:
+        background-color var(--aika-dur-fast) var(--aika-ease-hover),
+        color var(--aika-dur-fast) var(--aika-ease-hover);
+}
+
+html body.v6 [data-featuretarget="store-menu-v7"] a._2oz62CVNbwTn7KrUUwRdRw:hover {
+    background: var(--aika-accent-soft);
+    color: var(--aika-fg);
+    box-shadow: inset 0 0 0 var(--aika-hairline) var(--aika-border-accent);
+}
+
+/* Large tiles — accent cards, like the "Browse" tiles above */
+html body.v6 [data-featuretarget="store-menu-v7"] a._1vPyDoJDpPKIAmF1YMCtY0 {
+    border-radius: var(--aika-radius-lg);
+    background: var(--aika-card-accent-bg);
+    color: var(--aika-fg);
+    box-shadow:
+        inset 0 0 0 var(--aika-hairline) var(--aika-border-accent),
+        var(--aika-shadow-card);
+    transition:
+        background-color var(--aika-dur-fast) var(--aika-ease-hover),
+        box-shadow var(--aika-dur-base) var(--aika-ease);
+}
+
+html body.v6 [data-featuretarget="store-menu-v7"] a._1vPyDoJDpPKIAmF1YMCtY0:hover {
+    background: var(--aika-accent-soft);
+    color: var(--aika-fg);
+    box-shadow:
+        inset 0 0 0 var(--aika-hairline) var(--aika-border-accent),
+        var(--aika-shadow-card-hover);
+}
+
+html body.v6 [data-featuretarget="store-menu-v7"] a._1vPyDoJDpPKIAmF1YMCtY0 svg {
+    color: var(--aika-accent-bright);
+    fill: currentColor;
+}
+
 /* [Store] The cart (store.steampowered.com/cart/, body.v6.ShoppingCart, React):
      .XjPmFc2t_i1DAuEXEbIX — the list block ("Your cart is empty"; black 25 %);
      ._2bIzQo07mxubFvscA8RIA8 — the total (country, sum, "Continue to payment"),
