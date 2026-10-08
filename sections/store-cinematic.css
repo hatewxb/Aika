@@ -544,7 +544,6 @@ html.aika-cine .aika-cine-track {
     display: flex;
     gap: var(--aika-space-4);
     overflow-x: auto;
-    scroll-snap-type: x mandatory;
     scrollbar-width: none;
     /* Room for the hover lift and the card shadow */
     padding-block: var(--aika-space-2);
@@ -555,9 +554,17 @@ html.aika-cine .aika-cine-track::-webkit-scrollbar {
     display: none;
 }
 
+/* No scroll-snap here: Chromium re-snaps after any layout change inside a snap
+   container (a card lifting on hover), which cancelled the page scroll of "Buy"
+   at the gallery (2026-10-08). The arrows align to cards in js/store-hero.js */
+html.aika-cine .aika-cine-slide {
+    flex: 0 0 var(--aika-cine-card-width);
+}
+
 html.aika-cine .aika-cine-card {
     position: relative;
-    flex: 0 0 var(--aika-cine-card-width);
+    display: block;
+    width: 100%;
     aspect-ratio: 16 / 9;
     padding: 0;
     border: none;
@@ -565,7 +572,6 @@ html.aika-cine .aika-cine-card {
     overflow: hidden;
     background: var(--aika-bg-raised);
     box-shadow: var(--aika-shadow-cover);
-    scroll-snap-align: start;
     cursor: pointer;
     transition:
         transform var(--aika-dur-base) var(--aika-ease),
@@ -911,7 +917,7 @@ html.aika-cine .aika-cine-player-time {
    -------------------------------------------------------------------------- */
 
 @media (max-width: 1100px) {
-    html.aika-cine .aika-cine-card {
+    html.aika-cine .aika-cine-slide {
         flex-basis: var(--aika-cine-card-width-narrow);
     }
 
@@ -928,4 +934,11 @@ html.aika-cine .aika-cine-player-time {
     html.aika-cine :is(.aika-cine-main, .aika-cine-title.has-logo .aika-cine-logo) {
         animation: none;
     }
+}
+
+/* "Buy" / "Media" land with air above the block (js/store-hero.js reads
+   scroll-margin-top): the first edition's flag ("Collect the set!") sticks out
+   above its card and was cut by the window edge */
+html.aika-cine :is(#game_area_purchase, .aika-cine-media) {
+    scroll-margin-top: var(--aika-space-8);
 }

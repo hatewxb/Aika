@@ -377,7 +377,36 @@ const buildTitle = (props) => {
   return h;
 };
 
-const scrollToEl = (target) => target?.scrollIntoView({ behavior: reducedMotion.matches ? "auto" : "smooth", block: "start" });
+// Scroll to a block ("Buy" → editions, "Media" → gallery). Not scrollIntoView
+// smooth: it fixes the destination at the click, and Steam keeps loading
+// blocks above the editions (reviews, events, curators) — the scroll landed
+// short (author's report 2026-10-08). Our own expo-out animation re-reads
+// the target every frame; the user's wheel / keys / touch stop it.
+const SCROLL_MS = 900;
+let scrollRun = 0;
+const scrollToEl = (target) => {
+  if (!target) return;
+  const run = ++scrollRun;
+  const gap = parseFloat(getComputedStyle(target).scrollMarginTop) || 0;
+  const dest = () => Math.min(
+    target.getBoundingClientRect().top + scrollY - gap,
+    document.scrollingElement.scrollHeight - innerHeight,
+  );
+  if (reducedMotion.matches) return scrollTo(0, dest());
+  const from = scrollY, t0 = performance.now();
+  const stop = () => { if (scrollRun === run) scrollRun++; };
+  const events = ["wheel", "touchstart", "keydown", "mousedown"];
+  events.forEach((e) => addEventListener(e, stop, { once: true, passive: true }));
+  const step = (now) => {
+    if (scrollRun !== run) return events.forEach((e) => removeEventListener(e, stop));
+    const k = Math.min(1, (now - t0) / SCROLL_MS);
+    const ease = k === 1 ? 1 : 1 - Math.pow(2, -10 * k); // expo-out, as --aika-ease
+    scrollTo(0, from + (dest() - from) * ease);
+    if (k < 1) requestAnimationFrame(step);
+    else stop(), events.forEach((e) => removeEventListener(e, stop));
+  };
+  requestAnimationFrame(step);
+};
 
 const buildHero = (props, mediaSection) => {
   const base = basePurchase();
@@ -472,7 +501,7 @@ const buildMedia = (props, viewer) => {
 
   const track = el("div", "aika-cine-track", { role: "list" });
   items.forEach((it, k) => {
-    const card = el("button", "aika-cine-card", { type: "button", role: "listitem", "data-kind": it.kind,
+    const card = el("button", "aika-cine-card", { type: "button", "data-kind": it.kind,
       "aria-label": it.kind === "video" ? T.trailer + " " + (k + 1) : it.alt || props.name });
     card.append(el("img", "aika-cine-card-img", { src: it.thumb, alt: "", loading: "lazy", decoding: "async" }));
     if (it.kind === "video") {
@@ -480,12 +509,24 @@ const buildMedia = (props, viewer) => {
       hoverPreview(card, it.trailer);
     }
     card.addEventListener("click", () => viewer.open(items, k, card));
-    track.append(card);
+    // No CSS scroll-snap on the track: Chromium re-snaps a snap container after
+    // any layout change inside it (a card lifting under the cursor while the page
+    // scrolls past), and that re-snap cancelled the page scroll of "Buy" at the
+    // gallery (author's report 2026-10-08). The arrows align to cards themselves
+    track.append(el("div", "aika-cine-slide", { role: "listitem" }, [card]));
   });
 
   const prev = el("button", "aika-cine-arrow aika-cine-arrow-prev", { type: "button", "aria-label": T.prev }, [icon("left")]);
   const next = el("button", "aika-cine-arrow aika-cine-arrow-next", { type: "button", "aria-label": T.next }, [icon("right")]);
-  const page = (dir) => track.scrollBy({ left: dir * track.clientWidth * 0.9, behavior: reducedMotion.matches ? "auto" : "smooth" });
+  // A page = the whole cards that fit; lands on a card edge (no CSS scroll-snap,
+  // see the slide comment above)
+  const page = (dir) => {
+    const slide = track.firstElementChild;
+    const stepW = slide.offsetWidth + parseFloat(getComputedStyle(track).columnGap || 0);
+    const n = Math.max(1, Math.floor((track.clientWidth + 1) / stepW));
+    const to = Math.round(track.scrollLeft / stepW + dir * n) * stepW;
+    track.scrollTo({ left: to, behavior: reducedMotion.matches ? "auto" : "smooth" });
+  };
   prev.addEventListener("click", () => page(-1));
   next.addEventListener("click", () => page(1));
   const edges = () => {
