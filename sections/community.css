@@ -1047,7 +1047,7 @@ html body.profile_edit_page .profile_customization .showcase_bodylabel {
 
 /* --- Topic list ------------------------------------------------------------ */
 
-html .forum_topics .forum_topic {
+html :is(.forum_topics, .discussions_game_topics) .forum_topic {
     margin-bottom: var(--aika-space-1);
     border: var(--aika-hairline) solid var(--aika-border);
     border-radius: var(--aika-radius-md);
@@ -1057,17 +1057,17 @@ html .forum_topics .forum_topic {
         border-color var(--aika-dur-fast) var(--aika-ease-hover);
 }
 
-html .forum_topics .forum_topic:hover {
+html :is(.forum_topics, .discussions_game_topics) .forum_topic:hover {
     border-color: var(--aika-border-accent);
     background-color: var(--aika-accent-tint);
 }
 
 /* Unread — slightly more prominent (Steam uses the same light blue) */
-html .forum_topics .forum_topic.unread {
+html :is(.forum_topics, .discussions_game_topics) .forum_topic.unread {
     background-color: var(--aika-surface-hover);
 }
 
-html .forum_topics .forum_topic.unread:hover {
+html :is(.forum_topics, .discussions_game_topics) .forum_topic.unread:hover {
     background-color: var(--aika-accent-tint);
 }
 
@@ -1087,11 +1087,11 @@ html .forum_topic .forum_topic_lastpost {
 
 /* On hover Steam paints the author and time #70beed
    (".forum_topic:hover …" (0,3,0); author's fix 2026-10-07) */
-html .forum_topics .forum_topic:hover .forum_topic_op {
+html :is(.forum_topics, .discussions_game_topics) .forum_topic:hover .forum_topic_op {
     color: var(--aika-accent-bright);
 }
 
-html .forum_topics .forum_topic:hover .forum_topic_lastpost {
+html :is(.forum_topics, .discussions_game_topics) .forum_topic:hover .forum_topic_lastpost {
     color: var(--aika-fg-muted);
 }
 
@@ -1209,7 +1209,7 @@ html .forum_area .forum_pagesize_options a.commentthread_pagination_link {
    with a blue GIF button flush on the right (searchbox_workshop_submit.gif).
    Ours is a full-width field with a magnifier button inside it on the right (author's
    fix 2026-10-07: "a fresher icon, style the search box") */
-html .rightcol .discussionSearchTextContainer {
+html :is(.rightcol, .global_discussion_search_ctn, .discussions_game_searchoption) .discussionSearchTextContainer {
     position: relative;
     box-sizing: border-box;
     width: 100%;
@@ -1222,11 +1222,11 @@ html .rightcol .discussionSearchTextContainer {
 /* The blue square to the right of the field — a ::before with Steam's button image
    (right: -40px, 40×46) — removed: our button is a magnifier inside the field
    (screenshot "17_d search") */
-html .rightcol .discussionSearchTextContainer::before {
+html :is(.rightcol, .global_discussion_search_ctn, .discussions_game_searchoption) .discussionSearchTextContainer::before {
     content: none;
 }
 
-html .rightcol .discussionSearchTextContainer:focus-within {
+html :is(.rightcol, .global_discussion_search_ctn, .discussions_game_searchoption) .discussionSearchTextContainer:focus-within {
     border-color: var(--aika-border-accent);
     box-shadow: var(--aika-shadow-input-focus);
 }
@@ -1238,7 +1238,7 @@ html .discussionSearchTextContainer input.discussionSearchText {
     color: var(--aika-fg);
 }
 
-html .rightcol .discussionSearchTextContainer img.discussionSearchTextSubmitImg {
+html :is(.rightcol, .global_discussion_search_ctn, .discussions_game_searchoption) .discussionSearchTextContainer img.discussionSearchTextSubmitImg {
     position: absolute;
     top: 50%;
     right: var(--aika-space-3);
@@ -1254,7 +1254,7 @@ html .rightcol .discussionSearchTextContainer img.discussionSearchTextSubmitImg 
     transition: background-color var(--aika-dur-fast) var(--aika-ease-hover);
 }
 
-html .rightcol .discussionSearchTextContainer img.discussionSearchTextSubmitImg:hover {
+html :is(.rightcol, .global_discussion_search_ctn, .discussions_game_searchoption) .discussionSearchTextContainer img.discussionSearchTextSubmitImg:hover {
     background-color: var(--aika-accent-bright);
 }
 
@@ -1436,4 +1436,271 @@ html body #parental_main_content form > div > a {
 
 html body #parental_main_content form > div > a:hover {
     color: var(--aika-fg);
+}
+
+/* ==========================================================================
+   Discussions home (steamcommunity.com/discussions/, screenshot 20).
+   Old markup, readable classes (captured 2026-10-08, live and logged out):
+     .steam_discussions_intro (p > b)          — the intro text
+     h2.large_title, h2.discussion_primary_header, .discussion_tab_content_area > h2
+                                               — headings (#66c0f4)
+     .global_discussion_search_ctn             — the search (the field — the right
+                                                 column rules above, widened to it)
+     .discussions_header > a.group_tab(.active) — tabs on a 5 px #417b9c line
+     .discussions_forumlist_header > div       — column captions
+     .discussions_forum_row(.unread)           — a forum row (blue 20 %),
+       .discussions_forumlist_icon img         — a light-blue envelope PNG,
+       _forumname / _lastpost / _topiccount
+     a.recent_game_discussion(.quasi_official_group) — game / Steam feature
+       forum cards (blue 20 %): .playerAvatar img, _name, _count,
+       .recent_game_discussions_unread_indicator img
+     .discussions_view_more_link a             — "Other game forums" (#529cde)
+   Steam rules — (0,1,0)…(0,2,2); ours — html + the same classes.
+   ========================================================================== */
+
+html :is(.grouppage_content_area, .group_content) h2:is(.large_title, .discussion_primary_header),
+html .discussion_tab_content_area > h2 {
+    color: var(--aika-fg);
+    font-family: var(--aika-font-ui);
+    font-weight: var(--aika-weight-semibold);
+    letter-spacing: var(--aika-tracking-h1);
+    text-transform: none;
+}
+
+/* .group_content (discussions home, group pages): Steam paints a blue PNG
+   gradient behind the title (group_content_topbackground.png; author's fix
+   2026-10-08) — the Aika background shows through instead */
+html :is(.group_content, .group_content.bottomless) { /* Steam: .group_content.bottomless (0,2,0) */
+    background-image: none;
+}
+
+html .steam_discussions_intro p {
+    color: var(--aika-fg-muted);
+}
+
+html .steam_discussions_intro p b {
+    color: var(--aika-fg);
+}
+
+html .global_discussion_search_ctn .discussionSearchTextContainer {
+    max-width: var(--aika-discussions-search-width);
+}
+
+/* Tabs: a flat row on a hairline; the active one — accent text and an accent
+   line under it (nav.css tabs), instead of a blue gradient tile */
+html .maincontent.discussions_header {
+    border-bottom: var(--aika-hairline) solid var(--aika-border-hover);
+}
+
+html .discussions_header a.group_tab {
+    position: relative;
+    border-radius: var(--aika-radius-md) var(--aika-radius-md) 0 0;
+    background: var(--aika-transparent);
+    transition: background-color var(--aika-dur-fast) var(--aika-ease-hover);
+}
+
+html .discussions_header a.group_tab:hover {
+    background: var(--aika-surface-hover);
+}
+
+html .discussions_header a.group_tab > span {
+    color: var(--aika-fg-muted);
+    font-family: var(--aika-font-ui);
+    transition: color var(--aika-dur-fast) var(--aika-ease-hover);
+}
+
+html .discussions_header a.group_tab:hover > span {
+    color: var(--aika-fg);
+}
+
+html .discussions_header a.group_tab.active {
+    background: var(--aika-accent-soft);
+}
+
+html .discussions_header a.group_tab.active > span {
+    color: var(--aika-accent-bright);
+}
+
+html .discussions_header a.group_tab.active::after {
+    content: "";
+    position: absolute;
+    left: var(--aika-space-2);
+    right: var(--aika-space-2);
+    bottom: 0;
+    height: var(--aika-indicator);
+    border-radius: var(--aika-radius-full);
+    background: var(--aika-accent);
+}
+
+html .discussions_forumlist_header > div {
+    color: var(--aika-fg-subtle);
+    font-family: var(--aika-font-mono);
+    letter-spacing: var(--aika-tracking-label);
+}
+
+/* Forum rows and feature/game cards — Aika cards, accent on hover */
+html :is(.discussions_forum_row, a.recent_game_discussion) {
+    border-radius: var(--aika-radius-md);
+    background-color: var(--aika-surface);
+    box-shadow: inset 0 0 0 var(--aika-hairline) var(--aika-border);
+    transition:
+        background-color var(--aika-dur-fast) var(--aika-ease-hover),
+        box-shadow var(--aika-dur-base) var(--aika-ease);
+}
+
+html :is(.discussions_forum_row, a.recent_game_discussion):hover {
+    background-color: var(--aika-surface-hover);
+    box-shadow: inset 0 0 0 var(--aika-hairline) var(--aika-border-accent);
+}
+
+html .discussions_forum_row .discussions_forumlist_forumname,
+html a.recent_game_discussion .recent_game_discussion_name {
+    color: var(--aika-fg);
+}
+
+html .discussions_forum_row :is(.discussions_forumlist_lastpost, .discussions_forumlist_lastpost span, .discussions_forumlist_topiccount),
+html a.recent_game_discussion .recent_game_discussion_count {
+    color: var(--aika-fg-muted);
+    font-family: var(--aika-font-mono);
+    /* Meta size: mono is wider — long dates ("6 мар. 2022 г. в 2:09") ran into the name */
+    font-size: var(--aika-text-meta);
+}
+
+/* Unread forums: the name stays bright, the counters a step brighter */
+html .discussions_forum_row.unread :is(.discussions_forumlist_lastpost span, .discussions_forumlist_topiccount) {
+    color: var(--aika-fg);
+}
+
+/* Envelopes (light-blue PNG) — in accent tone, like the topic icons */
+html :is(.discussions_forumlist_icon, .recent_game_discussions_unread_indicator) img {
+    filter: var(--aika-tint-accent);
+}
+
+/* Avatars of the forum cards: a rounded square without Steam's gray frame */
+html a.recent_game_discussion .playerAvatar {
+    border-radius: var(--aika-radius-md);
+    background: var(--aika-transparent);
+}
+
+html a.recent_game_discussion .playerAvatar img {
+    border-radius: var(--aika-radius-md);
+    background: var(--aika-bg-raised);
+}
+
+html .discussions_view_more_link a {
+    color: var(--aika-accent-bright);
+    font-family: var(--aika-font-mono);
+    letter-spacing: var(--aika-tracking-label);
+}
+
+html .discussions_view_more_link a:hover {
+    color: var(--aika-fg);
+}
+
+/* --- Discussions home, "Game forums" tab ------------------------------------
+     .discussions_game_controls: #BrowseAppHubs ("Browse hubs" + .quicklistselect —
+       a gray #424242 box, a PNG arrow; the list — #quicklistselect_options.popup_block
+       > .quicklistselect_options.shadow_content > .option) and
+       .discussions_game_searchoption (the search — the rules above);
+     .discussions_game_ctn — a game: .discussions_game_header (black 40 %:
+       logo, .discussions_total_count, the name) + .discussions_game_topics
+       (.forum_topic rows — the game discussions rules above);
+     .discussions_recentlyplayed img — envelopes in the right column.
+   ----------------------------------------------------------------------------- */
+
+html .discussions_game_browseoption {
+    color: var(--aika-fg-muted);
+}
+
+html .discussions_game_browseoption .quicklistselect {
+    border: var(--aika-hairline) solid var(--aika-border-strong);
+    border-radius: var(--aika-radius-md);
+    background: var(--aika-bg-raised);
+    transition: border-color var(--aika-dur-fast) var(--aika-ease-hover);
+}
+
+html .discussions_game_browseoption .quicklistselect:hover {
+    border-color: var(--aika-border-hover);
+}
+
+html .discussions_game_browseoption .quicklistselect .option {
+    color: var(--aika-fg);
+    font-family: var(--aika-font-mono);
+    font-size: var(--aika-text-label);
+    letter-spacing: var(--aika-tracking-label);
+}
+
+html .discussions_game_browseoption #quicklistselect_arrow {
+    background: var(--aika-fg-muted);
+    mask: var(--aika-icon-chevron-down) center / var(--aika-chevron-size) no-repeat;
+}
+
+html .discussions_game_browseoption .popup_block :is(.shadow_ul, .shadow_top, .shadow_ur, .shadow_left, .shadow_right, .shadow_bl, .shadow_bottom, .shadow_br) {
+    display: none;
+}
+
+html .discussions_game_browseoption .popup_block .quicklistselect_options {
+    padding: var(--aika-space-1);
+    border: var(--aika-hairline) solid var(--aika-border-hover);
+    border-radius: var(--aika-radius-lg);
+    background: var(--aika-surface-translucent);
+    box-shadow: var(--aika-shadow-menu);
+}
+
+html .discussions_game_browseoption .popup_block .quicklistselect_options .option {
+    border-radius: var(--aika-radius-md);
+    background: var(--aika-transparent);
+    color: var(--aika-fg-muted);
+    font-family: var(--aika-font-ui);
+    font-size: var(--aika-text-body);
+    letter-spacing: normal;
+    transition:
+        background-color var(--aika-dur-fast) var(--aika-ease-hover),
+        color var(--aika-dur-fast) var(--aika-ease-hover);
+}
+
+html .discussions_game_browseoption .popup_block .quicklistselect_options .option:hover {
+    background: var(--aika-surface-hover);
+    color: var(--aika-fg);
+}
+
+html .discussions_game_searchoption .discussionSearchTextContainer {
+    max-width: var(--aika-discussions-search-width);
+}
+
+/* A game — one card: the header strip on a raised surface, topics below */
+html .discussions_game_ctn {
+    overflow: hidden;
+    border: var(--aika-hairline) solid var(--aika-border);
+    border-radius: var(--aika-radius-lg);
+    background: var(--aika-bg-elevated);
+    box-shadow: var(--aika-shadow-card);
+}
+
+html .discussions_game_ctn .discussions_game_header {
+    background: var(--aika-bg-raised);
+    box-shadow: inset 0 calc(-1 * var(--aika-hairline)) 0 0 var(--aika-border);
+}
+
+html .discussions_game_ctn .discussions_game_logo img {
+    border-radius: var(--aika-radius-md);
+}
+
+html .discussions_game_ctn .discussions_game_discussioncount {
+    color: var(--aika-fg-subtle);
+}
+
+html .discussions_game_ctn .discussions_total_count {
+    color: var(--aika-fg);
+    font-family: var(--aika-font-mono);
+}
+
+html .discussions_recentlyplayed img {
+    filter: var(--aika-tint-accent);
+}
+
+/* A gap between a long forum name (ellipsis) and the date column */
+html .discussions_forum_row .discussions_forumlist_forumname {
+    box-sizing: border-box;
+    padding-right: var(--aika-space-3);
 }
