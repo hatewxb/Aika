@@ -272,3 +272,19 @@ html .HeroAndLogo .GameIconAndName > .Container {
     overflow: hidden;
     border-radius: var(--aika-radius-xs);
 }
+
+/* "Patch notes" in a queue row (author's report 2026-10-08, Pratfall):
+   a.PatchNotes (icon + .Text) — Steam: #1a9fff, white on hover, (0,1,0).
+   An accent link, brighter on hover; the icon follows the text color */
+html .DownloadsPage a.PatchNotes {
+    color: var(--aika-accent-bright);
+    transition: color var(--aika-dur-fast) var(--aika-ease-hover);
+}
+
+html .DownloadsPage a.PatchNotes:hover {
+    color: var(--aika-fg);
+}
+
+html .DownloadsPage a.PatchNotes .Text {
+    color: inherit;
+}
