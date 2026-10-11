@@ -311,3 +311,164 @@ html :is(.GenericConfirmDialog .Body > input.TextInput[type="password"], #parent
     box-shadow: var(--aika-shadow-input-focus);
     outline: none;
 }
+
+/* The PIN as four animated cells (js/pin-slots.js; the idea — reactbits.dev
+   "Code Slots", the motion — Aika's: expo-out, no spring, DESIGN.md §1).
+   The script marks the field .aika-pin-js and puts .aika-pin-slots right after
+   it, over it: the field turns see-through (it still takes focus, typing and
+   submit), the cells draw everything. Without the script — the box above. */
+html input.aika-pin-js:is(.TextInput, [type="password"]) {
+    border-color: var(--aika-transparent);
+    background: var(--aika-transparent);
+    box-shadow: none;
+    color: var(--aika-transparent);
+    caret-color: var(--aika-transparent);
+}
+
+html input.aika-pin-js:is(.TextInput, [type="password"]):is(:hover, :focus) {
+    border-color: var(--aika-transparent);
+    box-shadow: none;
+}
+
+html :has(> .aika-pin-slots) {
+    position: relative;
+}
+
+html .aika-pin-slots {
+    position: absolute;
+    display: grid;
+    grid-template-columns: repeat(var(--aika-pin-digits), 1fr);
+    gap: var(--aika-pin-gap);
+    pointer-events: none;
+}
+
+html .aika-pin-cell {
+    position: relative;
+    display: grid;
+    place-items: center;
+    overflow: hidden;
+    border-radius: var(--aika-radius-lg);
+    background: var(--aika-bg-raised);
+    box-shadow: inset 0 0 0 var(--aika-hairline) var(--aika-border-strong), var(--aika-highlight-top);
+    transition: box-shadow var(--aika-dur-base) var(--aika-ease), background-color var(--aika-dur-base) var(--aika-ease-hover);
+}
+
+/* The cell the next digit goes into — the input focus ring, on the cell */
+html .aika-pin-cell.is-active {
+    box-shadow:
+        inset 0 0 0 var(--aika-hairline) var(--aika-accent),
+        var(--aika-shadow-input-focus);
+}
+
+/* The accent fill grows from the center of the cell (and shrinks back) */
+html .aika-pin-fill {
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    background: var(--aika-accent-fill);
+    box-shadow: inset 0 var(--aika-hairline) 0 0 var(--aika-highlight-cta);
+    opacity: 0;
+    transform: scale(var(--aika-pin-fill-from));
+    transition:
+        transform var(--aika-dur-base) var(--aika-ease) var(--aika-pin-delay, 0ms),
+        opacity var(--aika-dur-fast) var(--aika-ease-hover) var(--aika-pin-delay, 0ms);
+}
+
+html .aika-pin-dot {
+    position: relative;
+    width: var(--aika-pin-dot);
+    height: var(--aika-pin-dot);
+    border-radius: var(--aika-radius-full);
+    background: var(--aika-on-accent);
+    opacity: 0;
+    transform: translateY(var(--aika-pin-drop)) scale(var(--aika-press-scale));
+    transition:
+        transform var(--aika-dur-base) var(--aika-ease) var(--aika-pin-delay, 0ms),
+        opacity var(--aika-dur-fast) var(--aika-ease-hover) var(--aika-pin-delay, 0ms);
+}
+
+html .aika-pin-cell.is-filled {
+    box-shadow: var(--aika-shadow-cta);
+}
+
+html .aika-pin-cell.is-filled .aika-pin-fill {
+    opacity: 1;
+    transform: none;
+}
+
+/* In: the dot starts a little low and rises into place (Steam's typing is
+   instant — the motion is all ours); out — it drops further and fades */
+@keyframes aika-pin-rise {
+    from {
+        opacity: 0;
+        transform: translateY(var(--aika-pin-rise));
+    }
+}
+
+html .aika-pin-cell.is-filled .aika-pin-dot {
+    opacity: 1;
+    transform: none;
+    animation: aika-pin-rise var(--aika-dur-enter) var(--aika-ease);
+}
+
+/* The caret: glides to the active cell (a transform across the row), blinks
+   in steps like a terminal cursor (DESIGN.md §3.6, --aika-ease-term) */
+@keyframes aika-pin-blink {
+    50% { opacity: 0; }
+}
+
+html .aika-pin-caret {
+    position: absolute;
+    left: 0;
+    top: calc((100% - var(--aika-pin-caret-height)) / 2);
+    width: calc((100% - (var(--aika-pin-digits) - 1) * var(--aika-pin-gap)) / var(--aika-pin-digits));
+    height: var(--aika-pin-caret-height);
+    opacity: 0;
+    transform: translateX(calc(var(--aika-pin-active, 0) * (100% + var(--aika-pin-gap))));
+    transition:
+        transform var(--aika-dur-base) var(--aika-ease),
+        opacity var(--aika-dur-fast) var(--aika-ease-hover);
+}
+
+html .aika-pin-caret::before {
+    content: "";
+    display: block;
+    width: var(--aika-pin-caret-width);
+    height: 100%;
+    margin: 0 auto;
+    border-radius: var(--aika-radius-full);
+    background: var(--aika-accent-bright);
+    box-shadow: var(--aika-pin-caret-glow);
+    animation: aika-pin-blink var(--aika-pin-blink) var(--aika-ease-term) infinite;
+}
+
+html .aika-pin-slots.has-caret .aika-pin-caret {
+    opacity: 1;
+}
+
+/* A wrong PIN: the dots fall out right to left (the script staggers
+   --aika-pin-delay), the cells flash red and the row shudders once */
+@keyframes aika-pin-shake {
+    25% { transform: translateX(calc(-1 * var(--aika-pin-shake))); }
+    50% { transform: translateX(var(--aika-pin-shake)); }
+    75% { transform: translateX(calc(-0.5 * var(--aika-pin-shake))); }
+}
+
+html .aika-pin-slots.is-error {
+    animation: aika-pin-shake var(--aika-dur-enter) var(--aika-ease);
+}
+
+html .aika-pin-slots.is-error .aika-pin-cell {
+    background: var(--aika-live-soft);
+    box-shadow: inset 0 0 0 var(--aika-hairline) var(--aika-live);
+}
+
+@media (prefers-reduced-motion: reduce) {
+    html :is(.aika-pin-fill, .aika-pin-dot, .aika-pin-caret) {
+        transition-duration: 0ms;
+    }
+
+    html :is(.aika-pin-slots.is-error, .aika-pin-cell.is-filled .aika-pin-dot, .aika-pin-caret::before) {
+        animation: none;
+    }
+}
