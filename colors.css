@@ -205,6 +205,8 @@ html:root {
     --aika-home-today-from: var(--aika-accent);                         /* the "Today" border light */
     --aika-home-today-to: var(--aika-light-2);
 
+    --aika-tilt-light: rgb(from var(--aika-ink) r g b / 0.16);       /* the glare on a tilted library cover */
+
     /* Fully transparent — to "remove" Steam backgrounds without bare values */
     --aika-transparent: rgb(from var(--aika-ink) r g b / 0);
 }

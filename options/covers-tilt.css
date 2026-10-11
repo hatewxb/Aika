@@ -1,0 +1,64 @@
+/* ==========================================================================
+   "Library covers: 3D tilt" (theme settings → "Main", the default).
+   Covers on the library home (recent games, shelves) and in collections turn
+   toward the cursor in perspective, lift a little, a glare follows the cursor
+   and the shadow falls the other way — reactbits "Holo Card" without the foil.
+   js/cover-tilt.js writes the --aika-tilt-* values (it reads
+   --aika-covers-mode below to know the option is on); without the script the
+   cover just stays flat. The other values: "Lift" — components/card.css
+   alone, "Zoom" — options/covers-zoom.css.
+   html:root — one step above components/card.css (the "Lift" rules).
+   ========================================================================== */
+
+:root {
+    --aika-covers-mode: tilt;
+}
+
+/* Steam's wrapper has perspective: 300px (a fisheye at 12°) — ours is in the transform */
+html:root .Draggable.HoversEnabled {
+    perspective: none;
+}
+
+/* No transition on transform: the script moves it every frame */
+html:root .Draggable.HoversEnabled .LibraryItemBox,
+html:root .Draggable.HoversEnabled .LibraryItemBox:hover,
+html:root .Draggable.HoversEnabled .LibraryItemBox:hover:active {
+    transform:
+        perspective(var(--aika-tilt-perspective))
+        rotateX(calc(var(--aika-tilt-rx, 0) * 1deg))
+        rotateY(calc(var(--aika-tilt-ry, 0) * 1deg))
+        scale(var(--aika-tilt-s, 1));
+    transition:
+        box-shadow var(--aika-dur-base) var(--aika-ease),
+        filter var(--aika-dur-base) var(--aika-ease-hover);
+}
+
+/* The shadow falls away from the raised edge */
+html:root .Draggable.HoversEnabled .LibraryItemBox:hover {
+    box-shadow:
+        0 0 0 var(--aika-hairline) var(--aika-border-hover),
+        calc(var(--aika-tilt-ry, 0) * var(--aika-tilt-shadow-shift)) calc(var(--aika-tilt-shadow-y) + var(--aika-tilt-rx, 0) * var(--aika-tilt-shadow-shift)) var(--aika-tilt-shadow-blur) var(--aika-shadow-deep);
+}
+
+/* The glare: a soft light spot where the cursor is, over the cover art
+   (::after is free on .LibraryItemBox, Steam uses ::before) */
+html:root .Draggable.HoversEnabled .LibraryItemBox::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    border-radius: inherit;
+    background: radial-gradient(
+        circle at var(--aika-tilt-lx, 50%) var(--aika-tilt-ly, 0%),
+        var(--aika-tilt-light),
+        var(--aika-transparent) var(--aika-tilt-light-size)
+    );
+    mix-blend-mode: screen;
+    opacity: var(--aika-tilt-on, 0);
+    pointer-events: none;
+}
+
+/* The caption under the cover stays put (Lift moves it with the cover) */
+html:root .Draggable.HoversEnabled .LibraryItemBox:hover ~ .LibraryItemBoxSubscript {
+    transform: none;
+}

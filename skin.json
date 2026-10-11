@@ -31,6 +31,20 @@
                 "Classic": {}
             }
         },
+        "Library covers": {
+            "description": "How game covers in the library (Home shelves, collections) react to the cursor. 3D tilt: the cover turns toward the cursor in 3D with a moving glare. Lift: it rises a little. Zoom: the art zooms in its frame with a glare sweep.",
+            "tab": "Main",
+            "default": "3D tilt",
+            "values": {
+                "3D tilt": {
+                    "TargetCss": { "affects": ["^Steam$"], "src": "options/covers-tilt.css" }
+                },
+                "Lift": {},
+                "Zoom": {
+                    "TargetCss": { "affects": ["^Steam$"], "src": "options/covers-zoom.css" }
+                }
+            }
+        },
         "Cursor glow": {
             "description": "A soft accent glow under the cursor on large library blocks (game page panels, What's New, collections).",
             "tab": "Main",

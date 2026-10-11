@@ -1,0 +1,54 @@
+/* ==========================================================================
+   "Library covers: Zoom" (theme settings → "Main").
+   A quiet variant: the cover stays in place, the art zooms in its frame and a
+   glare sweeps across it once. CSS only. The default is "3D tilt"
+   (options/covers-tilt.css), "Lift" — components/card.css alone.
+   html:root — one step above components/card.css.
+   ========================================================================== */
+
+:root {
+    --aika-covers-mode: zoom;
+}
+
+html:root .Draggable.HoversEnabled .LibraryItemBox:hover {
+    transform: none;
+    box-shadow: var(--aika-shadow-cover-hover);
+}
+
+html:root .Draggable.HoversEnabled .LibraryItemBox:hover:active {
+    transform: scale(var(--aika-press-scale));
+}
+
+html:root .Draggable.HoversEnabled .LibraryItemBox img.Image {
+    transition: transform calc(var(--aika-dur-enter) * 1.4) var(--aika-ease);
+}
+
+html:root .Draggable.HoversEnabled .LibraryItemBox:hover img.Image {
+    transform: scale(var(--aika-covers-zoom));
+}
+
+html:root .Draggable.HoversEnabled .LibraryItemBox::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    border-radius: inherit;
+    background: var(--aika-home-glare);
+    transform: translateX(var(--aika-shine-from));
+    pointer-events: none;
+}
+
+html:root .Draggable.HoversEnabled .LibraryItemBox:hover::after {
+    transform: translateX(var(--aika-shine-to));
+    transition: transform var(--aika-home-shine-dur) var(--aika-ease);
+}
+
+html:root .Draggable.HoversEnabled .LibraryItemBox:hover ~ .LibraryItemBoxSubscript {
+    transform: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    html:root .Draggable.HoversEnabled .LibraryItemBox::after {
+        display: none;
+    }
+}

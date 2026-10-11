@@ -374,6 +374,18 @@
         var(--aika-highlight-top),
         0 8px 32px var(--aika-shadow-deep);
 
+    /* Library covers (the "Library covers" setting): 3D tilt (js/cover-tilt.js,
+       options/covers-tilt.css) and Zoom (options/covers-zoom.css) */
+    --aika-tilt-max: 12;                  /* degrees at the cover edge */
+    --aika-tilt-lift: 1.04;               /* the cover grows a little while inspected */
+    --aika-tilt-ease: 90;                 /* ms — how fast it catches up with the cursor (no spring) */
+    --aika-tilt-perspective: 900px;
+    --aika-tilt-shadow-shift: -0.8px;     /* per degree: the shadow falls away from the raised edge */
+    --aika-tilt-shadow-y: 12px;
+    --aika-tilt-shadow-blur: 28px;
+    --aika-tilt-light-size: 60%;          /* the glare spot radius */
+    --aika-covers-zoom: 1.06;
+
     /* The game page hero (game-page.css) */
     --aika-hero-fade: linear-gradient(to bottom, var(--aika-transparent) 35%, var(--aika-bg-base) 100%);
     --aika-hero-scroll-range: 320px;   /* how much scrolling fades the banner */
