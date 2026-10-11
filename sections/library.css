@@ -224,6 +224,7 @@ html .BottomBarContainer > .BottomBar {
     padding: 0;
     border: none;
     background: var(--aika-transparent);
+    box-shadow: none;   /* Steam's top bevel, inset rgba(61,68,80,.65) — it hung right above the icons */
     pointer-events: none;
 }
 
