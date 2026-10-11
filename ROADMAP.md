@@ -159,14 +159,15 @@
 | 2026-10-12 | Cinematic page: the price shines (author: reactbits "Shiny Text", "not dark — the shine visible, the base lighter"). Pure CSS: the final price is a 120° gradient clipped to the text, a near-white stripe sweeps left to right in ~2 s, then rests (3.6 s loop, ease-in-out); the base is a light warm grey (fg 62 % / muted — lighter than the original #b5b5b5, yet the stripe still reads; at fg 88 % it vanished), on sale — the deal green and a pale green stripe. Shadows moved to filter: drop-shadow (a text-shadow paints over background-clip: text and darkens it); --aika-cine-sale-glow removed. Off with reduced motion. Verified with a frame series (background-position sampled, the stripe seen crossing the digits) | sections/store-cinematic.css, colors.css, tokens.css |
 | 2026-10-12 | Library covers — a new setting "Library covers" (Main): 3D tilt (default) / Lift / Zoom (author: two-plus card variants, the default like reactbits "Holo Card" but only the 3D inspection). 3D tilt: js/cover-tilt.js (imported by js/main.js; active only when options/covers-tilt.css sets --aika-covers-mode: tilt on :root, so switching applies at once) eases --aika-tilt-* toward the cursor exponentially (no spring, no overshoot): up to 12° in a 900 px perspective (Steam's 300 px wrapper perspective turned off), scale 1.04, a screen-blended glare spot following the cursor on ::after, the shadow thrown away from the raised edge; on leave it eases flat and the properties are removed. Lift — components/card.css as before. Zoom — options/covers-zoom.css: the cover stays, the art zooms 1.06 in its frame, a glare sweeps once. Verified in the main window with real mouse moves (rotation, scale, glare opacity, settle and cleanup); visuals are for the author (no screenshots in the main window) | js/cover-tilt.js, js/main.js, options/covers-tilt.css, options/covers-zoom.css, skin.json, tokens.css, colors.css |
 | 2026-10-12 | Library bottom bar → floating icons (author: "no bar, just floating icons over the content; Add a Game — a popup menu with an entrance animation"). .BottomBarContainer leaves the flow (absolute, 0 px, click-through — the content now runs to the window bottom: 1159 → 1210 px), the three buttons are round 44 px player-material icons floating 16 px from the edges (add — left, downloads — center, friends — right), rising in with a stagger when the window opens, lifting with an accent haze on hover; the labels pop out above as pills (Steam's text). Steam's notice (.Alert, a 0 px wrapper) — a flex column packed to the end so it grows upward above the icons. The "Add a Game" menu (.AddGameMenu, a popup window): items rise in one after another (45 ms) under the box's entrance, each with an accent icon (plus, key, store bag). TODO: the download-progress look of the middle capsule (capture while downloading). Verified geometry in the main window, the menu by a screenshot of its window | sections/library.css, components/menu.css, tokens.css |
+| 2026-10-12 | Floating icons, author's fixes: a line hung right above the icons — Steam's top bevel on .BottomBar (inset 0 1px 0 rgba(61,68,80,.65)) came back when the bar left the shared "no bevel" rule; box-shadow: none on the bar (a scan of the window bottom finds no other borders/shadows). Then "a bit more transparent, grow a little on hover": their own material --aika-dock-material (bg-raised 32 %, was the player's 52 %), 46 % on hover, scale 1.08 instead of the lift, background eased. Verified with a real mouse hover (computed background and transform) | sections/library.css, colors.css, tokens.css |
 
 ## Waiting for the author to check in Steam
 
-- [ ] **Restart Steam** (a new setting "Library covers" + js/cover-tilt.js in js/main.js): Library Home — covers turn toward the cursor in 3D with a glare; theme settings → Main → Library covers → Lift / Zoom switch the behavior.
+- [ ] Library covers (Steam restarted 2026-10-12, the default "3D tilt" is on and js/cover-tilt.js loaded — verified): look at Library Home — covers turn toward the cursor in 3D with a glare; theme settings → Main → Library covers → Lift / Zoom switch the behavior. Also the floating icons at the bottom (add / downloads / friends): look, transparency, hover growth, labels; the "Add a Game" menu.
 
-- [ ] **Restart Steam** (js/main.js imports js/pin-slots.js, a new Patch for store/community pages), click the Family View lock in the header: four cells, typing fills them with the accent and a dot rises in, the caret glides; a wrong PIN shakes the row and flashes it red.
+- [ ] Family View PIN (Steam restarted 2026-10-12, the after-start bug fixed and verified): the lock in the header → four cells, typing fills them with the accent and a dot rises in, the caret glides; a wrong PIN shakes the row and flashes it red; the "OK" button stays accent when pressed.
 
-- [ ] **Restart Steam** (a new Patch for the store home, js/store-home.js), open the store home: sections fade up on scroll, the arrows lean toward the cursor, the rim of large blocks lights up by the cursor, the calendar dots glow around it, Today has a circling light. Without the restart the CSS part already works.
+- [ ] Store home (Steam restarted 2026-10-12, js/store-home.js loaded — verified): the headline comes in letter by letter, cards pop up from below as you scroll, the arrows lean toward the cursor, the rim of large blocks lights up by the cursor, the calendar dots glow around it, Today has a circling light; Specials & events turn pages like Code Slots; the gift card fan is accent. Cinematic game page: the description warps gently, the price shines.
 
 - [ ] **Restart Steam** (a new Conditions value), theme settings → "Color presets" →
       "Hello Bert": the whole client turns cool (ink-black, slate panels, cyan accent,
@@ -326,6 +327,21 @@
 
 ## Next (in order)
 
+### Next session (from 2026-10-13): a few more author's fixes, then a release
+
+Stopped 2026-10-12 after the library floating icons (31e15d8). Since the last
+release (v0.1.1b, 6898c0f) there are ~20 commits: the store home restyle with
+motion, the Cinematic title / description warp / price shine, Family View PIN
+cells, dialog buttons without Steam blue, the "Library covers" setting, the
+floating library icons. The author will bring a couple more fixes first.
+
+Release checklist (as for 0.1.0b / 0.1.1b):
+- [ ] the author's remaining fixes are in and checked in Steam;
+- [ ] the version in skin.json — the author picks the number (pattern 0.1.0a → 0.1.0b → 0.1.1b);
+- [ ] README: the roadmap / what's new (new settings: "Library covers"; the store home, Cinematic effects, PIN cells, floating icons);
+- [ ] privacy check of the changes since v0.1.1b (no account name, profile ID, friend nicknames, paths with the user name);
+- [ ] the archive Aika-<version>.zip — theme files + README, without CLAUDE/DESIGN/ROADMAP/tools/screenshots/.vibe-wise; a tag and a GitHub release (English).
+
 ### Fixes from the author's screenshots (SSforClaude, 2026-10-06; number = screenshot number)
 
 The screenshot file name is the gist of the fix. Do them in number order.
@@ -439,6 +455,12 @@ The screenshot file name is the gist of the fix. Do them in number order.
 - Steam's right column on the game page is float: right; the left column blocks
   are kept flow-root (otherwise they either slide under the column or stretch the dark
   body under it). Don't give them width: 100%.
+
+- Main-window visuals made 2026-10-12 (library cover tilt, floating icons, PIN cells) were verified by computed values and real mouse/keyboard input only — Page.captureScreenshot doesn't work in the main window; the look is the author's call.
+- The middle floating icon (downloads) was never seen during a download — whatever Steam shows next to .Queue widens the capsule; capture it while downloading.
+- The "Add a Game" menu window: Steam measures it when it opens — after a CSS change the first openings may keep the old size (icons added later); after a restart it is measured with the icons.
+- js/pin-slots.js tells web pages by host (store.steampowered.com / steamcommunity.com): the client windows are https://steamloopback.host too.
+- Cards pop up on scroll via CSS view timelines (Chrome 115+); without support everything is simply in place.
 
 ### Intentional audit exceptions (don't fix)
 
