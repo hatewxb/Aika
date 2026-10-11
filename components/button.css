@@ -59,8 +59,30 @@ html :is(.aika-button--primary, button.DialogButton.Primary, .PlayButton):not(.D
 }
 
 html :is(.aika-button--primary, button.DialogButton.Primary, .PlayButton):not(.Disabled, :disabled):active {
+    background: var(--aika-accent-fill);
     box-shadow: var(--aika-shadow-cta-press);
     transform: scale(var(--aika-press-scale));
+}
+
+/* Pressed and keyboard/gamepad focus (.gpfocus) of dialog buttons: Steam
+   paints them its blue gradient (#47bfff → #1a44c2) with
+   button.DialogButton.Primary:enabled:active.gpfocus (0,5,1) — the PIN
+   dialog's "OK" turned blue when clicked (author's report 2026-10-12).
+   The class repeated once more gives (0,5,2). */
+html button.DialogButton.Primary.DialogButton:enabled:active {
+    background: var(--aika-accent-fill);
+    color: var(--aika-on-accent);
+}
+
+html button.DialogButton.Primary.DialogButton:enabled.gpfocus {
+    background: var(--aika-accent-fill-hover);
+    color: var(--aika-on-accent);
+    box-shadow: var(--aika-shadow-cta-hover), var(--aika-shadow-focus);
+}
+
+html button.DialogButton.Primary.DialogButton:enabled.gpfocus:active {
+    background: var(--aika-accent-fill);
+    box-shadow: var(--aika-shadow-cta-press), var(--aika-shadow-focus);
 }
 
 /* Shine: a stripe beyond the left edge, sweeps right on hover.
@@ -151,7 +173,15 @@ html :is(.aika-button--secondary, button.DialogButton.Secondary):not(.Disabled, 
 
 html :is(.aika-button--secondary, button.DialogButton.Secondary):not(.Disabled, :disabled):active {
     background: var(--aika-surface-active);
+    box-shadow: var(--aika-shadow-secondary);
     transform: scale(var(--aika-press-scale));
+}
+
+/* Keyboard/gamepad focus: Steam's #3d4450 plate otherwise (see the primary above) */
+html button.DialogButton.Secondary.DialogButton:enabled.gpfocus {
+    background: var(--aika-surface-hover);
+    color: var(--aika-fg);
+    box-shadow: var(--aika-shadow-secondary-hover), var(--aika-shadow-focus);
 }
 
 /* --------------------------------------------------------------------------
