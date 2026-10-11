@@ -3028,3 +3028,321 @@ html body ._1uSw_aqus0W7yb3vT9_-22 ._3R-McPl3j1ANvRa0U9reMV a {
 html body ._1uSw_aqus0W7yb3vT9_-22 ._3R-McPl3j1ANvRa0U9reMV a:hover {
     color: var(--aika-fg);
 }
+
+/* ==========================================================================
+   [Store] The home page (sections/store-home.css). React blocks with hash
+   classes only; anchors — #module_discounts_and_events, #discounts_and_events_title.
+   "Specials & events" (Steam's CSS module discountsandevents.css):
+     .PMgHw7SIUZWM8LLZTz-9k    — the title (#discounts_and_events_title)
+     ._2f_EIAuOVG5ZIzYb1sXJlw  — "More": a #ccc plate, black text (0,1,0), hover #fff
+     .znNVIhFP6KdJlUS2p2B7q    — the event label on the cover ("Weekend deal",
+       "Daily deal"): --multi-color-bg-gradient-5/3, caps (0,2,0)
+     ._1-29ksrfQaORRCqN2AVf06  — the price strip under the cover (#99d4ff text)
+     ._2wlqkq-0fkggDE-Kll8Rwd  — "Up to -85%": lime #beee11 on rgba(76,107,34,.5), 26 px
+     .hWF8eniTajf4-mfZvbK3F    — the React price widget (shared with the mega
+       menu): ._3cdhtxJwOkHYnEljY7P-vL %, ._1xgg-R84IHS6h5_x6ZycXi the old price,
+       ._2L23Sk2CNSFCplu_7mMmQx the final one
+   Verified: 2026-10-12, store home (autumn).
+   ========================================================================== */
+html body.v6 #discounts_and_events_title {
+    position: relative;
+    padding-left: calc(var(--aika-home-mark-width) + var(--aika-space-3));
+    font-family: var(--aika-font-ui);
+    letter-spacing: var(--aika-tracking-h2);
+    color: var(--aika-fg);
+}
+
+html body.v6 #discounts_and_events_title::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 50%;
+    width: var(--aika-home-mark-width);
+    height: var(--aika-home-mark-height);
+    border-radius: var(--aika-radius-full);
+    background: var(--aika-accent);
+    box-shadow: 0 0 12px var(--aika-accent-glow);
+    transform: translateY(-50%);
+}
+
+html body.v6 #module_discounts_and_events ._2f_EIAuOVG5ZIzYb1sXJlw {
+    border-radius: var(--aika-radius-md);
+    background: var(--aika-surface);
+    color: var(--aika-fg);
+    box-shadow: var(--aika-shadow-secondary);
+    transition: background-color var(--aika-dur-fast) var(--aika-ease-hover);
+}
+
+html body.v6 #module_discounts_and_events ._2f_EIAuOVG5ZIzYb1sXJlw:hover {
+    background: var(--aika-surface-hover);
+    color: var(--aika-fg);
+}
+
+/* The event label — a mono pill of the player material over the cover
+   (DESIGN.md §11: badges over images), a glare runs over it on the tile's hover */
+html body.v6 #module_discounts_and_events .znNVIhFP6KdJlUS2p2B7q {
+    top: var(--aika-space-2);
+    left: var(--aika-space-2);
+    padding: 2px var(--aika-space-2);
+    border-radius: var(--aika-radius-full);
+    background: var(--aika-player-material);
+    backdrop-filter: var(--aika-player-blur);
+    box-shadow: var(--aika-shadow-secondary);
+    color: var(--aika-fg);
+    font-family: var(--aika-font-mono);
+    font-size: var(--aika-text-label);
+    font-weight: var(--aika-weight-semibold);
+    letter-spacing: var(--aika-tracking-label);
+}
+
+html body.v6 #module_discounts_and_events .znNVIhFP6KdJlUS2p2B7q::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: var(--aika-home-glare);
+    transform: translateX(var(--aika-shine-from));
+}
+
+html body.v6 #module_discounts_and_events a:hover .znNVIhFP6KdJlUS2p2B7q::after {
+    transform: translateX(var(--aika-shine-to));
+    transition: transform var(--aika-home-shine-dur) var(--aika-ease);
+}
+
+html body.v6 #module_discounts_and_events ._1-29ksrfQaORRCqN2AVf06 {
+    align-items: center;
+    padding: 0 var(--aika-space-2);
+    background: var(--aika-bg-elevated);
+    color: var(--aika-fg-muted);
+}
+
+html body.v6 #module_discounts_and_events ._2wlqkq-0fkggDE-Kll8Rwd {
+    padding: 0 var(--aika-space-2);
+    border-radius: var(--aika-radius-md);
+    background: var(--aika-ok-soft);
+    color: var(--aika-ok);
+    font-family: var(--aika-font-mono);
+    font-size: var(--aika-text-h2);
+    font-weight: var(--aika-weight-semibold);
+    line-height: 28px;
+}
+
+html body.v6 #module_discounts_and_events .hWF8eniTajf4-mfZvbK3F {
+    overflow: hidden;
+    border-radius: var(--aika-radius-md);
+    font-family: var(--aika-font-mono);
+}
+
+html body.v6 #module_discounts_and_events .hWF8eniTajf4-mfZvbK3F ._2lQxRlo1DQ1PN08TYTil2L {
+    background: var(--aika-ok);
+}
+
+html body.v6 #module_discounts_and_events .hWF8eniTajf4-mfZvbK3F ._3cdhtxJwOkHYnEljY7P-vL {
+    color: var(--aika-bg-deep);
+    font-weight: var(--aika-weight-semibold);
+}
+
+html body.v6 #module_discounts_and_events .hWF8eniTajf4-mfZvbK3F ._2faI25vznC0tWNttks8OaJ {
+    background: var(--aika-bg-raised);
+}
+
+html body.v6 #module_discounts_and_events .hWF8eniTajf4-mfZvbK3F ._1xgg-R84IHS6h5_x6ZycXi {
+    color: var(--aika-fg-muted);
+}
+
+html body.v6 #module_discounts_and_events .hWF8eniTajf4-mfZvbK3F ._2L23Sk2CNSFCplu_7mMmQx {
+    color: var(--aika-fg);
+    font-weight: var(--aika-weight-semibold);
+}
+
+/* The "On wishlist" / "In library" flag on a tile (._3dtnlw7cvJhAMGafZPipGv,
+   text ._2UUMzfFoTLL0YlWt710fZi; Steam: top 14 px, left 0 — right over the
+   event label) — to the top right corner, an Aika accent pill */
+html body.v6 #module_discounts_and_events ._3dtnlw7cvJhAMGafZPipGv {
+    top: var(--aika-space-2);
+    left: auto;
+    right: var(--aika-space-2);
+    border-radius: var(--aika-radius-full);
+    background: var(--aika-accent-fill);
+    box-shadow: var(--aika-shadow-cta);
+}
+
+html body.v6 #module_discounts_and_events ._3dtnlw7cvJhAMGafZPipGv {
+    gap: var(--aika-space-1);
+    padding: 1px var(--aika-space-2);
+    color: var(--aika-on-accent);
+    font-family: var(--aika-font-mono);
+    font-size: var(--aika-text-label);
+    letter-spacing: var(--aika-tracking-label);
+}
+
+html body.v6 #module_discounts_and_events ._3dtnlw7cvJhAMGafZPipGv svg {
+    fill: currentColor;
+}
+
+/* "Your personal calendar" (Steam's CSS module personalcalendar.css), all under
+   ._326_uhqq2I-hJwNRSqIZK4 — the block (anchor: .personal_calendar_ctn):
+     ._3RqS6vEZhqX3_4AIeJFajW — the title (white Motiva 600), .lX3GvxrkYaEqKJRpIhPsk
+       inside — the "NEW" badge (#1a9fff); ._1qbTrTsvR9qbMi-Navsk-D — the subtitle
+     .tqaXEuWN2wV5_8lmSkMng   — a day column (a blue → magenta gradient),
+       ._8UPO4fZBxxerbhcRBpAcc — today, ._1beaDtCHZ3Kn9oAHWEKXMe — the other days
+     .VSMflzbqITft0dYgbLNq1   — the day header: ._3cnfRW-1ajM2MW96f4sTXj weekday,
+       ._1pMe55FBPBDyaWssCZrawa date, ._1iXgQQI5ZT9D1DgDCwVW_T "Today" (white border)
+     ._2A83UfRXWSLbHFYfDcch9W — a cover frame (Steam scales it 1.05 on hover
+       with ._2z7ihwH3mo730-p6kXROXX), ._1wt5Ne6MrJfPVdFz5fGlop — "and N more" (#436081)
+   Steam's strength up to (0,3,0). Verified: 2026-10-12. */
+@property --aika-home-angle {
+    syntax: "<angle>";
+    inherits: false;
+    initial-value: 0deg;
+}
+
+html body.v6 .personal_calendar_ctn ._3RqS6vEZhqX3_4AIeJFajW {
+    align-items: center;
+    font-family: var(--aika-font-ui);
+    letter-spacing: var(--aika-tracking-h2);
+    color: var(--aika-fg);
+}
+
+html body.v6 .personal_calendar_ctn ._1qbTrTsvR9qbMi-Navsk-D {
+    color: var(--aika-fg-muted);
+    text-shadow: none;
+}
+
+/* "NEW" — an accent pill with a glare passing every few seconds (Shiny Text) */
+@keyframes aika-home-shine {
+    0%, 70% { transform: translateX(var(--aika-shine-from)); }
+    100%    { transform: translateX(var(--aika-shine-to)); }
+}
+
+html body.v6 .personal_calendar_ctn .lX3GvxrkYaEqKJRpIhPsk {
+    position: relative;
+    overflow: hidden;
+    padding: 2px var(--aika-space-2);
+    border-radius: var(--aika-radius-full);
+    background: var(--aika-accent-fill);
+    box-shadow: var(--aika-shadow-cta);
+    color: var(--aika-on-accent);
+    font-family: var(--aika-font-mono);
+    font-size: var(--aika-text-label);
+    font-weight: var(--aika-weight-semibold);
+    letter-spacing: var(--aika-tracking-label);
+}
+
+html body.v6 .personal_calendar_ctn .lX3GvxrkYaEqKJRpIhPsk::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: var(--aika-shine-gradient);
+    animation: aika-home-shine var(--aika-home-shine-every) var(--aika-ease-ambient) infinite;
+}
+
+/* Day columns — Aika cards instead of the blue-magenta gradients */
+html body.v6 .personal_calendar_ctn .tqaXEuWN2wV5_8lmSkMng {
+    border-radius: var(--aika-radius-lg);
+    background: var(--aika-card-bg);
+    box-shadow: var(--aika-shadow-card), var(--aika-highlight-top);
+    transition: box-shadow var(--aika-dur-base) var(--aika-ease);
+}
+
+html body.v6 .personal_calendar_ctn .tqaXEuWN2wV5_8lmSkMng:hover {
+    box-shadow: var(--aika-shadow-card-hover), var(--aika-highlight-top);
+}
+
+/* Today: the accent card, its rim slowly circled by light (Star Border) —
+   ::after is the shared spotlight rim (store-home.css), here a conic gradient
+   that turns with --aika-home-angle and stays on without hover */
+html body.v6 .personal_calendar_ctn .tqaXEuWN2wV5_8lmSkMng._8UPO4fZBxxerbhcRBpAcc {
+    background: var(--aika-card-accent-bg);
+}
+
+@keyframes aika-home-spin {
+    to { --aika-home-angle: 360deg; }
+}
+
+html body.v6 .personal_calendar_ctn .carousel__inner-slide > ._8UPO4fZBxxerbhcRBpAcc::after {
+    padding: var(--aika-hairline);
+    background: conic-gradient(
+        from var(--aika-home-angle),
+        var(--aika-transparent) 0deg,
+        var(--aika-home-today-from) 60deg,
+        var(--aika-home-today-to) 120deg,
+        var(--aika-transparent) 180deg,
+        var(--aika-transparent) 360deg
+    );
+    opacity: 1;
+    animation: aika-home-spin var(--aika-home-today-spin) linear infinite;
+}
+
+html body.v6 .personal_calendar_ctn .tqaXEuWN2wV5_8lmSkMng .VSMflzbqITft0dYgbLNq1 {
+    font-family: var(--aika-font-mono);
+    font-size: var(--aika-text-meta);
+}
+
+html body.v6 .personal_calendar_ctn .tqaXEuWN2wV5_8lmSkMng .VSMflzbqITft0dYgbLNq1 ._3cnfRW-1ajM2MW96f4sTXj {
+    color: var(--aika-fg-subtle);
+}
+
+html body.v6 .personal_calendar_ctn .tqaXEuWN2wV5_8lmSkMng .VSMflzbqITft0dYgbLNq1 ._1pMe55FBPBDyaWssCZrawa {
+    color: var(--aika-fg);
+    font-weight: var(--aika-weight-semibold);
+}
+
+html body.v6 .personal_calendar_ctn .tqaXEuWN2wV5_8lmSkMng .VSMflzbqITft0dYgbLNq1 ._1iXgQQI5ZT9D1DgDCwVW_T {
+    border-bottom-color: var(--aika-accent);
+    color: var(--aika-accent-bright);
+}
+
+html body.v6 .personal_calendar_ctn ._2A83UfRXWSLbHFYfDcch9W {
+    overflow: hidden;
+    border-radius: var(--aika-radius-md);
+    box-shadow: var(--aika-shadow-cover);
+    transition:
+        transform var(--aika-dur-base) var(--aika-ease),
+        box-shadow var(--aika-dur-base) var(--aika-ease);
+}
+
+/* Steam's hover class: a 5 % zoom in 0.1 s ease-in-out — our lift instead */
+html body.v6 .personal_calendar_ctn ._2A83UfRXWSLbHFYfDcch9W._2z7ihwH3mo730-p6kXROXX,
+html body.v6 .personal_calendar_ctn ._2A83UfRXWSLbHFYfDcch9W:hover {
+    transform: translateY(var(--aika-lift-md));
+    box-shadow: var(--aika-shadow-cover-hover);
+}
+
+html body.v6 .personal_calendar_ctn .tqaXEuWN2wV5_8lmSkMng ._1wt5Ne6MrJfPVdFz5fGlop {
+    border-radius: var(--aika-radius-full);
+    background: var(--aika-player-material);
+    backdrop-filter: var(--aika-player-blur);
+    box-shadow: var(--aika-shadow-secondary);
+    color: var(--aika-fg);
+    font-family: var(--aika-font-mono);
+    font-size: var(--aika-text-label);
+}
+
+html body.v6 .personal_calendar_ctn .tqaXEuWN2wV5_8lmSkMng ._1wt5Ne6MrJfPVdFz5fGlop:hover {
+    background: var(--aika-bg-raised);
+    box-shadow: var(--aika-shadow-secondary-hover);
+}
+
+@media (prefers-reduced-motion: reduce) {
+    html body.v6 .personal_calendar_ctn .lX3GvxrkYaEqKJRpIhPsk::after,
+    html body.v6 .personal_calendar_ctn .carousel__inner-slide > ._8UPO4fZBxxerbhcRBpAcc::after {
+        animation: none;
+    }
+}
+
+/* An empty day — a note with a link (._1Vtz51wGyJHD9wpoDFNZ8M: white 7 %,
+   #dcdedf, the link underlined) */
+html body.v6 .personal_calendar_ctn .tqaXEuWN2wV5_8lmSkMng ._1Vtz51wGyJHD9wpoDFNZ8M {
+    border-radius: var(--aika-radius-md);
+    background-color: var(--aika-surface);
+    box-shadow: inset 0 0 0 var(--aika-hairline) var(--aika-border);
+    color: var(--aika-fg-muted);
+}
+
+html body.v6 .personal_calendar_ctn .tqaXEuWN2wV5_8lmSkMng ._1Vtz51wGyJHD9wpoDFNZ8M a {
+    color: var(--aika-accent-bright);
+}
+
+html body.v6 .personal_calendar_ctn .tqaXEuWN2wV5_8lmSkMng ._1Vtz51wGyJHD9wpoDFNZ8M a:hover {
+    color: var(--aika-fg);
+}

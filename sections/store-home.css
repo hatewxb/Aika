@@ -1,0 +1,658 @@
+/* ==========================================================================
+   store-home.css — the store home page (store.steampowered.com/),
+   imported from webkit.css after store.css. Captured via CDP 2026-10-12.
+
+   The palette, prices, purchase buttons, the hover card and the old
+   "Home sections" rules stay in store.css (they are shared with other store
+   pages). Here — the showcase itself, top to bottom:
+     1. Shared parts: section titles, carousel arrows and dots, covers.
+     2. Motion: cursor spotlight + border glow on large blocks, reveal on
+        scroll, cover glare (js/store-home.js sets the coordinates and
+        html.aika-reveal; without it everything is visible, glows from the top).
+     3. "Featured & Recommended" — the wide main carousel.
+     4. "Specials & events".
+     5. "Your personal calendar".
+     6. The discovery queue banner, wishlist / DLC, the tabs band.
+   Hash parts of the React blocks — selectors.css ("Store home").
+
+   Ideas adapted from reactbits.dev (only the idea, our own code): Spotlight
+   Card + Border Glow (the rim lights up by the cursor), Glare Hover, Fade
+   Content with stagger, Depth Carousel (the side capsules turned away),
+   Magnet (arrows lean toward the cursor), Shiny Text, Star Border, Dot Grid.
+   ========================================================================== */
+
+/* --------------------------------------------------------------------------
+   1. Shared parts
+   -------------------------------------------------------------------------- */
+
+/* Section titles. Steam: Motiva 600 white, clamp(1rem, 1.75cqi, 1.5rem).
+   Aika: the H2 level, gradient text, a Fluent accent mark in front
+   (decoration only — the text is Steam's). The React blocks' titles
+   (hash classes) get the same look in selectors.css. */
+html body.v6 :is(.home_section_title, .home_page_content .home_title, .home_content .single_title) {
+    font-family: var(--aika-font-ui);
+    font-weight: var(--aika-weight-semibold);
+    letter-spacing: var(--aika-tracking-h2);
+    color: var(--aika-fg);
+    text-shadow: none;
+}
+
+html body.v6 .home_section_title,
+html body.v6 .home_page_content > .home_pagecontent_ctn > .home_content > h2 {
+    position: relative;
+    padding-left: calc(var(--aika-home-mark-width) + var(--aika-space-3));
+}
+
+html body.v6 .home_section_title::before,
+html body.v6 .home_page_content > .home_pagecontent_ctn > .home_content > h2::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 50%;
+    width: var(--aika-home-mark-width);
+    height: var(--aika-home-mark-height);
+    border-radius: var(--aika-radius-full);
+    background: var(--aika-accent);
+    box-shadow: 0 0 12px var(--aika-accent-glow);
+    transform: translateY(-50%);
+}
+
+/* "Featured & Recommended" — the page headline: the display serif (DESIGN.md §3.3) */
+html body.v6 #home_maincap_v7 .home_title {
+    font-family: var(--aika-font-display);
+    font-size: var(--aika-home-title-size);
+    font-weight: var(--aika-weight-semibold);
+    font-variation-settings: var(--aika-home-title-axes);
+    letter-spacing: var(--aika-tracking-h1);
+    line-height: var(--aika-leading-heading);
+    text-transform: none;
+    background: var(--aika-text-gradient);
+    background-clip: text;
+    color: var(--aika-transparent);
+}
+
+html body.v6 #home_maincap_v7 .home_title_ctn {
+    align-items: flex-end;
+    margin-bottom: var(--aika-space-3);
+}
+
+/* The old carousels' arrows (.carousel_container .arrow > div — Steam's
+   cut_arrow.svg): a round player-material button with a chevron; it leans
+   toward the cursor (js/store-home.js, --aika-magnet-x/y). */
+html body.v6 .carousel_container .arrow {
+    opacity: 1;
+}
+
+html body.v6 .carousel_container .arrow > div {
+    position: relative;
+    width: var(--aika-home-arrow);
+    height: var(--aika-home-arrow);
+    border-radius: var(--aika-radius-full);
+    background: var(--aika-player-material);
+    backdrop-filter: var(--aika-player-blur);
+    box-shadow: var(--aika-shadow-secondary);
+    transform: translate(var(--aika-magnet-x, 0), var(--aika-magnet-y, 0));
+    transition:
+        transform var(--aika-dur-base) var(--aika-ease),
+        box-shadow var(--aika-dur-base) var(--aika-ease);
+}
+
+/* Steam rotates the left one (and back for RTL) — the chevron does it instead */
+html body.v6 .carousel_container .arrow.left > div,
+html body.v6 .carousel_container .arrow.left > div:dir(rtl) {
+    transform: translate(var(--aika-magnet-x, 0), var(--aika-magnet-y, 0));
+}
+
+html body.v6 .carousel_container .arrow > div::before,
+html body.v6 :is(.CarouselBtnLeft, .CarouselBtnRight)::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    margin: auto;
+    width: var(--aika-home-arrow-icon);
+    height: var(--aika-home-arrow-icon);
+    background: var(--aika-fg);
+    -webkit-mask: var(--aika-icon-chevron) center / contain no-repeat;
+    mask: var(--aika-icon-chevron) center / contain no-repeat;
+}
+
+html body.v6 .carousel_container .arrow.left > div::before,
+html body.v6 .CarouselBtnLeft::after {
+    transform: scaleX(-1);
+}
+
+html body.v6 .carousel_container .arrow:hover > div {
+    box-shadow: var(--aika-shadow-secondary-hover);
+}
+
+html body.v6 .carousel_container .arrow:active > div {
+    transform: translate(var(--aika-magnet-x, 0), var(--aika-magnet-y, 0)) scale(var(--aika-press-scale));
+}
+
+/* The React carousels (pure-react-carousel: Specials, the calendar…) —
+   the same button drawn by the arrow's pseudo-elements, Steam's SVG hidden */
+html body.v6 :is(.CarouselBtnLeft, .CarouselBtnRight) > svg {
+    display: none;
+}
+
+html body.v6 :is(.CarouselBtnLeft, .CarouselBtnRight)::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    margin: auto;
+    width: var(--aika-home-arrow);
+    height: var(--aika-home-arrow);
+    border-radius: var(--aika-radius-full);
+    background: var(--aika-player-material);
+    backdrop-filter: var(--aika-player-blur);
+    box-shadow: var(--aika-shadow-secondary);
+    transition: box-shadow var(--aika-dur-base) var(--aika-ease);
+}
+
+html body.v6 :is(.CarouselBtnLeft, .CarouselBtnRight)::before,
+html body.v6 :is(.CarouselBtnLeft, .CarouselBtnRight)::after {
+    translate: var(--aika-magnet-x, 0) var(--aika-magnet-y, 0);
+    transition:
+        translate var(--aika-dur-base) var(--aika-ease),
+        box-shadow var(--aika-dur-base) var(--aika-ease);
+}
+
+html body.v6 :is(.CarouselBtnLeft, .CarouselBtnRight):hover::before {
+    box-shadow: var(--aika-shadow-secondary-hover);
+}
+
+/* Carousel dots: old (.carousel_thumbs > div) and React (.carousel__dot) —
+   short pills, the current one stretches and glows with the accent */
+html body.v6 .carousel_container .carousel_thumbs > div,
+html body.v6 .carousel__dot::before {
+    width: var(--aika-home-dot-width);
+    max-width: none;
+    height: var(--aika-home-dot-height);
+    border-radius: var(--aika-radius-full);
+    background-color: var(--aika-surface-active);
+    transition:
+        width var(--aika-dur-base) var(--aika-ease),
+        background-color var(--aika-dur-fast) var(--aika-ease-hover),
+        box-shadow var(--aika-dur-base) var(--aika-ease);
+}
+
+html body.v6 .carousel_container .carousel_thumbs > div {
+    flex: none;
+}
+
+html body.v6 .carousel_container .carousel_thumbs > div:hover,
+html body.v6 .carousel__dot:hover::before {
+    background-color: var(--aika-fg-subtle);
+}
+
+html body.v6 .carousel_container .carousel_thumbs > div.focus,
+html body.v6 .carousel__dot--selected::before {
+    width: var(--aika-home-dot-width-active);
+    background-color: var(--aika-accent);
+    box-shadow: 0 0 10px var(--aika-accent-glow);
+}
+
+html body.v6 .carousel__dot > svg {
+    display: none;
+}
+
+html body.v6 .carousel__dot {
+    display: inline-grid;
+    place-items: center;
+    width: auto;
+    padding: var(--aika-space-1) 2px;
+    background: none;
+}
+
+html body.v6 .carousel__dot::before {
+    content: "";
+    display: block;
+}
+
+/* React carousels: the tray glides between pages on expo-out
+   (Steam jumps; pure-react-carousel moves the tray by transform) */
+html body.v6 .carousel__slider-tray {
+    transition: transform calc(var(--aika-dur-enter) * 1.4) var(--aika-ease);
+}
+
+/* Covers in the old capsules: rounding, a lift, the cover zooms in its frame
+   and a glare sweeps across it (Glare Hover). Transform and opacity only —
+   these are many (DESIGN.md §4 Cards, the lightweight version). */
+html body.v6 :is(a.sale_capsule, a.content_hub_capsule_ctn) {
+    border-radius: var(--aika-radius-lg);
+    box-shadow: var(--aika-shadow-cover);
+    transition:
+        transform var(--aika-dur-base) var(--aika-ease),
+        box-shadow var(--aika-dur-base) var(--aika-ease);
+}
+
+html body.v6 :is(a.sale_capsule, a.content_hub_capsule_ctn):hover {
+    transform: translateY(var(--aika-lift-md));
+    box-shadow: var(--aika-shadow-cover-hover);
+}
+
+html body.v6 a.sale_capsule .capsule_image_ctn {
+    overflow: hidden;
+}
+
+html body.v6 :is(a.sale_capsule .capsule_image_ctn, a.content_hub_capsule_ctn)::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: 2;
+    background: var(--aika-home-glare);
+    transform: translateX(var(--aika-shine-from));
+    pointer-events: none;
+}
+
+html body.v6 :is(a.sale_capsule:hover .capsule_image_ctn, a.content_hub_capsule_ctn:hover)::after {
+    transform: translateX(var(--aika-shine-to));
+    transition: transform var(--aika-home-shine-dur) var(--aika-ease);
+}
+
+html body.v6 :is(a.sale_capsule .sale_capsule_image, a.content_hub_capsule_ctn > img) {
+    transition: transform calc(var(--aika-dur-enter) * 1.4) var(--aika-ease);
+}
+
+html body.v6 :is(a.sale_capsule:hover .sale_capsule_image, a.content_hub_capsule_ctn:hover > img) {
+    transform: scale(var(--aika-home-zoom));
+}
+
+/* --------------------------------------------------------------------------
+   2. Motion: spotlight + border glow, reveal on scroll
+   -------------------------------------------------------------------------- */
+
+/* Large blocks (the same list as SURFACES in js/store-home.js, minus the
+   calendar — its own dot grid below). ::before — a soft accent spot under the
+   cursor (as in the client, components/card.css); ::after — the rim: a 1 px
+   ring of light that is brightest by the cursor (Border Glow). Pseudo-elements
+   of all of them are free (verified 2026-10-12). */
+html body.v6 :is(
+    #home_maincap_v7 .store_main_capsule.focus,
+    #module_discounts_and_events .carousel__inner-slide a,
+    .personal_calendar_ctn .carousel__inner-slide > div,
+    .home_discounts_block,
+    .community_recommendation_app,
+    .home_content.single,
+    .tab_preview.focus
+) {
+    position: relative;
+}
+
+html body.v6 :is(
+    #home_maincap_v7 .store_main_capsule.focus,
+    #module_discounts_and_events .carousel__inner-slide a,
+    .personal_calendar_ctn .carousel__inner-slide > div,
+    .home_discounts_block,
+    .community_recommendation_app,
+    .home_content.single,
+    .tab_preview.focus
+)::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: 3;
+    border-radius: inherit;
+    background: radial-gradient(
+        var(--aika-spot-size) circle at var(--aika-spot-x) var(--aika-spot-y),
+        var(--aika-accent-spot),
+        var(--aika-accent-none)
+    );
+    mix-blend-mode: screen;
+    opacity: 0;
+    transition: opacity var(--aika-dur-base) var(--aika-ease-hover);
+    pointer-events: none;
+}
+
+html body.v6 :is(
+    #home_maincap_v7 .store_main_capsule.focus,
+    #module_discounts_and_events .carousel__inner-slide a,
+    .personal_calendar_ctn .carousel__inner-slide > div,
+    .home_discounts_block,
+    .community_recommendation_app,
+    .home_content.single,
+    .tab_preview.focus
+)::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: 3;
+    padding: var(--aika-hairline);
+    border-radius: inherit;
+    background: radial-gradient(
+        var(--aika-home-rim-size) circle at var(--aika-spot-x) var(--aika-spot-y),
+        var(--aika-home-rim),
+        var(--aika-accent-none)
+    );
+    -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+    opacity: 0;
+    transition: opacity var(--aika-dur-base) var(--aika-ease-hover);
+    pointer-events: none;
+}
+
+html body.v6 :is(
+    #home_maincap_v7 .store_main_capsule.focus,
+    #module_discounts_and_events .carousel__inner-slide a,
+    .personal_calendar_ctn .carousel__inner-slide > div,
+    .home_discounts_block,
+    .community_recommendation_app,
+    .home_content.single,
+    .tab_preview.focus
+):hover::before,
+html body.v6 :is(
+    #home_maincap_v7 .store_main_capsule.focus,
+    #module_discounts_and_events .carousel__inner-slide a,
+    .personal_calendar_ctn .carousel__inner-slide > div,
+    .home_discounts_block,
+    .community_recommendation_app,
+    .home_content.single,
+    .tab_preview.focus
+):hover::after {
+    opacity: 1;
+}
+
+/* Reveal: sections fade up once as they enter the window (Fade Content);
+   the covers of the current carousel page follow with a stagger. The same
+   stagger replays when a carousel turns a page — Steam swaps .focus /
+   .carousel__slide--visible, the selector matches anew. */
+@keyframes aika-home-rise {
+    from {
+        opacity: 0;
+        transform: translateY(var(--aika-home-reveal-shift));
+    }
+}
+
+@keyframes aika-home-rise-sm {
+    from {
+        opacity: 0;
+        transform: translateY(var(--aika-appear-shift));
+    }
+}
+
+html.aika-reveal body.v6 :is(.main_content_ctn, #content_more) > :not(.aika-in) {
+    opacity: 0;
+}
+
+html.aika-reveal body.v6 :is(.main_content_ctn, #content_more) > .aika-in {
+    animation: aika-home-rise calc(var(--aika-dur-enter) * 1.4) var(--aika-ease) backwards;
+}
+
+html.aika-reveal body.v6 .aika-in :is(
+    .paging_capsules .carousel_items > .focus > *,
+    .carousel__slide--visible,
+    .home_discount_games_ctn > *,
+    .home_content_items > *
+) {
+    animation: aika-home-rise-sm var(--aika-dur-enter) var(--aika-ease) backwards;
+    animation-delay: calc(var(--aika-home-i, 0) * var(--aika-stagger));
+}
+
+html.aika-reveal body.v6 .aika-in :is(
+    .paging_capsules .carousel_items > .focus > *,
+    .carousel__slide--visible,
+    .home_discount_games_ctn > *,
+    .home_content_items > *
+):nth-child(2) { --aika-home-i: 1; }
+html.aika-reveal body.v6 .aika-in :is(
+    .paging_capsules .carousel_items > .focus > *,
+    .carousel__slide--visible,
+    .home_discount_games_ctn > *,
+    .home_content_items > *
+):nth-child(3) { --aika-home-i: 2; }
+html.aika-reveal body.v6 .aika-in :is(
+    .paging_capsules .carousel_items > .focus > *,
+    .carousel__slide--visible,
+    .home_discount_games_ctn > *,
+    .home_content_items > *
+):nth-child(4) { --aika-home-i: 3; }
+html.aika-reveal body.v6 .aika-in :is(
+    .paging_capsules .carousel_items > .focus > *,
+    .carousel__slide--visible,
+    .home_discount_games_ctn > *,
+    .home_content_items > *
+):nth-child(n + 5) { --aika-home-i: 4; }
+
+/* The section title's accent mark grows in after the title */
+@keyframes aika-home-mark {
+    from { transform: translateY(-50%) scaleY(0); }
+}
+
+html.aika-reveal body.v6 .aika-in .home_section_title::before {
+    animation: aika-home-mark var(--aika-dur-enter) var(--aika-ease) calc(2 * var(--aika-stagger)) backwards;
+}
+
+/* --------------------------------------------------------------------------
+   3. "Featured & Recommended" (#home_maincap_v7): the main capsule is a large
+   card; in the wide mode (≥ 1400 px) Steam shows the neighbors at the sides,
+   desaturated and masked — we turn them away in perspective (Depth Carousel)
+   and slide the new capsule in from the side Steam turned to
+   (the arrow under the cursor — .arrow_hover_next / _prev on the wide carousel —
+   tells the side; autoplay just fades in; Steam swaps .focus instantly).
+   -------------------------------------------------------------------------- */
+
+html body.v6 #home_maincap_v7 .store_main_capsule {
+    overflow: hidden;
+    border-radius: var(--aika-radius-xl);
+    box-shadow: var(--aika-shadow-card);
+    transition: box-shadow var(--aika-dur-base) var(--aika-ease);
+}
+
+html body.v6 #home_maincap_v7 .store_main_capsule.focus:hover {
+    box-shadow: var(--aika-shadow-card-hover);
+}
+
+html body.v6 #home_maincap_v7 .store_main_capsule .info {
+    background: var(--aika-raised-bg);
+    box-shadow: inset var(--aika-hairline) 0 0 0 var(--aika-border);
+}
+
+html body.v6 #home_maincap_v7 .store_main_capsule .app_name {
+    font-family: var(--aika-font-ui);
+    font-weight: var(--aika-weight-semibold);
+    letter-spacing: var(--aika-tracking-h2);
+    color: var(--aika-fg);
+}
+
+/* Screenshot thumbnails: rounded, dimmed until hovered (Steam: opacity .6) */
+html body.v6 #home_maincap_v7 .store_main_capsule .screenshots > div {
+    border-radius: var(--aika-radius-md);
+    box-shadow: inset 0 0 0 var(--aika-hairline) var(--aika-border);
+    transition:
+        opacity var(--aika-dur-base) var(--aika-ease-hover),
+        transform var(--aika-dur-base) var(--aika-ease);
+}
+
+html body.v6 #home_maincap_v7 .store_main_capsule .screenshots > div:hover {
+    transform: translateY(var(--aika-lift-sm)) scale(var(--aika-home-zoom));
+}
+
+html body.v6 #home_maincap_v7 .store_main_capsule .reason .main {
+    font-weight: var(--aika-weight-regular);
+    color: var(--aika-fg-muted);
+}
+
+html body.v6 #home_maincap_v7 .store_main_capsule .reason .main .tags > span {
+    border-radius: var(--aika-radius-full);
+    background: var(--aika-surface-active);
+    color: var(--aika-fg-muted);
+    font-size: var(--aika-text-meta);
+}
+
+html body.v6 #home_maincap_v7 .store_main_capsule .info .discount_block {
+    align-self: flex-end;
+}
+
+@keyframes aika-home-page-in {
+    from {
+        opacity: 0;
+        transform: translateX(var(--aika-home-page-from, 0)) scale(var(--aika-appear-scale));
+    }
+}
+
+@keyframes aika-home-fade-in {
+    from { opacity: 0; }
+}
+
+html body.v6 #home_maincap_v7:is(.go-next, .arrow_hover_next) { --aika-home-page-from: var(--aika-home-page-shift); }
+html body.v6 #home_maincap_v7:is(.go-prev, .arrow_hover_prev) { --aika-home-page-from: calc(-1 * var(--aika-home-page-shift)); }
+
+html body.v6 #home_maincap_v7 .store_main_capsule.focus {
+    animation: aika-home-page-in calc(var(--aika-dur-enter) * 1.4) var(--aika-ease);
+}
+
+@media screen and (min-width: 1400px) {
+    /* Steam: .carousel_wide_mode .carousel_container .next (0,3,0) */
+    html body.v6 #home_maincap_v7.carousel_wide_mode .carousel_container .store_main_capsule.next {
+        transform: translateX(calc(1200px + 40px)) var(--aika-home-depth) rotateY(calc(-1 * var(--aika-home-side-turn))) scale(var(--aika-home-side-scale));
+        transform-origin: left center;
+        animation: aika-home-fade-in var(--aika-dur-enter) var(--aika-ease);
+    }
+
+    html body.v6 #home_maincap_v7.carousel_wide_mode .carousel_container .store_main_capsule.prev {
+        transform: translateX(calc(-756px - 40px)) var(--aika-home-depth) rotateY(var(--aika-home-side-turn)) scale(var(--aika-home-side-scale));
+        transform-origin: right center;
+        animation: aika-home-fade-in var(--aika-dur-enter) var(--aika-ease);
+    }
+
+    html body.v6 #home_maincap_v7.carousel_wide_mode .carousel_container .store_main_capsule:is(.next, .prev) {
+        box-shadow: none;
+    }
+}
+
+/* --------------------------------------------------------------------------
+   4. "Specials & events" (#module_discounts_and_events, React): tiles are
+   cards with a rounded cover that zooms under the cursor; the event label and
+   the price strip — selectors.css. The block's own plate is our card surface
+   (Steam's --dark-ctn-bg, remapped in store.css).
+   -------------------------------------------------------------------------- */
+
+html body.v6 #module_discounts_and_events .carousel__slider {
+    border-radius: var(--aika-radius-xl);
+    box-shadow: var(--aika-shadow-panel);
+}
+
+html body.v6 #module_discounts_and_events .carousel__inner-slide a {
+    overflow: hidden;
+    border-radius: var(--aika-radius-lg);
+    background: var(--aika-bg-elevated);
+    box-shadow: var(--aika-shadow-cover);
+    transition:
+        transform var(--aika-dur-base) var(--aika-ease),
+        box-shadow var(--aika-dur-base) var(--aika-ease);
+}
+
+html body.v6 #module_discounts_and_events .carousel__inner-slide a:hover {
+    transform: translateY(var(--aika-lift-md));
+    box-shadow: var(--aika-shadow-cover-hover);
+}
+
+html body.v6 #module_discounts_and_events .carousel__inner-slide a img {
+    transition:
+        opacity var(--aika-dur-base) var(--aika-ease-hover),
+        transform calc(var(--aika-dur-enter) * 1.4) var(--aika-ease);
+}
+
+html body.v6 #module_discounts_and_events .carousel__inner-slide a:hover img {
+    transform: scale(var(--aika-home-zoom));
+}
+
+/* --------------------------------------------------------------------------
+   5. "Your personal calendar" (.personal_calendar_ctn, React). Steam's
+   backdrop is a big calendar-grid SVG at 35 % behind a side mask; ours is a
+   dot grid (Dot Grid) that lights up in the accent around the cursor — the
+   lit copy is the block's ::before, masked to a circle at --aika-spot-x/y
+   (js/store-home.js). Day columns, "Today" and the badge — selectors.css.
+   -------------------------------------------------------------------------- */
+
+html body.v6 .personal_calendar_background {
+    background:
+        radial-gradient(circle, var(--aika-home-grid-dot-color) var(--aika-home-grid-dot), var(--aika-transparent) calc(var(--aika-home-grid-dot) + 0.5px))
+        0 0 / var(--aika-home-grid-step) var(--aika-home-grid-step);
+    opacity: 1;
+}
+
+html body.v6 .personal_calendar_ctn::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background:
+        radial-gradient(circle, var(--aika-home-grid-dot-lit) var(--aika-home-grid-dot), var(--aika-transparent) calc(var(--aika-home-grid-dot) + 0.5px))
+        0 0 / var(--aika-home-grid-step) var(--aika-home-grid-step);
+    -webkit-mask: radial-gradient(var(--aika-home-grid-lit) circle at var(--aika-spot-x) var(--aika-spot-y), #fff, transparent);
+    mask: radial-gradient(var(--aika-home-grid-lit) circle at var(--aika-spot-x) var(--aika-spot-y), #fff, transparent);
+    opacity: 0;
+    transition: opacity var(--aika-dur-enter) var(--aika-ease-hover);
+    pointer-events: none;
+}
+
+html body.v6 .personal_calendar_ctn:hover::before {
+    opacity: 1;
+}
+
+html body.v6 .personal_calendar_ctn > .home_pagecontent_ctn {
+    position: relative;
+    z-index: 1;
+}
+
+/* --------------------------------------------------------------------------
+   6. The discovery queue banner ("View your queue", React: a wall of covers
+   drifting under .WidgetHeaderCtn — Steam: a square #386483 plate and a
+   purple → blue gradient), wishlist / DLC, the tabs band.
+   -------------------------------------------------------------------------- */
+
+html body.v6 .main_content_ctn .Panel:has(> .WidgetHeaderCtn) {
+    overflow: hidden;
+    border-radius: var(--aika-radius-xl);
+    background: var(--aika-bg-elevated);
+    box-shadow: var(--aika-shadow-card);
+    transition: box-shadow var(--aika-dur-base) var(--aika-ease);
+}
+
+html body.v6 .main_content_ctn .Panel:has(> .WidgetHeaderCtn):hover {
+    box-shadow: var(--aika-shadow-card-hover);
+}
+
+html body.v6 .main_content_ctn .Panel:has(> .WidgetHeaderCtn) > :not(.WidgetHeaderCtn) {
+    background: var(--aika-bg-elevated);
+}
+
+html body.v6 .main_content_ctn .WidgetHeaderCtn {
+    background: var(--aika-home-queue-shade);
+}
+
+html body.v6 .main_content_ctn .WidgetHeaderCtn > :first-child {
+    color: var(--aika-fg);
+    font-family: var(--aika-font-ui);
+    font-weight: var(--aika-weight-semibold);
+    letter-spacing: var(--aika-tracking-h2);
+}
+
+html body.v6 .main_content_ctn .WidgetHeaderCtn > :nth-child(2) {
+    color: var(--aika-fg-muted);
+    font-weight: var(--aika-weight-regular);
+}
+
+/* Wishlist / DLC: panels like the rest of the page */
+html body.v6 .home_discounts_block {
+    border-radius: var(--aika-radius-xl);
+}
+
+/* The tabs band: Steam paints a full-width card strip — a hairline
+   divider on top instead (DESIGN.md §5, "Rhythm") */
+html body.v6 .home_tab_section .home_tab_bg_ctn {
+    background: var(--aika-divider) top / 100% var(--aika-hairline) no-repeat;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    html body.v6 #home_maincap_v7 .store_main_capsule:is(.focus, .next, .prev),
+    html.aika-reveal body.v6 .aika-in *,
+    html.aika-reveal body.v6 :is(.main_content_ctn, #content_more) > .aika-in {
+        animation: none;
+    }
+
+    html body.v6 :is(a.sale_capsule .capsule_image_ctn, a.content_hub_capsule_ctn)::after {
+        display: none;
+    }
+}

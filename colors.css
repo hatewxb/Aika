@@ -188,6 +188,16 @@ html:root {
     --aika-toast-rim-bottom: rgba(0, 0, 0, 0.30);    /* a dark rim at the bottom */
     --aika-toast-text-shadow: rgba(0, 0, 0, 0.55);   /* text reads over any desktop */
 
+    /* ------------------------------------------------------------------
+       The store home page (sections/store-home.css)
+       ------------------------------------------------------------------ */
+    --aika-home-rim: rgb(from var(--aika-accent-bright) r g b / 0.6);  /* the border glow by the cursor */
+    --aika-glare: rgb(from var(--aika-ink) r g b / 0.14);              /* the glare over a cover */
+    --aika-home-grid-dot-color: rgb(from var(--aika-ink) r g b / 0.07);
+    --aika-home-grid-dot-lit: rgb(from var(--aika-accent-bright) r g b / 0.5);
+    --aika-home-today-from: var(--aika-accent);                         /* the "Today" border light */
+    --aika-home-today-to: var(--aika-light-2);
+
     /* Fully transparent — to "remove" Steam backgrounds without bare values */
     --aika-transparent: rgb(from var(--aika-ink) r g b / 0);
 }

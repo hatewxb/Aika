@@ -184,6 +184,11 @@ html:root:is(:has(> body.v6), :has(> body > #StoreTemplate)) {
     --blue-gradient-bg-muted-opaque: var(--aika-raised-bg);
     --multi-color-bg-gradient-1: var(--aika-card-accent-bg);
     --multi-color-bg-gradient-2: var(--aika-card-accent-bg);
+    /* 3–6: teal / magenta event labels and plates on the home page */
+    --multi-color-bg-gradient-3: var(--aika-card-accent-bg);
+    --multi-color-bg-gradient-4: var(--aika-card-bg);
+    --multi-color-bg-gradient-5: var(--aika-card-accent-bg);
+    --multi-color-bg-gradient-6: var(--aika-card-accent-bg);
     --hightlight-bottom: var(--aika-highlight-top);
 
     /* Semantic: a discount — Aika green (like Steam — "a good deal"),

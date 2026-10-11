@@ -223,6 +223,33 @@
     --aika-cine-icon: 20px;
     --aika-cine-icon-sm: 18px;              /* player capsule icons */
     --aika-cine-tags-basis: 360px;          /* the tag cloud in the facts strip */
+    /* The store home page (sections/store-home.css, js/store-home.js) */
+    --aika-home-title-size: clamp(28px, 2.4vw, 36px);    /* "Featured & Recommended" — the page headline */
+    --aika-home-title-axes: "opsz" 96, "SOFT" 50;
+    --aika-home-mark-width: 3px;                          /* the Fluent mark before section titles */
+    --aika-home-mark-height: 0.9em;
+    --aika-home-arrow: 40px;                              /* round carousel arrows */
+    --aika-home-arrow-icon: 18px;
+    --aika-home-dot-width: 14px;                          /* carousel dots: a pill… */
+    --aika-home-dot-width-active: 28px;                   /* …the current one stretches */
+    --aika-home-dot-height: 4px;
+    --aika-home-rim-size: 220px;                          /* the border glow around the cursor */
+    --aika-home-zoom: 1.04;                               /* a cover under the cursor */
+    --aika-home-reveal-shift: 24px;                       /* sections rise this much on reveal */
+    --aika-home-page-shift: 3%;                           /* the next capsule slides in from the side */
+    --aika-home-depth: perspective(1600px);
+    --aika-home-side-turn: 14deg;                         /* side capsules of the main carousel, turned away */
+    --aika-home-side-scale: 0.94;
+    --aika-home-grid-step: 24px;                          /* the calendar dot grid */
+    --aika-home-grid-dot: 1.2px;
+    --aika-home-grid-lit: 260px;                          /* the dots light up within this radius */
+    --aika-home-today-spin: 6s;                           /* the "Today" border light, one turn */
+    --aika-home-shine-dur: 900ms;                         /* the glare over a cover / a badge */
+    --aika-home-shine-every: 5s;                          /* the "New" badge shine period */
+    /* The queue banner: the text side solid, the cover wall shows through on the right */
+    --aika-home-queue-shade: linear-gradient(77deg, var(--aika-bg-raised) 0%, var(--aika-bg-elevated) 40%, var(--aika-transparent) 70%);
+    --aika-home-glare: linear-gradient(115deg, var(--aika-transparent) 35%, var(--aika-glare) 50%, var(--aika-transparent) 65%);
+    --aika-icon-chevron: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2.25' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M9.5 5.5l6.5 6.5-6.5 6.5'/%3E%3C/svg%3E");
     /* The collapsed review text fades into the background color under the card */
     --aika-store-review-fade: linear-gradient(to bottom, var(--aika-transparent), var(--aika-bg-elevated));
     /* Spotlight: JS sets the point (--aika-spot-x/y on the element), without JS —

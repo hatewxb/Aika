@@ -131,6 +131,10 @@
             "TargetJs": "js/store-app.js"
         },
         {
+            "MatchRegexString": "^https://store\\.steampowered\\.com/(\\?.*)?$",
+            "TargetJs": "js/store-home.js"
+        },
+        {
             "MatchRegexString": "^https://steamcommunity\\.com/(id|profiles)/[^/]+/screenshots.*",
             "TargetJs": "js/content-shelves.js"
         }
