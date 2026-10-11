@@ -214,7 +214,14 @@
     --aika-cine-button: 48px;                 /* "Buy", "Media", the heart */
     --aika-cine-price-size: clamp(28px, 2.4vw, 36px);
     --aika-cine-text-shadow: 0 1px 12px var(--aika-cine-shade-strong);
-    --aika-cine-sale-glow: 0 0 18px var(--aika-cine-sale-haze), 0 1px 12px var(--aika-cine-shade-strong);
+    /* The hero price: a light stripe sweeps across it every few seconds
+       (reactbits "Shiny Text"); shadows as filters — a text-shadow would be
+       painted over background-clip: text and darken it */
+    --aika-price-shine-angle: 120deg;
+    --aika-price-shine-dur: 3.6s;                 /* one sweep + a pause */
+    --aika-price-shine-size: 260%;                /* the gradient is this wide — the stripe is ~20 % of it */
+    --aika-price-drop: drop-shadow(0 1px 12px var(--aika-cine-shade-strong));
+    --aika-price-sale-drop: drop-shadow(0 0 18px var(--aika-cine-sale-haze)) drop-shadow(0 1px 12px var(--aika-cine-shade-strong));
     --aika-cine-fade: 1200ms;                 /* poster → trailer, trailer → trailer */
     --aika-cine-shade:
         linear-gradient(to top, var(--aika-cine-shade-strong) 0%, var(--aika-cine-shade-mid) 40%, var(--aika-scrim-none) 72%),

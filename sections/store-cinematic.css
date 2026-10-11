@@ -301,11 +301,30 @@ html.aika-cine .aika-cine-price {
     font-variant-numeric: tabular-nums;
 }
 
+/* Shiny Text (reactbits — the idea, pure CSS here): the price is a gradient
+   clipped to the text, a light stripe sweeps left to right, then rests */
+@keyframes aika-price-shine {
+    0%        { background-position: 100% 0; }
+    55%, 100% { background-position: 0 0; }
+}
+
 html.aika-cine .aika-cine-price-final {
+    --aika-price-from: var(--aika-price-base);
+    --aika-price-to: var(--aika-price-shine);
     font-size: var(--aika-cine-price-size);
     font-weight: var(--aika-weight-semibold);
     letter-spacing: var(--aika-tracking-h1);
-    color: var(--aika-fg);
+    color: var(--aika-price-from);
+    background: linear-gradient(
+        var(--aika-price-shine-angle),
+        var(--aika-price-from) 42%,
+        var(--aika-price-to) 50%,
+        var(--aika-price-from) 58%
+    ) 100% 0 / var(--aika-price-shine-size) 100% no-repeat;
+    background-clip: text;
+    -webkit-text-fill-color: var(--aika-transparent);
+    filter: var(--aika-price-drop);
+    animation: aika-price-shine var(--aika-price-shine-dur) var(--aika-ease-ambient) infinite;
 }
 
 html.aika-cine .aika-cine-price-orig {
@@ -318,8 +337,9 @@ html.aika-cine .aika-cine-price-orig {
    = a good deal) with a soft glow, a quiet tinted percent chip — no solid
    fill, so the accent "Buy" below stays the strongest thing */
 html.aika-cine .aika-cine-price.is-sale .aika-cine-price-final {
-    color: var(--aika-ok);
-    text-shadow: var(--aika-cine-sale-glow);
+    --aika-price-from: var(--aika-price-sale-base);
+    --aika-price-to: var(--aika-price-sale-shine);
+    filter: var(--aika-price-sale-drop);
 }
 
 html.aika-cine .aika-cine-price-pct {
@@ -970,6 +990,10 @@ html.aika-cine .aika-cine-player-time {
 }
 
 @media (prefers-reduced-motion: reduce) {
+    html.aika-cine .aika-cine-price-final {
+        animation: none;
+    }
+
     html.aika-cine :is(.aika-cine-main, .aika-cine-title.has-logo .aika-cine-logo) {
         animation: none;
     }

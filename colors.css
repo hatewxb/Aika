@@ -171,6 +171,13 @@ html:root {
     --aika-cine-seg-fill: var(--aika-fg);
     /* The glow under a discounted price in the hero */
     --aika-cine-sale-haze: rgb(from var(--aika-ok) r g b / 0.35);
+    /* The hero price shine (Shiny Text, author's fix 2026-10-12: "not dark —
+       the shine visible, the base lighter"): a light warm base, a near-white
+       stripe; on sale — the deal green and a pale green stripe */
+    --aika-price-base: color-mix(in oklab, var(--aika-fg) 62%, var(--aika-fg-muted));
+    --aika-price-shine: var(--aika-ink);
+    --aika-price-sale-base: color-mix(in oklab, var(--aika-ok) 82%, var(--aika-bg-base));
+    --aika-price-sale-shine: color-mix(in oklab, var(--aika-ok) 25%, var(--aika-ink));
 
     /* ------------------------------------------------------------------
        Notification toasts (components/toast.css, DESIGN.md §11):
