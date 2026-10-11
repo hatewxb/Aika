@@ -624,6 +624,22 @@ html body.v6 a.home_gift_card_link {
     border-radius: var(--aika-radius-lg);
     background: var(--aika-card-accent-bg);
     box-shadow: inset 0 0 0 var(--aika-hairline) var(--aika-border-accent);
+    transition: box-shadow var(--aika-dur-base) var(--aika-ease);
+}
+
+html body.v6 a.home_gift_card_link:hover {
+    box-shadow: inset 0 0 0 var(--aika-hairline) var(--aika-accent-ring), 0 0 20px var(--aika-accent-haze);
+}
+
+/* The fan of gift cards (gc_fan.webp — Steam's brand blue) in the accent
+   (author's request 2026-10-12); the fan opens a little on hover */
+html body.v6 a.home_gift_card_link .home_gift_card_img {
+    filter: var(--aika-tint-accent);
+    transition: transform var(--aika-dur-base) var(--aika-ease);
+}
+
+html body.v6 a.home_gift_card_link:hover .home_gift_card_img {
+    transform: translateY(var(--aika-lift-sm)) rotate(var(--aika-gift-tilt)) scale(var(--aika-home-zoom));
 }
 
 /* ==========================================================================
