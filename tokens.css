@@ -225,7 +225,7 @@
     --aika-cine-tags-basis: 360px;          /* the tag cloud in the facts strip */
     /* The store home page (sections/store-home.css, js/store-home.js) */
     --aika-home-title-size: clamp(28px, 2.4vw, 36px);    /* "Featured & Recommended" — the page headline */
-    --aika-home-title-axes: "opsz" 96, "SOFT" 50;
+    --aika-home-title-weight: 700;
     --aika-home-mark-width: 3px;                          /* the Fluent mark before section titles */
     --aika-home-mark-height: 0.9em;
     --aika-home-mark-glow: 0 0 12px var(--aika-accent-glow);
@@ -237,7 +237,9 @@
     --aika-home-dot-height: 4px;
     --aika-home-rim-size: 220px;                          /* the border glow around the cursor */
     --aika-home-zoom: 1.04;                               /* a cover under the cursor */
-    --aika-home-reveal-shift: 24px;                       /* sections rise this much on reveal */
+    --aika-home-pop-shift: 72px;                          /* the scroll pop-up: from this far below… */
+    --aika-home-pop-scale: 0.9;                           /* …and this small */
+    --aika-home-pop-stagger: 8%;                          /* the next neighbor in a row starts this much later */
     --aika-home-page-shift: 3%;                           /* the next capsule slides in from the side */
     --aika-home-depth: perspective(1600px);
     --aika-home-side-turn: 14deg;                         /* side capsules of the main carousel, turned away */

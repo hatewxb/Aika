@@ -6,9 +6,9 @@
    "Home sections" rules stay in store.css (they are shared with other store
    pages). Here — the showcase itself, top to bottom:
      1. Shared parts: section titles, carousel arrows and dots, covers.
-     2. Motion: cursor spotlight + border glow on large blocks, reveal on
-        scroll, cover glare (js/store-home.js sets the coordinates and
-        html.aika-reveal; without it everything is visible, glows from the top).
+     2. Motion: cursor spotlight + border glow on large blocks (js/store-home.js
+        sets the coordinates; without it the glows shine from the top), cover
+        glare, a pop-up on scroll (CSS scroll-driven animations).
      3. "Featured & Recommended" — the wide main carousel.
      4. "Specials & events".
      5. "Your personal calendar".
@@ -16,8 +16,8 @@
    Hash parts of the React blocks — selectors.css ("Store home").
 
    Ideas adapted from reactbits.dev (only the idea, our own code): Spotlight
-   Card + Border Glow (the rim lights up by the cursor), Glare Hover, Fade
-   Content with stagger, Depth Carousel (the side capsules turned away),
+   Card + Border Glow (the rim lights up by the cursor), Glare Hover, Scroll
+   Reveal (a pop-up tied to the scroll), Depth Carousel (the side capsules turned away),
    Magnet (arrows lean toward the cursor), Shiny Text, Star Border, Dot Grid.
    ========================================================================== */
 
@@ -54,13 +54,13 @@ html body.v6 :is(.home_section_title, #discounts_and_events_title, #content_more
     transform: translateY(-50%);
 }
 
-/* "Featured & Recommended" — the page headline: the display serif (DESIGN.md §3.3) */
+/* "Featured & Recommended" — the page headline: large bold Inter with the
+   gradient (the serif didn't suit the store — author's fix 2026-10-12) */
 html body.v6 #home_maincap_v7 .home_title {
-    font-family: var(--aika-font-display);
+    font-family: var(--aika-font-ui);
     font-size: var(--aika-home-title-size);
-    font-weight: var(--aika-weight-semibold);
-    font-variation-settings: var(--aika-home-title-axes);
-    letter-spacing: var(--aika-tracking-h1);
+    font-weight: var(--aika-home-title-weight);
+    letter-spacing: var(--aika-tracking-display);
     line-height: var(--aika-leading-heading);
     text-transform: none;
     background: var(--aika-text-gradient);
@@ -350,74 +350,64 @@ html body.v6 :is(
     opacity: 1;
 }
 
-/* Reveal: sections fade up once as they enter the window (Fade Content);
-   the covers of the current carousel page follow with a stagger. The same
-   stagger replays when a carousel turns a page — Steam swaps .focus /
-   .carousel__slide--visible, the selector matches anew. */
-@keyframes aika-home-rise {
+/* Pop-up on scroll: cards, rows and titles rise from below and grow to size
+   as they enter the window, tied to the scroll position (a view timeline —
+   scrolling back plays it in reverse). Neighbors in a row start a little
+   later each (the range shifts by --aika-home-i). Without scroll-driven
+   animations (or with reduced motion) everything is simply in place.
+   Transform and opacity only — the compositor runs it off the main thread. */
+@keyframes aika-home-pop {
     from {
         opacity: 0;
-        transform: translateY(var(--aika-home-reveal-shift));
+        transform: translateY(var(--aika-home-pop-shift)) scale(var(--aika-home-pop-scale));
     }
 }
 
-@keyframes aika-home-rise-sm {
-    from {
-        opacity: 0;
-        transform: translateY(var(--aika-appear-shift));
+@supports (animation-timeline: view()) {
+    html body.v6 :is(
+        .title_grid,
+        .home_tabs_row_ctn,
+        #content_more .home_content > h2,
+        .main_content_ctn .Panel:has(> .WidgetHeaderCtn),
+        .paging_capsules .carousel_items > .focus > *,
+        .carousel__slide--visible,
+        .home_discount_games_ctn > *,
+        a.tab_row_item,
+        .home_content_items > *,
+        .gp_contiguous_singles > .home_content_single_ctn
+    ) {
+        animation: aika-home-pop linear both;
+        animation-timeline: view();
+        animation-range:
+            entry calc(var(--aika-home-i, 0) * var(--aika-home-pop-stagger))
+            entry calc(100% + var(--aika-home-i, 0) * var(--aika-home-pop-stagger));
+        animation-timing-function: var(--aika-ease);
     }
-}
 
-html.aika-reveal body.v6 :is(.main_content_ctn, #content_more) > :not(.aika-in) {
-    opacity: 0;
-}
-
-html.aika-reveal body.v6 :is(.main_content_ctn, #content_more) > .aika-in {
-    animation: aika-home-rise calc(var(--aika-dur-enter) * 1.4) var(--aika-ease) backwards;
-}
-
-html.aika-reveal body.v6 .aika-in :is(
-    .paging_capsules .carousel_items > .focus > *,
-    .carousel__slide--visible,
-    .home_discount_games_ctn > *,
-    .home_content_items > *
-) {
-    animation: aika-home-rise-sm var(--aika-dur-enter) var(--aika-ease) backwards;
-    animation-delay: calc(var(--aika-home-i, 0) * var(--aika-stagger));
-}
-
-html.aika-reveal body.v6 .aika-in :is(
-    .paging_capsules .carousel_items > .focus > *,
-    .carousel__slide--visible,
-    .home_discount_games_ctn > *,
-    .home_content_items > *
-):nth-child(2) { --aika-home-i: 1; }
-html.aika-reveal body.v6 .aika-in :is(
-    .paging_capsules .carousel_items > .focus > *,
-    .carousel__slide--visible,
-    .home_discount_games_ctn > *,
-    .home_content_items > *
-):nth-child(3) { --aika-home-i: 2; }
-html.aika-reveal body.v6 .aika-in :is(
-    .paging_capsules .carousel_items > .focus > *,
-    .carousel__slide--visible,
-    .home_discount_games_ctn > *,
-    .home_content_items > *
-):nth-child(4) { --aika-home-i: 3; }
-html.aika-reveal body.v6 .aika-in :is(
-    .paging_capsules .carousel_items > .focus > *,
-    .carousel__slide--visible,
-    .home_discount_games_ctn > *,
-    .home_content_items > *
-):nth-child(n + 5) { --aika-home-i: 4; }
-
-/* The section title's accent mark grows in after the title */
-@keyframes aika-home-mark {
-    from { transform: translateY(-50%) scaleY(0); }
-}
-
-html.aika-reveal body.v6 .aika-in :is(.home_section_title, #discounts_and_events_title, .home_content > h2)::before {
-    animation: aika-home-mark var(--aika-dur-enter) var(--aika-ease) calc(2 * var(--aika-stagger)) backwards;
+    html body.v6 :is(
+        .paging_capsules .carousel_items > .focus > *,
+        .carousel__slide--visible,
+        .home_discount_games_ctn > *,
+        .home_content_items > *
+    ):nth-child(2) { --aika-home-i: 1; }
+    html body.v6 :is(
+        .paging_capsules .carousel_items > .focus > *,
+        .carousel__slide--visible,
+        .home_discount_games_ctn > *,
+        .home_content_items > *
+    ):nth-child(3) { --aika-home-i: 2; }
+    html body.v6 :is(
+        .paging_capsules .carousel_items > .focus > *,
+        .carousel__slide--visible,
+        .home_discount_games_ctn > *,
+        .home_content_items > *
+    ):nth-child(4) { --aika-home-i: 3; }
+    html body.v6 :is(
+        .paging_capsules .carousel_items > .focus > *,
+        .carousel__slide--visible,
+        .home_discount_games_ctn > *,
+        .home_content_items > *
+    ):nth-child(n + 5) { --aika-home-i: 4; }
 }
 
 /* --------------------------------------------------------------------------
@@ -874,8 +864,18 @@ html body.v6 .home_content.single .single_buttonbar .btnv6_white_transparent > s
 
 @media (prefers-reduced-motion: reduce) {
     html body.v6 #home_maincap_v7 .store_main_capsule:is(.focus, .next, .prev),
-    html.aika-reveal body.v6 .aika-in *,
-    html.aika-reveal body.v6 :is(.main_content_ctn, #content_more) > .aika-in {
+    html body.v6 :is(
+        .title_grid,
+        .home_tabs_row_ctn,
+        #content_more .home_content > h2,
+        .main_content_ctn .Panel:has(> .WidgetHeaderCtn),
+        .paging_capsules .carousel_items > .focus > *,
+        .carousel__slide--visible,
+        .home_discount_games_ctn > *,
+        a.tab_row_item,
+        .home_content_items > *,
+        .gp_contiguous_singles > .home_content_single_ctn
+    ) {
         animation: none;
     }
 

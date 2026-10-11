@@ -9,9 +9,7 @@
 //    calendar). Only blocks that appear a few at a time (DESIGN.md §7.9).
 // 2. Magnet: carousel arrows lean toward the cursor (--aika-magnet-x/y,
 //    a few px, transform only).
-// 3. Reveal: home sections fade up once as they scroll into view
-//    (html.aika-reveal + .aika-in); the infinite feed below is watched as
-//    Steam appends it. Off with prefers-reduced-motion.
+// The pop-up of cards on scroll is pure CSS (scroll-driven animations).
 
 (() => {
   "use strict";
@@ -67,34 +65,4 @@
     if (magnet) setMagnet(magnet, 0, 0);
     magnet = null;
   });
-
-  // ---------------------------------------------------------------- reveal
-  if (matchMedia("(prefers-reduced-motion: reduce)").matches) return;
-
-  const SECTIONS = ".main_content_ctn > *, #content_more > *";
-  const seen = new WeakSet();
-  const io = new IntersectionObserver((entries) => {
-    for (const en of entries) {
-      if (!en.isIntersecting) continue;
-      en.target.classList.add("aika-in");
-      io.unobserve(en.target);
-    }
-  }, { rootMargin: "0px 0px -8% 0px" });
-
-  const watch = () => {
-    for (const el of document.querySelectorAll(SECTIONS)) {
-      if (seen.has(el)) continue;
-      seen.add(el);
-      io.observe(el);
-    }
-  };
-
-  const start = () => {
-    watch();
-    document.documentElement.classList.add("aika-reveal");
-    const more = document.getElementById("content_more");
-    if (more) new MutationObserver(watch).observe(more, { childList: true });
-  };
-  if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", start, { once: true });
-  else start();
 })();
