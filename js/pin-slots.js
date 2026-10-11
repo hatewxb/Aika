@@ -106,8 +106,10 @@
 
   // The client dialog appears any time — a cheap look twice a second
   // (a subtree MutationObserver on the main window would fire constantly).
-  // Web pages: the form renders shortly after load, or never.
-  const web = location.protocol === "https:";
+  // Web pages: the form renders shortly after load, or never. Recognized by
+  // the host — the client windows are https too (steamloopback.host), and
+  // giving up there left the dialog without cells after a restart.
+  const web = /^(store\.steampowered|steamcommunity)\.com$/.test(location.hostname);
   const timer = setInterval(scan, 500);
   scan();
   if (web) setTimeout(() => { if (!document.querySelector(".aika-pin-slots")) clearInterval(timer); }, WEB_GIVE_UP);
