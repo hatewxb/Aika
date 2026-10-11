@@ -226,6 +226,11 @@
     /* The store home page (sections/store-home.css, js/store-home.js) */
     --aika-home-title-size: clamp(28px, 2.4vw, 36px);    /* "Featured & Recommended" — the page headline */
     --aika-home-title-weight: 700;
+    --aika-split-shift: 0.5em;                            /* the headline letters drop in from this high… */
+    --aika-split-blur: 8px;                               /* …out of this blur */
+    --aika-split-dur: 900ms;
+    --aika-split-stagger: 35ms;                           /* the next letter starts this much later */
+    --aika-split-descender: 0.12em;
     --aika-home-mark-width: 3px;                          /* the Fluent mark before section titles */
     --aika-home-mark-height: 0.9em;
     --aika-home-mark-glow: 0 0 12px var(--aika-accent-glow);

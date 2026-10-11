@@ -9,6 +9,11 @@
 //    calendar). Only blocks that appear a few at a time (DESIGN.md §7.9).
 // 2. Magnet: carousel arrows lean toward the cursor (--aika-magnet-x/y,
 //    a few px, transform only).
+// 3. Staggered title: "Featured & Recommended" comes in letter by letter when
+//    the page opens — each letter drops in from above out of a blur (idea:
+//    reactbits Pro "Staggered Text"; the motion is Aika's expo-out). The
+//    letters are only wrapped in spans, the text stays Steam's; the heading
+//    gets an aria-label so screen readers read it whole.
 // The pop-up of cards on scroll is pure CSS (scroll-driven animations).
 
 (() => {
@@ -65,4 +70,35 @@
     if (magnet) setMagnet(magnet, 0, 0);
     magnet = null;
   });
+
+  // ------------------------------------------------------- staggered title
+  const splitTitle = () => {
+    const t = document.getElementById("home_featured_and_recommended");
+    if (!t || "aikaSplit" in t.dataset || t.children.length) return;
+    if (matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+    const text = t.textContent.trim();
+    t.dataset.aikaSplit = "";
+    t.setAttribute("aria-label", text);
+    let i = 0;
+    const frag = document.createDocumentFragment();
+    for (const part of text.split(/(\s+)/)) {
+      if (!part) continue;
+      if (/^\s+$/.test(part)) { frag.append(" "); continue; }
+      const word = document.createElement("span");
+      word.className = "aika-split-word";
+      word.setAttribute("aria-hidden", "true");
+      for (const ch of part) {
+        const c = document.createElement("span");
+        c.className = "aika-split-char";
+        c.style.setProperty("--aika-split-i", i++);
+        c.textContent = ch;
+        word.append(c);
+      }
+      frag.append(word);
+    }
+    t.replaceChildren(frag);
+    t.classList.add("aika-split");
+  };
+  if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", splitTitle, { once: true });
+  else splitTitle();
 })();

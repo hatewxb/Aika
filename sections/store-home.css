@@ -68,6 +68,38 @@ html body.v6 #home_maincap_v7 .home_title {
     color: var(--aika-transparent);
 }
 
+/* Staggered Text (js/store-home.js wraps the letters): on opening the page
+   each letter drops in from above out of a blur, one after another. The
+   gradient moves onto the letters — it's vertical, so every letter gets the
+   same one; the padding keeps descenders inside the clip. The blur runs
+   once, on ~25 letters. */
+@keyframes aika-split-in {
+    from {
+        opacity: 0;
+        transform: translateY(calc(-1 * var(--aika-split-shift)));
+        filter: blur(var(--aika-split-blur));
+    }
+}
+
+html body.v6 #home_maincap_v7 .home_title.aika-split {
+    background: none;
+}
+
+html body.v6 #home_maincap_v7 .aika-split-word {
+    display: inline-block;
+    white-space: nowrap;
+}
+
+html body.v6 #home_maincap_v7 .aika-split-char {
+    display: inline-block;
+    padding-bottom: var(--aika-split-descender);
+    margin-bottom: calc(-1 * var(--aika-split-descender));
+    background: var(--aika-text-gradient);
+    background-clip: text;
+    color: var(--aika-transparent);
+    animation: aika-split-in var(--aika-split-dur) var(--aika-ease) calc(var(--aika-split-i, 0) * var(--aika-split-stagger)) backwards;
+}
+
 html body.v6 #home_maincap_v7 .home_title_ctn {
     align-items: flex-end;
     margin-bottom: var(--aika-space-3);
@@ -863,6 +895,7 @@ html body.v6 .home_content.single .single_buttonbar .btnv6_white_transparent > s
 }
 
 @media (prefers-reduced-motion: reduce) {
+    html body.v6 #home_maincap_v7 .aika-split-char,
     html body.v6 #home_maincap_v7 .store_main_capsule:is(.focus, .next, .prev),
     html body.v6 :is(
         .title_grid,
