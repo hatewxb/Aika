@@ -584,7 +584,12 @@
     --aika-pin-line-bottom: 12px;     /* the underline offset from the field bottom */
     --aika-pin-line-width: 2px;
     /* Animated cells over the field (js/pin-slots.js, "Code Slots" idea) */
-    --aika-pin-gap: 8px;              /* between cells */
+    --aika-pin-cell: 48px;            /* a cell's width */
+    --aika-pin-gap: 12px;             /* between cells — clearly four separate cells */
+    --aika-pin-shadow-filled:
+        inset 0 0 0 var(--aika-hairline) var(--aika-accent-ring),
+        inset 0 var(--aika-hairline) 0 0 var(--aika-highlight-cta),
+        0 2px 6px var(--aika-accent-haze);
     --aika-pin-dot: 12px;             /* the masked digit */
     --aika-pin-rise: 8px;             /* the dot rises this much into its cell */
     --aika-pin-drop: 14px;            /* …and drops this much on the way out */

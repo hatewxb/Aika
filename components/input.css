@@ -317,7 +317,13 @@ html :is(.GenericConfirmDialog .Body > input.TextInput[type="password"], #parent
    The script marks the field .aika-pin-js and puts .aika-pin-slots right after
    it, over it: the field turns see-through (it still takes focus, typing and
    submit), the cells draw everything. Without the script — the box above. */
-html input.aika-pin-js:is(.TextInput, [type="password"]) {
+/* The same :is() as the field rules above (an id inside — (1,1,3)) plus the
+   class, otherwise their background dashes, border and focus ring show
+   between the cells */
+html :is(.GenericConfirmDialog .Body > input.TextInput[type="password"], #parental_main_content form input[type="password"]).aika-pin-js {
+    box-sizing: border-box;
+    width: calc(var(--aika-pin-digits) * var(--aika-pin-cell) + (var(--aika-pin-digits) - 1) * var(--aika-pin-gap));
+    padding: 0;
     border-color: var(--aika-transparent);
     background: var(--aika-transparent);
     box-shadow: none;
@@ -325,7 +331,7 @@ html input.aika-pin-js:is(.TextInput, [type="password"]) {
     caret-color: var(--aika-transparent);
 }
 
-html input.aika-pin-js:is(.TextInput, [type="password"]):is(:hover, :focus) {
+html :is(.GenericConfirmDialog .Body > input.TextInput[type="password"], #parental_main_content form input[type="password"]).aika-pin-js:is(:hover, :focus) {
     border-color: var(--aika-transparent);
     box-shadow: none;
 }
@@ -387,8 +393,10 @@ html .aika-pin-dot {
         opacity var(--aika-dur-fast) var(--aika-ease-hover) var(--aika-pin-delay, 0ms);
 }
 
+/* Filled: its own accent outline and a short soft shadow — the CTA glow
+   (12 px wide) reached the neighbors and merged into one uneven blot */
 html .aika-pin-cell.is-filled {
-    box-shadow: var(--aika-shadow-cta);
+    box-shadow: var(--aika-pin-shadow-filled);
 }
 
 html .aika-pin-cell.is-filled .aika-pin-fill {
