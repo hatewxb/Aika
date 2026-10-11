@@ -246,13 +246,14 @@ html .BottomBar :is(.AddGameButton, .FriendsButton, .DownloadStatus) {
     margin: 0;
     padding: 0;
     border-radius: var(--aika-radius-full);
-    background: var(--aika-player-material);
+    background: var(--aika-dock-material);
     backdrop-filter: var(--aika-player-blur);
     box-shadow: var(--aika-shadow-menu);
     color: var(--aika-fg-muted);
     pointer-events: auto;
     animation: aika-dock-in var(--aika-dur-enter) var(--aika-ease) backwards;
     transition:
+        background-color var(--aika-dur-base) var(--aika-ease-hover),
         color var(--aika-dur-fast) var(--aika-ease-hover),
         box-shadow var(--aika-dur-base) var(--aika-ease),
         transform var(--aika-dur-base) var(--aika-ease);
@@ -262,10 +263,10 @@ html .BottomBar .DownloadStatus { animation-delay: var(--aika-stagger); }
 html .BottomBar .FriendsButton { animation-delay: calc(2 * var(--aika-stagger)); }
 
 html .BottomBar :is(.AddGameButton, .FriendsButton, .DownloadStatus):hover {
-    background: var(--aika-player-material);
+    background: var(--aika-dock-material-hover);
     color: var(--aika-fg);
     box-shadow: var(--aika-shadow-menu), 0 0 24px var(--aika-accent-haze);
-    transform: translateY(var(--aika-lift-sm));
+    transform: scale(var(--aika-dock-hover-scale));
 }
 
 html .BottomBar :is(.AddGameButton, .FriendsButton, .DownloadStatus):active {

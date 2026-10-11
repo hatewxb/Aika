@@ -206,6 +206,10 @@ html:root {
     --aika-home-today-to: var(--aika-light-2);
 
     --aika-tilt-light: rgb(from var(--aika-ink) r g b / 0.16);       /* the glare on a tilted library cover */
+    /* The floating library icons: lighter than the player material (0.52) —
+       the content shows through (author's fix 2026-10-12: "a bit more transparent") */
+    --aika-dock-material: rgb(from var(--aika-bg-raised) r g b / 0.32);
+    --aika-dock-material-hover: rgb(from var(--aika-bg-raised) r g b / 0.46);
 
     /* Fully transparent — to "remove" Steam backgrounds without bare values */
     --aika-transparent: rgb(from var(--aika-ink) r g b / 0);

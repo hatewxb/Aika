@@ -379,6 +379,7 @@
     --aika-dock-icon: 18px;
     --aika-dock-inset: var(--aika-space-4);   /* from the window edges */
     --aika-dock-rise: 16px;                   /* they float up into place when the window opens */
+    --aika-dock-hover-scale: 1.08;            /* an icon grows a little under the cursor */
 
     /* Library covers (the "Library covers" setting): 3D tilt (js/cover-tilt.js,
        options/covers-tilt.css) and Zoom (options/covers-zoom.css) */
