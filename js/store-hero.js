@@ -363,6 +363,7 @@ const analyzeLogo = (img) => {
 
 const buildTitle = (props) => {
   const h = el("h1", "aika-cine-title", {}, [el("span", "aika-cine-title-text", { text: props.name })]);
+  if (props.name.length > 24) h.classList.add("is-long"); // a smaller text title
   window.__aikaStoreAssets?.then(({ logo }) => {
     if (!logo) return;
     const img = el("img", "aika-cine-logo", { crossorigin: "anonymous", src: logo, alt: props.name, decoding: "async" });

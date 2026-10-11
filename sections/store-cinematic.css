@@ -113,19 +113,36 @@ html.aika-cine .aika-cine-inner > .breadcrumbs a:hover {
     color: var(--aika-fg);
 }
 
-/* Title: the logo; the text stays for screen readers. No logo — the text in
-   the display face with the gradient (DESIGN.md §3.3) */
+/* Title: the logo; the text stays for screen readers. Until the logo loads
+   (or with no logo) — the text in the display face with the gradient
+   (DESIGN.md §3.3), sized like a poster and shadowed like the logo so it
+   holds up over the trailer */
 /* Same specificity margin over Steam's body.v6 h1/h2 rules */
 html.aika-cine body .aika-cine-hero h1.aika-cine-title {
+    max-width: var(--aika-cine-title-width);
     margin: 0;
+    padding-bottom: 0.08em; /* descenders stay inside the gradient clip */
     font-family: var(--aika-font-display);
-    font-size: var(--aika-text-display);
-    font-weight: var(--aika-weight-medium);
-    letter-spacing: var(--aika-tracking-display);
-    line-height: var(--aika-leading-heading);
+    font-size: var(--aika-cine-title-size);
+    font-weight: var(--aika-cine-title-weight);
+    font-variation-settings: var(--aika-cine-title-axes);
+    letter-spacing: var(--aika-cine-title-tracking);
+    line-height: var(--aika-cine-title-leading);
+    text-wrap: balance;
     background: var(--aika-text-gradient);
     background-clip: text;
     color: transparent;
+    filter: var(--aika-store-logo-shadow);
+}
+
+html.aika-cine body .aika-cine-hero h1.aika-cine-title.is-long {
+    font-size: var(--aika-cine-title-size-long);
+}
+
+/* The logo carries its own shadow */
+html.aika-cine body .aika-cine-hero h1.aika-cine-title.has-logo {
+    padding-bottom: 0;
+    filter: none;
 }
 
 html.aika-cine .aika-cine-logo {

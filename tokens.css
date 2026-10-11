@@ -190,6 +190,16 @@
     --aika-cine-gutter: clamp(16px, 4vw, 58px);
     --aika-cine-logo-max-width: min(520px, 46vw);
     --aika-cine-logo-max-height: clamp(96px, 16vh, 180px);
+    /* The title text before the logo loads (or with no logo): poster-size
+       Fraunces at its display optical size; long names (js/store-hero.js,
+       .is-long) one step smaller so they stay within two-three lines */
+    --aika-cine-title-size: clamp(48px, 5.6vw, 88px);
+    --aika-cine-title-size-long: clamp(40px, 4.2vw, 64px);
+    --aika-cine-title-weight: 600;
+    --aika-cine-title-axes: "opsz" 144, "SOFT" 50;
+    --aika-cine-title-tracking: -0.025em;
+    --aika-cine-title-leading: 0.98;
+    --aika-cine-title-width: min(760px, 60vw);
     --aika-cine-text-width: 620px;            /* the description line length */
     --aika-cine-button: 48px;                 /* "Buy", "Media", the heart */
     --aika-cine-price-size: clamp(28px, 2.4vw, 36px);
