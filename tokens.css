@@ -228,6 +228,8 @@
     --aika-home-title-axes: "opsz" 96, "SOFT" 50;
     --aika-home-mark-width: 3px;                          /* the Fluent mark before section titles */
     --aika-home-mark-height: 0.9em;
+    --aika-home-mark-glow: 0 0 12px var(--aika-accent-glow);
+    --aika-home-dot-glow: 0 0 10px var(--aika-accent-glow);
     --aika-home-arrow: 40px;                              /* round carousel arrows */
     --aika-home-arrow-icon: 18px;
     --aika-home-dot-width: 14px;                          /* carousel dots: a pill… */

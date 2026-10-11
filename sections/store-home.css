@@ -26,10 +26,9 @@
    -------------------------------------------------------------------------- */
 
 /* Section titles. Steam: Motiva 600 white, clamp(1rem, 1.75cqi, 1.5rem).
-   Aika: the H2 level, gradient text, a Fluent accent mark in front
-   (decoration only — the text is Steam's). The React blocks' titles
-   (hash classes) get the same look in selectors.css. */
-html body.v6 :is(.home_section_title, .home_page_content .home_title, .home_content .single_title) {
+   Aika: the H2 level and a Fluent accent mark in front (decoration only —
+   the text is Steam's). The calendar title (hash classes) — selectors.css. */
+html body.v6 :is(.home_section_title, #discounts_and_events_title, .home_page_content .home_title, .home_content .single_title) {
     font-family: var(--aika-font-ui);
     font-weight: var(--aika-weight-semibold);
     letter-spacing: var(--aika-tracking-h2);
@@ -37,14 +36,12 @@ html body.v6 :is(.home_section_title, .home_page_content .home_title, .home_cont
     text-shadow: none;
 }
 
-html body.v6 .home_section_title,
-html body.v6 .home_page_content > .home_pagecontent_ctn > .home_content > h2 {
+html body.v6 :is(.home_section_title, #discounts_and_events_title, #content_more .home_content > h2) {
     position: relative;
     padding-left: calc(var(--aika-home-mark-width) + var(--aika-space-3));
 }
 
-html body.v6 .home_section_title::before,
-html body.v6 .home_page_content > .home_pagecontent_ctn > .home_content > h2::before {
+html body.v6 :is(.home_section_title, #discounts_and_events_title, #content_more .home_content > h2)::before {
     content: "";
     position: absolute;
     left: 0;
@@ -53,7 +50,7 @@ html body.v6 .home_page_content > .home_pagecontent_ctn > .home_content > h2::be
     height: var(--aika-home-mark-height);
     border-radius: var(--aika-radius-full);
     background: var(--aika-accent);
-    box-shadow: 0 0 12px var(--aika-accent-glow);
+    box-shadow: var(--aika-home-mark-glow);
     transform: translateY(-50%);
 }
 
@@ -189,7 +186,7 @@ html body.v6 .carousel_container .carousel_thumbs > div.focus,
 html body.v6 .carousel__dot--selected::before {
     width: var(--aika-home-dot-width-active);
     background-color: var(--aika-accent);
-    box-shadow: 0 0 10px var(--aika-accent-glow);
+    box-shadow: var(--aika-home-dot-glow);
 }
 
 html body.v6 .carousel__dot > svg {
@@ -419,7 +416,7 @@ html.aika-reveal body.v6 .aika-in :is(
     from { transform: translateY(-50%) scaleY(0); }
 }
 
-html.aika-reveal body.v6 .aika-in .home_section_title::before {
+html.aika-reveal body.v6 .aika-in :is(.home_section_title, #discounts_and_events_title, .home_content > h2)::before {
     animation: aika-home-mark var(--aika-dur-enter) var(--aika-ease) calc(2 * var(--aika-stagger)) backwards;
 }
 
@@ -643,6 +640,236 @@ html body.v6 .home_discounts_block {
    divider on top instead (DESIGN.md §5, "Rhythm") */
 html body.v6 .home_tab_section .home_tab_bg_ctn {
     background: var(--aika-divider) top / 100% var(--aika-hairline) no-repeat;
+}
+
+/* --------------------------------------------------------------------------
+   7. Carousels below: categories, recently updated, creators,
+   "Community recommends", the tab lists.
+   -------------------------------------------------------------------------- */
+
+/* Categories: Steam puts a white plate with black caps over the genre art —
+   a player-material pill (DESIGN.md §11: badges over images); it rises a
+   little as the art zooms */
+html body.v6 .content_hub_capsule_ctn .label {
+    border-radius: var(--aika-radius-full);
+    background: var(--aika-player-material);
+    backdrop-filter: var(--aika-player-blur);
+    box-shadow: var(--aika-shadow-secondary);
+    color: var(--aika-fg);
+    font-size: var(--aika-text-meta);
+    font-weight: var(--aika-weight-semibold);
+    letter-spacing: var(--aika-tracking-label);
+    transition: transform var(--aika-dur-base) var(--aika-ease);
+}
+
+html body.v6 .content_hub_capsule_ctn:hover .label {
+    transform: translateY(var(--aika-lift-md));
+}
+
+html body.v6 .recently_updated_desc {
+    color: var(--aika-fg-muted);
+}
+
+/* Creators: the publisher's avatar is an icon container (DESIGN.md §3.4) */
+html body.v6 .creator_capsule_ctn .curator_capsule_avatar {
+    border-radius: var(--aika-radius-md);
+    box-shadow: 0 0 0 var(--aika-hairline) var(--aika-border-hover);
+}
+
+html body.v6 .creator_capsule_ctn .curator_capsule_name {
+    color: var(--aika-fg);
+    font-weight: var(--aika-weight-semibold);
+}
+
+/* "Community recommends": the cover and the review are one large card */
+html body.v6 .community_recommendation_app {
+    overflow: hidden;
+    border-radius: var(--aika-radius-xl);
+    box-shadow: var(--aika-shadow-card);
+}
+
+html body.v6 .community_recommendation_app .right_col {
+    background: var(--aika-raised-bg);
+}
+
+html body.v6 .community_recommendation_app .app_name {
+    color: var(--aika-fg);
+    font-weight: var(--aika-weight-semibold);
+}
+
+html body.v6 .community_recommendation_app .review_box .content {
+    color: var(--aika-fg);
+    line-height: var(--aika-leading-body);
+}
+
+html body.v6 .community_recommendation_app .view_more a {
+    color: var(--aika-accent-bright);
+}
+
+html body.v6 .community_recommendation_app .view_more a:hover {
+    color: var(--aika-fg);
+}
+
+html body.v6 .community_recommendation_app .persona_name a {
+    color: var(--aika-accent-bright);
+}
+
+html body.v6 .community_recommendation_app .playerAvatar {
+    overflow: hidden;
+    border-radius: var(--aika-radius-md);
+}
+
+html body.v6 .community_recommendation_app .hours {
+    color: var(--aika-fg-subtle);
+    font-family: var(--aika-font-mono);
+}
+
+/* Tab lists ("New & Trending"…): rows lift a little toward the cursor,
+   the release date is mono (DESIGN.md §3.3, Meta) */
+html body.v6 a.tab_row_item {
+    transition:
+        background-color var(--aika-dur-fast) var(--aika-ease-hover),
+        transform var(--aika-dur-base) var(--aika-ease);
+}
+
+html body.v6 a.tab_row_item:hover {
+    transform: translateX(var(--aika-nudge));
+}
+
+html body.v6 a.tab_row_item .tab_item_title {
+    color: var(--aika-fg);
+    font-weight: var(--aika-weight-semibold);
+}
+
+html body.v6 a.tab_row_item .tab_item_tags {
+    color: var(--aika-fg-muted);
+}
+
+html body.v6 a.tab_row_item .tab_item_release_date {
+    color: var(--aika-fg-subtle);
+    font-family: var(--aika-font-mono);
+}
+
+html body.v6 .tab_preview .tab_title {
+    color: var(--aika-fg);
+    font-weight: var(--aika-weight-semibold);
+}
+
+html body.v6 .tab_preview .tags > a {
+    border-radius: var(--aika-radius-full);
+    color: var(--aika-fg-muted);
+}
+
+html body.v6 .tab_preview .screenshot {
+    border-radius: var(--aika-radius-md);
+}
+
+/* --------------------------------------------------------------------------
+   8. The infinite feed below (#content_more: tag rows, single-game panels)
+   and the footer. Steam renders the footer before the feed (it sits in the
+   flow above .home_ctn), so the feed grows under it — we move it to the end.
+   -------------------------------------------------------------------------- */
+
+html body.v6 .home_page_body_ctn {
+    display: flex;
+    flex-direction: column;
+}
+
+html body.v6 .home_page_body_ctn > div:has(footer#footer) {
+    order: 1;
+}
+
+/* Tag rows: "Games tagged …" — Steam's link blue (#67c1f5) → the accent */
+html body.v6 #content_more .home_content > h2 {
+    color: var(--aika-fg-muted);
+    font-family: var(--aika-font-ui);
+}
+
+html body.v6 #content_more .home_content > h2 a {
+    color: var(--aika-fg);
+    font-weight: var(--aika-weight-semibold);
+    transition: color var(--aika-dur-fast) var(--aika-ease-hover);
+}
+
+html body.v6 #content_more .home_content > h2 a:hover {
+    color: var(--aika-accent-bright);
+}
+
+html body.v6 #content_more .home_content > h2 .header_inline {
+    color: var(--aika-fg-subtle);
+}
+
+html body.v6 #content_more a.home_content_item {
+    overflow: hidden;
+    border-radius: var(--aika-radius-lg);
+    box-shadow: var(--aika-shadow-cover);
+    transition:
+        transform var(--aika-dur-base) var(--aika-ease),
+        box-shadow var(--aika-dur-base) var(--aika-ease);
+}
+
+html body.v6 #content_more a.home_content_item:hover {
+    transform: translateY(var(--aika-lift-md));
+    box-shadow: var(--aika-shadow-cover-hover);
+}
+
+html body.v6 #content_more a.home_content_item .capsule_image_ctn img {
+    transition: transform calc(var(--aika-dur-enter) * 1.4) var(--aika-ease);
+}
+
+html body.v6 #content_more a.home_content_item:hover .capsule_image_ctn img {
+    transform: scale(var(--aika-home-zoom));
+}
+
+/* Single-game panels ("Because you recently played …"): an Aika card,
+   the big capsule and screenshots rounded, the reason muted */
+html body.v6 .home_content.single {
+    border-radius: var(--aika-radius-xl);
+    background: var(--aika-card-bg);
+    box-shadow: var(--aika-shadow-card), var(--aika-highlight-top);
+}
+
+html body.v6 .home_content.single .single_title {
+    font-size: var(--aika-text-h1);
+    letter-spacing: var(--aika-tracking-h1);
+}
+
+html body.v6 .home_content.single .home_content_reason {
+    color: var(--aika-fg-muted);
+}
+
+html body.v6 .home_content.single .home_content_reason a {
+    color: var(--aika-fg);
+}
+
+html body.v6 .home_content.single .capsule_image_ctn {
+    overflow: hidden;
+    border-radius: var(--aika-radius-lg);
+}
+
+html body.v6 .home_content.single .screenshots .screenshot {
+    border-radius: var(--aika-radius-md);
+    transition: transform var(--aika-dur-base) var(--aika-ease);
+}
+
+html body.v6 .home_content.single .screenshots .screenshot:hover {
+    transform: scale(var(--aika-home-zoom));
+}
+
+html body.v6 .home_content.single .single_buttonbar .btnv6_white_transparent {
+    border-radius: var(--aika-radius-md);
+    background: var(--aika-surface);
+    box-shadow: var(--aika-shadow-secondary);
+    transition: background-color var(--aika-dur-fast) var(--aika-ease-hover);
+}
+
+html body.v6 .home_content.single .single_buttonbar .btnv6_white_transparent:hover {
+    background: var(--aika-surface-hover);
+}
+
+html body.v6 .home_content.single .single_buttonbar .btnv6_white_transparent > span {
+    border-color: var(--aika-transparent);
+    color: var(--aika-fg);
 }
 
 @media (prefers-reduced-motion: reduce) {

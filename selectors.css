@@ -3044,27 +3044,6 @@ html body ._1uSw_aqus0W7yb3vT9_-22 ._3R-McPl3j1ANvRa0U9reMV a:hover {
        ._2L23Sk2CNSFCplu_7mMmQx the final one
    Verified: 2026-10-12, store home (autumn).
    ========================================================================== */
-html body.v6 #discounts_and_events_title {
-    position: relative;
-    padding-left: calc(var(--aika-home-mark-width) + var(--aika-space-3));
-    font-family: var(--aika-font-ui);
-    letter-spacing: var(--aika-tracking-h2);
-    color: var(--aika-fg);
-}
-
-html body.v6 #discounts_and_events_title::before {
-    content: "";
-    position: absolute;
-    left: 0;
-    top: 50%;
-    width: var(--aika-home-mark-width);
-    height: var(--aika-home-mark-height);
-    border-radius: var(--aika-radius-full);
-    background: var(--aika-accent);
-    box-shadow: 0 0 12px var(--aika-accent-glow);
-    transform: translateY(-50%);
-}
-
 html body.v6 #module_discounts_and_events ._2f_EIAuOVG5ZIzYb1sXJlw {
     border-radius: var(--aika-radius-md);
     background: var(--aika-surface);
