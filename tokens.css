@@ -252,6 +252,14 @@
     --aika-home-shine-every: 5s;                          /* the "New" badge shine period */
     /* The queue banner: the text side solid, the cover wall shows through on the right */
     --aika-home-queue-shade: linear-gradient(77deg, var(--aika-bg-raised) 0%, var(--aika-bg-elevated) 40%, var(--aika-transparent) 70%);
+    /* "Specials & events" page turn — Code Slots motion (selectors.css): each
+       tile flashes an accent fill from its center, then its cover rises in */
+    --aika-slot-cascade: 70ms;                            /* the next tile lands this much later */
+    --aika-slot-wash: 700ms;                              /* the accent fill: grows, holds, fades under the cover */
+    --aika-slot-wash-from: 0.2;
+    --aika-slot-rise: 18px;                               /* the cover rises this far into its slot */
+    --aika-slot-in: 600ms;
+    --aika-slot-in-delay: 120ms;                          /* after the fill has started */
     --aika-home-glare: linear-gradient(115deg, var(--aika-transparent) 35%, var(--aika-glare) 50%, var(--aika-transparent) 65%);
     --aika-icon-chevron: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2.25' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M9.5 5.5l6.5 6.5-6.5 6.5'/%3E%3C/svg%3E");
     /* The collapsed review text fades into the background color under the card */

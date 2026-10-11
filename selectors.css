@@ -3325,3 +3325,72 @@ html body.v6 .personal_calendar_ctn .tqaXEuWN2wV5_8lmSkMng ._1Vtz51wGyJHD9wpoDFN
 html body.v6 .personal_calendar_ctn .tqaXEuWN2wV5_8lmSkMng ._1Vtz51wGyJHD9wpoDFNZ8M a:hover {
     color: var(--aika-fg);
 }
+
+/* "Specials & events": a page turn like Code Slots (reactbits.dev — the idea;
+   the motion is Aika's expo-out, no spring). Each tile is a slot: when Steam
+   makes a slide visible (.carousel__slide--visible), the tile's cell
+   (._1gsW0WuP7ZclL1_ScZlsvo, its pseudo-elements are free) flashes an accent
+   fill growing from its center, then the cover, the label and the price
+   (._229f53fK_tl7R6wqc-g2bq — the link's wrapper) and the wishlist flag rise
+   into place; tiles land left to right, the second tile of a column a half
+   step later. The tray itself stops gliding here — the page changes in place.
+   Columns — ._14LO-skSyf__YkJybhT_cx inside the grid ._3gVAXLzTzt5xCjFA1_c9rn. */
+html body.v6 #module_discounts_and_events .carousel__slider-tray {
+    transition: none;
+}
+
+html body.v6 #module_discounts_and_events ._3gVAXLzTzt5xCjFA1_c9rn > :nth-child(2) { --aika-slot-i: 1; }
+html body.v6 #module_discounts_and_events ._3gVAXLzTzt5xCjFA1_c9rn > :nth-child(3) { --aika-slot-i: 2; }
+html body.v6 #module_discounts_and_events ._3gVAXLzTzt5xCjFA1_c9rn > :nth-child(n + 4) { --aika-slot-i: 3; }
+
+html body.v6 #module_discounts_and_events ._14LO-skSyf__YkJybhT_cx > ._1gsW0WuP7ZclL1_ScZlsvo + ._1gsW0WuP7ZclL1_ScZlsvo {
+    --aika-slot-half: 0.5;
+}
+
+html body.v6 #module_discounts_and_events ._1gsW0WuP7ZclL1_ScZlsvo {
+    --aika-slot-delay: calc((var(--aika-slot-i, 0) + var(--aika-slot-half, 0)) * var(--aika-slot-cascade));
+}
+
+html body.v6 #module_discounts_and_events ._1gsW0WuP7ZclL1_ScZlsvo::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: var(--aika-radius-lg);
+    background: var(--aika-accent-fill);
+    box-shadow: var(--aika-shadow-cta);
+    opacity: 0;
+    pointer-events: none;
+}
+
+/* The wrapper is positioned so it paints over the fill */
+html body.v6 #module_discounts_and_events ._229f53fK_tl7R6wqc-g2bq {
+    position: relative;
+}
+
+@keyframes aika-slot-wash {
+    0%   { opacity: 0; transform: scale(var(--aika-slot-wash-from)); }
+    35%  { opacity: 1; transform: none; }
+    100% { opacity: 0; transform: none; }
+}
+
+@keyframes aika-slot-rise {
+    from {
+        opacity: 0;
+        transform: translateY(var(--aika-slot-rise)) scale(var(--aika-press-scale));
+    }
+}
+
+html body.v6 #module_discounts_and_events .carousel__slide--visible ._1gsW0WuP7ZclL1_ScZlsvo::before {
+    animation: aika-slot-wash var(--aika-slot-wash) var(--aika-ease) var(--aika-slot-delay) both;
+}
+
+html body.v6 #module_discounts_and_events .carousel__slide--visible ._1gsW0WuP7ZclL1_ScZlsvo > :is(._229f53fK_tl7R6wqc-g2bq, ._3dtnlw7cvJhAMGafZPipGv) {
+    animation: aika-slot-rise var(--aika-slot-in) var(--aika-ease) calc(var(--aika-slot-delay) + var(--aika-slot-in-delay)) backwards;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    html body.v6 #module_discounts_and_events .carousel__slide--visible ._1gsW0WuP7ZclL1_ScZlsvo::before,
+    html body.v6 #module_discounts_and_events .carousel__slide--visible ._1gsW0WuP7ZclL1_ScZlsvo > :is(._229f53fK_tl7R6wqc-g2bq, ._3dtnlw7cvJhAMGafZPipGv) {
+        animation: none;
+    }
+}
