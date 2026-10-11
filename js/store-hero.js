@@ -24,6 +24,7 @@
 // Look — sections/store-cinematic.css.
 
 import { HlsLite } from "./hls-lite.js";
+import { warpText } from "./warp-text.js";
 
 const root = document.documentElement;
 const RU = (root.lang || "en").startsWith("ru");
@@ -752,6 +753,7 @@ const build = () => {
   const facts = buildFacts();
   top.before(...[built.hero, facts, media].filter(Boolean));
   root.classList.add("aika-cine");
+  warpText(built.hero.querySelector(".aika-cine-desc:not(:empty)"));   // the description under the logo
   silenceSteamPlayer();
 
   // The store menu is a floating capsule (store.css): the trailer runs under it

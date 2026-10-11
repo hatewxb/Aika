@@ -201,6 +201,16 @@
     --aika-cine-title-leading: 0.98;
     --aika-cine-title-width: min(760px, 60vw);
     --aika-cine-text-width: 620px;            /* the description line length */
+    /* The description warps gently (js/warp-text.js, reactbits "Warp Text" with
+       a small gain — visible, but the text doesn't crumple). Pixels. */
+    --aika-warp-ambient: 1.2px;               /* the lines breathe this much */
+    --aika-warp-scale: 90px;                  /* the noise cell — large, so whole words move together */
+    --aika-warp-lens: 4px;                    /* the bulge under the cursor */
+    --aika-warp-radius: 120px;                /* the lens radius */
+    --aika-warp-ripple: 1px;                  /* the ripple ring inside the lens */
+    --aika-warp-split: 0.4px;                 /* red / blue apart (×2 inside the lens) */
+    --aika-warp-speed: 0.55;
+    --aika-warp-pad: 24px;                    /* the canvas reaches past the text for the shadow and the bulge */
     --aika-cine-button: 48px;                 /* "Buy", "Media", the heart */
     --aika-cine-price-size: clamp(28px, 2.4vw, 36px);
     --aika-cine-text-shadow: 0 1px 12px var(--aika-cine-shade-strong);

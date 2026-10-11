@@ -185,6 +185,25 @@ html.aika-cine .aika-cine-desc:empty {
     display: none;
 }
 
+/* Warp Text (js/warp-text.js): a WebGL canvas draws the paragraph and warps it
+   gently; the DOM text stays (selection, screen readers) but is not painted —
+   -webkit-text-fill-color keeps color real for the canvas, the shadow goes
+   to the canvas too (--aika-warp-shadow) */
+html.aika-cine .aika-cine-desc {
+    position: relative;
+    --aika-warp-shadow: var(--aika-cine-text-shadow);
+}
+
+html.aika-cine .aika-cine-desc.aika-warp-on {
+    -webkit-text-fill-color: var(--aika-transparent);
+    text-shadow: none;
+}
+
+html.aika-cine .aika-cine-desc .aika-warp-canvas {
+    position: absolute;
+    pointer-events: none;
+}
+
 /* --------------------------------------------------------------------------
    Badges: the discount with Steam's countdown, the review summary
    -------------------------------------------------------------------------- */
