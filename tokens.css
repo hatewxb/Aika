@@ -374,6 +374,12 @@
         var(--aika-highlight-top),
         0 8px 32px var(--aika-shadow-deep);
 
+    /* The floating library icons instead of the bottom bar (sections/library.css) */
+    --aika-dock-size: 44px;
+    --aika-dock-icon: 18px;
+    --aika-dock-inset: var(--aika-space-4);   /* from the window edges */
+    --aika-dock-rise: 16px;                   /* they float up into place when the window opens */
+
     /* Library covers (the "Library covers" setting): 3D tilt (js/cover-tilt.js,
        options/covers-tilt.css) and Zoom (options/covers-zoom.css) */
     --aika-tilt-max: 12;                  /* degrees at the cover edge */
@@ -457,6 +463,13 @@
     --aika-icon-award: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='1.75' stroke-linecap='round' stroke-linejoin='round'%3E%3Ccircle cx='12' cy='9' r='5.5'/%3E%3Cpath d='M8.5 13.5L7 21l5-2.5 5 2.5-1.5-7.5'/%3E%3C/svg%3E");
     /* Store: the report flag (SF Symbols-like: a pole and a waving flag) and an arrow → */
     --aika-icon-flag: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M5.5 21V4.5'/%3E%3Cpath d='M5.5 4.8c2.4-1.6 4.8-1.6 7.2 0s4.8 1.6 7.2 0v8.6c-2.4 1.6-4.8 1.6-7.2 0s-4.8-1.6-7.2 0'/%3E%3C/svg%3E");
+    /* The "Add a Game" menu items (components/menu.css) — a plus in a rounded square, a key */
+    --aika-icon-plus: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round'%3E%3Crect x='3.5' y='3.5' width='17' height='17' rx='4.5'/%3E%3Cpath d='M12 8.5v7M8.5 12h7'/%3E%3C/svg%3E");
+    --aika-icon-key: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round'%3E%3Ccircle cx='8' cy='15' r='4'/%3E%3Cpath d='M10.8 12.2L19 4M15.5 7.5l2.5 2.5M17.5 5.5l2 2'/%3E%3C/svg%3E");
+    --aika-menu-icon: 16px;
+    --aika-menu-icon-hover: 1.12;
+    --aika-menu-item-rise: 6px;
+    --aika-menu-item-stagger: 45ms;
     --aika-icon-arrow-right: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M5 12h14M13 6l6 6-6 6'/%3E%3C/svg%3E");
     /* A padlock (SF Symbols-like) — the Family View web page */
     --aika-icon-lock: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='1.7' stroke-linecap='round' stroke-linejoin='round'%3E%3Crect x='5' y='10.5' width='14' height='10' rx='2.5'/%3E%3Cpath d='M8 10.5V7.5a4 4 0 0 1 8 0v3'/%3E%3Ccircle cx='12' cy='15.5' r='1' fill='black'/%3E%3C/svg%3E");
@@ -562,6 +575,7 @@
     --aika-z-texture: -1;
     /* "Play" under the banner — above the sliding "About this game" block (z 36 in Steam) */
     --aika-z-playbar: 37;
+    --aika-z-dock: 20;                /* the floating library icons (add game, downloads, friends) */
     /* The game logo in the store: above the sale banner (z 100 in Steam,
        the event block 101), but below tooltips (1526), modals (1500)
        and menus (10000) */

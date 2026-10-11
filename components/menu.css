@@ -135,12 +135,58 @@ html .contextMenu .contextMenuContents hr.Separator {
 }
 
 /* --------------------------------------------------------------------------
+   The "Add a Game" menu (.AddGameMenu — from the floating icon at the bottom
+   left of the library, sections/library.css): "Add a Non-Steam Game…",
+   "Activate a Product on Steam…", "Browse the Steam Store…". The items rise in
+   one after another under the box's own entrance, each with an accent icon
+   (decoration — the text is Steam's): a plus, a key, the store bag.
+   Transforms only on the items — Steam sizes the window from the box.
+   -------------------------------------------------------------------------- */
+
+@keyframes aika-menu-item-in {
+    from {
+        opacity: 0;
+        transform: translateY(var(--aika-menu-item-rise));
+    }
+}
+
+html .contextMenu .AddGameMenu > .contextMenuItem {
+    display: flex;
+    align-items: center;
+    gap: var(--aika-space-3);
+    animation: aika-menu-item-in var(--aika-dur-enter) var(--aika-ease) backwards;
+}
+
+html .contextMenu .AddGameMenu > .contextMenuItem:nth-child(2) { animation-delay: var(--aika-menu-item-stagger); }
+html .contextMenu .AddGameMenu > .contextMenuItem:nth-child(3) { animation-delay: calc(2 * var(--aika-menu-item-stagger)); }
+html .contextMenu .AddGameMenu > .contextMenuItem:nth-child(n + 4) { animation-delay: calc(3 * var(--aika-menu-item-stagger)); }
+
+html .contextMenu .AddGameMenu > .contextMenuItem::before {
+    content: "";
+    flex: none;
+    width: var(--aika-menu-icon);
+    height: var(--aika-menu-icon);
+    background: var(--aika-accent-bright);
+    -webkit-mask: var(--aika-menu-item-icon, var(--aika-icon-plus)) center / contain no-repeat;
+    mask: var(--aika-menu-item-icon, var(--aika-icon-plus)) center / contain no-repeat;
+    transition: transform var(--aika-dur-base) var(--aika-ease);
+}
+
+html .contextMenu .AddGameMenu > .contextMenuItem:nth-child(2) { --aika-menu-item-icon: var(--aika-icon-key); }
+html .contextMenu .AddGameMenu > .contextMenuItem:nth-child(3) { --aika-menu-item-icon: var(--aika-icon-store); }
+
+html .contextMenu .AddGameMenu > .contextMenuItem:hover::before {
+    transform: scale(var(--aika-menu-icon-hover));
+}
+
+/* --------------------------------------------------------------------------
    "Reduce motion": no entrance animation
    -------------------------------------------------------------------------- */
 
 @media (prefers-reduced-motion: reduce) {
     .aika-menu,
-    html body .contextMenu.ContextMenuPosition {
+    html body .contextMenu.ContextMenuPosition,
+    html .contextMenu .AddGameMenu > .contextMenuItem {
         animation: none;
     }
 }

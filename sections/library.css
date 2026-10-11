@@ -48,12 +48,6 @@
     border-bottom: var(--aika-hairline) solid var(--aika-border);
 }
 
-/* The bottom panel (downloads, friends): same, a line on top */
-.BottomBar {
-    background: var(--aika-transparent);
-    border-top: var(--aika-hairline) solid var(--aika-border);
-}
-
 /* The side panel with the game list: a light full-height surface,
    separated from the content by a thin line. Temporary — full
    Fluent navigation will come in components/nav.css. */
@@ -169,29 +163,172 @@ html .TitleBarControls :is(.Button, .AccountMenu):hover {
 }
 
 /* --------------------------------------------------------------------------
-   The bottom panel (captured via CDP 2026-10-04)
-     .BottomBar .AddGameButton   — "Add a Game"
-     .BottomBar .DownloadStatus  — "Manage Downloads" / download progress
-     .BottomBar .FriendsButton   — "Friends & Chat"
-   TODO: the look during a download (progress) — capture the classes while downloading.
+   The bottom panel → floating icons (author's request 2026-10-12: "no bar,
+   just floating icons over the content"). Captured via CDP 2026-10-04/12:
+     .OuterFrame (flex column) > .BottomBarContainer
+       > div > .Alert             — Steam's notices ("client updated…"), static
+       > .BottomBar
+         .AddGameButton  (.Icon + .Text)   — opens the .AddGameMenu popup window
+         .DownloadStatus > .DownloadStatusContent (.Icon + .Queue)
+         .FriendsButton  (.Text + .Icon)
+   The container leaves the flow (the content runs to the window bottom); the
+   bar is an invisible, click-through layer; each button is a round
+   player-material icon floating over the content — the label pops out above it
+   on hover (text stays Steam's). Places as in Steam: add left, downloads in the
+   middle, friends right. The notice is pinned above the icons and grows up.
+   TODO: the download progress look — capture while downloading; whatever Steam
+   puts next to .Queue stays inside the capsule (it widens).
    -------------------------------------------------------------------------- */
 
-html .BottomBar :is(.AddGameButton, .FriendsButton, .DownloadStatus) {
-    border-radius: var(--aika-radius-md);
-    color: var(--aika-fg-muted);
-    transition:
-        background-color var(--aika-dur-fast) var(--aika-ease-hover),
-        color var(--aika-dur-fast) var(--aika-ease-hover);
+html .OuterFrame {
+    position: relative;
 }
+
+html .OuterFrame > .BottomBarContainer {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: var(--aika-z-dock);
+    height: 0;
+    pointer-events: none;
+}
+
+/* Steam's notice wrapper is 0 px tall and the notice hangs below it — a flex
+   column packed to the end makes it overflow upward instead, above the icons */
+html .BottomBarContainer > div:not(.BottomBar) {
+    position: absolute;
+    left: var(--aika-dock-inset);
+    right: var(--aika-dock-inset);
+    bottom: calc(var(--aika-dock-inset) + var(--aika-dock-size) + var(--aika-space-3));
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    height: 0;
+}
+
+html .BottomBarContainer .Alert {
+    flex: none;
+    pointer-events: auto;
+}
+
+html .BottomBarContainer > .BottomBar {
+    position: absolute;
+    left: var(--aika-dock-inset);
+    right: var(--aika-dock-inset);
+    bottom: var(--aika-dock-inset);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: var(--aika-dock-size);
+    padding: 0;
+    border: none;
+    background: var(--aika-transparent);
+    pointer-events: none;
+}
+
+@keyframes aika-dock-in {
+    from {
+        opacity: 0;
+        transform: translateY(var(--aika-dock-rise)) scale(var(--aika-appear-scale));
+    }
+}
+
+html .BottomBar :is(.AddGameButton, .FriendsButton, .DownloadStatus) {
+    position: relative;
+    flex: 0 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-width: var(--aika-dock-size);
+    height: var(--aika-dock-size);
+    margin: 0;
+    padding: 0;
+    border-radius: var(--aika-radius-full);
+    background: var(--aika-player-material);
+    backdrop-filter: var(--aika-player-blur);
+    box-shadow: var(--aika-shadow-menu);
+    color: var(--aika-fg-muted);
+    pointer-events: auto;
+    animation: aika-dock-in var(--aika-dur-enter) var(--aika-ease) backwards;
+    transition:
+        color var(--aika-dur-fast) var(--aika-ease-hover),
+        box-shadow var(--aika-dur-base) var(--aika-ease),
+        transform var(--aika-dur-base) var(--aika-ease);
+}
+
+html .BottomBar .DownloadStatus { animation-delay: var(--aika-stagger); }
+html .BottomBar .FriendsButton { animation-delay: calc(2 * var(--aika-stagger)); }
 
 html .BottomBar :is(.AddGameButton, .FriendsButton, .DownloadStatus):hover {
-    background-color: var(--aika-surface-hover);
+    background: var(--aika-player-material);
     color: var(--aika-fg);
+    box-shadow: var(--aika-shadow-menu), 0 0 24px var(--aika-accent-haze);
+    transform: translateY(var(--aika-lift-sm));
 }
 
-/* Steam colors the labels inside the bottom panel buttons itself — use the button color */
-html .BottomBar :is(.AddGameButton, .FriendsButton, .DownloadStatus) :is(.Text, .Queue, .DownloadStatusContent) {
-    color: inherit;
+html .BottomBar :is(.AddGameButton, .FriendsButton, .DownloadStatus):active {
+    transform: scale(var(--aika-press-scale));
+}
+
+/* Downloads: Steam stretches it across the bar — a capsule as wide as its content */
+html .BottomBar .DownloadStatus .DownloadStatusContent {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--aika-space-2);
+    min-width: var(--aika-dock-size);
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    background: var(--aika-transparent);
+}
+
+html .BottomBar :is(.AddGameButton, .FriendsButton, .DownloadStatus) .Icon {
+    width: var(--aika-dock-icon);
+    height: var(--aika-dock-icon);
+    margin: 0;
+}
+
+html .BottomBar :is(.AddGameButton, .FriendsButton, .DownloadStatus) .Icon svg {
+    width: 100%;
+    height: 100%;
+}
+
+/* The label: a pill that pops out above the icon on hover (Steam colors the
+   labels itself — the pill takes our colors) */
+html .BottomBar :is(.AddGameButton, .FriendsButton, .DownloadStatus) :is(.Text, .Queue) {
+    position: absolute;
+    bottom: calc(100% + var(--aika-space-2));
+    padding: var(--aika-space-1) var(--aika-space-3);
+    border-radius: var(--aika-radius-full);
+    background: var(--aika-surface-translucent);
+    box-shadow: var(--aika-shadow-menu);
+    color: var(--aika-fg);
+    font-family: var(--aika-font-ui);
+    font-size: var(--aika-text-meta);
+    white-space: nowrap;
+    opacity: 0;
+    transform: translateY(var(--aika-menu-shift));
+    transition:
+        opacity var(--aika-dur-fast) var(--aika-ease-hover),
+        transform var(--aika-dur-base) var(--aika-ease);
+    pointer-events: none;
+}
+
+html .BottomBar .AddGameButton .Text { left: 0; }
+html .BottomBar .FriendsButton .Text { right: 0; }
+html .BottomBar .DownloadStatus .Queue { left: 50%; translate: -50% 0; }
+
+html .BottomBar :is(.AddGameButton, .FriendsButton, .DownloadStatus):hover :is(.Text, .Queue) {
+    opacity: 1;
+    transform: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    html .BottomBar :is(.AddGameButton, .FriendsButton, .DownloadStatus) {
+        animation: none;
+    }
 }
 
 /* The nickname in the header: Steam paints it "online" blue; the status already shows
@@ -207,8 +344,7 @@ html .TitleBarControls .AccountMenu {
    ========================================================================== */
 
 /* Steam's inner "bevels" (rgba(61,68,80) inset) on the header and bottom panel */
-html .OuterFrame > .TopBar,
-html .BottomBarContainer > .BottomBar {
+html .OuterFrame > .TopBar {
     box-shadow: none;
 }
 
