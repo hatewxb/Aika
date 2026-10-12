@@ -123,6 +123,15 @@ html .DownloadsPage .HeroAndLogo .HeroGradient {
     background: var(--aika-download-hero-fade);
 }
 
+/* The row under the banner's right half (the stats, the bars, the button):
+   Steam paints it #0e141b (hash (0,2,0)) — that blue-black showed through on
+   every preset (author 2026-10-12: "the gradient over the cover isn't in the
+   theme color"). The fade above ends in the same color: the theme's panel
+   background with a touch of its accent. */
+html .DownloadsPage .SectionItem.Active {
+    background-color: var(--aika-download-hero-tint);
+}
+
 html .DownloadSectionActiveItem .DragHandle svg path {
     fill: var(--aika-fg-subtle);
 }
@@ -167,18 +176,29 @@ html .DownloadSectionActiveItem .DownloadTimeRemaining span {
 
 /* Pause / resume on the active download (the row is .SectionItem.Active):
    a round Aika primary */
+/* Its glow is round and compact (--aika-shadow-dl-button): the button sits in
+   .Bottom — exactly its height, overflow hidden — inside a column that clips too,
+   14 px above the banner edge. The CTA glow (down to 30 px) was cut into a
+   square by those boxes — a ghost frame around the round button (author
+   2026-10-12). The clipping is moved out by --aika-dl-glow-room (overflow: clip
+   with a margin — no scroll container, text still truncates). */
+html .DownloadsPage .SectionItem.Active :is(.ActiveItemRightColumn, .Bottom) {
+    overflow: clip;
+    overflow-clip-margin: var(--aika-dl-glow-room);
+}
+
 html .DownloadsPage .SectionItem.Active .SectionItemButtons .Buttons button.Button.DialogButton,
 html .DownloadsPage .SectionItem.Active:hover .SectionItemButtons .Buttons button.Button.DialogButton:enabled {
     border-radius: var(--aika-radius-full);
     background: var(--aika-accent-fill);
     color: var(--aika-on-accent);
-    box-shadow: var(--aika-shadow-cta);
+    box-shadow: var(--aika-shadow-dl-button);
 }
 
 html .DownloadsPage .SectionItem.Active:hover .SectionItemButtons .Buttons button.Button.DialogButton:enabled:hover {
     background: var(--aika-accent-fill-hover);
     color: var(--aika-on-accent);
-    box-shadow: var(--aika-shadow-cta-hover);
+    box-shadow: var(--aika-shadow-dl-button-hover);
 }
 
 /* Bottom panel: the download icon, the bar, the captions */

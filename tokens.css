@@ -153,7 +153,18 @@
     /* Downloads: the active download cover fades to the right, toward the graph
        (Steam fades into blue #0056d6). Into a neutral warm background: fading
        into a muted accent read as bluish (author's fix 2026-10-05) */
-    --aika-download-hero-fade: linear-gradient(to right, var(--aika-transparent) 15%, var(--aika-bg-elevated) 90%);
+    --aika-download-hero-fade: linear-gradient(to right, var(--aika-transparent) 15%, var(--aika-download-hero-tint) 90%);
+    /* Pause / resume on the active download: a round glow that fits the 14 px
+       left under it (the CTA glow reached 30 px and got cut into a square) */
+    --aika-shadow-dl-button:
+        0 0 0 var(--aika-hairline) var(--aika-accent-ring),
+        0 0 10px var(--aika-accent-glow),
+        inset 0 var(--aika-hairline) 0 0 var(--aika-highlight-cta);
+    --aika-shadow-dl-button-hover:
+        0 0 0 var(--aika-hairline) var(--aika-accent-ring),
+        0 0 14px var(--aika-accent-glow),
+        inset 0 var(--aika-hairline) 0 0 var(--aika-highlight-cta);
+    --aika-dl-glow-room: 16px;        /* how far the glow may reach past its boxes */
     /* The banner in the store mega menu: the image darkens left to right */
     --aika-store-banner-shade: linear-gradient(270deg, var(--aika-scrim-none) 37%, var(--aika-bg-base) 81%);
     /* The store video player (selectors.css): a floating control panel */
