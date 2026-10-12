@@ -177,3 +177,109 @@ html body.v6.checkout #submit_payment_info_btn.btnv6_green_white_innerfade:hover
 html body.v6.checkout #submit_payment_info_btn.btnv6_green_white_innerfade:hover {
     box-shadow: var(--aika-shadow-cta-hover);
 }
+
+/* --------------------------------------------------------------------------
+   The card (author 2026-10-13, after reactbits Pro "Credit Card"). The real
+   component fills the card with what you type — that needs JS, which never runs
+   on checkout, and CSS cannot read field values. So the card follows the focus
+   only: the number row, the holder or the expiry lights up while that field is
+   focused, and the card turns over for the security code. It shows placeholders
+   only — no field value is read or drawn anywhere.
+     Front — .rightcol::before (in the flow, as wide as the column, card
+     proportions), back — .rightcol::after laid over it; the art is
+     --aika-card-art-* (colors.css), the focus frame is a separate background
+     layer moved by --aika-card-focus-* (percentages — the art scales with the card).
+     Shown while the card fields are on the page (#credit_card_row not hidden).
+   -------------------------------------------------------------------------- */
+
+/* The defaults — a low-specificity rule, so the focus rules below always win
+   (the card rules carry :has(#id) and are much stronger) */
+html body.v6.checkout .rightcol {
+    --aika-card-focus-x: 50%;
+    --aika-card-focus-y: 50%;
+    --aika-card-focus-w: 0%;
+    --aika-card-focus-h: 0%;
+    --aika-card-turn-front: 0deg;
+    --aika-card-turn-back: 180deg;
+}
+
+html body.v6.checkout:has(#card_number):not(:has(#credit_card_row[style*="none"])) .rightcol {
+    position: relative;
+    perspective: var(--aika-card-perspective);
+}
+
+html body.v6.checkout:has(#card_number):not(:has(#credit_card_row[style*="none"])) .rightcol::before,
+html body.v6.checkout:has(#card_number):not(:has(#credit_card_row[style*="none"])) .rightcol::after {
+    content: "";
+    aspect-ratio: var(--aika-card-ratio);
+    border-radius: var(--aika-radius-xl);
+    backface-visibility: hidden;
+    box-shadow: var(--aika-shadow-card), 0 18px 40px var(--aika-accent-haze);
+    transition:
+        transform var(--aika-card-flip) var(--aika-ease),
+        background-position var(--aika-dur-base) var(--aika-ease),
+        background-size var(--aika-dur-base) var(--aika-ease);
+    pointer-events: none;
+}
+
+/* The front: in the flow, as wide as the "Payment methods" block below */
+html body.v6.checkout:has(#card_number):not(:has(#credit_card_row[style*="none"])) .rightcol::before {
+    display: block;
+    margin-bottom: var(--aika-space-5);
+    background:
+        var(--aika-card-art-focus) var(--aika-card-focus-x) var(--aika-card-focus-y) / var(--aika-card-focus-w) var(--aika-card-focus-h) no-repeat,
+        var(--aika-card-art-front) 0 0 / 100% 100% no-repeat,
+        var(--aika-card-sheen),
+        var(--aika-card-face);
+    transform: rotateY(var(--aika-card-turn-front));
+}
+
+/* The back: laid exactly over the front */
+html body.v6.checkout:has(#card_number):not(:has(#credit_card_row[style*="none"])) .rightcol::after {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    background:
+        var(--aika-card-art-back) 0 0 / 100% 100% no-repeat,
+        var(--aika-card-sheen),
+        var(--aika-card-back-face);
+    transform: rotateY(var(--aika-card-turn-back));
+}
+
+/* Which zone lights up. The art is drawn on a 300 × 188 card; a background
+   position P % puts the frame at P % of (card − frame), so x / (300 − w) and
+   y / (188 − h) give the same spot at any card width */
+html body.v6.checkout:has(#card_number:focus) .rightcol {
+    --aika-card-focus-x: 50%;        /* x 16, w 268 */
+    --aika-card-focus-y: 67.53%;     /* y 104, h 34 */
+    --aika-card-focus-w: 89.33%;
+    --aika-card-focus-h: 18.09%;
+}
+
+html body.v6.checkout:has(:is(#first_name, #last_name):focus) .rightcol {
+    --aika-card-focus-x: 9.76%;      /* x 16, w 136 */
+    --aika-card-focus-y: 92.11%;     /* y 140, h 36 */
+    --aika-card-focus-w: 45.33%;
+    --aika-card-focus-h: 19.15%;
+}
+
+html body.v6.checkout:has(:is(#expiration_month_trigger, #expiration_year_trigger):is(:focus, .activetrigger)) .rightcol {
+    --aika-card-focus-x: 92.45%;     /* x 196, w 88 */
+    --aika-card-focus-y: 92.11%;
+    --aika-card-focus-w: 29.33%;
+    --aika-card-focus-h: 19.15%;
+}
+
+/* The security code: the card turns over */
+html body.v6.checkout:has(#security_code:focus) .rightcol {
+    --aika-card-turn-front: -180deg;
+    --aika-card-turn-back: 0deg;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    html body.v6.checkout .rightcol::before,
+    html body.v6.checkout .rightcol::after {
+        transition: none;
+    }
+}

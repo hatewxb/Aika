@@ -338,7 +338,10 @@
     --aika-activity-title-gap: var(--aika-space-2);   /* above and below the title */
 
     /* Privacy blur in the header account menu (components/window.css) */
-    --aika-checkout-field: 36px;      /* checkout fields and dropdowns (sections/store-checkout.css) */
+    --aika-checkout-field: 36px;
+    --aika-card-ratio: 300 / 188;      /* the checkout card: as wide as its column (the art is drawn for 300 × 188) */
+    --aika-card-perspective: 1000px;
+    --aika-card-flip: 600ms;      /* checkout fields and dropdowns (sections/store-checkout.css) */
     --aika-privacy-blur: 3px;         /* visibly blurred, not wiped out, on small text */
     --aika-domino-lie: 90;                    /* deg — the letters start lying on their side */
     --aika-domino-stiffness: 160;             /* the spring standing them up… */
