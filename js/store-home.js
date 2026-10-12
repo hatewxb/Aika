@@ -15,7 +15,8 @@
 //    letters are only wrapped in spans, the text stays Steam's; the heading
 //    gets an aria-label so screen readers read it whole. Opened hidden (under the
 //    client loading curtain) — the letters wait until the page is shown.
-// The pop-up of cards on scroll is pure CSS (scroll-driven animations).
+// The pop-up of cards on scroll is CSS (scroll-driven animations); the script
+// only keeps view timelines on the cards near the window (see the end).
 
 (() => {
   "use strict";
@@ -115,4 +116,42 @@
   };
   if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", splitTitle, { once: true });
   else splitTitle();
+
+  // ------------------------------------------------------------- pop-up
+  // The pop-up on scroll is CSS (a view timeline per card, sections/store-home.css).
+  // A long page carried ~100 of them, and every time Steam mounted content while
+  // you scrolled, all of them were re-resolved — ~70 ms frames (author
+  // 2026-10-13: the page stuttered). Here only the cards within a screen of the
+  // window get .aika-pop-near (and so a timeline); an IntersectionObserver with
+  // a one-screen margin adds / removes it. The motion itself is unchanged.
+  if (CSS.supports("animation-timeline: view()")) {
+    const POP = [
+      ".title_grid", ".home_tabs_row_ctn", "#content_more .home_content > h2",
+      ".main_content_ctn .Panel:has(> .WidgetHeaderCtn)",
+      ".paging_capsules .carousel_items > .focus > *", ".carousel__slide--visible",
+      ".home_discount_games_ctn > *", "a.tab_row_item",
+      "div.home_content_items > .home_content_item",
+      ".gp_contiguous_singles > .home_content_single_ctn",
+    ].map((s) => "body.v6 " + s).join(",");
+    const seen = new WeakSet();
+    const near = new IntersectionObserver((entries) => {
+      for (const e of entries) e.target.classList.toggle("aika-pop-near", e.isIntersecting);
+    }, { rootMargin: "100% 0px 100% 0px" });
+    const scan = () => {
+      for (const el of document.querySelectorAll(POP)) {
+        if (seen.has(el)) continue;
+        seen.add(el);
+        near.observe(el);
+      }
+    };
+    let queued = 0;
+    const start = () => {
+      document.documentElement.classList.add("aika-pop-js");
+      scan();
+      new MutationObserver(() => { if (!queued) queued = requestAnimationFrame(() => { queued = 0; scan(); }); })
+        .observe(document.body, { childList: true, subtree: true });
+    };
+    if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", start, { once: true });
+    else start();
+  }
 })();

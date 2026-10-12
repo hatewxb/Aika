@@ -407,7 +407,15 @@ html body.v6 :is(
    scrolling back plays it in reverse). Neighbors in a row start a little
    later each (the range shifts by --aika-home-i). Without scroll-driven
    animations (or with reduced motion) everything is simply in place.
-   Transform and opacity only — the compositor runs it off the main thread. */
+   Transform and opacity only — the compositor runs it off the main thread.
+   Performance (author 2026-10-13: "the store home stutters when scrolling
+   down"): fill none, not both — an element is animated only while it enters
+   (fully below the window it is not yet in range, after it is plain), so it
+   is no longer a composited layer for the whole page; and only the cards
+   themselves — .home_content_items > * also caught the video, screenshots and
+   flag inside every feed card (477 elements; ~760 animated in all, now ~120).
+   Every range starts the moment the element enters, so nothing shows before
+   its pop-up; the stagger stretches a later neighbour's rise instead. */
 @keyframes aika-home-pop {
     from {
         opacity: 0;
@@ -416,7 +424,11 @@ html body.v6 :is(
 }
 
 @supports (animation-timeline: view()) {
-    html body.v6 :is(
+    /* With js/store-home.js only the cards within a screen of the window carry
+       a view timeline (.aika-pop-near) — the rest of the long page has none,
+       so Steam mounting content while you scroll doesn't re-resolve ~100
+       timelines (that cost ~70 ms frames). Without the script — all of them. */
+    html:not(.aika-pop-js) body.v6 :is(
         .title_grid,
         .home_tabs_row_ctn,
         #content_more .home_content > h2,
@@ -425,13 +437,14 @@ html body.v6 :is(
         .carousel__slide--visible,
         .home_discount_games_ctn > *,
         a.tab_row_item,
-        .home_content_items > *,
+        div.home_content_items > .home_content_item,
         .gp_contiguous_singles > .home_content_single_ctn
-    ) {
-        animation: aika-home-pop linear both;
+    ),
+    html.aika-pop-js body.v6 .aika-pop-near {
+        animation: aika-home-pop linear none;
         animation-timeline: view();
         animation-range:
-            entry calc(var(--aika-home-i, 0) * var(--aika-home-pop-stagger))
+            entry 0%
             entry calc(100% + var(--aika-home-i, 0) * var(--aika-home-pop-stagger));
         animation-timing-function: var(--aika-ease);
     }
@@ -440,25 +453,25 @@ html body.v6 :is(
         .paging_capsules .carousel_items > .focus > *,
         .carousel__slide--visible,
         .home_discount_games_ctn > *,
-        .home_content_items > *
+        div.home_content_items > .home_content_item
     ):nth-child(2) { --aika-home-i: 1; }
     html body.v6 :is(
         .paging_capsules .carousel_items > .focus > *,
         .carousel__slide--visible,
         .home_discount_games_ctn > *,
-        .home_content_items > *
+        div.home_content_items > .home_content_item
     ):nth-child(3) { --aika-home-i: 2; }
     html body.v6 :is(
         .paging_capsules .carousel_items > .focus > *,
         .carousel__slide--visible,
         .home_discount_games_ctn > *,
-        .home_content_items > *
+        div.home_content_items > .home_content_item
     ):nth-child(4) { --aika-home-i: 3; }
     html body.v6 :is(
         .paging_capsules .carousel_items > .focus > *,
         .carousel__slide--visible,
         .home_discount_games_ctn > *,
-        .home_content_items > *
+        div.home_content_items > .home_content_item
     ):nth-child(n + 5) { --aika-home-i: 4; }
 }
 

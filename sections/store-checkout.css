@@ -189,7 +189,11 @@ html body.v6.checkout #submit_payment_info_btn.btnv6_green_white_innerfade:hover
      proportions), back — .rightcol::after laid over it; the art is
      --aika-card-art-* (colors.css), the focus frame is a separate background
      layer moved by --aika-card-focus-* (percentages — the art scales with the card).
-     Shown while the card fields are on the page (#credit_card_row not hidden).
+     Shown while the card fields are on the page. No check of #credit_card_row's
+     inline style: a :has() with a [style] attribute selector made the browser
+     re-check it on every inline style change anywhere — the store home (whose
+     carousels and cursor effects write styles every frame) dropped from ~165 to
+     ~40 fps (2026-10-13).
    -------------------------------------------------------------------------- */
 
 /* The defaults — a low-specificity rule, so the focus rules below always win
@@ -203,13 +207,13 @@ html body.v6.checkout .rightcol {
     --aika-card-turn-back: 180deg;
 }
 
-html body.v6.checkout:has(#card_number):not(:has(#credit_card_row[style*="none"])) .rightcol {
+html body.v6.checkout:has(#card_number) .rightcol {
     position: relative;
     perspective: var(--aika-card-perspective);
 }
 
-html body.v6.checkout:has(#card_number):not(:has(#credit_card_row[style*="none"])) .rightcol::before,
-html body.v6.checkout:has(#card_number):not(:has(#credit_card_row[style*="none"])) .rightcol::after {
+html body.v6.checkout:has(#card_number) .rightcol::before,
+html body.v6.checkout:has(#card_number) .rightcol::after {
     content: "";
     aspect-ratio: var(--aika-card-ratio);
     border-radius: var(--aika-radius-xl);
@@ -223,7 +227,7 @@ html body.v6.checkout:has(#card_number):not(:has(#credit_card_row[style*="none"]
 }
 
 /* The front: in the flow, as wide as the "Payment methods" block below */
-html body.v6.checkout:has(#card_number):not(:has(#credit_card_row[style*="none"])) .rightcol::before {
+html body.v6.checkout:has(#card_number) .rightcol::before {
     display: block;
     margin-bottom: var(--aika-space-5);
     background:
@@ -235,7 +239,7 @@ html body.v6.checkout:has(#card_number):not(:has(#credit_card_row[style*="none"]
 }
 
 /* The back: laid exactly over the front */
-html body.v6.checkout:has(#card_number):not(:has(#credit_card_row[style*="none"])) .rightcol::after {
+html body.v6.checkout:has(#card_number) .rightcol::after {
     position: absolute;
     top: 0;
     left: 0;

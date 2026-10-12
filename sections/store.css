@@ -20,6 +20,20 @@
    TODO: wishlist, cart, search (search/…), the "Browse…" menu.
    ========================================================================== */
 
+/* Scroll performance (author 2026-10-13: the store home stuttered when scrolling
+   down). While the store menu docks and floats (the first ~700 px of a page),
+   Steam rewrites --store-menu-floating-height inline on
+   #responsive_page_template_content several times a frame. A custom property is
+   inherited, so every write re-styled the whole page — with the theme's
+   hundreds of --aika-* tokens that was a ~65 ms frame, four in a row. No Steam
+   CSS reads this variable (its script does, from that element), so it is
+   registered as non-inherited: the writes stay on that one element.
+   Measured on a fast scroll of the store home: frames over 50 ms 4 → 0. */
+@property --store-menu-floating-height {
+    syntax: "*";
+    inherits: false;
+}
+
 /* --------------------------------------------------------------------------
    1. The client browser bar above web pages (store, community)
       (captured via CDP 2026-10-04, main window):
