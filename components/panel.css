@@ -102,8 +102,12 @@ html .AppDetailsSection:not(:has(> h2.SectionHeader)) {
     }
 }
 
+/* backwards, not both: a finished animation held with fill forwards keeps a
+   stacking context on every panel, and a later panel (the activity feed) then
+   painted over hover cards sticking out of the right column (author 2026-10-12,
+   Invincible VS trading cards). backwards still hides a panel during its delay. */
 html .AppDetailsSection {
-    animation: aika-panel-appear var(--aika-dur-enter) var(--aika-ease) both;
+    animation: aika-panel-appear var(--aika-dur-enter) var(--aika-ease) backwards;
 }
 
 /* Each panel is in its own .SeekTarget wrapper inside .RightColumn /
