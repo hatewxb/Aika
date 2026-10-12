@@ -24,11 +24,56 @@
    Page heading
    -------------------------------------------------------------------------- */
 
+/* "Friends Activity": larger and bold (author 2026-10-13) — the store headline
+   type instead of the serif; the letters stand up like dominoes with the script
+   (js/community-activity.js) */
 html #blotter_page .friend_activity_header h1 {
     color: var(--aika-fg);
-    font-family: var(--aika-font-display);
-    font-weight: var(--aika-weight-medium);
+    font-family: var(--aika-font-ui);
+    font-size: var(--aika-activity-title-size);
+    font-weight: var(--aika-activity-title-weight);
     letter-spacing: var(--aika-tracking-h1);
+    line-height: var(--aika-leading-heading);
+}
+
+/* The links on the right ("Activity feed settings | My activity", a floated span)
+   shared the line with the larger title and pushed "Friends" onto a second line:
+   the title clears the float — the links stay a small row at the top right, the
+   title one line under them, with a little air above and below (author 2026-10-13) */
+html #blotter_page .friend_activity_header h1 {
+    clear: both;
+    margin: var(--aika-activity-title-gap) 0;
+    white-space: nowrap;
+}
+
+@keyframes aika-activity-fallback {
+    to { opacity: 1; }
+}
+
+/* Not shown as plain text before the script splits it (it comes at full load) */
+@media (prefers-reduced-motion: no-preference) {
+    html #blotter_page .friend_activity_header h1:not(.aika-domino, .aika-domino-skip),
+    html #blotter_page .friends_link_block .profile_link_block_text_friends:not(.aika-speed, .aika-speed-skip) {
+        opacity: 0;
+        animation: aika-activity-fallback var(--aika-dur-base) var(--aika-ease) var(--aika-split-fallback-delay) forwards;
+    }
+}
+
+/* Steam styles every span in the header (".friend_activity_header span": 10 px,
+   margin 17 px right / 4 px top — meant for its links) — our letter spans undo it */
+html #blotter_page .friend_activity_header h1 :is(.aika-domino-word, .aika-domino-char) {
+    margin: 0;
+    font-size: inherit;
+}
+
+html #blotter_page .friend_activity_header h1 .aika-domino-word {
+    display: inline-block;
+    white-space: nowrap;
+}
+
+html #blotter_page .friend_activity_header h1 .aika-domino-char {
+    display: inline-block;
+    transform-origin: 100% 100%;   /* the bottom-right corner — dominoes falling to the right */
 }
 
 html #blotter_page .blotter_page_title a {
@@ -147,6 +192,25 @@ html #blotter_page .friends_link_block .profile_link_block_text_friends {
     color: var(--aika-accent-bright);
     font-family: var(--aika-font-mono);
     font-size: var(--aika-text-meta);
+}
+
+/* The counted numbers (Speeding Text, js/community-activity.js): larger than the
+   words, slanted and blurred while they run */
+html #blotter_page .friends_link_block .profile_link_block_text_friends .aika-speed-num {
+    display: inline-block;
+    min-width: 1ch;
+    font-size: var(--aika-speed-size);
+    font-weight: var(--aika-weight-semibold);
+    font-variant-numeric: tabular-nums;
+    color: var(--aika-fg);
+    transform: skewX(var(--aika-speed-skew, 0deg));
+    will-change: filter, transform;
+}
+
+.aika-speed-defs {
+    position: absolute;
+    width: 0;
+    height: 0;
 }
 
 /* Block captions: "Add Friends", "Scheduled Events" */

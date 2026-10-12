@@ -167,6 +167,10 @@
             "TargetJs": "js/store-wishlist.js"
         },
         {
+            "MatchRegexString": "^https://steamcommunity\\.com/(id|profiles)/[^/]+/home.*",
+            "TargetJs": "js/community-activity.js"
+        },
+        {
             "MatchRegexString": "^https://(store\\.steampowered|steamcommunity)\\.com/.*",
             "TargetJs": "js/pin-slots.js"
         },

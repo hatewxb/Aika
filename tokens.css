@@ -330,7 +330,23 @@
     --aika-wl-title-weight: 700;
     --aika-wl-rise: 40px;                     /* Split Text: each letter rises this much */
     --aika-wl-dur: 1.25s;
-    --aika-wl-stagger: 50ms;                   /* the currency sign kept apart from the figures */
+    --aika-wl-stagger: 50ms;
+
+    /* Friends Activity (sections/community.css, js/community-activity.js) */
+    --aika-activity-title-size: clamp(32px, 2.8vw, 44px);   /* larger and bold (author) */
+    --aika-activity-title-weight: 800;
+    --aika-activity-title-gap: var(--aika-space-2);   /* above and below the title */
+    --aika-domino-lie: 90;                    /* deg — the letters start lying on their side */
+    --aika-domino-stiffness: 160;             /* the spring standing them up… */
+    --aika-domino-damping: 0.32;              /* …lightly damped: they rock before settling */
+    --aika-domino-shade: 0.6;                 /* tilted letters are dimmed */
+    --aika-domino-delay: 200;                 /* ms */
+    --aika-domino-stagger: 30;                /* ms between letters */
+    --aika-speed-dur: 2200;                   /* ms — the counter run */
+    --aika-speed-blur: 14;                    /* px max blur at 96 px type (scaled to the size) */
+    --aika-speed-strength: 1;
+    --aika-speed-slant: 12;                   /* deg of slant at full speed */
+    --aika-speed-size: 18px;                  /* the numbers in "7 of 24 online" */                   /* the currency sign kept apart from the figures */
     --aika-home-dot-glow: 0 0 10px var(--aika-accent-glow);
     --aika-home-arrow: 40px;                              /* round carousel arrows */
     --aika-home-arrow-icon: 18px;
