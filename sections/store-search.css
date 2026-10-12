@@ -31,6 +31,7 @@
    -------------------------------------------------------------------------- */
 
 html body.v6.search_page .page_header_ctn {
+    padding-bottom: var(--aika-search-header-pad);   /* Steam: 70 px for its band — too much air under the title (author) */
     background: none;
 }
 
@@ -76,7 +77,7 @@ html body.v6.search_page .page_header_ctn {
 }
 
 html body.v6.search_page #termsnone .pagesubheader {
-    margin: var(--aika-space-2) 0 var(--aika-space-4);
+    margin: var(--aika-space-2) 0 var(--aika-space-2);
     font-family: var(--aika-font-ui);
     font-size: var(--aika-search-title-size);
     font-weight: var(--aika-search-title-weight);
@@ -88,7 +89,7 @@ html body.v6.search_page #termsnone .pagesubheader {
 
 /* Not shown as plain text before the script splits it (it comes at full load) */
 @media (prefers-reduced-motion: no-preference) {
-    html.aika-search-js body.v6.search_page #termsnone .pagesubheader:not(.aika-fold, .aika-fold-skip) {
+    html body.v6.search_page #termsnone .pagesubheader:not(.aika-fold, .aika-fold-skip) {
         opacity: 0;
         animation: aika-fold-fallback var(--aika-dur-base) var(--aika-ease) var(--aika-split-fallback-delay) forwards;
     }
@@ -336,25 +337,37 @@ html body.v6.search_page #price_range {
     appearance: none;
     height: var(--aika-range-track);
     border-radius: var(--aika-radius-full);
-    background: linear-gradient(to right, var(--aika-accent) var(--aika-range-pct, 100%), var(--aika-surface-active) var(--aika-range-pct, 100%));
+    background: var(--aika-range-fill) 0 0 / var(--aika-range-pct, 100%) 100% no-repeat, var(--aika-surface-active);
+    box-shadow: 0 0 10px var(--aika-range-glow);
     outline: none;
+}
+
+/* Steam paints its own light-blue runnable track over the input — clear it, the
+   input's gradient (filled part / rest) is the track */
+html body.v6.search_page #price_range::-webkit-slider-runnable-track {
+    height: var(--aika-range-track);
+    border: none;
+    border-radius: var(--aika-radius-full);
+    background: none;
+    box-shadow: none;
 }
 
 html body.v6.search_page #price_range::-webkit-slider-thumb {
     -webkit-appearance: none;
     width: var(--aika-range-thumb);
     height: var(--aika-range-thumb);
-    border: none;
+    margin-top: calc((var(--aika-range-track) - var(--aika-range-thumb)) / 2);
+    border: var(--aika-range-thumb-border) solid var(--aika-ink);
     border-radius: 50%;
-    background: var(--aika-ink);
-    box-shadow: 0 0 0 var(--aika-range-ring) var(--aika-accent-ring), 0 2px 8px var(--aika-shadow-near);
+    background: var(--aika-accent-bright);
+    box-shadow: 0 0 0 var(--aika-range-ring) var(--aika-accent-ring), 0 0 12px var(--aika-accent-glow), 0 2px 8px var(--aika-shadow-near);
     cursor: grab;
     transition: box-shadow var(--aika-dur-fast) var(--aika-ease-hover), transform var(--aika-dur-fast) var(--aika-ease-hover);
 }
 
 html body.v6.search_page #price_range:hover::-webkit-slider-thumb,
 html body.v6.search_page #price_range:focus-visible::-webkit-slider-thumb {
-    box-shadow: 0 0 0 var(--aika-range-ring-hover) var(--aika-accent-ring), 0 2px 8px var(--aika-shadow-near);
+    box-shadow: 0 0 0 var(--aika-range-ring-hover) var(--aika-accent-ring), 0 0 16px var(--aika-accent-glow), 0 2px 8px var(--aika-shadow-near);
 }
 
 html body.v6.search_page #price_range:active::-webkit-slider-thumb {
@@ -423,6 +436,13 @@ html.aika-price-slider body.v6.search_page #price_range_display {
 
 .aika-price-badge .aika-roll {
     display: inline-block;
+}
+
+.aika-price-badge .aika-roll.aika-cur {
+    margin-left: var(--aika-cur-gap);
+    font-family: var(--aika-font-ui);
+    font-weight: var(--aika-weight-regular);
+    opacity: 0.75;
 }
 
 .aika-price-badge .aika-roll.is-new {

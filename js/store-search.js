@@ -383,7 +383,8 @@ void main() {
       label.replaceChildren(...Array.from(text, (ch, i) => {
         const s = document.createElement("span");
         s.className = "aika-roll";
-        s.textContent = ch === " " ? " " : ch;
+        s.textContent = ch === " " ? "\u00A0" : ch;
+        if (/[\u00A2-\u00A5\u20A0-\u20CF]/.test(ch)) s.classList.add("aika-cur");   // set apart, as in the rows
         if (prev && prev[i] !== ch && !reduced) s.classList.add("is-new");
         return s;
       }));
@@ -437,7 +438,7 @@ void main() {
   // In small mono figures "₴" reads as a struck "0" ("695,00₴" ≈ "695,000"): the
   // sign (any currency symbol at either end) goes into a span the CSS sets apart —
   // a little space, muted. The text itself is untouched.
-  const CURRENCY = /^([^\d\s.,]*)\s*([\d\s., ]+?)\s*([^\d\s.,]*)$/;
+  const CURRENCY = /^([^\d\s.,]*)\s*([\d\s.,\u00A0]+?)\s*([^\d\s.,]*)$/;
   const currency = (scope = document) => {
     for (const el of scope.querySelectorAll(".search_result_row .discount_prices > div:not(.free):not([data-aika-cur])")) {
       const t = el.textContent, m = CURRENCY.exec(t.trim());

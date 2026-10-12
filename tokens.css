@@ -285,6 +285,7 @@
     --aika-aurora-resolution: 0.5;            /* × device pixels — soft anyway, half the work */
     --aika-search-title-size: clamp(40px, 3.4vw, 56px);   /* "All products": larger and bold (author) */
     --aika-search-title-weight: 800;
+    --aika-search-header-pad: 34px;           /* under the title, to the search bar */
     --aika-tracking-fold: -0.04em;            /* Fold Text */
     --aika-leading-fold: 1;
     --aika-fold-angle: -92deg;                /* each letter swings down from its top hinge */
@@ -307,6 +308,7 @@
     --aika-range-track: 3px;                  /* motion "Number slider" */
     --aika-range-thumb: 20px;
     --aika-range-ring: 2px;
+    --aika-range-thumb-border: 3px;          /* a light rim around the accent thumb */
     --aika-range-ring-hover: 4px;
     --aika-badge-room: 34px;                  /* room above the track for the price badge */
     --aika-badge-gap: 14px;
