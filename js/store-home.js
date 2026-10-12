@@ -75,8 +75,9 @@
   // ------------------------------------------------------- staggered title
   const splitTitle = () => {
     const t = document.getElementById("home_featured_and_recommended");
-    if (!t || "aikaSplit" in t.dataset || t.children.length) return;
-    if (matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+    if (!t || "aikaSplit" in t.dataset) return;
+    // Not splitting: show Steam's title right away (CSS holds it hidden until then)
+    if (t.children.length || matchMedia("(prefers-reduced-motion: reduce)").matches) { t.classList.add("aika-split-skip"); return; }
     const text = t.textContent.trim();
     t.dataset.aikaSplit = "";
     t.setAttribute("aria-label", text);

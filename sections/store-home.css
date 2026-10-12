@@ -100,6 +100,21 @@ html body.v6 #home_maincap_v7 .aika-split-char {
     animation: aika-split-in var(--aika-split-dur) var(--aika-ease) calc(var(--aika-split-i, 0) * var(--aika-split-stagger)) backwards;
 }
 
+/* Until the script splits it, the title is not shown as plain text — the script
+   comes only at full load (~2 s), and the plain title flashed, vanished and came
+   back letter by letter (author 2026-10-12). No script — it fades in after
+   --aika-split-fallback-delay; reduced motion — never hidden. */
+@keyframes aika-split-fallback {
+    to { opacity: 1; }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+    html body.v6 #home_maincap_v7 #home_featured_and_recommended:not(.aika-split, .aika-split-skip) {
+        opacity: 0;
+        animation: aika-split-fallback var(--aika-dur-base) var(--aika-ease) var(--aika-split-fallback-delay) forwards;
+    }
+}
+
 /* The page opened hidden (js/store-home.js): the letters wait on the first frame */
 html body.v6 #home_maincap_v7 .aika-split-wait .aika-split-char {
     animation-play-state: paused;

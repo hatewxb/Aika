@@ -272,11 +272,15 @@ html .Shared_Radio_Group > .Button.RadioButton:not(.Active) + .Button.RadioButto
    (a repeating gradient). The dash color is --aika-pin-line (by state). */
 html :is(.GenericConfirmDialog .Body > input.TextInput[type="password"], #parental_main_content form input[type="password"]) {
     --aika-pin-line: var(--aika-border-strong);
-    box-sizing: content-box;
-    width: calc(var(--aika-pin-digits) * var(--aika-pin-pitch));
+    /* The same footprint as the script's cells (.aika-pin-js below), so the
+       dialog never changes size when they take over */
+    --aika-pin-box: calc(var(--aika-pin-digits) * var(--aika-pin-cell) + (var(--aika-pin-digits) - 1) * var(--aika-pin-gap));
+    --aika-pin-pad: calc((var(--aika-pin-box) - var(--aika-pin-digits) * var(--aika-pin-pitch)) / 2);
+    box-sizing: border-box;
+    width: var(--aika-pin-box);
     max-width: none;
     height: var(--aika-pin-height);
-    padding: 0 var(--aika-space-3);
+    padding: 0 var(--aika-pin-pad);
     border: var(--aika-hairline) solid var(--aika-border-strong);
     border-radius: var(--aika-radius-lg);
     background:
@@ -286,7 +290,7 @@ html :is(.GenericConfirmDialog .Body > input.TextInput[type="password"], #parent
             var(--aika-pin-line) var(--aika-pin-line-inset) calc(var(--aika-pin-pitch) - var(--aika-pin-line-inset)),
             var(--aika-transparent) calc(var(--aika-pin-pitch) - var(--aika-pin-line-inset)) var(--aika-pin-pitch)
         )
-        var(--aika-space-3) calc(100% - var(--aika-pin-line-bottom)) / calc(var(--aika-pin-digits) * var(--aika-pin-pitch)) var(--aika-pin-line-width) no-repeat,
+        var(--aika-pin-pad) calc(100% - var(--aika-pin-line-bottom)) / calc(var(--aika-pin-digits) * var(--aika-pin-pitch)) var(--aika-pin-line-width) no-repeat,
         var(--aika-bg-raised);
     box-shadow: none;
     color: var(--aika-fg);
@@ -299,6 +303,21 @@ html :is(.GenericConfirmDialog .Body > input.TextInput[type="password"], #parent
     transition:
         border-color var(--aika-dur-fast) var(--aika-ease-hover),
         box-shadow var(--aika-dur-base) var(--aika-ease);
+}
+
+/* Until js/pin-slots.js lays its cells over the field, the field is not shown
+   in this no-script look — otherwise it flashed for a moment and then turned
+   into the cells (author 2026-10-12: "it first shows our old interface, then
+   abruptly the new one"). The client dialog gets the cells in the same frame;
+   a web page gets the script only at full load. No script at all — this look
+   fades in after --aika-pin-fallback-delay. */
+@keyframes aika-pin-fallback {
+    to { opacity: 1; }
+}
+
+html :is(.GenericConfirmDialog .Body > input.TextInput[type="password"], #parental_main_content form input[type="password"]):not(.aika-pin-js) {
+    opacity: 0;
+    animation: aika-pin-fallback var(--aika-dur-base) var(--aika-ease) var(--aika-pin-fallback-delay) forwards;
 }
 
 html :is(.GenericConfirmDialog .Body > input.TextInput[type="password"], #parental_main_content form input[type="password"]):hover {

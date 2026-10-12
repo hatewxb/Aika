@@ -104,13 +104,24 @@
     if (!("aikaPin" in el.dataset)) attach(el);
   });
 
-  // The client dialog appears any time — a cheap look twice a second
-  // (a subtree MutationObserver on the main window would fire constantly).
+  // The client dialog appears any time. It mounts inside .FullModalOverlay (there
+  // from the window's start), so a MutationObserver on just that subtree catches
+  // it before its first frame — the field never shows its no-script look
+  // (components/input.css keeps it hidden until .aika-pin-js). A subtree observer
+  // on the whole main window would fire constantly; the overlay is quiet.
+  // A cheap look twice a second stays as a safety net (an overlay not yet there).
   // Web pages: the form renders shortly after load, or never. Recognized by
   // the host — the client windows are https too (steamloopback.host), and
   // giving up there left the dialog without cells after a restart.
   const web = /^(store\.steampowered|steamcommunity)\.com$/.test(location.hostname);
-  const timer = setInterval(scan, 500);
+  const watched = new WeakSet();
+  const watchOverlays = () => document.querySelectorAll(".FullModalOverlay").forEach((o) => {
+    if (watched.has(o)) return;
+    watched.add(o);
+    new MutationObserver(scan).observe(o, { childList: true, subtree: true });
+  });
+  const timer = setInterval(() => { if (!web) watchOverlays(); scan(); }, 500);
+  if (!web) watchOverlays();
   scan();
   if (web) setTimeout(() => { if (!document.querySelector(".aika-pin-slots")) clearInterval(timer); }, WEB_GIVE_UP);
 })();

@@ -68,6 +68,7 @@ html .Login.AnimatedBackground::before {
     inset: 0;
     background: var(--aika-login-veil);
     pointer-events: none;
+    animation: aika-login-fade var(--aika-login-crossfade) var(--aika-ease) both;
 }
 
 html .Login .LoginStatusContainer {
@@ -95,8 +96,18 @@ html .Login .SpinnerLoaderContainer {
     position: relative;
 }
 
+/* Millennium attaches this CSS ~0.5–0.8 s after the window appears at startup
+   (it is still loading the theme; no theme code can run earlier — there is no
+   other window yet), so the first frames are Steam's. Instead of a hard swap,
+   Steam's spinner fades out while the veil and our mark fade in. */
+@keyframes aika-login-fade-out {
+    from { opacity: 1; }
+    to   { opacity: 0; }
+}
+
 html .Login .SpinnerLoaderContainer > img.Small {
     opacity: 0;
+    animation: aika-login-fade-out var(--aika-login-crossfade) var(--aika-ease) both;
 }
 
 /* The ripple below is drawn by .LoadingStatus but measured from the container */

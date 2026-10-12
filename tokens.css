@@ -247,6 +247,8 @@
     --aika-split-blur: 8px;                               /* …out of this blur */
     --aika-split-dur: 900ms;
     --aika-split-stagger: 35ms;                           /* the next letter starts this much later */
+    --aika-shelves-fallback-delay: 6s; /* no script: Steam's screenshot wall shows after this (sections/content.css) */
+    --aika-split-fallback-delay: 6s;  /* no script: the plain title shows after this */
     --aika-split-descender: 0.12em;
     --aika-home-mark-width: 3px;                          /* the Fluent mark before section titles */
     --aika-home-mark-height: 0.9em;
@@ -508,6 +510,7 @@
     --aika-login-status-gap: 18px;
     --aika-login-caret: 1.05s;
     --aika-login-caret-width: 2px;
+    --aika-login-crossfade: 450ms;    /* Steam's first frames → ours */
 
     /* The main window loading curtain (js/boot-reveal.js, sections/boot.css):
        motion.dev "Loading line reveal" values */
@@ -677,6 +680,7 @@
     --aika-pin-line-width: 2px;
     /* Animated cells over the field (js/pin-slots.js, "Code Slots" idea) */
     --aika-pin-cell: 48px;            /* a cell's width */
+    --aika-pin-fallback-delay: 4s;    /* no script: the plain field shows after this (components/input.css) */
     --aika-pin-gap: 12px;             /* between cells — clearly four separate cells */
     --aika-pin-shadow-filled:
         inset 0 0 0 var(--aika-hairline) var(--aika-accent-ring),

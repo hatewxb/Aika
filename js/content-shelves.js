@@ -30,12 +30,17 @@
   if (window.__aikaShelves) return;
   window.__aikaShelves = true;
 
-  const params = new URLSearchParams(location.search);
-  if (!/^\/(id|profiles)\/[^/]+\/screenshots\/?$/.test(location.pathname)) return;
-  if ((params.get("appid") || "0") !== "0") return;
-  if ((params.get("browsefilter") || "myfiles") !== "myfiles") return;
-
+  // sections/content.css keeps Steam's wall hidden until the script decides
+  // (shelves or not) — it comes only at full load, and the wall used to flash
+  // before the shelves replaced it. Every "no shelves" path shows it at once.
   const ROOT = document.documentElement;
+  const keepWall = () => ROOT.classList.add("aika-shelves-off");
+
+  const params = new URLSearchParams(location.search);
+  if (!/^\/(id|profiles)\/[^/]+\/screenshots\/?$/.test(location.pathname)) return keepWall();
+  if ((params.get("appid") || "0") !== "0") return keepWall();
+  if ((params.get("browsefilter") || "myfiles") !== "myfiles") return keepWall();
+
   const CLASS_ON = "aika-shelves";
   const ICON_CDN = "https://shared.fastly.steamstatic.com/community_assets/images/apps/";
   const CACHE_DAYS = 7;
@@ -228,7 +233,7 @@
   ready(() => {
     const wall = document.querySelector("#image_wall");
     const controls = document.querySelector("#ScreenshotManagementControlsTop");
-    if (!wall || !controls) return;
+    if (!wall || !controls) return keepWall();
 
     const games = [...document.querySelectorAll("#sharedfiles_filterselect_app_filterable .option")]
       .map((o) => ({
@@ -236,7 +241,7 @@
         name: o.textContent.trim(),
       }))
       .filter((g) => g.appid && g.appid !== "0");
-    if (!games.length) return;
+    if (!games.length) return keepWall();
 
     // Order: games of the latest screenshots (the wall goes newest to oldest) come first
     const recent = [...new Set([...wall.querySelectorAll(".profile_media_item[data-appid]")].map((a) => a.dataset.appid))];
@@ -263,6 +268,7 @@
     const infinite = window.InfiniteScrollingCheckForMoreContent;
     const setOn = (on) => {
       ROOT.classList.toggle(CLASS_ON, on);
+      ROOT.classList.toggle("aika-shelves-off", !on);
       if (typeof infinite !== "function") return;
       if (on) window.removeEventListener("scroll", infinite, false);
       else window.addEventListener("scroll", infinite, false);

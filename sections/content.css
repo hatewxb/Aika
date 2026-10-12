@@ -329,6 +329,19 @@ html:not(.aika-shelves) .aika-shelves-list {
     display: none;
 }
 
+/* Before the script decides, Steam's wall isn't shown — it flashed and then got
+   replaced by the shelves (author 2026-10-12). The script sets .aika-shelves or
+   .aika-shelves-off; no script — the wall fades in after --aika-shelves-fallback-delay */
+@keyframes aika-shelves-fallback {
+    to { opacity: 1; }
+}
+
+/* Only the Screenshots tab — Artwork has the same wall and no script */
+html:not(.aika-shelves, .aika-shelves-off):has(.sectionTab.active.screenshots) #image_wall #BatchScreenshotManagement {
+    opacity: 0;
+    animation: aika-shelves-fallback var(--aika-dur-base) var(--aika-ease) var(--aika-shelves-fallback-delay) forwards;
+}
+
 /* "Showing: wall / grid" — doesn't apply to shelves */
 html.aika-shelves #image_wall #ScreenshotManagementControlsTop :is(.ScreenshotManagementLabel, .ScreenshotManagementLabel + div) {
     display: none;
