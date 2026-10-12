@@ -16,8 +16,9 @@
 //    title, the copy is rebuilt.
 // 3. Currency signs: in small mono figures "₴" reads as a struck "0" — React's
 //    text node keeps the figures, the sign moves into a span right after it
-//    (sections/store-wishlist.css sets it apart, muted). If React writes the full
-//    price back, it is split again.
+//    (sections/store-wishlist.css sets it apart, muted); zero cents are dropped
+//    ("319,00 ₴" → "319 ₴", author's request). If React writes the full price
+//    back, it is split again.
 
 (() => {
   "use strict";
@@ -200,6 +201,7 @@ void main() {
   const INTRO_SECONDS = 1.8;
   const MAX_FIELD_PIXELS = 900000;
 
+  let veilBox = null;   // kept: React may rebuild <body> — the same layer (and GL context) goes back in
   const veil = () => {
     const box = document.createElement("div");
     box.className = "aika-veil";
@@ -207,6 +209,7 @@ void main() {
     const canvas = document.createElement("canvas");
     box.append(canvas);
     document.body.prepend(box);
+    veilBox = box;
     const gl = canvas.getContext("webgl2", { alpha: true, premultipliedAlpha: true, antialias: false, depth: false, stencil: false });
     if (!gl) { box.remove(); return; }
 
@@ -443,6 +446,7 @@ void main() {
 
   // ------------------------------------------------------- 3. currency signs
   const SIGN = /^([\d][\d\s., ]*?)\s*([¢-¥₠-⃏]+)$/;
+  const WHOLE = /[.,]00$/;   // zero cents are dropped: whole prices read as whole numbers
   const currency = (scope) => {
     const walker = document.createTreeWalker(scope, NodeFilter.SHOW_TEXT);
     const hits = [];
@@ -452,7 +456,7 @@ void main() {
       if (m) hits.push([n, m]);
     }
     for (const [n, m] of hits) {
-      n.data = m[1];
+      n.data = m[1].replace(WHOLE, "");   // "319,00" → "319": no zero cents (author 2026-10-12)
       let sign = n.nextSibling;
       if (!(sign?.nodeType === 1 && sign.classList.contains("aika-cur"))) {
         sign = document.createElement("span");
@@ -463,15 +467,23 @@ void main() {
     }
   };
 
+  // The app (#StoreTemplate) renders after load and React may rebuild the page
+  // (the /wishlist/ → /wishlist/id/… redirect does): everything is re-checked on
+  // DOM changes, throttled to a frame — the veil goes back in, the title is found
+  // again, new prices are split.
   ready(() => {
-    const app = document.getElementById("StoreTemplate");
-    if (!app) return;
-    veil();
-    let titled = title(), queued = 0;
-    currency(app);
-    new MutationObserver(() => {
-      if (queued) return;
-      queued = requestAnimationFrame(() => { queued = 0; if (!titled) titled = title(); currency(app); });
-    }).observe(app, { childList: true, subtree: true, characterData: true });
+    let titled = null, queued = 0;
+    const check = () => {
+      queued = 0;
+      const app = document.getElementById("StoreTemplate");
+      if (!app) return;
+      if (!veilBox) veil();
+      else if (!veilBox.isConnected) document.body.prepend(veilBox);
+      if (!titled?.isConnected) titled = title() ? findTitle() : null;
+      currency(app);
+    };
+    new MutationObserver(() => { if (!queued) queued = requestAnimationFrame(check); })
+      .observe(document.documentElement, { childList: true, subtree: true, characterData: true });
+    check();
   });
 })();

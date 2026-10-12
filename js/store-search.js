@@ -437,7 +437,8 @@ void main() {
   // ----------------------------------------------------- 5. currency signs
   // In small mono figures "₴" reads as a struck "0" ("695,00₴" ≈ "695,000"): the
   // sign (any currency symbol at either end) goes into a span the CSS sets apart —
-  // a little space, muted. The text itself is untouched.
+  // a little space, muted. Zero cents are dropped ("695,00 ₴" → "695 ₴", author's
+  // request); other cents stay.
   const CURRENCY = /^([^\d\s.,]*)\s*([\d\s.,\u00A0]+?)\s*([^\d\s.,]*)$/;
   const currency = (scope = document) => {
     for (const el of scope.querySelectorAll(".search_result_row .discount_prices > div:not(.free):not([data-aika-cur])")) {
@@ -447,7 +448,7 @@ void main() {
       const frag = document.createDocumentFragment();
       const sign = (s) => { const span = document.createElement("span"); span.className = "aika-cur"; span.textContent = s; return span; };
       if (m[1]) frag.append(sign(m[1]));
-      frag.append(m[2]);
+      frag.append(m[2].replace(/[.,]00$/, ""));   // "695,00" → "695": no zero cents (author 2026-10-12)
       if (m[3]) frag.append(sign(m[3]));
       el.replaceChildren(frag);
     }
