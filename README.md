@@ -32,10 +32,18 @@ Steam's light blue. The theme doesn't change any Steam text, only the look.
 | Library | Store |
 |:--:|:--:|
 | ![Library](screenshots/library-home.jpg) | ![Store](screenshots/store-home.jpg) |
-| **Store game page** | **Friends** |
-| ![Store game page](screenshots/store-app.jpg) | ![Friends](screenshots/community-friends.png) |
+| **Store game page** (Cinematic) | **Store search** |
+| ![Store game page](screenshots/store-app.jpg) | ![Store search](screenshots/store-search.jpg) |
+| **Wishlist** | **Friends** |
+| ![Wishlist](screenshots/store-wishlist.jpg) | ![Friends](screenshots/community-friends.png) |
 | **Screenshots by game** | **Settings** |
 | ![Screenshots by game](screenshots/community-screenshots.png) | ![Settings](screenshots/settings.png) |
+
+**Color presets** — Hello Bert, Greeny, Rose Ash (Aika is above):
+
+| | | |
+|:--:|:--:|:--:|
+| ![Hello Bert](screenshots/preset-hello-bert.jpg) | ![Greeny](screenshots/preset-greeny.jpg) | ![Rose Ash](screenshots/preset-rose-ash.jpg) |
 
 ## Installation
 
