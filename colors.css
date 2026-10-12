@@ -167,6 +167,7 @@ html:root {
     /* The active download banner: where the cover fades to, and the row under the
        stats — the panel background with a touch of the accent, per preset */
     --aika-download-hero-tint: color-mix(in oklab, var(--aika-accent) 10%, var(--aika-bg-elevated));
+    --aika-download-hero-tint-hover: color-mix(in oklab, var(--aika-accent) 14%, var(--aika-bg-raised));
     /* The media viewer backdrop: almost opaque, the page barely shows through */
     --aika-cine-viewer-backdrop: rgb(from var(--aika-bg-deep) r g b / 0.94);
     /* Trailer segments and the viewer scrub bar: the track and the watched part */

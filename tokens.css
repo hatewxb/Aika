@@ -153,7 +153,6 @@
     /* Downloads: the active download cover fades to the right, toward the graph
        (Steam fades into blue #0056d6). Into a neutral warm background: fading
        into a muted accent read as bluish (author's fix 2026-10-05) */
-    --aika-download-hero-fade: linear-gradient(to right, var(--aika-transparent) 15%, var(--aika-download-hero-tint) 90%);
     /* Pause / resume on the active download: a round glow that fits the 14 px
        left under it (the CTA glow reached 30 px and got cut into a square) */
     --aika-shadow-dl-button:

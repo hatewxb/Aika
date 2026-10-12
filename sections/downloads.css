@@ -119,8 +119,11 @@ html .DownloadsPage .ItemLists .Section .SectionList .EmptyTransfers .Text {
    Colors as on the graph: network — accent, disk — --aika-download-disk.
    ========================================================================== */
 
+/* The fade ends in --aika-dl-hero-end, set on the row below (so it follows the
+   row's hover) */
 html .DownloadsPage .HeroAndLogo .HeroGradient {
-    background: var(--aika-download-hero-fade);
+    background: linear-gradient(to right, var(--aika-transparent) 15%, var(--aika-dl-hero-end, var(--aika-download-hero-tint)) 90%);
+    transition: background var(--aika-dur-base) var(--aika-ease-hover);
 }
 
 /* The row under the banner's right half (the stats, the bars, the button):
@@ -129,7 +132,16 @@ html .DownloadsPage .HeroAndLogo .HeroGradient {
    theme color"). The fade above ends in the same color: the theme's panel
    background with a touch of its accent. */
 html .DownloadsPage .SectionItem.Active {
-    background-color: var(--aika-download-hero-tint);
+    --aika-dl-hero-end: var(--aika-download-hero-tint);
+    background-color: var(--aika-dl-hero-end);
+}
+
+/* Hover: the queue rows' translucent warm hover (--aika-surface-hover) turned
+   this banner a muddy grey-brown and broke the seam with the fade (author
+   2026-10-12: "swampy"). The banner keeps the theme tint, a step lighter. */
+html .DownloadsPage .SectionItem.Active:hover {
+    --aika-dl-hero-end: var(--aika-download-hero-tint-hover);
+    background-color: var(--aika-dl-hero-end);
 }
 
 html .DownloadSectionActiveItem .DragHandle svg path {
