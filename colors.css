@@ -240,6 +240,18 @@ html:root {
     /* The page curtain (components/curtain.css): the near-black with a haze */
     --aika-curtain: radial-gradient(60% 50% at 50% 45%, rgb(from var(--aika-accent) r g b / 0.10), transparent), var(--aika-bg-deep);
 
+    /* The discovery queue page (sections/store-explore.css): an accent light
+       behind the queue instead of Steam's blue cluster_bg.png; covers further back
+       dim into the canvas (Steam: navy 0.1–0.8); the counts a vertical text gradient */
+    --aika-explore-glow:
+        radial-gradient(40% 70% at 38% 72%, rgb(from var(--aika-accent) r g b / 0.16), transparent 70%),
+        radial-gradient(30% 50% at 70% 60%, rgb(from var(--aika-light-2) r g b / 0.08), transparent 70%);
+    --aika-explore-dim-0: rgb(from var(--aika-bg-base) r g b / 0.05);
+    --aika-explore-dim-1: rgb(from var(--aika-bg-base) r g b / 0.35);
+    --aika-explore-dim-2: rgb(from var(--aika-bg-base) r g b / 0.55);
+    --aika-explore-dim-3: rgb(from var(--aika-bg-base) r g b / 0.75);
+    --aika-explore-count: linear-gradient(to bottom, var(--aika-ink), var(--aika-accent-bright));
+
     /* Fully transparent — to "remove" Steam backgrounds without bare values */
     --aika-transparent: rgb(from var(--aika-ink) r g b / 0);
 }

@@ -1,0 +1,108 @@
+/* ==========================================================================
+   components/web-modal.css — Steam's legacy web dialog on store and community
+   pages (ShowDialog / ShowAlertDialog: "How does it work?" on /explore/,
+   reports, confirmations…). Captured 2026-10-12 on /explore/.
+
+     .newmodal_background                — the black 0.8 backdrop
+     dialog.newmodal                     — #25282e + a gray radial gradient
+       .modal_top_bar                    — a 1 px cyan → blue line
+       .newmodal_header_border .newmodal_header
+         .newmodal_close (a 16 px PNG cross) + .title_text
+       .newmodal_content_border .newmodal_content (text #acb2b8)
+         .newmodal_buttons > .btn_grey_steamui / .btn_green_steamui > span
+
+   Aika: the raised panel of the client dialogs — the same accent line fading
+   to the edges on top (as .ModalPosition_TopBar in the client), Inter title,
+   our window cross, Aika buttons; the backdrop is the canvas scrim.
+   ========================================================================== */
+
+html .newmodal_background {
+    background: var(--aika-scrim);
+    opacity: 1 !important; /* Steam sets opacity: 0.8 inline — only !important beats it; the scrim has its own alpha */
+    backdrop-filter: var(--aika-web-modal-blur);
+}
+
+html .newmodal {
+    overflow: hidden;
+    border: var(--aika-hairline) solid var(--aika-border-hover);
+    border-radius: var(--aika-radius-xl);
+    background: var(--aika-bg-elevated);
+    box-shadow: var(--aika-shadow-menu);
+}
+
+html .newmodal .modal_top_bar {
+    background: var(--aika-modal-topbar);
+    opacity: var(--aika-modal-topbar-opacity);
+}
+
+html .newmodal .newmodal_header {
+    padding-inline: var(--aika-space-5);
+}
+
+html .newmodal .newmodal_header .title_text {
+    font-family: var(--aika-font-ui);
+    font-size: var(--aika-text-h2);
+    font-weight: var(--aika-weight-semibold);
+    letter-spacing: var(--aika-tracking-h2);
+    text-transform: none;
+    color: var(--aika-fg);
+}
+
+/* The cross: our window glyph instead of the PNG */
+html .newmodal .newmodal_close {
+    border-radius: var(--aika-radius-md);
+    background-image: none;
+    background-color: var(--aika-fg-muted);
+    -webkit-mask: var(--aika-icon-win-close) center / var(--aika-web-modal-close) no-repeat;
+    mask: var(--aika-icon-win-close) center / var(--aika-web-modal-close) no-repeat;
+    opacity: 1;
+    transition: background-color var(--aika-dur-fast) var(--aika-ease-hover);
+}
+
+html .newmodal .newmodal_close:hover {
+    background-color: var(--aika-fg);
+}
+
+html .newmodal .newmodal_content {
+    font-family: var(--aika-font-ui);
+    line-height: var(--aika-leading-body);
+    color: var(--aika-fg-muted);
+}
+
+html .newmodal .newmodal_content img {
+    border-radius: var(--aika-radius-lg);
+}
+
+/* Buttons: grey — Aika secondary, green — primary */
+html .newmodal .newmodal_buttons :is(.btn_grey_steamui, .btn_green_steamui, .btn_grey_white_innerfade, .btn_green_white_innerfade) {
+    border-radius: var(--aika-radius-md);
+    background: none;
+}
+
+html .newmodal .newmodal_buttons :is(.btn_grey_steamui, .btn_grey_white_innerfade) > span {
+    border-radius: var(--aika-radius-md);
+    background: var(--aika-surface);
+    box-shadow: var(--aika-shadow-secondary);
+    color: var(--aika-fg);
+    font-family: var(--aika-font-ui);
+    transition: background-color var(--aika-dur-fast) var(--aika-ease-hover);
+}
+
+html .newmodal .newmodal_buttons :is(.btn_grey_steamui, .btn_grey_white_innerfade):hover > span {
+    background: var(--aika-surface-hover);
+    color: var(--aika-fg);
+}
+
+html .newmodal .newmodal_buttons :is(.btn_green_steamui, .btn_green_white_innerfade) > span {
+    border-radius: var(--aika-radius-md);
+    background: var(--aika-accent-fill);
+    box-shadow: var(--aika-shadow-cta);
+    color: var(--aika-on-accent);
+    font-family: var(--aika-font-ui);
+    transition: background-color var(--aika-dur-fast) var(--aika-ease-hover);
+}
+
+html .newmodal .newmodal_buttons :is(.btn_green_steamui, .btn_green_white_innerfade):hover > span {
+    background: var(--aika-accent-fill-hover);
+    color: var(--aika-on-accent);
+}

@@ -1,0 +1,285 @@
+/* ==========================================================================
+   sections/store-explore.css — the discovery queue page
+   (store.steampowered.com/explore/, body.v6.explore; captured 2026-10-12,
+   all classes readable).
+
+     .page_header_ctn            — the top band, Steam's cluster_bg.png (a blue glow)
+       .header_area h2.pageheader + .queue_page_desc
+     .discovery_queue_content_ctn .discovery_queue_apps
+       > h2                      — "Your queue"
+       #discovery_queue_ctn.discovery_queue_static
+         a.discovery_queue_overlay .discovery_queue_overlay_bg
+           ::before              — Steam's gold arrow PNG (discovery_queue_arrow.png)
+           .discovery_queue_overlay_message — "Click here to begin…" (gold)
+         #discovery_queue.discovery_queue > .dq_item.dq_static_pos_N
+           .dq_item_overlay (navy dimming by depth) + img.dq_item_cap + .dq_item_reason
+       .discover_queue_empty     — the end of the queue (h3, p, a "New queue" button)
+     .discovery_queue_customize_ctn — "Customize your queue" bar (navy, #223c4f border)
+     .leftcol h2 + .faq_question (light blue #67c1f5) / .faq_answer
+     .rightcol h2 + .responsive_explore_activity .explore_rightcol_box
+       .explore_rightcol_header / .explore_rightcol_count_box
+         (.explore_rightcol_count — the number, .explore_rightcol_text) /
+       .explore_rightcol_explain
+
+   Aika: the headline like the store home's, section titles with the Fluent
+   mark; the queue covers rounded on an accent light instead of the blue PNG;
+   the gold arrow becomes an accent capsule with a chevron that nudges forward
+   on hover; the customize bar and the activity boxes are Aika cards, the
+   counts mono; the FAQ is a quiet list with hairline dividers. Steam's
+   ghost buttons (.btnv6_blue_hoverfade) are already ours (sections/store.css).
+   ========================================================================== */
+
+/* --------------------------------------------------------------------------
+   The top band and the headline
+   -------------------------------------------------------------------------- */
+
+html body.v6.explore .page_header_ctn {
+    background: var(--aika-explore-glow);
+}
+
+html body.v6.explore .header_area h2.pageheader,
+html body.v6.explore .leftcol > h2 {
+    font-family: var(--aika-font-ui);
+    font-size: var(--aika-home-title-size);
+    font-weight: var(--aika-home-title-weight);
+    letter-spacing: var(--aika-tracking-display);
+    line-height: var(--aika-leading-heading);
+    text-transform: none;
+    background: var(--aika-text-gradient);
+    background-clip: text;
+    color: var(--aika-transparent);
+}
+
+html body.v6.explore .leftcol > h2 {
+    margin-bottom: var(--aika-space-5);
+    font-size: var(--aika-text-h1);
+}
+
+html body.v6.explore .queue_page_desc {
+    max-width: var(--aika-explore-measure);
+    font-family: var(--aika-font-ui);
+    font-size: var(--aika-text-body);
+    line-height: var(--aika-leading-body);
+    color: var(--aika-fg-muted);
+}
+
+/* Section titles: "Your queue", "Your activity" — the store home's level and mark */
+html body.v6.explore :is(.discovery_queue_apps > h2, .rightcol > h2) {
+    position: relative;
+    padding-left: calc(var(--aika-home-mark-width) + var(--aika-space-3));
+    font-family: var(--aika-font-ui);
+    font-size: var(--aika-text-h3);
+    font-weight: var(--aika-weight-semibold);
+    letter-spacing: var(--aika-tracking-h2);
+    text-transform: none;
+    color: var(--aika-fg);
+}
+
+html body.v6.explore :is(.discovery_queue_apps > h2, .rightcol > h2)::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 50%;
+    width: var(--aika-home-mark-width);
+    height: var(--aika-home-mark-height);
+    border-radius: var(--aika-radius-full);
+    background: var(--aika-accent);
+    box-shadow: var(--aika-home-mark-glow);
+    transform: translateY(-50%);
+}
+
+/* --------------------------------------------------------------------------
+   The queue: covers fanned back, the start capsule over them
+   -------------------------------------------------------------------------- */
+
+html body.v6.explore .discovery_queue .dq_item {
+    overflow: hidden;
+    border-radius: var(--aika-radius-lg);
+    box-shadow: var(--aika-shadow-card);
+}
+
+html body.v6.explore .discovery_queue .dq_item img.dq_item_cap {
+    border-radius: inherit;
+}
+
+/* Steam dims the covers further back in navy (rgba(24, 31, 39, .4–.8)) — the canvas instead */
+html body.v6.explore .discovery_queue .dq_item_overlay {
+    border-radius: inherit;
+}
+
+html body.v6.explore .discovery_queue .dq_static_pos_2 .dq_item_overlay { background-color: var(--aika-explore-dim-0); }
+html body.v6.explore .discovery_queue .dq_static_pos_3 .dq_item_overlay { background-color: var(--aika-explore-dim-1); }
+html body.v6.explore .discovery_queue .dq_static_pos_4 .dq_item_overlay { background-color: var(--aika-explore-dim-2); }
+html body.v6.explore .discovery_queue .dq_static_pos_5 .dq_item_overlay { background-color: var(--aika-explore-dim-3); }
+
+/* Why it's in the queue ("Now available", "Early Access"…) — a mono label pill */
+html body.v6.explore .discovery_queue .dq_item_reason {
+    width: auto;
+    max-width: calc(100% - 2 * var(--aika-space-3));
+    left: var(--aika-space-3);
+    bottom: var(--aika-space-3);
+    padding: var(--aika-space-1) var(--aika-space-2);
+    overflow: hidden;
+    border-radius: var(--aika-radius-full);
+    background: var(--aika-player-material);
+    backdrop-filter: var(--aika-player-blur);
+    font-family: var(--aika-font-mono);
+    font-size: var(--aika-text-label);
+    letter-spacing: var(--aika-tracking-label);
+    line-height: 1.4;
+    text-transform: uppercase;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    color: var(--aika-fg);
+    text-shadow: none;
+}
+
+/* The start capsule (Steam: a gold arrow PNG with gold text) */
+html body.v6.explore .discovery_queue_overlay_bg {
+    width: fit-content;
+    height: auto;
+    border-radius: var(--aika-radius-full);
+    background: var(--aika-accent-fill);
+    box-shadow: var(--aika-shadow-cta);
+    transition:
+        background-color var(--aika-dur-fast) var(--aika-ease-hover),
+        box-shadow var(--aika-dur-base) var(--aika-ease);
+}
+
+html body.v6.explore .discovery_queue_overlay_bg::before {
+    content: none;
+}
+
+html body.v6.explore .discovery_queue_overlay_message {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--aika-space-2);
+    height: auto;
+    padding: var(--aika-space-3) var(--aika-space-5) var(--aika-space-3) var(--aika-space-6);
+    font-family: var(--aika-font-ui);
+    font-size: var(--aika-text-h3);
+    font-weight: var(--aika-weight-semibold);
+    line-height: var(--aika-leading-heading);
+    color: var(--aika-on-accent);
+    text-shadow: none;
+}
+
+html body.v6.explore .discovery_queue_overlay_message::after {
+    content: "";
+    width: var(--aika-explore-chevron);
+    height: var(--aika-explore-chevron);
+    flex: none;
+    background-color: currentColor;
+    -webkit-mask: var(--aika-icon-chevron) center / contain no-repeat;
+    mask: var(--aika-icon-chevron) center / contain no-repeat;
+    transition: transform var(--aika-dur-base) var(--aika-ease);
+}
+
+html body.v6.explore .discovery_queue_overlay:hover .discovery_queue_overlay_bg {
+    background: var(--aika-accent-fill-hover);
+    box-shadow: var(--aika-shadow-cta-hover);
+}
+
+html body.v6.explore .discovery_queue_overlay:hover .discovery_queue_overlay_message::after {
+    transform: translateX(var(--aika-explore-nudge));
+}
+
+/* The end of the queue */
+html body.v6.explore .discover_queue_empty h3 {
+    font-family: var(--aika-font-ui);
+    font-weight: var(--aika-weight-semibold);
+    letter-spacing: var(--aika-tracking-h2);
+    color: var(--aika-fg);
+}
+
+html body.v6.explore .discover_queue_empty p {
+    font-family: var(--aika-font-ui);
+    color: var(--aika-fg-muted);
+}
+
+/* --------------------------------------------------------------------------
+   "Customize your queue" — a card
+   -------------------------------------------------------------------------- */
+
+html body.v6.explore .discovery_queue_customize_ctn {
+    display: flex;
+    align-items: center;
+    gap: var(--aika-space-4);
+    padding: var(--aika-space-3) var(--aika-space-4);
+    border: var(--aika-hairline) solid var(--aika-border);
+    border-radius: var(--aika-radius-xl);
+    background: var(--aika-card-bg);
+    font-family: var(--aika-font-ui);
+    font-size: var(--aika-text-body);
+    color: var(--aika-fg-muted);
+}
+
+/* --------------------------------------------------------------------------
+   The FAQ — a list with hairline dividers
+   -------------------------------------------------------------------------- */
+
+html body.v6.explore .leftcol .faq_question {
+    padding-top: var(--aika-space-4);
+    border-top: var(--aika-hairline) solid var(--aika-border);
+    font-family: var(--aika-font-ui);
+    font-size: var(--aika-text-h3);
+    font-weight: var(--aika-weight-semibold);
+    letter-spacing: var(--aika-tracking-h2);
+    line-height: var(--aika-leading-heading);
+    color: var(--aika-fg);
+    margin-bottom: var(--aika-space-2);
+}
+
+html body.v6.explore .leftcol > h2 + .faq_question {
+    padding-top: 0;
+    border-top: none;
+}
+
+html body.v6.explore .leftcol .faq_answer {
+    margin-bottom: var(--aika-space-5);
+    font-family: var(--aika-font-ui);
+    font-size: var(--aika-text-body);
+    line-height: var(--aika-leading-body);
+    color: var(--aika-fg-muted);
+}
+
+/* --------------------------------------------------------------------------
+   "Your activity" — cards, mono counts
+   -------------------------------------------------------------------------- */
+
+html body.v6.explore .explore_rightcol_box {
+    padding: var(--aika-space-3) var(--aika-space-4);
+    border: var(--aika-hairline) solid var(--aika-border);
+    border-radius: var(--aika-radius-lg);
+    background: var(--aika-card-bg);
+    box-shadow: var(--aika-shadow-card);
+}
+
+html body.v6.explore .explore_rightcol_header {
+    font-family: var(--aika-font-mono);
+    font-size: var(--aika-text-label);
+    letter-spacing: var(--aika-tracking-label);
+    text-transform: uppercase;
+    color: var(--aika-fg-subtle);
+}
+
+html body.v6.explore .explore_rightcol_count {
+    font-family: var(--aika-font-mono);
+    font-weight: var(--aika-weight-semibold);
+    font-variant-numeric: tabular-nums;
+    letter-spacing: var(--aika-tracking-h1);
+    background: var(--aika-explore-count);
+    background-clip: text;
+    color: var(--aika-transparent);
+}
+
+html body.v6.explore .explore_rightcol_text {
+    font-family: var(--aika-font-ui);
+    color: var(--aika-fg-muted);
+}
+
+html body.v6.explore .explore_rightcol_explain {
+    font-family: var(--aika-font-ui);
+    line-height: var(--aika-leading-body);
+    color: var(--aika-fg-subtle);
+}

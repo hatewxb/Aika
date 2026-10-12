@@ -264,6 +264,15 @@
     --aika-home-mark-width: 3px;                          /* the Fluent mark before section titles */
     --aika-home-mark-height: 0.9em;
     --aika-home-mark-glow: 0 0 12px var(--aika-accent-glow);
+
+    /* The discovery queue page (sections/store-explore.css) */
+    --aika-explore-measure: 72ch;      /* the intro paragraph width */
+    --aika-explore-chevron: 18px;      /* the chevron in the start capsule */
+    --aika-explore-nudge: 4px;         /* …it moves forward on hover */
+
+    /* The legacy web dialog (components/web-modal.css) */
+    --aika-web-modal-blur: blur(6px);
+    --aika-web-modal-close: 12px;      /* the cross glyph inside its 16 px box */
     --aika-home-dot-glow: 0 0 10px var(--aika-accent-glow);
     --aika-home-arrow: 40px;                              /* round carousel arrows */
     --aika-home-arrow-icon: 18px;
