@@ -2,48 +2,49 @@
    The "Rose Ash" color preset (theme settings → "Main → Color preset").
    Attached by Conditions from skin.json to every window and web page.
 
-   Pantone 17-1514 "Ash Rose" on graphite: a soft dusty-rose accent, lilac
-   and blush light, a warm graphite canvas. Source palette
-   (color-concepts/RoseAsh.jpg): #C88781 ash rose, #E9B4BE pink lilac,
-   #CA97A0 mauve, #E9A7AB blush, #FFB7BA pink, #FFCDCC pale pink, #635A5B
-   graphite; the background steps are near-blacks with the graphite's rosy cast.
+   A clear pink on graphite. Source palette (color-concepts/RoseAsh.jpg):
+   #C88781 ash rose, #E9B4BE pink lilac, #CA97A0 mauve, #E9A7AB blush,
+   #FFB7BA pink, #FFCDCC pale pink, #635A5B graphite. The ash rose itself
+   (hue ~5°) read as peach on a dark UI (author 2026-10-12: "it must be
+   really pink"), so the accent is the pink lilac pushed to a saturated pink
+   (#F07FAE, hue ~335°); the background steps are graphite near-blacks with a
+   pink cast.
 
-   Accents: ash rose for indicators and glows (6.9:1 on the canvas); the rose
-   is mid-light, so buttons keep it as the fill with a dark rose-brown label
-   (5.9:1, hover 7:1) — the way a dusty-rose swatch reads, not darkened into
-   brown; "Play" runs ash rose → pink. Errors move to a clear red so they
-   don't read as the accent; light spots: ash rose at the top, pink lilac on
-   the left, pale pink bottom right.
+   Accents: the pink for indicators and glows (8:1 on the canvas); buttons keep
+   it as the fill with a dark plum label (6.9:1, hover 8.6:1) — darkening a
+   pink for a white label turns it into raspberry; "Play" runs pink → light
+   pink. Errors stay a clear red so they don't read as the accent; light
+   spots: pink at the top, pink lilac on the left, pale pink bottom right.
    ========================================================================== */
 
 :root {
     /* Accent and light spots */
-    --aika-preset-accent: #C88781;              /* ash rose: indicators, glows, links */
-    --aika-preset-accent-bright: #E9A7AB;       /* blush */
-    --aika-preset-accent-fill: #C88781;         /* button fill, dark label 5.9:1 */
-    --aika-preset-accent-fill-hover: #D4968F;   /* 7:1 */
-    --aika-preset-on-accent: #2A1715;
-    --aika-preset-play-fill-to: #FFB7BA;        /* "Play": ash rose → pink */
-    --aika-preset-light-1: #C88781;             /* spot at the top */
+    --aika-preset-accent: #F07FAE;              /* pink: indicators, glows, links */
+    --aika-preset-accent-bright: #F6A9C6;
+    --aika-preset-accent-fill: #F07FAE;         /* button fill, dark label 6.9:1 */
+    --aika-preset-accent-fill-hover: #F29DBE;   /* 8.6:1 */
+    --aika-preset-on-accent: #2A1220;           /* dark plum */
+    --aika-preset-play-fill-to: #F7B3CB;        /* "Play": pink → light pink */
+    --aika-preset-light-1: #F07FAE;             /* spot at the top */
     --aika-preset-light-2: #E9B4BE;             /* pink lilac, on the left */
     --aika-preset-light-3: #FFCDCC;             /* pale pink, bottom right */
 
     /* Statuses */
-    --aika-preset-live: #EF5F5F;                /* a clear red, apart from the rose accent */
+    --aika-preset-live: #EF5F5F;                /* a clear red, apart from the pink accent */
 
-    /* Background steps, darkest to lightest (graphite near-blacks) */
-    --aika-preset-bg-deep: #060404;
-    --aika-preset-bg-base: #0A0707;             /* the main canvas */
-    --aika-preset-bg-glow: #120C0C;
-    --aika-preset-bg-elevated: #130E0E;
-    --aika-preset-bg-raised: #1C1617;           /* panel headers, inputs, menus */
-    --aika-preset-bg-hover: #241D1E;
-    --aika-preset-bg-high: #2D2526;
-    --aika-preset-bg-edge: #372E2F;
-    --aika-preset-bg-line: #433939;
+    /* Background steps, darkest to lightest (graphite near-blacks, pink cast) */
+    --aika-preset-bg-deep: #060405;
+    --aika-preset-bg-base: #0A0709;             /* the main canvas */
+    --aika-preset-bg-glow: #120B0F;
+    --aika-preset-bg-elevated: #130E11;
+    --aika-preset-bg-raised: #1C1619;           /* panel headers, inputs, menus */
+    --aika-preset-bg-hover: #241C21;
+    --aika-preset-bg-high: #2D252A;
+    --aika-preset-bg-edge: #372E33;
+    --aika-preset-bg-line: #43393E;
 
     /* Text and the tone of translucent overlays */
-    --aika-preset-fg: #F2E8E7;                  /* rosy off-white, 16.7:1 */
-    --aika-preset-fg-muted: #A39494;            /* 6.6:1 on panels */
-    --aika-preset-ink: #FFF3F1;
+    --aika-preset-fg: #F4E8EE;                  /* pink off-white */
+    --aika-preset-fg-muted: #A6949D;
+    --aika-preset-ink: #FFF2F7;
 }
