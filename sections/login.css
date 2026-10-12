@@ -23,7 +23,7 @@
    Steam mark sits inside a ring: a faint track, an accent comet circling it,
    a soft ripple leaving it every few seconds. "Signing in…" is set
    in the interface font with a thin blinking caret; the account is a pill, the avatar has an
-   accent ring, the name a light sweep. Everything rises in one after another.
+   accent ring, the name a light sweep. No entrance animations (see below).
    Reduced motion: the comet still turns (it is the loading sign), the rest stands.
    ========================================================================== */
 
@@ -41,9 +41,6 @@
     50%      { transform: translate(-50%, -50%) scale(1.12); opacity: 1; }
 }
 
-@keyframes aika-login-rise {
-    from { transform: translateY(var(--aika-login-rise)); opacity: 0; }
-}
 
 @keyframes aika-login-caret {
     50% { opacity: 0; }
@@ -68,7 +65,6 @@ html .Login.AnimatedBackground::before {
     inset: 0;
     background: var(--aika-login-veil);
     pointer-events: none;
-    animation: aika-login-fade var(--aika-login-crossfade) var(--aika-ease) both;
 }
 
 html .Login .LoginStatusContainer {
@@ -96,18 +92,13 @@ html .Login .SpinnerLoaderContainer {
     position: relative;
 }
 
-/* Millennium attaches this CSS ~0.5–0.8 s after the window appears at startup
-   (it is still loading the theme; no theme code can run earlier — there is no
-   other window yet), so the first frames are Steam's. Instead of a hard swap,
-   Steam's spinner fades out while the veil and our mark fade in. */
-@keyframes aika-login-fade-out {
-    from { opacity: 1; }
-    to   { opacity: 0; }
-}
-
+/* No entrance animations here: Millennium attaches this CSS a couple of frames
+   after the window first paints at startup (it is still loading the theme, and
+   no theme code can run earlier), so anything rising in from nothing read as
+   "Steam first, then ours" (author 2026-10-12). Our look replaces Steam's at once;
+   only the comet, the ripple, the haze and the shine move. */
 html .Login .SpinnerLoaderContainer > img.Small {
     opacity: 0;
-    animation: aika-login-fade-out var(--aika-login-crossfade) var(--aika-ease) both;
 }
 
 /* The ripple below is drawn by .LoadingStatus but measured from the container */
@@ -166,34 +157,6 @@ html .Login .SpinnerLoaderContainer > .LoadingStatus::before {
     opacity: 0;
     animation: aika-login-ripple var(--aika-login-ripple-dur) var(--aika-ease) infinite;
     pointer-events: none;
-}
-
-/* Rising in: the mark, the status, the account */
-html .Login .SpinnerLoaderContainer::after {
-    animation: aika-login-fade var(--aika-dur-enter) var(--aika-ease) both;
-}
-
-html .Login .SpinnerLoaderContainer::before {
-    animation:
-        aika-login-spin var(--aika-login-spin) linear infinite,
-        aika-login-fade var(--aika-dur-enter) var(--aika-ease) both;
-}
-
-@keyframes aika-login-fade {
-    from { opacity: 0; }
-}
-
-html .Login .LoadingStatus > .LoginStatus,
-html .Login .LoadingStatus > .UserContainer {
-    animation: aika-login-rise var(--aika-dur-enter) var(--aika-ease) both;
-}
-
-html .Login .LoadingStatus > .LoginStatus {
-    animation-delay: var(--aika-login-stagger);
-}
-
-html .Login .LoadingStatus > .UserContainer {
-    animation-delay: calc(var(--aika-login-stagger) * 2);
 }
 
 /* "Signing in…" — the interface font (the author: mono with label tracking read
@@ -276,15 +239,5 @@ html .Login .UserContainer > .PersonaName {
     html .Login .UserContainer > .PersonaName,
     html .Login .LoadingStatus > .LoginStatus::after {
         animation: none;
-    }
-
-    html .Login .SpinnerLoaderContainer::after,
-    html .Login .LoadingStatus > .LoginStatus,
-    html .Login .LoadingStatus > .UserContainer {
-        animation: none;
-    }
-
-    html .Login .SpinnerLoaderContainer::before {
-        animation: aika-login-spin var(--aika-login-spin) linear infinite;
     }
 }

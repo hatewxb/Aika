@@ -232,8 +232,13 @@ html body:has(> #StoreTemplate) {
    the page; an open menu unfolds from it into a rounded card (author's request
    2026-10-08: "the black strip doesn't fit the style"). The menu material —
    translucent with blur (DESIGN.md §11: menus are the translucent layer); on the
-   cinematic game page the trailer runs under it. The open part — selectors.css. */
-html body.v6 [data-featuretarget="store-menu-v7"] :has(> [role="navigation"]) {
+   cinematic game page the trailer runs under it. The open part — selectors.css.
+   Steam's loading stand-in (.StoreMenuLoadingPlaceholder > .PlaceholderInner,
+   the same 46 px blue strip, shown for ~1 s while the React menu loads) gets the
+   same capsule — before, the blue strip flashed and then turned into ours
+   (author 2026-10-12). */
+html body.v6 [data-featuretarget="store-menu-v7"] :has(> [role="navigation"]),
+html body.v6 .StoreMenuLoadingPlaceholder > .PlaceholderInner {
     box-sizing: border-box;
     width: min(100% - 2 * var(--aika-storebar-gutter), var(--aika-storebar-content) + 2 * var(--aika-space-4));
     margin: var(--aika-storebar-top) auto 0;

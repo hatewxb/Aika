@@ -17,6 +17,11 @@
    (for its Motiva Sans), and in the variable Inter those are real Thin/Light —
    the text becomes unreadable. The browser clamps the requested weight
    to the @font-face range, so 100/300 render as 400.
+
+   font-display: fallback, not swap: the fonts are local (millennium.host) and
+   arrive ~30 ms after the CSS, but swap drew those first frames in the system
+   font and then switched — visible in fresh windows (the sign-in window,
+   author 2026-10-12). fallback hides the text for up to 100 ms instead.
    -------------------------------------------------------------------------- */
 
 @font-face {
@@ -24,7 +29,7 @@
     src: url("./assets/fonts/Inter-Variable.ttf") format("truetype");
     font-weight: 400 900;
     font-style: normal;
-    font-display: swap;
+    font-display: fallback;
 }
 
 @font-face {
@@ -32,7 +37,7 @@
     src: url("./assets/fonts/GeistMono-Variable.ttf") format("truetype");
     font-weight: 400 900;
     font-style: normal;
-    font-display: swap;
+    font-display: fallback;
 }
 
 @font-face {
@@ -40,7 +45,7 @@
     src: url("./assets/fonts/Fraunces-Variable.ttf") format("truetype");
     font-weight: 100 900;
     font-style: normal;
-    font-display: swap;
+    font-display: fallback;
 }
 
 /* The "Aika" wordmark on the notification background (components/toast.css): blackletter

@@ -16,3 +16,17 @@
 html:not(.aika-cine-off) body.v6 .game_page_background.game .page_top_area {
     display: none;
 }
+
+/* Until the hero is built the rest of the game page isn't shown either: the
+   script comes only at full load (~2 s), and the editions, description and so
+   on showed at the top, then jumped down under the hero (author 2026-10-12:
+   "first the old, then abruptly the new"). The script sets html.aika-cine or
+   html.aika-cine-off; no script — the page fades in after --aika-cine-wait-limit. */
+@keyframes aika-cine-wait {
+    to { opacity: 1; }
+}
+
+html:not(.aika-cine, .aika-cine-off) body.v6 .game_page_background.game {
+    opacity: 0;
+    animation: aika-cine-wait var(--aika-dur-base) var(--aika-ease) var(--aika-cine-wait-limit) forwards;
+}

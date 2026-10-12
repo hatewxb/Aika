@@ -248,6 +248,7 @@
     --aika-split-dur: 900ms;
     --aika-split-stagger: 35ms;                           /* the next letter starts this much later */
     --aika-shelves-fallback-delay: 6s; /* no script: Steam's screenshot wall shows after this (sections/content.css) */
+    --aika-cine-wait-limit: 6s;        /* no script: the Cinematic game page shows after this (options/store-cinematic.css) */
     --aika-split-fallback-delay: 6s;  /* no script: the plain title shows after this */
     --aika-split-descender: 0.12em;
     --aika-home-mark-width: 3px;                          /* the Fluent mark before section titles */
@@ -505,12 +506,9 @@
     --aika-login-haze-size: 360px;
     --aika-login-haze-top: 150px;     /* the haze centre — on the mark */
     --aika-login-haze-blur: 40px;
-    --aika-login-rise: 10px;
-    --aika-login-stagger: 90ms;
     --aika-login-status-gap: 18px;
     --aika-login-caret: 1.05s;
     --aika-login-caret-width: 2px;
-    --aika-login-crossfade: 450ms;    /* Steam's first frames → ours */
 
     /* The main window loading curtain (js/boot-reveal.js, sections/boot.css):
        motion.dev "Loading line reveal" values */
