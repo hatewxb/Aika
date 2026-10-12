@@ -100,6 +100,11 @@ html body.v6 #home_maincap_v7 .aika-split-char {
     animation: aika-split-in var(--aika-split-dur) var(--aika-ease) calc(var(--aika-split-i, 0) * var(--aika-split-stagger)) backwards;
 }
 
+/* The page opened hidden (js/store-home.js): the letters wait on the first frame */
+html body.v6 #home_maincap_v7 .aika-split-wait .aika-split-char {
+    animation-play-state: paused;
+}
+
 html body.v6 #home_maincap_v7 .home_title_ctn {
     align-items: flex-end;
     margin-bottom: var(--aika-space-3);

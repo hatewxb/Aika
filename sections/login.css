@@ -21,8 +21,8 @@
    the cover grid sinks under a near-black veil with a breathing accent haze;
    Steam's APNG is hidden (its arc can't be recolored) and in its place a white
    Steam mark sits inside a ring: a faint track, an accent comet circling it,
-   a soft ripple leaving it every few seconds. "Signing in…" is a console status
-   in mono with a blinking block caret; the account is a pill, the avatar has an
+   a soft ripple leaving it every few seconds. "Signing in…" is set
+   in the interface font with a thin blinking caret; the account is a pill, the avatar has an
    accent ring, the name a light sweep. Everything rises in one after another.
    Reduced motion: the comet still turns (it is the loading sign), the rest stands.
    ========================================================================== */
@@ -185,22 +185,25 @@ html .Login .LoadingStatus > .UserContainer {
     animation-delay: calc(var(--aika-login-stagger) * 2);
 }
 
-/* "Signing in…" — a console status with a block caret */
+/* "Signing in…" — the interface font (the author: mono with label tracking read
+   like a typewriter on a whole sentence), a thin accent caret after it */
 html .Login .LoadingStatus > .LoginStatus {
     margin-top: var(--aika-login-status-gap);
-    font-family: var(--aika-font-mono);
-    font-size: var(--aika-text-meta);
-    letter-spacing: var(--aika-tracking-label);
+    font-family: var(--aika-font-ui);
+    font-size: var(--aika-text-body);
+    font-weight: var(--aika-weight-medium);
+    letter-spacing: normal;
     color: var(--aika-fg-muted);
 }
 
 html .Login .LoadingStatus > .LoginStatus::after {
     content: "";
     display: inline-block;
-    width: 0.55em;
-    height: 1.05em;
-    margin-left: 0.35em;
-    vertical-align: -0.18em;
+    width: var(--aika-login-caret-width);
+    height: 1.1em;
+    margin-left: 0.3em;
+    vertical-align: -0.2em;
+    border-radius: var(--aika-radius-full);
     background: var(--aika-accent-bright);
     animation: aika-login-caret var(--aika-login-caret) var(--aika-ease-term) infinite;
 }
@@ -242,7 +245,8 @@ html .Login .UserContainer > .Avatar > img {
 html .Login .UserContainer > .PersonaName {
     font-family: var(--aika-font-ui);
     font-size: var(--aika-text-body);
-    font-weight: var(--aika-weight-medium);
+    font-weight: var(--aika-weight-semibold);
+    letter-spacing: var(--aika-tracking-h2);
     color: var(--aika-fg);
     background: linear-gradient(
         var(--aika-price-shine-angle),

@@ -13,7 +13,8 @@
 //    the page opens — each letter drops in from above out of a blur (idea:
 //    reactbits Pro "Staggered Text"; the motion is Aika's expo-out). The
 //    letters are only wrapped in spans, the text stays Steam's; the heading
-//    gets an aria-label so screen readers read it whole.
+//    gets an aria-label so screen readers read it whole. Opened hidden (under the
+//    client loading curtain) — the letters wait until the page is shown.
 // The pop-up of cards on scroll is pure CSS (scroll-driven animations).
 
 (() => {
@@ -98,6 +99,18 @@
     }
     t.replaceChildren(frag);
     t.classList.add("aika-split");
+    // A hidden page (the client keeps the store view hidden under the loading
+    // curtain, js/boot-reveal.js) still advances the animation clock — the letters
+    // would be done before anyone sees them. Hold them until the page is shown.
+    if (document.hidden) {
+      t.classList.add("aika-split-wait");
+      const go = () => {
+        if (document.hidden) return;
+        document.removeEventListener("visibilitychange", go);
+        t.classList.remove("aika-split-wait");
+      };
+      document.addEventListener("visibilitychange", go);
+    }
   };
   if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", splitTitle, { once: true });
   else splitTitle();

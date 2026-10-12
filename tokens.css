@@ -507,6 +507,7 @@
     --aika-login-stagger: 90ms;
     --aika-login-status-gap: 18px;
     --aika-login-caret: 1.05s;
+    --aika-login-caret-width: 2px;
 
     /* The main window loading curtain (js/boot-reveal.js, sections/boot.css):
        motion.dev "Loading line reveal" values */
