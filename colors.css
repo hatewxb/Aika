@@ -211,6 +211,28 @@ html:root {
     --aika-dock-material: rgb(from var(--aika-bg-raised) r g b / 0.32);
     --aika-dock-material-hover: rgb(from var(--aika-bg-raised) r g b / 0.46);
 
+    /* The sign-in window (sections/login.css): a near-black veil over Steam's
+       cover grid (the grid still shows through, dimmed), the accent haze behind the
+       mark, the ring track and the comet tail */
+    --aika-login-veil:
+        radial-gradient(120% 90% at 50% 100%, rgb(from var(--aika-light-2) r g b / 0.10), transparent 60%),
+        linear-gradient(rgb(from var(--aika-bg-deep) r g b / 0.84), rgb(from var(--aika-bg-deep) r g b / 0.94));
+    --aika-login-haze: radial-gradient(closest-side, rgb(from var(--aika-accent) r g b / 0.34), rgb(from var(--aika-light-1) r g b / 0.10) 60%, transparent);
+    --aika-login-track: rgb(from var(--aika-ink) r g b / 0.10);
+    --aika-login-comet-tail: rgb(from var(--aika-accent) r g b / 0.25);
+
+    /* The loading curtain (sections/boot.css): the beam seen through the slit —
+       a near-white core in an accent glow; a soft haze on the curtain around it */
+    --aika-boot-beam: linear-gradient(to right,
+        transparent calc(50% - 48px),
+        rgb(from var(--aika-accent) r g b / 0.35) calc(50% - 8px),
+        var(--aika-accent-bright) calc(50% - 2px),
+        color-mix(in oklab, var(--aika-accent-bright) 45%, var(--aika-ink)) 50%,
+        var(--aika-accent-bright) calc(50% + 2px),
+        rgb(from var(--aika-accent) r g b / 0.35) calc(50% + 8px),
+        transparent calc(50% + 48px));
+    --aika-boot-haze: radial-gradient(28% 55% at 50% 50%, rgb(from var(--aika-accent) r g b / 0.12), transparent);
+
     /* Fully transparent — to "remove" Steam backgrounds without bare values */
     --aika-transparent: rgb(from var(--aika-ink) r g b / 0);
 }

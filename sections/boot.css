@@ -1,0 +1,41 @@
+/* ==========================================================================
+   sections/boot.css — the main window's loading curtain (js/boot-reveal.js).
+
+   Idea: motion.dev "Loading line reveal" (examples.motion.dev/js/loading-line-reveal):
+   a full-window overlay with a thin vertical slit cut out by clip-path; the slit
+   grows up and down from the centre with the loading progress, then splits open
+   to the window edges and the layer under it fades away. Motion's colors are
+   inverted for Aika: the curtain is the near-black Aika background with a haze
+   at the centre, and the slit shows a beam of light (the shade layer) — light on
+   near-black, not black on pink.
+
+   Own classes: .aika-boot > .aika-boot__shade + .aika-boot__curtain; the clip
+   path is written by the script every frame. Shown once per Steam launch.
+   ========================================================================== */
+
+.aika-boot {
+    position: fixed;
+    z-index: var(--aika-z-boot);
+    inset: 0;
+    pointer-events: none;
+    contain: strict;
+}
+
+/* Under the curtain: the beam seen through the slit, on near-black */
+.aika-boot__shade {
+    position: absolute;
+    inset: 0;
+    background: var(--aika-boot-beam), var(--aika-bg-deep);
+    transition: opacity var(--aika-boot-fade) var(--aika-ease);
+}
+
+.aika-boot.is-open .aika-boot__shade {
+    opacity: 0;
+}
+
+.aika-boot__curtain {
+    position: absolute;
+    inset: 0;
+    background: var(--aika-boot-haze), var(--aika-bg-gradient), var(--aika-bg-deep);
+    will-change: clip-path;
+}

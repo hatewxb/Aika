@@ -34,6 +34,7 @@
 @import url("./sections/store.css");
 @import url("./sections/friends.css");
 @import url("./sections/settings.css");
+@import url("./sections/boot.css");
 
 /* 4. Unstable Steam classes — last, to override everything above */
 @import url("./selectors.css");

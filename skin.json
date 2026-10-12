@@ -141,6 +141,10 @@
             "TargetJs": "js/toast.js"
         },
         {
+            "MatchRegexString": "^(Sign in to Steam|Войти в Steam)$",
+            "TargetCss": "login.css"
+        },
+        {
             "MatchRegexString": "^https://store\\.steampowered\\.com/app/.*",
             "TargetJs": "js/store-app.js"
         },
