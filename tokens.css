@@ -285,7 +285,10 @@
     --aika-aurora-resolution: 0.5;            /* × device pixels — soft anyway, half the work */
     --aika-search-title-size: clamp(40px, 3.4vw, 56px);   /* "All products": larger and bold (author) */
     --aika-search-title-weight: 800;
-    --aika-search-header-pad: 34px;           /* under the title, to the search bar */
+    --aika-search-header-pad: 34px;
+    --aika-search-field-height: 40px;         /* the query capsule */
+    --aika-search-field-width: 520px;
+    --aika-search-icon: 16px;           /* under the title, to the search bar */
     --aika-tracking-fold: -0.04em;            /* Fold Text */
     --aika-leading-fold: 1;
     --aika-fold-angle: -92deg;                /* each letter swings down from its top hinge */

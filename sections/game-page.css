@@ -1230,6 +1230,14 @@ html .ActivityFeedContainer .PartnerEventLargeUpdate.PartnerEventLargeUpdate {
     box-shadow: none;
 }
 
+/* Steam outlines the card with a blue gradient border-image (#199fff → #135787,
+   hash (0,1,0)); border-image ignores border-radius — a square blue frame around
+   the rounded card (author 2026-10-12, Fallout Shelter). Off wherever the card
+   appears (the feed, the News Hub…): the card outline is ours. */
+html .PartnerEventLargeUpdate {
+    border-image: none;
+}
+
 /* The strip on the left sticks out past the card edge by 22 px and read as a stuck-on
    border — removed: the accent is already in the card outline */
 html .PartnerEventLargeUpdate .MajorUpdateContentContainer .LeftSideMajorUpdateBar {
@@ -1321,13 +1329,30 @@ html .ActivityFeedContainer .PartnerEventTextOnly_LimitedSummary .PartnerEventTe
 
 /* "Featured" — a pinned event at the top of the feed (.PartnerEventFeatured:
    the .PartnerEventFeaturedHeader header strip + the same major update
-   card). Steam: a bright light-blue gradient on the strip and around it, (0,2,0).
-   Ours is a single accent card: the strip is an accent panel header. */
-html .ActivityFeedContainer .PartnerEventLargeUpdate.PartnerEventFeatured {
+   card — or the medium-image news card: .PartnerEventMediumImage.PartnerEventFeatured,
+   Forza Horizon 5, 2026-10-12). Steam: a bright light-blue gradient on the strip
+   and around it, (0,2,0). Ours is a single accent card: the strip is an accent
+   panel header. Any variant — the rule used to require the large one and the
+   medium card kept Steam's blue gradient (author). */
+html .ActivityFeedContainer .PartnerEvent.PartnerEventFeatured {   /* Steam (0,3,0) on the medium card */
     overflow: hidden;
+    border-radius: var(--aika-radius-lg);
     border: var(--aika-hairline) solid var(--aika-border-accent);
     background: var(--aika-card-accent-bg);
     box-shadow: var(--aika-highlight-top), 0 0 20px var(--aika-accent-haze);
+}
+
+/* Its likes / comments bar (.RatingBar, 28 px, hidden until hover) kept an empty
+   strip under the card (author: "too much space below") — it sits in the card's
+   empty bottom-right corner instead and still appears on hover */
+html .ActivityFeedContainer .Event:has(.PartnerEventFeatured) {
+    position: relative;
+}
+
+html .ActivityFeedContainer .Event:has(.PartnerEventFeatured) > .RatingBar {
+    position: absolute;
+    right: var(--aika-space-3);
+    bottom: var(--aika-space-2);
 }
 
 html .ActivityFeedContainer .PartnerEventFeatured .PartnerEventFeaturedHeader {

@@ -453,8 +453,22 @@ void main() {
     }
   };
 
+  // ----------------------------------------------------- 6. the query hint
+  // Steam keeps its hint as the field's value (its onfocus clears it, onblur puts
+  // it back). The hint text is read from that handler — any client language —
+  // and the field is marked while it shows it, so the CSS can mute it.
+  const termHint = () => {
+    const term = document.getElementById("term");
+    const hint = /this\.value\s*==\s*'([^']*)'/.exec(term?.getAttribute("onfocus") || "")?.[1];
+    if (!term || !hint) return;
+    const sync = () => term.classList.toggle("aika-term-hint", term.value === hint);
+    for (const ev of ["focus", "blur", "input", "change"]) term.addEventListener(ev, () => setTimeout(sync));
+    sync();
+  };
+
   ready(() => {
     if (!document.body.classList.contains("search_page")) return;
+    termHint();
     foldTitle();
     checkboxes();
     slider();

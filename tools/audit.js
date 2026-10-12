@@ -58,6 +58,9 @@ const expr = `(() => {
         const cols = s.backgroundImage.match(/(rgba?|oklch|color)\\([^()]*(\\([^()]*\\))?[^()]*\\)|#[0-9a-f]{3,8}/gi) || [];
         if (cols.some(c => !ours(rgba(c)))) add(label(el), "gradient " + s.backgroundImage.slice(0, 70));
       }
+      // border-image draws over the border color and ignores border-radius — Steam
+      // uses it for blue gradient frames (the "Major update" card, 2026-10-12)
+      if (s.borderImageSource !== "none" && parseFloat(s.borderTopWidth) + parseFloat(s.borderLeftWidth) > 0) add(label(el), "border-image " + s.borderImageSource.slice(0, 60));
       if (hasText && !ours(rgba(s.color))) add(label(el), "color " + s.color);
       if (el instanceof SVGElement && s.fill !== "none" && /^rgb/.test(s.fill) && !ours(rgba(s.fill))) add(label(el), "fill " + s.fill);
       for (const side of ["Top", "Right", "Bottom", "Left"]) {

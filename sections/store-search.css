@@ -136,6 +136,103 @@ html body.v6.search_page #termsnone .pagesubheader.aika-fold-wait .aika-fold-pie
 }
 
 /* --------------------------------------------------------------------------
+   The query field: one search capsule — a magnifier, the field, "Search"
+   inside on the right. Steam puts its hint into the field's value ("enter
+   search term or tag", bright like a typed query); js/store-search.js marks it
+   .aika-term-hint so it reads as a placeholder.
+   -------------------------------------------------------------------------- */
+
+html body.v6.search_page .searchbar_left {
+    position: relative;
+    display: flex;
+    align-items: center;
+    gap: var(--aika-space-2);
+    max-width: var(--aika-search-field-width);
+    height: var(--aika-search-field-height);
+    padding: 0 var(--aika-space-1) 0 calc(var(--aika-space-3) + var(--aika-search-icon) + var(--aika-space-2));
+    border: var(--aika-hairline) solid var(--aika-border-strong);
+    border-radius: var(--aika-radius-full);
+    background: var(--aika-bg-raised);
+    transition:
+        border-color var(--aika-dur-fast) var(--aika-ease-hover),
+        box-shadow var(--aika-dur-base) var(--aika-ease);
+}
+
+html body.v6.search_page .searchbar_left::before {
+    content: "";
+    position: absolute;
+    left: var(--aika-space-3);
+    top: 50%;
+    width: var(--aika-search-icon);
+    height: var(--aika-search-icon);
+    background: var(--aika-fg-subtle);
+    -webkit-mask: var(--aika-icon-search) center / contain no-repeat;
+    mask: var(--aika-icon-search) center / contain no-repeat;
+    transform: translateY(-50%);
+    transition: background-color var(--aika-dur-fast) var(--aika-ease-hover);
+    pointer-events: none;
+}
+
+html body.v6.search_page .searchbar_left:hover {
+    border-color: var(--aika-border-hover);
+}
+
+html body.v6.search_page .searchbar_left:focus-within {
+    border-color: var(--aika-accent);
+    box-shadow: var(--aika-shadow-input-focus);
+}
+
+html body.v6.search_page .searchbar_left:focus-within::before {
+    background: var(--aika-accent-bright);
+}
+
+html body.v6.search_page .searchbar_left #term {
+    flex: 1;
+    min-width: 0;
+    height: 100%;
+    padding: 0;
+    border: none;
+    background: none;
+    box-shadow: none;
+    font-family: var(--aika-font-ui);
+    font-size: var(--aika-text-body);
+    color: var(--aika-fg);
+}
+
+html body.v6.search_page .searchbar_left #term:focus {
+    box-shadow: none;
+}
+
+html body.v6.search_page .searchbar_left #term.aika-term-hint {
+    color: var(--aika-fg-subtle);
+}
+
+html body.v6.search_page .searchbar_left > button.btnv6_blue_hoverfade {
+    flex: none;
+    height: calc(var(--aika-search-field-height) - 2 * var(--aika-space-1));
+    margin: 0;
+    padding: 0 var(--aika-space-4);
+    border-radius: var(--aika-radius-full);
+    background: var(--aika-accent-fill);
+    box-shadow: var(--aika-shadow-cta);
+    color: var(--aika-on-accent) !important; /* the ghost-button rule (store.css) sets fg !important */
+}
+
+html body.v6.search_page .searchbar_left > button.btnv6_blue_hoverfade:not(.btn_disabled):not(:disabled):not(.btn_active):not(.active):hover {
+    background: var(--aika-accent-fill-hover);
+    box-shadow: var(--aika-shadow-cta-hover);
+    color: var(--aika-on-accent) !important;
+}
+
+html body.v6.search_page .searchbar_left > button.btnv6_blue_hoverfade > span {
+    padding: 0;
+    background: none;
+    font-family: var(--aika-font-ui);
+    font-weight: var(--aika-weight-semibold);
+    line-height: calc(var(--aika-search-field-height) - 2 * var(--aika-space-1));
+}
+
+/* --------------------------------------------------------------------------
    Result rows: our grid (the price fix), rounded capsules, review thumbs
    -------------------------------------------------------------------------- */
 
