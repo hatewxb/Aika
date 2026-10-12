@@ -39,7 +39,8 @@ Steam's light blue. The theme doesn't change any Steam text, only the look.
 
 Theme settings (the gear next to Aika in Millennium): **Main** — top bar tab
 position, store game page layout (Cinematic / Classic), cursor glow and its
-radius, color preset, notification wordmark and opacity; **Advanced** — custom
+radius, privacy blur of the wallet balance (or name and balance) in the account
+menu until hovered, color preset, notification wordmark and opacity; **Advanced** — custom
 colors, set on the **Colors** page.
 
 ## Roadmap

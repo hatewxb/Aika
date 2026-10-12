@@ -68,6 +68,20 @@
                 "unit": "px"
             }
         },
+        "Privacy blur": {
+            "description": "Blurs the wallet balance (or the account name and the balance) in the top-right account menu until you hover over it — handy for streams and screenshots.",
+            "tab": "Main",
+            "default": "Balance",
+            "values": {
+                "Balance": {
+                    "TargetCss": { "affects": ["^Steam$"], "src": "options/privacy-balance.css" }
+                },
+                "Name and balance": {
+                    "TargetCss": { "affects": ["^Steam$"], "src": "options/privacy-account.css" }
+                },
+                "Off": {}
+            }
+        },
         "Color preset": {
             "description": "The theme color set: the accent and the light spots. To set colors manually, turn on \"Custom colors\" in the \"Advanced\" tab.",
             "tab": "Main",

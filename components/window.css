@@ -116,3 +116,30 @@ html .RootMenuBar .RootMenuButton:not(:has(.SteamButton)) > div {
     font-size: var(--aika-text-meta);
     letter-spacing: normal;
 }
+
+/* --------------------------------------------------------------------------
+   Privacy blur in the header account menu (the "Privacy blur" setting, author
+   2026-10-13): the wallet balance — or the name and the balance — are blurred
+   until the pointer is over the menu, and blur again when it leaves. The option
+   files (options/privacy-*.css) set the amounts; without them nothing is blurred.
+     .TitleBarControls .AccountMenu > .avatarHolder + div (the name) + svg +
+       .WalletBalance — readable classes, captured 2026-10-13.
+   -------------------------------------------------------------------------- */
+
+html .TitleBarControls .AccountMenu > :is(.WalletBalance, div:not(.avatarHolder, .WalletBalance)) {
+    filter: blur(var(--aika-privacy-amount, 0px));
+    transition: filter var(--aika-dur-base) var(--aika-ease);
+}
+
+html .TitleBarControls .AccountMenu > .WalletBalance {
+    --aika-privacy-amount: var(--aika-privacy-balance, 0px);
+}
+
+html .TitleBarControls .AccountMenu > div:not(.avatarHolder, .WalletBalance) {
+    --aika-privacy-amount: var(--aika-privacy-name, 0px);
+}
+
+html .TitleBarControls .AccountMenu:hover > :is(.WalletBalance, div:not(.avatarHolder, .WalletBalance)),
+html .TitleBarControls .tool-tip-source:focus-visible .AccountMenu > :is(.WalletBalance, div:not(.avatarHolder, .WalletBalance)) {
+    --aika-privacy-amount: 0px;
+}
