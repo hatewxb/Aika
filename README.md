@@ -52,7 +52,7 @@ colors, set on the **Colors** page.
 | Friends & chat | Friends list, direct chat, mini profiles | Group and voice chat, friend requests |
 | Downloads | Everything | — |
 | Settings & windows | Settings, game properties, dialogs, Family View (client PIN and web page) | Login window |
-| General | Menus, tooltips, notifications dropdown, notification toasts (message, "now playing", download) — liquid glass, smooth entrance; color presets (Aika, Hello Bert) | Other notifications, Big Picture, overlay |
+| General | Menus, tooltips, notifications dropdown, notification toasts (message, "now playing", download) — liquid glass, smooth entrance; color presets (Aika, Hello Bert, Greeny, Rose Ash) | Other notifications, Big Picture, overlay |
 
 ## Licenses
 

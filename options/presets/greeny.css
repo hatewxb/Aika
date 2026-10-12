@@ -1,0 +1,48 @@
+/* ==========================================================================
+   The "Greeny" color preset (theme settings → "Main → Color preset").
+   Attached by Conditions from skin.json to every window and web page.
+
+   Agave leaves in shade: a deep forest canvas, an emerald accent, teal and
+   mint light. Source palette (color-concepts/Greeny.jpg): #007879 teal,
+   #94EBD8 mint, #00B348 green, #017939 emerald, #003D35 forest; the
+   background steps are near-blacks tinted with the forest, the text a
+   mint-white.
+
+   Accents: the source green is lifted for a dark UI (#2ECC7A, 9.6:1 on the
+   canvas) — indicators, glows, the active tab; buttons are emerald with a
+   mint-white label (5.4:1, hover 4.7:1); "Play" runs emerald → teal. The
+   "online / installed" status would melt into a green accent, so it is
+   mint here; light spots: green at the top, teal on the left, mint bottom right.
+   ========================================================================== */
+
+:root {
+    /* Accent and light spots */
+    --aika-preset-accent: #2ECC7A;              /* lifted green: indicators, glows, links */
+    --aika-preset-accent-bright: #5BD183;       /* the light-struck leaf */
+    --aika-preset-accent-fill: #017939;         /* emerald button fill, label 5.4:1 */
+    --aika-preset-accent-fill-hover: #01843F;   /* 4.7:1 */
+    --aika-preset-on-accent: #F2FFF9;
+    --aika-preset-play-fill-to: #007879;        /* "Play": emerald → teal */
+    --aika-preset-light-1: #00B348;             /* spot at the top */
+    --aika-preset-light-2: #0E9C93;             /* teal, on the left */
+    --aika-preset-light-3: #94EBD8;             /* mint, bottom right */
+
+    /* Statuses */
+    --aika-preset-ok: #94EBD8;                  /* mint — apart from the green accent */
+
+    /* Background steps, darkest to lightest (forest-tinted near-blacks) */
+    --aika-preset-bg-deep: #020504;
+    --aika-preset-bg-base: #040908;             /* the main canvas */
+    --aika-preset-bg-glow: #07110E;
+    --aika-preset-bg-elevated: #0A1411;
+    --aika-preset-bg-raised: #0F1D19;           /* panel headers, inputs, menus */
+    --aika-preset-bg-hover: #142621;
+    --aika-preset-bg-high: #1A302A;
+    --aika-preset-bg-edge: #213A33;
+    --aika-preset-bg-line: #29453D;
+
+    /* Text and the tone of translucent overlays */
+    --aika-preset-fg: #E3EFEA;                  /* mint-white, 17:1 */
+    --aika-preset-fg-muted: #87988F;            /* 6.2:1 on panels */
+    --aika-preset-ink: #F0FFF8;
+}

@@ -121,10 +121,10 @@ html:root {
     /* ------------------------------------------------------------------
        Statuses
        ------------------------------------------------------------------ */
-    --aika-ok: #8BD49C;     /* online, installed, ✓ */
-    --aika-live: #F07A6B;   /* live, errors, ✕ */
+    --aika-ok: var(--aika-preset-ok, #8BD49C);     /* online, installed, ✓ (a preset may move it off its accent) */
+    --aika-live: var(--aika-preset-live, #F07A6B);   /* live, errors, ✕ */
     --aika-close-hover: #C42B1C;   /* "close window" on hover — Windows 11 red (white glyph 5.9:1) */
-    --aika-warn: #E8C170;   /* warnings, away */
+    --aika-warn: var(--aika-preset-warn, #E8C170);   /* warnings, away */
     --aika-warn-soft: rgb(from var(--aika-warn) r g b / 0.10);    /* warning background */
     --aika-warn-border: rgb(from var(--aika-warn) r g b / 0.28);
     --aika-ok-soft: rgb(from var(--aika-ok) r g b / 0.14);        /* "active / success" background */

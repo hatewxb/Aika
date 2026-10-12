@@ -78,6 +78,12 @@
                 },
                 "Hello Bert": {
                     "TargetCss": { "affects": [".*"], "src": "options/presets/hello-bert.css" }
+                },
+                "Greeny": {
+                    "TargetCss": { "affects": [".*"], "src": "options/presets/greeny.css" }
+                },
+                "Rose Ash": {
+                    "TargetCss": { "affects": [".*"], "src": "options/presets/rose-ash.css" }
                 }
             }
         },

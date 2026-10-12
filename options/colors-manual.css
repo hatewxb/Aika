@@ -29,4 +29,7 @@ html:root {
     --aika-preset-fg: initial;
     --aika-preset-fg-muted: initial;
     --aika-preset-ink: initial;
+    --aika-preset-ok: initial;
+    --aika-preset-live: initial;
+    --aika-preset-warn: initial;
 }
