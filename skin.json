@@ -163,6 +163,10 @@
             "TargetJs": "js/store-search.js"
         },
         {
+            "MatchRegexString": "^https://store\\.steampowered\\.com/wishlist/.*",
+            "TargetJs": "js/store-wishlist.js"
+        },
+        {
             "MatchRegexString": "^https://(store\\.steampowered|steamcommunity)\\.com/.*",
             "TargetJs": "js/pin-slots.js"
         },

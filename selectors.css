@@ -1017,6 +1017,22 @@ html body.v6 ._2FKdJT3nRLNX_ue4Zj-qdK ._3TtUDn-J9j6rkwHqjT-i4Y {
    How to find: open "Wishlist" from the store menu.
    ========================================================================== */
 
+/* The wishlist title (an <h2> without a class in .n5zwruAY98Q-, next to the
+   avatar; verified 2026-10-12): not shown as plain text before js/store-wishlist.js
+   lays its split copy over it (the script comes at full load) — otherwise the
+   plain title flashed, then the letters rose in again. No script — it shows
+   after --aika-split-fallback-delay; reduced motion — never hidden. */
+@keyframes aika-wl-title-fallback {
+    to { opacity: 1; }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+    html body #StoreTemplate .n5zwruAY98Q- > h2:not([data-aika-split], [data-aika-split-skip]) {
+        opacity: 0;
+        animation: aika-wl-title-fallback var(--aika-dur-base) var(--aika-ease) var(--aika-split-fallback-delay) forwards;
+    }
+}
+
 /* The store menu strip (.WCG-2-OYepA-, Steam: a blue-gray radial
    gradient with blur) */
 html body #StoreTemplate .WCG-2-OYepA- {

@@ -260,6 +260,7 @@ html:root {
     --aika-range-fill: linear-gradient(to right, var(--aika-accent-fill), var(--aika-accent-bright));   /* the price slider, filled part */
     --aika-range-glow: rgb(from var(--aika-accent) r g b / 0.18);
     --aika-check-border: rgb(from var(--aika-ink) r g b / 0.22);   /* an empty filter checkbox, visible on the panels */
+    --aika-veil-mask: linear-gradient(to bottom, #000 45%, rgba(0, 0, 0, 0.35));   /* the wishlist veil quiets down under the list */
     --aika-aurora-mask: linear-gradient(to bottom, #000 35%, transparent);   /* the aurora layer fades out downwards */
 
     /* Fully transparent — to "remove" Steam backgrounds without bare values */

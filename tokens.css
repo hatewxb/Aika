@@ -316,7 +316,21 @@
     --aika-badge-room: 34px;                  /* room above the track for the price badge */
     --aika-badge-gap: 14px;
     --aika-roll-dur: 200ms;
-    --aika-cur-gap: 0.18em;                   /* the currency sign kept apart from the figures */
+    --aika-cur-gap: 0.18em;
+
+    /* The wishlist (sections/store-wishlist.css, js/store-wishlist.js) */
+    --aika-veil-color: --aika-accent;         /* the Dark Veil tint — a theme variable */
+    --aika-veil-speed: 0.5;                   /* reactbits defaults otherwise */
+    --aika-veil-glow: 0.4;
+    --aika-veil-grain: 0.03;
+    --aika-veil-quality: 0.5;
+    --aika-veil-resolution: 0.75;             /* × device pixels for the composite */
+    --aika-veil-opacity: 0.85;
+    --aika-wl-title-size: clamp(28px, 2.4vw, 36px);   /* = the store home headline */
+    --aika-wl-title-weight: 700;
+    --aika-wl-rise: 40px;                     /* Split Text: each letter rises this much */
+    --aika-wl-dur: 1.25s;
+    --aika-wl-stagger: 50ms;                   /* the currency sign kept apart from the figures */
     --aika-home-dot-glow: 0 0 10px var(--aika-accent-glow);
     --aika-home-arrow: 40px;                              /* round carousel arrows */
     --aika-home-arrow-icon: 18px;

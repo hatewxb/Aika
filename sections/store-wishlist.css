@@ -1,0 +1,149 @@
+/* ==========================================================================
+   sections/store-wishlist.css — the wishlist (store.steampowered.com/wishlist/…,
+   the new store engine: React on #StoreTemplate, hashed CSS modules ending in
+   "-"; captured 2026-10-12). The base colors of the page are in selectors.css
+   ([Store, new engine]); here — the redesign and its motion
+   (js/store-wishlist.js).
+
+     the store menu: :has(> [role=navigation]) — a full-width strip
+       [role=navigation] (with form[role=search] inside) — the menu itself
+     the title: #StoreTemplate h2 "<NAME>: WISHLIST" (no class) next to the avatar
+
+   Aika: the menu is the floating capsule of the other store pages (found by
+   role, not by hash — it also fits other new-engine pages); a Dark Veil behind
+   the page in the theme accent; the title as the store headline, its letters
+   split in; currency signs set apart from the mono figures.
+   ========================================================================== */
+
+/* --------------------------------------------------------------------------
+   The store menu: the floating capsule (as sections/store.css does for the
+   classic store) instead of the full-width strip
+   -------------------------------------------------------------------------- */
+
+html body #StoreTemplate :has(> [role="navigation"] form[role="search"]) {   /* no :has() inside :has() — CSS drops such a rule */
+    padding-top: var(--aika-storebar-top);
+    background: none;
+    box-shadow: none;
+    backdrop-filter: none;
+}
+
+html body #StoreTemplate [role="navigation"]:has(form[role="search"]) {
+    box-sizing: border-box;
+    width: min(100% - 2 * var(--aika-storebar-gutter), var(--aika-storebar-content) + 2 * var(--aika-space-4));
+    margin-inline: auto;
+    padding-inline: var(--aika-space-4);
+    border-radius: var(--aika-radius-xl);
+    background: var(--aika-storebar-material);
+    backdrop-filter: var(--aika-player-blur);
+    box-shadow:
+        inset 0 0 0 var(--aika-hairline) var(--aika-border-hover),
+        var(--aika-highlight-top),
+        var(--aika-shadow-menu);
+}
+
+html body #StoreTemplate [role="navigation"]:has(form[role="search"]) :is(a, button[aria-expanded]) {
+    border-radius: var(--aika-radius-md);
+    font-family: var(--aika-font-ui);
+    transition:
+        background-color var(--aika-dur-fast) var(--aika-ease-hover),
+        color var(--aika-dur-fast) var(--aika-ease-hover);
+}
+
+html body #StoreTemplate [role="navigation"]:has(form[role="search"]) :is(a, button[aria-expanded]):hover {
+    background-color: var(--aika-surface-hover);
+    color: var(--aika-fg);
+}
+
+/* The search in the capsule: a round field */
+html body #StoreTemplate [role="navigation"] form[role="search"] {
+    border-radius: var(--aika-radius-full);
+}
+
+/* --------------------------------------------------------------------------
+   The backdrop: the Dark Veil (js/store-wishlist.js)
+   -------------------------------------------------------------------------- */
+
+.aika-veil {
+    position: fixed;
+    z-index: var(--aika-z-texture);
+    inset: 0;
+    pointer-events: none;
+    -webkit-mask: var(--aika-veil-mask);
+    mask: var(--aika-veil-mask);
+}
+
+.aika-veil canvas {
+    display: block;
+    width: 100%;
+    height: 100%;
+}
+
+/* --------------------------------------------------------------------------
+   The title: the store headline; Split Text with the script
+   -------------------------------------------------------------------------- */
+
+@keyframes aika-wl-rise {
+    from {
+        opacity: 0;
+        transform: translateY(var(--aika-wl-rise));
+    }
+}
+
+html body #StoreTemplate h2[data-aika-split],
+html body #StoreTemplate h2[data-aika-split-skip] {
+    position: relative;
+    font-family: var(--aika-font-ui);
+    font-size: var(--aika-wl-title-size);
+    font-weight: var(--aika-wl-title-weight);
+    letter-spacing: var(--aika-tracking-h1);
+    line-height: var(--aika-leading-heading);
+    color: var(--aika-fg);
+}
+
+/* Steam's own text stays (selection, screen readers) but the copy draws it */
+html body #StoreTemplate h2[data-aika-split] {
+    -webkit-text-fill-color: var(--aika-transparent);
+}
+
+html body #StoreTemplate h2 > .aika-wl-split {
+    position: absolute;
+    inset: 0;
+    white-space: nowrap;
+    pointer-events: none;
+}
+
+html body #StoreTemplate h2 > .aika-wl-split .aika-wl-word {
+    display: inline-block;
+    white-space: nowrap;
+}
+
+html body #StoreTemplate h2 > .aika-wl-split .aika-wl-char {
+    display: inline-block;
+    padding-bottom: var(--aika-split-descender);
+    margin-bottom: calc(-1 * var(--aika-split-descender));
+    background: var(--aika-text-gradient);
+    background-clip: text;
+    -webkit-text-fill-color: var(--aika-transparent);
+    animation: aika-wl-rise var(--aika-wl-dur) var(--aika-ease-fold) calc(var(--aika-wl-i, 0) * var(--aika-wl-stagger)) backwards;
+}
+
+html body #StoreTemplate h2[data-aika-split-wait] > .aika-wl-split .aika-wl-char {
+    animation-play-state: paused;
+}
+
+/* --------------------------------------------------------------------------
+   Prices: the currency sign set apart (js/store-wishlist.js wraps it)
+   -------------------------------------------------------------------------- */
+
+html body #StoreTemplate .aika-cur {
+    margin-inline-start: var(--aika-cur-gap);
+    font-family: var(--aika-font-ui);
+    font-weight: var(--aika-weight-regular);
+    color: var(--aika-fg-subtle);
+}
+
+@media (prefers-reduced-motion: reduce) {
+    html body #StoreTemplate h2 > .aika-wl-split .aika-wl-char {
+        animation: none;
+    }
+}
