@@ -1,0 +1,22 @@
+/* ==========================================================================
+   components/curtain.css — the curtain between pages in the main window
+   (js/page-curtain.js; motion.dev "Curtains: fade").
+
+   Own class: .aika-curtain — fixed over the content frame (the script sets its
+   box; the top bar with the tabs stays visible), opacity animated by the
+   script. The curtain is the Aika background with a soft accent haze, so a
+   page change dips into the theme's own near-black and comes back out.
+   ========================================================================== */
+
+.aika-curtain {
+    position: fixed;
+    z-index: var(--aika-z-curtain);
+    display: none;
+    opacity: 0;
+    background: var(--aika-curtain);
+    pointer-events: none;
+}
+
+.aika-curtain.is-on {
+    display: block;
+}

@@ -519,6 +519,12 @@
     --aika-boot-fade: 500ms;          /* the beam layer fading as it opens */
     --aika-boot-min: 1200;            /* ms, shown at least this long */
     --aika-boot-limit: 12000;         /* ms, opens anyway after this */
+
+    /* The curtain between pages (js/page-curtain.js, components/curtain.css) */
+    --aika-curtain-in: 250;           /* ms, fading in over the old page */
+    --aika-curtain-out: 350;          /* ms, fading out over the new one */
+    --aika-curtain-quiet: 90;         /* ms without DOM changes = the new page has rendered */
+    --aika-curtain-wait: 500;         /* ms, fades out anyway after this */
     /* The line above dialogs inside a window (.ModalPosition_TopBar; Steam has
        a blue gradient #00ccff → #3366ff): the accent fading toward the edges */
     --aika-modal-topbar-opacity: 0.6;
@@ -618,6 +624,7 @@
     /* The cinematic page media viewer: above Steam's menus (10000) — it is
        a full-window modal */
     --aika-z-cine-viewer: 10050;
+    --aika-z-curtain: 2147482000;     /* the page curtain, under the boot curtain */
     --aika-z-boot: 2147483000;        /* the loading curtain over the whole main window (js/boot-reveal.js) */
 
     /* ------------------------------------------------------------------

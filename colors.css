@@ -233,6 +233,9 @@ html:root {
         transparent calc(50% + 48px));
     --aika-boot-haze: radial-gradient(28% 55% at 50% 50%, rgb(from var(--aika-accent) r g b / 0.12), transparent);
 
+    /* The page curtain (components/curtain.css): the near-black with a haze */
+    --aika-curtain: radial-gradient(60% 50% at 50% 45%, rgb(from var(--aika-accent) r g b / 0.10), transparent), var(--aika-bg-deep);
+
     /* Fully transparent — to "remove" Steam backgrounds without bare values */
     --aika-transparent: rgb(from var(--aika-ink) r g b / 0);
 }
