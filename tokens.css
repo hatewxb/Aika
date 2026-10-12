@@ -273,6 +273,45 @@
     /* The legacy web dialog (components/web-modal.css) */
     --aika-web-modal-blur: blur(6px);
     --aika-web-modal-close: 12px;      /* the cross glyph inside its 16 px box */
+
+    /* The search page (sections/store-search.css, js/store-search.js) */
+    --aika-aurora-band: 70vh;                 /* the aurora layer at the top of the window */
+    --aika-aurora-stops: --aika-accent, --aika-light-2, --aika-accent-bright;   /* theme colors, left → right */
+    --aika-aurora-speed: 0.6;                 /* reactbits defaults otherwise: amplitude 1, blend 0.5 */
+    --aika-aurora-height: 0.32;
+    --aika-aurora-layers: 2;
+    --aika-aurora-brightness: 0.7;
+    --aika-aurora-opacity: 0.5;
+    --aika-aurora-resolution: 0.5;            /* × device pixels — soft anyway, half the work */
+    --aika-search-title-size: clamp(40px, 3.4vw, 56px);   /* "All products": larger and bold (author) */
+    --aika-search-title-weight: 800;
+    --aika-tracking-fold: -0.04em;            /* Fold Text */
+    --aika-leading-fold: 1;
+    --aika-fold-angle: -92deg;                /* each letter swings down from its top hinge */
+    --aika-fold-perspective: 700px;
+    --aika-fold-dur: 650ms;
+    --aika-fold-stagger: 45ms;
+    --aika-ease-fold: cubic-bezier(0.215, 0.61, 0.355, 1);   /* power3.out */
+    --aika-fold-crease-from: 0.55;            /* the crease shadow at the start */
+    --aika-search-thumb: 14px;                /* the review thumb glyph */
+    --aika-icon-thumb: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M7 10v11H3V10h4zm2 11h8.4a2 2 0 0 0 2-1.6l1.3-6.8A2 2 0 0 0 18.7 10H14l.8-4.2a1.8 1.8 0 0 0-3.3-1.3L9 9.5V21z'/%3E%3C/svg%3E");
+    --aika-icon-minus: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 12' fill='none' stroke='black' stroke-width='1.75' stroke-linecap='round'%3E%3Cpath d='M2.5 6h7'/%3E%3C/svg%3E");
+    --aika-check-size: 18px;                  /* motion "Base checkbox": a box with a drawn tick */
+    --aika-check-radius: 5px;
+    --aika-check-inset: 2px;
+    --aika-check-stroke: 3;
+    --aika-check-hover: 1.05;
+    --aika-check-press: 0.95;
+    --aika-check-in: 300ms;                   /* the tick draws in… */
+    --aika-check-out: 100ms;                  /* …and is erased faster */
+    --aika-range-track: 3px;                  /* motion "Number slider" */
+    --aika-range-thumb: 20px;
+    --aika-range-ring: 2px;
+    --aika-range-ring-hover: 4px;
+    --aika-badge-room: 34px;                  /* room above the track for the price badge */
+    --aika-badge-gap: 14px;
+    --aika-roll-dur: 200ms;
+    --aika-cur-gap: 0.18em;                   /* the currency sign kept apart from the figures */
     --aika-home-dot-glow: 0 0 10px var(--aika-accent-glow);
     --aika-home-arrow: 40px;                              /* round carousel arrows */
     --aika-home-arrow-icon: 18px;

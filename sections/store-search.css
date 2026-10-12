@@ -1,0 +1,437 @@
+/* ==========================================================================
+   sections/store-search.css — the store search page
+   (store.steampowered.com/search/, body.v6.search_page; captured 2026-10-12).
+   The base look (field, sorting, rows, filter blocks) is in sections/store.css
+   (§4); here — the redesign of 2026-10-12 and its motion (js/store-search.js).
+
+     .page_header_ctn            — Steam's cluster_bg.png (a blue band)
+       #termsnone .pagesubheader — "All products" (no query)
+     #search_resultsRows > a.search_result_row
+       .search_capsule img + .responsive_search_name_combined (a grid:
+         .search_name / .search_platforms / .search_released /
+         .search_reviewscore .search_review_summary.positive|mixed|negative
+         (PNG thumbs) / .search_price_discount_combined .discount_block
+         (.discount_pct + .discount_prices .discount_original_price /
+         .discount_final_price[.free]))
+     .rightcol .block .block_content
+       .range_container .range_container_inner input#price_range[type=range]
+         (0..13) + #price_range_display ("Any price")
+       .tab_filter_control_row[.checked] > .tab_filter_control
+         .tab_filter_control_checkbox (a PNG sprite) .tab_filter_control_label
+         .tab_filter_control_count; tags: + .tab_filter_control_not (an <img> minus)
+
+   The price bug: Steam's grid gives the price column minmax(…, ~4 %) — with
+   our mono figures "2 199,00₴" became ".000" and "Free" "1ТНО" (the column was
+   34 px and the discount block clips). The grid is ours now: the price column
+   is max-content.
+   ========================================================================== */
+
+/* --------------------------------------------------------------------------
+   The backdrop: the aurora (js/store-search.js) instead of the blue band
+   -------------------------------------------------------------------------- */
+
+html body.v6.search_page .page_header_ctn {
+    background: none;
+}
+
+.aika-aurora {
+    position: fixed;
+    z-index: var(--aika-z-texture);
+    inset: 0 0 auto;
+    height: var(--aika-aurora-band);
+    pointer-events: none;
+    -webkit-mask: var(--aika-aurora-mask);
+    mask: var(--aika-aurora-mask);
+}
+
+.aika-aurora canvas {
+    display: block;
+    width: 100%;
+    height: 100%;
+}
+
+/* --------------------------------------------------------------------------
+   "All products" — large and bold; Fold Text with the script
+   -------------------------------------------------------------------------- */
+
+@keyframes aika-fold-in {
+    from {
+        opacity: 0;
+        transform: rotateX(var(--aika-fold-angle));
+        --aika-fold-crease: var(--aika-fold-crease-from);
+    }
+    to {
+        --aika-fold-crease: 0;
+    }
+}
+
+@keyframes aika-fold-fallback {
+    to { opacity: 1; }
+}
+
+@property --aika-fold-crease {
+    syntax: "<number>";
+    inherits: true;
+    initial-value: 0;
+}
+
+html body.v6.search_page #termsnone .pagesubheader {
+    margin: var(--aika-space-2) 0 var(--aika-space-4);
+    font-family: var(--aika-font-ui);
+    font-size: var(--aika-search-title-size);
+    font-weight: var(--aika-search-title-weight);
+    letter-spacing: var(--aika-tracking-fold);
+    line-height: var(--aika-leading-fold);
+    text-transform: none;
+    color: var(--aika-fg);
+}
+
+/* Not shown as plain text before the script splits it (it comes at full load) */
+@media (prefers-reduced-motion: no-preference) {
+    html.aika-search-js body.v6.search_page #termsnone .pagesubheader:not(.aika-fold, .aika-fold-skip) {
+        opacity: 0;
+        animation: aika-fold-fallback var(--aika-dur-base) var(--aika-ease) var(--aika-split-fallback-delay) forwards;
+    }
+}
+
+html body.v6.search_page #termsnone .pagesubheader .aika-fold-word {
+    display: inline-block;
+    white-space: nowrap;
+}
+
+html body.v6.search_page #termsnone .pagesubheader .aika-fold-seg {
+    display: inline-block;
+    perspective: var(--aika-fold-perspective);
+    transform-style: preserve-3d;
+}
+
+html body.v6.search_page #termsnone .pagesubheader .aika-fold-piece {
+    position: relative;
+    display: inline-block;
+    padding-bottom: var(--aika-split-descender);
+    margin-bottom: calc(-1 * var(--aika-split-descender));
+    background: var(--aika-text-gradient);
+    background-clip: text;
+    color: var(--aika-transparent);
+    transform-origin: 50% 0%;
+    backface-visibility: hidden;
+    animation: aika-fold-in var(--aika-fold-dur) var(--aika-ease-fold) calc(var(--aika-fold-i, 0) * var(--aika-fold-stagger)) backwards;
+}
+
+/* The crease shadow while a letter swings down */
+html body.v6.search_page #termsnone .pagesubheader .aika-fold-piece::after {
+    content: "";
+    position: absolute;
+    inset: -0.08em -0.02em;
+    border-radius: 0.08em;
+    background: var(--aika-fold-crease-shade);
+    mix-blend-mode: multiply;
+    opacity: var(--aika-fold-crease);
+    pointer-events: none;
+}
+
+html body.v6.search_page #termsnone .pagesubheader.aika-fold-wait .aika-fold-piece {
+    animation-play-state: paused;
+}
+
+/* --------------------------------------------------------------------------
+   Result rows: our grid (the price fix), rounded capsules, review thumbs
+   -------------------------------------------------------------------------- */
+
+html body.v6.search_page .search_result_row {
+    border-radius: var(--aika-radius-lg);
+    transition:
+        background-color var(--aika-dur-fast) var(--aika-ease-hover),
+        box-shadow var(--aika-dur-base) var(--aika-ease);
+}
+
+html body.v6.search_page .search_result_row:hover {
+    box-shadow: inset 0 0 0 var(--aika-hairline) var(--aika-border-accent), var(--aika-shadow-card);
+}
+
+html body.v6.search_page .search_result_row .search_capsule img {
+    border-radius: var(--aika-radius-md);
+}
+
+html body.v6.search_page .search_result_row .responsive_search_name_combined {
+    grid-template-columns: minmax(0, 1fr) auto auto max-content;
+    column-gap: var(--aika-space-4);
+    padding-right: var(--aika-space-3);
+}
+
+html body.v6.search_page .search_result_row .search_name .title {
+    font-family: var(--aika-font-ui);
+    font-weight: var(--aika-weight-medium);
+}
+
+html body.v6.search_page .search_result_row .search_released {
+    justify-self: end;
+    font-size: var(--aika-text-label);
+    letter-spacing: var(--aika-tracking-label);
+}
+
+/* The review thumb: Steam's blue / brown PNG → our thumb in the status colors */
+html body.v6.search_page .search_result_row .search_review_summary {
+    background: var(--aika-warn);
+    -webkit-mask: var(--aika-icon-thumb) center / var(--aika-search-thumb) no-repeat;
+    mask: var(--aika-icon-thumb) center / var(--aika-search-thumb) no-repeat;
+}
+
+html body.v6.search_page .search_result_row .search_review_summary.positive {
+    background: var(--aika-ok);
+}
+
+html body.v6.search_page .search_result_row .search_review_summary.negative {
+    background: var(--aika-live);
+    transform: rotate(180deg);
+}
+
+/* The price column: right-aligned, as wide as its figures */
+html body.v6.search_page .search_result_row .search_price_discount_combined {
+    width: auto;
+    justify-self: end;
+    align-self: center;
+}
+
+html body.v6.search_page .search_result_row .search_discount_block {
+    overflow: visible;
+    align-items: center;
+    gap: var(--aika-space-2);
+    background: none;
+}
+
+html body.v6.search_page .search_result_row .search_discount_block .discount_pct {
+    padding: var(--aika-space-1) var(--aika-space-2);
+    border-radius: var(--aika-radius-full);
+    background: var(--aika-ok);
+    color: var(--aika-on-ok);
+    font-family: var(--aika-font-mono);
+    font-weight: var(--aika-weight-semibold);
+    line-height: 1.2;
+}
+
+html body.v6.search_page .search_result_row .search_discount_block .discount_prices {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    width: auto;
+    padding: 0;
+    background: none;
+    font-family: var(--aika-font-mono);
+    font-variant-numeric: tabular-nums;
+    white-space: nowrap;
+}
+
+html body.v6.search_page .search_result_row .search_discount_block .discount_original_price {
+    font-size: var(--aika-text-label);
+    color: var(--aika-fg-subtle);
+}
+
+html body.v6.search_page .search_result_row .search_discount_block .discount_final_price {
+    font-size: var(--aika-text-body);
+    font-weight: var(--aika-weight-semibold);
+    color: var(--aika-fg);
+}
+
+/* The currency sign set apart (js/store-search.js wraps it) */
+html body.v6.search_page .search_result_row .discount_prices .aika-cur {
+    margin-inline: var(--aika-cur-gap);
+    font-family: var(--aika-font-ui);
+    font-weight: var(--aika-weight-regular);
+    color: var(--aika-fg-subtle);
+}
+
+html body.v6.search_page .search_result_row .search_discount_block .discount_final_price.free {
+    font-family: var(--aika-font-ui);
+    font-weight: var(--aika-weight-medium);
+    color: var(--aika-ok);
+}
+
+/* --------------------------------------------------------------------------
+   Filters: checkboxes (drawn tick), the exclude minus
+   -------------------------------------------------------------------------- */
+
+html body.v6.search_page .tab_filter_control_checkbox {
+    box-sizing: border-box;
+    width: var(--aika-check-size);
+    height: var(--aika-check-size);
+    flex: none;
+    border: var(--aika-hairline) solid var(--aika-check-border);
+    border-radius: var(--aika-check-radius);
+    background: var(--aika-surface);
+    transition:
+        background-color var(--aika-dur-fast) var(--aika-ease-hover),
+        border-color var(--aika-dur-fast) var(--aika-ease-hover),
+        transform var(--aika-dur-fast) var(--aika-ease-hover);
+}
+
+html body.v6.search_page .tab_filter_control_row:hover .tab_filter_control_checkbox {
+    transform: scale(var(--aika-check-hover));
+}
+
+html body.v6.search_page .tab_filter_control_row:active .tab_filter_control_checkbox {
+    transform: scale(var(--aika-check-press));
+}
+
+html body.v6.search_page .tab_filter_control_row.checked .tab_filter_control_checkbox {
+    border-color: var(--aika-accent);
+    background: var(--aika-accent-fill);
+    box-shadow: 0 0 8px var(--aika-accent-glow);
+}
+
+/* The tick (js/store-search.js puts the SVG in) */
+html body.v6.search_page .tab_filter_control_checkbox .aika-check {
+    display: block;
+    width: 100%;
+    height: 100%;
+    padding: var(--aika-check-inset);
+    box-sizing: border-box;
+    overflow: visible;
+}
+
+html body.v6.search_page .tab_filter_control_checkbox .aika-check path {
+    fill: none;
+    stroke: var(--aika-on-accent);
+    stroke-width: var(--aika-check-stroke);
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    stroke-dasharray: 1;
+    stroke-dashoffset: 1;
+    transition: stroke-dashoffset var(--aika-check-out) var(--aika-ease);
+}
+
+html body.v6.search_page .tab_filter_control_row.checked .tab_filter_control_checkbox .aika-check path {
+    stroke-dashoffset: 0;
+    transition-duration: var(--aika-check-in);
+}
+
+/* Exclude a tag ("−"): Steam's <img> → our minus; excluded — live red */
+html body.v6.search_page .tab_filter_control_not {
+    border-radius: var(--aika-radius-xs);
+    background: var(--aika-fg-subtle);
+    -webkit-mask: var(--aika-icon-minus) center / 12px no-repeat;
+    mask: var(--aika-icon-minus) center / 12px no-repeat;
+    transition: background-color var(--aika-dur-fast) var(--aika-ease-hover);
+}
+
+html body.v6.search_page .tab_filter_control_not img {
+    opacity: 0;
+}
+
+html body.v6.search_page .tab_filter_control_not:hover {
+    background: var(--aika-fg);
+}
+
+html body.v6.search_page .tab_filter_control_not.checked {
+    background: var(--aika-live);
+}
+
+/* --------------------------------------------------------------------------
+   The price slider: a slim accent track, a round thumb; with the script — the
+   swinging price badge above the thumb (Steam's caption is hidden then)
+   -------------------------------------------------------------------------- */
+
+html body.v6.search_page #price_range {
+    -webkit-appearance: none;
+    appearance: none;
+    height: var(--aika-range-track);
+    border-radius: var(--aika-radius-full);
+    background: linear-gradient(to right, var(--aika-accent) var(--aika-range-pct, 100%), var(--aika-surface-active) var(--aika-range-pct, 100%));
+    outline: none;
+}
+
+html body.v6.search_page #price_range::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    width: var(--aika-range-thumb);
+    height: var(--aika-range-thumb);
+    border: none;
+    border-radius: 50%;
+    background: var(--aika-ink);
+    box-shadow: 0 0 0 var(--aika-range-ring) var(--aika-accent-ring), 0 2px 8px var(--aika-shadow-near);
+    cursor: grab;
+    transition: box-shadow var(--aika-dur-fast) var(--aika-ease-hover), transform var(--aika-dur-fast) var(--aika-ease-hover);
+}
+
+html body.v6.search_page #price_range:hover::-webkit-slider-thumb,
+html body.v6.search_page #price_range:focus-visible::-webkit-slider-thumb {
+    box-shadow: 0 0 0 var(--aika-range-ring-hover) var(--aika-accent-ring), 0 2px 8px var(--aika-shadow-near);
+}
+
+html body.v6.search_page #price_range:active::-webkit-slider-thumb {
+    cursor: grabbing;
+    transform: scale(0.92);
+}
+
+html body.v6.search_page .range_display {
+    font-family: var(--aika-font-mono);
+    font-size: var(--aika-text-label);
+    letter-spacing: var(--aika-tracking-label);
+    color: var(--aika-fg-muted);
+}
+
+html.aika-price-slider body.v6.search_page .range_container {
+    padding-top: var(--aika-badge-room);
+}
+
+html.aika-price-slider body.v6.search_page .range_container_inner {
+    position: relative;
+}
+
+html.aika-price-slider body.v6.search_page #price_range_display {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip-path: inset(50%);
+}
+
+/* The badge: pivots below itself (Motion: originY 1.5) — a pendulum on the thumb */
+.aika-price-badge {
+    position: absolute;
+    bottom: calc(100% + var(--aika-badge-gap));
+    width: 0;
+    display: flex;
+    justify-content: center;
+    pointer-events: none;
+}
+
+.aika-price-badge-label {
+    flex: none;   /* the badge box is 0 wide — don't let the label shrink into it */
+    display: inline-flex;
+    padding: var(--aika-space-1) var(--aika-space-2);
+    border-radius: var(--aika-radius-md);
+    background: var(--aika-accent-fill);
+    box-shadow: var(--aika-shadow-cta);
+    color: var(--aika-on-accent);
+    font-family: var(--aika-font-mono);
+    font-size: var(--aika-text-label);
+    font-weight: var(--aika-weight-semibold);
+    font-variant-numeric: tabular-nums;
+    line-height: 1.4;
+    white-space: nowrap;
+    overflow: hidden;
+    transform-origin: 50% 150%;
+    transform: translateX(var(--aika-badge-shift, 0px)) rotate(var(--aika-badge-rot, 0deg));
+}
+
+@keyframes aika-roll-in {
+    from {
+        opacity: 0;
+        transform: translateY(70%);
+    }
+}
+
+.aika-price-badge .aika-roll {
+    display: inline-block;
+}
+
+.aika-price-badge .aika-roll.is-new {
+    animation: aika-roll-in var(--aika-roll-dur) ease-out both;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    html body.v6.search_page .tab_filter_control_checkbox,
+    html body.v6.search_page .tab_filter_control_checkbox .aika-check path {
+        transition: none;
+    }
+}

@@ -252,6 +252,14 @@ html:root {
     --aika-explore-dim-3: rgb(from var(--aika-bg-base) r g b / 0.75);
     --aika-explore-count: linear-gradient(to bottom, var(--aika-ink), var(--aika-accent-bright));
 
+    /* The search page: the Fold Text crease (a darker band at the hinge, a hint of
+       light at the free edge — the reactbits values) and dark text on the green
+       discount pill */
+    --aika-fold-crease-shade: linear-gradient(180deg, rgba(0, 0, 0, 0.58) 0%, rgba(0, 0, 0, 0.22) 42%, rgba(255, 255, 255, 0.26) 100%);
+    --aika-on-ok: color-mix(in oklab, var(--aika-ok) 18%, var(--aika-bg-deep));
+    --aika-check-border: rgb(from var(--aika-ink) r g b / 0.22);   /* an empty filter checkbox, visible on the panels */
+    --aika-aurora-mask: linear-gradient(to bottom, #000 35%, transparent);   /* the aurora layer fades out downwards */
+
     /* Fully transparent — to "remove" Steam backgrounds without bare values */
     --aika-transparent: rgb(from var(--aika-ink) r g b / 0);
 }
