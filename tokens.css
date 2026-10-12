@@ -485,6 +485,11 @@
     /* Progress (DESIGN.md §4, Progress) */
     --aika-progress-height: 4px;
     --aika-progress-fill: linear-gradient(to right, var(--aika-accent), var(--aika-accent-bright));
+    /* Achievement bars fill in on opening a game page (js/achievement-progress.js):
+       an overdamped spring, no overshoot — animate-ui Progress values */
+    --aika-achv-stiffness: 100;
+    --aika-achv-damping: 30;
+    --aika-achv-delay: 160;           /* ms after the bar comes on screen */
     /* The line above dialogs inside a window (.ModalPosition_TopBar; Steam has
        a blue gradient #00ccff → #3366ff): the accent fading toward the edges */
     --aika-modal-topbar-opacity: 0.6;
