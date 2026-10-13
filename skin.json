@@ -6,6 +6,11 @@
     "tags": ["Fluent", "Dark", "Warm", "Minimal", "WIP"],
     "header_image": "https://raw.githubusercontent.com/hatewxb/Aika/main/screenshots/preview.gif",
     "splash_image": "https://raw.githubusercontent.com/hatewxb/Aika/main/screenshots/store-app.jpg",
+    
+    "github": {
+    "owner": "hatewxb",
+    "repo_name": "Aika"
+},
 
     "RootColors": "root-colors.css",
     "Steam-WebKit": "webkit.css",
