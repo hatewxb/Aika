@@ -414,23 +414,29 @@ html .AccountMenuPopup .contextMenuItem:is(:hover, :focus-visible) .LogoutButton
 
 /* The header menus (account, notifications) stood right against the header —
    a gap below it (author 2026-10-14). Steam sizes the menu window from the
-   box, so the gap is a see-through strip inside the box: the plate moves to
-   ::before, below the strip. */
+   box, so the gap is a see-through strip inside the box (its top padding)
+   and the plate moves to the contents below it. Not to a ::before plate:
+   Chromium didn't paint the pseudo-element while the box's clip-path
+   animated — the menu was all but transparent for the whole unfold and the
+   plate popped in at the end (author 2026-10-14; frames: alpha 0–27 → 237,
+   the Steam menu with its own plate 74 → 236 as it unfolds). */
 html:is(.Account_Menu, .Notifications_Menu) body .contextMenu.ContextMenuPosition {
-    isolation: isolate;
-    padding-top: calc(var(--aika-header-menu-gap) + var(--aika-space-1));
+    padding: var(--aika-header-menu-gap) 0 0;
     background: var(--aika-transparent);
     box-shadow: none;
 }
 
-html:is(.Account_Menu, .Notifications_Menu) body .contextMenu.ContextMenuPosition::before {
-    content: "";
-    position: absolute;
-    inset: var(--aika-header-menu-gap) 0 0 0;
-    z-index: -1;
-    border-radius: inherit;
+html:is(.Account_Menu, .Notifications_Menu) body .contextMenu.ContextMenuPosition > .contextMenuContents {
+    padding: var(--aika-space-2);   /* the box padding + Steam's 4 px, as on the other menus */
+    border-radius: var(--aika-radius-lg);
     background: var(--aika-surface-translucent);
     box-shadow: var(--aika-shadow-menu);
+}
+
+/* Steam: ._1UgM… { padding: 2px !important } on the notifications list —
+   only !important beats it */
+html.Notifications_Menu body .contextMenu.ContextMenuPosition > .contextMenuContents.NotificationsMenu {
+    padding: var(--aika-space-2) !important;
 }
 
 /* --------------------------------------------------------------------------
