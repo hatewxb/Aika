@@ -8,6 +8,17 @@
 
 https://github.com/user-attachments/assets/48f5941a-a2c6-4d1c-a721-8e7a3f79c630
 
+| | |
+|:--:|:--:|
+| ![Startup and store home](screenshots/gifs/01-startup-store-home.gif) | ![Store menus](screenshots/gifs/02-store-menus.gif) |
+| **Startup and store home** | **Store menus** |
+| ![Store search](screenshots/gifs/03-store-search.gif) | ![Wishlist](screenshots/gifs/04-wishlist.gif) |
+| **Store search** | **Wishlist** |
+| ![Family View and library home](screenshots/gifs/05-family-view-library-home.gif) | ![Game page: library and Cinematic store](screenshots/gifs/06-game-page.gif) |
+| **Family View and library home** | **Game page: library and Cinematic store** |
+| ![Friends Activity](screenshots/gifs/07-friends-activity.gif) | ![Library menus](screenshots/gifs/08-library-menus.gif) |
+| **Friends Activity** | **Library menus** |
+
 ![Aika — a game page in the library](screenshots/library-game.png)
 
 *A game page in the library*
