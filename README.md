@@ -2,9 +2,13 @@
 
 # Aika
 
-**A warm dark theme for Steam** · [Millennium](https://steambrew.app) · 0.1.2 (WIP) · by **hatewxb**
+**A warm dark theme for Steam** · [Millennium](https://steambrew.app) · 0.1.3 · by **hatewxb**
 
-![Aika — a game page in the library](screenshots/library-game.png)
+**[Get it on Steambrew](https://steambrew.app/theme/uV8M1eg45Hh662blPuyD)** — the official Millennium theme store
+
+[![Aika — a one-minute preview, click to watch](screenshots/preview-poster.jpg)](https://github.com/hatewxb/Aika/releases/download/v0.1.3/Aika-preview.mp4)
+
+*A one-minute preview — click the picture to watch.*
 
 </div>
 
@@ -16,6 +20,7 @@ Steam's light blue. The theme doesn't change any Steam text, only the look.
 - **Cinematic store game page**: trailers play muted behind the logo,
   price and buttons over the whole window, with a media gallery and viewer
   (the classic layout is one setting away).
+- **Menus that unfold** like cards with their items rising in; the library's Add a Game is a floating + button.
 - **Motion throughout**: a line-reveal loading curtain as Steam starts, page
   changes behind a soft curtain, achievement bars that fill on a spring,
   letters that fold, split or stand up like dominoes in page titles.
@@ -48,6 +53,18 @@ Steam's light blue. The theme doesn't change any Steam text, only the look.
 
 ## Installation
 
+### From Steambrew (recommended)
+
+Aika is in the official Millennium theme store:
+[steambrew.app/theme/uV8M1eg45Hh662blPuyD](https://steambrew.app/theme/uV8M1eg45Hh662blPuyD).
+
+1. Install [Millennium](https://steambrew.app).
+2. On the [Aika page](https://steambrew.app/theme/uV8M1eg45Hh662blPuyD), press **Copy Theme ID**.
+3. In Steam: the **Steam** menu (top left) → **Millennium** → **Themes** → **Install a theme**, then paste the ID.
+4. Pick **Aika** in the theme list. If theme scripts are disabled, enable them.
+
+### Manual
+
 1. Install [Millennium](https://steambrew.app).
 2. Download `Aika-<version>.zip` from [Releases](../../releases).
 3. Extract the `Aika` folder into `C:\Program Files (x86)\Steam\millennium\themes\`.
@@ -57,7 +74,7 @@ Theme settings (the gear next to Aika in Millennium): **Main** — top bar tab
 position, store game page layout (Cinematic / Classic), library covers (3D
 tilt / Lift / Zoom), cursor glow and its radius, privacy blur of the wallet
 balance (or name and balance) in the account menu until hovered, color preset,
-notification wordmark and opacity; **Advanced** — custom colors, set on the
+notification wordmark and opacity, performance (Full / Balanced / Low); **Advanced** — custom colors, set on the
 **Colors** page.
 
 ## Roadmap
