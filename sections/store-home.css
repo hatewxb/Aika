@@ -324,9 +324,7 @@ html body.v6 :is(
     .home_discounts_block,
     .community_recommendation_app,
     .home_content.single,
-    .tab_preview.focus,
-    .home_page_takeover_link,
-    a.home_page_takeunder
+    .tab_preview.focus
 ) {
     position: relative;
 }
@@ -338,9 +336,7 @@ html body.v6 :is(
     .home_discounts_block,
     .community_recommendation_app,
     .home_content.single,
-    .tab_preview.focus,
-    .home_page_takeover_link,
-    a.home_page_takeunder
+    .tab_preview.focus
 )::before {
     content: "";
     position: absolute;
@@ -365,9 +361,7 @@ html body.v6 :is(
     .home_discounts_block,
     .community_recommendation_app,
     .home_content.single,
-    .tab_preview.focus,
-    .home_page_takeover_link,
-    a.home_page_takeunder
+    .tab_preview.focus
 )::after {
     content: "";
     position: absolute;
@@ -395,9 +389,7 @@ html body.v6 :is(
     .home_discounts_block,
     .community_recommendation_app,
     .home_content.single,
-    .tab_preview.focus,
-    .home_page_takeover_link,
-    a.home_page_takeunder
+    .tab_preview.focus
 ):hover::before,
 html body.v6 :is(
     #home_maincap_v7 .store_main_capsule.focus,
@@ -406,9 +398,7 @@ html body.v6 :is(
     .home_discounts_block,
     .community_recommendation_app,
     .home_content.single,
-    .tab_preview.focus,
-    .home_page_takeover_link,
-    a.home_page_takeunder
+    .tab_preview.focus
 ):hover::after {
     opacity: 1;
 }
@@ -502,13 +492,15 @@ html body.v6 :is(
          .page_background_holder                 — absolute, background-image inline
        .home_page_takeover_link                  — in flow, 450 px, the click area
          a.home_page_takeover_sizer > img        — blank.gif
-   The containers (#takeover_videos, .static_takeover_ctn) become frames of
+   The containers (.fullscreen-bg, .static_takeover_ctn) become frames of
    the card size (clip, round, cast the shadow) stacked in one place; the
    picture and the video inside are the art — it settles from a zoom on
    opening and zooms in under the cursor. The link is laid over the frames
-   with the same size and carries the spotlight and the rim (section 2).
-   Opening: the card rises out of a fade while the art settles; scrolling
-   away: it shrinks and dims (a view timeline, compositor only).
+   with the same size and carries Border Glow (below). Opening: the card
+   rises out of a fade while the art settles and the light runs once around
+   the rim; scrolling away: it shrinks and dims (a view timeline, compositor
+   only). Classes, not #takeover_videos — an id in :is() would outweigh the
+   link's own rules.
    -------------------------------------------------------------------------- */
 
 html body.v6 .menu_takeover_background:has(~ .home_page_body_ctn.has_takeover),
@@ -516,14 +508,14 @@ html body.v6 .has_takeover > .store_bg_overlay {
     display: none;
 }
 
-html body.v6 .has_takeover > :is(#takeover_videos, .static_takeover_ctn, .home_page_takeover_link) {
+html body.v6 .has_takeover > :is(.fullscreen-bg, .static_takeover_ctn, .home_page_takeover_link) {
     width: min(var(--aika-home-takeover-width), 100% - 2 * var(--aika-home-takeover-gutter));
     height: auto;
     aspect-ratio: var(--aika-home-takeover-ratio);
     border-radius: var(--aika-radius-xl);
 }
 
-html body.v6 .has_takeover > :is(#takeover_videos, .static_takeover_ctn) {
+html body.v6 .has_takeover > :is(.fullscreen-bg, .static_takeover_ctn) {
     position: absolute;
     top: var(--aika-home-takeover-gap);
     left: 0;
@@ -541,7 +533,7 @@ html body.v6 .has_takeover > .static_takeover_ctn {
     box-shadow: var(--aika-shadow-card);
 }
 
-html body.v6 .has_takeover > #takeover_videos {
+html body.v6 .has_takeover > .fullscreen-bg {
     z-index: 1;
 }
 
@@ -551,7 +543,7 @@ html body.v6 .has_takeover > .home_page_takeover_link {
 }
 
 html body.v6 .has_takeover > .home_page_takeover_link > .home_page_takeover_sizer,
-html body.v6 .has_takeover > #takeover_videos > .promo_link {
+html body.v6 .has_takeover > .fullscreen-bg > .promo_link {
     width: 100%;
     height: 100%;
     border-radius: inherit;
@@ -568,20 +560,25 @@ html body.v6 .has_takeover .static_takeover_ctn > .page_background_holder {
     background-position: center;
 }
 
-html body.v6 .has_takeover #takeover_videos .fullscreen-bg__video {
+/* Steam centers the video with margin-left: 50% + translateX(-50%); the zoom
+   replaced that transform and the video slid half a card to the right
+   (author 2026-10-14) — the card frames it now, both go */
+html body.v6 .has_takeover .fullscreen-bg .fullscreen-bg__video {
     display: block;
     width: 100%;
     height: 100%;
     max-height: none;
+    margin-left: 0;
     object-fit: cover;
+    transform: none;
 }
 
-html body.v6 .has_takeover :is(.static_takeover_ctn > .page_background_holder, #takeover_videos .fullscreen-bg__video) {
+html body.v6 .has_takeover :is(.static_takeover_ctn > .page_background_holder, .fullscreen-bg .fullscreen-bg__video) {
     transition: transform calc(var(--aika-dur-enter) * 1.4) var(--aika-ease);
 }
 
 /* A light shade at the bottom edge so the card sits on the dark page */
-html body.v6 .has_takeover > :is(#takeover_videos, .static_takeover_ctn)::after {
+html body.v6 .has_takeover > :is(.fullscreen-bg, .static_takeover_ctn)::after {
     content: "";
     position: absolute;
     inset: 0;
@@ -597,7 +594,7 @@ html body.v6 .has_takeover > .static_takeover_ctn:has(~ .home_page_takeover_link
 }
 
 html body.v6 .has_takeover > .static_takeover_ctn:has(~ .home_page_takeover_link:hover) > .page_background_holder,
-html body.v6 .has_takeover > #takeover_videos:has(~ .home_page_takeover_link:hover) .fullscreen-bg__video {
+html body.v6 .has_takeover > .fullscreen-bg:has(~ .home_page_takeover_link:hover) .fullscreen-bg__video {
     transform: scale(var(--aika-home-zoom));
 }
 
@@ -620,18 +617,18 @@ html body.v6 .has_takeover > #takeover_videos:has(~ .home_page_takeover_link:hov
 }
 
 @media (prefers-reduced-motion: no-preference) {
-    html body.v6 .has_takeover > :is(#takeover_videos, .static_takeover_ctn, .home_page_takeover_link) {
+    html body.v6 .has_takeover > :is(.fullscreen-bg, .static_takeover_ctn, .home_page_takeover_link) {
         animation: aika-takeover-in var(--aika-dur-enter) var(--aika-ease) backwards;
     }
 
-    html body.v6 .has_takeover :is(.static_takeover_ctn > .page_background_holder, #takeover_videos .fullscreen-bg__video) {
+    html body.v6 .has_takeover :is(.static_takeover_ctn > .page_background_holder, .fullscreen-bg .fullscreen-bg__video) {
         animation: aika-takeover-settle var(--aika-home-takeover-dur) var(--aika-ease);
     }
 
     /* Out of range (the card fully in the window) the exit animation has no
        effect, so the opening one plays as usual */
     @supports (animation-timeline: view()) {
-        html body.v6 .has_takeover > :is(#takeover_videos, .static_takeover_ctn, .home_page_takeover_link) {
+        html body.v6 .has_takeover > :is(.fullscreen-bg, .static_takeover_ctn, .home_page_takeover_link) {
             animation:
                 aika-takeover-in var(--aika-dur-enter) var(--aika-ease) backwards,
                 aika-takeover-out linear none;
@@ -644,6 +641,7 @@ html body.v6 .has_takeover > #takeover_videos:has(~ .home_page_takeover_link:hov
 /* The "takeunder" (an event banner under the main carousel, 1200 × 190,
    background on the link itself): already in the column — a card too */
 html body.v6 a.home_page_takeunder {
+    position: relative;
     border-radius: var(--aika-radius-xl);
     box-shadow: var(--aika-shadow-card);
     transition:
@@ -654,6 +652,116 @@ html body.v6 a.home_page_takeunder {
 html body.v6 a.home_page_takeunder:hover {
     box-shadow: var(--aika-shadow-card-hover);
     transform: translateY(var(--aika-lift-md));
+}
+
+/* Border Glow (idea: reactbits "Border Glow", our own code). js/store-home.js
+   writes the cursor direction from the banner center and the edge proximity
+   (--aika-banner-angle-live, --aika-banner-edge-live); toward the cursor
+   ::before lights a rim of mesh color (the accent and the light spots), and
+   ::after a glow around it, both in a cone that follows the cursor and
+   brighter near the edge. On opening the light runs once around the rim
+   (both values are registered so the keyframes can move them). Without the
+   script — no glow on hover, the opening sweep still runs. */
+@property --aika-banner-angle {
+    syntax: "<angle>";
+    inherits: true;
+    initial-value: 0deg;
+}
+
+@property --aika-banner-edge {
+    syntax: "<number>";
+    inherits: true;
+    initial-value: 0;
+}
+
+html body.v6 :is(.has_takeover > .home_page_takeover_link, a.home_page_takeunder) {
+    --aika-banner-angle: var(--aika-banner-angle-live, 0deg);
+    --aika-banner-edge: 0;
+}
+
+html body.v6 :is(.has_takeover > .home_page_takeover_link, a.home_page_takeunder):hover {
+    --aika-banner-edge: var(--aika-banner-edge-live, 0);
+}
+
+html body.v6 :is(.has_takeover > .home_page_takeover_link, a.home_page_takeunder)::before,
+html body.v6 :is(.has_takeover > .home_page_takeover_link, a.home_page_takeunder)::after {
+    content: "";
+    position: absolute;
+    z-index: 3;
+    pointer-events: none;
+    transition: opacity var(--aika-dur-base) var(--aika-ease-hover);
+}
+
+/* The rim: the mesh painted on the whole card, masked to a ring (padding)
+   and to the cone around the cursor */
+html body.v6 :is(.has_takeover > .home_page_takeover_link, a.home_page_takeunder)::before {
+    inset: 0;
+    padding: var(--aika-banner-ring);
+    border-radius: inherit;
+    background: var(--aika-banner-mesh);
+    mask-image:
+        conic-gradient(
+            from var(--aika-banner-angle) at center,
+            #000 calc(var(--aika-banner-cone) * 1%),
+            var(--aika-transparent) calc((var(--aika-banner-cone) + 15) * 1%),
+            var(--aika-transparent) calc((85 - var(--aika-banner-cone)) * 1%),
+            #000 calc((100 - var(--aika-banner-cone)) * 1%)
+        ),
+        linear-gradient(#000 0 0),
+        linear-gradient(#000 0 0);
+    mask-clip: border-box, content-box, border-box;
+    mask-composite: intersect, exclude;
+    opacity: clamp(0, (var(--aika-banner-edge) - var(--aika-banner-ring-from)) / (1 - var(--aika-banner-ring-from)), 1);
+}
+
+/* The glow: an outline on the card edge (the box is larger by the glow room,
+   the outline is pulled back in by the same amount) blurred both ways by
+   drop shadows; the mask comes after the filter, so the box has to hold
+   the glow — hence the room */
+html body.v6 :is(.has_takeover > .home_page_takeover_link, a.home_page_takeunder)::after {
+    inset: calc(-1 * var(--aika-banner-glow-pad));
+    border-radius: calc(var(--aika-radius-xl) + var(--aika-banner-glow-pad));
+    outline: var(--aika-banner-ring) solid var(--aika-banner-glow);
+    outline-offset: calc(-1 * var(--aika-banner-glow-pad));
+    filter: var(--aika-banner-glow-shadow);
+    mask-image: conic-gradient(
+        from var(--aika-banner-angle) at center,
+        #000 calc(var(--aika-banner-cone) * 1%),
+        var(--aika-transparent) calc((var(--aika-banner-cone) + 15) * 1%),
+        var(--aika-transparent) calc((85 - var(--aika-banner-cone)) * 1%),
+        #000 calc((100 - var(--aika-banner-cone)) * 1%)
+    );
+    opacity: clamp(0, (var(--aika-banner-edge) - var(--aika-banner-glow-from)) / (1 - var(--aika-banner-glow-from)), 1);
+}
+
+@keyframes aika-banner-sweep {
+    0% { --aika-banner-angle: 110deg; --aika-banner-edge: 0; }
+    15% { --aika-banner-edge: 1; }
+    70% { --aika-banner-edge: 1; }
+    100% { --aika-banner-angle: 465deg; --aika-banner-edge: 0; }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+    html body.v6 a.home_page_takeunder {
+        animation: aika-banner-sweep var(--aika-banner-sweep-dur) var(--aika-ease-ambient) calc(var(--aika-banner-sweep-delay) + var(--aika-dur-enter));
+    }
+
+    html body.v6 .has_takeover > .home_page_takeover_link {
+        animation:
+            aika-takeover-in var(--aika-dur-enter) var(--aika-ease) backwards,
+            aika-banner-sweep var(--aika-banner-sweep-dur) var(--aika-ease-ambient) var(--aika-banner-sweep-delay);
+    }
+
+    @supports (animation-timeline: view()) {
+        html body.v6 .has_takeover > .home_page_takeover_link {
+            animation:
+                aika-takeover-in var(--aika-dur-enter) var(--aika-ease) backwards,
+                aika-takeover-out linear none,
+                aika-banner-sweep var(--aika-banner-sweep-dur) var(--aika-ease-ambient) var(--aika-banner-sweep-delay);
+            animation-timeline: auto, view(), auto;
+            animation-range: normal, exit 0% exit 100%, normal;
+        }
+    }
 }
 
 /* --------------------------------------------------------------------------

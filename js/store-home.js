@@ -7,6 +7,8 @@
 //    writes the cursor point into --aika-spot-x / --aika-spot-y of every
 //    large surface under it (nested ones too: a calendar day inside the
 //    calendar). Only blocks that appear a few at a time (DESIGN.md §7.9).
+//    The ad banners get Border Glow instead (idea: reactbits "Border Glow"):
+//    the cursor angle from the center and the edge proximity.
 // 2. Magnet: carousel arrows lean toward the cursor (--aika-magnet-x/y,
 //    a few px, transform only).
 // 3. Staggered title: "Featured & Recommended" comes in letter by letter when
@@ -32,9 +34,10 @@
     ".community_recommendation_app",                        // "Community recommends"
     ".home_content.single",                                 // the feed's single-game panels
     ".tab_preview.focus",                                   // the tab list preview
-    ".home_page_takeover_link",                             // the ad banner card (takeover)
-    "a.home_page_takeunder",                                // the event banner under the carousel
   ].join(", ");
+
+  // The ad banners (takeover, takeunder) — Border Glow instead of the spot
+  const BANNERS = ".home_page_takeover_link, a.home_page_takeunder";
 
   const MAGNETS = ".carousel_container .arrow, .CarouselBtnLeft, .CarouselBtnRight";
   const MAGNET_PULL = 0.12;   // of the cursor offset from the arrow center
@@ -55,6 +58,18 @@
       const r = s.getBoundingClientRect();
       s.style.setProperty("--aika-spot-x", Math.round(e.clientX - r.left) + "px");
       s.style.setProperty("--aika-spot-y", Math.round(e.clientY - r.top) + "px");
+    }
+    // Border Glow: the cursor direction from the banner center (0deg = up,
+    // clockwise, as a conic gradient counts) and how close it is to the edge
+    // (0 — the center, 1 — on the edge; the larger of the two axes)
+    const b = t && t.closest(BANNERS);
+    if (b) {
+      const r = b.getBoundingClientRect();
+      const dx = e.clientX - (r.left + r.width / 2), dy = e.clientY - (r.top + r.height / 2);
+      const edge = Math.min(1, Math.max(Math.abs(dx) / (r.width / 2), Math.abs(dy) / (r.height / 2)));
+      const angle = (Math.atan2(dy, dx) * 180 / Math.PI + 450) % 360;
+      b.style.setProperty("--aika-banner-angle-live", angle.toFixed(1) + "deg");
+      b.style.setProperty("--aika-banner-edge-live", edge.toFixed(3));
     }
     const m = t && t.closest(MAGNETS);
     if (magnet && magnet !== m) setMagnet(magnet, 0, 0);

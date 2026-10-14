@@ -384,6 +384,28 @@
     --aika-home-takeover-dur: 1600ms;
     --aika-home-takeover-exit-scale: 0.94;                /* scrolled away: the card shrinks… */
     --aika-home-takeover-exit-opacity: 0.3;               /* …and dims */
+    /* Border Glow on the ad banners (reactbits idea): a mesh-colored rim and
+       a glow, both lit in a cone toward the cursor, brighter near the edge */
+    --aika-banner-ring: 2px;                              /* the colored rim */
+    --aika-banner-glow-pad: 40px;                         /* room for the glow outside the card */
+    --aika-banner-cone: 25;                               /* % of the circle lit on each side of the cursor */
+    --aika-banner-ring-from: 0.35;                        /* edge proximity where the rim starts to show… */
+    --aika-banner-glow-from: 0.15;                        /* …and the glow (0 — center, 1 — edge) */
+    --aika-banner-glow-shadow:
+        drop-shadow(0 0 3px var(--aika-banner-glow))
+        drop-shadow(0 0 12px var(--aika-banner-glow))
+        drop-shadow(0 0 36px var(--aika-banner-glow-soft));
+    --aika-banner-mesh:
+        radial-gradient(at 80% 55%, var(--aika-accent) 0, var(--aika-transparent) 50%),
+        radial-gradient(at 69% 34%, var(--aika-light-2) 0, var(--aika-transparent) 50%),
+        radial-gradient(at 8% 6%, var(--aika-light-1) 0, var(--aika-transparent) 50%),
+        radial-gradient(at 41% 38%, var(--aika-light-3) 0, var(--aika-transparent) 50%),
+        radial-gradient(at 86% 85%, var(--aika-accent-bright) 0, var(--aika-transparent) 50%),
+        radial-gradient(at 82% 18%, var(--aika-light-1) 0, var(--aika-transparent) 50%),
+        radial-gradient(at 51% 4%, var(--aika-light-2) 0, var(--aika-transparent) 50%),
+        linear-gradient(var(--aika-accent) 0 100%);
+    --aika-banner-sweep-dur: 3.6s;                        /* on opening the light runs once around the rim */
+    --aika-banner-sweep-delay: 350ms;
     /* The queue banner: the text side solid, the cover wall shows through on the right */
     --aika-home-queue-shade: linear-gradient(77deg, var(--aika-bg-raised) 0%, var(--aika-bg-elevated) 40%, var(--aika-transparent) 70%);
     /* "Specials & events" page turn — Code Slots motion (selectors.css): each
