@@ -270,22 +270,16 @@ html body.v6 .StoreMenuLoadingPlaceholder > .PlaceholderInner {
 /* Card Nav (reactbits idea, author 2026-10-14): when a menu opens, the capsule
    unfolds down from the strip (a clip from the strip height to the whole
    capsule, power3.out), and the cards inside rise one after another
-   (selectors.css, "Card Nav cards"). The open state is the button's
-   aria-expanded — Steam adds the open part at the same moment; switching
-   between menus keeps it open, so only the cards play again. A clip, not
-   height: Steam sets the height, and the cards' layout must not move. */
+   (selectors.css, "Card Nav cards"). The trigger — the open part appearing
+   in the capsule (selectors.css, hash classes); switching between menus keeps
+   it open, so only the cards play again. A clip, not height: Steam sets the
+   height, and the cards' layout must not move. */
 @keyframes aika-storebar-unfold {
     from {
         clip-path: inset(0 0 calc(100% - var(--aika-storebar-height)) 0 round var(--aika-radius-xl));
     }
     to {
         clip-path: inset(0 round var(--aika-radius-xl));
-    }
-}
-
-@media (prefers-reduced-motion: no-preference) {
-    html body.v6 [data-featuretarget="store-menu-v7"] :has(> [role="navigation"] button[aria-expanded="true"]) {
-        animation: aika-storebar-unfold var(--aika-cardnav-dur) var(--aika-ease-fold);
     }
 }
 

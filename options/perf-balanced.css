@@ -1,0 +1,33 @@
+/* ==========================================================================
+   "Performance: Balanced" (theme settings → "Main").
+   Everything that answers the user stays — hovers, openings, menus, page
+   transitions, the scroll pop-ups. What goes quiet is the ambient motion
+   that runs on its own all the time:
+     - the background light spots stand still (background.css);
+     - the decorative loops rest: the "Today" border light and the "NEW"
+       glare on the store home, the "Play" shimmer, the Cinematic price shine;
+     - the WebGL backgrounds (search aurora, wishlist veil) draw 30 frames a
+       second instead of every frame (js/store-search.js, js/store-wishlist.js).
+   Loading indicators, spinners and the caret keep moving — they carry meaning.
+   "Full" (the default) has no file: the theme as designed.
+   Option files load before the theme entry, so every selector here carries
+   an extra :root to win. The calendar and "NEW" selectors are hash classes
+   (see selectors.css, "Your personal calendar", verified 2026-10-12).
+   ========================================================================== */
+
+:root {
+    --aika-gl-fps: 30;
+}
+
+html:root::before,
+html:root::after,
+html:root body::before {
+    animation: none;
+}
+
+html:root body.v6 .personal_calendar_ctn .carousel__inner-slide > ._8UPO4fZBxxerbhcRBpAcc::after,
+html:root body.v6 .personal_calendar_ctn .lX3GvxrkYaEqKJRpIhPsk::after,
+html:root .PlayBar .PlayButtonContainer.Green :is(.PlayButton, .StreamingSelector.ButtonChild)::before,
+html.aika-cine:root .aika-cine-price-final {
+    animation: none;
+}

@@ -1,0 +1,37 @@
+/* ==========================================================================
+   "Performance: Low" (theme settings → "Main") — for weak machines.
+   Balanced, plus: the WebGL backgrounds (search aurora, wishlist veil) play
+   their intro and then hold that frame, and the background light spots lose
+   their blur — the costliest layer when the window repaints (they become
+   soft radial gradients reaching as far as the blur did, so the glow stays).
+   Hovers, openings and menus are untouched.
+   ========================================================================== */
+
+@import url("./perf-balanced.css");
+
+:root {
+    --aika-gl-still: 1;
+    /* A blurred ellipse is solid to ~2σ inside its edge and fades out ~2σ past it;
+       the gradient gets a solid core and the layer grows to reach as far
+       (the spots stand still here, so transform is free) */
+    --aika-perf-spot-core: 48%;
+    --aika-perf-spot-spread: 1.38;
+}
+
+html:root::before {
+    filter: none;
+    background: radial-gradient(closest-side, var(--aika-light-1) var(--aika-perf-spot-core), var(--aika-transparent));
+    transform: scale(var(--aika-perf-spot-spread));
+}
+
+html:root::after {
+    filter: none;
+    background: radial-gradient(closest-side, var(--aika-light-2) var(--aika-perf-spot-core), var(--aika-transparent));
+    transform: scale(var(--aika-perf-spot-spread));
+}
+
+html:root body::before {
+    filter: none;
+    background: radial-gradient(closest-side, var(--aika-light-3) var(--aika-perf-spot-core), var(--aika-transparent));
+    transform: scale(var(--aika-perf-spot-spread));
+}

@@ -236,7 +236,18 @@ void main() {
     };
     const state = { clock: Math.random() * 40, px: 0, py: 0.5, reach: 0, reveal: reduced ? 1 : 0 };
     const pointer = { x: 0, y: 0, inside: false };
-    let raf = 0, last = 0;
+    let raf = 0, last = 0, timer = 0, onScreen = true;
+    // The Performance setting (options/perf-*.css): --aika-gl-fps caps the frame
+    // rate (0 / unset — every frame), --aika-gl-still: 1 stops after the intro.
+    // In any mode nothing is drawn while the aurora is off screen (scrolled away).
+    const fps = cssNum("--aika-gl-fps", 0), still = cssNum("--aika-gl-still", 0) > 0;
+    const next = (now) => {
+      if (still && state.reveal >= 1) return;
+      if (fps > 0) {
+        raf = -1;
+        timer = setTimeout(() => { timer = 0; raf = requestAnimationFrame(frame); }, Math.max(0, 1000 / fps - (performance.now() - now)));
+      } else raf = requestAnimationFrame(frame);
+    };
 
     const render = () => {
       gl.viewport(0, 0, canvas.width, canvas.height);
@@ -261,8 +272,8 @@ void main() {
 
     const frame = (now) => {
       raf = 0;
-      if (document.hidden) return;
-      const dt = last ? Math.min(0.05, Math.max(0.0005, (now - last) / 1000)) : 1 / 60;
+      if (document.hidden || !onScreen) return;
+      const dt = last ? Math.min(fps > 0 ? 0.1 : 0.05, Math.max(0.0005, (now - last) / 1000)) : 1 / 60;
       last = now;
       state.clock += dt * set.speed;
       const w = box.clientWidth, h = box.clientHeight;
@@ -275,9 +286,10 @@ void main() {
       state.reach += ((engaged ? 1 : 0) - state.reach) * (1 - Math.exp(-dt / (engaged ? 0.9 : 1.4)));
       if (state.reveal < 1) state.reveal = Math.min(1, state.reveal + dt / INTRO_SECONDS);
       render();
-      raf = requestAnimationFrame(frame);
+      next(now);
     };
-    const wake = () => { if (!raf && !document.hidden && !reduced) raf = requestAnimationFrame(frame); };
+    const wake = () => { if (!raf && !document.hidden && onScreen && !reduced && !(still && state.reveal >= 1)) raf = requestAnimationFrame(frame); };
+    new IntersectionObserver(([e]) => { onScreen = e.isIntersecting; if (onScreen) { last = 0; wake(); } }).observe(canvas);
 
     const resize = () => {
       const w = Math.max(1, box.clientWidth), h = Math.max(1, box.clientHeight);

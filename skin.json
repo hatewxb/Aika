@@ -131,6 +131,20 @@
                 "unit": "%"
             }
         },
+        "Performance": {
+            "description": "How much the theme moves on its own. Full: everything as designed (the default; already tuned to cost as little as it can). Balanced: the background light spots and the decorative loops (the calendar's Today light, glares, the Play shimmer) rest, the animated store backgrounds draw 30 frames a second. Low: as Balanced, and the animated store backgrounds hold still after they appear, the light spots drop their blur. Hovers, menus and page transitions stay in every mode.",
+            "tab": "Main",
+            "default": "Full",
+            "values": {
+                "Full": {},
+                "Balanced": {
+                    "TargetCss": { "affects": [".*"], "src": "options/perf-balanced.css" }
+                },
+                "Low": {
+                    "TargetCss": { "affects": [".*"], "src": "options/perf-low.css" }
+                }
+            }
+        },
         "Custom colors": {
             "description": "Use your own colors instead of the preset. The colors themselves (accent, accent hover, three light spots) are on the \"Colors\" page below.",
             "tab": "Advanced",

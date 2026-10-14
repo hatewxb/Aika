@@ -69,26 +69,46 @@ html .PlayBar .PlayButtonContainer .StreamingSelector.ButtonChild:hover svg {
    no .Green (SVGIcon_Download); "Install" stays a regular
    accent button. The fill is accent → the pink light spot with a slow
    shimmer, the glow is doubled. */
+/* The shimmer used to move background-position — a repaint of the button
+   every frame for as long as a game page was open. Now the same gradient
+   lies on ::before, twice the button wide (= background-size 200% 100%),
+   and slides by transform on the compositor: background-position 0% → 100%
+   of a 200%-wide image is a shift by one button width, translateX(-50%) of
+   the layer (performance pass 2026-10-14). The button clips it (it already
+   has overflow: hidden and the rounding); ::after is the shared glare. */
 html .PlayBar .PlayButtonContainer.Green :is(.PlayButton, .StreamingSelector.ButtonChild) {
-    background: var(--aika-play-fill);
-    background-size: var(--aika-play-fill-size);
+    position: relative;
+    overflow: hidden;
+    isolation: isolate;
+    background: var(--aika-play-fill-from);
     box-shadow: var(--aika-shadow-play);
+}
+
+html .PlayBar .PlayButtonContainer.Green :is(.PlayButton, .StreamingSelector.ButtonChild)::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    z-index: -1;
+    width: 200%;
+    background: var(--aika-play-fill);
+    pointer-events: none;
     animation: aika-play-flow var(--aika-dur-play-flow) var(--aika-ease-ambient) infinite alternate;
 }
 
 html .PlayBar .PlayButtonContainer.Green :is(.PlayButton, .StreamingSelector.ButtonChild):not(.Disabled):hover {
-    background: var(--aika-play-fill);
-    background-size: var(--aika-play-fill-size);
+    background: var(--aika-play-fill-from);
     box-shadow: var(--aika-shadow-play-hover);
 }
 
 @keyframes aika-play-flow {
-    from { background-position: 0% 50%; }
-    to { background-position: 100% 50%; }
+    from { transform: translateX(0); }
+    to { transform: translateX(-50%); }
 }
 
 @media (prefers-reduced-motion: reduce) {
-    html .PlayBar .PlayButtonContainer.Green :is(.PlayButton, .StreamingSelector.ButtonChild) {
+    html .PlayBar .PlayButtonContainer.Green :is(.PlayButton, .StreamingSelector.ButtonChild)::before {
         animation: none;
     }
 }

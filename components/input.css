@@ -355,7 +355,10 @@ html :is(.GenericConfirmDialog .Body > input.TextInput[type="password"], #parent
     box-shadow: none;
 }
 
-html :has(> .aika-pin-slots) {
+/* The row's parent — marked by the script. Not :has(> .aika-pin-slots) on
+   any element: a :has() with no element in front sat on every page and
+   taxed every style recalc (performance pass 2026-10-14). */
+html .aika-pin-host {
     position: relative;
 }
 

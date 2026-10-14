@@ -45,6 +45,8 @@
     row.append(caret);
     input.classList.add("aika-pin-js");
     input.after(row);
+    // the row is positioned against the field's parent (components/input.css)
+    if (input.parentElement) input.parentElement.classList.add("aika-pin-host");
 
     const place = () => {
       row.style.left = input.offsetLeft + "px";

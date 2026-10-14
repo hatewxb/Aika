@@ -342,10 +342,15 @@ void main() {
       gl.drawArrays(gl.TRIANGLES, 0, 3);
     };
 
+    // The Performance setting (options/perf-*.css): --aika-gl-fps caps the frame
+    // rate (0 / unset — every frame), --aika-gl-still: 1 stops after the intro.
+    // In any mode nothing is drawn while the veil is off screen.
+    const fps = cssNum("--aika-gl-fps", 0), still = cssNum("--aika-gl-still", 0) > 0;
+    let timer = 0, onScreen = true;
     const frame = (now) => {
       raf = 0;
-      if (document.hidden) return;
-      const dt = last ? Math.min(0.05, (now - last) / 1000) : 1 / 60;
+      if (document.hidden || !onScreen) return;
+      const dt = last ? Math.min(fps > 0 ? 0.1 : 0.05, (now - last) / 1000) : 1 / 60;
       last = now;
       if (!reduced) state.clock += dt * set.speed;
       if (state.intro < 1) state.intro = reduced ? 1 : Math.min(1, state.intro + dt / INTRO_SECONDS);
@@ -364,9 +369,14 @@ void main() {
       state.lightX += ((engaged ? pointer.x / view.width : 0.5) - state.lightX) * lightFollow;
       state.lightY += ((engaged ? pointer.y / view.height : 0.15) - state.lightY) * lightFollow;
       render();
-      if (!reduced || state.intro < 1) raf = requestAnimationFrame(frame);
+      if ((reduced || still) && state.intro >= 1) return;
+      if (fps > 0) {
+        raf = -1;
+        timer = setTimeout(() => { timer = 0; raf = requestAnimationFrame(frame); }, Math.max(0, 1000 / fps - (performance.now() - now)));
+      } else raf = requestAnimationFrame(frame);
     };
-    const wake = () => { if (!raf && !document.hidden) raf = requestAnimationFrame(frame); };
+    const wake = () => { if (!raf && !document.hidden && onScreen) raf = requestAnimationFrame(frame); };
+    new IntersectionObserver(([e]) => { onScreen = e.isIntersecting; if (onScreen) { last = 0; wake(); } }).observe(canvas);
 
     const resize = () => {
       const w = Math.max(1, box.clientWidth), h = Math.max(1, box.clientHeight);

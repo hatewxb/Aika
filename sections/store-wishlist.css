@@ -20,7 +20,12 @@
    classic store) instead of the full-width strip
    -------------------------------------------------------------------------- */
 
-html body #StoreTemplate :has(> [role="navigation"] form[role="search"]) {   /* no :has() inside :has() — CSS drops such a rule */
+/* The strip is the parent of the only [role=navigation] on these pages
+   (checked 2026-10-14). Not :has(> [role=navigation] form[role=search]) on
+   any element: a :has() with a deep argument and no element in front made
+   every style recalc of the page expensive — ~250 ms of main thread a second
+   on the search page while its animations ran (tools/css-rules-bisect.js). */
+html body #StoreTemplate div:has(> [role="navigation"]) {
     padding-top: var(--aika-storebar-top);
     background: none;
     box-shadow: none;

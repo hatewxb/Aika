@@ -829,6 +829,19 @@ html body.v6 .h2B3SGR_w4RWdrnsRZEcD ._19o1GB7ysfrWKLYpqZ6aXu {
     z-index: 0;
 }
 
+/* [Store] The capsule unfold (keyframes in sections/store.css): the capsule
+   ._16jZ3HEbtaJTl80pQINN2Y gets the open part .oeCR-_-EhS8CaxEaFAqDZ as a
+   direct child only while a menu is open (verified 2026-10-14). It used to be
+   :has(> [role=navigation] button[aria-expanded=true]) on any element under
+   the menu — a deep :has() argument with no element in front, and it made
+   every style recalc of every store page expensive (~270 ms of main thread a
+   second while an animation ran; tools/css-rules-bisect.js). */
+@media (prefers-reduced-motion: no-preference) {
+    html body.v6 [data-featuretarget="store-menu-v7"] ._16jZ3HEbtaJTl80pQINN2Y:has(> .oeCR-_-EhS8CaxEaFAqDZ) {
+        animation: aika-storebar-unfold var(--aika-cardnav-dur) var(--aika-ease-fold);
+    }
+}
+
 /* [Store] Card Nav cards in the open menu (the capsule unfold — sections/store.css).
    One layout for all five menus (verified 2026-10-14, opening each):
      ._2ihG7DC0YPrw01ComUbKnY — the menu body, remounted on every menu switch;
