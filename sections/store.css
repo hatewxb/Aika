@@ -293,14 +293,15 @@ html body.v6 [data-featuretarget="store-menu-v7"] [role="navigation"] :is(button
     border-radius: var(--aika-radius-md);
     color: var(--aika-fg-muted);
     font-family: var(--aika-font-ui);
-    transition:
-        background-color var(--aika-dur-fast) var(--aika-ease-hover),
-        color var(--aika-dur-fast) var(--aika-ease-hover);
+    transition: color var(--aika-dur-fast) var(--aika-ease-hover);
 }
 
+/* Hover and the open menu: only the label lights up, no plate behind it
+   (author 2026-10-14: "the gray button behind doesn't look good"); the open
+   one also keeps the accent line under it (selectors.css) */
 html body.v6 [data-featuretarget="store-menu-v7"] [role="navigation"] :is(button[role="button"], a):hover,
 html body.v6 [data-featuretarget="store-menu-v7"] [role="navigation"] button[aria-expanded="true"] {
-    background-color: var(--aika-surface-hover);
+    background-color: var(--aika-transparent);
     color: var(--aika-fg);
 }
 
