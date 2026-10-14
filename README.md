@@ -6,9 +6,7 @@
 
 **[Get it on Steambrew](https://steambrew.app/theme/uV8M1eg45Hh662blPuyD)** — the official Millennium theme store
 
-[![Aika — a one-minute preview, click to watch](screenshots/preview-poster.jpg)](https://github.com/hatewxb/Aika/releases/download/v0.1.3/Aika-preview.mp4)
-
-*A one-minute preview — click the picture to watch.*
+https://github.com/user-attachments/assets/48f5941a-a2c6-4d1c-a721-8e7a3f79c630
 
 </div>
 
