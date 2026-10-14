@@ -333,6 +333,43 @@ html .BottomBar :is(.AddGameButton, .FriendsButton, .DownloadStatus):hover :is(.
     }
 }
 
+/* The "+" as a floating action button (motion.dev FAB idea, author
+   2026-10-14; the menu — components/menu.css, the logic — js/fab.js and
+   js/menu-motion.js). Steam's icon is a filled square with a plus cut out —
+   it would turn into a tilted square; a thin plus of our own takes its place
+   (the svg stays in the DOM). While the menu is open (.aika-fab-open) the
+   button fills with the accent and the plus turns three-eighths of a circle
+   into "×" on the spring; the hover label hides — the menu labels are open. */
+html .BottomBar .AddGameButton .Icon svg {
+    display: none;
+}
+
+/* Steam paints .Icon gray itself (#67707b, hash (0,2,0)) — on the open accent
+   fill the plus all but vanished (author 2026-10-14): it follows the button */
+html .BottomBar .AddGameButton .Icon {
+    color: inherit;
+    background: currentColor;
+    -webkit-mask: var(--aika-icon-plus-thin) center / contain no-repeat;
+    mask: var(--aika-icon-plus-thin) center / contain no-repeat;
+    transition: transform var(--aika-fab-dur) var(--aika-ease-spring);
+}
+
+html .BottomBar .AddGameButton.aika-fab-open,
+html .BottomBar .AddGameButton.aika-fab-open:hover {
+    background: var(--aika-accent-fill);
+    color: var(--aika-on-accent);
+    box-shadow: var(--aika-shadow-cta-hover), 0 0 24px var(--aika-accent-haze);
+}
+
+html .BottomBar .AddGameButton.aika-fab-open .Icon {
+    transform: rotate(var(--aika-fab-turn));
+}
+
+html .BottomBar .AddGameButton.aika-fab-open .Text,
+html .BottomBar .AddGameButton.aika-fab-open:hover .Text {
+    opacity: 0;
+}
+
 /* The nickname in the header: Steam paints it "online" blue; the status already shows
    from the avatar frame — the nickname is neutral */
 html .TitleBarControls .AccountMenu {

@@ -216,6 +216,9 @@ html:root {
        the content shows through (author's fix 2026-10-12: "a bit more transparent") */
     --aika-dock-material: rgb(from var(--aika-bg-raised) r g b / 0.32);
     --aika-dock-material-hover: rgb(from var(--aika-bg-raised) r g b / 0.46);
+    /* The Add a Game menu circles: a menu window has no backdrop to blur (it is
+       a separate OS window), so the material is nearly the menu one */
+    --aika-dock-material-menu: rgb(from var(--aika-bg-raised) r g b / 0.86);
 
     /* The sign-in window (sections/login.css): a near-black veil over Steam's
        cover grid (the grid still shows through, dimmed), the accent haze behind the

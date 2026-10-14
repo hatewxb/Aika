@@ -33,17 +33,6 @@
     }
 }
 
-/* Menus opening upward (the "Add a Game" menu above its floating icon)
-   unfold from the bottom edge */
-@keyframes aika-menu-unfold-up {
-    from {
-        clip-path: inset(100% 0 0 0 round var(--aika-radius-lg));
-    }
-    to {
-        clip-path: inset(0 round var(--aika-radius-lg));
-    }
-}
-
 /* --------------------------------------------------------------------------
    Menu box
    -------------------------------------------------------------------------- */
@@ -69,10 +58,6 @@ html body .contextMenu.ContextMenuPosition.ready {
     animation: aika-menu-unfold var(--aika-cardnav-dur) var(--aika-ease-fold);
 }
 
-html body .contextMenu.ContextMenuPosition.ready:has(> .AddGameMenu) {
-    animation-name: aika-menu-unfold-up;
-}
-
 /* …but .ready comes while the menu window is still hidden, and a hidden
    window's animation clock stands still: the animations started on it were
    over in the first visible frame (every opening after the first). In menu
@@ -82,10 +67,6 @@ html body .contextMenu.ContextMenuPosition.ready:has(> .AddGameMenu) {
 html.aika-menu-js:not(.aika-menu-open) body .contextMenu.ContextMenuPosition.ready {
     clip-path: inset(0 0 100% 0 round var(--aika-radius-lg));
     animation: none;
-}
-
-html.aika-menu-js:not(.aika-menu-open) body .contextMenu.ContextMenuPosition.ready:has(> .AddGameMenu) {
-    clip-path: inset(100% 0 0 0 round var(--aika-radius-lg));
 }
 
 html.aika-menu-js:not(.aika-menu-open) body .contextMenu.ready :is(.contextMenuContents > :is(.contextMenuItem, hr.Separator), .NotificationsMenu :is(.NotificationHeader, .NotificationMenuItem)) {
@@ -209,36 +190,183 @@ html .contextMenu .contextMenuContents hr.Separator {
 }
 
 /* --------------------------------------------------------------------------
-   The "Add a Game" menu (.AddGameMenu — from the floating icon at the bottom
+   The "Add a Game" menu (.AddGameMenu — from the floating "+" at the bottom
    left of the library, sections/library.css): "Add a Non-Steam Game…",
-   "Activate a Product on Steam…", "Browse the Steam Store…". The items rise in
-   one after another under the box's own entrance, each with an accent icon
-   (decoration — the text is Steam's): a plus, a key, the store bag.
-   The rise is the common one (Card Nav, above).
+   "Activate a Product on Steam…", "Browse the Steam Store…".
+   A floating action button menu (motion.dev FAB idea, author 2026-10-14):
+   no plate — the items stack above the "+" as round icons (the dock
+   material, like the "+") with the label in a pill beside them, and pop out
+   of the button one after another, nearest first, on a gentle spring.
+   Steam opens the window at the click point; js/menu-motion.js moves it so
+   the icon column stands over the "+" (it waits folded until then).
+   One element per item, so: the circle is the item's own background (a
+   radial gradient: fill + hairline ring), ::before — the label pill behind
+   the text, ::after — the icon (decoration — the text is Steam's): a plus,
+   a key, the store bag. The circle color is registered so it can fade.
    -------------------------------------------------------------------------- */
 
-html .contextMenu .AddGameMenu > .contextMenuItem {
-    display: flex;
-    align-items: center;
-    gap: var(--aika-space-3);
+@property --aika-fab-circle {
+    syntax: "<color>";
+    inherits: false;
+    initial-value: transparent;
 }
 
-html .contextMenu .AddGameMenu > .contextMenuItem::before {
+/* No room on the left: the window then sits ~14 px from the screen edge —
+   at 4 px Windows kept snapping it to 0 (the column 4 px off the "+") */
+html body .contextMenu.ContextMenuPosition:has(> .AddGameMenu) {
+    padding: var(--aika-fab-pad) var(--aika-fab-pad) var(--aika-fab-pad) var(--aika-hairline);
+    border-radius: 0;
+    background: var(--aika-transparent);
+    box-shadow: none;
+}
+
+html body .contextMenu.ContextMenuPosition.ready:has(> .AddGameMenu),
+html.aika-menu-js:not(.aika-menu-open) body .contextMenu.ContextMenuPosition.ready:has(> .AddGameMenu) {
+    clip-path: none;
+    animation: none;
+}
+
+html .contextMenu .AddGameMenu.contextMenuContents {
+    padding: 0;   /* Steam: html._14wq… ._2Est… 4 px (0,2,1) */
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: var(--aika-fab-row-gap);
+}
+
+html body .contextMenu .AddGameMenu.contextMenuContents > .contextMenuItem {
+    --aika-fab-circle: var(--aika-dock-material-menu);
+    --aika-fab-r: calc(var(--aika-dock-size) / 2);
+    position: relative;
+    isolation: isolate;
+    display: flex;
+    align-items: center;
+    height: var(--aika-dock-size);
+    padding: 0 var(--aika-space-3) 0 calc(var(--aika-dock-size) + var(--aika-fab-label-gap) + var(--aika-space-3));
+    border-radius: 0;
+    background: radial-gradient(
+        circle at var(--aika-fab-r) 50%,
+        var(--aika-fab-circle) calc(var(--aika-fab-r) - var(--aika-hairline)),
+        var(--aika-border-hover) calc(var(--aika-fab-r) - var(--aika-hairline)) var(--aika-fab-r),
+        var(--aika-transparent) calc(var(--aika-fab-r) + 0.5px)
+    );
+    color: var(--aika-fg);
+    font-size: var(--aika-text-meta);
+    white-space: nowrap;
+    transition: --aika-fab-circle var(--aika-dur-base) var(--aika-ease-hover);
+}
+
+/* The label pill */
+html body .contextMenu .AddGameMenu.contextMenuContents > .contextMenuItem::before {
     content: "";
-    flex: none;
-    width: var(--aika-menu-icon);
-    height: var(--aika-menu-icon);
+    position: absolute;
+    z-index: -1;
+    left: calc(var(--aika-dock-size) + var(--aika-fab-label-gap));
+    right: 0;
+    top: calc(50% - var(--aika-fab-label-height) / 2);
+    height: var(--aika-fab-label-height);
+    border-radius: var(--aika-radius-full);
+    background: var(--aika-surface-translucent);
+    box-shadow:
+        inset 0 0 0 var(--aika-hairline) var(--aika-border-hover),
+        var(--aika-shadow-menu);
+    transition: box-shadow var(--aika-dur-base) var(--aika-ease);
+}
+
+/* The icon, centered in the circle */
+html body .contextMenu .AddGameMenu.contextMenuContents > .contextMenuItem::after {
+    content: "";
+    position: absolute;
+    left: calc(var(--aika-fab-r) - var(--aika-dock-icon) / 2);
+    top: calc(50% - var(--aika-dock-icon) / 2);
+    width: var(--aika-dock-icon);
+    height: var(--aika-dock-icon);
     background: var(--aika-accent-bright);
     -webkit-mask: var(--aika-menu-item-icon, var(--aika-icon-plus)) center / contain no-repeat;
     mask: var(--aika-menu-item-icon, var(--aika-icon-plus)) center / contain no-repeat;
-    transition: transform var(--aika-dur-base) var(--aika-ease);
+    transition:
+        background-color var(--aika-dur-fast) var(--aika-ease-hover),
+        transform var(--aika-fab-dur) var(--aika-ease-spring);
 }
 
 html .contextMenu .AddGameMenu > .contextMenuItem:nth-child(2) { --aika-menu-item-icon: var(--aika-icon-key); }
 html .contextMenu .AddGameMenu > .contextMenuItem:nth-child(3) { --aika-menu-item-icon: var(--aika-icon-store); }
 
-html .contextMenu .AddGameMenu > .contextMenuItem:hover::before {
+/* Hover: the circle fills with the accent (like the open "+"), the icon
+   turns light and grows a little, the pill gets an accent rim. Steam's item
+   hover plate (menu.css above) doesn't apply here — the circle is the plate. */
+html body .contextMenu .AddGameMenu.contextMenuContents > .contextMenuItem:not(.disabled):hover {
+    --aika-fab-circle: var(--aika-accent-fill);
+    background: radial-gradient(
+        circle at var(--aika-fab-r) 50%,
+        var(--aika-fab-circle) calc(var(--aika-fab-r) - var(--aika-hairline)),
+        var(--aika-border-accent) calc(var(--aika-fab-r) - var(--aika-hairline)) var(--aika-fab-r),
+        var(--aika-transparent) calc(var(--aika-fab-r) + 0.5px)
+    );
+    color: var(--aika-fg);
+}
+
+html body .contextMenu .AddGameMenu.contextMenuContents > .contextMenuItem:not(.disabled):hover::before {
+    box-shadow:
+        inset 0 0 0 var(--aika-hairline) var(--aika-border-accent),
+        var(--aika-shadow-menu),
+        0 0 18px var(--aika-accent-haze);
+}
+
+html body .contextMenu .AddGameMenu.contextMenuContents > .contextMenuItem:not(.disabled):hover::after {
+    background: var(--aika-on-accent);
     transform: scale(var(--aika-menu-icon-hover));
+}
+
+/* The pop: the item comes out of the button below (it rises and grows on the
+   spring), the label slides out of the icon a beat later. The nearest item
+   (the last one) first. */
+@keyframes aika-fab-pop {
+    from {
+        opacity: 0;
+        transform: translateY(var(--aika-fab-pop)) scale(var(--aika-fab-pop-scale));
+    }
+}
+
+@keyframes aika-fab-label {
+    from {
+        opacity: 0;
+        transform: translateX(calc(-1 * var(--aika-fab-label-shift)));
+    }
+}
+
+html body .contextMenu.ready .AddGameMenu.contextMenuContents > .contextMenuItem {
+    transform-origin: var(--aika-fab-r) 50%;
+    animation: aika-fab-pop var(--aika-fab-dur) var(--aika-ease-spring) backwards;
+    animation-delay: calc(var(--aika-fab-i, 0) * var(--aika-fab-stagger));
+}
+
+html body .contextMenu.ready .AddGameMenu.contextMenuContents > .contextMenuItem::before {
+    animation: aika-fab-label var(--aika-fab-dur) var(--aika-ease-spring) backwards;
+    animation-delay: calc(var(--aika-fab-i, 0) * var(--aika-fab-stagger) + var(--aika-fab-stagger));
+}
+
+/* Steam usually makes this window for the one opening, visible at once at the
+   click point, and js/menu-motion.js comes ~24 ms later: hide the items until
+   then too, so they don't flash where the window is about to leave. No
+   script at all — they show after --aika-fab-fallback. */
+@keyframes aika-fab-fallback {
+    to { opacity: 1; }
+}
+
+html:not(.aika-menu-js) body .contextMenu.ready .AddGameMenu.contextMenuContents > .contextMenuItem {
+    opacity: 0;
+    animation: aika-fab-fallback 1ms linear var(--aika-fab-fallback) forwards;
+}
+
+html .contextMenu .AddGameMenu > .contextMenuItem:nth-last-child(2) { --aika-fab-i: 1; }
+html .contextMenu .AddGameMenu > .contextMenuItem:nth-last-child(n + 3) { --aika-fab-i: 2; }
+
+@media (prefers-reduced-motion: reduce) {
+    html body .contextMenu.ready .AddGameMenu.contextMenuContents > .contextMenuItem,
+    html body .contextMenu.ready .AddGameMenu.contextMenuContents > .contextMenuItem::before {
+        animation: none;
+    }
 }
 
 /* --------------------------------------------------------------------------
