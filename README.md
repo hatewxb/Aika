@@ -8,6 +8,10 @@
 
 https://github.com/user-attachments/assets/48f5941a-a2c6-4d1c-a721-8e7a3f79c630
 
+![Aika — a game page in the library](screenshots/library-game.png)
+
+*A game page in the library*
+
 </div>
 
 A calm dark interface on a near-black background with soft spots of warm
