@@ -56,11 +56,41 @@ html body .contextMenu.ContextMenuPosition {
     box-shadow: var(--aika-shadow-menu);
     color: var(--aika-fg);
     font-family: var(--aika-font-ui);
+}
+
+/* Steam keeps a menu window and its box between openings: the same element
+   is hidden and shown again, so an animation on the box alone played only
+   the first time (author 2026-10-14: "on the second click the animations
+   are gone"). Steam drops .ready on close and adds it back on open (~9 ms
+   before the window shows, verified on the Steam root menu) — every
+   animation here hangs on .ready, so it restarts on each opening. */
+.aika-menu,
+html body .contextMenu.ContextMenuPosition.ready {
     animation: aika-menu-unfold var(--aika-cardnav-dur) var(--aika-ease-fold);
 }
 
-html body .contextMenu.ContextMenuPosition:has(> .AddGameMenu) {
+html body .contextMenu.ContextMenuPosition.ready:has(> .AddGameMenu) {
     animation-name: aika-menu-unfold-up;
+}
+
+/* …but .ready comes while the menu window is still hidden, and a hidden
+   window's animation clock stands still: the animations started on it were
+   over in the first visible frame (every opening after the first). In menu
+   windows js/menu-motion.js marks the visible window (html.aika-menu-open);
+   until then the menu waits in its starting state — folded, items hidden —
+   and the animations start when the class comes. */
+html.aika-menu-js:not(.aika-menu-open) body .contextMenu.ContextMenuPosition.ready {
+    clip-path: inset(0 0 100% 0 round var(--aika-radius-lg));
+    animation: none;
+}
+
+html.aika-menu-js:not(.aika-menu-open) body .contextMenu.ContextMenuPosition.ready:has(> .AddGameMenu) {
+    clip-path: inset(100% 0 0 0 round var(--aika-radius-lg));
+}
+
+html.aika-menu-js:not(.aika-menu-open) body .contextMenu.ready :is(.contextMenuContents > :is(.contextMenuItem, hr.Separator), .NotificationsMenu :is(.NotificationHeader, .NotificationMenuItem)) {
+    opacity: 0;
+    animation: none;
 }
 
 /* The items rise in one after another (a separator too, so the groups keep
@@ -73,7 +103,7 @@ html body .contextMenu.ContextMenuPosition:has(> .AddGameMenu) {
     }
 }
 
-html body .contextMenu .contextMenuContents > :is(.contextMenuItem, hr.Separator) {
+html body .contextMenu.ready .contextMenuContents > :is(.contextMenuItem, hr.Separator) {
     animation: aika-menu-item-in var(--aika-cardnav-item-dur) var(--aika-ease-fold) backwards;
     animation-delay: calc(var(--aika-cardnav-item-delay) + var(--aika-menu-i, 0) * var(--aika-menu-item-stagger));
 }
@@ -217,9 +247,9 @@ html .contextMenu .AddGameMenu > .contextMenuItem:hover::before {
 
 @media (prefers-reduced-motion: reduce) {
     .aika-menu,
-    html body .contextMenu.ContextMenuPosition,
-    html body .contextMenu .contextMenuContents > :is(.contextMenuItem, hr.Separator),
-    html .NotificationsMenu :is(.NotificationHeader, .NotificationMenuItem) {
+    html body .contextMenu.ContextMenuPosition.ready,
+    html body .contextMenu.ready .contextMenuContents > :is(.contextMenuItem, hr.Separator),
+    html .contextMenu.ready .NotificationsMenu :is(.NotificationHeader, .NotificationMenuItem) {
         animation: none;
     }
 }
@@ -447,7 +477,7 @@ html .NotificationsMenu :is(.AllNotificationsTemplate, .StandardTemplateDesktop,
 
 /* Card Nav: the header and the cards rise one after another while the box
    unfolds (the common menu animation above covers .contextMenuItem only) */
-html .NotificationsMenu :is(.NotificationHeader, .NotificationMenuItem) {
+html .contextMenu.ready .NotificationsMenu :is(.NotificationHeader, .NotificationMenuItem) {
     animation: aika-notice-in var(--aika-cardnav-card-dur) var(--aika-ease-fold) backwards;
     animation-delay: calc(var(--aika-cardnav-item-delay) + var(--aika-notice-i, 0) * var(--aika-cardnav-notice-stagger));
 }

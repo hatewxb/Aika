@@ -160,7 +160,8 @@
         },
         {
             "MatchRegexString": ".ContextMenuPopup",
-            "TargetCss": "popup.css"
+            "TargetCss": "popup.css",
+            "TargetJs": "js/menu-motion.js"
         },
         {
             "MatchRegexString": ".DesktopToastContainer",
