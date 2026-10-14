@@ -635,6 +635,12 @@
     --aika-cardnav-notice-rise: 16px;          /* notification cards (a small window) */
     --aika-cardnav-notice-stagger: 50ms;
     --aika-cardnav-link-icon: 11px;            /* the ↗ before a store menu link */
+    --aika-dialog-rise: 14px;                  /* the Family View PIN dialog: its parts rise this far… */
+    --aika-dialog-delay: 90ms;                 /* …starting while the card unfolds… */
+    --aika-dialog-stagger: 60ms;               /* …one after another */
+    --aika-dialog-cell-stagger: 45ms;          /* the four PIN cells pop in one by one */
+    --aika-dialog-cell-scale: 0.6;
+    --aika-dialog-settle: 800ms;               /* the whole opening (scrolling is off meanwhile) */
     --aika-storebar-height: 46px;              /* the closed store menu capsule */
     --aika-icon-arrow-up-right: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2.2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M7 17L17 7M8 7h9v9'/%3E%3C/svg%3E");
     --aika-icon-arrow-right: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M5 12h14M13 6l6 6-6 6'/%3E%3C/svg%3E");

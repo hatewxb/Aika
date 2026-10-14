@@ -693,5 +693,84 @@ html .GenericConfirmDialog .Body:has(> input.TextInput[type="password"]) .ErrorT
     font-family: var(--aika-font-ui);
 }
 
+/* Opening (author 2026-10-14: "like the menus"): the backdrop fades in, the
+   card unfolds down from its top edge (the Card Nav clip of the menus,
+   components/menu.css), then its parts rise one after another — the
+   heading, the text, the PIN cells (each pops in from the center, left to
+   right), the buttons. The dialog is mounted on every opening, inside the
+   always-visible main window, so plain CSS animations replay. Transforms
+   and opacity only on the parts; the cells' own fill / dot / caret motion
+   (components/input.css) is on their children and stays untouched. */
+@keyframes aika-dialog-backdrop-in {
+    from { opacity: 0; }
+}
+
+@keyframes aika-dialog-part-in {
+    from {
+        opacity: 0;
+        transform: translateY(var(--aika-dialog-rise));
+    }
+}
+
+/* While the parts rise, the lowest ones stick out under the edge and Steam's
+   scroll boxes (.DialogContent_InnerWidth, .DialogBody) flashed a scrollbar —
+   no scrolling for the length of the opening (overflow animates discretely,
+   Steam's auto returns when it ends) */
+@keyframes aika-dialog-no-scroll {
+    from, to { overflow: hidden; }
+}
+
+@keyframes aika-dialog-cell-in {
+    from {
+        opacity: 0;
+        transform: scale(var(--aika-dialog-cell-scale));
+    }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+    html .ModalOverlayContent.ModalOverlayBackground {
+        animation: aika-dialog-backdrop-in var(--aika-dur-base) var(--aika-ease-hover);
+    }
+
+    html .ModalOverlayContent .ModalPosition_Content:has(.Body > input.TextInput[type="password"]) {
+        animation: aika-dialog-unfold var(--aika-cardnav-dur) var(--aika-ease-fold);
+    }
+
+    html .GenericConfirmDialog:has(.Body > input.TextInput[type="password"]) :is(
+        .DialogHeader,
+        .Body > :not(input, .aika-pin-slots, .ErrorText),
+        .DialogFooter
+    ) {
+        animation: aika-dialog-part-in var(--aika-cardnav-item-dur) var(--aika-ease-fold) backwards;
+        animation-delay: calc(var(--aika-dialog-delay) + var(--aika-dialog-i, 0) * var(--aika-dialog-stagger));
+    }
+
+    html .GenericConfirmDialog:has(.Body > input.TextInput[type="password"]) .Body > :not(input, .aika-pin-slots, .ErrorText) { --aika-dialog-i: 1; }
+    html .GenericConfirmDialog:has(.Body > input.TextInput[type="password"]) .DialogFooter { --aika-dialog-i: 4; }
+
+    html .GenericConfirmDialog:has(.Body > input.TextInput[type="password"]) :is(.DialogContent_InnerWidth, .DialogBody) {
+        animation: aika-dialog-no-scroll var(--aika-dialog-settle) linear;
+    }
+
+    html .GenericConfirmDialog .aika-pin-slots .aika-pin-cell {
+        animation: aika-dialog-cell-in var(--aika-cardnav-item-dur) var(--aika-ease-spring) backwards;
+        animation-delay: calc(var(--aika-dialog-delay) + 2 * var(--aika-dialog-stagger) + var(--aika-pin-cell-i, 0) * var(--aika-dialog-cell-stagger));
+    }
+
+    html .GenericConfirmDialog .aika-pin-slots .aika-pin-cell:nth-child(2) { --aika-pin-cell-i: 1; }
+    html .GenericConfirmDialog .aika-pin-slots .aika-pin-cell:nth-child(3) { --aika-pin-cell-i: 2; }
+    html .GenericConfirmDialog .aika-pin-slots .aika-pin-cell:nth-child(4) { --aika-pin-cell-i: 3; }
+}
+
+/* The card unfold of the menus, rounded as the dialog card */
+@keyframes aika-dialog-unfold {
+    from {
+        clip-path: inset(0 0 100% 0 round var(--aika-radius-xl));
+    }
+    to {
+        clip-path: inset(0 round var(--aika-radius-xl));
+    }
+}
+
 /* The field itself — components/input.css (shared with the Family View web page) */
 
