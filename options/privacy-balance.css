@@ -1,9 +1,11 @@
 /* ==========================================================================
    "Privacy blur: Balance" (theme settings → "Main"; the default).
    The wallet balance in the header account menu is blurred until hovered
-   (components/window.css).
+   (components/window.css); inside the account menu — the login and the balance
+   (components/menu.css).
    ========================================================================== */
 
 :root {
+    --aika-privacy-menu: var(--aika-privacy-blur);   /* the login and the balance inside the account menu (components/menu.css) */
     --aika-privacy-balance: var(--aika-privacy-blur);
 }

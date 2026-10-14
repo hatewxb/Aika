@@ -76,15 +76,15 @@
             }
         },
         "Privacy blur": {
-            "description": "Blurs the wallet balance (or the account name and the balance) in the top-right account menu until you hover over it — handy for streams and screenshots.",
+            "description": "Blurs the wallet balance (or the account name and the balance) in the top-right account button until you hover over it; inside its menu the login and the balance are blurred until hovered — handy for streams and screenshots.",
             "tab": "Main",
             "default": "Balance",
             "values": {
                 "Balance": {
-                    "TargetCss": { "affects": ["^Steam$"], "src": "options/privacy-balance.css" }
+                    "TargetCss": { "affects": ["^Steam$", "^Account Menu$"], "src": "options/privacy-balance.css" }
                 },
                 "Name and balance": {
-                    "TargetCss": { "affects": ["^Steam$"], "src": "options/privacy-account.css" }
+                    "TargetCss": { "affects": ["^Steam$", "^Account Menu$"], "src": "options/privacy-account.css" }
                 },
                 "Off": {}
             }

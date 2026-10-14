@@ -398,6 +398,41 @@ html .AccountMenuPopup .LogoutButton .WalletBalance {
     font-family: var(--aika-font-mono);
 }
 
+/* Privacy blur inside the menu (author 2026-10-14): "Account details: <login>"
+   and "My wallet <balance>" (.LogoutButton > .AccountName / .WalletBalance) —
+   blurred until the pointer is on the item. The login here is the sign-in
+   name, not the nickname, so with the setting on at all (options/privacy-*.css,
+   which reach this window too) both are blurred. Labels stay sharp. */
+html .AccountMenuPopup .LogoutButton :is(.AccountName, .WalletBalance) {
+    filter: blur(var(--aika-privacy-menu, 0px));
+    transition: filter var(--aika-dur-base) var(--aika-ease);
+}
+
+html .AccountMenuPopup .contextMenuItem:is(:hover, :focus-visible) .LogoutButton :is(.AccountName, .WalletBalance) {
+    filter: none;
+}
+
+/* The header menus (account, notifications) stood right against the header —
+   a gap below it (author 2026-10-14). Steam sizes the menu window from the
+   box, so the gap is a see-through strip inside the box: the plate moves to
+   ::before, below the strip. */
+html:is(.Account_Menu, .Notifications_Menu) body .contextMenu.ContextMenuPosition {
+    isolation: isolate;
+    padding-top: calc(var(--aika-header-menu-gap) + var(--aika-space-1));
+    background: var(--aika-transparent);
+    box-shadow: none;
+}
+
+html:is(.Account_Menu, .Notifications_Menu) body .contextMenu.ContextMenuPosition::before {
+    content: "";
+    position: absolute;
+    inset: var(--aika-header-menu-gap) 0 0 0;
+    z-index: -1;
+    border-radius: inherit;
+    background: var(--aika-surface-translucent);
+    box-shadow: var(--aika-shadow-menu);
+}
+
 /* --------------------------------------------------------------------------
    Menu box size (verified via CDP 2026-10-04)
 

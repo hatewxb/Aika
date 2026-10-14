@@ -343,6 +343,7 @@
     --aika-card-perspective: 1000px;
     --aika-card-flip: 600ms;      /* checkout fields and dropdowns (sections/store-checkout.css) */
     --aika-privacy-blur: 3px;         /* visibly blurred, not wiped out, on small text */
+    --aika-header-menu-gap: 10px;     /* the account / notifications menus below the header */
     --aika-domino-lie: 90;                    /* deg — the letters start lying on their side */
     --aika-domino-stiffness: 160;             /* the spring standing them up… */
     --aika-domino-damping: 0.32;              /* …lightly damped: they rock before settling */

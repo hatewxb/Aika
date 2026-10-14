@@ -1,10 +1,12 @@
 /* ==========================================================================
    "Privacy blur: Name and balance" (theme settings → "Main").
    The account name and the wallet balance in the header account menu are
-   blurred until hovered — for streams and screenshots (components/window.css).
+   blurred until hovered — for streams and screenshots (components/window.css); inside the account menu — the login and the balance
+   (components/menu.css).
    ========================================================================== */
 
 :root {
+    --aika-privacy-menu: var(--aika-privacy-blur);   /* the login and the balance inside the account menu (components/menu.css) */
     --aika-privacy-balance: var(--aika-privacy-blur);
     --aika-privacy-name: var(--aika-privacy-blur);
 }
