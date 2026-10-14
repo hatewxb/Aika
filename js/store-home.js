@@ -32,6 +32,8 @@
     ".community_recommendation_app",                        // "Community recommends"
     ".home_content.single",                                 // the feed's single-game panels
     ".tab_preview.focus",                                   // the tab list preview
+    ".home_page_takeover_link",                             // the ad banner card (takeover)
+    "a.home_page_takeunder",                                // the event banner under the carousel
   ].join(", ");
 
   const MAGNETS = ".carousel_container .arrow, .CarouselBtnLeft, .CarouselBtnRight";

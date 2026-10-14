@@ -375,6 +375,15 @@
     --aika-home-today-spin: 6s;                           /* the "Today" border light, one turn */
     --aika-home-shine-dur: 900ms;                         /* the glare over a cover / a badge */
     --aika-home-shine-every: 5s;                          /* the "New" badge shine period */
+    --aika-home-takeover-width: 1200px;                   /* the ad banner card — Steam's content column */
+    --aika-home-takeover-ratio: 4 / 1;                    /* 1200 × 300 instead of a 1920 × 450 strip */
+    --aika-home-takeover-gap: var(--aika-space-7);        /* below the store menu */
+    --aika-home-takeover-gutter: var(--aika-space-4);     /* the card never touches the window edges */
+    --aika-home-takeover-shift: 32px;                     /* the card rises from this far below… */
+    --aika-home-takeover-settle: 1.14;                    /* …while the art settles from this zoom */
+    --aika-home-takeover-dur: 1600ms;
+    --aika-home-takeover-exit-scale: 0.94;                /* scrolled away: the card shrinks… */
+    --aika-home-takeover-exit-opacity: 0.3;               /* …and dims */
     /* The queue banner: the text side solid, the cover wall shows through on the right */
     --aika-home-queue-shade: linear-gradient(77deg, var(--aika-bg-raised) 0%, var(--aika-bg-elevated) 40%, var(--aika-transparent) 70%);
     /* "Specials & events" page turn — Code Slots motion (selectors.css): each
