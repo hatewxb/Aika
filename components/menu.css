@@ -18,13 +18,29 @@
    This is the only place with a translucent surface.
    ========================================================================== */
 
-/* No scale: Steam measures the menu box (with transform) when it appears
-   and sizes the window from it — with scale(0.97) the window came out ~3 %
-   narrower than the menu and the rounded right edge was clipped (2026-10-04) */
-@keyframes aika-menu-in {
+/* Card Nav (reactbits idea, author 2026-10-14): the box unfolds down from its
+   top edge, then the items rise one after another (below). A clip, not
+   height or scale: Steam measures the menu box (with transform) when it
+   appears and sizes the window from it — with scale(0.97) the window came
+   out ~3 % narrower than the menu and the rounded right edge was clipped
+   (2026-10-04); clip-path doesn't change the measured box. */
+@keyframes aika-menu-unfold {
     from {
-        opacity: 0;
-        transform: translateY(var(--aika-menu-shift));
+        clip-path: inset(0 0 100% 0 round var(--aika-radius-lg));
+    }
+    to {
+        clip-path: inset(0 round var(--aika-radius-lg));
+    }
+}
+
+/* Menus opening upward (the "Add a Game" menu above its floating icon)
+   unfold from the bottom edge */
+@keyframes aika-menu-unfold-up {
+    from {
+        clip-path: inset(100% 0 0 0 round var(--aika-radius-lg));
+    }
+    to {
+        clip-path: inset(0 round var(--aika-radius-lg));
     }
 }
 
@@ -40,9 +56,37 @@ html body .contextMenu.ContextMenuPosition {
     box-shadow: var(--aika-shadow-menu);
     color: var(--aika-fg);
     font-family: var(--aika-font-ui);
-    transform-origin: top left;
-    animation: aika-menu-in var(--aika-dur-fast) var(--aika-ease);
+    animation: aika-menu-unfold var(--aika-cardnav-dur) var(--aika-ease-fold);
 }
+
+html body .contextMenu.ContextMenuPosition:has(> .AddGameMenu) {
+    animation-name: aika-menu-unfold-up;
+}
+
+/* The items rise in one after another (a separator too, so the groups keep
+   their rhythm); the tenth and later together. Transforms only on the
+   items — the box stays where Steam measured it. */
+@keyframes aika-menu-item-in {
+    from {
+        opacity: 0;
+        transform: translateY(var(--aika-menu-item-rise));
+    }
+}
+
+html body .contextMenu .contextMenuContents > :is(.contextMenuItem, hr.Separator) {
+    animation: aika-menu-item-in var(--aika-cardnav-item-dur) var(--aika-ease-fold) backwards;
+    animation-delay: calc(var(--aika-cardnav-item-delay) + var(--aika-menu-i, 0) * var(--aika-menu-item-stagger));
+}
+
+html body .contextMenu .contextMenuContents > :nth-child(2) { --aika-menu-i: 1; }
+html body .contextMenu .contextMenuContents > :nth-child(3) { --aika-menu-i: 2; }
+html body .contextMenu .contextMenuContents > :nth-child(4) { --aika-menu-i: 3; }
+html body .contextMenu .contextMenuContents > :nth-child(5) { --aika-menu-i: 4; }
+html body .contextMenu .contextMenuContents > :nth-child(6) { --aika-menu-i: 5; }
+html body .contextMenu .contextMenuContents > :nth-child(7) { --aika-menu-i: 6; }
+html body .contextMenu .contextMenuContents > :nth-child(8) { --aika-menu-i: 7; }
+html body .contextMenu .contextMenuContents > :nth-child(9) { --aika-menu-i: 8; }
+html body .contextMenu .contextMenuContents > :nth-child(n + 10) { --aika-menu-i: 9; }
 
 html .contextMenu .contextMenuContents {
     background: var(--aika-transparent);
@@ -140,26 +184,14 @@ html .contextMenu .contextMenuContents hr.Separator {
    "Activate a Product on Steam…", "Browse the Steam Store…". The items rise in
    one after another under the box's own entrance, each with an accent icon
    (decoration — the text is Steam's): a plus, a key, the store bag.
-   Transforms only on the items — Steam sizes the window from the box.
+   The rise is the common one (Card Nav, above).
    -------------------------------------------------------------------------- */
-
-@keyframes aika-menu-item-in {
-    from {
-        opacity: 0;
-        transform: translateY(var(--aika-menu-item-rise));
-    }
-}
 
 html .contextMenu .AddGameMenu > .contextMenuItem {
     display: flex;
     align-items: center;
     gap: var(--aika-space-3);
-    animation: aika-menu-item-in var(--aika-dur-enter) var(--aika-ease) backwards;
 }
-
-html .contextMenu .AddGameMenu > .contextMenuItem:nth-child(2) { animation-delay: var(--aika-menu-item-stagger); }
-html .contextMenu .AddGameMenu > .contextMenuItem:nth-child(3) { animation-delay: calc(2 * var(--aika-menu-item-stagger)); }
-html .contextMenu .AddGameMenu > .contextMenuItem:nth-child(n + 4) { animation-delay: calc(3 * var(--aika-menu-item-stagger)); }
 
 html .contextMenu .AddGameMenu > .contextMenuItem::before {
     content: "";
@@ -186,7 +218,8 @@ html .contextMenu .AddGameMenu > .contextMenuItem:hover::before {
 @media (prefers-reduced-motion: reduce) {
     .aika-menu,
     html body .contextMenu.ContextMenuPosition,
-    html .contextMenu .AddGameMenu > .contextMenuItem {
+    html body .contextMenu .contextMenuContents > :is(.contextMenuItem, hr.Separator),
+    html .NotificationsMenu :is(.NotificationHeader, .NotificationMenuItem) {
         animation: none;
     }
 }
@@ -299,7 +332,13 @@ html .NotificationsMenu .EmptyNotificationsCtn .EmptyNotificationsBody {
     color: var(--aika-fg-subtle);
 }
 
-/* The list: cards with a gap and rounding */
+/* The list: cards with a gap and rounding. Steam draws a card with one of
+   its notification templates (module 75883, verified 2026-10-14):
+   .AllNotificationsTemplate (older), .StandardTemplateDesktop (wishlist sale,
+   inventory item… — black 50 % / unread #323640, 11 px #8b929a captions,
+   (0,1,0)…(0,2,0)), .PinnedTemplateDesktop (pinned on top) — all three get
+   the same Aika card. The type line is .Header > .Icon + .Title +
+   .Timestamp / .TimestampDesktop; the art — .AppLogo or .StandardLogoDimensions. */
 html .NotificationsMenu .NotificationsMenuEntriesContainer {
     gap: var(--aika-space-1);
 }
@@ -313,8 +352,9 @@ html .NotificationsMenu .NotificationMenuItem:hover {
     background: var(--aika-transparent);
 }
 
-html .NotificationsMenu .AllNotificationsTemplate {
-    border: var(--aika-hairline) solid var(--aika-transparent);
+html .NotificationsMenu :is(.AllNotificationsTemplate, .StandardTemplateDesktop, .PinnedTemplateDesktop) {
+    position: relative;
+    border: var(--aika-hairline) solid var(--aika-border);
     border-radius: var(--aika-radius-md);
     background: var(--aika-surface);
     transition:
@@ -322,56 +362,105 @@ html .NotificationsMenu .AllNotificationsTemplate {
         border-color var(--aika-dur-fast) var(--aika-ease-hover);
 }
 
-html .NotificationsMenu .AllNotificationsTemplate:hover {
+html .NotificationsMenu :is(.AllNotificationsTemplate, .StandardTemplateDesktop, .PinnedTemplateDesktop):hover {
     border-color: var(--aika-border-hover);
     background: var(--aika-surface-hover);
 }
 
-/* Unread — an accent backing and outline */
-html .NotificationsMenu .AllNotificationsTemplate.Unread,
-html .NotificationsMenu .AllNotificationsTemplate.Unread:hover {
+/* Unread — an accent backing and outline plus the Fluent mark on the left */
+html .NotificationsMenu :is(.AllNotificationsTemplate, .StandardTemplateDesktop, .PinnedTemplateDesktop).Unread,
+html .NotificationsMenu :is(.AllNotificationsTemplate, .StandardTemplateDesktop, .PinnedTemplateDesktop).Unread:hover {
     border-color: var(--aika-border-accent);
     background: var(--aika-accent-soft);
 }
 
-html .NotificationsMenu .AllNotificationsTemplate .StandardNotificationDescription,
-html .NotificationsMenu .AllNotificationsTemplate.Unread .StandardNotificationDescription {
-    color: var(--aika-fg);
+html .NotificationsMenu :is(.AllNotificationsTemplate, .StandardTemplateDesktop, .PinnedTemplateDesktop).Unread::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 50%;
+    width: var(--aika-home-mark-width);
+    height: var(--aika-home-mark-height);
+    border-radius: var(--aika-radius-full);
+    background: var(--aika-accent);
+    box-shadow: var(--aika-home-mark-glow);
+    transform: translateY(-50%);
 }
 
-html .NotificationsMenu .AllNotificationsTemplate .StandardNotificationSubText {
+html .NotificationsMenu :is(.AllNotificationsTemplate, .StandardTemplateDesktop, .PinnedTemplateDesktop) .StandardNotificationDescription,
+html .NotificationsMenu :is(.AllNotificationsTemplate, .StandardTemplateDesktop, .PinnedTemplateDesktop).Unread .StandardNotificationDescription {
+    color: var(--aika-fg);
+    font-weight: var(--aika-weight-semibold);
+}
+
+html .NotificationsMenu :is(.AllNotificationsTemplate, .StandardTemplateDesktop, .PinnedTemplateDesktop) .StandardNotificationSubText {
     color: var(--aika-fg-muted);
 }
 
+/* The sale price inside the subtext: Steam paints it white inline
+   (style="color: rgb(255, 255, 255)") — only !important beats an inline
+   style. The discounted price is green, mono, as everywhere in the store. */
+html .NotificationsMenu .StandardNotificationSubText span[style*="color"] {
+    color: var(--aika-ok) !important;
+    font-family: var(--aika-font-mono);
+}
+
 /* The "icon · type · time" line */
-html .NotificationsMenu .AllNotificationsTemplate :is(.Title, .Header) {
+html .NotificationsMenu :is(.AllNotificationsTemplate, .StandardTemplateDesktop, .PinnedTemplateDesktop) :is(.Title, .Header) {
     color: var(--aika-fg-subtle);
     font-family: var(--aika-font-ui);
 }
 
-html .NotificationsMenu .AllNotificationsTemplate .Timestamp {
+html .NotificationsMenu :is(.AllNotificationsTemplate, .StandardTemplateDesktop, .PinnedTemplateDesktop) :is(.Timestamp, .TimestampDesktop) {
     color: var(--aika-fg-subtle);
     font-family: var(--aika-font-mono);
 }
 
-html .NotificationsMenu .AllNotificationsTemplate .Icon,
-html .NotificationsMenu .AllNotificationsTemplate .Icon svg {
-    color: var(--aika-fg-subtle);
-    fill: var(--aika-fg-subtle);
+html .NotificationsMenu :is(.AllNotificationsTemplate, .StandardTemplateDesktop, .PinnedTemplateDesktop) .Icon,
+html .NotificationsMenu :is(.AllNotificationsTemplate, .StandardTemplateDesktop, .PinnedTemplateDesktop) .Icon svg {
+    color: var(--aika-accent-bright);
+    fill: var(--aika-accent-bright);
 }
 
 /* The cover/logo on the left (Steam: a black border and shadow) */
-html .NotificationsMenu .AllNotificationsTemplate .AppLogo > img {
+html .NotificationsMenu .AllNotificationsTemplate .AppLogo > img,
+html .NotificationsMenu :is(.StandardTemplateDesktop, .PinnedTemplateDesktop) .StandardLogoDimensions img:not([style*="position"]) {
     border: none;
-    border-radius: var(--aika-radius-xs);
+    border-radius: var(--aika-radius-md);
     box-shadow: var(--aika-shadow-cover);
 }
 
 /* The "new" dot: green with a glow → accent */
-html .NotificationsMenu .AllNotificationsTemplate .NewIndicator {
+html .NotificationsMenu :is(.AllNotificationsTemplate, .StandardTemplateDesktop, .PinnedTemplateDesktop) .NewIndicator {
     filter: drop-shadow(0 0 4px var(--aika-accent-glow));
 }
 
-html .NotificationsMenu .AllNotificationsTemplate .NewIndicator svg {
+html .NotificationsMenu :is(.AllNotificationsTemplate, .StandardTemplateDesktop, .PinnedTemplateDesktop) .NewIndicator svg {
     color: var(--aika-accent-bright);
 }
+
+/* The dot sits absolutely at the top right (10 px in) — over the end of
+   the mono time; the type line makes room for it */
+html .NotificationsMenu :is(.AllNotificationsTemplate, .StandardTemplateDesktop, .PinnedTemplateDesktop):has(> .NewIndicator) .Header {
+    padding-right: var(--aika-space-3);
+}
+
+/* Card Nav: the header and the cards rise one after another while the box
+   unfolds (the common menu animation above covers .contextMenuItem only) */
+html .NotificationsMenu :is(.NotificationHeader, .NotificationMenuItem) {
+    animation: aika-notice-in var(--aika-cardnav-card-dur) var(--aika-ease-fold) backwards;
+    animation-delay: calc(var(--aika-cardnav-item-delay) + var(--aika-notice-i, 0) * var(--aika-cardnav-notice-stagger));
+}
+
+@keyframes aika-notice-in {
+    from {
+        opacity: 0;
+        transform: translateY(var(--aika-cardnav-notice-rise));
+    }
+}
+
+html .NotificationsMenu .NotificationMenuItem:nth-child(1) { --aika-notice-i: 1; }
+html .NotificationsMenu .NotificationMenuItem:nth-child(2) { --aika-notice-i: 2; }
+html .NotificationsMenu .NotificationMenuItem:nth-child(3) { --aika-notice-i: 3; }
+html .NotificationsMenu .NotificationMenuItem:nth-child(4) { --aika-notice-i: 4; }
+html .NotificationsMenu .NotificationMenuItem:nth-child(n + 5) { --aika-notice-i: 5; }

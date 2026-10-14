@@ -603,8 +603,23 @@
     --aika-icon-key: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round'%3E%3Ccircle cx='8' cy='15' r='4'/%3E%3Cpath d='M10.8 12.2L19 4M15.5 7.5l2.5 2.5M17.5 5.5l2 2'/%3E%3C/svg%3E");
     --aika-menu-icon: 16px;
     --aika-menu-icon-hover: 1.12;
-    --aika-menu-item-rise: 6px;
-    --aika-menu-item-stagger: 45ms;
+    --aika-menu-item-rise: 10px;
+    --aika-menu-item-stagger: 22ms;
+    /* Card Nav (reactbits idea): a menu unfolds down from its top edge (a clip,
+       Steam sizes menu windows from the box, so no height or scale), then its
+       items / cards rise one after another. power3.out, as in the original */
+    --aika-cardnav-dur: 400ms;                 /* the unfold */
+    --aika-cardnav-item-dur: 360ms;            /* a menu item rising */
+    --aika-cardnav-item-delay: 60ms;           /* the first item starts while the box unfolds */
+    --aika-cardnav-card-rise: 36px;            /* store menu cards rise from this far below… */
+    --aika-cardnav-card-dur: 420ms;
+    --aika-cardnav-card-delay: 120ms;          /* …starting while the capsule unfolds… */
+    --aika-cardnav-card-stagger: 80ms;         /* …one after another */
+    --aika-cardnav-notice-rise: 16px;          /* notification cards (a small window) */
+    --aika-cardnav-notice-stagger: 50ms;
+    --aika-cardnav-link-icon: 11px;            /* the ↗ before a store menu link */
+    --aika-storebar-height: 46px;              /* the closed store menu capsule */
+    --aika-icon-arrow-up-right: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2.2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M7 17L17 7M8 7h9v9'/%3E%3C/svg%3E");
     --aika-icon-arrow-right: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M5 12h14M13 6l6 6-6 6'/%3E%3C/svg%3E");
     /* A padlock (SF Symbols-like) — the Family View web page */
     --aika-icon-lock: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='1.7' stroke-linecap='round' stroke-linejoin='round'%3E%3Crect x='5' y='10.5' width='14' height='10' rx='2.5'/%3E%3Cpath d='M8 10.5V7.5a4 4 0 0 1 8 0v3'/%3E%3Ccircle cx='12' cy='15.5' r='1' fill='black'/%3E%3C/svg%3E");

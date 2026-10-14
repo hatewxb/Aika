@@ -829,6 +829,95 @@ html body.v6 .h2B3SGR_w4RWdrnsRZEcD ._19o1GB7ysfrWKLYpqZ6aXu {
     z-index: 0;
 }
 
+/* [Store] Card Nav cards in the open menu (the capsule unfold — sections/store.css).
+   One layout for all five menus (verified 2026-10-14, opening each):
+     ._2ihG7DC0YPrw01ComUbKnY — the menu body, remounted on every menu switch;
+       ._3wkp8GaMeHBsrImd61r1X- — the heading ("Categories", "Ways to Play"…);
+       ._2dL6ap-BkfhXkVntihe2KS — the row: .wX6LdxJgqoPyuPTGpQRC0 (the main
+         block: links + tiles, game rows, large tiles) and the link columns
+         ._39xRzOagrnlvU_DbiDnzVW (._3ndoxZabNTcJ8NN50nQ4BM — a column title,
+         a._3xfL7u7e8rFk4XeOpKN0oC — a link, hr._1tOe1a5sCJUgvbHanH8BmV);
+       "Categories" has no row: .wX6LdxJgqoPyuPTGpQRC0 right in the body with
+         three rows inside (genre tiles, tags, more genres).
+   The blocks rise one after another, like the reactbits cards; the link
+   columns become cards (a raised plate) and every link gets the ↗ arrow
+   (decoration — the text is Steam's). Steam rules on them are (0,1,0). */
+@keyframes aika-cardnav-card-in {
+    from {
+        opacity: 0;
+        transform: translateY(var(--aika-cardnav-card-rise));
+    }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+    html body.v6 [data-featuretarget="store-menu-v7"] :is(
+        ._2ihG7DC0YPrw01ComUbKnY > ._3wkp8GaMeHBsrImd61r1X-,
+        ._2dL6ap-BkfhXkVntihe2KS > *,
+        ._2ihG7DC0YPrw01ComUbKnY > .wX6LdxJgqoPyuPTGpQRC0 > *
+    ) {
+        animation: aika-cardnav-card-in var(--aika-cardnav-card-dur) var(--aika-ease-fold) backwards;
+        animation-delay: calc(var(--aika-cardnav-card-delay) + var(--aika-cardnav-i, 0) * var(--aika-cardnav-card-stagger));
+    }
+}
+
+html body.v6 [data-featuretarget="store-menu-v7"] :is(._2dL6ap-BkfhXkVntihe2KS, ._2ihG7DC0YPrw01ComUbKnY > .wX6LdxJgqoPyuPTGpQRC0) > :nth-child(2) { --aika-cardnav-i: 1; }
+html body.v6 [data-featuretarget="store-menu-v7"] :is(._2dL6ap-BkfhXkVntihe2KS, ._2ihG7DC0YPrw01ComUbKnY > .wX6LdxJgqoPyuPTGpQRC0) > :nth-child(3) { --aika-cardnav-i: 2; }
+html body.v6 [data-featuretarget="store-menu-v7"] :is(._2dL6ap-BkfhXkVntihe2KS, ._2ihG7DC0YPrw01ComUbKnY > .wX6LdxJgqoPyuPTGpQRC0) > :nth-child(n + 4) { --aika-cardnav-i: 3; }
+
+html body.v6 [data-featuretarget="store-menu-v7"] ._39xRzOagrnlvU_DbiDnzVW {
+    box-sizing: border-box;
+    padding: var(--aika-space-3) var(--aika-space-4);
+    border-radius: var(--aika-radius-lg);
+    background: var(--aika-surface);
+    box-shadow: inset 0 0 0 var(--aika-hairline) var(--aika-border);
+    transition: box-shadow var(--aika-dur-base) var(--aika-ease);
+}
+
+html body.v6 [data-featuretarget="store-menu-v7"] ._39xRzOagrnlvU_DbiDnzVW:hover {
+    box-shadow: inset 0 0 0 var(--aika-hairline) var(--aika-border-accent);
+}
+
+html body.v6 [data-featuretarget="store-menu-v7"] ._39xRzOagrnlvU_DbiDnzVW ._3ndoxZabNTcJ8NN50nQ4BM {
+    color: var(--aika-fg-subtle);
+}
+
+html body.v6 [data-featuretarget="store-menu-v7"] ._39xRzOagrnlvU_DbiDnzVW hr._1tOe1a5sCJUgvbHanH8BmV {
+    border: none;
+    height: var(--aika-hairline);
+    background: var(--aika-border);
+}
+
+html body.v6 [data-featuretarget="store-menu-v7"] a._3xfL7u7e8rFk4XeOpKN0oC {
+    display: flex;
+    align-items: center;
+    gap: var(--aika-space-2);
+    color: var(--aika-fg-muted);
+    transition: color var(--aika-dur-fast) var(--aika-ease-hover);
+}
+
+html body.v6 [data-featuretarget="store-menu-v7"] a._3xfL7u7e8rFk4XeOpKN0oC::before {
+    content: "";
+    flex: none;
+    width: var(--aika-cardnav-link-icon);
+    height: var(--aika-cardnav-link-icon);
+    background: var(--aika-accent-bright);
+    -webkit-mask: var(--aika-icon-arrow-up-right) center / contain no-repeat;
+    mask: var(--aika-icon-arrow-up-right) center / contain no-repeat;
+    opacity: 0.5;
+    transition:
+        opacity var(--aika-dur-fast) var(--aika-ease-hover),
+        transform var(--aika-dur-base) var(--aika-ease);
+}
+
+html body.v6 [data-featuretarget="store-menu-v7"] a._3xfL7u7e8rFk4XeOpKN0oC:hover {
+    color: var(--aika-fg);
+}
+
+html body.v6 [data-featuretarget="store-menu-v7"] a._3xfL7u7e8rFk4XeOpKN0oC:hover::before {
+    opacity: 1;
+    transform: translate(var(--aika-nudge), calc(-1 * var(--aika-nudge)));
+}
+
 html body.v6 [data-featuretarget="store-menu-v7"] a._3Z1skIYVoqLbYiP2wy46Ce {
     overflow: hidden;
     border-radius: var(--aika-radius-md);
