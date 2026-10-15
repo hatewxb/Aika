@@ -775,6 +775,13 @@
     --aika-light-drift: -20px;
     --aika-light-rotate: 1deg;
     --aika-light-pulse: 1.08;          /* the scale at the peak of the warm spot's pulse */
+    /* "Performance: Low" — the spots as gradients (--aika-perf-spots, colors.css).
+       Matched to the blurred spots by pixel samples of the main window (2026-10-16):
+       full opacity up to "hold", half at "half", gone at the edge of an ellipse
+       "spread" times the spot size */
+    --aika-perf-spot-spread: 1.5;
+    --aika-perf-spot-hold: 35%;
+    --aika-perf-spot-half: 70%;
 
     /* Layer 4 — the grid (and noise), fading toward the edges */
     --aika-grid-size: 56px;

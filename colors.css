@@ -277,6 +277,37 @@ html:root {
     --aika-card-sheen: radial-gradient(120% 90% at 85% 0%, rgb(from var(--aika-ink) r g b / 0.22), transparent 55%);
     --aika-card-back-face: linear-gradient(135deg, color-mix(in oklab, var(--aika-accent-fill) 70%, var(--aika-bg-deep)), color-mix(in oklab, var(--aika-light-2) 55%, var(--aika-bg-deep)));
 
+    /* "Performance: Low" (options/perf-low.css): the three light spots drawn as
+       one static layer of radial gradients instead of three blurred, moving
+       ellipses. Same places, sizes and opacities as background.css; each
+       ellipse is wider by --aika-perf-spot-spread (as far as the blur reached)
+       and fades out from a solid core, like a blurred edge */
+    --aika-perf-spots:
+        radial-gradient(
+            calc(var(--aika-light-1-size) / 2 * var(--aika-perf-spot-spread))
+            calc(var(--aika-light-1-size) / var(--aika-light-aspect) / 2 * var(--aika-perf-spot-spread))
+            at calc(var(--aika-light-1-x) + var(--aika-light-1-size) / 2)
+               calc(var(--aika-light-1-y) + var(--aika-light-1-size) / var(--aika-light-aspect) / 2),
+            rgb(from var(--aika-light-1) r g b / var(--aika-light-1-opacity)) var(--aika-perf-spot-hold),
+            rgb(from var(--aika-light-1) r g b / calc(var(--aika-light-1-opacity) * 0.5)) var(--aika-perf-spot-half),
+            rgb(from var(--aika-light-1) r g b / 0) 100%),
+        radial-gradient(
+            calc(var(--aika-light-2-size) / 2 * var(--aika-perf-spot-spread))
+            calc(var(--aika-light-2-size) / var(--aika-light-aspect) / 2 * var(--aika-perf-spot-spread))
+            at calc(var(--aika-light-2-x) + var(--aika-light-2-size) / 2)
+               calc(var(--aika-light-2-y) + var(--aika-light-2-size) / var(--aika-light-aspect) / 2),
+            rgb(from var(--aika-light-2) r g b / var(--aika-light-2-opacity)) var(--aika-perf-spot-hold),
+            rgb(from var(--aika-light-2) r g b / calc(var(--aika-light-2-opacity) * 0.5)) var(--aika-perf-spot-half),
+            rgb(from var(--aika-light-2) r g b / 0) 100%),
+        radial-gradient(
+            calc(var(--aika-light-3-size) / 2 * var(--aika-perf-spot-spread))
+            calc(var(--aika-light-3-size) / var(--aika-light-aspect) / 2 * var(--aika-perf-spot-spread))
+            at calc(var(--aika-light-3-x) + var(--aika-light-3-size) / 2)
+               calc(var(--aika-light-3-y) + var(--aika-light-3-size) / var(--aika-light-aspect) / 2),
+            rgb(from var(--aika-light-3) r g b / var(--aika-light-3-opacity)) var(--aika-perf-spot-hold),
+            rgb(from var(--aika-light-3) r g b / calc(var(--aika-light-3-opacity) * 0.5)) var(--aika-perf-spot-half),
+            rgb(from var(--aika-light-3) r g b / 0) 100%);
+
     /* Fully transparent — to "remove" Steam backgrounds without bare values */
     --aika-transparent: rgb(from var(--aika-ink) r g b / 0);
 }
