@@ -659,11 +659,14 @@
     --aika-header-compact-height: 40px;
     --aika-header-compact-tab-icon: 20px;
     /* The address capsule over store / community pages (components/url-capsule.css):
-       as tall as the store menu capsule and at its height from the top */
-    --aika-url-capsule-width: 480px;            /* at most */
-    --aika-url-capsule-min: 180px;              /* narrower than this (the store menu is close) — hidden */
+       small, centered on the line of the store menu capsule */
+    --aika-url-capsule-height: 26px;
+    --aika-url-capsule-width: 340px;            /* at most */
+    --aika-url-capsule-min: 160px;              /* narrower than this (the store menu is close) — hidden */
     --aika-url-capsule-left: var(--aika-space-3);
-    --aika-url-reload: 30px;                    /* the round reload button inside */
+    --aika-url-reload: 20px;                    /* the round reload button inside */
+    --aika-url-icon: 11px;
+    --aika-url-text: 10px;                      /* two steps under --aika-text-meta */
     --aika-icon-arrow-up-right: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2.2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M7 17L17 7M8 7h9v9'/%3E%3C/svg%3E");
     --aika-icon-arrow-right: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M5 12h14M13 6l6 6-6 6'/%3E%3C/svg%3E");
     /* A padlock (SF Symbols-like) — the Family View web page */
@@ -820,7 +823,16 @@
        the event block 101), but below tooltips (1526), modals (1500)
        and menus (10000) */
     --aika-z-store-logo: 110;
-    --aika-z-url-capsule: 1000;       /* the address over store / community pages (compact header) */
+    --aika-z-url-capsule: 1000;       /* the address over store / community pages */
+    --aika-z-loader: 30;              /* the page loading dots in the top bar (js/page-loading.js) */
+
+    /* "Heart Pulse" loader (components/loader.css) */
+    --aika-loader-grid: 7;            /* a 7×7 grid cut to a circle */
+    --aika-loader-dot: 2px;
+    --aika-loader-gap: 1px;           /* 7 × 2 + 6 × 1 = 20 px across */
+    --aika-loader-period: 1.2s;       /* one lub-dub */
+    --aika-loader-ring-step: 90ms;    /* the beat reaches the next ring this much later */
+    --aika-loader-rest: 0.3;          /* a dot between beats */
     /* The cinematic page media viewer: above Steam's menus (10000) — it is
        a full-window modal */
     --aika-z-cine-viewer: 10050;

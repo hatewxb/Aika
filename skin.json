@@ -47,13 +47,13 @@
             }
         },
         "Compact header": {
-            "description": "Compact: the menus, the tabs and the account buttons share one line, and the address of store and community pages floats over the page, top left, as a capsule like the store menu (takes a Steam restart to reach the pages).",
+            "description": "Compact: the menus, the tabs and the account buttons share one line.",
             "tab": "Main",
             "default": "Normal",
             "values": {
                 "Normal": {},
                 "Compact": {
-                    "TargetCss": { "affects": [".*"], "src": "options/header-compact.css" }
+                    "TargetCss": { "affects": ["^Steam$"], "src": "options/header-compact.css" }
                 }
             }
         },
@@ -69,13 +69,13 @@
             }
         },
         "URL visibility": {
-            "description": "The address bar above the store and community pages.",
+            "description": "The address capsule over store and community pages, top left (takes a Steam restart to reach the pages).",
             "tab": "Elements",
             "default": "yes",
             "values": {
                 "yes": {},
                 "no": {
-                    "TargetCss": { "affects": ["^Steam$"], "src": "options/hide-url.css" }
+                    "TargetCss": { "affects": [".*"], "src": "options/hide-url.css" }
                 }
             }
         },

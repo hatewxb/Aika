@@ -1,11 +1,12 @@
 /* ==========================================================================
    "URL visibility: no" (theme settings → "Elements").
-   Hides the address bar above store and community pages (.URLBar) and the
-   empty strip Steam keeps in its place in the library (.URLBarReplacement).
+   Hides the address capsule that js/url-capsule.js draws over store and
+   community pages (components/url-capsule.css). Steam's own address strip in
+   the client is hidden by the theme anyway (sections/store.css, part 1).
+   Reaches web pages (affects .*) — after a Steam restart.
    Option files load before the theme entry: selectors carry an extra :root.
    ========================================================================== */
 
-html:root .BrowserWrapper > .URLBar,
-html:root .LocalContentContainer > .URLBarReplacement {
+html:root .aika-url-capsule {
     display: none;
 }

@@ -27,6 +27,7 @@
 @import url("./components/progress.css");
 @import url("./components/window.css");
 @import url("./components/curtain.css");
+@import url("./components/loader.css");
 
 /* 3. Client sections (stable selectors) */
 @import url("./sections/library.css");

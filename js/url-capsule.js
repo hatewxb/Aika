@@ -1,14 +1,12 @@
-// url-capsule.js — the page address over store and community pages in the
-// compact header ("Compact header: Compact", author 2026-10-16). Attached by
-// a Patch to store and community pages (skin.json); the look is
-// components/url-capsule.css.
+// url-capsule.js — the page address over store and community pages, in both
+// header modes (author 2026-10-16). Attached by a Patch to store and community
+// pages (skin.json); the look is components/url-capsule.css.
 //
-// The compact header hides the client's address strip (options/
-// header-compact.css). That strip is in the window's DOM, and these pages are
-// a native layer above it, so nothing there can float over them — the address
-// is drawn here, inside the page: top left, beside the store menu capsule.
-// The option file reaches web pages too (affects .*) and sets
-// --aika-header-mode: compact; without it nothing is built.
+// The theme hides the client's address strip (sections/store.css, part 1).
+// That strip is in the window's DOM, and these pages are a native layer above
+// it, so nothing there can float over them — the address is drawn here,
+// inside the page: top left, beside the store menu capsule. "URL visibility:
+// no" hides it (options/hide-url.css).
 //   reload — location.reload(); the address — a click copies it.
 // The address follows in-page navigation (history.pushState / replaceState,
 // popstate). The capsule takes the room left of the store menu and hides when
@@ -20,7 +18,6 @@
 
   const root = document.documentElement;
   const css = () => getComputedStyle(root);
-  if (css().getPropertyValue("--aika-header-mode").trim() !== "compact") return;
 
   const ru = /^ru/i.test(root.lang || navigator.language);
   const T = ru

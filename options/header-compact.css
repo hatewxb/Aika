@@ -2,7 +2,7 @@
    "Compact header: Compact" (theme settings → "Main"), author 2026-10-16.
    Works with every Performance preset; nothing here moves.
 
-   One line instead of three (header, tabs, address strip):
+   One line instead of two:
      .TopBar > .TitleBar (32 px: menus, drag area, account buttons, window buttons)
      .TopBar > .SuperNavBar (46 px: ← → and the tabs)
    .TitleBar gets display: contents, so its parts and .SuperNavBar are flex
@@ -12,12 +12,8 @@
    is moved. js/header-compact.js keeps the tab group centered on the window
    (the menus and the buttons on the sides differ in width).
 
-   The address: Steam's strip (.BrowserWrapper > .URLBar) goes, and the
-   address floats over the page, top left, as a capsule like the store menu
-   (author 2026-10-16). The store / community page is a native layer above the
-   window's DOM, so the capsule is drawn inside the page (js/url-capsule.js,
-   components/url-capsule.css); this file also reaches web pages (affects .*)
-   to tell them the mode (--aika-header-mode).
+   The address strip is gone in every mode (sections/store.css, part 1): the
+   address floats over store and community pages as a small capsule.
 
    Option files load before the theme entry: selectors carry an extra :root.
    ========================================================================== */
@@ -94,16 +90,4 @@ html:root .TopBar .SuperNav::after {
 
 html:root .TopBar .SuperNav > svg:last-of-type {
     margin-inline-end: var(--aika-compact-lead, 0px);
-}
-
-/* --- The address ----------------------------------------------------------- */
-
-/* Steam's address strip goes: the page starts right under the header. The
-   address floats over the page instead — js/url-capsule.js draws it inside
-   store and community pages (components/url-capsule.css), since nothing of
-   the window's DOM can lie over those native pages. The library's empty
-   strip of the same height goes too. */
-html:root .ContentFrame .BrowserWrapper > .URLBar,
-html:root .LocalContentContainer > .URLBarReplacement {
-    display: none;
 }

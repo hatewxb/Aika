@@ -1,0 +1,72 @@
+/* ==========================================================================
+   components/loader.css — "Heart Pulse": a dot-matrix loader (author
+   2026-10-16; the idea after the Dot Matrix "Heart Pulse" loader, our own
+   code). A round matrix of dots: a 7×7 grid cut to a circle; a beat starts in
+   the center and travels out ring by ring, twice per cycle (lub-dub), like a
+   pulse. Only opacity and transform move (compositor-only).
+
+   Used for web page loading in the main window: js/page-loading.js shows it
+   after ← → in the top bar while Steam's hidden address bar has its .Spinner
+   (sections/store.css, part 1).
+     .aika-loader            — the matrix (a grid), fixed, placed by the script
+       > i[style="--r: N"]   — a dot; N — its ring from the center (0…3)
+   "Performance: Low" zeroes the period — the dots stand still, still lit.
+   ========================================================================== */
+
+.aika-loader {
+    position: fixed;
+    z-index: var(--aika-z-loader);
+    display: none;
+    grid-template-columns: repeat(var(--aika-loader-grid), var(--aika-loader-dot));
+    gap: var(--aika-loader-gap);
+    pointer-events: none;
+    -webkit-app-region: no-drag;
+    app-region: no-drag;
+}
+
+.aika-loader.is-on {
+    display: grid;
+}
+
+.aika-loader > i {
+    width: var(--aika-loader-dot);
+    height: var(--aika-loader-dot);
+    border-radius: var(--aika-radius-full);
+    background: var(--aika-accent-bright);
+    opacity: var(--aika-loader-rest);
+    animation: aika-heart-pulse var(--aika-loader-period) linear infinite;
+    animation-delay: calc(var(--r, 0) * var(--aika-loader-ring-step));
+}
+
+/* The corners of the grid outside the circle */
+.aika-loader > i.is-out {
+    visibility: hidden;
+    animation: none;
+}
+
+/* Two beats a cycle, the second softer; then rest */
+@keyframes aika-heart-pulse {
+    0%, 40%, 100% {
+        opacity: var(--aika-loader-rest);
+        transform: scale(0.7);
+    }
+    7% {
+        opacity: 1;
+        transform: scale(1);
+    }
+    15% {
+        opacity: 0.4;
+        transform: scale(0.8);
+    }
+    23% {
+        opacity: 0.85;
+        transform: scale(0.95);
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .aika-loader > i {
+        animation: none;
+        opacity: 0.7;
+    }
+}

@@ -1,22 +1,22 @@
 /* ==========================================================================
    components/url-capsule.css — the page address over store and community
-   pages in the compact header ("Compact header: Compact", author 2026-10-16).
-   js/url-capsule.js builds it; without the compact option it isn't built.
+   pages, in both header modes (author 2026-10-16). js/url-capsule.js builds it.
 
    The client's own address strip lives in the window's DOM, which can't lie
    over these pages (they are a native layer above it), so the address is
-   drawn inside the page: top left, at the store menu's height from the top
-   and as tall as it, in the same material — a sibling capsule.
+   drawn inside the page: top left, a small capsule centered on the line of
+   the store menu capsule, in its material.
      .aika-url-capsule
        > button.aika-url-reload   — reloads the page
        > .aika-url-lock           — https
        > button.aika-url-text    — the address; a click copies it
-   Static: no motion of its own (hover only changes colors).
+   Static: no motion of its own (hover only changes colors). Loading shows in
+   the client's top bar (components/loader.css).
    ========================================================================== */
 
 .aika-url-capsule {
     position: fixed;
-    top: var(--aika-storebar-top);
+    top: calc(var(--aika-storebar-top) + (var(--aika-storebar-height) - var(--aika-url-capsule-height)) / 2);
     left: var(--aika-url-capsule-left);
     z-index: var(--aika-z-url-capsule);
     box-sizing: border-box;
@@ -25,9 +25,9 @@
     gap: var(--aika-space-1);
     width: var(--aika-url-room, var(--aika-url-capsule-width));
     max-width: var(--aika-url-capsule-width);
-    height: var(--aika-storebar-height);
-    padding-inline: calc((var(--aika-storebar-height) - var(--aika-url-reload)) / 2) var(--aika-space-4);
-    border-radius: var(--aika-radius-xl);
+    height: var(--aika-url-capsule-height);
+    padding-inline: calc((var(--aika-url-capsule-height) - var(--aika-url-reload)) / 2) var(--aika-space-3);
+    border-radius: var(--aika-radius-full);
     background: var(--aika-storebar-material);
     backdrop-filter: var(--aika-player-blur);
     box-shadow:
@@ -35,7 +35,8 @@
         var(--aika-highlight-top),
         var(--aika-shadow-menu);
     font-family: var(--aika-font-mono);
-    font-size: var(--aika-text-meta);
+    font-size: var(--aika-url-text);
+    line-height: 1;
     color: var(--aika-fg-muted);
 }
 
@@ -72,8 +73,8 @@
 .aika-url-lock {
     content: "";
     display: block;
-    width: var(--aika-icon-inline);
-    height: var(--aika-icon-inline);
+    width: var(--aika-url-icon);
+    height: var(--aika-url-icon);
     margin: auto;
     background: currentColor;
     -webkit-mask: var(--aika-icon-reload) center / contain no-repeat;

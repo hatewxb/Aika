@@ -4,7 +4,7 @@
 // the 3D tilt of library covers ("Library covers" setting), the achievement bars
 // filling in on a game page, the curtain between pages, the "+" as a
 // floating action button, the compact header balance, the theme settings in
-// Russian.
+// Russian, the page loading dots.
 import "./boot-reveal.js";
 import "./spotlight.js";
 import "./menu-gap.js";
@@ -15,3 +15,4 @@ import "./page-curtain.js";
 import "./fab.js";
 import "./header-compact.js";
 import "./settings-l10n.js";
+import "./page-loading.js";
