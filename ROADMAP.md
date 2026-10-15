@@ -383,6 +383,24 @@
 
 ## Next (in order)
 
+### Backlog from the author (2026-10-16) — for later, not now
+
+- [ ] **1. Trailer player controls** (store game page, the trailer viewer):
+      add an "Options" button and a volume slider to the player capsule.
+- [ ] **2. Fixes from screenshots 28 and 29** (SSforClaude/28.png, 29.png).
+- [ ] **3. Settings items that are listed but not implemented yet** — go
+      through the settings structure (SSforClaude/strucsettings.txt, the
+      "*" placeholders) and implement what is still missing.
+- [ ] **4. Finish the Balanced preset**: decide together which animations
+      go and how to balance the rest; follow
+      docs.steambrew.app/themes/advanced/performance.
+- [ ] **5. Styling for popular Millennium plugins** — such as Extendium and
+      How Long To Beat.
+- [ ] **6. Finish styling the Millennium settings pages** in the Steam client.
+- [ ] **7. Linux optimization** — much later (a few updates from now), but
+      keep it in the plan.
+- [ ] **8. More color presets** — such as Fluent, Dark, Light and others.
+
 ### Next session (from 2026-10-13): a few more author's fixes, then a release
 
 Stopped 2026-10-12 after the library floating icons (31e15d8). Since the last
