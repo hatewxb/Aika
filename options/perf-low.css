@@ -134,6 +134,42 @@ html:root:root {
     --aika-login-haze-blur: 0px;
     --aika-toast-tint: var(--aika-bg-elevated);
     --aika-toast-sheen: var(--aika-transparent);
+
+    /* No glow (author 2026-10-16): the glow colors are see-through, so every
+       halo shadow built on them (buttons, "Play", toggles, cards, the hero,
+       the section marks, dots, the PIN caret) paints nothing; the accent
+       hairline rings and the focus ring stay. The light washes on store pages
+       and the sign-in haze are gone too; the background light spots stay */
+    --aika-accent-glow: var(--aika-transparent);
+    --aika-accent-haze: var(--aika-transparent);
+    --aika-play-glow: var(--aika-transparent);
+    --aika-play-glow-pink: var(--aika-transparent);
+    --aika-range-glow: var(--aika-transparent);
+    --aika-banner-glow-soft: var(--aika-transparent);
+    --aika-cine-sale-haze: var(--aika-transparent);
+    --aika-store-app-glow: none;
+    --aika-store-queue-glow: none;
+    --aika-explore-glow: none;
+    --aika-login-haze: none;
+}
+
+/* Glow filters (drop shadows in the accent): the notification dot, the
+   Family View card on the web, the sign-in spinner, the event dot */
+html:root .NotificationsMenu :is(.AllNotificationsTemplate, .StandardTemplateDesktop, .PinnedTemplateDesktop) .NewIndicator,
+html:root body #parental_main_content form > div::before,
+html:root .Login .SpinnerLoaderContainer::before,
+html:root .Login .SpinnerLoaderContainer::after,
+html:root body .QFW0BtI4l77AFmv1xLAkx ._1pIhbqWsrCVPaGGYc6fT-H {
+    filter: none;
+}
+
+/* The accent glow color doubled as a fill in two places — a solid tint instead */
+html:root ::selection {
+    background: var(--aika-accent-dim);
+}
+
+html:root .Spotlights .ReviewContainer button.ReviewThumbButton:hover {
+    background: var(--aika-accent-dim);
 }
 
 /* Cursor glow layers (as options/spotlight-off.css, plus the store home ones) */
