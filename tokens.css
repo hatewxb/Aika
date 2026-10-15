@@ -471,6 +471,11 @@
     --aika-lift-md: -4px;        /* card hover (≤ 6 px, DESIGN.md §7.3) */
     --aika-nudge: 2px;           /* the → arrow shift on hover */
     --aika-press-scale: 0.98;
+    /* "Play" keeps its hover rise and press in "Performance: Low" (author
+       2026-10-16) — own tokens, since Low zeroes the shared ones */
+    --aika-play-lift: -1px;
+    --aika-play-press: 0.98;
+    --aika-play-move: 250ms;
     --aika-appear-scale: 0.97;   /* the starting menu scale */
     --aika-appear-shift: 12px;   /* fade up when blocks appear */
     --aika-menu-shift: 4px;      /* menu appearance */

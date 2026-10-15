@@ -20,11 +20,10 @@
   const COVERS = ".Draggable.HoversEnabled .LibraryItemBox";
   const PROPS = ["--aika-tilt-rx", "--aika-tilt-ry", "--aika-tilt-s", "--aika-tilt-lx", "--aika-tilt-ly", "--aika-tilt-on"];
   const root = document.documentElement;
-  // The "3D tilt" option, and not "Performance: Low" (--aika-motion: 0)
-  const enabled = () => {
-    const css = getComputedStyle(root);
-    return css.getPropertyValue("--aika-covers-mode").trim() === "tilt" && css.getPropertyValue("--aika-motion").trim() !== "0";
-  };
+  const enabled = () => getComputedStyle(root).getPropertyValue("--aika-covers-mode").trim() === "tilt";
+  // "Performance: Low" (--aika-motion: 0): the handlers go away for good
+  // (switching back takes a restart)
+  const low = () => getComputedStyle(root).getPropertyValue("--aika-motion").trim() === "0";
   const cssNum = (name, fallback) => {
     const v = parseFloat(getComputedStyle(root).getPropertyValue(name));
     return Number.isFinite(v) ? v : fallback;
@@ -38,6 +37,14 @@
 
   const aim = () => {
     moveFrame = 0;
+    if (low()) {
+      document.removeEventListener("pointermove", onMove, { capture: true });
+      document.removeEventListener("pointerleave", onLeave);
+      live.forEach((_, el) => PROPS.forEach((p) => el.style.removeProperty(p)));
+      live.clear();
+      hovered = null;
+      return;
+    }
     const e = lastEvent;
     const t = e && e.target instanceof Element && enabled() ? e.target.closest(COVERS) : null;
     if (hovered && hovered !== t) live.get(hovered).target = flat();   // released: ease back
@@ -85,9 +92,11 @@
   };
 
   if (matchMedia("(prefers-reduced-motion: reduce)").matches) return;
-  document.addEventListener("pointermove", (e) => {
+  function onMove(e) {
     lastEvent = e;
     if (!moveFrame) moveFrame = requestAnimationFrame(aim);
-  }, { passive: true, capture: true });
-  document.addEventListener("pointerleave", () => { lastEvent = null; aim(); });
+  }
+  function onLeave() { lastEvent = null; aim(); }
+  document.addEventListener("pointermove", onMove, { passive: true, capture: true });
+  document.addEventListener("pointerleave", onLeave);
 })();

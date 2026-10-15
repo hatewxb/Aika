@@ -32,7 +32,8 @@
 
   const update = () => {
     frame = 0;
-    if (off()) return;
+    // In Low the handler goes away for good (switching back takes a restart)
+    if (off()) { document.removeEventListener("pointermove", onMove, { capture: true }); return; }
     const e = lastEvent;
     const t = e && e.target instanceof Element ? e.target.closest(SURFACES) : null;
     if (!t) { lastTarget = null; return; }
@@ -42,8 +43,9 @@
     lastTarget = t;
   };
 
-  document.addEventListener("pointermove", (e) => {
+  function onMove(e) {
     lastEvent = e;
     if (!frame) frame = requestAnimationFrame(update);
-  }, { passive: true, capture: true });
+  }
+  document.addEventListener("pointermove", onMove, { passive: true, capture: true });
 })();

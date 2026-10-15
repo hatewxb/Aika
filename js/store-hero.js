@@ -114,7 +114,12 @@ const basePurchase = () => {
   return wraps.find((w) => !w.classList.contains("dynamic_bundle_description")) || wraps[0] || null;
 };
 
+// "Performance: Low" (--aika-effects: 0, author 2026-10-16): no trailers — the
+// first screenshot (1920×1080; Steam serves no 720p) stands in for them
+const lowEffects = () => getComputedStyle(document.documentElement).getPropertyValue("--aika-effects").trim() === "0";
+
 const posterUrl = (props) =>
+  (lowEffects() && props.shots[0]?.full) ||
   $(".game_page_background_ctn img.gameColor")?.src ||
   props.shots[0]?.full || null;
 

@@ -106,6 +106,34 @@ html:root a.aika-shot:hover .aika-shot-img {
     transform: none;
 }
 
+/* The one exception: "Play" keeps its small hover rise and press, animated
+   (author 2026-10-16; --aika-play-* in tokens.css) */
+html:root .PlayBar .PlayButtonContainer .PlayButton {
+    transition: transform var(--aika-play-move) var(--aika-ease);
+}
+
+html:root .PlayBar .PlayButtonContainer .PlayButton:not(.Disabled, :disabled):hover {
+    transform: translateY(var(--aika-play-lift));
+}
+
+html:root .PlayBar .PlayButtonContainer .PlayButton:not(.Disabled, :disabled):active {
+    transform: scale(var(--aika-play-press));
+}
+
+/* No grid and noise layer over the background (background.css, body::after) */
+html:root body::after {
+    display: none;
+}
+
+/* The store home flat: the side capsules of the main carousel are not turned
+   away in perspective, the gift card fan doesn't tilt */
+html:root {
+    --aika-home-depth: translate(0);
+    --aika-home-side-turn: 0deg;
+    --aika-home-side-scale: 1;
+    --aika-gift-tilt: 0deg;
+}
+
 /* No complex effects — plain Fluent surfaces (author 2026-10-16):
      - no backdrop blur: the translucent materials (floating library icons,
        store arrows and badges, the trailer player, web dialogs) turn solid;

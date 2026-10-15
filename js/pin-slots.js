@@ -117,13 +117,32 @@
   // giving up there left the dialog without cells after a restart.
   const web = /^(store\.steampowered|steamcommunity)\.com$/.test(location.hostname);
   const watched = new WeakSet();
-  const watchOverlays = () => document.querySelectorAll(".FullModalOverlay").forEach((o) => {
-    if (watched.has(o)) return;
-    watched.add(o);
-    new MutationObserver(scan).observe(o, { childList: true, subtree: true });
-  });
-  const timer = setInterval(() => { if (!web) watchOverlays(); scan(); }, 500);
-  if (!web) watchOverlays();
-  scan();
+  // Returns how many overlays are watched now
+  const watchOverlays = () => {
+    let n = 0;
+    document.querySelectorAll(".FullModalOverlay").forEach((o) => {
+      n++;
+      if (watched.has(o)) return;
+      watched.add(o);
+      new MutationObserver(scan).observe(o, { childList: true, subtree: true });
+    });
+    return n;
+  };
+  // Client: twice a second only until the overlay is watched, then a slow
+  // safety net (the observer catches the dialog; a re-rendered overlay is
+  // picked up within SLOW_CHECK)
+  const SLOW_CHECK = 5000;
+  let timer = 0;
+  const look = () => {
+    const found = !web && watchOverlays() > 0;
+    scan();
+    if (found && timer && !look.slow) {
+      clearInterval(timer);
+      look.slow = true;
+      timer = setInterval(look, SLOW_CHECK);
+    }
+  };
+  timer = setInterval(look, 500);
+  look();
   if (web) setTimeout(() => { if (!document.querySelector(".aika-pin-slots")) clearInterval(timer); }, WEB_GIVE_UP);
 })();
