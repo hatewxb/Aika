@@ -85,6 +85,25 @@ html:root {
     --aika-boot-fade: 0s;
     --aika-toast-dur-leave: 0s;
     --aika-pin-blink: 0s;
+
+    /* No hover movement either: without a transition a lift or a zoom would
+       only jump — cards, covers, buttons and arrows stay in place */
+    --aika-lift-sm: 0px;
+    --aika-lift-md: 0px;
+    --aika-press-scale: 1;
+    --aika-nudge: 0px;
+    --aika-explore-nudge: 0px;
+    --aika-home-zoom: 1;
+    --aika-covers-zoom: 1;
+    --aika-tilt-lift: 1;
+    --aika-dock-hover-scale: 1;
+    --aika-menu-icon-hover: 1;
+    --aika-check-hover: 1;
+    --aika-check-press: 1;
+}
+
+html:root a.aika-shot:hover .aika-shot-img {
+    transform: none;
 }
 
 /* No complex effects — plain Fluent surfaces (author 2026-10-16):
