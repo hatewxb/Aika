@@ -192,7 +192,9 @@
 
   const scrollShelf = (shelf, dir) => {
     const t = shelf.querySelector(".aika-shelf-track");
-    t.scrollBy({ left: dir * t.clientWidth * 0.85, behavior: "smooth" });
+    // "Performance: Low" (--aika-motion: 0) — a plain jump
+    const still = getComputedStyle(document.documentElement).getPropertyValue("--aika-motion").trim() === "0";
+    t.scrollBy({ left: dir * t.clientWidth * 0.85, behavior: still ? "auto" : "smooth" });
   };
 
   const buildShelf = (game) => {

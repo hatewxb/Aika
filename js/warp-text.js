@@ -103,6 +103,7 @@ const parseShadow = (s) => {
 export function warpText(el) {
   if (!el || el.dataset.aikaWarp != null) return;
   if (matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+  if (getComputedStyle(document.documentElement).getPropertyValue("--aika-motion").trim() === "0") return;   // "Performance: Low"
   const canvas = document.createElement("canvas");
   canvas.className = "aika-warp-canvas";
   canvas.setAttribute("aria-hidden", "true");

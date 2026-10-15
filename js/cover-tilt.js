@@ -20,7 +20,11 @@
   const COVERS = ".Draggable.HoversEnabled .LibraryItemBox";
   const PROPS = ["--aika-tilt-rx", "--aika-tilt-ry", "--aika-tilt-s", "--aika-tilt-lx", "--aika-tilt-ly", "--aika-tilt-on"];
   const root = document.documentElement;
-  const enabled = () => getComputedStyle(root).getPropertyValue("--aika-covers-mode").trim() === "tilt";
+  // The "3D tilt" option, and not "Performance: Low" (--aika-motion: 0)
+  const enabled = () => {
+    const css = getComputedStyle(root);
+    return css.getPropertyValue("--aika-covers-mode").trim() === "tilt" && css.getPropertyValue("--aika-motion").trim() !== "0";
+  };
   const cssNum = (name, fallback) => {
     const v = parseFloat(getComputedStyle(root).getPropertyValue(name));
     return Number.isFinite(v) ? v : fallback;

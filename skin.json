@@ -132,7 +132,7 @@
             }
         },
         "Performance": {
-            "description": "How much the theme moves on its own. Full: everything as designed (the default; already tuned to cost as little as it can). Balanced: the background light spots and the decorative loops (the calendar's Today light, glares, the Play shimmer) rest, the animated store backgrounds draw 30 frames a second. Low: as Balanced, and the animated store backgrounds hold still after they appear, the light spots drop their blur. Hovers, menus and page transitions stay in every mode.",
+            "description": "How much the theme moves on its own. Full: everything as designed (the default; already tuned to cost as little as it can). Balanced: the background light spots and the decorative loops (the calendar's Today light, glares, the Play shimmer) rest, the animated store backgrounds draw 30 frames a second. Hovers, menus and page transitions stay in Full and Balanced. Low: no Aika motion and no heavy effects at all — every look stays, but nothing the theme added moves (only Steam's own animations remain); the light spots are one still picture, no backdrop blur, no glass on notifications, no animated store backgrounds, no trailers playing behind the Cinematic page.",
             "tab": "Main",
             "default": "Full",
             "values": {

@@ -38,7 +38,14 @@ const T = RU
 
 const FADE_MS = 1200;      // trailer crossfade (matches --aika-cine-fade in tokens.css)
 const PRELOAD_S = 8;       // start loading the next trailer this long before the end
-const reducedMotion = matchMedia("(prefers-reduced-motion: reduce)");
+// Reduced motion or "Performance: Low" (--aika-motion: 0): no autoplaying
+// trailers, no smooth scrolling — the poster and plain jumps
+const reducedQuery = matchMedia("(prefers-reduced-motion: reduce)");
+const reducedMotion = {
+  get matches() {
+    return reducedQuery.matches || getComputedStyle(document.documentElement).getPropertyValue("--aika-motion").trim() === "0";
+  },
+};
 
 // ---------------------------------------------------------------------------
 // Small DOM helpers

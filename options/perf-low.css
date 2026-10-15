@@ -1,22 +1,147 @@
 /* ==========================================================================
    "Performance: Low" (theme settings → "Main") — for weak machines.
-   Balanced, plus: the WebGL backgrounds (search aurora, wishlist veil) play
-   their intro and then hold that frame, and the three background light spots
-   become one static layer: html::before covers the window and paints all
-   three as radial gradients (--aika-perf-spots, colors.css) — no blur, no
-   transform, no will-change; html::after and body::before are not generated.
-   The spots keep their places, colors and opacities.
-   Hovers, openings and menus are untouched.
-   Only windows with background.css generate html::before (it sets content);
-   menu, notification and sign-in windows don't, so nothing appears there.
+   No Aika motion at all: every look stays (shapes, colors, light), but
+   nothing the theme added moves — Steam's own animations are left as they are.
+     - CSS: every Aika duration, delay and stagger token is zero, so our
+       animations and transitions land on their final state at once (a
+       zero-length animation has no active phase, infinite loops included);
+       the scroll-driven ones (they ignore durations) are switched off below.
+     - JS: --aika-motion: 0 — the scripts take their "reduce motion" path:
+       no loading curtain, no page curtain, no cursor glow / tilt / magnet,
+       titles and counters shown as is, the WebGL backgrounds draw one still
+       frame, no autoplaying trailers, notifications move the Steam way.
+     - The three background light spots are one static layer: html::before
+       covers the window and paints them as radial gradients (--aika-perf-spots,
+       colors.css) — no blur, no transform, no will-change; html::after and
+       body::before are not generated. Only windows with background.css
+       generate html::before (it sets content), so menus, notifications and
+       the sign-in window get nothing.
+   Kept: the "no script" fallback delays (they only reveal content).
+   Option files load before the theme entry: selectors carry an extra :root.
    ========================================================================== */
 
 @import url("./perf-balanced.css");
 
-:root {
+html:root {
     --aika-gl-still: 1;
+    --aika-motion: 0;
+
+    --aika-dur-fast: 0s;
+    --aika-dur-base: 0s;
+    --aika-dur-enter: 0s;
+    --aika-dur-expand: 0s;
+    --aika-delay-expand-overflow: 0s;
+    --aika-dur-ambient: 0s;
+    --aika-dur-ambient-alt: 0s;
+    --aika-dur-ambient-short: 0s;
+    --aika-dur-shimmer: 0s;
+    --aika-dur-spin: 0s;
+    --aika-dur-pulse: 0s;
+    --aika-dur-play-flow: 0s;
+    --aika-stagger: 0s;
+
+    --aika-price-shine-dur: 0s;
+    --aika-cine-fade: 0s;
+    --aika-split-dur: 0s;
+    --aika-split-stagger: 0s;
+    --aika-fold-dur: 0s;
+    --aika-fold-stagger: 0s;
+    --aika-check-in: 0s;
+    --aika-check-out: 0s;
+    --aika-roll-dur: 0s;
+    --aika-wl-dur: 0s;
+    --aika-wl-stagger: 0s;
+    --aika-card-flip: 0s;
+
+    --aika-home-today-spin: 0s;
+    --aika-home-shine-dur: 0s;
+    --aika-home-shine-every: 0s;
+    --aika-home-takeover-dur: 0s;
+    --aika-banner-sweep-dur: 0s;
+    --aika-banner-sweep-delay: 0s;
+    --aika-slot-cascade: 0s;
+    --aika-slot-wash: 0s;
+    --aika-slot-in: 0s;
+    --aika-slot-in-delay: 0s;
+
+    --aika-fab-dur: 0s;
+    --aika-fab-stagger: 0s;
+    --aika-menu-item-stagger: 0s;
+    --aika-cardnav-dur: 0s;
+    --aika-cardnav-item-dur: 0s;
+    --aika-cardnav-item-delay: 0s;
+    --aika-cardnav-card-dur: 0s;
+    --aika-cardnav-card-delay: 0s;
+    --aika-cardnav-card-stagger: 0s;
+    --aika-cardnav-notice-stagger: 0s;
+    --aika-dialog-delay: 0s;
+    --aika-dialog-stagger: 0s;
+    --aika-dialog-cell-stagger: 0s;
+    --aika-dialog-settle: 0s;
+
+    --aika-login-spin: 0s;
+    --aika-login-ripple-dur: 0s;
+    --aika-login-caret: 0s;
+    --aika-boot-fade: 0s;
+    --aika-toast-dur-leave: 0s;
+    --aika-pin-blink: 0s;
 }
 
+/* No complex effects — plain Fluent surfaces (author 2026-10-16):
+     - no backdrop blur: the translucent materials (floating library icons,
+       store arrows and badges, the trailer player, web dialogs) turn solid;
+     - no blurred cover copies behind cards and banners (hidden);
+     - no glow shadows on the store logo and price;
+     - notifications: a solid card — no hyalite glass (js/toast-glass.js,
+       --aika-effects: 0), no glare; the wordmark and spots stay as a picture;
+     - the WebGL backgrounds are not created at all (--aika-effects: 0);
+     - no cursor glow layers (blended spots, Border Glow rims) — below.
+   Colors here are only references to the palette (no new values).
+   html:root:root — colors.css sets these on html:root */
+html:root:root {
+    --aika-effects: 0;
+    --aika-player-blur: none;
+    --aika-web-modal-blur: none;
+    --aika-player-material: var(--aika-bg-raised);
+    --aika-dock-material: var(--aika-bg-raised);
+    --aika-dock-material-hover: var(--aika-bg-hover);
+    --aika-storebar-material: var(--aika-bg-elevated);
+    --aika-blur-cover-filter: opacity(0);
+    --aika-blur-cover-neutral: opacity(0);
+    --aika-store-logo-shadow: none;
+    --aika-price-drop: none;
+    --aika-price-sale-drop: none;
+    --aika-banner-glow-shadow: none;
+    --aika-login-haze-blur: 0px;
+    --aika-toast-tint: var(--aika-bg-elevated);
+    --aika-toast-sheen: var(--aika-transparent);
+}
+
+/* Cursor glow layers (as options/spotlight-off.css, plus the store home ones) */
+html:root :is(.AppDetailsSection, .PartnerEventRowCapsule_Container.HoversEnabled, .CSSGrid.Grid .Collection)::after,
+html:root .aika-card::before,
+html:root body.v6 :is(
+    #home_maincap_v7 .store_main_capsule.focus,
+    #module_discounts_and_events .carousel__inner-slide a,
+    .personal_calendar_ctn .carousel__inner-slide > div,
+    .home_discounts_block,
+    .community_recommendation_app,
+    .home_content.single,
+    .tab_preview.focus
+)::before,
+html:root body.v6 :is(.has_takeover > .home_page_takeover_link, a.home_page_takeunder)::before,
+html:root body.v6 :is(.has_takeover > .home_page_takeover_link, a.home_page_takeunder)::after {
+    display: none;
+}
+
+/* Scroll-driven animations follow the scroll, not a duration */
+html:root .TopCapsule .HeaderBackgroundImage .ImgContainer,
+html:root:root body.v6 .aika-pop-near,
+html:root body.v6 .has_takeover > :is(.fullscreen-bg, .static_takeover_ctn, .home_page_takeover_link) {
+    animation: none;
+}
+
+/* The light spots: one static layer */
 html:root::before {
     inset: 0;
     width: auto;

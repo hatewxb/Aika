@@ -25,6 +25,11 @@
   if (window.__aikaStoreHome) return;
   window.__aikaStoreHome = true;
 
+  // Reduced motion or "Performance: Low" (--aika-motion: 0): no cursor
+  // effects, the title as is, no scroll pop-up
+  const still = matchMedia("(prefers-reduced-motion: reduce)").matches
+    || getComputedStyle(document.documentElement).getPropertyValue("--aika-motion").trim() === "0";
+
   const SURFACES = [
     "#home_maincap_v7 .store_main_capsule.focus",           // "Featured & Recommended"
     "#module_discounts_and_events .carousel__inner-slide a", // "Specials & events" tiles
@@ -81,21 +86,23 @@
     setMagnet(m, clamp(e.clientX - (r.left + r.width / 2)), clamp(e.clientY - (r.top + r.height / 2)));
   };
 
-  document.addEventListener("pointermove", (e) => {
-    lastEvent = e;
-    if (!frame) frame = requestAnimationFrame(update);
-  }, { passive: true, capture: true });
-  document.addEventListener("pointerleave", () => {
-    if (magnet) setMagnet(magnet, 0, 0);
-    magnet = null;
-  });
+  if (!still) {
+    document.addEventListener("pointermove", (e) => {
+      lastEvent = e;
+      if (!frame) frame = requestAnimationFrame(update);
+    }, { passive: true, capture: true });
+    document.addEventListener("pointerleave", () => {
+      if (magnet) setMagnet(magnet, 0, 0);
+      magnet = null;
+    });
+  }
 
   // ------------------------------------------------------- staggered title
   const splitTitle = () => {
     const t = document.getElementById("home_featured_and_recommended");
     if (!t || "aikaSplit" in t.dataset) return;
     // Not splitting: show Steam's title right away (CSS holds it hidden until then)
-    if (t.children.length || matchMedia("(prefers-reduced-motion: reduce)").matches) { t.classList.add("aika-split-skip"); return; }
+    if (t.children.length || still) { t.classList.add("aika-split-skip"); return; }
     const text = t.textContent.trim();
     t.dataset.aikaSplit = "";
     t.setAttribute("aria-label", text);
@@ -141,7 +148,10 @@
   // 2026-10-13: the page stuttered). Here only the cards within a screen of the
   // window get .aika-pop-near (and so a timeline); an IntersectionObserver with
   // a one-screen margin adds / removes it. The motion itself is unchanged.
-  if (CSS.supports("animation-timeline: view()")) {
+  // Still: .aika-pop-js alone (no card ever gets .aika-pop-near) turns the
+  // CSS fallback off, so no card carries a timeline
+  if (still) document.documentElement.classList.add("aika-pop-js");
+  else if (CSS.supports("animation-timeline: view()")) {
     const POP = [
       ".title_grid", ".home_tabs_row_ctn", "#content_more .home_content > h2",
       ".main_content_ctn .Panel:has(> .WidgetHeaderCtn)",

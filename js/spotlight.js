@@ -26,8 +26,13 @@
   let lastEvent = null;
   let lastTarget = null;
 
+  const root = document.documentElement;
+  // "Performance: Low" (--aika-motion: 0) — the glow stays where CSS puts it
+  const off = () => getComputedStyle(root).getPropertyValue("--aika-motion").trim() === "0";
+
   const update = () => {
     frame = 0;
+    if (off()) return;
     const e = lastEvent;
     const t = e && e.target instanceof Element ? e.target.closest(SURFACES) : null;
     if (!t) { lastTarget = null; return; }

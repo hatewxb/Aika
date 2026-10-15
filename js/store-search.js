@@ -27,7 +27,9 @@
   window.__aikaStoreSearch = true;
 
   const root = document.documentElement;
-  const reduced = matchMedia("(prefers-reduced-motion: reduce)").matches;
+  // Reduced motion or "Performance: Low" (--aika-motion: 0): the still path
+  const reduced = matchMedia("(prefers-reduced-motion: reduce)").matches
+    || getComputedStyle(root).getPropertyValue("--aika-motion").trim() === "0";
   root.classList.add("aika-search-js");
 
   const ready = (fn) => document.readyState === "loading" ? document.addEventListener("DOMContentLoaded", fn, { once: true }) : fn();
@@ -488,7 +490,8 @@ void main() {
     currency();
     const rows = document.getElementById("search_resultsRows");
     if (rows) new MutationObserver(() => currency(rows)).observe(rows, { childList: true, subtree: true });
-    aurora();   // with reduced motion: one still frame
+    // with reduced motion: one still frame; "Performance: Low" (--aika-effects: 0): none
+    if (cssVar("--aika-effects") !== "0") aurora();
     // Filter blocks expand / tags load later — new checkboxes
     const side = document.querySelector(".rightcol") || document.body;
     new MutationObserver((recs) => { if (recs.some((r) => r.addedNodes.length)) checkboxes(side); }).observe(side, { childList: true, subtree: true });

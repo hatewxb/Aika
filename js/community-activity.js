@@ -21,7 +21,9 @@
   window.__aikaCommunityActivity = true;
 
   const root = document.documentElement;
-  const reduced = matchMedia("(prefers-reduced-motion: reduce)").matches;
+  // Reduced motion or "Performance: Low" (--aika-motion: 0): the still path
+  const reduced = matchMedia("(prefers-reduced-motion: reduce)").matches
+    || getComputedStyle(root).getPropertyValue("--aika-motion").trim() === "0";
   const cssNum = (name, fallback) => { const v = parseFloat(getComputedStyle(root).getPropertyValue(name)); return Number.isFinite(v) ? v : fallback; };
   const ready = (fn) => document.readyState === "loading" ? document.addEventListener("DOMContentLoaded", fn, { once: true }) : fn();
   const whenShown = (fn) => {

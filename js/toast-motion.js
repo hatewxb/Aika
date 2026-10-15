@@ -219,8 +219,11 @@ if (steam?.requestAnimationFrame && win?.MoveTo) {
                 if (enterStart === null && (windowMoved || now - cardSeen > ENTER_WAIT_MS)) enterStart = now;
                 const me = findEntry();
                 if (me && me.m_eState >= LEAVING && leaveStart === null) leaveStart = now;
-                const inP = enterStart === null ? 0 : tk.easeIn(Math.min(1, (now - enterStart) / tk.enterMs));
-                const outP = leaveStart === null ? 0 : tk.easeOut(Math.min(1, (now - leaveStart) / tk.leaveMs));
+                // --aika-motion: 0 (reduced motion, "Performance: Low"): the card is
+                // simply there and leaves with Steam's window (MoveTo is passed through)
+                const still = tk.motion === 0;
+                const inP = still ? 1 : enterStart === null ? 0 : tk.easeIn(Math.min(1, (now - enterStart) / tk.enterMs));
+                const outP = still || leaveStart === null ? 0 : tk.easeOut(Math.min(1, (now - leaveStart) / tk.leaveMs));
                 paintCard(tk, inP, outP);
                 stepSpring(dt);
                 if (me && me.m_eState >= FINISHED) return;     // window hidden — the loop is no longer needed

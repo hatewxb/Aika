@@ -42,7 +42,8 @@ new MutationObserver(scan).observe(document.body, { childList: true, subtree: tr
 
 // The card is small (283×70): a narrow bevel so the wordmark and spots
 // bend near the edge while the middle stays flat.
-glass.watch(document.body, ".aika-toast-scene", {
+// "Performance: Low" (--aika-effects: 0): no glass — the scene stays a plain picture
+if (getComputedStyle(document.documentElement).getPropertyValue("--aika-effects").trim() !== "0") glass.watch(document.body, ".aika-toast-scene", {
     self: true,
     bevel: 20,
     thickness: 34,

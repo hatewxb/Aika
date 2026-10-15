@@ -44,7 +44,7 @@ Steam's light blue. The theme doesn't change any Steam text, only the look.
 - **Library covers** that tilt toward the cursor in 3D, and floating library icons.
 - **Privacy blur** for the wallet balance in the account menu until you hover it.
 - **Top bar tabs centered** (can be moved back to the left).
-- **Performance** setting: Full by default; Balanced and Low calm the ambient motion for weaker machines.
+- **Performance** setting: Full by default; Balanced calms the ambient motion; Low turns off every Aika animation and heavy effect (blur, glass, WebGL) and keeps the plain Fluent look for weaker machines.
 
 ## Screenshots
 

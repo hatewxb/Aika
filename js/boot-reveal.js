@@ -23,7 +23,9 @@
   if (!shared || shared.__aikaBootShown || window.__aikaBoot) return;
   shared.__aikaBootShown = true;
   window.__aikaBoot = true;
-  if (matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+  // Reduced motion or "Performance: Low" (--aika-motion: 0) — no curtain
+  if (matchMedia("(prefers-reduced-motion: reduce)").matches
+    || getComputedStyle(document.documentElement).getPropertyValue("--aika-motion").trim() === "0") return;
 
   const root = document.documentElement;
   const cssNum = (name, fallback) => {

@@ -26,7 +26,9 @@
   window.__aikaStoreWishlist = true;
 
   const root = document.documentElement;
-  const reduced = matchMedia("(prefers-reduced-motion: reduce)").matches;
+  // Reduced motion or "Performance: Low" (--aika-motion: 0): the still path
+  const reduced = matchMedia("(prefers-reduced-motion: reduce)").matches
+    || getComputedStyle(root).getPropertyValue("--aika-motion").trim() === "0";
   const cssVar = (name) => getComputedStyle(root).getPropertyValue(name).trim();
   const cssNum = (name, fallback) => { const v = parseFloat(cssVar(name)); return Number.isFinite(v) ? v : fallback; };
   const ready = (fn) => document.readyState === "loading" ? document.addEventListener("DOMContentLoaded", fn, { once: true }) : fn();
@@ -487,8 +489,8 @@ void main() {
       queued = 0;
       const app = document.getElementById("StoreTemplate");
       if (!app) return;
-      if (!veilBox) veil();
-      else if (!veilBox.isConnected) document.body.prepend(veilBox);
+      if (!veilBox && cssVar("--aika-effects") !== "0") veil();   // "Performance: Low": no veil
+      else if (veilBox && !veilBox.isConnected) document.body.prepend(veilBox);
       if (!titled?.isConnected) titled = title() ? findTitle() : null;
       currency(app);
     };

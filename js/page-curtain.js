@@ -103,7 +103,7 @@
   };
 
   const handler = (kind, args, run) => {
-    if (reduced.matches || !document.querySelector(".ContentFrame")) return false;
+    if (reduced.matches || cssNum("--aika-motion", 1) === 0 || !document.querySelector(".ContentFrame")) return false;
     if (kind === "push" && pathOf(args[0]) === history.location.pathname) return false;
     if (busy) {   // a second click mid-way: it runs once this one is through
       pending?.[2]();
