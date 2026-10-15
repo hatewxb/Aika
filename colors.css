@@ -308,6 +308,11 @@ html:root {
             rgb(from var(--aika-light-3) r g b / calc(var(--aika-light-3-opacity) * 0.5)) var(--aika-perf-spot-half),
             rgb(from var(--aika-light-3) r g b / 0) 100%);
 
+    /* "Heart Pulse" in the address capsule (components/url-capsule.css): an alpha mask —
+       a dot between beats shows at 0.3, a lit ring in full */
+    --aika-loader-mask-on: #000;
+    --aika-loader-mask-rest: rgba(0, 0, 0, 0.3);
+
     /* Fully transparent — to "remove" Steam backgrounds without bare values */
     --aika-transparent: rgb(from var(--aika-ink) r g b / 0);
 }

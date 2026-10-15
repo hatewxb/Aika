@@ -44,9 +44,8 @@
       Hidden in every header mode (author 2026-10-16): the address floats over
       the page instead, as a small capsule beside the store menu — drawn inside
       the page by js/url-capsule.js (components/url-capsule.css), since nothing
-      of the window's DOM can lie over those native pages. Loading shows as a
-      Heart Pulse dot matrix after ← → in the top bar (js/page-loading.js,
-      components/loader.css), which watches this hidden bar for the .Spinner.
+      of the window's DOM can lie over those native pages. Loading shows in that
+      capsule (a Heart Pulse dot matrix).
       The library keeps an empty strip of the same height (.URLBarReplacement)
       — hidden too, so the content starts under the tabs on every page.
    -------------------------------------------------------------------------- */

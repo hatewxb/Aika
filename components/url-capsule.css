@@ -5,14 +5,31 @@
    The client's own address strip lives in the window's DOM, which can't lie
    over these pages (they are a native layer above it), so the address is
    drawn inside the page: top left, a small capsule centered on the line of
-   the store menu capsule, in its material.
-     .aika-url-capsule
-       > button.aika-url-reload   — reloads the page
+   the store menu capsule, in its material. Its width follows the address,
+   which the script cuts to 8 characters after ".com/".
+     .aika-url-capsule[.is-loading]
+       > button.aika-url-reload   — reloads the page; "Heart Pulse" while loading
        > .aika-url-lock           — https
        > button.aika-url-text    — the address; a click copies it
-   Static: no motion of its own (hover only changes colors). Loading shows in
-   the client's top bar (components/loader.css).
+
+   Loading — "Heart Pulse" (the idea after the Dot Matrix loader of that name,
+   our own code): a dot grid cut to a circle, two rings running out from the
+   center a cycle (lub-dub). One element: the dots are a background, the rings
+   an alpha mask whose radius (a registered --aika-pulse-r) moves.
+     - a page leaving (reload, a link): the script marks the capsule
+       .is-loading, the pulse takes the reload icon's place;
+     - a page arriving: our CSS is there from the first paint, the script only
+       at the full load — until it marks <html> .aika-url-ready, a small round
+       placeholder with the pulse stands in the capsule's place (drawn on
+       <head>'s pseudo-elements: <html> and <body> ones carry the background
+       light). Without the script it goes after --aika-loader-fallback.
    ========================================================================== */
+
+@property --aika-pulse-r {
+    syntax: "<length>";
+    inherits: false;
+    initial-value: 0px;
+}
 
 .aika-url-capsule {
     position: fixed;
@@ -23,8 +40,7 @@
     display: flex;
     align-items: center;
     gap: var(--aika-space-1);
-    width: var(--aika-url-room, var(--aika-url-capsule-width));
-    max-width: var(--aika-url-capsule-width);
+    max-width: var(--aika-url-room, var(--aika-url-capsule-width));
     height: var(--aika-url-capsule-height);
     padding-inline: calc((var(--aika-url-capsule-height) - var(--aika-url-reload)) / 2) var(--aika-space-3);
     border-radius: var(--aika-radius-full);
@@ -90,7 +106,7 @@
 }
 
 .aika-url-text {
-    flex: 1 1 auto;
+    flex: 0 1 auto;
     min-width: 0;
     overflow: hidden;
     text-align: start;
@@ -102,4 +118,93 @@
 .aika-url-capsule .aika-url-text:hover,
 .aika-url-text.is-copied {
     color: var(--aika-fg);
+}
+
+/* --- Heart Pulse ---------------------------------------------------------- */
+
+.aika-url-capsule.is-loading .aika-url-reload {
+    pointer-events: none;
+}
+
+.aika-url-capsule.is-loading .aika-url-reload::before,
+html:not(.aika-url-ready) head::after {
+    width: var(--aika-url-reload);
+    height: var(--aika-url-reload);
+    background:
+        radial-gradient(circle, var(--aika-accent-bright) var(--aika-loader-dot), var(--aika-transparent) calc(var(--aika-loader-dot) + 0.5px))
+        center / var(--aika-loader-step) var(--aika-loader-step);
+    /* Two mask layers, intersected: the circle, and the lit ring over the
+       dimmed rest (one gradient for both pushed the circle edge out with the ring) */
+    -webkit-mask: radial-gradient(circle closest-side, var(--aika-loader-mask-on) 88%, var(--aika-transparent) 100%), radial-gradient(circle,
+            var(--aika-loader-mask-rest) calc(var(--aika-pulse-r) - var(--aika-loader-ring)),
+            var(--aika-loader-mask-on) var(--aika-pulse-r),
+            var(--aika-loader-mask-rest) calc(var(--aika-pulse-r) + var(--aika-loader-ring)));
+    -webkit-mask-composite: source-in;
+    mask: radial-gradient(circle closest-side, var(--aika-loader-mask-on) 88%, var(--aika-transparent) 100%), radial-gradient(circle,
+            var(--aika-loader-mask-rest) calc(var(--aika-pulse-r) - var(--aika-loader-ring)),
+            var(--aika-loader-mask-on) var(--aika-pulse-r),
+            var(--aika-loader-mask-rest) calc(var(--aika-pulse-r) + var(--aika-loader-ring)));
+    mask-composite: intersect;
+    animation: aika-url-pulse var(--aika-loader-period) linear infinite;
+}
+
+/* Lub (a full ring), dub (the second right after), then rest */
+@keyframes aika-url-pulse {
+    0% { --aika-pulse-r: 0px; }
+    22% { --aika-pulse-r: var(--aika-loader-reach); }
+    22.01% { --aika-pulse-r: 0px; }
+    44%, 100% { --aika-pulse-r: var(--aika-loader-reach); }
+}
+
+/* The placeholder while the page loads, until the script builds the capsule */
+html:not(.aika-url-ready) head {
+    display: block;
+    position: fixed;
+    width: 0;
+    height: 0;
+}
+
+html:not(.aika-url-ready) head::before,
+html:not(.aika-url-ready) head::after {
+    content: "";
+    position: fixed;
+    z-index: var(--aika-z-url-capsule);
+    pointer-events: none;
+}
+
+html:not(.aika-url-ready) head::before {
+    top: calc(var(--aika-storebar-top) + (var(--aika-storebar-height) - var(--aika-url-capsule-height)) / 2);
+    left: var(--aika-url-capsule-left);
+    width: var(--aika-url-capsule-height);
+    height: var(--aika-url-capsule-height);
+    border-radius: var(--aika-radius-full);
+    background: var(--aika-storebar-material);
+    backdrop-filter: var(--aika-player-blur);
+    box-shadow:
+        inset 0 0 0 var(--aika-hairline) var(--aika-border-hover),
+        var(--aika-highlight-top),
+        var(--aika-shadow-menu);
+    animation: aika-url-placeholder-out 1ms linear var(--aika-loader-fallback) forwards;
+}
+
+html:not(.aika-url-ready) head::after {
+    top: calc(var(--aika-storebar-top) + (var(--aika-storebar-height) - var(--aika-url-reload)) / 2);
+    left: calc(var(--aika-url-capsule-left) + (var(--aika-url-capsule-height) - var(--aika-url-reload)) / 2);
+    animation:
+        aika-url-pulse var(--aika-loader-period) linear infinite,
+        aika-url-placeholder-out 1ms linear var(--aika-loader-fallback) forwards;
+}
+
+@keyframes aika-url-placeholder-out {
+    to { visibility: hidden; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .aika-url-capsule.is-loading .aika-url-reload::before {
+        animation: none;
+    }
+
+    html:not(.aika-url-ready) head::after {
+        animation: aika-url-placeholder-out 1ms linear var(--aika-loader-fallback) forwards;
+    }
 }

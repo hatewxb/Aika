@@ -8,6 +8,12 @@
 // inside the page: top left, beside the store menu capsule. "URL visibility:
 // no" hides it (options/hide-url.css).
 //   reload — location.reload(); the address — a click copies it.
+// The address shows up to 8 characters after ".com/" ("…" after them; the
+// full one is in the tooltip), so the capsule is as wide as that.
+// Loading: when the page starts leaving (reload, a link — beforeunload) the
+// capsule turns .is-loading and the reload icon becomes "Heart Pulse"; while
+// the next page loads, components/url-capsule.css shows a round placeholder
+// with the pulse until this script marks <html> .aika-url-ready.
 // The address follows in-page navigation (history.pushState / replaceState,
 // popstate). The capsule takes the room left of the store menu and hides when
 // there is too little (a narrow window).
@@ -40,8 +46,28 @@
   text.title = T.copy;
   box.append(reload, lock, text);
 
-  const show = () => { if (!text.classList.contains("is-copied")) text.textContent = location.href; };
-  reload.addEventListener("click", () => location.reload());
+  const TAIL = 8;   // characters shown after ".com/"
+  const short = (href) => {
+    const m = href.match(/^(.*?\.com\/)(.*)$/);
+    if (!m) return href;
+    return m[1] + (m[2].length > TAIL ? m[2].slice(0, TAIL) + "…" : m[2]);
+  };
+  const show = () => {
+    text.title = T.copy + "\n" + location.href;
+    if (!text.classList.contains("is-copied")) text.textContent = short(location.href);
+  };
+
+  // Leaving: the pulse in the reload button; back to normal if the navigation
+  // never happens (a download, a steam:// link)
+  let loadingTimer = 0;
+  const loading = () => {
+    box.classList.add("is-loading");
+    clearTimeout(loadingTimer);
+    loadingTimer = setTimeout(() => box.classList.remove("is-loading"), 10000);
+  };
+  addEventListener("beforeunload", loading);
+  addEventListener("pageshow", (e) => { if (e.persisted) box.classList.remove("is-loading"); });
+  reload.addEventListener("click", () => { loading(); location.reload(); });
 
   let copiedTimer = 0;
   text.addEventListener("click", async () => {
@@ -90,6 +116,7 @@
   const start = () => {
     show();
     document.body.append(box);
+    root.classList.add("aika-url-ready");
     fit();
     // the store menu is React and mounts after the page — look again a few times
     [500, 1500, 3000].forEach((t) => setTimeout(fit, t));

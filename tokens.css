@@ -824,15 +824,16 @@
        and menus (10000) */
     --aika-z-store-logo: 110;
     --aika-z-url-capsule: 1000;       /* the address over store / community pages */
-    --aika-z-loader: 30;              /* the page loading dots in the top bar (js/page-loading.js) */
 
-    /* "Heart Pulse" loader (components/loader.css) */
-    --aika-loader-grid: 7;            /* a 7×7 grid cut to a circle */
-    --aika-loader-dot: 2px;
-    --aika-loader-gap: 1px;           /* 7 × 2 + 6 × 1 = 20 px across */
+    /* "Heart Pulse" in the address capsule while a page loads
+       (components/url-capsule.css): a dot grid cut to a circle, two rings
+       running out from the center a cycle (lub-dub) */
+    --aika-loader-step: 4px;          /* the dot grid pitch (5 dots across the 20 px circle) */
+    --aika-loader-dot: 0.85px;        /* a dot's radius */
+    --aika-loader-ring: 3px;          /* the half width of a lit ring */
+    --aika-loader-reach: 13px;        /* a ring runs out this far (past the circle — gone) */
     --aika-loader-period: 1.2s;       /* one lub-dub */
-    --aika-loader-ring-step: 90ms;    /* the beat reaches the next ring this much later */
-    --aika-loader-rest: 0.3;          /* a dot between beats */
+    --aika-loader-fallback: 8s;       /* no script came: the placeholder goes after this */
     /* The cinematic page media viewer: above Steam's menus (10000) — it is
        a full-window modal */
     --aika-z-cine-viewer: 10050;

@@ -86,7 +86,6 @@ html:root {
     --aika-toast-dur-leave: 0s;
     --aika-pin-blink: 0s;
     --aika-loader-period: 0s;
-    --aika-loader-ring-step: 0s;
 
     /* No hover movement either: without a transition a lift or a zoom would
        only jump — cards, covers, buttons and arrows stay in place */

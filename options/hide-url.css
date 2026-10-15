@@ -10,3 +10,10 @@
 html:root .aika-url-capsule {
     display: none;
 }
+
+/* …and its round placeholder with the loader while a page loads (drawn on
+   <head>'s pseudo-elements, see components/url-capsule.css) */
+html:root:root head::before,
+html:root:root head::after {
+    display: none;
+}
