@@ -1,0 +1,9 @@
+/* ==========================================================================
+   "What's New visibility: no" (theme settings → "Elements").
+   Hides the "What's New" shelf on the library home (div.UpdatesContainer).
+   Option files load before the theme entry: selectors carry an extra :root.
+   ========================================================================== */
+
+html:root div.UpdatesContainer {
+    display: none;
+}

@@ -1,0 +1,10 @@
+/* ==========================================================================
+   "Add Shelf visibility: no" (theme settings → "Elements").
+   Hides the "Add shelf" row on the library home (.AddShowcaseRow — Steam
+   calls shelves showcases; captured 2026-10-16).
+   Option files load before the theme entry: selectors carry an extra :root.
+   ========================================================================== */
+
+html:root .AddShowcaseRow {
+    display: none;
+}

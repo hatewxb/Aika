@@ -83,12 +83,16 @@ Aika is in the official Millennium theme store:
 3. Extract the `Aika` folder into `C:\Program Files (x86)\Steam\millennium\themes\`.
 4. Steam → **Millennium → Themes** → **Aika**. If theme scripts are disabled, enable them.
 
-Theme settings (the gear next to Aika in Millennium): **Main** — top bar tab
-position, store game page layout (Cinematic / Classic), library covers (3D
-tilt / Lift / Zoom), cursor glow and its radius, privacy blur of the wallet
-balance (or name and balance) in the account menu until hovered, color preset,
-notification wordmark and opacity, performance (Full / Balanced / Low); **Advanced** — custom colors, set on the
-**Colors** page.
+Theme settings (the gear next to Aika in Millennium; in Russian when Steam is
+in Russian): **Main** — color preset, top bar tab position, compact header (the
+menus, tabs and account buttons in one line, the address as floating
+capsules); **Elements** — show or hide the wallet balance, the address bar,
+What's New, the "Add shelf" row and the Steam news button; **Animations** —
+performance (Full / Balanced / Low), store game page layout (Cinematic /
+Classic), library covers (3D tilt / Lift / Zoom), cursor glow and its radius;
+**Advanced** — privacy blur of the wallet balance (or name and balance) until
+hovered, notification wordmark and opacity; **Color set** — custom colors, set
+on the **Colors** page right below.
 
 ## Roadmap
 

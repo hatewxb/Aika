@@ -583,7 +583,12 @@
     /* The counterweight to the right of the tabs (components/nav.css), so they sit
        exactly in the window center: the "back / forward" arrows (32 + 24 px) plus the left
        padding of the .SuperNavBar strip (Steam's 11 px) */
-    --aika-supernav-arrows-width: 67px;
+    --aika-supernav-arrows-width: 71px;   /* = the bar padding + the ← → buttons with their gaps (11 + 28 + 2 + 28 + 2) */
+    --aika-history-icon: 16px;            /* ← → in the top bar: the arrow… */
+    --aika-history-pad: 6px;              /* …in a 28 px round button */
+    --aika-history-gap: 2px;
+    --aika-history-stroke: 1.5px;
+    --aika-history-disabled: 0.45;
     --aika-icon-store: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='1.75' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M5 8h14l-1.2 11.2a2 2 0 0 1-2 1.8H8.2a2 2 0 0 1-2-1.8z'/%3E%3Cpath d='M9 8V6.5a3 3 0 0 1 6 0V8'/%3E%3C/svg%3E");
     --aika-icon-library: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='1.75' stroke-linejoin='round'%3E%3Crect x='3.5' y='3.5' width='7' height='7' rx='2'/%3E%3Crect x='13.5' y='3.5' width='7' height='7' rx='2'/%3E%3Crect x='3.5' y='13.5' width='7' height='7' rx='2'/%3E%3Crect x='13.5' y='13.5' width='7' height='7' rx='2'/%3E%3C/svg%3E");
     --aika-icon-community: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='1.75' stroke-linecap='round'%3E%3Ccircle cx='9' cy='8.5' r='3.25'/%3E%3Cpath d='M3 19.5c0-3.3 2.7-5.5 6-5.5s6 2.2 6 5.5'/%3E%3Ccircle cx='17' cy='9.5' r='2.5'/%3E%3Cpath d='M16.5 14.2c2.6.3 4.5 2.3 4.5 5.3'/%3E%3C/svg%3E");
@@ -648,6 +653,14 @@
     --aika-dialog-cell-scale: 0.6;
     --aika-dialog-settle: 800ms;               /* the whole opening (scrolling is off meanwhile) */
     --aika-storebar-height: 46px;              /* the closed store menu capsule */
+
+    /* "Compact header" (options/header-compact.css): one line for the menus,
+       tabs, account buttons and the address capsule */
+    --aika-header-compact-height: 40px;
+    --aika-header-compact-tab-icon: 20px;
+    --aika-url-capsule: 28px;
+    --aika-url-capsule-width: 520px;            /* the address capsule, at most */
+    --aika-url-strip-pad: 4px;                  /* the invisible strip around the capsules */
     --aika-icon-arrow-up-right: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2.2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M7 17L17 7M8 7h9v9'/%3E%3C/svg%3E");
     --aika-icon-arrow-right: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M5 12h14M13 6l6 6-6 6'/%3E%3C/svg%3E");
     /* A padlock (SF Symbols-like) — the Family View web page */

@@ -1,0 +1,9 @@
+/* ==========================================================================
+   "Wallet visibility: no" (theme settings → "Elements").
+   Hides the wallet balance next to the account name in the top bar.
+   Option files load before the theme entry: selectors carry an extra :root.
+   ========================================================================== */
+
+html:root .TitleBarControls .AccountMenu .WalletBalance {
+    display: none;
+}

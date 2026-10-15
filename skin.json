@@ -6,7 +6,7 @@
     "tags": ["Fluent", "Dark", "Warm", "Minimal", "WIP"],
     "header_image": "https://raw.githubusercontent.com/hatewxb/Aika/main/screenshots/preview.gif",
     "splash_image": "https://raw.githubusercontent.com/hatewxb/Aika/main/screenshots/store-app.jpg",
-    
+
     "github": {
     "owner": "hatewxb",
     "repo_name": "Aika"
@@ -16,81 +16,8 @@
     "Steam-WebKit": "webkit.css",
 
     "Conditions": {
-        "Top bar": {
-            "description": "Where the Store, Library, Community and profile tabs sit in the top bar.",
-            "tab": "Main",
-            "default": "Center",
-            "values": {
-                "Center": {
-                    "TargetCss": { "affects": ["^Steam$"], "src": "options/tabs-center.css" }
-                },
-                "Left": {}
-            }
-        },
-        "Store": {
-            "description": "The layout of a game's store page. Cinematic: the trailers play muted over the whole window behind the logo, price and buttons, with a media gallery below; the editions and everything else stay as in Classic. Needs theme scripts.",
-            "tab": "Main",
-            "default": "Cinematic",
-            "values": {
-                "Cinematic": {
-                    "TargetCss": { "affects": [".*"], "src": "options/store-cinematic.css" }
-                },
-                "Classic": {}
-            }
-        },
-        "Library covers": {
-            "description": "How game covers in the library (Home shelves, collections) react to the cursor. 3D tilt: the cover turns toward the cursor in 3D with a moving glare. Lift: it rises a little. Zoom: the art zooms in its frame with a glare sweep.",
-            "tab": "Main",
-            "default": "3D tilt",
-            "values": {
-                "3D tilt": {
-                    "TargetCss": { "affects": ["^Steam$"], "src": "options/covers-tilt.css" }
-                },
-                "Lift": {},
-                "Zoom": {
-                    "TargetCss": { "affects": ["^Steam$"], "src": "options/covers-zoom.css" }
-                }
-            }
-        },
-        "Cursor glow": {
-            "description": "A soft accent glow under the cursor on large library blocks (game page panels, What's New, collections).",
-            "tab": "Main",
-            "default": "yes",
-            "values": {
-                "yes": {},
-                "no": {
-                    "TargetCss": { "affects": ["^Steam$"], "src": "options/spotlight-off.css" }
-                }
-            }
-        },
-        "Cursor glow radius": {
-            "description": "The size of the cursor glow, in pixels.",
-            "tab": "Main",
-            "default": 160,
-            "slider": {
-                "cssVariable": "--aika-setting-spot-size",
-                "min": 60,
-                "max": 400,
-                "step": 20,
-                "unit": "px"
-            }
-        },
-        "Privacy blur": {
-            "description": "Blurs the wallet balance (or the account name and the balance) in the top-right account button until you hover over it; inside its menu the login and the balance are blurred until hovered — handy for streams and screenshots.",
-            "tab": "Main",
-            "default": "Balance",
-            "values": {
-                "Balance": {
-                    "TargetCss": { "affects": ["^Steam$", "^Account Menu$"], "src": "options/privacy-balance.css" }
-                },
-                "Name and balance": {
-                    "TargetCss": { "affects": ["^Steam$", "^Account Menu$"], "src": "options/privacy-account.css" }
-                },
-                "Off": {}
-            }
-        },
         "Color preset": {
-            "description": "The theme color set: the accent and the light spots. To set colors manually, turn on \"Custom colors\" in the \"Advanced\" tab.",
+            "description": "The theme color set: the accent and the light spots. To set colors manually, turn on \"Custom colors\" in the \"Color set\" tab.",
             "tab": "Main",
             "default": "Aika",
             "values": {
@@ -108,32 +35,86 @@
                 }
             }
         },
-        "Notification wordmark": {
-            "description": "The font of the \"Aika\" wordmark in the background of notification toasts.",
+        "Top bar": {
+            "description": "Where the Store, Library, Community and profile tabs sit in the top bar.",
             "tab": "Main",
-            "default": "Gothic",
+            "default": "Center",
             "values": {
-                "Gothic": {},
-                "Japanese": {
-                    "TargetCss": { "affects": [".*"], "src": "options/toast-mark-brush.css" }
+                "Center": {
+                    "TargetCss": { "affects": ["^Steam$"], "src": "options/tabs-center.css" }
+                },
+                "Left": {}
+            }
+        },
+        "Compact header": {
+            "description": "Compact: the menus, the tabs and the account buttons share one line, and the web page address moves into a small capsule under the page.",
+            "tab": "Main",
+            "default": "Normal",
+            "values": {
+                "Normal": {},
+                "Compact": {
+                    "TargetCss": { "affects": ["^Steam$"], "src": "options/header-compact.css" }
                 }
             }
         },
-        "Notification opacity": {
-            "description": "How much a notification covers the desktop: lower is more transparent.",
-            "tab": "Main",
-            "default": 62,
-            "slider": {
-                "cssVariable": "--aika-setting-toast-tint",
-                "min": 20,
-                "max": 95,
-                "step": 5,
-                "unit": "%"
+        "Wallet visibility": {
+            "description": "The wallet balance next to the account name in the top bar.",
+            "tab": "Elements",
+            "default": "yes",
+            "values": {
+                "yes": {},
+                "no": {
+                    "TargetCss": { "affects": ["^Steam$"], "src": "options/hide-wallet.css" }
+                }
+            }
+        },
+        "URL visibility": {
+            "description": "The address bar above the store and community pages.",
+            "tab": "Elements",
+            "default": "yes",
+            "values": {
+                "yes": {},
+                "no": {
+                    "TargetCss": { "affects": ["^Steam$"], "src": "options/hide-url.css" }
+                }
+            }
+        },
+        "What's New visibility": {
+            "description": "The \"What's New\" shelf at the top of the library home.",
+            "tab": "Elements",
+            "default": "yes",
+            "values": {
+                "yes": {},
+                "no": {
+                    "TargetCss": { "affects": ["^Steam$"], "src": "options/hide-whats-new.css" }
+                }
+            }
+        },
+        "Add Shelf visibility": {
+            "description": "The \"Add shelf\" row at the bottom of the library home.",
+            "tab": "Elements",
+            "default": "yes",
+            "values": {
+                "yes": {},
+                "no": {
+                    "TargetCss": { "affects": ["^Steam$"], "src": "options/hide-add-shelf.css" }
+                }
+            }
+        },
+        "Steam News visibility": {
+            "description": "The Steam news (megaphone) button in the top bar.",
+            "tab": "Elements",
+            "default": "yes",
+            "values": {
+                "yes": {},
+                "no": {
+                    "TargetCss": { "affects": ["^Steam$"], "src": "options/hide-news.css" }
+                }
             }
         },
         "Performance": {
             "description": "How much the theme moves on its own. Full: everything as designed (the default; already tuned to cost as little as it can). Balanced: the background light spots and the decorative loops (the calendar's Today light, glares, the Play shimmer) rest, the animated store backgrounds draw 30 frames a second. Hovers, menus and page transitions stay in Full and Balanced. Low: no Aika motion and no heavy effects at all — every look stays, but nothing the theme added moves (only Steam's own animations remain); the light spots are one still picture, no backdrop blur, no glass on notifications, no animated store backgrounds, no trailers playing behind the Cinematic page.",
-            "tab": "Main",
+            "tab": "Animations",
             "default": "Full",
             "values": {
                 "Full": {},
@@ -145,9 +126,94 @@
                 }
             }
         },
-        "Custom colors": {
-            "description": "Use your own colors instead of the preset. The colors themselves (accent, accent hover, three light spots) are on the \"Colors\" page below.",
+        "Store": {
+            "description": "The layout of a game's store page. Cinematic: the trailers play muted over the whole window behind the logo, price and buttons, with a media gallery below; the editions and everything else stay as in Classic. Needs theme scripts.",
+            "tab": "Animations",
+            "default": "Cinematic",
+            "values": {
+                "Cinematic": {
+                    "TargetCss": { "affects": [".*"], "src": "options/store-cinematic.css" }
+                },
+                "Classic": {}
+            }
+        },
+        "Library covers": {
+            "description": "How game covers in the library (Home shelves, collections) react to the cursor. 3D tilt: the cover turns toward the cursor in 3D with a moving glare. Lift: it rises a little. Zoom: the art zooms in its frame with a glare sweep.",
+            "tab": "Animations",
+            "default": "3D tilt",
+            "values": {
+                "3D tilt": {
+                    "TargetCss": { "affects": ["^Steam$"], "src": "options/covers-tilt.css" }
+                },
+                "Lift": {},
+                "Zoom": {
+                    "TargetCss": { "affects": ["^Steam$"], "src": "options/covers-zoom.css" }
+                }
+            }
+        },
+        "Cursor glow": {
+            "description": "A soft accent glow under the cursor on large library blocks (game page panels, What's New, collections).",
+            "tab": "Animations",
+            "default": "yes",
+            "values": {
+                "yes": {},
+                "no": {
+                    "TargetCss": { "affects": ["^Steam$"], "src": "options/spotlight-off.css" }
+                }
+            }
+        },
+        "Cursor glow radius": {
+            "description": "The size of the cursor glow, in pixels.",
+            "tab": "Animations",
+            "default": 160,
+            "slider": {
+                "cssVariable": "--aika-setting-spot-size",
+                "min": 60,
+                "max": 400,
+                "step": 20,
+                "unit": "px"
+            }
+        },
+        "Privacy blur": {
+            "description": "Blurs the wallet balance (or the account name and the balance) in the top-right account button until you hover over it; inside its menu the login and the balance are blurred until hovered — handy for streams and screenshots.",
             "tab": "Advanced",
+            "default": "Balance",
+            "values": {
+                "Balance": {
+                    "TargetCss": { "affects": ["^Steam$", "^Account Menu$"], "src": "options/privacy-balance.css" }
+                },
+                "Name and balance": {
+                    "TargetCss": { "affects": ["^Steam$", "^Account Menu$"], "src": "options/privacy-account.css" }
+                },
+                "Off": {}
+            }
+        },
+        "Notification wordmark": {
+            "description": "The font of the \"Aika\" wordmark in the background of notification toasts.",
+            "tab": "Advanced",
+            "default": "Gothic",
+            "values": {
+                "Gothic": {},
+                "Japanese": {
+                    "TargetCss": { "affects": [".*"], "src": "options/toast-mark-brush.css" }
+                }
+            }
+        },
+        "Notification opacity": {
+            "description": "How much a notification covers the desktop: lower is more transparent.",
+            "tab": "Advanced",
+            "default": 62,
+            "slider": {
+                "cssVariable": "--aika-setting-toast-tint",
+                "min": 20,
+                "max": 95,
+                "step": 5,
+                "unit": "%"
+            }
+        },
+        "Custom colors": {
+            "description": "Use your own colors instead of the preset. The colors themselves (accent, accent hover, three light spots) are on the \"Colors\" page right below.",
+            "tab": "Color set",
             "default": "no",
             "values": {
                 "no": {},

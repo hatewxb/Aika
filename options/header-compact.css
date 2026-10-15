@@ -1,0 +1,140 @@
+/* ==========================================================================
+   "Compact header: Compact" (theme settings → "Main"), author 2026-10-16.
+   Works with every Performance preset; nothing here moves.
+
+   One line instead of three (header, tabs, address strip):
+     .TopBar > .TitleBar (32 px: menus, drag area, account buttons, window buttons)
+     .TopBar > .SuperNavBar (46 px: ← → and the tabs)
+   .TitleBar gets display: contents, so its parts and .SuperNavBar are flex
+   items of .TopBar side by side: menus → ← → tabs → account buttons → window
+   buttons. Steam's .DragArea goes; .SuperNavBar (app-region: drag in Steam)
+   fills the middle, so the gaps around the tabs still drag the window. No DOM
+   is moved. js/header-compact.js keeps the tab group centered on the window
+   (the menus and the buttons on the sides differ in width).
+
+   The address (.BrowserWrapper > .URLBar) keeps its strip where it was, under
+   the header on the left, but the strip itself is invisible and the reload
+   button and the address float in it as capsules — the way the floating
+   library buttons sit in Steam's bottom bar (author 2026-10-16). Over the page
+   itself it can't go: the store / community page is a native layer above the
+   window's DOM (Steam fits it to .Browser).
+
+   Option files load before the theme entry: selectors carry an extra :root.
+   ========================================================================== */
+
+html:root {
+    --aika-header-mode: compact;   /* read by js/header-compact.js */
+}
+
+/* --- One line ------------------------------------------------------------- */
+
+/* Steam's .TopBar is a column — a row here */
+html:root .OuterFrame > .TopBar {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    align-items: center;
+    height: var(--aika-header-compact-height);
+    min-height: var(--aika-header-compact-height);
+}
+
+html:root .TopBar > .TitleBar {
+    display: contents;
+}
+
+html:root .TopBar > .TitleBar > .RootMenuBar {
+    order: 1;
+    flex: none;
+    align-self: stretch;
+    align-items: center;
+}
+
+html:root .TopBar > .TitleBar > .DragArea {
+    display: none;
+}
+
+html:root .TopBar > .SuperNavBar {
+    order: 2;
+    flex: 1 1 auto;
+    min-width: 0;
+    height: 100%;
+    min-height: 0;
+}
+
+html:root .TopBar > .SuperNavBar > .SuperNav {
+    height: 100%;
+}
+
+html:root .TopBar > .TitleBar > .TitleBarControls {
+    order: 3;
+    flex: none;
+}
+
+/* Its buttons are absolutely placed inside — the height comes from the row */
+html:root .TopBar > .TitleBar > .WindowControls {
+    order: 4;
+    align-self: stretch;
+}
+
+/* Smaller tab icons, the indicator line still fits under them */
+html:root .TopBar .SuperNav {
+    --aika-tab-icon-size: var(--aika-header-compact-tab-icon);
+}
+
+html:root .TopBar .SuperNav .SuperNavMenu > .MenuButton {
+    padding-block: 0;
+}
+
+/* Centering on the window (tabs-center.css adds the counterweight on the
+   right; js/header-compact.js sets its width, or a lead after the arrows when
+   the group has to move right) */
+html:root .TopBar .SuperNav::after {
+    width: var(--aika-compact-balance, var(--aika-supernav-arrows-width));
+}
+
+html:root .TopBar .SuperNav > svg:last-of-type {
+    margin-inline-end: var(--aika-compact-lead, 0px);
+}
+
+/* --- The address: an invisible strip with capsules ------------------------ */
+
+html:root .ContentFrame .BrowserWrapper > .URLBar {
+    box-sizing: border-box;
+    height: calc(var(--aika-url-capsule) + 2 * var(--aika-url-strip-pad));
+    padding: var(--aika-url-strip-pad) var(--aika-space-3);
+    align-items: center;
+    gap: var(--aika-space-1);
+    background: var(--aika-transparent);
+    box-shadow: none;
+}
+
+/* The reload button — a round button beside the capsule */
+html:root .ContentFrame .BrowserWrapper > .URLBar > .StatusIcon.ReloadButton {
+    flex: none;
+    box-sizing: border-box;
+    width: var(--aika-url-capsule);
+    height: var(--aika-url-capsule);
+    border-radius: var(--aika-radius-full);
+    background: var(--aika-storebar-material);
+    box-shadow: inset 0 0 0 var(--aika-hairline) var(--aika-border-hover);
+}
+
+/* The address — a capsule like the store menu */
+html:root .ContentFrame .BrowserWrapper > .URLBar > .URLBarText {
+    flex: 0 1 var(--aika-url-capsule-width);
+    min-width: 0;
+    box-sizing: border-box;
+    height: var(--aika-url-capsule);
+    padding-inline: var(--aika-space-3);
+    border-radius: var(--aika-radius-full);
+    background: var(--aika-storebar-material);
+    box-shadow:
+        inset 0 0 0 var(--aika-hairline) var(--aika-border-hover),
+        var(--aika-highlight-top);
+}
+
+/* The library keeps an empty strip as tall as the address bar — the same
+   height, so switching between the library and the store doesn't jump */
+html:root .LocalContentContainer > .URLBarReplacement {
+    height: calc(var(--aika-url-capsule) + 2 * var(--aika-url-strip-pad));
+}

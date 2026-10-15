@@ -1,0 +1,10 @@
+/* ==========================================================================
+   "Steam News visibility: no" (theme settings → "Elements").
+   Hides the Steam news (megaphone) button in the top bar together with its
+   tooltip wrapper, so no gap is left.
+   Option files load before the theme entry: selectors carry an extra :root.
+   ========================================================================== */
+
+html:root .TitleBarControls .tool-tip-source:has(> .AnnouncementsButton) {
+    display: none;
+}

@@ -1,0 +1,11 @@
+/* ==========================================================================
+   "URL visibility: no" (theme settings → "Elements").
+   Hides the address bar above store and community pages (.URLBar) and the
+   empty strip Steam keeps in its place in the library (.URLBarReplacement).
+   Option files load before the theme entry: selectors carry an extra :root.
+   ========================================================================== */
+
+html:root .BrowserWrapper > .URLBar,
+html:root .LocalContentContainer > .URLBarReplacement {
+    display: none;
+}

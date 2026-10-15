@@ -519,13 +519,45 @@ html .Bar .Filters .CheckboxWithImage {
     background: var(--aika-transparent);
 }
 
-/* History arrows (← →) next to the tabs */
-html .SuperNav svg.Arrow.Enabled path {
-    fill: var(--aika-fg-muted);
+/* History arrows (← →) next to the tabs — round ghost buttons with a thin
+   arrow, like the buttons on the right of the header (author 2026-10-16).
+   Steam (captured 2026-10-16): svg.Arrow, viewBox 16×16, a filled arrow path,
+   uneven padding (0 4 6 12 and 0 4 6) — the pair sat high and the back one
+   was wider; the back one is mirrored by an inline transform, so one arrow
+   shape serves both. The path is reshaped with the CSS d property (the
+   markup stays Steam's) and drawn as a stroke. */
+html .SuperNav svg.Arrow {
+    box-sizing: content-box;
+    flex: none;
+    align-self: center;
+    width: var(--aika-history-icon);
+    height: var(--aika-history-icon);
+    margin: 0 var(--aika-history-gap) 0 0;
+    padding: var(--aika-history-pad);
+    border-radius: var(--aika-radius-full);
+    color: var(--aika-fg-muted);
+    transition:
+        background-color var(--aika-dur-fast) var(--aika-ease-hover),
+        color var(--aika-dur-fast) var(--aika-ease-hover);
 }
 
-html .SuperNav svg.Arrow.Disabled path {
-    fill: var(--aika-surface-active);
+html .SuperNav svg.Arrow path {
+    d: path("M3 8h10M9 4l4 4-4 4");
+    fill: none;
+    stroke: currentColor;
+    stroke-width: var(--aika-history-stroke);
+    stroke-linecap: round;
+    stroke-linejoin: round;
+}
+
+html .SuperNav svg.Arrow.Enabled:hover {
+    background-color: var(--aika-surface-hover);
+    color: var(--aika-fg);
+}
+
+html .SuperNav svg.Arrow.Disabled {
+    color: var(--aika-fg-subtle);
+    opacity: var(--aika-history-disabled);
 }
 
 /* Account: wallet and avatar frame */
