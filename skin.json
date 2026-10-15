@@ -47,13 +47,13 @@
             }
         },
         "Compact header": {
-            "description": "Compact: the menus, the tabs and the account buttons share one line, and the web page address moves into a small capsule under the page.",
+            "description": "Compact: the menus, the tabs and the account buttons share one line, and the address of store and community pages floats over the page, top left, as a capsule like the store menu (takes a Steam restart to reach the pages).",
             "tab": "Main",
             "default": "Normal",
             "values": {
                 "Normal": {},
                 "Compact": {
-                    "TargetCss": { "affects": ["^Steam$"], "src": "options/header-compact.css" }
+                    "TargetCss": { "affects": [".*"], "src": "options/header-compact.css" }
                 }
             }
         },
@@ -275,6 +275,10 @@
         {
             "MatchRegexString": "^https://(store\\.steampowered|steamcommunity)\\.com/.*",
             "TargetJs": "js/pin-slots.js"
+        },
+        {
+            "MatchRegexString": "^https://(store\\.steampowered|steamcommunity)\\.com/.*",
+            "TargetJs": "js/url-capsule.js"
         },
         {
             "MatchRegexString": "^https://steamcommunity\\.com/(id|profiles)/[^/]+/screenshots.*",

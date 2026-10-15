@@ -12,12 +12,12 @@
    is moved. js/header-compact.js keeps the tab group centered on the window
    (the menus and the buttons on the sides differ in width).
 
-   The address (.BrowserWrapper > .URLBar) keeps its strip where it was, under
-   the header on the left, but the strip itself is invisible and the reload
-   button and the address float in it as capsules — the way the floating
-   library buttons sit in Steam's bottom bar (author 2026-10-16). Over the page
-   itself it can't go: the store / community page is a native layer above the
-   window's DOM (Steam fits it to .Browser).
+   The address: Steam's strip (.BrowserWrapper > .URLBar) goes, and the
+   address floats over the page, top left, as a capsule like the store menu
+   (author 2026-10-16). The store / community page is a native layer above the
+   window's DOM, so the capsule is drawn inside the page (js/url-capsule.js,
+   components/url-capsule.css); this file also reaches web pages (affects .*)
+   to tell them the mode (--aika-header-mode).
 
    Option files load before the theme entry: selectors carry an extra :root.
    ========================================================================== */
@@ -96,45 +96,14 @@ html:root .TopBar .SuperNav > svg:last-of-type {
     margin-inline-end: var(--aika-compact-lead, 0px);
 }
 
-/* --- The address: an invisible strip with capsules ------------------------ */
+/* --- The address ----------------------------------------------------------- */
 
-html:root .ContentFrame .BrowserWrapper > .URLBar {
-    box-sizing: border-box;
-    height: calc(var(--aika-url-capsule) + 2 * var(--aika-url-strip-pad));
-    padding: var(--aika-url-strip-pad) var(--aika-space-3);
-    align-items: center;
-    gap: var(--aika-space-1);
-    background: var(--aika-transparent);
-    box-shadow: none;
-}
-
-/* The reload button — a round button beside the capsule */
-html:root .ContentFrame .BrowserWrapper > .URLBar > .StatusIcon.ReloadButton {
-    flex: none;
-    box-sizing: border-box;
-    width: var(--aika-url-capsule);
-    height: var(--aika-url-capsule);
-    border-radius: var(--aika-radius-full);
-    background: var(--aika-storebar-material);
-    box-shadow: inset 0 0 0 var(--aika-hairline) var(--aika-border-hover);
-}
-
-/* The address — a capsule like the store menu */
-html:root .ContentFrame .BrowserWrapper > .URLBar > .URLBarText {
-    flex: 0 1 var(--aika-url-capsule-width);
-    min-width: 0;
-    box-sizing: border-box;
-    height: var(--aika-url-capsule);
-    padding-inline: var(--aika-space-3);
-    border-radius: var(--aika-radius-full);
-    background: var(--aika-storebar-material);
-    box-shadow:
-        inset 0 0 0 var(--aika-hairline) var(--aika-border-hover),
-        var(--aika-highlight-top);
-}
-
-/* The library keeps an empty strip as tall as the address bar — the same
-   height, so switching between the library and the store doesn't jump */
+/* Steam's address strip goes: the page starts right under the header. The
+   address floats over the page instead — js/url-capsule.js draws it inside
+   store and community pages (components/url-capsule.css), since nothing of
+   the window's DOM can lie over those native pages. The library's empty
+   strip of the same height goes too. */
+html:root .ContentFrame .BrowserWrapper > .URLBar,
 html:root .LocalContentContainer > .URLBarReplacement {
-    height: calc(var(--aika-url-capsule) + 2 * var(--aika-url-strip-pad));
+    display: none;
 }

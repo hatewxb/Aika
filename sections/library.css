@@ -532,6 +532,8 @@ html .SuperNav svg.Arrow {
     align-self: center;
     width: var(--aika-history-icon);
     height: var(--aika-history-icon);
+    min-width: var(--aika-history-icon);   /* Steam: min-width/height 16px (hash) */
+    min-height: var(--aika-history-icon);
     margin: 0 var(--aika-history-gap) 0 0;
     padding: var(--aika-history-pad);
     border-radius: var(--aika-radius-full);

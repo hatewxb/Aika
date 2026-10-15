@@ -85,8 +85,8 @@ Aika is in the official Millennium theme store:
 
 Theme settings (the gear next to Aika in Millennium; in Russian when Steam is
 in Russian): **Main** — color preset, top bar tab position, compact header (the
-menus, tabs and account buttons in one line, the address as floating
-capsules); **Elements** — show or hide the wallet balance, the address bar,
+menus, tabs and account buttons in one line, the address as a capsule over
+store and community pages); **Elements** — show or hide the wallet balance, the address bar,
 What's New, the "Add shelf" row and the Steam news button; **Animations** —
 performance (Full / Balanced / Low), store game page layout (Cinematic /
 Classic), library covers (3D tilt / Lift / Zoom), cursor glow and its radius;

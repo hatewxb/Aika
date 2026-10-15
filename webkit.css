@@ -17,6 +17,7 @@
 @import url("./components/button.css");
 @import url("./components/input.css");
 @import url("./components/web-modal.css");
+@import url("./components/url-capsule.css");
 
 @import url("./sections/store.css");
 @import url("./sections/store-home.css");

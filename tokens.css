@@ -583,9 +583,9 @@
     /* The counterweight to the right of the tabs (components/nav.css), so they sit
        exactly in the window center: the "back / forward" arrows (32 + 24 px) plus the left
        padding of the .SuperNavBar strip (Steam's 11 px) */
-    --aika-supernav-arrows-width: 71px;   /* = the bar padding + the ← → buttons with their gaps (11 + 28 + 2 + 28 + 2) */
-    --aika-history-icon: 16px;            /* ← → in the top bar: the arrow… */
-    --aika-history-pad: 6px;              /* …in a 28 px round button */
+    --aika-supernav-arrows-width: 55px;   /* = the bar padding + the ← → buttons with their gaps (11 + 20 + 2 + 20 + 2) */
+    --aika-history-icon: 12px;            /* ← → in the top bar: the arrow, as tall as the menu letters… */
+    --aika-history-pad: 4px;              /* …in a 20 px round button */
     --aika-history-gap: 2px;
     --aika-history-stroke: 1.5px;
     --aika-history-disabled: 0.45;
@@ -658,13 +658,17 @@
        tabs, account buttons and the address capsule */
     --aika-header-compact-height: 40px;
     --aika-header-compact-tab-icon: 20px;
-    --aika-url-capsule: 28px;
-    --aika-url-capsule-width: 520px;            /* the address capsule, at most */
-    --aika-url-strip-pad: 4px;                  /* the invisible strip around the capsules */
+    /* The address capsule over store / community pages (components/url-capsule.css):
+       as tall as the store menu capsule and at its height from the top */
+    --aika-url-capsule-width: 480px;            /* at most */
+    --aika-url-capsule-min: 180px;              /* narrower than this (the store menu is close) — hidden */
+    --aika-url-capsule-left: var(--aika-space-3);
+    --aika-url-reload: 30px;                    /* the round reload button inside */
     --aika-icon-arrow-up-right: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2.2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M7 17L17 7M8 7h9v9'/%3E%3C/svg%3E");
     --aika-icon-arrow-right: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M5 12h14M13 6l6 6-6 6'/%3E%3C/svg%3E");
     /* A padlock (SF Symbols-like) — the Family View web page */
     --aika-icon-lock: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='1.7' stroke-linecap='round' stroke-linejoin='round'%3E%3Crect x='5' y='10.5' width='14' height='10' rx='2.5'/%3E%3Cpath d='M8 10.5V7.5a4 4 0 0 1 8 0v3'/%3E%3Ccircle cx='12' cy='15.5' r='1' fill='black'/%3E%3C/svg%3E");
+    --aika-icon-reload: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='1.7' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M19.5 12a7.5 7.5 0 1 1-2.2-5.3'/%3E%3Cpath d='M19.5 4.5v4h-4'/%3E%3C/svg%3E");
     --aika-family-lock: 40px;
     --aika-discussions-search-width: 420px;  /* the search on the discussions home */
     --aika-icon-inline: 16px;
@@ -816,6 +820,7 @@
        the event block 101), but below tooltips (1526), modals (1500)
        and menus (10000) */
     --aika-z-store-logo: 110;
+    --aika-z-url-capsule: 1000;       /* the address over store / community pages (compact header) */
     /* The cinematic page media viewer: above Steam's menus (10000) — it is
        a full-window modal */
     --aika-z-cine-viewer: 10050;
