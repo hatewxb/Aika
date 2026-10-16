@@ -10,12 +10,8 @@
        no loading curtain, no page curtain, no cursor glow / tilt / magnet,
        titles and counters shown as is, the WebGL backgrounds draw one still
        frame, no autoplaying trailers, notifications move the Steam way.
-     - The three background light spots are one static layer: html::before
-       covers the window and paints them as radial gradients (--aika-perf-spots,
-       colors.css) — no blur, no transform, no will-change; html::after and
-       body::before are not generated. Only windows with background.css
-       generate html::before (it sets content), so menus, notifications and
-       the sign-in window get nothing.
+     - From Balanced (imported): the light spots as one static gradient
+       layer, no cursor-chasing light, no loops; here the grid layer goes too.
    Kept: the "no script" fallback delays (they only reveal content).
    Option files load before the theme entry: selectors carry an extra :root.
    ========================================================================== */
@@ -201,44 +197,9 @@ html:root .Spotlights .ReviewContainer button.ReviewThumbButton:hover {
     background: var(--aika-accent-dim);
 }
 
-/* Cursor glow layers (as options/spotlight-off.css, plus the store home ones) */
-html:root :is(.AppDetailsSection, .PartnerEventRowCapsule_Container.HoversEnabled, .CSSGrid.Grid .Collection)::after,
-html:root .aika-card::before,
-html:root body.v6 :is(
-    #home_maincap_v7 .store_main_capsule.focus,
-    #module_discounts_and_events .carousel__inner-slide a,
-    .personal_calendar_ctn .carousel__inner-slide > div,
-    .home_discounts_block,
-    .community_recommendation_app,
-    .home_content.single,
-    .tab_preview.focus
-)::before,
-html:root body.v6 :is(.has_takeover > .home_page_takeover_link, a.home_page_takeunder)::before,
-html:root body.v6 :is(.has_takeover > .home_page_takeover_link, a.home_page_takeunder)::after {
-    display: none;
-}
-
 /* Scroll-driven animations follow the scroll, not a duration */
 html:root .TopCapsule .HeaderBackgroundImage .ImgContainer,
 html:root:root body.v6 .aika-pop-near,
 html:root body.v6 .has_takeover > :is(.fullscreen-bg, .static_takeover_ctn, .home_page_takeover_link) {
     animation: none;
-}
-
-/* The light spots: one static layer */
-html:root::before {
-    inset: 0;
-    width: auto;
-    aspect-ratio: auto;
-    border-radius: 0;
-    opacity: 1;
-    filter: none;
-    transform: none;
-    will-change: auto;
-    background: var(--aika-perf-spots);
-}
-
-html:root::after,
-html:root body::before {
-    display: none;
 }

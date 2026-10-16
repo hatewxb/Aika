@@ -124,12 +124,14 @@
     box.classList.add("aika-speed");
     if (!nums.length) return;
 
-    // A horizontal-only blur — an SVG filter per number, its x deviation per frame
+    const dur = cssNum("--aika-speed-dur", 2200), maxBlur = cssNum("--aika-speed-blur", 14), strength = cssNum("--aika-speed-strength", 1);
+    // A horizontal-only blur — an SVG filter per number, its x deviation per frame;
+    // none at all when the blur is off ("Performance: Balanced" sets it to 0)
     const NS = "http://www.w3.org/2000/svg";
     const svg = document.createElementNS(NS, "svg");
     svg.setAttribute("aria-hidden", "true");
     svg.classList.add("aika-speed-defs");
-    const blurs = nums.map((s, i) => {
+    const blurs = maxBlur <= 0 ? [] : nums.map((s, i) => {
       const f = document.createElementNS(NS, "filter");
       const id = "aika-speed-blur-" + i;
       f.id = id;
@@ -142,9 +144,8 @@
       s.style.filter = `url(#${id})`;
       return g;
     });
-    document.body.append(svg);
+    if (blurs.length) document.body.append(svg);
 
-    const dur = cssNum("--aika-speed-dur", 2200), maxBlur = cssNum("--aika-speed-blur", 14), strength = cssNum("--aika-speed-strength", 1);
     const slant = cssNum("--aika-speed-slant", 12);
     // ease-out (quintic): fast start, long landing
     const ease = (p) => 1 - Math.pow(1 - p, 5);
@@ -162,11 +163,11 @@
           s.textContent = Math.round(to * e).toLocaleString(document.documentElement.lang || undefined);
           // faster numbers (bigger targets) blur more
           const blur = Math.min(maxBlur, speed * strength * Math.min(1, to / 10) * 3) * scale;
-          blurs[i].setAttribute("stdDeviation", `${blur.toFixed(2)} 0`);
+          blurs[i]?.setAttribute("stdDeviation", `${blur.toFixed(2)} 0`);
           s.style.setProperty("--aika-speed-skew", (-slant * Math.min(1, speed / 5)).toFixed(2) + "deg");
         });
         if (p < 1) requestAnimationFrame(tick);
-        else nums.forEach((s, i) => { s.textContent = s.dataset.orig; s.style.filter = ""; blurs[i].setAttribute("stdDeviation", "0 0"); });   // lands on Steam's own text
+        else nums.forEach((s, i) => { s.textContent = s.dataset.orig; s.style.filter = ""; blurs[i]?.setAttribute("stdDeviation", "0 0"); });   // lands on Steam's own text
       };
       requestAnimationFrame(tick);
     });

@@ -428,8 +428,11 @@ html body.v6 :is(
     /* With js/store-home.js only the cards within a screen of the window carry
        a view timeline (.aika-pop-near) — the rest of the long page has none,
        so Steam mounting content while you scroll doesn't re-resolve ~100
-       timelines (that cost ~70 ms frames). Without the script — all of them. */
-    html:not(.aika-pop-js) body.v6 :is(
+       timelines (that cost ~70 ms frames). Without the script — all of them,
+       on the home page only (body.no_home_gutter, captured 2026-10-17): the
+       slides of carousels on game pages matched too and carried timelines
+       there for nothing. */
+    html:not(.aika-pop-js) body.v6.no_home_gutter :is(
         .title_grid,
         .home_tabs_row_ctn,
         #content_more .home_content > h2,

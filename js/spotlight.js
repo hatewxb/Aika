@@ -27,12 +27,16 @@
   let lastTarget = null;
 
   const root = document.documentElement;
-  // "Performance: Low" (--aika-motion: 0) — the glow stays where CSS puts it
-  const off = () => getComputedStyle(root).getPropertyValue("--aika-motion").trim() === "0";
+  // "Performance: Low" (--aika-motion: 0) and "Balanced" (--aika-decor: 0, no
+  // light chasing the cursor over items) — the glow layer is off there anyway
+  const off = () => {
+    const css = getComputedStyle(root);
+    return css.getPropertyValue("--aika-motion").trim() === "0" || css.getPropertyValue("--aika-decor").trim() === "0";
+  };
 
   const update = () => {
     frame = 0;
-    // In Low the handler goes away for good (switching back takes a restart)
+    // In Low / Balanced the handler goes away for good (switching back takes a restart)
     if (off()) { document.removeEventListener("pointermove", onMove, { capture: true }); return; }
     const e = lastEvent;
     const t = e && e.target instanceof Element ? e.target.closest(SURFACES) : null;

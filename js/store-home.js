@@ -27,8 +27,12 @@
 
   // Reduced motion or "Performance: Low" (--aika-motion: 0): no cursor
   // effects, the title as is, no scroll pop-up
+  const perf = getComputedStyle(document.documentElement);
   const still = matchMedia("(prefers-reduced-motion: reduce)").matches
-    || getComputedStyle(document.documentElement).getPropertyValue("--aika-motion").trim() === "0";
+    || perf.getPropertyValue("--aika-motion").trim() === "0";
+  // "Balanced" (--aika-decor: 0): no light or magnet chasing the cursor over
+  // items; the title and the pop-up stay
+  const calm = still || perf.getPropertyValue("--aika-decor").trim() === "0";
 
   const SURFACES = [
     "#home_maincap_v7 .store_main_capsule.focus",           // "Featured & Recommended"
@@ -86,7 +90,7 @@
     setMagnet(m, clamp(e.clientX - (r.left + r.width / 2)), clamp(e.clientY - (r.top + r.height / 2)));
   };
 
-  if (!still) {
+  if (!calm) {
     document.addEventListener("pointermove", (e) => {
       lastEvent = e;
       if (!frame) frame = requestAnimationFrame(update);

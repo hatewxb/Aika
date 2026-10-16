@@ -1,33 +1,154 @@
 /* ==========================================================================
-   "Performance: Balanced" (theme settings → "Main").
-   Everything that answers the user stays — hovers, openings, menus, page
-   transitions, the scroll pop-ups. What goes quiet is the ambient motion
-   that runs on its own all the time:
-     - the background light spots stand still (background.css);
-     - the decorative loops rest: the "Today" border light and the "NEW"
-       glare on the store home, the "Play" shimmer, the Cinematic price shine;
-     - the WebGL backgrounds (search aurora, wishlist veil) draw 30 frames a
-       second instead of every frame (js/store-search.js, js/store-wishlist.js).
-   Loading indicators, spinners and the caret keep moving — they carry meaning.
-   "Full" (the default) has no file: the theme as designed.
-   Option files load before the theme entry, so every selector here carries
-   an extra :root to win. The calendar and "NEW" selectors are hash classes
-   (see selectors.css, "Your personal calendar", verified 2026-10-12).
+   "Performance: Balanced" (theme settings → "Animations").
+   "Less moving elements on and around items" (a user request, 2026-10-16:
+   "the light strip around the featured store game, the strobing on the Play
+   button"). Everything that answers you stays — hovers, menus, openings,
+   page transitions, the scroll pop-ups (calmer); the look stays — the light,
+   the glass notifications, the Cinematic trailers, the search aurora and the
+   wishlist veil. What goes is motion and light that run by themselves or
+   chase the cursor over items, and costly effects nobody sees:
+     - light on and around items: the rim and glow that follow the cursor
+       around store blocks (the featured capsule, specials, calendar days…),
+       the calendar dot glow, the ad banner rims and their light sweep, the
+       magnetic carousel arrows, the cursor glow on library panels
+       (js/store-home.js, js/spotlight.js — --aika-decor: 0);
+     - loops: the "Play" shimmer, the achievement bar shimmer, the "Today"
+       light and the "NEW" glare on the store home, the Cinematic price shine,
+       the sign-in haze breathing and the name shine;
+     - the Cinematic description no longer warps (WebGL, every frame —
+       js/warp-text.js);
+     - library covers: "3D tilt" becomes "Lift" (js/cover-tilt.js idles);
+     - the background light spots stand still as one static gradient layer
+       instead of three blurred moving ellipses (same places, colors and
+       opacity — matched by pixel samples, --aika-perf-spots in colors.css);
+     - lighter costs: the headline letters drop in without a blur, the
+       friends counter without its motion blur, notifications slide without
+       a blur, the store pop-up on scroll travels a third as far, backdrop
+       blur on store capsules half as strong, the WebGL backgrounds at 30 fps.
+   "Full" (the default) has no file: the theme as designed. "Low" imports
+   this file and adds its own (options/perf-low.css).
+   Option files load before the theme entry, so selectors carry an extra
+   :root. The calendar and "NEW" selectors are hash classes (selectors.css,
+   "Your personal calendar", verified 2026-10-12).
    ========================================================================== */
 
-:root {
+html:root {
     --aika-gl-fps: 30;
+    --aika-decor: 0;   /* read by the scripts: no cursor-chasing light, no tilt, no warp */
+
+    --aika-split-blur: 0px;
+    --aika-speed-blur: 0;
+    --aika-toast-enter-blur: 0px;
+    --aika-toast-leave-blur: 0px;
+    --aika-home-pop-shift: 24px;
+    --aika-home-pop-scale: 0.97;
+    --aika-banner-sweep-dur: 0s;
 }
 
-html:root::before,
-html:root::after,
-html:root body::before {
-    animation: none;
+/* Colors are set on html:root in colors.css — one step more here */
+html:root:root {
+    --aika-player-blur: blur(12px);
 }
+
+/* --- Loops --------------------------------------------------------------- */
 
 html:root body.v6 .personal_calendar_ctn .carousel__inner-slide > ._8UPO4fZBxxerbhcRBpAcc::after,
 html:root body.v6 .personal_calendar_ctn .lX3GvxrkYaEqKJRpIhPsk::after,
 html:root .PlayBar .PlayButtonContainer.Green :is(.PlayButton, .StreamingSelector.ButtonChild)::before,
-html.aika-cine:root .aika-cine-price-final {
+html.aika-cine:root .aika-cine-price-final,
+html:root .AchievementProgressContainer .AchievementProgress::after,
+html:root .aika-progress__fill::after,
+html:root .Login .LoginStatusContainer::before,
+html:root .Login .UserContainer > .PersonaName {
     animation: none;
+}
+
+/* The achievement shimmer is a glare layer — with no motion it only greys
+   the bar, so it goes */
+html:root .AchievementProgressContainer .AchievementProgress::after,
+html:root .aika-progress__fill::after {
+    display: none;
+}
+
+/* --- Light on and around items ------------------------------------------- */
+
+html:root :is(.AppDetailsSection, .PartnerEventRowCapsule_Container.HoversEnabled, .CSSGrid.Grid .Collection)::after,
+html:root .aika-card::before,
+html:root body.v6 :is(
+    #home_maincap_v7 .store_main_capsule.focus,
+    #module_discounts_and_events .carousel__inner-slide a,
+    .personal_calendar_ctn .carousel__inner-slide > div,
+    .home_discounts_block,
+    .community_recommendation_app,
+    .home_content.single,
+    .tab_preview.focus
+)::before,
+html:root body.v6 :is(
+    #home_maincap_v7 .store_main_capsule.focus,
+    #module_discounts_and_events .carousel__inner-slide a,
+    .personal_calendar_ctn .carousel__inner-slide > div,
+    .home_discounts_block,
+    .community_recommendation_app,
+    .home_content.single,
+    .tab_preview.focus
+)::after,
+html:root body.v6 .personal_calendar_ctn::before,
+html:root body.v6 :is(.has_takeover > .home_page_takeover_link, a.home_page_takeunder)::before,
+html:root body.v6 :is(.has_takeover > .home_page_takeover_link, a.home_page_takeunder)::after {
+    display: none;
+}
+
+/* --- "3D tilt" covers behave like "Lift" ----------------------------------- */
+/* options/covers-tilt.css sets --aika-covers-mode: tilt; a style query keeps
+   this to that mode ("Zoom" has its own rules). The values are those of
+   components/card.css, the "Lift" mode. */
+@container style(--aika-covers-mode: tilt) {
+    /* at rest flat: the tilt rule keeps a perspective() matrix, which gives
+       every cover its own compositing layer */
+    html:root:root .Draggable.HoversEnabled .LibraryItemBox {
+        transform: none;
+        transition:
+            transform var(--aika-dur-base) var(--aika-ease),
+            box-shadow var(--aika-dur-base) var(--aika-ease),
+            filter var(--aika-dur-base) var(--aika-ease-hover);
+    }
+
+    html:root:root .Draggable.HoversEnabled .LibraryItemBox:hover {
+        transform: translateY(var(--aika-lift-md));
+        box-shadow: var(--aika-shadow-cover-hover);
+    }
+
+    html:root:root .Draggable.HoversEnabled .LibraryItemBox:hover:active {
+        transform: translateY(var(--aika-lift-md)) scale(var(--aika-press-scale));
+    }
+
+    html:root:root .Draggable.HoversEnabled .LibraryItemBox:hover ~ .LibraryItemBoxSubscript {
+        transform: translateY(var(--aika-lift-md));
+    }
+
+    html:root:root .Draggable.HoversEnabled .LibraryItemBox::after {
+        display: none;
+    }
+}
+
+/* --- The light spots: one static layer ------------------------------------ */
+/* Only windows with background.css generate html::before (it sets content);
+   menus, notifications and the sign-in window get nothing from this */
+
+html:root::before {
+    inset: 0;
+    width: auto;
+    aspect-ratio: auto;
+    border-radius: 0;
+    opacity: 1;
+    filter: none;
+    transform: none;
+    will-change: auto;
+    animation: none;
+    background: var(--aika-perf-spots);
+}
+
+html:root::after,
+html:root body::before {
+    display: none;
 }
