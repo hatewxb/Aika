@@ -24,6 +24,10 @@ html:root {
        ------------------------------------------------------------------ */
     --aika-accent: var(--aika-preset-accent, var(--aika-user-accent));
     --aika-accent-bright: var(--aika-preset-accent-bright, var(--aika-user-accent-bright));
+    /* The hue turn that brings a sepia-toned Steam image to the accent
+       (--aika-tint-accent, tokens.css): the accent hue − 40°. Custom colors
+       keep the Aika turn — a filter can't read a hue from a color */
+    --aika-tint-hue: var(--aika-preset-tint-hue, 206deg);
     --aika-light-1: var(--aika-preset-light-1, var(--aika-user-light-1));
     --aika-light-2: var(--aika-preset-light-2, var(--aika-user-light-2));
     --aika-light-3: var(--aika-preset-light-3, var(--aika-user-light-3));
@@ -289,7 +293,7 @@ html:root {
             at calc(var(--aika-light-1-x) + var(--aika-light-1-size) / 2)
                calc(var(--aika-light-1-y) + var(--aika-light-1-size) / var(--aika-light-aspect) / 2),
             rgb(from var(--aika-light-1) r g b / var(--aika-light-1-opacity)) var(--aika-perf-spot-hold),
-            rgb(from var(--aika-light-1) r g b / calc(var(--aika-light-1-opacity) * 0.5)) var(--aika-perf-spot-half),
+            rgb(from var(--aika-light-1) r g b / calc(var(--aika-light-1-opacity) * 0.5)) var(--aika-perf-spot-half),
             rgb(from var(--aika-light-1) r g b / 0) 100%),
         radial-gradient(
             calc(var(--aika-light-2-size) / 2 * var(--aika-perf-spot-spread))
@@ -297,7 +301,7 @@ html:root {
             at calc(var(--aika-light-2-x) + var(--aika-light-2-size) / 2)
                calc(var(--aika-light-2-y) + var(--aika-light-2-size) / var(--aika-light-aspect) / 2),
             rgb(from var(--aika-light-2) r g b / var(--aika-light-2-opacity)) var(--aika-perf-spot-hold),
-            rgb(from var(--aika-light-2) r g b / calc(var(--aika-light-2-opacity) * 0.5)) var(--aika-perf-spot-half),
+            rgb(from var(--aika-light-2) r g b / calc(var(--aika-light-2-opacity) * 0.5)) var(--aika-perf-spot-half),
             rgb(from var(--aika-light-2) r g b / 0) 100%),
         radial-gradient(
             calc(var(--aika-light-3-size) / 2 * var(--aika-perf-spot-spread))
@@ -305,7 +309,7 @@ html:root {
             at calc(var(--aika-light-3-x) + var(--aika-light-3-size) / 2)
                calc(var(--aika-light-3-y) + var(--aika-light-3-size) / var(--aika-light-aspect) / 2),
             rgb(from var(--aika-light-3) r g b / var(--aika-light-3-opacity)) var(--aika-perf-spot-hold),
-            rgb(from var(--aika-light-3) r g b / calc(var(--aika-light-3-opacity) * 0.5)) var(--aika-perf-spot-half),
+            rgb(from var(--aika-light-3) r g b / calc(var(--aika-light-3-opacity) * 0.5)) var(--aika-perf-spot-half),
             rgb(from var(--aika-light-3) r g b / 0) 100%);
 
     /* "Heart Pulse" in the address capsule (components/url-capsule.css): an alpha mask —

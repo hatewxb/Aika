@@ -21,6 +21,7 @@
     /* Accent and light spots */
     --aika-preset-accent: #F07FAE;              /* pink: indicators, glows, links */
     --aika-preset-accent-bright: #F6A9C6;
+    --aika-preset-tint-hue: 295deg;       /* Steam images in the accent: its hue − 40° (colors.css) */
     --aika-preset-accent-fill: #F07FAE;         /* button fill, dark label 6.9:1 */
     --aika-preset-accent-fill-hover: #F29DBE;   /* 8.6:1 */
     --aika-preset-on-accent: #2A1220;           /* dark plum */

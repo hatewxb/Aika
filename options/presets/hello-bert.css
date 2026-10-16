@@ -14,6 +14,7 @@
     /* Accent and light spots */
     --aika-preset-accent: #66FCF1;              /* cyan: indicators, glows, links */
     --aika-preset-accent-bright: #8FFDF6;
+    --aika-preset-tint-hue: 136deg;       /* Steam images in the accent: its hue − 40° (colors.css) */
     --aika-preset-accent-fill: #45A29E;         /* teal button fill, dark text 6.5:1 */
     --aika-preset-accent-fill-hover: #52B6B1;
     --aika-preset-on-accent: #0B0C10;

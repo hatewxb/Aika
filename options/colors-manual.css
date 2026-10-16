@@ -9,6 +9,7 @@
 html:root {
     --aika-preset-accent: initial;
     --aika-preset-accent-bright: initial;
+    --aika-preset-tint-hue: initial;
     --aika-preset-light-1: initial;
     --aika-preset-light-2: initial;
     --aika-preset-light-3: initial;

@@ -13,6 +13,7 @@
 :root {
     --aika-preset-accent: #8B7FF0;        /* lavender indigo */
     --aika-preset-accent-bright: #A497F5;
+    --aika-preset-tint-hue: 206deg;       /* Steam images in the accent: its hue − 40° (colors.css) */
     --aika-preset-light-1: #8B7FF0;       /* spot at the top */
     --aika-preset-light-2: #C77DBA;       /* pink on the left */
     --aika-preset-light-3: #D9906A;       /* warm, bottom right */

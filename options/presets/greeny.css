@@ -19,6 +19,7 @@
     /* Accent and light spots */
     --aika-preset-accent: #2ECC7A;              /* lifted green: indicators, glows, links */
     --aika-preset-accent-bright: #5BD183;       /* the light-struck leaf */
+    --aika-preset-tint-hue: 109deg;       /* Steam images in the accent: its hue − 40° (colors.css) */
     --aika-preset-accent-fill: #017939;         /* emerald button fill, label 5.4:1 */
     --aika-preset-accent-fill-hover: #01843F;   /* 4.7:1 */
     --aika-preset-on-accent: #F2FFF9;

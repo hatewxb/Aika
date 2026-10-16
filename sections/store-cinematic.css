@@ -604,9 +604,11 @@ html.aika-cine .aika-cine-track {
     gap: var(--aika-space-4);
     overflow-x: auto;
     scrollbar-width: none;
-    /* Room for the hover lift and the card shadow */
-    padding-block: var(--aika-space-2);
-    margin-block: calc(-1 * var(--aika-space-2));
+    /* Room for the hover lift and the card shadow — on the sides too: the
+       scroller clipped the first card's outline on the left (screenshot 28) */
+    padding: var(--aika-space-2);
+    margin: calc(-1 * var(--aika-space-2));
+    scroll-padding-inline: var(--aika-space-2);
 }
 
 html.aika-cine .aika-cine-track::-webkit-scrollbar {

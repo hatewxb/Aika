@@ -570,7 +570,9 @@
        (the "Steam News" header) */
     /* A caption over an image without a backing (the genre label in store search) */
     --aika-genre-label-shadow: 0 1px 2px var(--aika-shadow-deep), 0 0 8px var(--aika-shadow-deep);
-    --aika-tint-accent: grayscale(1) sepia(1) saturate(2.4) hue-rotate(205deg) brightness(0.95);
+    /* Steam images recolored to the accent (forum icons, the gift card fan…):
+       sepia lands near 40°, the turn — the preset's (--aika-tint-hue, colors.css) */
+    --aika-tint-accent: grayscale(1) sepia(1) saturate(2.4) hue-rotate(var(--aika-tint-hue)) brightness(0.95);
     --aika-gift-tilt: -4deg;    /* the gift card fan on hover (store home) */
 
     /* Top tab icons (nav.css). Our own simple 24×24 SVGs, 1.75 stroke;
