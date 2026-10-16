@@ -2,7 +2,7 @@
 
 # Aika
 
-**A warm dark theme for Steam** · [Millennium](https://steambrew.app) · 0.1.3 · by **hatewxb**
+**A warm dark theme for Steam** · [Millennium](https://steambrew.app) · 0.1.4 · by **hatewxb**
 
 **[Get it on Steambrew](https://steambrew.app/theme/uV8M1eg45Hh662blPuyD)** — the official Millennium theme store
 
@@ -43,7 +43,10 @@ Steam's light blue. The theme doesn't change any Steam text, only the look.
 - **Screenshots grouped by game** in the profile: a carousel shelf per game.
 - **Library covers** that tilt toward the cursor in 3D, and floating library icons.
 - **Privacy blur** for the wallet balance in the account menu until you hover it.
-- **Top bar tabs centered** (can be moved back to the left).
+- **Top bar tabs centered** (can be moved back to the left), or a **compact header**: menus, tabs and account buttons in one line.
+- **The page address as a small capsule** over store and community pages, with a dot-matrix "heart pulse" while a page loads.
+- **Show or hide** the wallet balance, the address, What's New, the "Add shelf" row and the Steam news button.
+- **Settings in English and Russian**, following the Steam language.
 - **Performance** setting: Full by default; Balanced keeps the look but drops moving elements on and around items (the light following the cursor, shimmers, glares, the 3D cover tilt); Low turns off every Aika animation and heavy effect (blur, glass, WebGL) and keeps the plain Fluent look for weaker machines.
 
 ## Screenshots
@@ -113,4 +116,5 @@ licensed under the SIL Open Font License 1.1 (`assets/fonts/OFL-*.txt`). The
 notification liquid glass is [hyalite](https://github.com/VII-Cae/hyalite--liquid-glass),
 MIT (`js/vendor/LICENSE-hyalite.txt`). The aurora and dark veil backdrops port the
 shaders of [React Bits](https://reactbits.dev) (MIT + Commons Clause); several
-motions follow ideas from React Bits and [Motion](https://motion.dev) examples.
+motions follow ideas from React Bits and [Motion](https://motion.dev) examples; the
+page loading pulse follows the idea of the Dot Matrix "Heart Pulse" loader (our own code).
