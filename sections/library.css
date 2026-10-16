@@ -176,8 +176,8 @@ html .TitleBarControls :is(.Button, .AccountMenu):hover {
    player-material icon floating over the content — the label pops out above it
    on hover (text stays Steam's). Places as in Steam: add left, downloads in the
    middle, friends right. The notice is pinned above the icons and grows up.
-   TODO: the download progress look — capture while downloading; whatever Steam
-   puts next to .Queue stays inside the capsule (it widens).
+   While something downloads the downloads button turns into a compact
+   progress capsule (see below, screenshot 30).
    -------------------------------------------------------------------------- */
 
 html .OuterFrame {
@@ -284,6 +284,91 @@ html .BottomBar .DownloadStatus .DownloadStatusContent {
     margin: 0;
     padding: 0;
     background: var(--aika-transparent);
+}
+
+/* While something downloads or verifies (screenshot 30, captured 2026-10-17
+   during a file check): Steam puts .DetailedDownloadProgress inside and widens
+   the content to ~720 px —
+     .DetailedDownloadProgress
+       > .tool-tip-source > .Icon (the game icon) + .IconBevel (an absolute frame)
+       > .ProgressBarWrapper > .StatusLine (.Status + .Status.Percentage)
+                             + .ProgressBar
+   With our round button's padding 0 the game icon and its frame sat on the
+   rounded edge and the percentage against the right one. A compact capsule
+   instead, lower than the round buttons, with room on both sides; the bevel
+   (Steam's square frame) goes. */
+html .BottomBar .DownloadStatus:has(> .DownloadStatusContent > .DetailedDownloadProgress) {
+    width: var(--aika-dock-progress-width);
+    height: var(--aika-dock-progress-height);
+}
+
+html .BottomBar .DownloadStatus > .DownloadStatusContent:has(> .DetailedDownloadProgress) {
+    box-sizing: border-box;
+    width: 100%;
+    padding-inline: var(--aika-dock-progress-pad);
+}
+
+html .BottomBar .DownloadStatus .DetailedDownloadProgress {
+    display: flex;
+    align-items: center;
+    gap: var(--aika-space-2);
+    width: 100%;
+    min-width: 0;
+    height: auto;
+}
+
+html .BottomBar .DownloadStatus .DetailedDownloadProgress .Icon {
+    flex: none;
+    width: var(--aika-dock-progress-icon);
+    height: var(--aika-dock-progress-icon);
+    overflow: hidden;
+    border-radius: var(--aika-radius-xs);
+}
+
+html .BottomBar .DownloadStatus .DetailedDownloadProgress .IconBevel {
+    display: none;
+}
+
+html .BottomBar .DownloadStatus .DetailedDownloadProgress .ProgressBarWrapper {
+    flex: 1 1 auto;
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+    gap: var(--aika-space-1);
+    height: auto;
+}
+
+html .BottomBar .DownloadStatus .DetailedDownloadProgress .StatusLine {
+    display: flex;
+    align-items: baseline;
+    gap: var(--aika-space-2);
+    min-width: 0;
+    height: auto;
+    font-family: var(--aika-font-ui);
+    font-size: var(--aika-text-label);
+    line-height: 1;
+    color: var(--aika-fg-muted);
+}
+
+html .BottomBar .DownloadStatus .DetailedDownloadProgress .StatusLine .Status {
+    flex: 1 1 auto;
+    min-width: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+html .BottomBar .DownloadStatus .DetailedDownloadProgress .StatusLine .Status.Percentage {
+    flex: none;
+    font-family: var(--aika-font-mono);
+    color: var(--aika-fg);
+}
+
+html .BottomBar .DownloadStatus .DetailedDownloadProgress .ProgressBar {
+    width: 100%;
+    height: var(--aika-dock-progress-bar);
+    border-radius: var(--aika-radius-full);
+    overflow: hidden;
 }
 
 html .BottomBar :is(.AddGameButton, .FriendsButton, .DownloadStatus) .Icon {

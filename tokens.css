@@ -520,6 +520,12 @@
     --aika-dock-inset: var(--aika-space-4);   /* from the window edges */
     --aika-dock-rise: 16px;                   /* they float up into place when the window opens */
     --aika-dock-hover-scale: 1.08;            /* an icon grows a little under the cursor */
+    /* The downloads button while something downloads / verifies: a compact capsule */
+    --aika-dock-progress-width: 300px;
+    --aika-dock-progress-height: 36px;        /* lower than the round buttons */
+    --aika-dock-progress-pad: 12px;           /* both sides: the game icon and the percentage stay inside */
+    --aika-dock-progress-icon: 16px;
+    --aika-dock-progress-bar: 3px;
     /* The "+" floating action button (motion.dev FAB idea): the "+" turns into
        "×", the Add a Game menu stacks above it as round icons with label pills
        that pop out one after another, nearest first, on a gentle spring */
