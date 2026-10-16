@@ -30,3 +30,6 @@ CLAUDE.md
 
 # Local color theme concepts (author drafts for presets)
 color-concepts/
+
+# graphify knowledge graph output (built locally; it includes the local-only docs)
+graphify-out/
