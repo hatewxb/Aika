@@ -118,10 +118,17 @@
   };
   const byText = (el) => { const t = el?.textContent.trim(); if (t && TEXT[t]) setText(el, TEXT[t]); };
 
-  // Is the sidebar editor showing Aika? Clicks on the theme list tell; our own
-  // condition keys confirm it on the condition pages
-  let aika = false;
-  const isAika = (side) => aika || !!side.querySelector('[data-condition="Compact header"]');
+  // Is the sidebar editor showing Aika? Told by what is on the page, not by
+  // how it was opened (Millennium reopens the last theme without a click on
+  // the theme list — only the first tab was recognized then, by one key):
+  //   a settings tab — every condition key on it is one of ours;
+  //   the "Colors" page — every color name on it is one of ours (root-colors.css).
+  const isAika = (side) => {
+    const keys = [...side.querySelectorAll(".MillenniumDesktopSidebar_EditorContent [data-condition]")].map((f) => f.dataset.condition);
+    if (keys.length) return keys.every((k) => k in NAMES);
+    const colors = [...side.querySelectorAll(".MillenniumDesktopSidebar_EditorContent .Field .FieldLabel")].map((l) => l.textContent.trim());
+    return colors.length > 0 && colors.every((c) => c in COLOR_KEY);
+  };
 
   const apply = (side) => {
     if (!isAika(side)) return;
@@ -156,10 +163,6 @@
     let frame = 0;
     const queue = () => { if (!frame) frame = requestAnimationFrame(() => { frame = 0; apply(side); }); };
     new MutationObserver(queue).observe(side, { childList: true, subtree: true, characterData: true });
-    side.addEventListener("click", (e) => {
-      const item = e.target.closest?.(".MillenniumDesktopSidebar_LibraryItemButton");
-      if (item) { aika = item.textContent.trim() === "Aika"; queue(); }
-    }, true);
     const opened = (e) => { if (isAika(side) && e.target.closest?.(".DialogDropDown")) menus(); };
     side.addEventListener("click", opened, true);
     side.addEventListener("keydown", opened, true);
