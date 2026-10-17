@@ -5,7 +5,7 @@ This is the source contribution behind the combined local Steam theme discussed 
 ## Included
 
 - A combined settings generator with single ownership for overlapping QOL visibility switches.
-- Fluenty / Neutron-inspired appearance selection and theme-only RU / EN / ZH controls.
+- Fluenty / Neutron-inspired appearance selection and theme-only RU / EN / CN controls.
 - Sidebar shortcuts, standalone Steam browser access and browser tab controls.
 - Local running-game indication around the user's own avatar, independent of Steam presence. It does not set persona state or make Invisible/Offline users appear Online.
 - Compatibility adjustments for Aika effects and Steam's current class aliases.
