@@ -1,0 +1,65 @@
+/* Original Steam adaptation inspired by Neutron's purple/cyan palette. No remote assets or blur layers. */
+#our-appearance-button{appearance:none!important;display:flex!important;align-items:center;justify-content:center;gap:5px;height:28px!important;padding:0 8px!important;border:0!important;border-radius:4px!important;box-shadow:none!important;background:transparent!important;color:#c8c5cd!important;font:11px Arial,sans-serif!important;cursor:pointer;-webkit-app-region:no-drag;flex:0 0 auto;align-self:center}
+#our-appearance-button:hover{background:#ffffff12!important;color:white!important}
+#our-appearance-button:focus-visible{outline:1px solid #ffffff60;outline-offset:-2px}
+#our-appearance-button.our-appearance-fallback{position:fixed;right:310px;top:9px;z-index:20000}
+#our-appearance-menu{position:fixed;z-index:2147483647;width:250px;padding:5px;background:#27272b;color:#eee;border:1px solid #ffffff25;border-radius:6px;box-shadow:0 4px 15px #0006}
+#our-appearance-menu button{display:block;width:100%;padding:9px 10px;border:0;border-radius:4px;background:transparent;color:inherit;text-align:left;font:13px Arial,sans-serif;cursor:pointer}
+#our-appearance-menu button[aria-checked=true]::before{content:'✓  '}
+#our-appearance-menu button:hover,#our-appearance-menu button:focus-visible{background:#ffffff12}
+html:root[data-our-appearance=neutron]{--background-fill-color-mica-background-base:#191329;--background-col:#211d38;--color-darkest:#171226;--color-darker:#211b36;--color-dark:#2c2447;--color-light:#413356;--fill-color-text-primary:#e5e9f3;--main-accent-default:#7d70d8;--aika-accent:#9e8af0;--aika-accent-fill:#6350ad;--aika-bg:#181228;--aika-bg-elevated:#25203d}
+html:root[data-our-appearance=neutron] body,html:root[data-our-appearance=neutron] ._1ENHEsrSLcTRtPQFl1F-wL{background:linear-gradient(115deg,#1a1029 0%,#2c244a 38%,#285879 73%,#307c91 100%)!important}
+html:root[data-our-appearance=neutron] #sidebar{background:#1410239c!important}
+html:root[data-our-appearance=neutron] :is(._3mz8wQ6Q44B8P7pzPP4Iyw,._3x1HklzyDs4TEjACrRO2tB){background:transparent!important}
+html:root[data-our-appearance=neutron] :is(.LibraryHome,.LibraryContainer,.LibraryWindow,.LibraryContent,.LclHwcOfHFpwObYMD1HLa,._2PF_m-I5yte3WnQhpcz8RC){background:transparent!important}
+html:root[data-our-appearance=neutron] :is(.LibraryList,.LibrarySidebar,._9sPoVBFyE_vE87mnZJ5aB){background:#171327a6!important}
+html:root[data-our-appearance=neutron] .contextMenuContents{background:#252039!important;color:#e5e9f3!important}
+@media(max-width:900px){#our-appearance-button span{display:none}#our-appearance-button.our-appearance-fallback{right:250px}}
+
+/* Complete Steam surface hierarchy: transparent canvas, tinted panels, readable controls. */
+html:root[data-our-appearance=neutron]{--neutron-canvas:linear-gradient(115deg,#191026 0%,#2e254c 35%,#2b5679 70%,#347d92 100%);--neutron-panel:rgba(19,17,37,.42);--neutron-raised:rgba(24,20,43,.72);--neutron-border:rgba(194,186,237,.17);--neutron-fg:#e4e9f4;--background-col:rgba(23,19,40,.38);--color-darkest:rgba(16,13,30,.48);--color-darker:rgba(26,21,46,.42);--color-dark:rgba(40,30,63,.5);--color-light:rgba(169,152,224,.14);--background-fill-color-layer-default:rgba(24,20,43,.36);--fill-color-acrylic-background-default:rgba(25,21,44,.93);--fill-color-subtle-secondary:rgba(188,166,240,.12);--fill-color-text-primary:#e4e9f4;--aika-card-bg:rgba(21,19,38,.4);--aika-surface-translucent:rgba(25,21,44,.93);--aika-bg-elevated:rgba(26,22,46,.65)}
+html:root[data-our-appearance=neutron] body{background:var(--neutron-canvas)!important;color:var(--neutron-fg)!important}
+html:root[data-our-appearance=neutron] :is(.OuterFrame,.DesktopUI,.LibraryHome,.LibraryContent,.LibraryView,.LibraryWindow,.LibraryContainer,.LibraryHomeContent,.AppDetails,.AppDetailsBody,.AppDetailsOverview,.SettingsModal,.DialogBody,.DialogContent,.MainPanel,.LclHwcOfHFpwObYMD1HLa,._2PF_m-I5yte3WnQhpcz8RC){background-color:transparent!important;background-image:none!important}
+html:root[data-our-appearance=neutron] :is(.Showcase,.ShowcaseHeader,.WhatsNew,.WhatsNewContainer,.LibraryHomeWhatsNew,.LibraryHomeUpdates,.PageListColumn,.GameList,.LibraryList,.LibrarySidebar){background:var(--neutron-panel)!important;border-color:var(--neutron-border)!important;box-shadow:none!important}
+html:root[data-our-appearance=neutron] :is(.TitleBar,.TopBar){background:rgba(14,12,28,.36)!important;border-color:var(--neutron-border)!important}
+html:root[data-our-appearance=neutron] :is(.contextMenu,.contextMenuContents,.DialogDropDownMenu,.DialogDropDown,.DialogInput,.DialogTextInputBase,.DialogButton,.DialogToggleField,.DialogRoundCheckboxField,.FriendsList,.friendsListContainer,.ChatRoomList,.chatWindow){background:var(--neutron-raised)!important;color:var(--neutron-fg)!important;border-color:var(--neutron-border)!important}
+html:root[data-our-appearance=neutron] .contextMenu :is(.AddGameMenu,.H2MNnp7B_8r37I5wiifE0){background:var(--neutron-raised)!important;border-color:var(--neutron-border)!important}
+html:root[data-our-appearance=neutron] :is(.DialogButton,.contextMenuItem):hover{background:rgba(123,101,193,.24)!important}
+html:root[data-our-appearance=neutron] :is(.Showcase,.DialogContent,.SettingsModal){color:var(--neutron-fg)!important}
+/* Web content uses the same fixed canvas, with opaque covers and translucent surrounding panels. */
+html:root[data-our-appearance=neutron]:has(body.v6),html:root[data-our-appearance=neutron]:has(body.flat_page){background:var(--neutron-canvas)!important}
+html:root[data-our-appearance=neutron] body:is(.v6,.flat_page){background:var(--neutron-canvas)!important;background-attachment:fixed!important;--aika-bg:transparent;--aika-bg-elevated:rgba(26,22,46,.55);--aika-card-bg:rgba(21,19,38,.42);--aika-surface:rgba(25,21,44,.45)}
+html:root[data-our-appearance=neutron] body:is(.v6,.flat_page) :is(#global_header,.responsive_page_frame,.responsive_page_content,.responsive_page_template_content,.page_background_holder,.page_background,.page_content_ctn,.home_page_body_ctn,.home_page_content,.home_ctn,.home_tabs_content,.home_tab_bg,.game_page_background,.profile_page,.community_home_body){background-color:transparent!important;background-image:none!important}
+html:root[data-our-appearance=neutron] body:is(.v6,.flat_page) :is(.home_content.single,.store_main_capsule,.home_discounts_block,.tab_preview,.tab_row,.tab_item,.game_area_purchase_game,.block,.section,.community_recommendation_app,.profile_header_bg,.profile_content,.profile_leftcol,.profile_rightcol,#store_nav_area,#store_nav_area .store_nav_bg){background:var(--neutron-panel)!important;border-color:var(--neutron-border)!important;color:var(--neutron-fg)!important}
+html:root[data-our-appearance=neutron] body:is(.v6,.flat_page)::before,html:root[data-our-appearance=neutron] body:is(.v6,.flat_page)::after,html:root[data-our-appearance=neutron]:has(body.v6)::before,html:root[data-our-appearance=neutron]:has(body.v6)::after{content:none!important}
+
+/* Library's old Fluenty rules paint dark-14 and #2e2e2e over the shared canvas. */
+html:root[data-our-appearance=neutron] :is(.LibraryHome,.AppDetailsMain,.AppDetailsTransitionGroup){background:var(--neutron-canvas)!important;background-attachment:fixed!important}
+html:root[data-our-appearance=neutron] :is(.ContentFrame,.Library){background:transparent!important}
+html:root[data-our-appearance=neutron] :is(._20QAC4WMXm8qFE8waUT5oo,._17uEBe5Ri8TMsnfELvs8-N,._170Npw5h84elypMSQ8zNDI){background:rgba(19,17,37,.32)!important;border-color:var(--neutron-border)!important;box-shadow:none!important}
+html:root[data-our-appearance=neutron] :is(.Showcase,.ShowcaseHeader){background:rgba(19,17,37,.18)!important;border-color:transparent!important;box-shadow:none!important}
+html:root[data-our-appearance=neutron] :is(.Showcase,.ShowcaseHeader) :is(.DialogButton,.DialogDropDown,._DialogInputContainer){background:rgba(18,15,34,.38)!important;border:1px solid var(--neutron-border)!important;border-radius:4px!important;box-shadow:none!important}
+
+/* Collections and downloads use separate route containers. */
+html:root[data-our-appearance=neutron] :is(._1TBJ1lK-VmJ2h1lXzBtGxA,.CollectionContents,.DownloadsPage){background:var(--neutron-canvas)!important;background-attachment:fixed!important}
+html:root[data-our-appearance=neutron] :is(.u1xD3KJEgksF_J_5TLZzO,.Z6wLCsR5it0hjFblgrb6){background:transparent!important}
+html:root[data-our-appearance=neutron] :is(.NewCollection,._1VNuYHM6BPBOJspC6zPf5r){background:var(--neutron-panel)!important;border:1px solid var(--neutron-border)!important}
+html:root[data-our-appearance=neutron] :is(.NewCollection,._1VNuYHM6BPBOJspC6zPf5r):hover{background:rgba(91,74,142,.34)!important}
+/* Preserve the native collection artwork, progress bars and semantic status colors. */
+html:root[data-our-appearance=neutron]{--settings-sidebar-btn-bg:rgba(24,20,43,.35);--settings-sidebar-hover-bg:rgba(122,101,182,.24);--settings-sidebar-hover-not-select:rgba(160,136,216,.14);--settings-button-col:rgba(32,26,53,.75);--settings-groupbox-bg:rgba(21,19,38,.38);--settings-mdl-bg:rgba(20,17,37,.45);--window-bg:transparent;--titlebar-color:rgba(15,13,28,.32);--accent-col:rgba(21,19,38,.34);--accent-secondary:rgba(35,28,57,.65);--focusable-col:rgba(37,30,59,.4);--context-menu-bg:28,23,46;--tray-menu-bg:28,23,46;--dark-13:18,14,30;--dark-14:20,15,33;--dark-19:22,17,36;--dark-1b:24,19,39;--dark-1d:26,20,42;--dark-20:28,22,45;--dark-21:30,24,47;--dark-29:37,29,56;--dark-2b:40,31,60;--dark-2d:43,33,64;--dark-30:47,36,70;--dark-31:49,37,73;--dark-32:51,39,76;--dark-37:56,43,82;--dark-3a:61,47,89}
+/* Friends and chats are standalone windows, not part of the library frame. */
+html:root[data-our-appearance=neutron] :is(.friendsui-container,.friendsListContainer,.chatWindow){background:var(--neutron-canvas)!important;background-attachment:fixed!important}
+html:root[data-our-appearance=neutron] :is(.friendlistListContainer,.friendsList,.friendsListContent,.chatHistoryScroll,.chatRoomListContainer,.chatRoomGroupNavColumn,.activeTab,.displayRow.minHeightZero.Panel.Focusable){background:transparent!important}
+html:root[data-our-appearance=neutron] :is(.friendListHeaderContainer,.friendListHeaderContainer .titleBarContainer,.titleBarContainer.ChatTabs,.friendsListSectionTitle,.chatRoomHeader,.chatWindow .chatHeader,.FriendsListChatSection,.chatRoomGroupHeader,.favoritesContainer){background:var(--neutron-panel)!important;border-color:var(--neutron-border)!important}
+html:root[data-our-appearance=neutron] :is(.chatEntry.Panel.Focusable,#friendSearchInputID){background:var(--neutron-raised)!important;backdrop-filter:none!important;border-color:var(--neutron-border)!important}
+/* Settings shell and page columns must expose the same canvas as the parent window. */
+html:root[data-our-appearance=neutron] :is(.ModalPosition,.ModalDialogPopup,.FullModalOverlay,.SettingsDialogBody,.SettingsDialogBodyFade,.DialogContent_InnerWidth,.DialogBodyText,.DialogContentTransition,.PageListColumn,.PageListContent,.DialogFooter){background:transparent!important;background-image:none!important}
+html:root[data-our-appearance=neutron] :is(.SettingsModal,.ModalDialogPopup){background:var(--neutron-canvas)!important;background-attachment:fixed!important}
+html:root[data-our-appearance=neutron] .PageListColumn{background:rgba(15,12,29,.28)!important}
+
+/* Friends signed-out/offline view uses a separate full-height wrapper. */
+html:root[data-our-appearance=neutron].friendsui-container,html:root[data-our-appearance=neutron].friendsui-container body{background:var(--neutron-canvas)!important;background-attachment:fixed!important}
+html:root[data-our-appearance=neutron].friendsui-container body>div,html:root[data-our-appearance=neutron].friendsui-container body>div>div,html:root[data-our-appearance=neutron] :is(.FriendsListContent,.friendsListContent,.friendListContent,.friendsListContainer,.friendlistListContainer,.FriendsListContent>div){background:transparent!important;background-image:none!important}
+/* Account/family web UI: translucent member and invitation cards, retaining semantic status colors. */
+html:root[data-our-appearance=neutron] :is(._2Fq1ae8YHWoFHZKQRZRJJS,._3ayYOCw_ZCm0rF1vDVmwfO,.hMgR2gFc_fP8LK9e2Vwvq){background:transparent!important;background-image:none!important}
+html:root[data-our-appearance=neutron] :is(._2LyGIHuQ8SFKb5T262YUvg,.TTgPUDgZKRwRLHs0om_Jn,.O_QQdR2Hi2oq9k3mKRAQl,._10bmoN5pr9IoO7oOL8fSJ0,._2SKgwaV-ptKsHUdNFpSDOI){background:var(--neutron-panel)!important;border-color:var(--neutron-border)!important;box-shadow:none!important}

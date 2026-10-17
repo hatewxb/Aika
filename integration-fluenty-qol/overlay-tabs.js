@@ -1,0 +1,16 @@
+(()=>{
+'use strict';if(window.__ourOverlayTabs)return;window.__ourOverlayTabs=true;
+const TAB='.TSlxCkeUMGwzmg21_WU8-',GROUP='.aqvbkhC1ejt4s8QvWA-c5',TITLE='._2RI6oQrDKUNzBqhIk4zI';
+let pinned=new Set(),width=220;try{pinned=new Set(JSON.parse(localStorage.getItem('our-overlay-pins')||'[]'));width=Math.max(150,Math.min(380,Number(localStorage.getItem('our-overlay-tabs-width'))||220));}catch{}
+const save=()=>{try{localStorage.setItem('our-overlay-pins',JSON.stringify([...pinned]));localStorage.setItem('our-overlay-tabs-width',String(width));}catch{}};
+const setWidth=()=>document.documentElement.style.setProperty('--our-overlay-tabs-width',width+'px');setWidth();
+function key(tab){const w=tab.closest('[data-rbd-draggable-id],[data-rfd-draggable-id]');return w?.getAttribute('data-rbd-draggable-id')||w?.getAttribute('data-rfd-draggable-id')||tab.querySelector(TITLE)?.textContent||'';}
+function render(){const groups=[...document.querySelectorAll(GROUP)].filter(g=>g.querySelector(TAB));if(!groups.length)return;document.documentElement.classList.add('our-overlay-vertical-tabs');
+for(const [index,g]of groups.entries()){g.classList.add('our-overlay-tabstrip');g.style.setProperty('--our-overlay-group-index',index);for(const tab of g.querySelectorAll(TAB)){if(tab.querySelector('._3j1xDQwp3Lvcn7_5RTTBYk'))continue;const id=key(tab);const wrapper=tab.parentElement;wrapper?.classList.toggle('our-overlay-pinned',pinned.has(id));
+if(!tab.querySelector('.our-overlay-pin')){const pin=document.createElement('button');pin.type='button';pin.className='our-overlay-pin';pin.addEventListener('pointerdown',e=>e.stopPropagation());pin.addEventListener('click',e=>{e.stopPropagation();const id=key(tab);pinned.has(id)?pinned.delete(id):pinned.add(id);save();render();});tab.append(pin);}
+const pin=tab.querySelector('.our-overlay-pin');const on=pinned.has(id);const glyph=on?'◆':'◇';if(pin.textContent!==glyph)pin.textContent=glyph;pin.title=on?'Открепить вкладку / Unpin / 取消固定':'Закрепить вкладку / Pin / 固定';pin.setAttribute('aria-pressed',String(on));}
+}
+if(!document.getElementById('our-overlay-resize')){const grip=document.createElement('div');grip.id='our-overlay-resize';grip.tabIndex=0;grip.setAttribute('role','separator');grip.setAttribute('aria-label','Ширина панели вкладок / Tab panel width / 标签面板宽度');grip.setAttribute('aria-orientation','vertical');let dragging=false;grip.addEventListener('pointerdown',e=>{dragging=true;grip.setPointerCapture(e.pointerId);e.preventDefault();});grip.addEventListener('pointermove',e=>{if(!dragging)return;width=Math.max(150,Math.min(380,e.clientX));setWidth();});grip.addEventListener('pointerup',()=>{dragging=false;save();window.dispatchEvent(new Event('resize'));});grip.addEventListener('keydown',e=>{if(!['ArrowLeft','ArrowRight'].includes(e.key))return;width=Math.max(150,Math.min(380,width+(e.key==='ArrowRight'?10:-10)));setWidth();save();e.preventDefault();});document.body.append(grip);}
+}
+let frame=0;function start(){render();new MutationObserver(()=>{if(!frame)frame=requestAnimationFrame(()=>{frame=0;render();})}).observe(document.body,{childList:true,subtree:true});}if(document.body)start();else addEventListener('DOMContentLoaded',start,{once:true});
+})();
