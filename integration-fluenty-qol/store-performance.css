@@ -1,0 +1,19 @@
+/* When Steam CSP blocks the viewport observer, do not create a view timeline for every card. */
+html:not(.aika-pop-js) body.v6.no_home_gutter :is(.title_grid,.home_tabs_row_ctn,#content_more .home_content>h2,.main_content_ctn .Panel:has(>.WidgetHeaderCtn),.paging_capsules .carousel_items>.focus>*,.carousel__slide--visible,.home_discount_games_ctn>*,a.tab_row_item,div.home_content_items>.home_content_item,.gp_contiguous_singles>.home_content_single_ctn){animation-name:none!important;animation-timeline:auto!important}
+/* Keep the coloured ambience, rasterise soft gradients rather than giant blurred moving surfaces. */
+html:has(body.v6.no_home_gutter)::before,html:has(body.v6.no_home_gutter)::after,html body.v6.no_home_gutter::before{filter:none!important;will-change:auto!important;animation:none!important;background:radial-gradient(ellipse at center,rgba(153,111,192,.11),transparent 70%)!important}
+html:has(body.v6.no_home_gutter)::after{background:radial-gradient(ellipse at center,rgba(170,100,145,.08),transparent 70%)!important}
+html body.v6.no_home_gutter::before{background:radial-gradient(ellipse at center,rgba(174,135,88,.07),transparent 70%)!important}
+
+/* Loaded store content must not fade out again on scroll, class changes or view restoration. */
+html:root body.v6.no_home_gutter :is(.aika-pop-near,.title_grid,.home_tabs_row_ctn,#content_more .home_content>h2,.main_content_ctn .Panel:has(>.WidgetHeaderCtn),.paging_capsules .carousel_items>.focus>*,.carousel__slide--visible,.home_discount_games_ctn>*,a.tab_row_item,div.home_content_items>.home_content_item,.gp_contiguous_singles>.home_content_single_ctn){animation:none!important;animation-timeline:auto!important}
+html:root body.v6.no_home_gutter .has_takeover :is(.static_takeover_ctn>.page_background_holder,.fullscreen-bg__video),html:root body.v6.no_home_gutter .has_takeover>:is(.fullscreen-bg,.static_takeover_ctn,.home_page_takeover_link),html:root body.v6.no_home_gutter a.home_page_takeunder,html:root body.v6.no_home_gutter #home_maincap_v7 .store_main_capsule{animation:none!important;animation-timeline:auto!important}
+
+/* Steam reassigns visible-slide classes after scrolling: don't replay accent flashes. */
+html:root body.v6.no_home_gutter #module_discounts_and_events ._1gsW0WuP7ZclL1_ScZlsvo::before{animation:none!important;opacity:0!important}
+html:root body.v6.no_home_gutter #module_discounts_and_events ._1gsW0WuP7ZclL1_ScZlsvo>:is(._229f53fK_tl7R6wqc-g2bq,._3dtnlw7cvJhAMGafZPipGv){animation:none!important}
+html:root body.v6.no_home_gutter .personal_calendar_ctn :is(.lX3GvxrkYaEqKJRpIhPsk,.tqaXEuWN2wV5_8lmSkMng)::after{animation:none!important;opacity:0!important}
+
+/* Scrolling beneath a stationary cursor must not flash a screen-blended spotlight. */
+html:root body.v6.no_home_gutter :is(#home_maincap_v7 .store_main_capsule.focus,#module_discounts_and_events .carousel__inner-slide a,.personal_calendar_ctn .carousel__inner-slide>div,.home_discounts_block,.community_recommendation_app,.home_content.single,.tab_preview.focus)::before,
+html:root body.v6.no_home_gutter :is(#home_maincap_v7 .store_main_capsule.focus,#module_discounts_and_events .carousel__inner-slide a,.personal_calendar_ctn .carousel__inner-slide>div,.home_discounts_block,.community_recommendation_app,.home_content.single,.tab_preview.focus)::after{content:none!important;opacity:0!important;animation:none!important;transition:none!important;mix-blend-mode:normal!important}

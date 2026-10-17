@@ -1,0 +1,67 @@
+html:root #sidebar #our-sidebar-tools{display:flex;flex-direction:column;gap:3px;margin-top:6px;flex-shrink:0;padding:0 5px}
+html:root #our-sidebar-tools button,html:root #our-sidebar-restore{appearance:none;border:0;background:transparent;color:#c8c5cd;cursor:pointer;border-radius:7px;font-family:inherit}
+html:root #our-sidebar-tools button{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;min-height:34px;padding:5px 2px;width:100%;font-size:10px}
+html:root #our-sidebar-tools button:hover,html:root #our-sidebar-restore:hover{background:#b58bde25;color:#dfc4ff}
+html:root #our-sidebar-tools button:focus-visible,html:root #our-sidebar-restore:focus-visible{outline:2px solid #c297ff;outline-offset:-2px}
+html:root #our-sidebar-restore{display:none;position:fixed;left:0;top:50%;z-index:2147483000;width:22px;height:44px;background:#25222bea;border:1px solid #a78bc955;border-left:0;border-radius:0 8px 8px 0;padding:0}
+html:root #our-sidebar-restore svg{transform:rotate(180deg)}
+html:root.our-sidebar-collapsed #sidebar{display:flex!important;visibility:hidden!important;width:22px!important;min-width:22px!important;padding:0!important}
+html:root.our-sidebar-collapsed .activeIndicator{display:none!important}
+html:root.our-sidebar-collapsed ._3x1HklzyDs4TEjACrRO2tB{width:calc(100vw - 22px)!important;max-width:calc(100vw - 22px)!important}
+html:root.our-sidebar-collapsed #our-sidebar-restore{display:block}
+html:root #sidebar{overflow-y:auto;overflow-x:hidden}
+
+/* Keep bottom actions reachable; scroll only the upper navigation. */
+html:root #sidebar{overflow:hidden!important}
+html:root #sidebar>.section:first-child{flex:1!important;min-height:0!important;overflow-y:auto!important;overflow-x:hidden!important}
+html:root #sidebar>.section:nth-child(2){flex:0 0 auto!important;width:calc(100% - 8px)!important}
+html:root #sidebar #our-sidebar-tools{width:100%!important;box-sizing:border-box!important;align-self:stretch!important}
+html:root #sidebar{min-height:0!important;box-sizing:border-box!important;max-height:100%!important}
+html:root #sidebar #our-sidebar-tools{flex-shrink:0!important;margin-top:0!important}
+html:root #our-sidebar-tools button{min-height:28px!important;padding:3px 1px!important}
+
+/* Hide sidebar scrollbar while preserving wheel/keyboard scrolling. */
+html:root #sidebar,html:root #sidebar>.section:first-child{scrollbar-width:none!important}
+html:root #sidebar::-webkit-scrollbar,html:root #sidebar>.section:first-child::-webkit-scrollbar{display:none!important;width:0!important;height:0!important}
+
+/* Hidden descendants must not escape via explicit visibility or fixed positioning. */
+html:root.our-sidebar-collapsed #sidebar *{visibility:hidden!important;pointer-events:none!important}
+html:root.our-sidebar-collapsed #our-glass-dialog{display:none!important}
+html:root.our-sidebar-collapsed :is(.BottomBarContainer,._1_yS5UP7el0aN4vntx3dx){visibility:hidden!important;pointer-events:none!important}
+html:root.our-sidebar-collapsed :is(.BottomBarContainer,._1_yS5UP7el0aN4vntx3dx) *{visibility:hidden!important;pointer-events:none!important}
+
+/* Sidebar toggle must not animate the native content geometry. */
+html:root #sidebar,html:root #sidebar *,html:root ._1ENHEsrSLcTRtPQFl1F-wL ._3mz8wQ6Q44B8P7pzPP4Iyw,html:root ._3x1HklzyDs4TEjACrRO2tB{transition-property:none!important;transition-duration:0s!important;transition-delay:0s!important}
+
+/* One compact action group, with settings last and only the collapse handle below. */
+html:root #sidebar>.section:nth-child(2){gap:0!important;align-items:stretch!important}
+html:root #sidebar>.section:nth-child(2)>:is(.button,#our-steam-browser,#our-language-quick,#our-points-shop){box-sizing:border-box!important;flex:0 0 58px!important;height:58px!important;min-height:58px!important;max-height:58px!important;margin:0!important;padding:4px 0!important}
+html:root #sidebar>.section:nth-child(2)>#our-steam-browser{display:flex!important;flex-direction:column!important;align-items:center!important;justify-content:center!important;gap:4px!important;background:transparent;border:0;color:#c8c5cd;font-family:inherit;font-size:10px;cursor:pointer}
+html:root #sidebar #our-sidebar-tools{gap:0!important;padding:0!important;margin:0!important}
+html:root #sidebar #our-sidebar-hide{height:22px!important;min-height:22px!important;padding:0!important}
+html:root #sidebar [data-our-add-game]{margin:2px 0!important;flex-shrink:0!important}
+
+/* Follow Calendar naturally instead of stretching the upper section into a spacer. */
+html:root #sidebar{justify-content:flex-start!important}
+html:root #sidebar>.section:first-child{flex:0 1 auto!important}
+html:root #sidebar>.section:nth-child(2){margin-top:4px!important}
+
+/* Dedicated FAB footer; native icon minimums must not clip the labels. */
+html:root #sidebar #our-add-game-footer{display:flex!important;align-items:center!important;justify-content:center!important;flex:0 0 60px!important;min-height:60px!important;width:100%!important;margin-top:auto!important;padding:6px 0!important;box-sizing:border-box!important;overflow:visible!important}
+html:root #sidebar #our-add-game-footer [data-our-add-game]{position:relative!important;left:auto!important;bottom:auto!important;margin:0!important}
+html:root #sidebar>.section:nth-child(2)>.button{display:flex!important;flex-direction:column!important;align-items:center!important;justify-content:center!important;gap:4px!important;overflow:visible!important}
+html:root #sidebar>.section:nth-child(2)>.button>.icon{height:24px!important;min-height:24px!important;max-height:24px!important;width:24px!important;flex:0 0 24px!important;margin:0!important}
+html:root #sidebar>.section:nth-child(2)>.button>.text{position:static!important;margin:0!important;line-height:12px!important;height:auto!important;min-height:12px!important;flex:0 0 auto!important;overflow:visible!important}
+
+/* Match native Fluent hover on both custom navigation actions. */
+html:root #sidebar :is(#our-points-shop,#our-steam-browser):is(:hover,:focus-visible){background:#ffffff12!important;border-radius:4px!important;color:#ddd!important}
+
+/* Dark Fluent selection, independent of imported Aika palette tokens. */
+html:root #sidebar .button:is(:hover,.active){background:#ffffff12!important;color:#ddd!important}
+
+/* Custom actions use the same flat Fluent geometry as native sidebar buttons. */
+html:root #sidebar>.section:nth-child(2)>:is(#our-points-shop,#our-steam-browser){appearance:none!important;-webkit-appearance:none!important;display:flex!important;flex-direction:column!important;align-items:center!important;justify-content:center!important;gap:4px!important;width:100%!important;border:0!important;outline:none!important;box-shadow:none!important;border-radius:4px!important;background:transparent!important;color:#c8c5cd!important;font-family:inherit!important;font-size:10px!important;font-weight:400!important;line-height:12px!important;cursor:pointer!important;text-align:center!important;overflow:visible!important}
+html:root #sidebar>.section:nth-child(2)>:is(#our-points-shop,#our-steam-browser)>svg{flex:0 0 20px!important;width:20px!important;height:20px!important;pointer-events:none}
+html:root #sidebar>.section:nth-child(2)>:is(#our-points-shop,#our-steam-browser)>span{font:inherit!important;line-height:12px!important;max-width:100%!important;white-space:normal!important;pointer-events:none}
+html:root #sidebar>.section:nth-child(2)>:is(#our-points-shop,#our-steam-browser):hover{background:#ffffff12!important;color:#ddd!important}
+html:root #sidebar>.section:nth-child(2)>:is(#our-points-shop,#our-steam-browser):focus-visible{outline:1px solid #ffffff40!important;outline-offset:-2px!important}

@@ -1,0 +1,5 @@
+/* Native Add Game action in Fluent chrome; no floating/morphing FAB. */
+html:root #sidebar [data-our-add-game]{display:flex!important;position:relative!important;left:auto!important;bottom:auto!important;align-items:center!important;justify-content:center!important;width:58px!important;min-width:58px!important;height:44px!important;padding:0!important;border:0!important;border-radius:4px!important;background:transparent!important;color:#c8c5cd!important;box-shadow:none!important;transform:none!important;animation:none!important;cursor:pointer!important}
+html:root #sidebar [data-our-add-game]> *{display:none!important}
+html:root #sidebar [data-our-add-game]::before{content:'+';font:300 25px/1 Arial;transform:none!important;animation:none!important}
+html:root #sidebar [data-our-add-game]:is(:hover,:focus-visible){background:#ffffff12!important;color:#ddd!important}

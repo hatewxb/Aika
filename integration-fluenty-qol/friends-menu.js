@@ -1,0 +1,7 @@
+(()=>{
+'use strict';if(window.__ourFriendsMenu)return;window.__ourFriendsMenu=true;
+function open(){const contexts=[window,window.opener,window.parent,window.opener?.opener].filter(Boolean);const api=contexts.map(w=>w.SteamClient).find(a=>typeof a?.URL?.ExecuteSteamURL==='function');if(api){api.URL.ExecuteSteamURL('steam://open/friends');return true;}return false;}
+const channel=new BroadcastChannel('our-steam-friends');channel.onmessage=e=>{if(e.data==='open')open()};
+function mount(){const items=[...document.querySelectorAll('.contextMenuItem,[role="menuitem"]')];const community=items.find(e=>/^(Сообщество|Community|社区)$/.test(e.textContent.trim()));if(!community||community.parentElement.querySelector('[data-our-friends]')||items.some(e=>/^(Друзья|Friends|好友)$/.test(e.textContent.trim())))return;const row=document.createElement('div');row.className=community.className;row.dataset.ourFriends='1';row.setAttribute('role','menuitem');row.tabIndex=0;row.textContent=({en:'Friends',zh:'好友'})[(navigator.language||'ru').slice(0,2)]||'Друзья';const run=e=>{e.preventDefault();e.stopPropagation();if(!open())channel.postMessage('open')};row.addEventListener('click',run);row.addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' ')run(e)});community.after(row);}
+let pending=false;const start=()=>{mount();new MutationObserver(()=>{if(pending)return;pending=true;requestAnimationFrame(()=>{pending=false;mount()})}).observe(document.body,{childList:true,subtree:true})};if(document.body)start();else addEventListener('DOMContentLoaded',start,{once:true});
+})();

@@ -1,0 +1,6 @@
+/* Native Steam persona state controls the account avatar glow. */
+html:root :is(._3yD46y5pd3zOGR7CzKs0mC,._2MD8aK_Q9dU8Sax4eiNYIp) :is(.avatarHolder,.nibodjvvrm86uCfnnAn4g):is(.ingame,.in-game){border-radius:50%;box-shadow:0 0 0 2px #a4d65e,0 0 10px #a4d65e88!important}
+html:root :is(._3yD46y5pd3zOGR7CzKs0mC,._2MD8aK_Q9dU8Sax4eiNYIp) :is(.avatarHolder,.nibodjvvrm86uCfnnAn4g):not(.ingame):not(.in-game){box-shadow:none!important}
+html:root :is(._3yD46y5pd3zOGR7CzKs0mC,._2MD8aK_Q9dU8Sax4eiNYIp) :is(.avatarHolder,.nibodjvvrm86uCfnnAn4g).our-self-invisible{border-radius:50%;box-shadow:0 0 0 2px #b394da,0 0 10px #b394da80!important}
+html:root :is(._3yD46y5pd3zOGR7CzKs0mC,._2MD8aK_Q9dU8Sax4eiNYIp) :is(.avatarHolder,.nibodjvvrm86uCfnnAn4g).our-self-online{border-radius:50%;box-shadow:0 0 0 2px #66b9e8,0 0 8px #66b9e866!important}
+html:root :is(._3yD46y5pd3zOGR7CzKs0mC,._2MD8aK_Q9dU8Sax4eiNYIp) :is(.avatarHolder,.nibodjvvrm86uCfnnAn4g).our-self-playing{border-radius:50%;box-shadow:0 0 0 2px #a4d65e,0 0 9px #a4d65e88!important}
