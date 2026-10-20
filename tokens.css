@@ -675,6 +675,7 @@
     /* The address capsule over store / community pages (components/url-capsule.css):
        small, centered on the line of the store menu capsule */
     --aika-url-capsule-height: 26px;
+    --aika-url-capsule-shadow: 0 2px 10px var(--aika-shadow-deep);   /* small and soft — the capsule is small */
     --aika-url-capsule-width: 340px;            /* at most */
     --aika-url-capsule-min: 160px;              /* narrower than this (the store menu is close) — hidden */
     --aika-url-capsule-left: var(--aika-space-3);

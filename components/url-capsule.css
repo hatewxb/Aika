@@ -45,16 +45,20 @@
     height: var(--aika-url-capsule-height);
     padding-inline: calc((var(--aika-url-capsule-height) - var(--aika-url-reload)) / 2) var(--aika-space-3);
     border-radius: var(--aika-radius-full);
-    background: var(--aika-storebar-material);
+    /* the trailer player's material: the blur of the page shows, text stays
+       readable over a light image; one hairline
+       (--aika-shadow-menu carried a second one) and a small soft shadow */
+    background: var(--aika-player-material);
     backdrop-filter: var(--aika-player-blur);
     box-shadow:
         inset 0 0 0 var(--aika-hairline) var(--aika-border-hover),
         var(--aika-highlight-top),
-        var(--aika-shadow-menu);
+        var(--aika-url-capsule-shadow);
     font-family: var(--aika-font-mono);
     font-size: var(--aika-url-text);
     line-height: 1;
-    color: var(--aika-fg-muted);
+    color: var(--aika-fg);
+    text-shadow: var(--aika-cine-text-shadow);
 }
 
 .aika-url-capsule[hidden] {
@@ -184,12 +188,15 @@ html:not(.aika-url-ready) head::before {
     width: var(--aika-url-capsule-height);
     height: var(--aika-url-capsule-height);
     border-radius: var(--aika-radius-full);
-    background: var(--aika-storebar-material);
+    /* the trailer player's material: the blur of the page shows, text stays
+       readable over a light image; one hairline
+       (--aika-shadow-menu carried a second one) and a small soft shadow */
+    background: var(--aika-player-material);
     backdrop-filter: var(--aika-player-blur);
     box-shadow:
         inset 0 0 0 var(--aika-hairline) var(--aika-border-hover),
         var(--aika-highlight-top),
-        var(--aika-shadow-menu);
+        var(--aika-url-capsule-shadow);
     animation: aika-url-placeholder-out 1ms linear var(--aika-loader-fallback) forwards;
 }
 
