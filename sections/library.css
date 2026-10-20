@@ -243,6 +243,17 @@ html .BottomBarContainer > .BottomBar {
     pointer-events: none;
 }
 
+/* Steam lets the window be dragged by its bottom bar (-webkit-app-region:
+   drag on .BottomBar and .DownloadStatus). The OS handles a drag region
+   before the page — pointer-events can't turn it off — so the invisible bar
+   kept a 44 px strip across the window where clicks never reached the games
+   (reports 2026-10-20: "anything inline with the bottom buttons is
+   unclickable"). Nothing here drags the window now. */
+html .BottomBarContainer,
+html .BottomBarContainer * {
+    -webkit-app-region: no-drag;
+}
+
 /* Room for the floating icons at the end of what scrolls under them (a short
    window, author 2026-10-20: "+" sat on the last games, downloads on a shelf
    title): the library home and a game page (.AppDetailsMain > .Container >
