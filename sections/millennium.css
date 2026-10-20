@@ -237,3 +237,57 @@ html .MillenniumSettings .PagedSettingsDialog_Title {
     letter-spacing: var(--aika-tracking-heavy);
     white-space: nowrap;
 }
+
+/* --- The Quick CSS editor window ----------------------------------------------- */
+/* (captured 2026-10-20) a popup window: .MillenniumQuickCss_Popup > … >
+   .DialogContent.GenericConfirmDialog (Steam #25282e, Motiva Sans) >
+   .DialogHeader + form.MillenniumQuickCss_CodeEditor > .cm-editor (CodeMirror 6,
+   a VS Code Dark look: #1e1e1e, gutters #838383, white 6 % active line). The
+   syntax colors are CodeMirror's generated classes (ͼ1l…) — left as they are. */
+html .MillenniumQuickCss_Popup .DialogContent {
+    background: var(--aika-bg-elevated);
+    font-family: var(--aika-font-ui);
+}
+
+html .MillenniumQuickCss_Popup .DialogHeader {
+    font-family: var(--aika-font-ui);
+    font-weight: var(--aika-weight-semibold);
+    letter-spacing: var(--aika-tracking-h2);
+    color: var(--aika-fg);
+}
+
+html .MillenniumQuickCss_Popup .cm-editor {
+    border-radius: var(--aika-radius-md);
+    background: var(--aika-bg-base);
+    font-family: var(--aika-font-mono);
+    font-size: var(--aika-text-meta);
+    box-shadow: inset 0 0 0 var(--aika-hairline) var(--aika-border);
+    overflow: hidden;
+}
+
+html .MillenniumQuickCss_Popup .cm-editor .cm-scroller {
+    font-family: inherit;
+}
+
+html .MillenniumQuickCss_Popup .cm-editor .cm-gutters {
+    border: none;
+    background: var(--aika-bg-base);
+    color: var(--aika-fg-subtle);
+}
+
+html .MillenniumQuickCss_Popup .cm-editor :is(.cm-activeLine, .cm-activeLineGutter) {
+    background: var(--aika-surface);
+}
+
+html .MillenniumQuickCss_Popup .cm-editor .cm-activeLineGutter {
+    color: var(--aika-fg);
+}
+
+html .MillenniumQuickCss_Popup .cm-editor .cm-cursor {
+    border-left-color: var(--aika-accent-bright);
+}
+
+html .MillenniumQuickCss_Popup .cm-editor .cm-selectionBackground,
+html .MillenniumQuickCss_Popup .cm-editor.cm-focused .cm-selectionBackground {
+    background: var(--aika-accent-soft);
+}
