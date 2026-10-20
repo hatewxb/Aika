@@ -1837,3 +1837,11 @@ html .AchievementsOverlayContainer .AchievementsPageContainer > .CloseButton:hov
     border-color: var(--aika-border-accent);
     background: var(--aika-bg-hover);
 }
+
+/* A game without a logo (a non-Steam game, report 2026-10-20): Steam draws its
+   name as SVG text in weight 200 with 1 px letter-spacing — like our headings
+   instead: semibold, a little tighter (it comes out narrower than Steam's) */
+html .SVGTitle text {
+    font-weight: var(--aika-weight-semibold);
+    letter-spacing: var(--aika-tracking-h2);
+}

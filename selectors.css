@@ -89,6 +89,24 @@ html .GameStatsSection ._2TYVGoD27ZMfjRirKQNLfk {
     color: var(--aika-fg-muted);
 }
 
+/* [Library] A non-Steam game page: the notice "Some information about … is
+   missing, as it is a third-party mod or game…" — a header-less section whose
+   body has only a hashed class: a dashed 2 px outline with 3 px corners
+   inside our panel, min-height 120px and margin-bottom 12px — a dark band
+   under it (a report 2026-10-20). Now plain text on the panel.
+   Verified: 2026-10-20 on a test shortcut (Notepad).
+   How to find: add a non-Steam game, open its page, the box under "Play". */
+html .AppDetailsSectionContainer > .Body._1TGl52GwsFQg3CXUYvThP- {
+    margin: 0;
+    padding: var(--aika-space-4);
+    border: none;
+    border-radius: inherit;
+    min-height: 0;   /* Steam: 120 px for two lines of text */
+    justify-content: flex-start;
+    color: var(--aika-fg-muted);
+    line-height: var(--aika-leading-body);
+}
+
 /* TODO: the bottom panel (downloads, friends) */
 
 
