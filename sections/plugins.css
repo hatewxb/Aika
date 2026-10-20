@@ -120,25 +120,27 @@ html #hltb-store-data .hltb-store-link:hover {
 
 /* --- Extendium: the toolbar ------------------------------------------------- */
 
-/* No strip of its own: a floating capsule on the right end of the tab row,
-   right above the page (author 2026-10-20) — the row spans the window in the
-   normal header and ends at the account buttons in the compact one, so an
-   anchor to its right edge works for both. It can't sit inside the page on
-   the line of the address capsule: the page is a native layer above the
-   window's DOM. Steam's address bar around it takes no room
-   (sections/store.css, part 1). */
-html .TopBar > .SuperNavBar {
-    anchor-name: --aika-tab-row;
+/* The toolbar's button is shown in the page address capsule instead
+   (js/url-capsule.js + js/extendium-bridge.js, author 2026-10-20: "in the
+   address, next to reload"). The real toolbar stays here, invisible and
+   click-through, placed right under the capsule's button — Extendium opens
+   its menu next to the button it was pressed on. Steam's address bar around
+   it takes no room (sections/store.css, part 1). Pinned extensions aren't
+   mirrored — only the main button. */
+/* The page starts right under the top bar — the anchor (an anchor has to come
+   before the positioned element in the document; .Browser comes after the
+   address bar) */
+html .OuterFrame > .TopBar {
+    anchor-name: --aika-top-bar;
 }
 
 html .BrowserWrapper .extensions-bar-container {
     position: fixed;
-    z-index: var(--aika-z-dock);
-    position-anchor: --aika-tab-row;
-    top: anchor(center, var(--aika-extendium-fallback-top));
-    right: anchor(right, var(--aika-space-4));
-    translate: 0 -50%;
-    margin: 0 var(--aika-space-3) 0 0;
+    top: calc(anchor(--aika-top-bar bottom, var(--aika-extendium-fallback-top)) + var(--aika-storebar-top) + (var(--aika-storebar-height) - var(--aika-url-capsule-height)) / 2);
+    left: calc( var(--aika-url-capsule-left) + (var(--aika-url-capsule-height) - var(--aika-url-reload)) / 2 + var(--aika-url-reload) + var(--aika-space-1));
+    margin: 0;
+    opacity: 0;
+    pointer-events: none;
 }
 
 html .extensions-bar-container .extensions-bar {

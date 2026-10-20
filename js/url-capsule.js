@@ -27,8 +27,8 @@
 
   const ru = /^ru/i.test(root.lang || navigator.language);
   const T = ru
-    ? { reload: "Обновить страницу", copy: "Скопировать адрес", copied: "Скопировано" }
-    : { reload: "Reload the page", copy: "Copy the address", copied: "Copied" };
+    ? { reload: "Обновить страницу", copy: "Скопировать адрес", copied: "Скопировано", extensions: "Расширения" }
+    : { reload: "Reload the page", copy: "Copy the address", copied: "Copied", extensions: "Extensions" };
 
   const box = document.createElement("div");
   box.className = "aika-url-capsule";
@@ -45,6 +45,28 @@
   text.className = "aika-url-text";
   text.title = T.copy;
   box.append(reload, lock, text);
+
+  // Extendium's button (when the plugin is installed — its page script registers
+  // in PLUGIN_LIST, possibly after us): a click marks the address with
+  // #aika-extensions for a moment; js/extendium-bridge.js in the main window
+  // sees it in Steam's hidden address bar and presses Extendium's own button
+  const EXT_MARK = "#aika-extensions";
+  const addExtendium = () => {
+    if (!window.PLUGIN_LIST?.extendium || box.querySelector(".aika-url-ext")) return;
+    const ext = document.createElement("button");
+    ext.type = "button";
+    ext.className = "aika-url-ext";
+    ext.title = T.extensions;
+    ext.setAttribute("aria-label", T.extensions);
+    ext.addEventListener("click", () => {
+      const back = location.href;
+      history.replaceState(history.state, "", back.split("#")[0] + EXT_MARK);
+      setTimeout(() => history.replaceState(history.state, "", back), 400);
+    });
+    reload.after(ext);
+  };
+  addExtendium();
+  [1000, 3000].forEach((t) => setTimeout(addExtendium, t));
 
   const TAIL = 8;   // characters shown after ".com/"
   const short = (href) => {

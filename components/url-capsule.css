@@ -9,6 +9,7 @@
    which the script cuts to 8 characters after ".com/".
      .aika-url-capsule[.is-loading]
        > button.aika-url-reload   — reloads the page; "Heart Pulse" while loading
+       > button.aika-url-ext      — Extendium's menu (only with the plugin; js/extendium-bridge.js)
        > .aika-url-lock           — https
        > button.aika-url-text    — the address; a click copies it
 
@@ -70,7 +71,7 @@
     cursor: pointer;
 }
 
-.aika-url-reload {
+:is(.aika-url-reload, .aika-url-ext) {
     flex: none;
     width: var(--aika-url-reload);
     height: var(--aika-url-reload);
@@ -80,12 +81,12 @@
         color var(--aika-dur-fast) var(--aika-ease-hover);
 }
 
-.aika-url-capsule .aika-url-reload:hover {
+.aika-url-capsule :is(.aika-url-reload, .aika-url-ext):hover {
     background: var(--aika-surface-hover);
     color: var(--aika-fg);
 }
 
-.aika-url-reload::before,
+:is(.aika-url-reload, .aika-url-ext)::before,
 .aika-url-lock {
     content: "";
     display: block;
@@ -95,6 +96,11 @@
     background: currentColor;
     -webkit-mask: var(--aika-icon-reload) center / contain no-repeat;
     mask: var(--aika-icon-reload) center / contain no-repeat;
+}
+
+.aika-url-ext::before {
+    -webkit-mask-image: var(--aika-icon-puzzle);
+    mask-image: var(--aika-icon-puzzle);
 }
 
 .aika-url-lock {

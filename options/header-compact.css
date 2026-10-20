@@ -91,13 +91,3 @@ html:root .TopBar .SuperNav::after {
 html:root .TopBar .SuperNav > svg:last-of-type {
     margin-inline-end: var(--aika-compact-lead, 0px);
 }
-
-/* The Extendium toolbar (sections/plugins.css) sits before the account
-   buttons here — centered on them rather than on the tab row */
-html:root .TopBar > .TitleBar > .TitleBarControls {
-    anchor-name: --aika-account-buttons;
-}
-
-html:root .BrowserWrapper .extensions-bar-container {
-    top: anchor(--aika-account-buttons center, var(--aika-extendium-fallback-top));
-}

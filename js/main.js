@@ -15,3 +15,4 @@ import "./page-curtain.js";
 import "./fab.js";
 import "./header-compact.js";
 import "./settings-l10n.js";
+import "./extendium-bridge.js";
