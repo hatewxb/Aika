@@ -146,10 +146,13 @@ html button._DialogInputContainer.DialogDropDown:not(.Disabled):hover {
    (components/menu.css): a translucent surface, a shadow, rounding.
    -------------------------------------------------------------------------- */
 
+/* Opaque (2026-10-20): unlike a menu window it opens over the window's own
+   rows — through 92 % the setting labels under it read through its items
+   (the Millennium theme editor's tab list) */
 html .DialogDropDownMenu._DialogInputContainer {
     padding: var(--aika-space-1);
     border-radius: var(--aika-radius-lg);
-    background: var(--aika-surface-translucent);
+    background: var(--aika-bg-raised);
     box-shadow: var(--aika-shadow-menu);
 }
 

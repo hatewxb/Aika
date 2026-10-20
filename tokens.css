@@ -528,6 +528,11 @@
     --aika-dock-progress-pad: 12px;           /* both sides: the game icon and the percentage stay inside */
     --aika-dock-progress-icon: 16px;
     --aika-dock-progress-bar: 3px;
+
+    /* Millennium's library manager sidebar (sections/millennium.css): 350 px in
+       Millennium — the theme editor's dropdowns cut their values */
+    --aika-millennium-sidebar-width: 420px;
+
     /* The "+" floating action button (motion.dev FAB idea): the "+" turns into
        "×", the Add a Game menu stacks above it as round icons with label pills
        that pop out one after another, nearest first, on a gentle spring */

@@ -18,3 +18,152 @@
 html body .MillenniumSettings.PagedSettingsDialog .DialogBody {
     padding-bottom: calc(var(--aika-dock-size) + 2 * var(--aika-dock-inset));
 }
+
+/* --- The library manager sidebar ---------------------------------------------- */
+/* Millennium paints it from two variables of its own (--sidebar-bg #171d25, also
+   the glow under the editor header; --sidebar-width 350px) — set ours. Opaque,
+   like our panels; a hairline on the edge toward the page. */
+html .MillenniumDesktopSidebar {
+    --sidebar-bg: var(--aika-bg-elevated);
+    --sidebar-width: var(--aika-millennium-sidebar-width);
+    color: var(--aika-fg-muted);
+    box-shadow:
+        inset var(--aika-hairline) 0 0 0 var(--aika-border),
+        var(--aika-shadow-menu);
+    color-scheme: dark;   /* plugins' plain browser controls (select lists, scrollbars) */
+}
+
+/* Steam's modal black 80 % behind it */
+html .MillenniumDesktopSidebar_Overlay {
+    background: var(--aika-scrim);
+}
+
+/* The title strip: Steam's .Panel #0e141b, also its glow over the scrolled list */
+html .MillenniumDesktopSidebar_Title.Panel {
+    background: var(--sidebar-bg);   /* sticky — the list scrolls under it */
+    box-shadow: 0 0 7px 12px var(--sidebar-bg);
+    font-family: var(--aika-font-ui);
+    font-size: var(--aika-text-h2);
+    font-weight: var(--aika-weight-semibold);
+    color: var(--aika-fg);
+}
+
+/* "Plugin settings" / "Theme settings" — a caption like our settings subheadings */
+html .MillenniumDesktopSidebar .PanelSectionTitle {
+    font-size: var(--aika-text-label);
+    font-weight: var(--aika-weight-semibold);
+    letter-spacing: var(--aika-tracking-label);
+    text-transform: uppercase;
+    color: var(--aika-fg-subtle);
+}
+
+/* The list: a theme / plugin per row, text at the start */
+html .MillenniumDesktopSidebar .MillenniumDesktopSidebar_LibraryItemButton {
+    gap: var(--aika-space-2);
+    border-radius: var(--aika-radius-md);
+    font-weight: var(--aika-weight-medium);
+}
+
+/* No settings (Extendium, Recent Chats…) */
+html .MillenniumDesktopSidebar .MillenniumDesktopSidebar_LibraryItemButton.Disabled {
+    background: var(--aika-transparent);
+    color: var(--aika-fg-subtle);
+}
+
+/* The editor: a setting row — Steam's #23262e plate with 2 px corners. The
+   label and the control share the first line, the description runs below
+   across the whole row (the left column made way for the control and wrapped
+   every description into a narrow strip). */
+html .MillenniumDesktopSidebar .Field {
+    flex-wrap: wrap;
+    column-gap: var(--aika-space-3);
+    border-radius: var(--aika-radius-md);
+    background: var(--aika-surface);
+}
+
+html .MillenniumDesktopSidebar .Field .FieldLeftColumn {
+    display: contents;
+}
+
+html .MillenniumDesktopSidebar .Field .FieldLabelRow {
+    flex: 1 1 0;
+    min-width: 0;
+}
+
+html .MillenniumDesktopSidebar .Field .FieldRightColumn {
+    flex: 0 1 auto;
+    min-width: 0;
+}
+
+html .MillenniumDesktopSidebar .Field .FieldDescription {
+    order: 1;
+    flex: 1 0 100%;
+    margin-top: var(--aika-space-1);
+}
+
+html .MillenniumDesktopSidebar .FieldLabel {
+    color: var(--aika-fg);
+}
+
+html .MillenniumDesktopSidebar .FieldDescription {
+    color: var(--aika-fg-subtle);
+}
+
+/* Plugins that draw plain browser controls (HLTB: checkboxes, a select) */
+html .MillenniumDesktopSidebar input[type="checkbox"] {
+    accent-color: var(--aika-accent);
+}
+
+html .MillenniumDesktopSidebar select {
+    padding: var(--aika-space-1) var(--aika-space-2);
+    border: none;
+    border-radius: var(--aika-radius-md);
+    background: var(--aika-bg-raised);
+    color: var(--aika-fg);
+    font-family: var(--aika-font-ui);
+    box-shadow: inset 0 0 0 var(--aika-hairline) var(--aika-border-strong);
+}
+
+html .MillenniumDesktopSidebar input:is([type="text"], [type="number"], :not([type])) {
+    border: none;
+    border-radius: var(--aika-radius-md);
+    background: var(--aika-bg-raised);
+    color: var(--aika-fg);
+    font-family: var(--aika-font-mono);
+    box-shadow: inset 0 0 0 var(--aika-hairline) var(--aika-border-strong);
+}
+
+/* A plugin's own section heading and its note, styled inline (HLTB: 16 px bold
+   caps; the note #8f98a0 over a white 10 % line) — as our captions */
+html .MillenniumDesktopSidebar_EditorContent > div[style*="text-transform: uppercase"] {
+    font-size: var(--aika-text-label) !important;
+    font-weight: var(--aika-weight-semibold) !important;
+    letter-spacing: var(--aika-tracking-label) !important;
+    color: var(--aika-fg-subtle);
+}
+
+html .MillenniumDesktopSidebar_EditorContent > div[style*="border-bottom"] {
+    color: var(--aika-fg-subtle) !important;
+    border-bottom-color: var(--aika-border) !important;
+}
+
+/* --- Color swatches ----------------------------------------------------------- */
+/* input.MillenniumColorPicker[type=color] — the theme's Colors page and
+   "Override accent color" on General: square, no edge */
+html input.MillenniumColorPicker {
+    padding: 0;
+    border: none;
+    border-radius: var(--aika-radius-md);
+    background: var(--aika-transparent);
+    cursor: pointer;
+}
+
+html input.MillenniumColorPicker::-webkit-color-swatch-wrapper {
+    padding: 0;
+}
+
+html input.MillenniumColorPicker::-webkit-color-swatch {
+    border: none;
+    border-radius: var(--aika-radius-md);
+    box-shadow: inset 0 0 0 var(--aika-hairline) var(--aika-border-strong);
+}
