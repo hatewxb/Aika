@@ -1,0 +1,20 @@
+/* ==========================================================================
+   sections/millennium.css — Millennium's own pages in the main window
+   (backlog 6, 2026-10-20). Imported by main.css.
+
+   Captured 2026-10-20 (Millennium v3.6.2):
+     the settings route /millennium/settings (Steam menu → "Millennium") —
+       .MillenniumSettings.PagedSettingsDialog > … .DialogBody (the scroller):
+       General, Themes, Quick CSS, Plugins, Updates, Logs;
+     the library manager sidebar (Steam menu → "Millennium Library Manager") —
+       .MillenniumDesktopSidebar_Overlay + .MillenniumDesktopSidebar
+       (_Title, _Content > .PanelSection, _LibraryItemButton, _Editor > _EditorHeader).
+   ========================================================================== */
+
+/* --- Settings pages ---------------------------------------------------------- */
+
+/* The floating add / downloads / friends buttons (sections/library.css) hang
+   over every page of the window — the last rows ran under them */
+html body .MillenniumSettings.PagedSettingsDialog .DialogBody {
+    padding-bottom: calc(var(--aika-dock-size) + 2 * var(--aika-dock-inset));
+}
