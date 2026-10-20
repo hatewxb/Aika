@@ -2,7 +2,7 @@
 
 # Aika
 
-**A warm dark theme for Steam** · [Millennium](https://steambrew.app) · 0.1.4 · by **hatewxb**
+**A warm dark theme for Steam** · [Millennium](https://steambrew.app) · 0.1.5 · by **hatewxb**
 
 **[Get it on Steambrew](https://steambrew.app/theme/uV8M1eg45Hh662blPuyD)** — the official Millennium theme store
 
@@ -46,6 +46,9 @@ Steam's light blue. The theme doesn't change any Steam text, only the look.
 - **Top bar tabs centered** (can be moved back to the left), or a **compact header**: menus, tabs and account buttons in one line.
 - **The page address as a small capsule** over store and community pages, with a dot-matrix "heart pulse" while a page loads.
 - **Show or hide** the wallet balance, the address, What's New, the "Add shelf" row and the Steam news button.
+- **Header wordmark**: the classic "Aika", calligraphy, or アイカ in two brush styles.
+- **Narrow windows** stay tidy: the View / Friends / Games / Help menus turn into icons when the tabs need the room.
+- **Popular plugins in the theme look**: How Long To Beat, Extendium (its button sits in the address capsule), Recent Chats, Easy Restart, and the Steam Inventory Helper extension; the **Millennium** settings pages, library manager and Quick CSS editor too.
 - **Settings in English and Russian**, following the Steam language.
 - **Performance** setting: Full by default; Balanced keeps the look but drops moving elements on and around items (the light following the cursor, shimmers, glares, the 3D cover tilt); Low turns off every Aika animation and heavy effect (blur, glass, WebGL) and keeps the plain Fluent look for weaker machines.
 
@@ -107,8 +110,8 @@ on the **Colors** page right below.
 | Community | Activity, friends, screenshots, artwork, videos, profile editing, notifications, discussions home, game discussions | Workshop, collections, profile, the rest of the game community hub |
 | Friends & chat | Friends list, direct chat, mini profiles | Group and voice chat, friend requests |
 | Downloads | Everything | — |
-| Settings & windows | Settings, game properties, dialogs, Family View (client PIN and web page), the sign-in window while signing in | The sign-in form (no saved account) |
-| General | Menus, tooltips, notifications dropdown, notification toasts (message, "now playing", download) — liquid glass, smooth entrance; color presets (Aika, Hello Bert, Greeny, Rose Ash); the startup loading curtain and page transitions | Other notifications, Big Picture, overlay |
+| Settings & windows | Settings, game properties, dialogs, Family View (client PIN and web page), the sign-in window while signing in, Millennium settings, library manager and Quick CSS editor | The sign-in form (no saved account) |
+| General | Menus, tooltips, notifications dropdown, notification toasts (message, "now playing", download) — liquid glass, smooth entrance; color presets (Aika, Hello Bert, Greeny, Rose Ash); the startup loading curtain and page transitions; plugins (How Long To Beat, Extendium, Recent Chats, Easy Restart) | Other notifications, Big Picture, overlay |
 
 ## Licenses
 
