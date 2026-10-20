@@ -13,5 +13,6 @@
 @import url("./base.css");
 
 @import url("./components/menu.css");
+@import url("./sections/plugins.css");   /* plugin menus (Extendium's extensions menu) */
 
 @import url("./selectors.css");
