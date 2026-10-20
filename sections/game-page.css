@@ -421,6 +421,20 @@ html .AppGameInfoContainer .Portrait .ZoomInButton svg path {
     fill: var(--aika-fg-muted);
 }
 
+/* Panel spacing (author's screenshot 2026-10-20). Steam gives every section's
+   container margin-bottom 10px inside the section — below the body's
+   background, inside the panel's outline: a step under each panel
+   ("Activity", "Friends who play"…). And under the links bar 26 px + the
+   columns' padding-top 10 px + those 10 px left a 46 px gap where the panels
+   keep 26 px between them; 16 px here makes it 26 too. */
+html .AppDetailsSection > .AppDetailsSectionContainer {
+    margin-bottom: 0;
+}
+
+html .AppDetailsSection.LinksSection {
+    margin-bottom: var(--aika-space-4);
+}
+
 html .LinksSectionBody .LinkInner .Link .Text {
     color: var(--aika-fg-muted);
     transition: color var(--aika-dur-fast) var(--aika-ease-hover);
