@@ -194,6 +194,32 @@ html .extensions-bar-container .extension-button .update-dot {
    DialogButtons; "Manage extensions"). Steam paints the rows #23262e with
    2 px corners and the buttons #3d4450. Scoped by the header — Steam's own
    menus have none. */
+/* The Card Nav motion of our menus (components/menu.css: the box unfolds, the
+   parts rise one after another) — Extendium's box has no .ContextMenuPosition,
+   so it gets the same animations here, on .ready, waiting folded until
+   js/menu-motion.js marks the window shown (html.aika-menu-open) */
+html body .contextMenu.ready:has(.DialogHeader) {
+    animation: aika-menu-unfold var(--aika-cardnav-dur) var(--aika-ease-fold);
+}
+
+html body .contextMenu.ready:has(.DialogHeader) :is(.DialogHeader, .Field.Panel) {
+    animation: aika-menu-item-in var(--aika-cardnav-item-dur) var(--aika-ease-fold) backwards;
+    animation-delay: calc(var(--aika-cardnav-item-delay) + var(--aika-menu-i, 0) * var(--aika-menu-item-stagger));
+}
+
+html body .contextMenu:has(.DialogHeader) .DialogHeader ~ .Field.Panel { --aika-menu-i: 1; }
+html body .contextMenu:has(.DialogHeader) .DialogHeader ~ div .Field.Panel { --aika-menu-i: 2; }
+
+html.aika-menu-js:not(.aika-menu-open) body .contextMenu.ready:has(.DialogHeader) {
+    clip-path: inset(0 0 100% 0 round var(--aika-radius-lg));
+    animation: none;
+}
+
+html.aika-menu-js:not(.aika-menu-open) body .contextMenu.ready:has(.DialogHeader) :is(.DialogHeader, .Field.Panel) {
+    opacity: 0;
+    animation: none;
+}
+
 html .contextMenu:has(.DialogHeader) .DialogHeader {
     padding-inline: var(--aika-space-2);
     font-family: var(--aika-font-ui);
