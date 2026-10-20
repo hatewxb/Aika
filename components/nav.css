@@ -280,8 +280,21 @@ html .SuperNav .SuperNavMenu.Selected > .MenuButton {
     text-shadow: none;
 }
 
+/* The icon is centered in the tab (the 20 px icon sat at the top of a 24 px
+   box — 2 px above the row's middle line); the line hangs under it
+   out of the flow, so the selected tab's icon sits as high as the others' */
+html .SuperNav .SuperNavMenu > .MenuButton {
+    position: relative;
+    justify-content: center;
+    gap: 0;   /* the hidden label is a flex item too — the gap before it lifted the icon */
+}
+
 html .SuperNav .SuperNavMenu.Selected > .MenuButton::after {
-    width: 100%;
+    position: absolute;
+    left: 50%;
+    top: calc(50% + var(--aika-tab-icon-size) / 2 + var(--aika-space-1));
+    translate: -50% 0;
+    width: var(--aika-tab-icon-size);
     height: var(--aika-indicator);
     border-radius: var(--aika-radius-full);
     background: var(--aika-accent);

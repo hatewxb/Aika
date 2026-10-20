@@ -88,6 +88,30 @@ html .TitleBar .title-area-highlight {
 }
 
 /* --------------------------------------------------------------------------
+   Every header item on its row's middle line (measured by the icons' ink,
+   2026-10-20). Steam offsets the menus (margin-top 2 px), the account
+   buttons (5 px) and the tab strip (padding-top 2 px); with the theme's
+   sizes that put them 2–2.5 px below the window buttons. The window buttons
+   keep the full row height.
+   -------------------------------------------------------------------------- */
+
+html .TopBar > .TitleBar {
+    align-items: center;
+}
+
+html .TopBar > .TitleBar > :is(.RootMenuBar, .TitleBarControls) {
+    margin-top: 0;
+}
+
+html .TopBar > .TitleBar > .WindowControls {
+    align-self: stretch;
+}
+
+html .TopBar > .SuperNavBar {
+    padding-top: 0;
+}
+
+/* --------------------------------------------------------------------------
    Left menu: "Aika" instead of "Steam", the other items are mono
    -------------------------------------------------------------------------- */
 
@@ -121,9 +145,13 @@ html .RootMenuBar .RootMenuButton:not(:has(.SteamButton)) > div {
    icons (js/header-compact.js sets html.aika-menus-icons when the tabs don't
    fit; the label stays as the tooltip). Steam keeps them in this order — no
    other mark tells them apart. "Aika" stays a word. */
+/* flex, line-height 0: the hidden label is an item too — in a grid it took a
+   second row and lifted the icon by 3 px */
 html.aika-menus-icons .RootMenuBar .RootMenuButton:not(:has(.SteamButton)) > div {
-    display: grid;
-    place-items: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    line-height: 0;
     width: var(--aika-menu-icon-box);
     height: var(--aika-menu-icon-box);
     padding: 0;
