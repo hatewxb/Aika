@@ -510,7 +510,11 @@ html.aika-cine .aika-cine-facts-list {
     gap: var(--aika-space-2) var(--aika-space-6);
 }
 
-html.aika-cine .aika-cine-facts-list > :is(.release_date, .dev_row) {
+/* .sih-info — "Last Update: 20.10.2026 (today)" from the Steam Inventory Helper
+   extension (via Extendium, captured 2026-10-20): .sih-info__subtitle +
+   a#sih-last-update.sih-info__date > span.sih-colors_green — a row in
+   Steam's gray-blue and green; here a fact like its neighbours */
+html.aika-cine .aika-cine-facts-list > :is(.release_date, .dev_row, .sih-info) {
     display: flex;
     flex-direction: column;
     gap: var(--aika-cine-badge-inset);
@@ -538,6 +542,19 @@ html.aika-cine .aika-cine-facts-list :is(.date, .summary) {
 
 html.aika-cine .aika-cine-facts-list .date {
     font-family: var(--aika-font-mono);
+}
+
+html.aika-cine .aika-cine-facts-list .sih-info #sih-last-update {
+    color: var(--aika-fg) !important;   /* SIH: .sih-info__date #8f98a0 !important */
+    transition: color var(--aika-dur-fast) var(--aika-ease-hover);
+}
+
+html.aika-cine .aika-cine-facts-list .sih-info #sih-last-update:hover {
+    color: var(--aika-accent-bright) !important;
+}
+
+html.aika-cine .aika-cine-facts-list .sih-info .sih-colors_green {
+    color: var(--aika-ok);
 }
 
 html.aika-cine .aika-cine-facts .glance_tags_ctn {

@@ -125,8 +125,13 @@
     transition: color var(--aika-dur-fast) var(--aika-ease-hover);
 }
 
-.aika-url-capsule .aika-url-text:hover,
-.aika-url-text.is-copied {
+/* quieter than the page (author 2026-10-20), full on hover and "Copied";
+   (0,2,0) — the capsule's button reset is .aika-url-capsule button { color: inherit } */
+.aika-url-capsule .aika-url-text {
+    color: var(--aika-fg-muted);
+}
+
+.aika-url-capsule .aika-url-text:is(:hover, .is-copied) {
     color: var(--aika-fg);
 }
 
