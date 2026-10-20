@@ -16,7 +16,7 @@
 /* The floating add / downloads / friends buttons (sections/library.css) hang
    over every page of the window — the last rows ran under them */
 html body .MillenniumSettings.PagedSettingsDialog .DialogBody {
-    padding-bottom: calc(var(--aika-dock-size) + 2 * var(--aika-dock-inset));
+    padding-bottom: var(--aika-dock-clearance);
 }
 
 /* Steam's .DialogContent sets "Motiva Sans" on the page — our face */

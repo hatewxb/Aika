@@ -97,6 +97,14 @@ html .ShowcaseHeader .CollectionDropDown button._DialogInputContainer {
     transition: background-color var(--aika-dur-fast) var(--aika-ease-hover);
 }
 
+/* The name is as wide as its text: Steam's flex 1 1 0% sized the box without
+   our padding and cut every name by ~7 px ("Недавние иг…"). Not shrinkable —
+   0 1 auto still lost those 7 px; even at Steam's minimum window width the
+   row has room (the line after the name takes the rest) */
+html .ShowcaseHeader .CollectionDropDown .DialogDropDown_CurrentDisplay {
+    flex: none;
+}
+
 html .ShowcaseHeader .CollectionDropDown button._DialogInputContainer:hover {
     border-color: var(--aika-transparent);
     background-color: var(--aika-surface-hover);
@@ -226,6 +234,22 @@ html .BottomBarContainer > .BottomBar {
     background: var(--aika-transparent);
     box-shadow: none;   /* Steam's top bevel, inset rgba(61,68,80,.65) — it hung right above the icons */
     pointer-events: none;
+}
+
+/* Room for the floating icons at the end of what scrolls under them (a short
+   window, author 2026-10-20: "+" sat on the last games, downloads on a shelf
+   title): the library home and a game page (.AppDetailsMain > .Container >
+   .Body — .InnerContainer on the home, .ScrollContainer on a game page; not
+   deeper — the activity feed has a .Body.InnerContainer too); the games list — its AutoSizer measures the
+   container without padding, so the list itself ends above the "+" */
+html .AppDetailsMain > .Container > .Body {
+    padding-bottom: var(--aika-dock-clearance);
+    box-sizing: border-box;   /* it is the window's height — content-box pushed the room past the edge */
+}
+
+html .LeftListSizableContainer .Container:has(> .resize-triggers) {
+    padding-bottom: var(--aika-dock-clearance);
+    box-sizing: border-box;
 }
 
 @keyframes aika-dock-in {
@@ -738,6 +762,7 @@ html .LibraryItemBox .Container.GreyBackground .Title {
    button has Steam's 10 px margin on top, the window edge below — enough for the glow. */
 html .ContentFrame > div:has(> .ScrollToTopButton) {
     overflow-y: clip;
+    bottom: calc(var(--aika-dock-size) + var(--aika-dock-inset)) !important;   /* above the downloads icon, not on it; Steam sets bottom: 0 inline */
 }
 
 html .ContentFrame .ScrollToTopButton > div {

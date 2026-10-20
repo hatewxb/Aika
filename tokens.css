@@ -524,6 +524,7 @@
     --aika-dock-size: 44px;
     --aika-dock-icon: 18px;
     --aika-dock-inset: var(--aika-space-4);   /* from the window edges */
+    --aika-dock-clearance: calc(var(--aika-dock-size) + 2 * var(--aika-dock-inset));   /* scroll room under the icons */
     --aika-dock-rise: 16px;                   /* they float up into place when the window opens */
     --aika-dock-hover-scale: 1.08;            /* an icon grows a little under the cursor */
     /* The downloads button while something downloads / verifies: a compact capsule */
@@ -617,6 +618,16 @@
     --aika-icon-community: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='1.75' stroke-linecap='round'%3E%3Ccircle cx='9' cy='8.5' r='3.25'/%3E%3Cpath d='M3 19.5c0-3.3 2.7-5.5 6-5.5s6 2.2 6 5.5'/%3E%3Ccircle cx='17' cy='9.5' r='2.5'/%3E%3Cpath d='M16.5 14.2c2.6.3 4.5 2.3 4.5 5.3'/%3E%3C/svg%3E");
     --aika-icon-profile: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='1.75' stroke-linecap='round'%3E%3Ccircle cx='12' cy='8' r='4'/%3E%3Cpath d='M4.5 20.5c0-4 3.4-6.5 7.5-6.5s7.5 2.5 7.5 6.5'/%3E%3C/svg%3E");
     --aika-icon-console: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='1.75' stroke-linecap='round' stroke-linejoin='round'%3E%3Crect x='3' y='4.5' width='18' height='15' rx='3'/%3E%3Cpath d='M7.5 9.5l3 2.5-3 2.5'/%3E%3Cpath d='M12.5 15h4'/%3E%3C/svg%3E");
+    --aika-menu-icon: 16px;
+    --aika-header-tight-tab-pad: 4px;     /* a tab in a tight compact header: 4 + 10 + icon + 10 + 4 */
+    --aika-header-tight-tab-inner: 10px;
+    --aika-menu-icon-box: 28px;   /* the hover area, like the ← → arrows */
+    /* The View / Friends / Games / Help menus as icons in a tight compact header
+       (components/window.css, author 2026-10-20) */
+    --aika-icon-menu-view: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='1.75' stroke-linecap='round' stroke-linejoin='round'%3E%3Crect x='3' y='4.5' width='18' height='15' rx='3'/%3E%3Cpath d='M9 4.5v15'/%3E%3C/svg%3E");
+    --aika-icon-menu-friends: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='1.75' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M4.5 6.5a2.5 2.5 0 0 1 2.5-2.5h10a2.5 2.5 0 0 1 2.5 2.5v7a2.5 2.5 0 0 1-2.5 2.5H11l-4.5 3.5V16H7a2.5 2.5 0 0 1-2.5-2.5z'/%3E%3Cpath d='M9 9.5h6M9 12.5h3.5'/%3E%3C/svg%3E");
+    --aika-icon-menu-games: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='1.75' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M7.5 7h9a4.5 4.5 0 0 1 4.4 5.5l-.8 3.6a2.4 2.4 0 0 1-4 1.2L14 15.5h-4l-2.1 1.8a2.4 2.4 0 0 1-4-1.2l-.8-3.6A4.5 4.5 0 0 1 7.5 7z'/%3E%3Cpath d='M8 10v3M6.5 11.5h3'/%3E%3Cpath d='M15.5 10.5h.01M17 12.5h.01'/%3E%3C/svg%3E");
+    --aika-icon-menu-help: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='1.75' stroke-linecap='round' stroke-linejoin='round'%3E%3Ccircle cx='12' cy='12' r='8.5'/%3E%3Cpath d='M9.6 9.6a2.5 2.5 0 0 1 4.8.9c0 1.7-2.4 2.1-2.4 3.5'/%3E%3Cpath d='M12 17h.01'/%3E%3C/svg%3E");
     /* Friend status icons (components/status.css), stroke 2 — readable
        at 12–16 px: "away / busy" — a moon with a "z" (instead of Steam's three
        Z letters), "on mobile" — an outline phone */
@@ -653,6 +664,8 @@
     --aika-icon-plus: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round'%3E%3Crect x='3.5' y='3.5' width='17' height='17' rx='4.5'/%3E%3Cpath d='M12 8.5v7M8.5 12h7'/%3E%3C/svg%3E");
     --aika-icon-key: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='1.8' stroke-linecap='round' stroke-linejoin='round'%3E%3Ccircle cx='8' cy='15' r='4'/%3E%3Cpath d='M10.8 12.2L19 4M15.5 7.5l2.5 2.5M17.5 5.5l2 2'/%3E%3C/svg%3E");
     --aika-menu-icon: 16px;
+    --aika-header-tight-tab-pad: 4px;     /* a tab in a tight compact header: 4 + 10 + icon + 10 + 4 */
+    --aika-header-tight-tab-inner: 10px;
     --aika-menu-icon-hover: 1.12;
     --aika-menu-item-rise: 10px;
     --aika-menu-item-stagger: 22ms;

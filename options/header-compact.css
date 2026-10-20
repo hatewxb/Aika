@@ -72,6 +72,19 @@ html:root .TopBar > .TitleBar > .WindowControls {
     align-self: stretch;
 }
 
+/* The minimize / maximize / close buttons span the whole row, like a Windows
+   caption (32 px tall they hung at the top, 6 px above everything else) */
+html:root .OuterFrame > .TopBar {
+    --aika-window-button-height: var(--aika-header-compact-height);
+}
+
+/* their box is capped at 32 px in Steam (max-height) — they stuck out of it
+   by 4 px above and below */
+html:root .TopBar > .TitleBar > .WindowControls .title-bar-actions {
+    height: 100%;
+    max-height: none;
+}
+
 /* Smaller tab icons, the indicator line still fits under them */
 html:root .TopBar .SuperNav {
     --aika-tab-icon-size: var(--aika-header-compact-tab-icon);
@@ -90,4 +103,14 @@ html:root .TopBar .SuperNav::after {
 
 html:root .TopBar .SuperNav > svg:last-of-type {
     margin-inline-end: var(--aika-compact-lead, 0px);
+}
+
+/* A narrow window: the tabs closer together (js/header-compact.js sets
+   html.aika-menus-icons when they don't fit; the menus turn into icons too) */
+html:root.aika-menus-icons .TopBar .SuperNav .SuperNavMenu {
+    padding-inline: var(--aika-header-tight-tab-pad);
+}
+
+html:root.aika-menus-icons .TopBar .SuperNav .SuperNavMenu > .MenuButton {
+    padding-inline: var(--aika-header-tight-tab-inner);
 }

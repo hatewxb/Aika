@@ -117,6 +117,34 @@ html .RootMenuBar .RootMenuButton:not(:has(.SteamButton)) > div {
     letter-spacing: normal;
 }
 
+/* A narrow window in the compact header: View / Friends / Games / Help as
+   icons (js/header-compact.js sets html.aika-menus-icons when the tabs don't
+   fit; the label stays as the tooltip). Steam keeps them in this order — no
+   other mark tells them apart. "Aika" stays a word. */
+html.aika-menus-icons .RootMenuBar .RootMenuButton:not(:has(.SteamButton)) > div {
+    display: grid;
+    place-items: center;
+    width: var(--aika-menu-icon-box);
+    height: var(--aika-menu-icon-box);
+    padding: 0;
+    border-radius: var(--aika-radius-md);
+    font-size: 0;
+}
+
+html.aika-menus-icons .RootMenuBar .RootMenuButton:not(:has(.SteamButton)) > div::before {
+    content: "";
+    width: var(--aika-menu-icon);
+    height: var(--aika-menu-icon);
+    background: currentColor;
+    -webkit-mask: var(--aika-menu-icon-image) center / contain no-repeat;
+    mask: var(--aika-menu-icon-image) center / contain no-repeat;
+}
+
+html .RootMenuBar .RootMenuButton:nth-child(2 of .RootMenuButton) { --aika-menu-icon-image: var(--aika-icon-menu-view); }
+html .RootMenuBar .RootMenuButton:nth-child(3 of .RootMenuButton) { --aika-menu-icon-image: var(--aika-icon-menu-friends); }
+html .RootMenuBar .RootMenuButton:nth-child(4 of .RootMenuButton) { --aika-menu-icon-image: var(--aika-icon-menu-games); }
+html .RootMenuBar .RootMenuButton:nth-child(5 of .RootMenuButton) { --aika-menu-icon-image: var(--aika-icon-menu-help); }
+
 /* --------------------------------------------------------------------------
    Privacy blur in the header account menu (the "Privacy blur" setting, author
    2026-10-13): the wallet balance — or the name and the balance — are blurred
