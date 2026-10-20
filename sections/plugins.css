@@ -120,8 +120,25 @@ html #hltb-store-data .hltb-store-link:hover {
 
 /* --- Extendium: the toolbar ------------------------------------------------- */
 
-html .extensions-bar-container {
-    margin-right: 0;
+/* No strip of its own: a floating capsule on the right end of the tab row,
+   right above the page (author 2026-10-20) — the row spans the window in the
+   normal header and ends at the account buttons in the compact one, so an
+   anchor to its right edge works for both. It can't sit inside the page on
+   the line of the address capsule: the page is a native layer above the
+   window's DOM. Steam's address bar around it takes no room
+   (sections/store.css, part 1). */
+html .TopBar > .SuperNavBar {
+    anchor-name: --aika-tab-row;
+}
+
+html .BrowserWrapper .extensions-bar-container {
+    position: fixed;
+    z-index: var(--aika-z-dock);
+    position-anchor: --aika-tab-row;
+    top: anchor(center, var(--aika-extendium-fallback-top));
+    right: anchor(right, var(--aika-space-4));
+    translate: 0 -50%;
+    margin: 0 var(--aika-space-3) 0 0;
 }
 
 html .extensions-bar-container .extensions-bar {
@@ -129,8 +146,16 @@ html .extensions-bar-container .extensions-bar {
     border: none;
     border-radius: var(--aika-radius-full);
     background: var(--aika-storebar-material);
-    box-shadow: inset 0 0 0 var(--aika-hairline) var(--aika-border);
+    box-shadow:
+        inset 0 0 0 var(--aika-hairline) var(--aika-border-hover),
+        var(--aika-shadow-menu);
     transition: box-shadow var(--aika-dur-fast) var(--aika-ease-hover);
+}
+
+html .extensions-bar-container .extension-button {
+    width: var(--aika-extendium-button);
+    height: var(--aika-extendium-button);
+    padding: var(--aika-extendium-button-pad);
 }
 
 html .extensions-bar-container .extensions-bar:hover {

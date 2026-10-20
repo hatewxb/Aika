@@ -58,16 +58,13 @@ html .LocalContentContainer > .URLBarReplacement {
 }
 
 /* …except when the Extendium plugin has put its extension toolbar into it
-   (.extensions-bar-container, captured 2026-10-20): then the bar stays as an
-   invisible strip with only the toolbar on the right — Steam's reload button
-   and address go (the address is in the page capsule). The toolbar's look —
-   sections/plugins.css. */
+   (.extensions-bar-container, captured 2026-10-20): then the bar takes no
+   room (display: contents — no strip, the page still starts under the tabs),
+   Steam's reload button and address stay hidden (the address is in the page
+   capsule), and the toolbar floats in the top bar right after ← →
+   (sections/plugins.css). */
 html .ContentFrame .BrowserWrapper > .URLBar:has(> .extensions-bar-container) {
-    display: flex;
-    justify-content: flex-end;
-    padding-inline: var(--aika-space-3);
-    background: var(--aika-transparent);
-    box-shadow: none;
+    display: contents;
 }
 
 html .ContentFrame .BrowserWrapper > .URLBar:has(> .extensions-bar-container) > :not(.extensions-bar-container) {
