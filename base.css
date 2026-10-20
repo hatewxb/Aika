@@ -48,6 +48,16 @@
     font-display: fallback;
 }
 
+/* Heavy display headings (Unbounded, author 2026-10-20: chosen over Dela Gothic One
+   and Rubik Black — wide and dense, Cyrillic included). */
+@font-face {
+    font-family: "Unbounded";
+    src: url("./assets/fonts/Unbounded-Variable.ttf") format("truetype");
+    font-weight: 400 900;
+    font-style: normal;
+    font-display: fallback;
+}
+
 /* The "Aika" wordmark on the notification background (components/toast.css): blackletter
    UnifrakturMaguntia and the "Japanese brush" Latin Shojumaru. Latin
    only — enough for one word. Chosen via Conditions

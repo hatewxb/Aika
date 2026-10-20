@@ -111,7 +111,7 @@ on the **Colors** page right below.
 
 ## Licenses
 
-The Inter, Geist Mono, Fraunces, UnifrakturMaguntia and Shojumaru fonts are
+The Inter, Geist Mono, Fraunces, Unbounded, UnifrakturMaguntia and Shojumaru fonts are
 licensed under the SIL Open Font License 1.1 (`assets/fonts/OFL-*.txt`). The
 notification liquid glass is [hyalite](https://github.com/VII-Cae/hyalite--liquid-glass),
 MIT (`js/vendor/LICENSE-hyalite.txt`). The aurora and dark veil backdrops port the

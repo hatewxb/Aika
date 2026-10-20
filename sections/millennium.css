@@ -167,3 +167,13 @@ html input.MillenniumColorPicker::-webkit-color-swatch {
     border-radius: var(--aika-radius-md);
     box-shadow: inset 0 0 0 var(--aika-hairline) var(--aika-border-strong);
 }
+
+/* --- The "MILLENNIUM" title ------------------------------------------------------ */
+/* Unbounded 800 (author 2026-10-20) over our gradient heading (sections/settings.css) */
+html .MillenniumSettings .PagedSettingsDialog_Title {
+    font-family: var(--aika-font-heavy);
+    font-size: var(--aika-text-heavy-title);
+    font-weight: var(--aika-weight-heavy);
+    letter-spacing: var(--aika-tracking-heavy);
+    white-space: nowrap;
+}

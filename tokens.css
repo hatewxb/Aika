@@ -11,6 +11,7 @@
     --aika-font-ui: "Inter", "Geist", "Segoe UI Variable", "Segoe UI", system-ui, sans-serif;
     --aika-font-mono: "Geist Mono", "JetBrains Mono", "Cascadia Code", monospace;
     --aika-font-display: "Fraunces", "Source Serif 4", Georgia, serif;
+    --aika-font-heavy: "Unbounded", "Inter", sans-serif; /* heavy display headings, weight 800 */
     --aika-font-gothic: "UnifrakturMaguntia", "Old English Text MT", serif;
     --aika-font-brush: "Shojumaru", "Fraunces", serif;
 
@@ -25,11 +26,14 @@
     --aika-weight-regular: 400;
     --aika-weight-medium: 500;
     --aika-weight-semibold: 600;
+    --aika-weight-heavy: 800;    /* --aika-font-heavy headings */
 
     --aika-tracking-display: -0.03em;
     --aika-tracking-h1: -0.02em;
     --aika-tracking-h2: -0.01em;
     --aika-tracking-label: 0.08em;
+    --aika-tracking-heavy: -0.02em;
+    --aika-text-heavy-title: 22px;   /* "MILLENNIUM" in its 220 px column — the wide face fits on one line */
 
     --aika-leading-heading: 1.15;
     --aika-leading-body: 1.55;
