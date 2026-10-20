@@ -429,6 +429,10 @@ html .AppGameInfoContainer .Portrait .ZoomInButton svg path {
    keep 26 px between them; 16 px here makes it 26 too. */
 html .AppDetailsSection > .AppDetailsSectionContainer {
     margin-bottom: 0;
+    /* a block, and a first child's margin-top (the trading cards badge,
+       12 px) collapsed through it — the body dropped 12 px below the
+       header, the page showing between them */
+    display: flow-root;
 }
 
 html .AppDetailsSection.LinksSection {
@@ -764,11 +768,40 @@ html .AppDetailsSectionContainer .UnachievedSection.ShowDivider {
    Community content: artwork, guides (.CommunityItem.Large / .Small)
    -------------------------------------------------------------------------- */
 
+/* Steam hangs the counters (.Controls: reactions, thumbs, comments — shown on
+   hover) on the card's bottom edge, half outside (translate(-50%, 50%); the
+   row keeps room below). The card doesn't clip, so they show whole (with
+   overflow: hidden here they were cut in half, author's screenshot
+   2026-10-20); the image and the author row carry the rounding instead. */
 html .AppOverviewRow .CommunityItem:not(.Blank) {
-    overflow: hidden;
     border-radius: var(--aika-radius-lg);
     background-color: var(--aika-bg-raised);
     box-shadow: var(--aika-shadow-cover);
+}
+
+html .AppOverviewRow .CommunityItem:not(.Blank) .ChildItem {
+    overflow: hidden;
+    border-radius: var(--aika-radius-lg) var(--aika-radius-lg) 0 0;
+}
+
+html .AppOverviewRow .CommunityItem:not(.Blank) .AuthorSection {
+    border-radius: 0 0 var(--aika-radius-lg) var(--aika-radius-lg);
+}
+
+/* The counter pills: a hairline so they read over the card's edge; Steam's
+   blue sprite thumbs and comment icons in our gray */
+html .CommunityItem .Controls .Control {
+    box-shadow: inset 0 0 0 var(--aika-hairline) var(--aika-border-hover);
+}
+
+html .CommunityItem .Controls :is(.ThumbsUp, .ThumbsDown, .Comments) {
+    filter: grayscale(1) brightness(1.3);
+    opacity: 0.8;
+    transition: opacity var(--aika-dur-fast) var(--aika-ease-hover);
+}
+
+html .CommunityItem .Controls .Control:hover :is(.ThumbsUp, .ThumbsDown, .Comments) {
+    opacity: 1;
 }
 
 /* The artwork caption over the image */
