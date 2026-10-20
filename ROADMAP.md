@@ -417,7 +417,7 @@ cells, dialog buttons without Steam blue, the "Library covers" setting, the
 floating library icons. The author will bring a couple more fixes first.
 
 Release checklist (as for 0.1.0b / 0.1.1b):
-- [ ] **the release commit message is the changelog** (author 2026-10-18): Millennium shows the latest commit message as the update's "Changes" — no `Co-Authored-By` line in it, and a short list of what's new instead of just "Version x.y.z";
+- [ ] **the release commit message is the changelog** (author 2026-10-18): Millennium shows the latest commit message as the update's "Changes" — no `Co-Authored-By` line in it; a very short hand-written list of the fixes / changes (a few words each); the GitHub release notes stay detailed as for 0.1.4;
 - [ ] the author's remaining fixes are in and checked in Steam;
 - [ ] the version in skin.json — the author picks the number (pattern 0.1.0a → 0.1.0b → 0.1.1b);
 - [ ] README: the roadmap / what's new (new settings: "Library covers"; the store home, Cinematic effects, PIN cells, floating icons);
