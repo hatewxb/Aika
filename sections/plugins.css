@@ -12,6 +12,7 @@
      store game page — #hltb-store-data in the right column:
        .hltb-store-title, .hltb-store-rows > .hltb-store-row > span,
        a.hltb-store-link, .hltb-store-loading — Steam's gray-blue and #67c1f5.
+   Recent Chats, Size on Disk, Player Count — see their sections below.
    Extendium (captured 2026-10-20):
      the toolbar — .extensions-bar-container > .extensions-bar >
        button.extension-button (.update-dot), inside Steam's address bar
@@ -305,4 +306,107 @@ html .extension-main .icon .update-badge {
 
 html .extension-main .icon .update-badge svg {
     color: var(--aika-ok);
+}
+
+/* --- Recent Chats: the "Chats" tab of the friends list ----------------------- */
+/* (captured 2026-10-20) #recent-chats-panel-host > .rcp-panel: .rcp-toolbar
+   (.rcp-search-form > .rcp-search-container > input.rcp-search.friendSearchInput
+   + .rcp-search-clear, button.rcp-refresh), .rcp-error-banner, .rcp-list >
+   .rcp-list-content > .rcp-row-wrapper > .rcp-row.friend.<status> (.rcp-avatar-holder
+   > img.rcp-avatar | .rcp-avatar-fallback, .rcp-copy.labelHolder > .rcp-name +
+   .rcp-snippet, .rcp-meta > .rcp-time + .rcp-unread), .rcp-empty. The name has
+   no .playerName, so Steam's persona blue stays — the status colors are set here
+   the way sections/friends.css sets them. */
+html.friendsui-container .rcp-panel .rcp-toolbar {
+    gap: var(--aika-space-2);
+    padding: var(--aika-space-2);
+    background: var(--aika-transparent);
+    box-shadow: none;
+}
+
+html.friendsui-container .rcp-toolbar .rcp-search.friendSearchInput {
+    border-radius: var(--aika-radius-md);
+    background-color: var(--aika-bg-raised);
+    color: var(--aika-fg);
+    box-shadow: inset 0 0 0 var(--aika-hairline) var(--aika-border-strong);
+    transition: box-shadow var(--aika-dur-fast) var(--aika-ease-hover);
+}
+
+html.friendsui-container .rcp-toolbar .rcp-search.friendSearchInput:focus {
+    box-shadow: var(--aika-shadow-input-focus);
+}
+
+html.friendsui-container .rcp-toolbar .rcp-search::placeholder {
+    color: var(--aika-fg-subtle);
+}
+
+html.friendsui-container .rcp-toolbar .rcp-refresh {
+    padding: 0 var(--aika-space-2);
+    border-radius: var(--aika-radius-md);
+    color: var(--aika-fg-muted);
+    font-family: var(--aika-font-ui);
+    transition:
+        background-color var(--aika-dur-fast) var(--aika-ease-hover),
+        color var(--aika-dur-fast) var(--aika-ease-hover);
+}
+
+html.friendsui-container .rcp-toolbar .rcp-refresh:is(:hover, :focus-visible) {
+    background-color: var(--aika-surface-hover);
+    color: var(--aika-fg);
+}
+
+html.friendsui-container .rcp-error-banner {
+    margin: 0 var(--aika-space-2) var(--aika-space-2);
+    border: none;
+    border-radius: var(--aika-radius-md);
+    background: var(--aika-live-soft);
+    color: var(--aika-live);
+    box-shadow: inset 0 0 0 var(--aika-hairline) var(--aika-live-soft);
+}
+
+html.friendsui-container .friendGroup .rcp-row {
+    margin: 0 var(--aika-space-2);
+    border-bottom: none;
+    border-radius: var(--aika-radius-md);
+    transition: background-color var(--aika-dur-fast) var(--aika-ease-hover);
+}
+
+html.friendsui-container .friendGroup .rcp-row:hover {
+    background-color: var(--aika-surface-hover);
+}
+
+html.friendsui-container .rcp-row:focus-visible {
+    outline: none;
+    box-shadow: var(--aika-shadow-input-focus);
+}
+
+html.friendsui-container :is(.rcp-avatar, .rcp-avatar-fallback) {
+    border-color: var(--aika-border);
+    border-radius: var(--aika-radius-md);
+    background: var(--aika-bg-raised);
+}
+
+html.friendsui-container .rcp-copy.labelHolder.online .rcp-name {
+    color: var(--aika-accent-bright);
+}
+
+html.friendsui-container .rcp-copy.labelHolder.ingame .rcp-name {
+    color: var(--aika-ok);
+}
+
+html.friendsui-container .rcp-copy.labelHolder.offline .rcp-name {
+    color: var(--aika-fg-subtle);
+}
+
+html.friendsui-container .rcp-copy.labelHolder .rcp-snippet.status {
+    color: var(--aika-fg-muted);
+}
+
+html.friendsui-container :is(.rcp-time, .rcp-empty) {
+    font-family: var(--aika-font-mono);
+    color: var(--aika-fg-subtle);
+}
+
+html.friendsui-container .rcp-list-content:hover::-webkit-scrollbar-thumb {
+    background-color: var(--aika-border-strong);
 }
