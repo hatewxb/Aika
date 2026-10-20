@@ -1,0 +1,206 @@
+/* ==========================================================================
+   sections/plugins.css — popular Millennium plugins in the Aika look
+   (backlog 5, 2026-10-20). Imported by main.css (client windows) and
+   webkit.css (store pages). Each plugin injects its own <style> after ours,
+   so selectors carry an html prefix (and the plugin's id) to win.
+
+   How Long To Beat (hltb-for-millennium, captured 2026-10-20):
+     library game page — #hltb-for-millennium (absolute in .TopCapsule, its
+       corner set inline by the plugin) > .hltb-info > ul > li
+       (.hltb-gametime + .hltb-label | button.hltb-details-btn);
+       the plugin paints a square rgba(14,20,27,.85) plate, white text, caps;
+     store game page — #hltb-store-data in the right column:
+       .hltb-store-title, .hltb-store-rows > .hltb-store-row > span,
+       a.hltb-store-link, .hltb-store-loading — Steam's gray-blue and #67c1f5.
+   Extendium (captured 2026-10-20):
+     the toolbar — .extensions-bar-container > .extensions-bar >
+       button.extension-button (.update-dot), inside Steam's address bar
+       (kept visible for it, sections/store.css part 1);
+     the extension manager — .extension-card > .extension-main
+       (.icon, .content > .name-and-version (.compatibility-pill,
+       .update-pill, .warn-pill), .description).
+   ========================================================================== */
+
+/* --- How Long To Beat: the library game page --------------------------------- */
+
+html #hltb-for-millennium {
+    margin: var(--aika-space-3);
+}
+
+html #hltb-for-millennium .hltb-info {
+    padding: var(--aika-space-2) var(--aika-space-1);
+    border-radius: var(--aika-radius-lg);
+    background: var(--aika-player-material);
+    backdrop-filter: var(--aika-player-blur);
+    box-shadow:
+        inset 0 0 0 var(--aika-hairline) var(--aika-border-hover),
+        var(--aika-shadow-menu);
+}
+
+html #hltb-for-millennium .hltb-info ul {
+    padding: 0 var(--aika-space-2);
+}
+
+html #hltb-for-millennium .hltb-info ul li {
+    padding: 0 var(--aika-space-3);
+}
+
+html #hltb-for-millennium .hltb-gametime {
+    font-family: var(--aika-font-mono);
+    font-size: var(--aika-text-body);
+    font-weight: var(--aika-weight-semibold);
+    color: var(--aika-fg);
+}
+
+html #hltb-for-millennium .hltb-label {
+    margin-top: var(--aika-space-1);
+    font-family: var(--aika-font-ui);
+    font-size: var(--aika-text-label);
+    text-transform: none;
+    color: var(--aika-fg-muted);
+    opacity: 1;
+}
+
+html #hltb-for-millennium .hltb-details-btn {
+    padding: var(--aika-space-1) var(--aika-space-3);
+    border-radius: var(--aika-radius-full);
+    background: var(--aika-surface);
+    color: var(--aika-accent-bright);
+    font-family: var(--aika-font-ui);
+    font-size: var(--aika-text-meta);
+    letter-spacing: normal;
+    text-transform: none;
+    transition:
+        background-color var(--aika-dur-fast) var(--aika-ease-hover),
+        color var(--aika-dur-fast) var(--aika-ease-hover);
+}
+
+html #hltb-for-millennium .hltb-details-btn:hover {
+    background: var(--aika-surface-hover);
+    color: var(--aika-fg);
+}
+
+/* --- How Long To Beat: the store game page --------------------------------- */
+
+html #hltb-store-data {
+    padding: var(--aika-space-3) var(--aika-space-4);
+    border-radius: var(--aika-radius-lg);
+    background: var(--aika-bg-elevated);
+    box-shadow: inset 0 0 0 var(--aika-hairline) var(--aika-border);
+}
+
+html #hltb-store-data .hltb-store-title {
+    font-family: var(--aika-font-mono);
+    font-size: var(--aika-text-label);
+    font-weight: var(--aika-weight-regular);
+    letter-spacing: var(--aika-tracking-label);
+    text-transform: none;
+    color: var(--aika-fg-subtle);
+}
+
+html #hltb-store-data :is(.hltb-store-row, .hltb-store-loading) {
+    font-family: var(--aika-font-ui);
+    color: var(--aika-fg-muted);
+}
+
+html #hltb-store-data .hltb-store-row span {
+    font-family: var(--aika-font-mono);
+    font-weight: var(--aika-weight-semibold);
+    color: var(--aika-fg);
+}
+
+html #hltb-store-data .hltb-store-link {
+    color: var(--aika-accent-bright);
+    transition: color var(--aika-dur-fast) var(--aika-ease-hover);
+}
+
+html #hltb-store-data .hltb-store-link:hover {
+    color: var(--aika-fg);
+}
+
+/* --- Extendium: the toolbar ------------------------------------------------- */
+
+html .extensions-bar-container {
+    margin-right: 0;
+}
+
+html .extensions-bar-container .extensions-bar {
+    padding: var(--aika-hairline);
+    border: none;
+    border-radius: var(--aika-radius-full);
+    background: var(--aika-storebar-material);
+    box-shadow: inset 0 0 0 var(--aika-hairline) var(--aika-border);
+    transition: box-shadow var(--aika-dur-fast) var(--aika-ease-hover);
+}
+
+html .extensions-bar-container .extensions-bar:hover {
+    border: none;
+    box-shadow: inset 0 0 0 var(--aika-hairline) var(--aika-border-hover);
+}
+
+html .extensions-bar-container .extension-button {
+    color: var(--aika-fg-muted);
+    transition:
+        background-color var(--aika-dur-fast) var(--aika-ease-hover),
+        color var(--aika-dur-fast) var(--aika-ease-hover);
+}
+
+html .extensions-bar-container .extension-button:hover {
+    background: var(--aika-surface-hover);
+    color: var(--aika-fg);
+}
+
+/* The puzzle icon is drawn gray inline (color: gray) — take ours */
+html .extensions-bar-container .extension-button svg {
+    color: inherit !important;
+}
+
+html .extensions-bar-container .extension-button .update-dot {
+    background: var(--aika-ok);
+    border-color: var(--aika-ok-mid);
+}
+
+/* --- Extendium: the extension manager --------------------------------------- */
+
+html .extension-card {
+    border-radius: var(--aika-radius-lg);
+    background: var(--aika-bg-elevated);
+    box-shadow: inset 0 0 0 var(--aika-hairline) var(--aika-border);
+}
+
+html .extension-main .content .name-and-version {
+    color: var(--aika-fg);
+}
+
+html .extension-main .content .description {
+    color: var(--aika-fg-muted);
+}
+
+html .extension-main .content .name-and-version :is(.compatibility-pill, .update-pill, .warn-pill) {
+    border-radius: var(--aika-radius-full);
+    box-shadow: none;
+    text-shadow: none;
+    font-family: var(--aika-font-mono);
+    font-size: var(--aika-text-label);
+}
+
+html .extension-main .content .name-and-version .update-pill {
+    border-color: var(--aika-ok-mid);
+    background: var(--aika-ok-dim);
+    color: var(--aika-ok);
+}
+
+html .extension-main .content .name-and-version .warn-pill {
+    border-color: var(--aika-warn);
+    background: var(--aika-transparent);
+    color: var(--aika-warn);
+}
+
+html .extension-main .icon .update-badge {
+    border-color: var(--aika-ok-mid);
+    background: var(--aika-ok-dim);
+}
+
+html .extension-main .icon .update-badge svg {
+    color: var(--aika-ok);
+}

@@ -57,6 +57,23 @@ html .LocalContentContainer > .URLBarReplacement {
     display: none;
 }
 
+/* …except when the Extendium plugin has put its extension toolbar into it
+   (.extensions-bar-container, captured 2026-10-20): then the bar stays as an
+   invisible strip with only the toolbar on the right — Steam's reload button
+   and address go (the address is in the page capsule). The toolbar's look —
+   sections/plugins.css. */
+html .ContentFrame .BrowserWrapper > .URLBar:has(> .extensions-bar-container) {
+    display: flex;
+    justify-content: flex-end;
+    padding-inline: var(--aika-space-3);
+    background: var(--aika-transparent);
+    box-shadow: none;
+}
+
+html .ContentFrame .BrowserWrapper > .URLBar:has(> .extensions-bar-container) > :not(.extensions-bar-container) {
+    display: none;
+}
+
 /* ==========================================================================
    2. The web store store.steampowered.com (a Steam-WebKit document).
       Captured via CDP 2026-10-04 (home page, during a seasonal sale).
