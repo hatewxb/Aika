@@ -19,6 +19,66 @@ html body .MillenniumSettings.PagedSettingsDialog .DialogBody {
     padding-bottom: calc(var(--aika-dock-size) + 2 * var(--aika-dock-inset));
 }
 
+/* Steam's .DialogContent sets "Motiva Sans" on the page — our face */
+html .MillenniumSettings .PagedSettingsDialog_PageContent {
+    font-family: var(--aika-font-ui);
+}
+
+/* Plugins / Themes: the version and the memory / CPU chips after a name
+   (Millennium: white 5 % with 4 px corners, gray #969696) — mono pills */
+html .MillenniumSettings :is(.MillenniumItem_Version, .MillenniumPlugins_Metrics) > span {
+    border-radius: var(--aika-radius-full);
+    background: var(--aika-surface);
+    color: var(--aika-fg-subtle);
+    font-family: var(--aika-font-mono);
+    font-size: var(--aika-text-label);
+    box-shadow: inset 0 0 0 var(--aika-hairline) var(--aika-border);
+}
+
+/* Logs: a plugin per full-width button, the name centered — a list row */
+html .MillenniumSettings .MillenniumLogs_LogItemButton {
+    justify-content: flex-start !important;   /* .MillenniumButton: center !important */
+    padding-inline: var(--aika-space-4);
+    text-align: start;
+}
+
+/* Quick CSS "Status: loaded" — a check painted fill=green */
+html .MillenniumSettings .FieldIcon svg path[fill="green"] {
+    fill: var(--aika-ok);
+}
+
+/* General, About: versions and build dates — mono */
+html .MillenniumSettings .FieldChildrenInner:not(:has(> *)) {
+    font-family: var(--aika-font-mono);
+    font-size: var(--aika-text-meta);
+    color: var(--aika-fg-muted);
+}
+
+/* Updates: "Released: <date>" / "Changes:" + the notes (markdown) */
+html .MillenniumSettings .MillenniumUpdates_Description b {
+    font-family: var(--aika-font-ui);   /* Steam's own b rule: Motiva Sans */
+    font-weight: var(--aika-weight-semibold);
+    color: var(--aika-fg-muted);
+}
+
+html .MillenniumSettings .MillenniumUpdates_Description > div > div:first-child {
+    font-family: var(--aika-font-mono);
+    font-size: var(--aika-text-meta);
+}
+
+html .MillenniumSettings .MillenniumUpdates_Description > div > div:last-child > div {
+    margin-top: var(--aika-space-2);
+    padding: var(--aika-space-2) var(--aika-space-3);
+    border-radius: var(--aika-radius-md);
+    background: var(--aika-bg-elevated);
+    color: var(--aika-fg-muted);
+    box-shadow: inset 0 0 0 var(--aika-hairline) var(--aika-border);
+}
+
+html .MillenniumSettings .MillenniumUpdates_Description p {
+    margin: var(--aika-space-1) 0;
+}
+
 /* --- The library manager sidebar ---------------------------------------------- */
 /* Millennium paints it from two variables of its own (--sidebar-bg #171d25, also
    the glow under the editor header; --sidebar-width 350px) — set ours. Opaque,
