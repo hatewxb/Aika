@@ -428,6 +428,15 @@
       floating add / downloads / friends buttons sit on the content.
 - [x] **10. The "Aika" wordmark in the header** (author 2026-10-20) — the
       "Header wordmark" setting on Main (2026-10-20).
+- [ ] **11. Discord reports before 0.1.5** (Steam Client Homebrew → theme-support → Aika, read 2026-10-20, 73 messages):
+      blocking — (a) the strip above the bottom icons swallowed clicks (fixed 2026-10-20, faded Steam notices);
+      (b) "the theme doesn't load" — the main window shows only the background (Groaxy, 10-17; needs OS / Millennium version / logs);
+      (c) the in-game overlay's tabs are invisible while Steam game recording is on (2 reports, 10-17 and 10-19; turning recording off fixes it).
+      noticeable — (d) the Extendium button gone in 0.1.4 (fixed, unreleased: the address capsule button);
+      (e) animations lag on weaker PCs; on Balanced "that line thing" (the loading line) still stutters;
+      (f) a non-Steam game page (custom hero art) looks off — reproduce;
+      (g) Easy SteamGrid's expanded game header: the header grows but the image doesn't.
+      already done since the reports — Performance presets, trailer volume, hide toggles, compact header, Extendium / HLTB, Millennium pages, the download bar size; palettes → item 8; Linux → item 7.
 - [ ] **8. More color presets** — such as Fluent, Dark, Light and others.
 
 ### Next session (from 2026-10-13): a few more author's fixes, then a release
