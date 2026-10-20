@@ -469,6 +469,12 @@ html .LinksSectionBody .MenuButton svg circle {
    Steam's blue buttons → accent
    -------------------------------------------------------------------------- */
 
+/* Steam's left column of spotlights has padding-left 10px — the review panel
+   stood 10 px in from the panels below it (author's screenshot 2026-10-20) */
+html .Spotlights.SpotlightLeftColumn.SpotlightLeftColumn {
+    padding-inline-start: 0;   /* Steam: padding-inline-start, (0,3,0) */
+}
+
 html .Spotlights .ReviewContainer {
     border-radius: var(--aika-radius-xl);
     background: var(--aika-bg-elevated);
