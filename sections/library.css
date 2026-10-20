@@ -220,6 +220,13 @@ html .BottomBarContainer .Alert {
     pointer-events: auto;
 }
 
+/* A dismissed notice stays in the DOM, its wrapper only faded out (inline
+   opacity: 0) — clickable, it took a full-width 68 px strip above the icons
+   (a report: "anything inline with the bottom buttons is unclickable") */
+html .BottomBarContainer > div[style*="opacity: 0;"] .Alert {
+    pointer-events: none;
+}
+
 html .BottomBarContainer > .BottomBar {
     position: absolute;
     left: var(--aika-dock-inset);
@@ -240,16 +247,12 @@ html .BottomBarContainer > .BottomBar {
    window, author 2026-10-20: "+" sat on the last games, downloads on a shelf
    title): the library home and a game page (.AppDetailsMain > .Container >
    .Body — .InnerContainer on the home, .ScrollContainer on a game page; not
-   deeper — the activity feed has a .Body.InnerContainer too); the games list — its AutoSizer measures the
-   container without padding, so the list itself ends above the "+" */
+   deeper — the activity feed has a .Body.InnerContainer too). The games list
+   runs under the "+" (author: the names should show there; only the icon
+   itself takes the clicks) */
 html .AppDetailsMain > .Container > .Body {
     padding-bottom: var(--aika-dock-clearance);
     box-sizing: border-box;   /* it is the window's height — content-box pushed the room past the edge */
-}
-
-html .LeftListSizableContainer .Container:has(> .resize-triggers) {
-    padding-bottom: var(--aika-dock-clearance);
-    box-sizing: border-box;
 }
 
 @keyframes aika-dock-in {
