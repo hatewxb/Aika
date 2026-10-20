@@ -31,10 +31,10 @@ const RU = (root.lang || "en").startsWith("ru");
 const T = RU
   ? { buy: "Купить", media: "Медиа", trailer: "Трейлер", close: "Закрыть", prev: "Назад", next: "Далее",
       play: "Смотреть", pause: "Пауза", mute: "Выключить звук", unmute: "Включить звук", full: "Во весь экран",
-      reel: "Трейлер", seek: "Перемотка" }
+      reel: "Трейлер", seek: "Перемотка", volume: "Громкость", options: "Настройки", quality: "Качество", speed: "Скорость" }
   : { buy: "Buy", media: "Media", trailer: "Trailer", close: "Close", prev: "Previous", next: "Next",
       play: "Play", pause: "Pause", mute: "Mute", unmute: "Unmute", full: "Full screen",
-      reel: "Trailer", seek: "Seek" };
+      reel: "Trailer", seek: "Seek", volume: "Volume", options: "Options", quality: "Quality", speed: "Speed" };
 
 const FADE_MS = 1200;      // trailer crossfade (matches --aika-cine-fade in tokens.css)
 const PRELOAD_S = 8;       // start loading the next trailer this long before the end
@@ -77,7 +77,22 @@ const ICON = {
   sound: '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 9.5h3.2L12 5.5v13l-4.8-4H4z" fill="currentColor"/><path d="M15.5 9a4.2 4.2 0 0 1 0 6M18 6.5a7.8 7.8 0 0 1 0 11" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>',
   muted: '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 9.5h3.2L12 5.5v13l-4.8-4H4z" fill="currentColor"/><path d="M16 9.5l5 5M21 9.5l-5 5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>',
   full: '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4.5 9V4.5H9M15 4.5h4.5V9M19.5 15v4.5H15M9 19.5H4.5V15" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>',
+  options: '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h9M17 7h3M4 17h3M11 17h9" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/><circle cx="15" cy="7" r="2" fill="none" stroke="currentColor" stroke-width="1.8"/><circle cx="9" cy="17" r="2" fill="none" stroke="currentColor" stroke-width="1.8"/></svg>',
 };
+
+// The viewer player's choices, kept between trailers and visits
+const PLAYER_PREFS = "aika-cine-player";
+const QUALITIES = [1080, 720, 480];
+const SPEEDS = [0.5, 0.75, 1, 1.25, 1.5, 2];
+const loadPrefs = () => {
+  const p = { volume: 1, quality: 1080, speed: 1 };
+  try { Object.assign(p, JSON.parse(localStorage.getItem(PLAYER_PREFS) || "{}")); } catch { /* storage blocked */ }
+  if (!QUALITIES.includes(p.quality)) p.quality = 1080;
+  if (!SPEEDS.includes(p.speed)) p.speed = 1;
+  p.volume = Math.min(1, Math.max(0, Number(p.volume) || 0));
+  return p;
+};
+const savePrefs = (p) => { try { localStorage.setItem(PLAYER_PREFS, JSON.stringify(p)); } catch { /* storage blocked */ } };
 
 const icon = (name) => el("span", "aika-cine-icon", { html: ICON[name] });
 
@@ -602,7 +617,7 @@ class Viewer {
     this.nextBtn.addEventListener("click", () => this.show(this.i + 1));
     this.node.addEventListener("click", (e) => { if (e.target === this.node) this.close(); });
     this.onKey = (e) => {
-      if (e.key === "Escape") { e.preventDefault(); this.close(); }
+      if (e.key === "Escape") { e.preventDefault(); if (!this.closeOptions?.()) this.close(); }
       else if (e.key === "ArrowLeft" && !e.target.closest?.(".aika-cine-scrub")) this.show(this.i - 1);
       else if (e.key === "ArrowRight" && !e.target.closest?.(".aika-cine-scrub")) this.show(this.i + 1);
       else if (e.key === " " && this.video && !e.target.closest?.("button")) { e.preventDefault(); this.toggle(); }
@@ -646,6 +661,7 @@ class Viewer {
     this.player?.destroy();
     this.player = null;
     this.video = null;
+    this.closeOptions = null;
     this.frame.replaceChildren();
   }
 
@@ -680,8 +696,44 @@ class Viewer {
     const scrub = el("div", "aika-cine-scrub", { role: "slider", tabindex: "0", "aria-label": T.seek, "aria-valuemin": "0" }, [buf, fill]);
     const time = el("span", "aika-cine-player-time", { text: "0:00 / 0:00" });
     const muteBtn = el("button", "aika-cine-player-btn", { type: "button", "aria-label": T.mute }, [icon("sound")]);
+    const volume = el("input", "aika-cine-volume", { type: "range", min: "0", max: "1", step: "0.05", "aria-label": T.volume });
+    const optBtn = el("button", "aika-cine-player-btn", { type: "button", "aria-label": T.options, "aria-haspopup": "true", "aria-expanded": "false" }, [icon("options")]);
     const fullBtn = el("button", "aika-cine-player-btn", { type: "button", "aria-label": T.full }, [icon("full")]);
-    wrap.append(el("div", "aika-cine-capsule", {}, [playBtn, scrub, time, muteBtn, fullBtn]));
+    wrap.append(el("div", "aika-cine-capsule", {}, [playBtn, scrub, time, muteBtn, volume, optBtn, fullBtn]));
+
+    // Options: quality (the HLS variant, reloaded in place) and speed
+    const prefs = loadPrefs();
+    const group = (title, values, label, current, pick) => {
+      const chips = values.map((val) => {
+        const b = el("button", "aika-cine-option", { type: "button", text: label(val), "aria-pressed": String(val === current) });
+        b.addEventListener("click", () => {
+          chips.forEach((c) => c.setAttribute("aria-pressed", String(c === b)));
+          pick(val);
+        });
+        return b;
+      });
+      return el("div", "aika-cine-options-group", {}, [el("span", "aika-cine-options-title", { text: title }), el("div", "aika-cine-options-row", {}, chips)]);
+    };
+    const options = el("div", "aika-cine-options", { hidden: true }, [
+      group(T.quality, QUALITIES, (q) => q + "p", prefs.quality, (q) => { prefs.quality = q; savePrefs(prefs); this.load(trailer, q); }),
+      group(T.speed, SPEEDS, (x) => String(x).replace(".", RU ? "," : ".") + "×", prefs.speed, (x) => {
+        prefs.speed = x; savePrefs(prefs); v.defaultPlaybackRate = v.playbackRate = x;
+      }),
+    ]);
+    wrap.append(options);
+    const showOptions = (on) => { options.hidden = !on; optBtn.setAttribute("aria-expanded", String(on)); wrap.classList.toggle("has-options", on); };
+    optBtn.addEventListener("click", (e) => { e.stopPropagation(); showOptions(options.hidden); });
+    wrap.addEventListener("click", (e) => { if (!options.hidden && !options.contains(e.target) && e.target !== optBtn) showOptions(false); });
+    this.closeOptions = () => { if (options.hidden) return false; showOptions(false); optBtn.focus(); return true; };
+
+    v.volume = prefs.volume;
+    v.defaultPlaybackRate = v.playbackRate = prefs.speed;
+    volume.value = String(prefs.volume);
+    volume.addEventListener("input", () => {
+      v.volume = Number(volume.value);
+      v.muted = v.volume === 0;
+      prefs.volume = v.volume; savePrefs(prefs);
+    });
 
     const setIcon = (btn, name, label) => { btn.replaceChildren(icon(name)); btn.setAttribute("aria-label", label); };
     const update = () => {
@@ -699,10 +751,19 @@ class Viewer {
     v.addEventListener("durationchange", update);
     v.addEventListener("play", () => { setIcon(playBtn, "pause", T.pause); wrap.classList.remove("is-paused"); });
     v.addEventListener("pause", () => { setIcon(playBtn, "play", T.play); wrap.classList.add("is-paused"); });
-    v.addEventListener("volumechange", () => setIcon(muteBtn, v.muted ? "muted" : "sound", v.muted ? T.unmute : T.mute));
+    v.addEventListener("volumechange", () => {
+      setIcon(muteBtn, v.muted ? "muted" : "sound", v.muted ? T.unmute : T.mute);
+      volume.value = String(v.muted ? 0 : v.volume);
+      volume.style.setProperty("--aika-cine-volume", v.muted ? 0 : v.volume);
+    });
+    volume.style.setProperty("--aika-cine-volume", prefs.volume);
     v.addEventListener("click", () => this.toggle());
     playBtn.addEventListener("click", () => this.toggle());
-    muteBtn.addEventListener("click", () => { v.muted = !v.muted; });
+    muteBtn.addEventListener("click", () => {
+      // unmuting at volume 0 would stay silent — back to a usable level
+      if (v.muted && v.volume === 0) v.volume = prefs.volume = 0.5;
+      v.muted = !v.muted;
+    });
     fullBtn.addEventListener("click", () => {
       if (document.fullscreenElement) document.exitFullscreen();
       else wrap.requestFullscreen?.().catch(() => {});
@@ -726,9 +787,22 @@ class Viewer {
       }
     });
 
-    this.player = new HlsLite(v, trailer.hlsManifest, { height: 1080, audio: true });
-    this.player.ready.then(() => v.play()).catch(() => {});
+    this.load(trailer, prefs.quality);
     return wrap;
+  }
+
+  // (Re)load the trailer at a quality; a reload keeps the time and play state
+  load(trailer, height) {
+    const v = this.video;
+    const at = this.player ? v.currentTime : 0;
+    const playing = !this.player || !v.paused;
+    this.player?.destroy();
+    const player = this.player = new HlsLite(v, trailer.hlsManifest, { height, audio: true });
+    player.ready.then(() => {
+      if (player !== this.player) return;
+      if (at) v.currentTime = at;
+      if (playing) return v.play();
+    }).catch(() => {});
   }
 }
 

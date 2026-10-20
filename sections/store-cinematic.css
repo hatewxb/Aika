@@ -920,6 +920,102 @@ html.aika-cine .aika-cine-player-btn .aika-cine-icon {
     height: var(--aika-cine-icon-sm);
 }
 
+/* Volume — a short slider after the sound button, the track like the scrub */
+html.aika-cine .aika-cine-volume {
+    flex: none;
+    width: var(--aika-cine-volume-width);
+    height: var(--aika-space-5);
+    margin: 0;
+    background: transparent;
+    cursor: pointer;
+    -webkit-appearance: none;
+    appearance: none;
+}
+
+html.aika-cine .aika-cine-volume::-webkit-slider-runnable-track {
+    height: var(--aika-player-track-height);
+    border-radius: var(--aika-radius-full);
+    background: linear-gradient(to right,
+        var(--aika-accent) calc(var(--aika-cine-volume, 1) * 100%),
+        var(--aika-player-track) calc(var(--aika-cine-volume, 1) * 100%));
+}
+
+html.aika-cine .aika-cine-volume::-webkit-slider-thumb {
+    width: var(--aika-cine-volume-thumb);
+    height: var(--aika-cine-volume-thumb);
+    margin-top: calc((var(--aika-player-track-height) - var(--aika-cine-volume-thumb)) / 2);
+    border: none;
+    border-radius: var(--aika-radius-full);
+    background: var(--aika-fg);
+    -webkit-appearance: none;
+    appearance: none;
+}
+
+/* The options menu: above the capsule, on the right, like a menu */
+html.aika-cine .aika-cine-player.has-options .aika-cine-capsule {
+    opacity: 1;
+    transform: none;
+}
+
+html.aika-cine .aika-cine-options {
+    position: absolute;
+    right: var(--aika-player-inset);
+    bottom: calc(var(--aika-player-inset) + var(--aika-player-button) + 2 * var(--aika-space-1) + var(--aika-space-2));
+    display: grid;
+    gap: var(--aika-space-3);
+    padding: var(--aika-space-3);
+    border-radius: var(--aika-radius-lg);
+    background: var(--aika-surface-translucent);
+    backdrop-filter: var(--aika-player-blur);
+    box-shadow: var(--aika-shadow-menu);
+}
+
+html.aika-cine .aika-cine-options[hidden] {
+    display: none;
+}
+
+html.aika-cine .aika-cine-options-group {
+    display: grid;
+    gap: var(--aika-space-2);
+}
+
+html.aika-cine .aika-cine-options-title {
+    font-family: var(--aika-font-mono);
+    font-size: var(--aika-text-label);
+    letter-spacing: var(--aika-tracking-label);
+    color: var(--aika-fg-subtle);
+}
+
+html.aika-cine .aika-cine-options-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--aika-space-1);
+}
+
+html.aika-cine .aika-cine-option {
+    padding: var(--aika-space-1) var(--aika-space-3);
+    border: none;
+    border-radius: var(--aika-radius-full);
+    background: var(--aika-surface);
+    color: var(--aika-fg-muted);
+    font-family: var(--aika-font-mono);
+    font-size: var(--aika-text-meta);
+    cursor: pointer;
+    transition:
+        background-color var(--aika-dur-fast) var(--aika-ease-hover),
+        color var(--aika-dur-fast) var(--aika-ease-hover);
+}
+
+html.aika-cine .aika-cine-option:hover {
+    background: var(--aika-surface-hover);
+    color: var(--aika-fg);
+}
+
+html.aika-cine .aika-cine-option[aria-pressed="true"] {
+    background: var(--aika-accent-fill);
+    color: var(--aika-on-accent);
+}
+
 html.aika-cine .aika-cine-scrub {
     position: relative;
     flex: 1;

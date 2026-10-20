@@ -172,6 +172,8 @@
     --aika-player-track-height: 4px;
     --aika-player-track-height-hover: 7px;
     --aika-player-button: 30px;
+    --aika-cine-volume-width: 64px;                  /* the volume slider in the trailer viewer */
+    --aika-cine-volume-thumb: 10px;
     /* The game logo above the trailer in the store (js/store-logo.js, store.css) */
     --aika-store-logo-max-width: 56%;
     --aika-store-logo-max-height: 132px;
