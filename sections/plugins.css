@@ -410,3 +410,32 @@ html.friendsui-container :is(.rcp-time, .rcp-empty) {
 html.friendsui-container .rcp-list-content:hover::-webkit-scrollbar-thumb {
     background-color: var(--aika-border-strong);
 }
+
+/* --- Easy Restart: its items in the Steam menu ------------------------------ */
+/* (captured 2026-10-20) "Restart" / "Reload" are Steam's own .contextMenuItem
+   (data-restart-steam-root-item="restart|reload"), so components/menu.css
+   already draws them; the separator after them is a plain div painted inline
+   (height .5px, rgba(19,19,19,.85)) — drawn and animated like hr.Separator.
+   Its modal is built from Steam's dialog parts — the theme's dialogs. */
+html .contextMenu .contextMenuContents > [data-restart-steam-root-item="separator"] {
+    height: var(--aika-hairline) !important;
+    margin: var(--aika-space-1) var(--aika-space-2);
+    background: var(--aika-border) !important;
+}
+
+html body .contextMenu.ready .contextMenuContents > [data-restart-steam-root-item="separator"] {
+    animation: aika-menu-item-in var(--aika-cardnav-item-dur) var(--aika-ease-fold) backwards;
+    animation-delay: calc(var(--aika-cardnav-item-delay) + var(--aika-menu-i, 0) * var(--aika-menu-item-stagger));
+}
+
+html.aika-menu-js:not(.aika-menu-open) body .contextMenu.ready .contextMenuContents > [data-restart-steam-root-item="separator"] {
+    opacity: 0;
+    animation: none;
+}
+
+/* --- Size on Disk, Player Count ---------------------------------------------- */
+/* Size on Disk (captured 2026-10-20) draws its play-bar stat and its page in
+   game properties from Steam's own GameStat / PlayBarLabel / DialogBody —
+   the theme's look already. Player Count colors the online number inline by
+   tier (blue < 1k, bronze, gray, gold, red > 50k) — meaning, not decoration;
+   left as is. */
