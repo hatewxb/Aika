@@ -88,7 +88,8 @@ Aika is in the official Millennium theme store:
 
 Theme settings (the gear next to Aika in Millennium; in Russian when Steam is
 in Russian): **Main** — color preset, top bar tab position, compact header (the
-menus, tabs and account buttons in one line); **Elements** — show or hide the wallet balance, the address capsule
+menus, tabs and account buttons in one line), the header wordmark (classic,
+calligraphy, or アイカ in two brush styles); **Elements** — show or hide the wallet balance, the address capsule
 over store and community pages,
 What's New, the "Add shelf" row and the Steam news button; **Animations** —
 performance (Full / Balanced / Low), store game page layout (Cinematic /
@@ -111,7 +112,8 @@ on the **Colors** page right below.
 
 ## Licenses
 
-The Inter, Geist Mono, Fraunces, Unbounded, UnifrakturMaguntia and Shojumaru fonts are
+The Inter, Geist Mono, Fraunces, Unbounded, UnifrakturMaguntia, Shojumaru, Great Vibes,
+Yuji Syuku and Yuji Mai fonts (the last three as subsets with only the wordmark letters) are
 licensed under the SIL Open Font License 1.1 (`assets/fonts/OFL-*.txt`). The
 notification liquid glass is [hyalite](https://github.com/VII-Cae/hyalite--liquid-glass),
 MIT (`js/vendor/LICENSE-hyalite.txt`). The aurora and dark veil backdrops port the

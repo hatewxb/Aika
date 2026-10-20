@@ -1,0 +1,23 @@
+/* ==========================================================================
+   "Header wordmark: アイカ (Yuji Syuku)" (theme settings → Main, author 2026-10-20):
+   the name in katakana, a brush with a sharp, ink-heavy stroke. The font file holds only
+   ア, イ and カ (a Google Fonts subset, OFL — assets/fonts/OFL-YujiSyuku.txt).
+   Option files load before the theme entry: selectors carry an extra :root.
+   ========================================================================== */
+
+@font-face {
+    font-family: "Yuji Syuku Aika";
+    src: url("../assets/fonts/YujiSyuku-Aika.woff2") format("woff2");
+    font-weight: 400;
+    font-style: normal;
+    font-display: block;
+}
+
+html:root {
+    --aika-wordmark-text: "アイカ";
+    --aika-wordmark-font: "Yuji Syuku Aika", var(--aika-font-display);
+    --aika-wordmark-size: 18px;
+    --aika-wordmark-weight: 400;
+    --aika-wordmark-tracking: 0;
+    --aika-wordmark-leading: 1;
+}

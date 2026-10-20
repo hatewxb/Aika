@@ -57,6 +57,23 @@
                 }
             }
         },
+        "Header wordmark": {
+            "description": "The \"Aika\" name at the top left of the window: the classic serif, calligraphy, or アイカ in katakana with a brush.",
+            "tab": "Main",
+            "default": "Classic",
+            "values": {
+                "Classic": {},
+                "Calligraphy": {
+                    "TargetCss": { "affects": ["^Steam$"], "src": "options/wordmark-calligraphy.css" }
+                },
+                "Katakana brush": {
+                    "TargetCss": { "affects": ["^Steam$"], "src": "options/wordmark-syuku.css" }
+                },
+                "Katakana soft": {
+                    "TargetCss": { "affects": ["^Steam$"], "src": "options/wordmark-mai.css" }
+                }
+            }
+        },
         "Wallet visibility": {
             "description": "The wallet balance next to the account name in the top bar.",
             "tab": "Elements",

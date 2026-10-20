@@ -123,16 +123,20 @@ html .RootMenuBar .RootMenuButton .SteamButton svg.Logo {
     display: none;
 }
 
+/* The text and its face come from the "Header wordmark" setting (options/wordmark-*.css;
+   the default — tokens.css) */
 html .RootMenuBar .RootMenuButton .SteamButton::after {
-    content: "Aika";
+    content: var(--aika-wordmark-text);
+    padding-inline: var(--aika-wordmark-pad);
     background: linear-gradient(to right, var(--aika-fg), var(--aika-accent-bright));
     -webkit-background-clip: text;
     background-clip: text;
     color: var(--aika-transparent);
-    font-family: var(--aika-font-display);
-    font-size: var(--aika-text-h3);
-    font-weight: var(--aika-weight-semibold);
-    letter-spacing: var(--aika-tracking-h2);
+    font-family: var(--aika-wordmark-font);
+    font-size: var(--aika-wordmark-size);
+    font-weight: var(--aika-wordmark-weight);
+    letter-spacing: var(--aika-wordmark-tracking);
+    line-height: var(--aika-wordmark-leading);
 }
 
 html .RootMenuBar .RootMenuButton:not(:has(.SteamButton)) > div {
