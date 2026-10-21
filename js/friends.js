@@ -21,6 +21,25 @@
   const ART = (appid) => `url("${CDN}${appid}/library_hero.jpg"), url("${CDN}${appid}/header.jpg")`;
   const appidOf = (img) => img?.getAttribute("src")?.match(/\/apps\/(\d+)\//)?.[1];
 
+  // Party size: Steam shows a party ("+1 With 1 more player") only in a game's
+  // own group, not in the mixed "In game" one. The friends store lives in the
+  // opener (SharedJSContext); a row has no steamid, so the persona is found by
+  // its avatar hash in the row's avatar address.
+  const partyOf = (row) => {
+    try {
+      const src = row.querySelector("img.avatar")?.getAttribute("src") || "";
+      const cache = window.opener?.g_FriendsUIApp?.FriendStore?.m_mapPlayerCache;
+      if (!src || !cache) return 0;
+      for (const player of cache.values()) {
+        const p = player.m_persona;
+        if (p?.m_strAvatarHash && src.includes(p.m_strAvatarHash)) {
+          return parseInt(p.m_mapRichPresence?.get("steam_player_group_size"), 10) || 0;
+        }
+      }
+    } catch { /* the store's shape changed — no party mark */ }
+    return 0;
+  };
+
   const paint = (root) => {
     // a friend in game: the icon sits in the row
     for (const row of root.querySelectorAll(".friend.ingame")) {
@@ -34,6 +53,16 @@
       // when there is no rich presence)
       const game = row.querySelector(".richPresenceLabel.gameName")?.textContent.trim() || "";
       if (row.dataset.aikaGame !== game) row.dataset.aikaGame = game;
+      // "+N" — the others in their party, as Steam counts it
+      const status = row.querySelector(".richPresenceContainer");
+      if (status && row.closest(".OtherGamesGroup")) {
+        const size = partyOf(row);
+        const mark = size > 1 ? "+" + (size - 1) : "";
+        if ((status.dataset.aikaParty || "") !== mark) {
+          if (mark) status.dataset.aikaParty = mark;
+          else delete status.dataset.aikaParty;
+        }
+      }
     }
     // a game group (two friends or more in one game): the icon in its header
     for (const group of root.querySelectorAll(".friendGroup.gameGroup:not(.OtherGamesGroup)")) {
@@ -57,6 +86,8 @@
     // inline style set here don't retrigger; a game's name changing is a
     // text node swap, so it is caught too.
     new MutationObserver(queue).observe(document.body, { childList: true, subtree: true });
+    // a party grows and shrinks without the list changing shape
+    setInterval(queue, 5000);
     return true;
   };
 
