@@ -343,3 +343,99 @@ html.MillenniumWindow_FriendsList .friendGroup.gameGroup:not(.OtherGamesGroup) >
 html.MillenniumWindow_FriendsList .friendGroup.gameGroup:not(.OtherGamesGroup) > .groupName hr {
     display: none;
 }
+
+/* --- Pins (favorites, .quickAccessFriends) ----------------------------------- */
+/* A row of faces under the card, the name below in the muted UI face */
+html.MillenniumWindow_FriendsList .quickAccessFriends {
+    gap: var(--aika-space-1);
+    padding: 0 var(--aika-space-3) var(--aika-space-2);
+}
+
+html.MillenniumWindow_FriendsList .quickAccessFriends .friend {
+    padding: var(--aika-space-1);
+    transition: background-color var(--aika-dur-fast) var(--aika-ease-hover);
+}
+
+html.MillenniumWindow_FriendsList .quickAccessFriends .friend:hover {
+    background-color: var(--aika-surface-hover);
+}
+
+html.MillenniumWindow_FriendsList .quickAccessFriends .friend .playerName {
+    font-size: var(--aika-text-label);
+}
+
+/* --- Tabs, search, add a friend ------------------------------------------------- */
+/* Steam: a tab strip with an accent line under the active tab. Here — pills:
+   the active one a raised surface, no line; the search field inside the
+   Friends tab as our input. */
+html.MillenniumWindow_FriendsList .socialTabContainer {
+    gap: var(--aika-space-2);
+    padding: 0 var(--aika-space-3) var(--aika-space-2);
+    border: none;
+    box-shadow: none;
+}
+
+html.MillenniumWindow_FriendsList .socialTabContainer .socialListTab {
+    border-radius: var(--aika-radius-md);
+    transition:
+        background-color var(--aika-dur-fast) var(--aika-ease-hover),
+        color var(--aika-dur-fast) var(--aika-ease-hover);
+}
+
+html.MillenniumWindow_FriendsList .socialTabContainer .socialListTab.activeTab {
+    background-color: var(--aika-surface-hover);
+    box-shadow: inset 0 0 0 var(--aika-hairline) var(--aika-border-hover);
+}
+
+html.MillenniumWindow_FriendsList .socialTabContainer .socialListTab:not(.activeTab):hover {
+    background-color: var(--aika-surface);
+    color: var(--aika-fg-muted);
+}
+
+html.MillenniumWindow_FriendsList .socialTabContainer .socialListTab .tabLabel {
+    font-family: var(--aika-font-friends);
+    font-size: var(--aika-text-meta);
+    font-weight: var(--aika-weight-medium);
+}
+
+html.MillenniumWindow_FriendsList .friendsTabButtonsContainer .TabSearchButton {
+    border-radius: var(--aika-radius-md);
+    background-color: var(--aika-bg-raised);
+    box-shadow: inset 0 0 0 var(--aika-hairline) var(--aika-border-hover);
+}
+
+/* --- Group chats ----------------------------------------------------------------- */
+/* The section bar as a caption like the groups; each chat a card */
+html.MillenniumWindow_FriendsList .FriendsListChatSection .chatSectionTitle {
+    background: var(--aika-transparent);
+    box-shadow: inset 0 var(--aika-hairline) 0 0 var(--aika-border);
+}
+
+html.MillenniumWindow_FriendsList .FriendsListChatSection .groupChatSectionTitle {
+    font-family: var(--aika-font-mono);
+    font-size: var(--aika-text-label);
+    font-weight: var(--aika-weight-medium);
+    letter-spacing: var(--aika-tracking-label);
+    color: var(--aika-fg-subtle);
+}
+
+html.MillenniumWindow_FriendsList .FriendsListChatSection .ChatRoomListGroupItem {
+    margin: var(--aika-space-1) var(--aika-space-3) var(--aika-space-2);
+    border-radius: var(--aika-radius-lg);
+    background: var(--aika-bg-elevated);
+    box-shadow: inset 0 0 0 var(--aika-hairline) var(--aika-border);
+    transition: box-shadow var(--aika-dur-fast) var(--aika-ease-hover);
+}
+
+html.MillenniumWindow_FriendsList .FriendsListChatSection .ChatRoomListGroupItem:hover {
+    box-shadow: inset 0 0 0 var(--aika-hairline) var(--aika-border-hover);
+}
+
+html.MillenniumWindow_FriendsList .FriendsListChatSection :is(.FriendListInsetShadowTop, .FriendListInsetShadowBottom) {
+    display: none;
+}
+
+/* Steam's gray-blue radial gradient behind the chat list */
+html.MillenniumWindow_FriendsList .FriendsListChatSection .chatRoomListContainer {
+    background: var(--aika-transparent);
+}
