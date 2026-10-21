@@ -530,6 +530,12 @@
     --aika-fl-avatar: 56px;
     --aika-fl-avatar-ring: 4px;
     --aika-fl-nick-flow: 8s;   /* the name gradient, while hovered; Low: 0s */
+    --aika-fl-avatar-radius: 30%;   /* squircles: Steam frames are square */
+    /* Status badge shapes (sections/friends-list.css): online, in game, away, offline */
+    --aika-icon-status-dot: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 10 10'%3E%3Ccircle cx='5' cy='5' r='5'/%3E%3C/svg%3E");
+    --aika-icon-status-game: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 10 10'%3E%3Cpath fill-rule='evenodd' d='M5 0a5 5 0 1 1 0 10A5 5 0 0 1 5 0zM4 3v4l3.2-2z'/%3E%3C/svg%3E");
+    --aika-icon-status-away: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 10 10'%3E%3Cpath d='M10 5A5 5 0 1 1 5 0a3.8 3.8 0 0 0 5 5z'/%3E%3C/svg%3E");
+    --aika-icon-status-off: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 10 10'%3E%3Cpath fill-rule='evenodd' d='M5 0a5 5 0 1 1 0 10A5 5 0 0 1 5 0zm0 2.6a2.4 2.4 0 1 0 0 4.8 2.4 2.4 0 0 0 0-4.8z'/%3E%3C/svg%3E");
 
     --aika-dock-clearance: calc(var(--aika-dock-size) + 2 * var(--aika-dock-inset));   /* scroll room under the icons */
     --aika-dock-rise: 16px;                   /* they float up into place when the window opens */

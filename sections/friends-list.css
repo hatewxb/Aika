@@ -81,7 +81,7 @@ html.MillenniumWindow_FriendsList .currentUserAvatar .avatarHolder {
 html.MillenniumWindow_FriendsList .currentUserAvatar .avatarHolder img.avatar {
     width: 100%;
     height: 100%;
-    border-radius: 50%;
+    border-radius: var(--aika-fl-avatar-radius);
     box-shadow: 0 0 0 var(--aika-fl-avatar-ring) var(--aika-bg-elevated);
 }
 
@@ -120,3 +120,69 @@ html.MillenniumWindow_FriendsList .currentUserContainer .richPresenceLabel {
     color: var(--aika-fg-muted);
     font-size: var(--aika-text-meta);
 }
+
+/* --- Status badges (Discord-like, author 2026-10-21) ----------------------- */
+/* On every avatar of the window: .avatarHolder.<online | ingame | offline>
+   (+ .awayOrSnooze for away / snooze). A dot at the bottom right, cut out of
+   the picture by a mask — so it reads the same on a hovered row. Shapes are
+   SVG masks (--aika-icon-status-*), colors the theme's status colors, as the
+   names: online — accent, in game — ok with a "play" notch, away — a warn
+   crescent, offline — a gray ring. Steam's 2 px status strip (.avatarStatus)
+   goes. Sizes: --aika-fl-badge per place. */
+html.MillenniumWindow_FriendsList .avatarHolder:is(.online, .ingame, .offline) {
+    --aika-fl-badge-gap: 2.5px;
+    --aika-fl-badge-out: 2px;   /* how far it hangs past the corner */
+    position: relative;
+}
+
+html.MillenniumWindow_FriendsList .avatarHolder:is(.online, .ingame, .offline) > .avatarStatus.avatarStatus {
+    display: none;
+}
+
+html.MillenniumWindow_FriendsList .avatarHolder:is(.online, .ingame, .offline) img.avatar {
+    border-radius: var(--aika-fl-avatar-radius);
+    -webkit-mask: radial-gradient(circle calc(var(--aika-fl-badge) / 2 + var(--aika-fl-badge-gap))
+        at calc(100% - var(--aika-fl-badge) / 2 + var(--aika-fl-badge-out))
+           calc(100% - var(--aika-fl-badge) / 2 + var(--aika-fl-badge-out)),
+        transparent 98%, #000 100%);
+    mask: radial-gradient(circle calc(var(--aika-fl-badge) / 2 + var(--aika-fl-badge-gap))
+        at calc(100% - var(--aika-fl-badge) / 2 + var(--aika-fl-badge-out))
+           calc(100% - var(--aika-fl-badge) / 2 + var(--aika-fl-badge-out)),
+        transparent 98%, #000 100%);
+}
+
+html.MillenniumWindow_FriendsList .avatarHolder:is(.online, .ingame, .offline)::after {
+    content: "";
+    position: absolute;
+    right: calc(-1 * var(--aika-fl-badge-out));
+    bottom: calc(-1 * var(--aika-fl-badge-out));
+    z-index: 2;
+    width: var(--aika-fl-badge);
+    height: var(--aika-fl-badge);
+    background: var(--aika-accent-bright);
+    -webkit-mask: var(--aika-icon-status-dot) center / contain no-repeat;
+    mask: var(--aika-icon-status-dot) center / contain no-repeat;
+}
+
+html.MillenniumWindow_FriendsList .avatarHolder.ingame::after {
+    background: var(--aika-ok);
+    -webkit-mask-image: var(--aika-icon-status-game);
+    mask-image: var(--aika-icon-status-game);
+}
+
+html.MillenniumWindow_FriendsList .avatarHolder.awayOrSnooze::after {
+    background: var(--aika-warn);
+    -webkit-mask-image: var(--aika-icon-status-away);
+    mask-image: var(--aika-icon-status-away);
+}
+
+html.MillenniumWindow_FriendsList .avatarHolder.offline::after {
+    background: var(--aika-fg-subtle);
+    -webkit-mask-image: var(--aika-icon-status-off);
+    mask-image: var(--aika-icon-status-off);
+}
+
+/* Sizes */
+html.MillenniumWindow_FriendsList .friend .avatarHolder { --aika-fl-badge: 11px; }
+html.MillenniumWindow_FriendsList .quickAccessFriend .avatarHolder { --aika-fl-badge: 13px; }
+html.MillenniumWindow_FriendsList .currentUserAvatar .avatarHolder { --aika-fl-badge: 16px; --aika-fl-badge-gap: 3.5px; --aika-fl-badge-out: 1px; }
