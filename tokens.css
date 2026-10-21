@@ -526,8 +526,11 @@
     --aika-dock-icon: 18px;
     --aika-dock-inset: var(--aika-space-4);   /* from the window edges */
     /* The friends list window (sections/friends-list.css) */
-    --aika-fl-banner: 56px;
-    --aika-fl-avatar: 56px;
+    --aika-fl-card-top: 34px;   /* the window buttons sit above the card */
+    --aika-fl-banner: 64px;
+    --aika-fl-avatar: 60px;
+    --aika-fl-nick-size: 24px;
+    --aika-fl-menu-btn: 28px;
     --aika-fl-avatar-ring: 4px;
     --aika-fl-nick-flow: 8s;   /* the name gradient, while hovered; Low: 0s */
     --aika-fl-art-h: 56px;   /* the game art strip of a "now playing" card */

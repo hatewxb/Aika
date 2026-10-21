@@ -7,15 +7,18 @@
 // Steam gives a friend in game only a small game icon
 // (.FriendInGameIcon img.gameIcon, …/apps/<appid>/<hash>.jpg) and a game
 // group only its icon in the header. The appid in that address gives the
-// store header image (header.jpg, 460×215) — set as --aika-fl-art on the
-// friend row / the group. A non-Steam game has no appid: no art, the card
-// keeps its plain background.
+// game's library background (library_hero.jpg, 3840×1240 — wide, crops well
+// into a strip; author 2026-10-21) with the store header (header.jpg) under it
+// for games without one — set as --aika-fl-art on the friend row / the
+// group. A non-Steam game has no appid: no art, the card keeps its plain
+// background.
 (() => {
   "use strict";
   if (window.__aikaFriends) return;
   window.__aikaFriends = true;
 
-  const ART = (appid) => `url("https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/${appid}/header.jpg")`;
+  const CDN = "https://shared.akamai.steamstatic.com/store_item_assets/steam/apps/";
+  const ART = (appid) => `url("${CDN}${appid}/library_hero.jpg"), url("${CDN}${appid}/header.jpg")`;
   const appidOf = (img) => img?.getAttribute("src")?.match(/\/apps\/(\d+)\//)?.[1];
 
   const paint = (root) => {
@@ -41,12 +44,13 @@
   const queue = () => { if (!frame) frame = requestAnimationFrame(() => { frame = 0; paint(document); }); };
 
   const start = () => {
-    const list = document.querySelector(".friendlistListContainer");
+    const list = document.querySelector(".FriendsListContent");
     if (!list) return false;
     paint(document);
-    // rows come and go as friends start and stop playing; only structure
-    // (childList) is watched — the inline style set here doesn't retrigger
-    new MutationObserver(queue).observe(list, { childList: true, subtree: true });
+    // rows come and go as friends start and stop playing, and a search swaps
+    // the whole list container — the window's list area is watched; only
+    // structure (childList), the inline style set here doesn't retrigger
+    new MutationObserver(queue).observe(list.parentElement, { childList: true, subtree: true });
     return true;
   };
 

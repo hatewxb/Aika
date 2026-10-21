@@ -30,7 +30,7 @@ html.MillenniumWindow_FriendsList .friendListHeaderContainer {
 
 html.MillenniumWindow_FriendsList .currentUserContainer {
     position: relative;
-    margin: var(--aika-space-1) var(--aika-space-3) var(--aika-space-3);
+    margin: var(--aika-fl-card-top) var(--aika-space-3) var(--aika-space-3);   /* under the window buttons */
     padding-top: var(--aika-fl-banner);
     border: none;
     border-radius: var(--aika-radius-xl);
@@ -81,7 +81,7 @@ html.MillenniumWindow_FriendsList .currentUserAvatar .avatarHolder {
 html.MillenniumWindow_FriendsList .currentUserAvatar .avatarHolder img.avatar {
     width: 100%;
     height: 100%;
-    border-radius: var(--aika-fl-avatar-radius);
+    border-radius: 50%;   /* a circle here — the frame is gone */
     box-shadow: 0 0 0 var(--aika-fl-avatar-ring) var(--aika-bg-elevated);
 }
 
@@ -102,9 +102,9 @@ html.MillenniumWindow_FriendsList .currentUserContainer .statusAndName .playerNa
     -webkit-background-clip: text;
     background-clip: text;
     color: var(--aika-transparent);
-    font-size: var(--aika-text-h2);
+    font-size: var(--aika-fl-nick-size);
     font-weight: var(--aika-weight-heavy);
-    letter-spacing: var(--aika-tracking-h2);
+    letter-spacing: var(--aika-tracking-h1);
     line-height: var(--aika-leading-heading);
 }
 
@@ -438,4 +438,77 @@ html.MillenniumWindow_FriendsList .FriendsListChatSection :is(.FriendListInsetSh
 /* Steam's gray-blue radial gradient behind the chat list */
 html.MillenniumWindow_FriendsList .FriendsListChatSection .chatRoomListContainer {
     background: var(--aika-transparent);
+}
+
+/* --- Fixes after the first look (author 2026-10-21) --------------------------- */
+/* The own avatar without Steam's frame (it sat off the circle) */
+html.MillenniumWindow_FriendsList .currentUserAvatar .avatarFrame {
+    display: none;
+}
+
+html.MillenniumWindow_FriendsList .currentUserAvatar .avatarHolder img.avatar {
+    -webkit-mask-image: radial-gradient(circle calc(var(--aika-fl-badge) / 2 + var(--aika-fl-badge-gap))
+        at calc(85% + var(--aika-fl-badge-out) / 2) calc(85% + var(--aika-fl-badge-out) / 2),
+        transparent 98%, #000 100%);
+    mask-image: radial-gradient(circle calc(var(--aika-fl-badge) / 2 + var(--aika-fl-badge-gap))
+        at calc(85% + var(--aika-fl-badge-out) / 2) calc(85% + var(--aika-fl-badge-out) / 2),
+        transparent 98%, #000 100%);
+}
+
+html.MillenniumWindow_FriendsList .currentUserAvatar .avatarHolder::after {
+    right: calc(15% - var(--aika-fl-badge) / 2);
+    bottom: calc(15% - var(--aika-fl-badge) / 2);
+}
+
+/* The status menu arrow: a square button at the card's right (concept B) */
+html.MillenniumWindow_FriendsList .currentUserContainer .ContextMenuButton {
+    position: absolute;
+    right: var(--aika-space-4);
+    bottom: var(--aika-space-4);
+    display: grid;
+    place-items: center;
+    width: var(--aika-fl-menu-btn);
+    height: var(--aika-fl-menu-btn);
+    margin: 0;
+    border-radius: var(--aika-radius-md);
+    background: var(--aika-surface);
+    box-shadow: inset 0 0 0 var(--aika-hairline) var(--aika-border-hover);
+    transition: background-color var(--aika-dur-fast) var(--aika-ease-hover);
+}
+
+html.MillenniumWindow_FriendsList .currentUserContainer .ContextMenuButton:hover {
+    background: var(--aika-surface-hover);
+}
+
+html.MillenniumWindow_FriendsList .currentUserContainer .ContextMenuButton svg {
+    position: static;
+    width: 12px;
+    height: 12px;
+    color: var(--aika-fg-muted);
+}
+
+html.MillenniumWindow_FriendsList .currentUserContainer .labelHolder {
+    padding-right: calc(var(--aika-fl-menu-btn) + var(--aika-space-2));
+}
+
+/* Away / snooze: only the badge on the avatar, in the accent (Steam's moon
+   and Z's beside the name go) */
+html.MillenniumWindow_FriendsList .SnoozeContainer {
+    display: none;
+}
+
+html.MillenniumWindow_FriendsList .avatarHolder.awayOrSnooze::after {
+    background: var(--aika-accent-bright);
+}
+
+/* A collapsed game card: just the title strip, the art behind it */
+html.MillenniumWindow_FriendsList .friendGroup.gameGroup:not(.OtherGamesGroup) > .groupName.Collapsed {
+    height: auto;
+    padding-block: var(--aika-space-3);
+    align-items: center;
+}
+
+/* (0,4,2) — the badge rule above gives every avatar the squircle */
+html.MillenniumWindow_FriendsList .currentUserAvatar .avatarHolder:is(.online, .ingame, .offline) img.avatar {
+    border-radius: 50%;
 }
