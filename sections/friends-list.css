@@ -85,10 +85,14 @@ html.MillenniumWindow_FriendsList .currentUserAvatar .avatarHolder img.avatar {
     box-shadow: 0 0 0 var(--aika-fl-avatar-ring) var(--aika-bg-elevated);
 }
 
+/* the name and status as one block on the avatar's middle line */
 html.MillenniumWindow_FriendsList .currentUserContainer .labelHolder {
-    height: auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    height: var(--aika-fl-avatar);
     margin: 0;
-    padding-bottom: var(--aika-space-1);
+    padding: 0;
 }
 
 /* The name: the preset's colors as a gradient (React Bits "Gradient Text",
@@ -220,9 +224,9 @@ html.MillenniumWindow_FriendsList .friendGroup.OtherGamesGroup .friend.ingame::b
     inset: 0 0 auto;
     height: var(--aika-fl-art-h);
     background:
-        linear-gradient(0deg, var(--aika-bg-elevated), rgb(from var(--aika-bg-elevated) r g b / 0.15) 70%),
+        linear-gradient(0deg, var(--aika-bg-elevated), rgb(from var(--aika-bg-elevated) r g b / 0.55) 28%, var(--aika-transparent) 62%),
         var(--aika-fl-art, radial-gradient(70% 140% at 20% 0%, rgb(from var(--aika-accent) r g b / 0.5), transparent 70%))
-            center 30% / cover no-repeat,
+            center / cover no-repeat,
         var(--aika-bg-raised);
     pointer-events: none;
 }
@@ -231,15 +235,45 @@ html.MillenniumWindow_FriendsList .friendGroup.OtherGamesGroup .friend.ingame .F
     display: none;
 }
 
-html.MillenniumWindow_FriendsList .friendGroup.OtherGamesGroup .friend.ingame .richPresenceLabel.gameName {
+/* The title on the art: the game's name from data-aika-game (js/friends.js).
+   Under the name Steam's labels: what they do ("Competitive - Dust II"),
+   or the game's name when there is nothing more */
+html.MillenniumWindow_FriendsList .friendGroup.OtherGamesGroup .friend.ingame::after {
+    content: attr(data-aika-game);
     position: absolute;
     top: calc(var(--aika-fl-art-h) - var(--aika-space-6));
     left: var(--aika-space-3);
     right: var(--aika-space-3);
+    overflow: hidden;
     font-size: var(--aika-text-body);
     font-weight: var(--aika-weight-semibold);
     color: var(--aika-fg);
+    text-overflow: ellipsis;
+    white-space: nowrap;
     text-shadow: 0 1px 8px rgb(from var(--aika-bg-deep) r g b / 0.9);
+}
+
+html.MillenniumWindow_FriendsList .friendGroup.OtherGamesGroup .friend.ingame .richPresenceContainer:has(> .richPresenceLabel ~ .richPresenceLabel) > .gameName {
+    display: none;
+}
+
+/* the avatar and the two lines on one axis */
+html.MillenniumWindow_FriendsList .friendGroup.OtherGamesGroup .friend.ingame,
+html.MillenniumWindow_FriendsList .friendGroup.gameGroup .friend.ingame {
+    align-items: center;
+}
+
+html.MillenniumWindow_FriendsList .friendGroup.gameGroup .friend.ingame .labelHolder {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 2px;
+    height: auto;
+}
+
+html.MillenniumWindow_FriendsList .friendGroup.gameGroup .friend.ingame .playerName {
+    font-size: var(--aika-fl-row-name);
+    font-weight: var(--aika-weight-semibold);
 }
 
 /* A game with two friends or more: Steam's own group for it — the group is
@@ -259,8 +293,8 @@ html.MillenniumWindow_FriendsList .friendGroup.gameGroup:not(.OtherGamesGroup) >
     align-items: flex-end;
     padding: 0 var(--aika-space-3) var(--aika-space-2);
     background:
-        linear-gradient(0deg, var(--aika-bg-elevated), rgb(from var(--aika-bg-elevated) r g b / 0.15) 70%),
-        var(--aika-fl-art, var(--aika-bg-raised)) center 30% / cover no-repeat;
+        linear-gradient(0deg, var(--aika-bg-elevated), rgb(from var(--aika-bg-elevated) r g b / 0.55) 28%, var(--aika-transparent) 62%),
+        var(--aika-fl-art, var(--aika-bg-raised)) center / cover no-repeat;
     font-weight: var(--aika-weight-semibold);
     color: var(--aika-fg);
 }
@@ -464,7 +498,7 @@ html.MillenniumWindow_FriendsList .currentUserAvatar .avatarHolder::after {
 html.MillenniumWindow_FriendsList .currentUserContainer .ContextMenuButton {
     position: absolute;
     right: var(--aika-space-4);
-    bottom: var(--aika-space-4);
+    bottom: calc(var(--aika-space-4) + (var(--aika-fl-avatar) - var(--aika-fl-menu-btn)) / 2);   /* on the avatar's middle line */
     display: grid;
     place-items: center;
     width: var(--aika-fl-menu-btn);
@@ -511,4 +545,14 @@ html.MillenniumWindow_FriendsList .friendGroup.gameGroup:not(.OtherGamesGroup) >
 /* (0,4,2) — the badge rule above gives every avatar the squircle */
 html.MillenniumWindow_FriendsList .currentUserAvatar .avatarHolder:is(.online, .ingame, .offline) img.avatar {
     border-radius: 50%;
+}
+
+/* Bigger names in the online rows too; "Online" in the accent like the name */
+html.MillenniumWindow_FriendsList .friendGroup.onlineFriends .friend .playerName {
+    font-size: var(--aika-fl-row-name);
+    font-weight: var(--aika-weight-medium);
+}
+
+html.MillenniumWindow_FriendsList .friendGroup.onlineFriends .friend .labelHolder.online:not(.awayOrSnooze) .richPresenceLabel {
+    color: var(--aika-accent-bright);
 }

@@ -530,10 +530,11 @@
     --aika-fl-banner: 64px;
     --aika-fl-avatar: 60px;
     --aika-fl-nick-size: 24px;
+    --aika-fl-row-name: 15px;   /* a friend's name in the list */
     --aika-fl-menu-btn: 28px;
     --aika-fl-avatar-ring: 4px;
     --aika-fl-nick-flow: 8s;   /* the name gradient, while hovered; Low: 0s */
-    --aika-fl-art-h: 56px;   /* the game art strip of a "now playing" card */
+    --aika-fl-art-h: 76px;   /* the game art strip of a "now playing" card */
     --aika-fl-avatar-radius: 30%;   /* squircles: Steam frames are square */
     /* Status badge shapes (sections/friends-list.css): online, in game, away, offline */
     --aika-icon-status-dot: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 10 10'%3E%3Ccircle cx='5' cy='5' r='5'/%3E%3C/svg%3E");
