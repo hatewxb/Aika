@@ -253,7 +253,8 @@
         },
         {
             "MatchRegexString": ".friendsui-container",
-            "TargetCss": "main.css"
+            "TargetCss": "main.css",
+            "TargetJs": "js/friends.js"
         },
         {
             "MatchRegexString": ".ContextMenuPopup",

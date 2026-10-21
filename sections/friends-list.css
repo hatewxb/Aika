@@ -186,3 +186,81 @@ html.MillenniumWindow_FriendsList .avatarHolder.offline::after {
 html.MillenniumWindow_FriendsList .friend .avatarHolder { --aika-fl-badge: 11px; }
 html.MillenniumWindow_FriendsList .quickAccessFriend .avatarHolder { --aika-fl-badge: 13px; }
 html.MillenniumWindow_FriendsList .currentUserAvatar .avatarHolder { --aika-fl-badge: 16px; --aika-fl-badge-gap: 3.5px; --aika-fl-badge-out: 1px; }
+
+/* --- Now playing: friends in game as cards ---------------------------------- */
+/* Friends in different games share Steam's "In game" group
+   (.friendGroup.gameGroup.OtherGamesGroup); each .friend.ingame becomes a
+   card: the game's art on top (--aika-fl-art from js/friends.js, the store
+   header image by the appid in the row's icon address), fading into the
+   card; the game's name (the first .richPresenceLabel, .gameName) over the
+   art; the avatar, the name and what they do below. Steam's small game icon
+   (.FriendInGameIcon) goes — the art says it. A non-Steam game: the preset's
+   light instead of art. */
+html.MillenniumWindow_FriendsList .friendGroup.OtherGamesGroup .friend.ingame {
+    position: relative;
+    height: auto;
+    min-height: 0;
+    margin: 0 var(--aika-space-3) var(--aika-space-2);
+    padding: calc(var(--aika-fl-art-h) + var(--aika-space-1)) var(--aika-space-3) var(--aika-space-3);
+    border-radius: var(--aika-radius-lg);
+    background: var(--aika-bg-elevated);
+    box-shadow: inset 0 0 0 var(--aika-hairline) var(--aika-border);
+    overflow: hidden;
+    transition: box-shadow var(--aika-dur-fast) var(--aika-ease-hover);
+}
+
+html.MillenniumWindow_FriendsList .friendGroup.OtherGamesGroup .friend.ingame:hover {
+    background: var(--aika-bg-elevated);
+    box-shadow: inset 0 0 0 var(--aika-hairline) var(--aika-border-hover);
+}
+
+html.MillenniumWindow_FriendsList .friendGroup.OtherGamesGroup .friend.ingame::before {
+    content: "";
+    position: absolute;
+    inset: 0 0 auto;
+    height: var(--aika-fl-art-h);
+    background:
+        linear-gradient(0deg, var(--aika-bg-elevated), rgb(from var(--aika-bg-elevated) r g b / 0.15) 70%),
+        var(--aika-fl-art, radial-gradient(70% 140% at 20% 0%, rgb(from var(--aika-accent) r g b / 0.5), transparent 70%))
+            center 30% / cover no-repeat,
+        var(--aika-bg-raised);
+    pointer-events: none;
+}
+
+html.MillenniumWindow_FriendsList .friendGroup.OtherGamesGroup .friend.ingame .FriendInGameIcon {
+    display: none;
+}
+
+html.MillenniumWindow_FriendsList .friendGroup.OtherGamesGroup .friend.ingame .richPresenceLabel.gameName {
+    position: absolute;
+    top: calc(var(--aika-fl-art-h) - var(--aika-space-6));
+    left: var(--aika-space-3);
+    right: var(--aika-space-3);
+    font-size: var(--aika-text-body);
+    font-weight: var(--aika-weight-semibold);
+    color: var(--aika-fg);
+    text-shadow: 0 1px 8px rgb(from var(--aika-bg-deep) r g b / 0.9);
+}
+
+/* A game with two friends or more: Steam's own group for it — the group is
+   the card, the art on its header (--aika-fl-art on the group), the friends
+   as rows inside. Not seen live yet (needs two friends in one game). */
+html.MillenniumWindow_FriendsList .friendGroup.gameGroup:not(.OtherGamesGroup) {
+    margin: 0 var(--aika-space-3) var(--aika-space-3);
+    border-radius: var(--aika-radius-lg);
+    background: var(--aika-bg-elevated);
+    box-shadow: inset 0 0 0 var(--aika-hairline) var(--aika-border);
+    overflow: hidden;
+}
+
+html.MillenniumWindow_FriendsList .friendGroup.gameGroup:not(.OtherGamesGroup) > .groupName {
+    position: relative;
+    height: var(--aika-fl-art-h);
+    align-items: flex-end;
+    padding: 0 var(--aika-space-3) var(--aika-space-2);
+    background:
+        linear-gradient(0deg, var(--aika-bg-elevated), rgb(from var(--aika-bg-elevated) r g b / 0.15) 70%),
+        var(--aika-fl-art, var(--aika-bg-raised)) center 30% / cover no-repeat;
+    font-weight: var(--aika-weight-semibold);
+    color: var(--aika-fg);
+}
