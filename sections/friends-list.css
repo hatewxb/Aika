@@ -257,7 +257,7 @@ html.MillenniumWindow_FriendsList .friendGroup.OtherGamesGroup .friend.ingame::a
     color: var(--aika-fg);
     text-overflow: ellipsis;
     white-space: nowrap;
-    text-shadow: 0 1px 8px rgb(from var(--aika-bg-deep) r g b / 0.9);
+    text-shadow: var(--aika-fl-title-shadow);
 }
 
 html.MillenniumWindow_FriendsList .friendGroup.OtherGamesGroup .friend.ingame .richPresenceContainer:has(> .richPresenceLabel ~ .richPresenceLabel) > .gameName {
@@ -266,8 +266,7 @@ html.MillenniumWindow_FriendsList .friendGroup.OtherGamesGroup .friend.ingame .r
 
 /* The status line's bottom on the avatar's bottom (author 2026-10-21) — in
    the cards and in the online rows; the header the same way */
-html.MillenniumWindow_FriendsList .friendGroup.gameGroup .friend.ingame,
-html.MillenniumWindow_FriendsList .friendGroup.onlineFriends .friend {
+html.MillenniumWindow_FriendsList .friendGroup.gameGroup .friend.ingame {
     align-items: flex-end;
 }
 
@@ -385,7 +384,7 @@ html.MillenniumWindow_FriendsList .friendGroup.gameGroup:not(.OtherGamesGroup) >
     font-weight: var(--aika-weight-semibold);
     letter-spacing: normal;
     color: var(--aika-fg);
-    text-shadow: 0 1px 8px rgb(from var(--aika-bg-deep) r g b / 0.9);
+    text-shadow: var(--aika-fl-title-shadow);
 }
 
 html.MillenniumWindow_FriendsList .friendGroup.gameGroup:not(.OtherGamesGroup) > .groupName hr {
@@ -513,8 +512,10 @@ html.MillenniumWindow_FriendsList .currentUserContainer .ContextMenuButton {
     position: absolute;
     right: var(--aika-space-4);
     bottom: var(--aika-space-4);   /* its bottom on the avatar's bottom, like the text */
-    display: grid;
-    place-items: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0;
     width: var(--aika-fl-menu-btn);
     height: var(--aika-fl-menu-btn);
     margin: 0;
@@ -530,6 +531,8 @@ html.MillenniumWindow_FriendsList .currentUserContainer .ContextMenuButton:hover
 
 html.MillenniumWindow_FriendsList .currentUserContainer .ContextMenuButton svg {
     position: static;
+    flex: none;
+    margin: 0;
     width: 12px;
     height: 12px;
     color: var(--aika-fg-muted);
@@ -571,42 +574,58 @@ html.MillenniumWindow_FriendsList .friendGroup.onlineFriends .friend .labelHolde
     color: var(--aika-accent-bright);
 }
 
-/* The party mark (js/friends.js: data-aika-party "+N" on the status line,
+/* The party mark (js/friends.js: data-aika-party "+N" on the label block,
    from the friend's rich presence — Steam leaves it out of the mixed "In
-   game" group): a line under the status — a people icon and the count in the
-   ok color, like Steam's "+1", no words */
+   game" group): a people icon and the count in the ok color, like Steam's
+   "+1", no words — to the right of the name and the status (author
+   2026-10-21): the block becomes two columns, the mark spans both rows */
+html.MillenniumWindow_FriendsList .friendGroup.OtherGamesGroup .friend.ingame .labelHolder[data-aika-party] {
+    display: grid;
+    grid-template-columns: minmax(0, max-content) max-content;
+    justify-content: start;   /* the column rule above has flex-end — in a grid it moves the columns */
+    column-gap: var(--aika-space-4);
+    align-items: end;
+}
+
+html.MillenniumWindow_FriendsList .friendGroup.OtherGamesGroup .friend.ingame .labelHolder[data-aika-party] > * {
+    grid-column: 1;
+}
+
 /* one box: the icon is a mask over a small ok-colored square on the left,
    the count is text after it (the second mask layer keeps the text) */
-html.MillenniumWindow_FriendsList .friendGroup.OtherGamesGroup .richPresenceContainer[data-aika-party]::after {
+html.MillenniumWindow_FriendsList .friendGroup.OtherGamesGroup .friend.ingame .labelHolder[data-aika-party]::after {
     content: attr(data-aika-party);
-    display: block;
-    margin-top: 2px;
+    grid-column: 2;
+    grid-row: 1 / span 2;
+    align-self: center;
     padding-inline-start: 18px;
-    background: linear-gradient(var(--aika-ok), var(--aika-ok)) left center / 13px 13px no-repeat;
+    background: linear-gradient(var(--aika-ok), var(--aika-ok)) left center / 14px 14px no-repeat;
     -webkit-mask:
-        var(--aika-icon-community) left center / 13px 13px no-repeat,
+        var(--aika-icon-community) left center / 14px 14px no-repeat,
         linear-gradient(#000, #000) 18px 0 / calc(100% - 18px) 100% no-repeat;
     mask:
-        var(--aika-icon-community) left center / 13px 13px no-repeat,
+        var(--aika-icon-community) left center / 14px 14px no-repeat,
         linear-gradient(#000, #000) 18px 0 / calc(100% - 18px) 100% no-repeat;
     font-family: var(--aika-font-mono);
-    font-size: var(--aika-text-label);
+    font-size: var(--aika-text-meta);
     line-height: 16px;
     color: var(--aika-ok);
 }
 
-html.MillenniumWindow_FriendsList .friendGroup.OtherGamesGroup .richPresenceContainer[data-aika-party] {
-    display: block;
-    text-align: start;
-}
-
 /* Steam centers the text block in the row (align-self: center) — to the bottom */
-html.MillenniumWindow_FriendsList :is(.friendGroup.gameGroup .friend.ingame, .friendGroup.onlineFriends .friend, .currentUserContainer) .labelHolder {
+html.MillenniumWindow_FriendsList :is(.friendGroup.gameGroup .friend.ingame, .currentUserContainer) .labelHolder {
     align-self: flex-end;
 }
 
+/* Online rows: the name and the status on the avatar's middle line (author
+   2026-10-21) — one line, so centered */
+html.MillenniumWindow_FriendsList .friendGroup.onlineFriends .friend {
+    align-items: center;
+}
+
 html.MillenniumWindow_FriendsList .friendGroup.onlineFriends .friend .labelHolder {
-    align-items: flex-end;
+    align-self: center;
+    align-items: center;
 }
 
 /* The header: the avatar overhangs its holder by 2 px and the status line box

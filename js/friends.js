@@ -53,8 +53,9 @@
       // when there is no rich presence)
       const game = row.querySelector(".richPresenceLabel.gameName")?.textContent.trim() || "";
       if (row.dataset.aikaGame !== game) row.dataset.aikaGame = game;
-      // "+N" — the others in their party, as Steam counts it
-      const status = row.querySelector(".richPresenceContainer");
+      // "+N" — the others in their party, as Steam counts it; on the label
+      // block, drawn to the right of the name and the status
+      const status = row.querySelector(".labelHolder");
       if (status && row.closest(".OtherGamesGroup")) {
         const size = partyOf(row);
         const mark = size > 1 ? "+" + (size - 1) : "";
