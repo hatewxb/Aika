@@ -23,6 +23,7 @@ html:root {
     --aika-motion: 0;
 
     --aika-dur-fast: 0s;
+    --aika-fl-nick-flow: 0s;
     --aika-dur-base: 0s;
     --aika-dur-enter: 0s;
     --aika-dur-expand: 0s;

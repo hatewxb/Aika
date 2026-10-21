@@ -1,0 +1,122 @@
+/* ==========================================================================
+   sections/friends-list.css — the friends list window, concept B ("Now
+   playing", author 2026-10-21): a profile card with a light-spot banner and a
+   gradient name, Discord-like status badges on every avatar, friends in game
+   as cards with the game's art, offline friends as a grid of faces (a
+   setting). Imported by main.css after sections/friends.css (which keeps the
+   chat window and the shared colors).
+
+   Scope: html.MillenniumWindow_FriendsList — the friends list window only
+   (the chat windows are .friendsui-container too).
+   Captured 2026-10-21:
+     .friendListHeaderContainer > .currentUserContainer.<status>
+       (svg.statusHeaderGlow, .AvatarAndUser > .currentUserAvatar
+        .avatarHolder.Medium + .labelHolder > .statusAndName (.playerName,
+        .ContextMenuButton) + .richPresenceContainer)
+   ========================================================================== */
+
+html.MillenniumWindow_FriendsList body {
+    font-family: var(--aika-font-friends);
+}
+
+/* --- The profile card ------------------------------------------------------ */
+/* A card under the window buttons: a banner of the preset's light spots on
+   top, the avatar overlapping its edge, the name and status beside it.
+   Steam's own glow (svg.statusHeaderGlow, in the status color) goes. */
+html.MillenniumWindow_FriendsList .friendListHeaderContainer {
+    background: var(--aika-transparent);
+    box-shadow: none;
+}
+
+html.MillenniumWindow_FriendsList .currentUserContainer {
+    position: relative;
+    margin: var(--aika-space-1) var(--aika-space-3) var(--aika-space-3);
+    padding-top: var(--aika-fl-banner);
+    border: none;
+    border-radius: var(--aika-radius-xl);
+    background: var(--aika-bg-elevated);
+    box-shadow: inset 0 0 0 var(--aika-hairline) var(--aika-border-hover);
+    overflow: hidden;
+}
+
+html.MillenniumWindow_FriendsList .currentUserContainer::before {
+    content: "";
+    position: absolute;
+    inset: 0 0 auto;
+    height: var(--aika-fl-banner);
+    background:
+        radial-gradient(60% 140% at 18% 0%, rgb(from var(--aika-accent) r g b / 0.55), transparent 70%),
+        radial-gradient(55% 120% at 88% 30%, rgb(from var(--aika-light-2) r g b / 0.38), transparent 70%),
+        radial-gradient(40% 120% at 55% 100%, rgb(from var(--aika-light-3) r g b / 0.22), transparent 70%),
+        var(--aika-bg-raised);
+    pointer-events: none;
+}
+
+html.MillenniumWindow_FriendsList .currentUserContainer .statusHeaderGlow {
+    display: none;
+}
+
+html.MillenniumWindow_FriendsList .currentUserContainer .AvatarAndUser {
+    position: relative;
+    align-items: flex-end;
+    gap: var(--aika-space-3);
+    height: auto;
+    margin-top: calc(var(--aika-fl-avatar) / -2);
+    padding: 0 var(--aika-space-4) var(--aika-space-4);
+}
+
+/* The avatar, larger, cut out of the card by a ring of its color */
+html.MillenniumWindow_FriendsList .currentUserAvatar {
+    flex: none;
+    width: var(--aika-fl-avatar);
+    height: var(--aika-fl-avatar);
+    margin: 0;
+}
+
+html.MillenniumWindow_FriendsList .currentUserAvatar .avatarHolder {
+    width: 100%;
+    height: 100%;
+}
+
+html.MillenniumWindow_FriendsList .currentUserAvatar .avatarHolder img.avatar {
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    box-shadow: 0 0 0 var(--aika-fl-avatar-ring) var(--aika-bg-elevated);
+}
+
+html.MillenniumWindow_FriendsList .currentUserContainer .labelHolder {
+    height: auto;
+    margin: 0;
+    padding-bottom: var(--aika-space-1);
+}
+
+/* The name: the preset's colors as a gradient (React Bits "Gradient Text",
+   linear, yoyo); it flows while the pointer is over the card. Low makes the
+   flow 0s — it stays put. */
+html.MillenniumWindow_FriendsList .currentUserContainer .statusAndName .playerName {
+    background: repeating-linear-gradient(90deg,
+        var(--aika-accent-bright), var(--aika-light-2), var(--aika-light-3), var(--aika-accent-bright) 100%);
+    background-size: 200% 100%;   /* about half the colors show at rest */
+    background-position: 0% 50%;
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: var(--aika-transparent);
+    font-size: var(--aika-text-h2);
+    font-weight: var(--aika-weight-heavy);
+    letter-spacing: var(--aika-tracking-h2);
+    line-height: var(--aika-leading-heading);
+}
+
+html.MillenniumWindow_FriendsList .currentUserContainer:hover .statusAndName .playerName {
+    animation: aika-fl-nick-flow var(--aika-fl-nick-flow) ease-in-out infinite alternate;
+}
+
+@keyframes aika-fl-nick-flow {
+    to { background-position: 100% 50%; }
+}
+
+html.MillenniumWindow_FriendsList .currentUserContainer .richPresenceLabel {
+    color: var(--aika-fg-muted);
+    font-size: var(--aika-text-meta);
+}

@@ -11,6 +11,7 @@
     --aika-font-ui: "Inter", "Geist", "Segoe UI Variable", "Segoe UI", system-ui, sans-serif;
     --aika-font-mono: "Geist Mono", "JetBrains Mono", "Cascadia Code", monospace;
     --aika-font-display: "Fraunces", "Source Serif 4", Georgia, serif;
+    --aika-font-friends: "Onest", "Inter", sans-serif;   /* the friends list window */
     --aika-font-heavy: "Unbounded", "Inter", sans-serif; /* heavy display headings, weight 800 */
     --aika-font-gothic: "UnifrakturMaguntia", "Old English Text MT", serif;
     --aika-font-brush: "Shojumaru", "Fraunces", serif;
@@ -524,6 +525,12 @@
     --aika-dock-size: 44px;
     --aika-dock-icon: 18px;
     --aika-dock-inset: var(--aika-space-4);   /* from the window edges */
+    /* The friends list window (sections/friends-list.css) */
+    --aika-fl-banner: 56px;
+    --aika-fl-avatar: 56px;
+    --aika-fl-avatar-ring: 4px;
+    --aika-fl-nick-flow: 8s;   /* the name gradient, while hovered; Low: 0s */
+
     --aika-dock-clearance: calc(var(--aika-dock-size) + 2 * var(--aika-dock-inset));   /* scroll room under the icons */
     --aika-dock-rise: 16px;                   /* they float up into place when the window opens */
     --aika-dock-hover-scale: 1.08;            /* an icon grows a little under the cursor */

@@ -48,6 +48,17 @@
     font-display: fallback;
 }
 
+/* The friends list window (sections/friends-list.css): Onest — geometric like
+   Outfit, which the author liked, but with Cyrillic (Outfit and DM Sans have
+   none). Author 2026-10-21. */
+@font-face {
+    font-family: "Onest";
+    src: url("./assets/fonts/Onest-Variable.ttf") format("truetype");
+    font-weight: 400 900;
+    font-style: normal;
+    font-display: fallback;
+}
+
 /* Heavy display headings (Unbounded, author 2026-10-20: chosen over Dela Gothic One
    and Rubik Black — wide and dense, Cyrillic included). */
 @font-face {
