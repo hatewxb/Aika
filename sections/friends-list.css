@@ -264,3 +264,82 @@ html.MillenniumWindow_FriendsList .friendGroup.gameGroup:not(.OtherGamesGroup) >
     font-weight: var(--aika-weight-semibold);
     color: var(--aika-fg);
 }
+
+/* --- Group headers ------------------------------------------------------------ */
+/* "In game", "Friends online (5)", "Offline (19)"… — a mono caption, the count
+   fainter, Steam's <hr> as our fading line after it (Steam's text and case
+   as they are) */
+html.MillenniumWindow_FriendsList .friendGroup .groupName {
+    gap: var(--aika-space-2);
+    padding-inline: var(--aika-space-4) var(--aika-space-3);
+    font-family: var(--aika-font-mono);
+    font-size: var(--aika-text-label);
+    font-weight: var(--aika-weight-medium);
+    letter-spacing: var(--aika-tracking-label);
+    color: var(--aika-fg-subtle);
+}
+
+html.MillenniumWindow_FriendsList .friendGroup .groupName .groupCount {
+    font-family: var(--aika-font-mono);
+    color: var(--aika-fg-faint, var(--aika-fg-subtle));
+    opacity: 0.7;
+}
+
+html.MillenniumWindow_FriendsList .friendGroup .groupName hr {
+    flex: 1;
+    height: var(--aika-hairline);
+    border: none;
+    background: linear-gradient(90deg, var(--aika-border-hover), var(--aika-transparent));
+}
+
+html.MillenniumWindow_FriendsList .friendGroup .groupName .ExpandPlusMinus svg {
+    color: var(--aika-fg-subtle);
+}
+
+/* --- Online: compact rows ------------------------------------------------------ */
+/* One line: the avatar, the name, the status on the right in mono (B) */
+html.MillenniumWindow_FriendsList .friendGroup.onlineFriends .friend {
+    margin-inline: var(--aika-space-2);
+    padding-inline-start: var(--aika-space-2);
+    border-radius: var(--aika-radius-md);
+}
+
+html.MillenniumWindow_FriendsList .friendGroup.onlineFriends .friend .labelHolder {
+    display: flex;   /* a block in Steam */
+    flex-direction: row;
+    align-items: center;
+    gap: var(--aika-space-3);
+}
+
+html.MillenniumWindow_FriendsList .friendGroup.onlineFriends .friend .statusAndName {
+    flex: 1 1 auto;
+    min-width: 0;
+}
+
+html.MillenniumWindow_FriendsList .friendGroup.onlineFriends .friend .richPresenceContainer {
+    flex: none;
+    max-width: 45%;
+    margin-inline-end: var(--aika-space-2);
+}
+
+html.MillenniumWindow_FriendsList .friendGroup.onlineFriends .friend .richPresenceLabel {
+    font-family: var(--aika-font-mono);
+    font-size: var(--aika-text-label);
+    color: var(--aika-fg-subtle);
+    text-align: end;
+}
+
+/* The game group's header is the card's title, not a caption: the UI face, no
+   line through the art */
+html.MillenniumWindow_FriendsList .friendGroup.gameGroup:not(.OtherGamesGroup) > .groupName {
+    font-family: var(--aika-font-friends);
+    font-size: var(--aika-text-body);
+    font-weight: var(--aika-weight-semibold);
+    letter-spacing: normal;
+    color: var(--aika-fg);
+    text-shadow: 0 1px 8px rgb(from var(--aika-bg-deep) r g b / 0.9);
+}
+
+html.MillenniumWindow_FriendsList .friendGroup.gameGroup:not(.OtherGamesGroup) > .groupName hr {
+    display: none;
+}

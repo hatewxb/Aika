@@ -74,6 +74,17 @@
                 }
             }
         },
+        "Offline friends": {
+            "description": "The friends list's offline group: a grid of faces (the name shows on hover) or Steam's list.",
+            "tab": "Elements",
+            "default": "Faces",
+            "values": {
+                "Faces": {
+                    "TargetCss": { "affects": [".*"], "src": "options/friends-offline-faces.css" }
+                },
+                "List": {}
+            }
+        },
         "Wallet visibility": {
             "description": "The wallet balance next to the account name in the top bar.",
             "tab": "Elements",
