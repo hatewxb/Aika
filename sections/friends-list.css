@@ -1186,3 +1186,108 @@ html.MillenniumWindow_FriendChatWindow .MemberListColumn .friend .chatMemberFrie
 html.MillenniumWindow_FriendChatWindow .friend.offline .richPresenceLabel {
     color: var(--aika-fg-subtle);
 }
+
+/* --- A game's own group: title like the other cards, lobbies as one block ----- */
+/* (author 2026-10-27) The group header's game name was 14 px with the game icon
+   and "(2)" — now the big title on the art like the single-friend cards (the
+   icon goes, the art shows the game; the count a quiet mono mark; the
+   collapse toggle stays). Friends in one lobby (Steam: .firstInGroup /
+   .inGroup / .lastInGroup with bracket lines .SteamPlayerGroupLines) share
+   one soft block with an ok line joining their avatars, instead of the
+   brackets. The card gets room under its last row. */
+html.MillenniumWindow_FriendsList .friendGroup.gameGroup:not(.OtherGamesGroup) > .groupName {
+    gap: var(--aika-space-2);
+    font-size: var(--aika-fl-art-title);
+    font-weight: var(--aika-weight-heavy);
+    letter-spacing: var(--aika-tracking-h1);
+    line-height: 1.2;
+    text-shadow: var(--aika-fl-title-shadow);
+}
+
+html.MillenniumWindow_FriendsList .friendGroup.gameGroup:not(.OtherGamesGroup) > .groupName .groupIcon {
+    display: none;
+}
+
+html.MillenniumWindow_FriendsList .friendGroup.gameGroup:not(.OtherGamesGroup) > .groupName .groupCount {
+    align-self: flex-end;
+    padding-bottom: 4px;
+    font-family: var(--aika-font-mono);
+    font-size: var(--aika-text-label);
+    font-weight: var(--aika-weight-regular);
+    letter-spacing: normal;
+    color: var(--aika-fg-muted);
+    opacity: 1;
+}
+
+html.MillenniumWindow_FriendsList .friendGroup.gameGroup:not(.OtherGamesGroup) > .friendsContainer {
+    padding: var(--aika-space-1) 0 var(--aika-space-3);
+}
+
+/* Steam's rows in a game group start 44 px in (room for the bracket lines) */
+html.MillenniumWindow_FriendsList .friendGroup.gameGroup:not(.OtherGamesGroup) .friend.ingame {
+    position: relative;
+    margin-inline: var(--aika-space-2);
+    padding-inline-start: var(--aika-space-3);
+    border-radius: var(--aika-radius-md);
+}
+
+html.MillenniumWindow_FriendsList .friendGroup.gameGroup .SteamPlayerGroupLines {
+    display: none;
+}
+
+html.MillenniumWindow_FriendsList .friendGroup.gameGroup .friend.ingame:is(.firstInGroup, .inGroup, .lastInGroup) {
+    background: var(--aika-ok-soft);
+    border-radius: 0;
+}
+
+html.MillenniumWindow_FriendsList .friendGroup.gameGroup .friend.ingame.firstInGroup {
+    border-radius: var(--aika-radius-md) var(--aika-radius-md) 0 0;
+}
+
+html.MillenniumWindow_FriendsList .friendGroup.gameGroup .friend.ingame.lastInGroup {
+    border-radius: 0 0 var(--aika-radius-md) var(--aika-radius-md);
+}
+
+/* the line joining the lobby's avatars, from the first avatar's middle down
+   to the last one's */
+html.MillenniumWindow_FriendsList .friendGroup.gameGroup .friend.ingame:is(.firstInGroup, .inGroup, .lastInGroup)::before {
+    content: "";
+    position: absolute;
+    left: calc(var(--aika-space-3) + 16px);
+    top: 0;
+    bottom: 0;
+    z-index: 0;
+    width: 2px;
+    border-radius: 1px;
+    background: rgb(from var(--aika-ok) r g b / 0.5);
+}
+
+html.MillenniumWindow_FriendsList .friendGroup.gameGroup .friend.ingame.firstInGroup::before { top: 50%; }
+html.MillenniumWindow_FriendsList .friendGroup.gameGroup .friend.ingame.lastInGroup::before { bottom: 50%; }
+
+html.MillenniumWindow_FriendsList .friendGroup.gameGroup .friend.ingame .avatarHolder {
+    z-index: 1;
+}
+
+/* "+1 with 1 more player" under a lobby */
+html.MillenniumWindow_FriendsList .friendGroup.gameGroup .SteamPlayerGroupFooter {
+    margin-inline: var(--aika-space-2);
+    padding-inline-start: var(--aika-space-3);
+    border-radius: 0 0 var(--aika-radius-md) var(--aika-radius-md);
+    background: var(--aika-ok-soft);
+}
+
+/* the whole header toggles the group — the icon block (+ / − and the game
+   icon) only pushed the title 40 px in */
+html.MillenniumWindow_FriendsList .friendGroup.gameGroup:not(.OtherGamesGroup) > .groupName .gameGroupContainer {
+    display: none;
+}
+
+/* a lobby is one block: no gap between its rows */
+html.MillenniumWindow_FriendsList .friendGroup.gameGroup .friend.ingame:is(.firstInGroup, .inGroup) {
+    margin-bottom: 0;
+}
+
+html.MillenniumWindow_FriendsList .friendGroup.gameGroup .friend.ingame:is(.inGroup, .lastInGroup) {
+    margin-top: 0;
+}
