@@ -1442,6 +1442,7 @@ html.MillenniumWindow_FriendsList .friendGroup.gameGroup > .friendsContainer[dat
 /* friends in the same game outside the lobby: rows under the capsule */
 html.MillenniumWindow_FriendsList .friendGroup.gameGroup > .friendsContainer[data-aika-lobby] > .friend.ingame:not(.firstInGroup, .inGroup, .lastInGroup) {
     flex: 1 0 100%;
+    min-height: var(--aika-lobby-face);   /* the compact list's 22 px row would let the face stick out over the capsule */
     margin: var(--aika-space-2) 0 0;
     /* the avatar under the capsule's faces */
     padding-inline-start: calc((var(--aika-lobby-tile) - var(--aika-lobby-face)) / 2);
