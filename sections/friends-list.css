@@ -1075,3 +1075,37 @@ html.MillenniumWindow_FriendsList .FriendsListChatSection .ChatRoomListGroupItem
 html.MillenniumWindow_FriendsList .FriendsListChatSection .ChatRoomList {
     padding-top: 0;   /* Steam's 6 px pushed the first card past its 50 px row */
 }
+
+/* Holding / clicking a group chat (author 2026-10-26: "no blue"): Steam lights
+   the header gray-blue on hover (rgba(47,56,68,.5)), turns the item
+   .expanded #2f3844 with 8 px margins and a black shadow, and draws a cyan
+   dashed drop box while dragging. Our card keeps its own hover; expanded is a
+   raised card in the same row; the drop box in the accent. */
+html.MillenniumWindow_FriendsList .ChatRoomListGroupItem:hover .ChatRoomListGroupItem_header,
+html.MillenniumWindow_FriendsList .ChatRoomListGroupItem .ChatRoomListGroupItem_header {
+    background-color: var(--aika-transparent);
+}
+
+html.MillenniumWindow_FriendsList .FriendsListChatSection .ChatRoomListGroupItem.expanded {
+    margin-block: 2px;
+    background-color: var(--aika-bg-raised);
+    box-shadow: inset 0 0 0 var(--aika-hairline) var(--aika-border-hover);
+}
+
+html.MillenniumWindow_FriendsList .ChatRoomListGroupItem:active {
+    background-color: var(--aika-surface-active);
+}
+
+html.MillenniumWindow_FriendsList .ChatRoomListGroupItem .openGroupButton:hover {
+    background-color: var(--aika-surface-hover);
+}
+
+html.friendsui-container .dropTargetBox {
+    border-color: rgb(from var(--aika-accent) r g b / 0.45);
+    border-radius: var(--aika-radius-md);
+}
+
+html.friendsui-container :is(.chatRoomActiveDrop, body.in_global_drag) .dropTargetBox,
+html.friendsui-container body.in_global_drag .dropTargetBox:hover {
+    border-color: var(--aika-accent-bright);
+}
