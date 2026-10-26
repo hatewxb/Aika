@@ -965,3 +965,92 @@ html .CreateChatDialog .FriendPicker_ChosenFriend svg {
 html .CreateChatDialog .FriendPicker_ChosenFriend svg line {
     stroke: currentColor;
 }
+
+/* --- Audit leftovers (2026-10-26) ------------------------------------------------ */
+/* "Online 3 days ago" under offline friends (List mode): Steam's #6e6e6e */
+html.MillenniumWindow_FriendsList .friend.offline .richPresenceLabel {
+    color: var(--aika-fg-subtle);
+}
+
+/* A group chat row: the name, its menu arrow and the avatar stack's frame */
+html.MillenniumWindow_FriendsList .ChatRoomListGroupItem .chatRoomName {
+    color: var(--aika-fg);
+    font-weight: var(--aika-weight-medium);
+}
+
+html.MillenniumWindow_FriendsList .ChatRoomListGroupItem .ContextMenuButton svg,
+html.MillenniumWindow_FriendsList .ChatRoomListGroupItem .ContextMenuButton svg :is(polygon, path) {
+    fill: var(--aika-fg-subtle);
+}
+
+html.MillenniumWindow_FriendsList .ChatRoomListGroupItem .ChatRoomMultiFriendAvatar {
+    border-color: var(--aika-border-hover);
+    border-radius: var(--aika-radius-sm);
+    overflow: hidden;
+}
+
+/* A chat tab's close cross */
+html.MillenniumWindow_FriendChatWindow .ChatTab .CloseButton svg,
+html.MillenniumWindow_FriendChatWindow .ChatTab .CloseButton svg line {
+    fill: var(--aika-fg-subtle);
+    stroke: var(--aika-fg-subtle);
+}
+
+html.MillenniumWindow_FriendChatWindow .ChatTab .CloseButton:hover svg,
+html.MillenniumWindow_FriendChatWindow .ChatTab .CloseButton:hover svg line {
+    fill: var(--aika-fg);
+    stroke: var(--aika-fg);
+}
+
+/* --- The own status menu (in the window, .currentUserContextMenu) ----------------- */
+/* Opaque — it opens over the profile card, and through 92 % the card read
+   through it. The four statuses get the list's badges (Discord-like: online,
+   away, invisible = an offline ring, offline), in Steam's order; the current
+   one (.menuChecked) on a raised surface. Separators: straight hairlines
+   (Steam's border-top on an 8 px-rounded item curved at the ends). */
+html.MillenniumWindow_FriendsList .contextMenu:has(.currentUserContextMenu) .contextMenuContents {
+    background: var(--aika-bg-raised);
+}
+
+html.MillenniumWindow_FriendsList .currentUserContextMenu > .contextMenuItem {
+    border-top: none;
+    border-radius: var(--aika-radius-md);
+    box-shadow: 0 calc(-1 * var(--aika-space-1)) 0 calc(-1 * var(--aika-space-1) + var(--aika-hairline)) var(--aika-border);
+    margin-top: var(--aika-space-2);
+}
+
+html.MillenniumWindow_FriendsList .currentUserContextMenu .contextMenuSectionContent > .contextMenuItem {
+    position: relative;
+    padding-inline-start: calc(var(--aika-space-3) + 12px + var(--aika-space-2));
+}
+
+html.MillenniumWindow_FriendsList .currentUserContextMenu .contextMenuSectionContent > .contextMenuItem::before {
+    content: "";
+    position: absolute;
+    left: var(--aika-space-3);
+    top: calc(var(--aika-space-2) + 4px);
+    width: 12px;
+    height: 12px;
+    background: var(--aika-accent-bright);
+    -webkit-mask: var(--aika-icon-status-dot) center / contain no-repeat;
+    mask: var(--aika-icon-status-dot) center / contain no-repeat;
+}
+
+html.MillenniumWindow_FriendsList .currentUserContextMenu .contextMenuSectionContent > .contextMenuItem:nth-child(2)::before {
+    -webkit-mask-image: var(--aika-icon-status-away);
+    mask-image: var(--aika-icon-status-away);
+}
+
+html.MillenniumWindow_FriendsList .currentUserContextMenu .contextMenuSectionContent > .contextMenuItem:nth-child(n + 3)::before {
+    background: var(--aika-fg-subtle);
+    -webkit-mask-image: var(--aika-icon-status-off);
+    mask-image: var(--aika-icon-status-off);
+}
+
+html.MillenniumWindow_FriendsList .currentUserContextMenu .contextMenuSectionContent > .contextMenuItem.menuChecked {
+    background: var(--aika-surface-hover);
+}
+
+html.MillenniumWindow_FriendsList .currentUserContextMenu .contextMenuCheckMark {
+    display: none;
+}
