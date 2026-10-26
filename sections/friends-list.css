@@ -877,3 +877,91 @@ html.MillenniumWindow_FriendChatWindow .chatEntry .chatEntryActionsGroup {
 html.MillenniumWindow_FriendChatWindow .avatarHolder > .avatarStatus.avatarStatus {
     display: none;
 }
+
+/* ==========================================================================
+   "Create chat" (a dialog window: .CreateChatDialog, ROADMAP 13e, captured
+   2026-10-26): .DialogHeader, a label + the name input, .FriendPicker
+   (.DialogListBuilderInput — the friend search with picked friends as chips —
+   and .FriendPickerScrollPanel of .friend rows), .DialogFooter buttons.
+   Steam: a #25282e dialog, Motiva Sans, caps labels, a gray 50 % search strip.
+   ========================================================================== */
+
+html .CreateChatDialog,
+html .CreateChatDialog :is(input, button, .DialogLabel) {
+    font-family: var(--aika-font-friends);
+}
+
+html body .CreateChatDialog.DialogContent {
+    background:
+        radial-gradient(60% 30% at 10% 0%, rgb(from var(--aika-accent) r g b / 0.10), transparent 70%),
+        var(--aika-bg-elevated);
+}
+
+html .CreateChatDialog .DialogHeader {
+    font-size: var(--aika-text-h2);
+    font-weight: var(--aika-weight-heavy);
+    letter-spacing: var(--aika-tracking-h2);
+    text-transform: none;
+    color: var(--aika-fg);
+}
+
+html .CreateChatDialog .DialogLabel {
+    font-family: var(--aika-font-mono);
+    font-size: var(--aika-text-label);
+    letter-spacing: var(--aika-tracking-label);
+    color: var(--aika-fg-subtle);
+}
+
+/* The friend search: our field instead of the gray strip */
+html .CreateChatDialog .DialogListBuilderInput label > :last-child {
+    border-radius: var(--aika-radius-md);
+    background: var(--aika-bg-raised);
+    box-shadow: inset 0 0 0 var(--aika-hairline) var(--aika-border-strong);
+    color: var(--aika-fg-subtle);
+}
+
+html .CreateChatDialog .DialogListBuilderInput label > :last-child:focus-within {
+    box-shadow: var(--aika-shadow-input-focus);
+}
+
+html .CreateChatDialog .DialogListBuilderInput input {
+    color: var(--aika-fg);
+}
+
+/* The friend list: rows with a hover, squircle avatars */
+html .CreateChatDialog .FriendPickerScrollPanel .friend {
+    border-radius: var(--aika-radius-md);
+    transition: background-color var(--aika-dur-fast) var(--aika-ease-hover);
+}
+
+html .CreateChatDialog .FriendPickerScrollPanel .friend:hover {
+    background-color: var(--aika-surface-hover);
+}
+
+html .CreateChatDialog .FriendPickerScrollPanel img.avatar {
+    border-radius: var(--aika-fl-avatar-radius);
+}
+
+html .CreateChatDialog .avatarHolder > .avatarStatus.avatarStatus {
+    display: none;
+}
+
+html .CreateChatDialog .insetShadow {
+    display: none;
+}
+
+/* A picked friend: Steam's bright blue chip → an accent pill */
+html .CreateChatDialog .FriendPicker_ChosenFriend {
+    border-radius: var(--aika-radius-full);
+    background: var(--aika-accent-soft);
+    box-shadow: inset 0 0 0 var(--aika-hairline) rgb(from var(--aika-accent) r g b / 0.4);
+    color: var(--aika-accent-bright);
+}
+
+html .CreateChatDialog .FriendPicker_ChosenFriend svg {
+    color: var(--aika-accent-bright);
+}
+
+html .CreateChatDialog .FriendPicker_ChosenFriend svg line {
+    stroke: currentColor;
+}
