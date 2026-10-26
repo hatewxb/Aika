@@ -440,6 +440,13 @@
       (g) Easy SteamGrid's expanded game header: the header grows but the image doesn't.
       already done since the reports — Performance presets, trailer volume, hide toggles, compact header, Extendium / HLTB, Millennium pages, the download bar size; palettes → item 8; Linux → item 7.
 - [ ] **12. Friends list redesign, concept B** (author 2026-10-21; concept page with A / B / C, the author picked B, Onest, the name gradient on hover in the preset's colors, offline faces as a setting defaulting to faces). Done: steps 1–5 (profile card, status badges, now-playing game cards with art via js/friends.js, group captions, compact online rows, offline faces + "Offline friends" setting, pins, tabs, group chats, search). Not seen live yet: a single friend's card in Steam's mixed "In game" group, friend requests, custom categories, Steam's compact list mode, the drag-to-pin target.
+- [ ] **13. Friends window, the rest** (author 2026-10-21, after the item 12 plan):
+      (a) the window bottom: the "Group chats" bar and the resize strip under it look unstyled;
+      (b) "Group chats" doesn't respond to clicks (collapse) — check what blocks it, style it;
+      (c) the search button (magnifier) in the Friends tab — style it;
+      (d) the chat window (tabs, messages, invites, the input row) — in the concept B style;
+      (e) the "Create chat" dialog — style it;
+      (f) then re-check everything in the friends and chat windows: styled and fixed.
 - [ ] **8. More color presets** — such as Fluent, Dark, Light and others.
 
 ### Next session (from 2026-10-13): a few more author's fixes, then a release

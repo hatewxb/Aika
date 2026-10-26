@@ -583,7 +583,7 @@ html.MillenniumWindow_FriendsList .friendGroup.OtherGamesGroup .friend.ingame .l
     display: grid;
     grid-template-columns: minmax(0, max-content) max-content;
     justify-content: start;   /* the column rule above has flex-end — in a grid it moves the columns */
-    column-gap: var(--aika-space-4);
+    column-gap: var(--aika-space-2);
     align-items: end;
 }
 
