@@ -1054,3 +1054,24 @@ html.MillenniumWindow_FriendsList .currentUserContextMenu .contextMenuSectionCon
 html.MillenniumWindow_FriendsList .currentUserContextMenu .contextMenuCheckMark {
     display: none;
 }
+
+/* Steam sizes the group chats list itself (inline height, animated on
+   expand) from its own 50 px rows; our cards with 4 / 8 px margins took 64 px —
+   the card was cut at the bottom with a scrollbar, and it crept out when the
+   section unfolded (author 2026-10-26). The card now fits Steam's row exactly:
+   46 px + 2 px above and below. */
+html.MillenniumWindow_FriendsList .FriendsListChatSection .ChatRoomListGroupItem {
+    box-sizing: border-box;
+    height: 46px;
+    min-height: 0;
+    margin-block: 2px;
+}
+
+html.MillenniumWindow_FriendsList .FriendsListChatSection .ChatRoomListGroupItem_header {
+    height: 100%;
+    align-items: center;
+}
+
+html.MillenniumWindow_FriendsList .FriendsListChatSection .ChatRoomList {
+    padding-top: 0;   /* Steam's 6 px pushed the first card past its 50 px row */
+}
