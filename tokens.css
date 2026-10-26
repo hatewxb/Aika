@@ -537,6 +537,8 @@
     --aika-fl-avatar-ring: 4px;
     --aika-fl-nick-flow: 8s;   /* the name gradient, while hovered; Low: 0s */
     --aika-fl-art-h: 76px;
+    --aika-lobby-tile: 64px;   /* a friend in a lobby capsule: the face and the name */
+    --aika-lobby-face: 40px;
     --aika-fl-art-title: 26px;   /* the game's name on the art */
     --aika-fl-title-shadow: 0 1px 2px rgb(0 0 0 / 0.85), 0 2px 14px rgb(0 0 0 / 0.75);   /* text over game art */   /* the game art strip of a "now playing" card */
     --aika-fl-avatar-radius: 30%;   /* squircles: Steam frames are square */

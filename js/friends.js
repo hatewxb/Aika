@@ -93,6 +93,40 @@
         }
       }
     }
+    // A lobby as a squad capsule (concept D, author 2026-10-27). Steam marks
+    // the friends of one party .firstInGroup / .inGroup / .lastInGroup and adds
+    // a footer "+N with N more players" for the members who aren't friends.
+    // When a game group holds exactly one lobby and nobody else, its
+    // container gets the lobby's activity (the first status line that isn't
+    // the game's name), the others' count and the total — the CSS draws the
+    // capsule from them. Attributes only: Steam's rows stay as they are.
+    for (const box of root.querySelectorAll(".friendGroup.gameGroup:not(.OtherGamesGroup) > .friendsContainer")) {
+      const rows = [...box.querySelectorAll(":scope > .friend")];
+      const lobby = rows.filter((r) => r.matches(".firstInGroup, .inGroup, .lastInGroup"));
+      const one = lobby.length >= 2 && lobby.length === rows.length && box.querySelectorAll(":scope > .friend.firstInGroup").length === 1;
+      if (!one) {
+        if (box.dataset.aikaLobby !== undefined) {
+          delete box.dataset.aikaLobby;
+          delete box.dataset.aikaLobbyExtra;
+          delete box.dataset.aikaLobbySize;
+        }
+        continue;
+      }
+      const label = [...rows[0].querySelectorAll(".richPresenceLabel")].find((l) => !l.classList.contains("gameName"));
+      const mode = (label || rows[0].querySelector(".richPresenceLabel"))?.textContent.trim() || "";
+      const extra = parseInt(box.querySelector(".SteamPlayerGroupFooter .count")?.textContent.replace(/\D/g, ""), 10) || 0;
+      const size = String(rows.length + extra);
+      if (box.dataset.aikaLobby !== mode) box.dataset.aikaLobby = mode;
+      const more = extra ? "+" + extra : "";
+      if ((box.dataset.aikaLobbyExtra || "") !== more) {
+        if (more) box.dataset.aikaLobbyExtra = more;
+        else delete box.dataset.aikaLobbyExtra;
+      }
+      // on the first face too — the count pill is drawn from it
+      if (box.dataset.aikaLobbySize !== size) box.dataset.aikaLobbySize = size;
+      if (rows[0].dataset.aikaLobbySize !== size) rows[0].dataset.aikaLobbySize = size;
+    }
+
     // a game group (two friends or more in one game): the icon in its header
     for (const group of root.querySelectorAll(".friendGroup.gameGroup:not(.OtherGamesGroup)")) {
       const id = appidOf(group.querySelector(".groupName img"));
