@@ -1293,96 +1293,105 @@ html.MillenniumWindow_FriendsList .friendGroup.gameGroup .friend.ingame:is(.inGr
 }
 
 /* --- A lobby as a squad capsule (concept D, author 2026-10-27) ------------------- */
-/* js/friends.js marks a game group's container that holds exactly one lobby:
-   data-aika-lobby (the activity, "Premier - Nuke [2 : 0]"), data-aika-lobby-size
-   (friends + the others), data-aika-lobby-extra ("+1" — members who aren't
-   friends). The container becomes a capsule: the activity and a people count
-   on top (::before), the friends as faces in a row with the name under each,
-   the others as one "+N" face (::after). Steam's footer "+1 with 1 more
-   player" goes — the "+N" face says it. No empty "free place" slots: Steam
-   doesn't say how big the lobby can get. */
+/* js/friends.js marks a game group's container that holds one lobby with
+   data-aika-lobby (its activity, "Premier - Nuke [2 : 0]") and the lobby's last
+   face with data-aika-lobby-extra ("+1" — members who aren't friends).
+   The container becomes a wrapping row: the activity on top (::before), the
+   lobby's friends as faces with the name under each, joined by ok links
+   through the avatars' middles, and a "+N" face for the others; friends in
+   the same game outside the lobby stay full-width rows under it. The capsule
+   is the container's ::after, behind the activity and the faces — a fixed
+   height, since only the top part of the container belongs to it. Steam's
+   footer "+1 with 1 more player" goes — the "+N" face says it. */
 html.MillenniumWindow_FriendsList .friendGroup.gameGroup > .friendsContainer[data-aika-lobby] {
+    position: relative;
     display: flex;
     flex-wrap: wrap;
     align-items: flex-start;
-    gap: var(--aika-space-2) var(--aika-space-3);
-    margin: var(--aika-space-1) var(--aika-space-3) var(--aika-space-3);
-    padding: var(--aika-space-3);
+    gap: 0 var(--aika-lobby-gap);
+    margin: var(--aika-space-1) var(--aika-space-2) var(--aika-space-2);
+    padding: var(--aika-lobby-pad) var(--aika-lobby-pad) 0;
+}
+
+/* the capsule */
+html.MillenniumWindow_FriendsList .friendGroup.gameGroup > .friendsContainer[data-aika-lobby]::after {
+    content: "";
+    position: absolute;
+    inset: 0 0 auto;
+    z-index: 0;
+    height: var(--aika-lobby-h);
     border-radius: var(--aika-radius-lg);
     background: var(--aika-surface);
     box-shadow: inset 0 0 0 var(--aika-hairline) var(--aika-border-hover);
+    pointer-events: none;
 }
 
-/* the top line: the activity on the left, "👥 N" on the right */
+/* the activity */
 html.MillenniumWindow_FriendsList .friendGroup.gameGroup > .friendsContainer[data-aika-lobby]::before {
     content: attr(data-aika-lobby);
+    order: -2;
+    position: relative;
+    z-index: 1;
     flex: 1 0 100%;
-    box-sizing: border-box;
-    padding-inline-end: calc(var(--aika-space-4) * 3);
+    height: var(--aika-lobby-line);
     overflow: hidden;
     font-size: var(--aika-text-meta);
     font-weight: var(--aika-weight-medium);
+    line-height: var(--aika-lobby-line);
     color: var(--aika-ok);
     text-overflow: ellipsis;
     white-space: nowrap;
 }
 
-html.MillenniumWindow_FriendsList .friendGroup.gameGroup > .friendsContainer[data-aika-lobby] {
+/* the lobby's friends: faces with the name under them */
+html.MillenniumWindow_FriendsList .friendGroup.gameGroup > .friendsContainer[data-aika-lobby] > .friend.ingame:is(.firstInGroup, .inGroup, .lastInGroup) {
+    order: -1;
     position: relative;
-}
-
-/* the people count — at the capsule's top right (the row is static
-   here, so the pseudo-element is placed against the capsule); a people icon
-   (a mask over an ok square) and the number */
-html.MillenniumWindow_FriendsList .friendGroup.gameGroup > .friendsContainer[data-aika-lobby] > .friend.ingame {
-    position: static;
-    transform: none;   /* Steam's enter animation leaves a 3D tilt — it made the row the pill's frame */
-}
-
-html.MillenniumWindow_FriendsList .friendGroup.gameGroup > .friendsContainer[data-aika-lobby] > .friend.firstInGroup[data-aika-lobby-size]::after {
-    content: attr(data-aika-lobby-size);
-    position: absolute;
-    top: var(--aika-space-2);
-    right: var(--aika-space-3);
-    padding-inline-start: 19px;
-    background: linear-gradient(var(--aika-ok), var(--aika-ok)) left center / 14px 14px no-repeat;
-    -webkit-mask:
-        var(--aika-icon-community) left center / 14px 14px no-repeat,
-        linear-gradient(#000, #000) 19px 0 / 100% 100% no-repeat;
-    mask:
-        var(--aika-icon-community) left center / 14px 14px no-repeat,
-        linear-gradient(#000, #000) 19px 0 / 100% 100% no-repeat;
-    font-family: var(--aika-font-mono);
-    font-size: var(--aika-text-meta);
-    line-height: 18px;
-    color: var(--aika-ok);
-}
-
-/* friends: faces with the name under them */
-html.MillenniumWindow_FriendsList .friendGroup.gameGroup > .friendsContainer[data-aika-lobby] > .friend.ingame {
+    z-index: 1;
     flex-direction: column;
     align-items: center;
-    gap: var(--aika-space-1);
+    gap: 2px;
     width: var(--aika-lobby-tile);
     height: auto;
     margin: 0;
-    padding: var(--aika-space-1) 0;
+    padding: var(--aika-space-1) 0 var(--aika-lobby-pad);
     border-radius: var(--aika-radius-md);
+    background: var(--aika-transparent);
+    transform: none;   /* Steam's enter animation leaves a 3D tilt behind */
+}
+
+html.MillenniumWindow_FriendsList .friendGroup.gameGroup > .friendsContainer[data-aika-lobby] > .friend.ingame:is(.firstInGroup, .inGroup, .lastInGroup):hover {
     background: var(--aika-transparent);
 }
 
-html.MillenniumWindow_FriendsList .friendGroup.gameGroup > .friendsContainer[data-aika-lobby] > .friend.ingame:hover {
-    background: var(--aika-surface-hover);
+html.MillenniumWindow_FriendsList .friendGroup.gameGroup > .friendsContainer[data-aika-lobby] > .friend.ingame:is(.firstInGroup, .inGroup, .lastInGroup):hover .playerName {
+    color: var(--aika-fg);
 }
 
-html.MillenniumWindow_FriendsList .friendGroup.gameGroup > .friendsContainer[data-aika-lobby] > .friend.ingame::before {
+/* the link to the next face: through the avatars' middles, from this
+   avatar's edge to the next one's (the last face links to "+N" if any) */
+html.MillenniumWindow_FriendsList .friendGroup.gameGroup > .friendsContainer[data-aika-lobby] > .friend.ingame:is(.firstInGroup, .inGroup)::before,
+html.MillenniumWindow_FriendsList .friendGroup.gameGroup > .friendsContainer[data-aika-lobby] > .friend.ingame.lastInGroup[data-aika-lobby-extra]::before {
+    content: "";
+    position: absolute;
+    top: calc(var(--aika-space-1) + var(--aika-lobby-face) / 2 - 1px);
+    left: calc(50% + var(--aika-lobby-face) / 2 + 3px);
+    width: calc(var(--aika-lobby-tile) + var(--aika-lobby-gap) - var(--aika-lobby-face) - 6px);
+    height: 2px;
+    border-radius: 1px;
+    background: rgb(from var(--aika-ok) r g b / 0.55);
+    display: block;
+    bottom: auto;
+}
+
+html.MillenniumWindow_FriendsList .friendGroup.gameGroup > .friendsContainer[data-aika-lobby] > .friend.ingame.lastInGroup:not([data-aika-lobby-extra])::before {
     display: none;
 }
 
 html.MillenniumWindow_FriendsList .friendGroup.gameGroup > .friendsContainer[data-aika-lobby] > .friend.ingame .avatarHolder {
     width: var(--aika-lobby-face);
     height: var(--aika-lobby-face);
-    --aika-fl-badge: 13px;
+    --aika-fl-badge: 12px;
 }
 
 html.MillenniumWindow_FriendsList .friendGroup.gameGroup > .friendsContainer[data-aika-lobby] > .friend.ingame .avatarHolder img.avatar {
@@ -1390,41 +1399,54 @@ html.MillenniumWindow_FriendsList .friendGroup.gameGroup > .friendsContainer[dat
     height: 100%;
 }
 
-html.MillenniumWindow_FriendsList .friendGroup.gameGroup > .friendsContainer[data-aika-lobby] > .friend.ingame .labelHolder {
+html.MillenniumWindow_FriendsList .friendGroup.gameGroup > .friendsContainer[data-aika-lobby] > .friend.ingame:is(.firstInGroup, .inGroup, .lastInGroup) .labelHolder {
     align-self: stretch;
     padding: 0;
     text-align: center;
 }
 
-html.MillenniumWindow_FriendsList .friendGroup.gameGroup > .friendsContainer[data-aika-lobby] > .friend.ingame .statusAndName {
+html.MillenniumWindow_FriendsList .friendGroup.gameGroup > .friendsContainer[data-aika-lobby] > .friend.ingame:is(.firstInGroup, .inGroup, .lastInGroup) .statusAndName {
     justify-content: center;
 }
 
-html.MillenniumWindow_FriendsList .friendGroup.gameGroup > .friendsContainer[data-aika-lobby] > .friend.ingame .playerName {
+html.MillenniumWindow_FriendsList .friendGroup.gameGroup > .friendsContainer[data-aika-lobby] > .friend.ingame:is(.firstInGroup, .inGroup, .lastInGroup) .playerName {
     overflow: hidden;
-    font-size: var(--aika-text-meta);
+    font-size: var(--aika-text-label);
     font-weight: var(--aika-weight-medium);
     text-overflow: ellipsis;
     white-space: nowrap;
 }
 
-html.MillenniumWindow_FriendsList .friendGroup.gameGroup > .friendsContainer[data-aika-lobby] > .friend.ingame :is(.richPresenceContainer, .playerNicknameBracket, .ContextMenuButton),
+html.MillenniumWindow_FriendsList .friendGroup.gameGroup > .friendsContainer[data-aika-lobby] > .friend.ingame:is(.firstInGroup, .inGroup, .lastInGroup) :is(.richPresenceContainer, .playerNicknameBracket, .ContextMenuButton),
 html.MillenniumWindow_FriendsList .friendGroup.gameGroup > .friendsContainer[data-aika-lobby] > .SteamPlayerGroupFooter {
     display: none;
 }
 
-/* the others in the lobby: one "+N" face */
-html.MillenniumWindow_FriendsList .friendGroup.gameGroup > .friendsContainer[data-aika-lobby-extra]::after {
+/* the others in the lobby: one "+N" face after the last friend */
+html.MillenniumWindow_FriendsList .friendGroup.gameGroup > .friendsContainer[data-aika-lobby] > .friend.lastInGroup[data-aika-lobby-extra]::after {
     content: attr(data-aika-lobby-extra);
+    position: absolute;
+    top: var(--aika-space-1);
+    left: calc(100% + var(--aika-lobby-gap) + (var(--aika-lobby-tile) - var(--aika-lobby-face)) / 2);
     display: grid;
     place-items: center;
     width: var(--aika-lobby-face);
     height: var(--aika-lobby-face);
-    margin-top: var(--aika-space-1);
-    margin-inline: calc((var(--aika-lobby-tile) - var(--aika-lobby-face)) / 2);
     border-radius: var(--aika-fl-avatar-radius);
-    box-shadow: inset 0 0 0 1.5px rgb(from var(--aika-ok) r g b / 0.35);
+    box-shadow: inset 0 0 0 1.5px rgb(from var(--aika-ok) r g b / 0.4);
     font-family: var(--aika-font-mono);
-    font-size: var(--aika-text-meta);
+    font-size: var(--aika-text-label);
     color: var(--aika-ok);
+}
+
+/* friends in the same game outside the lobby: rows under the capsule */
+html.MillenniumWindow_FriendsList .friendGroup.gameGroup > .friendsContainer[data-aika-lobby] > .friend.ingame:not(.firstInGroup, .inGroup, .lastInGroup) {
+    flex: 1 0 100%;
+    margin: var(--aika-space-2) 0 0;
+    /* the avatar under the capsule's faces */
+    padding-inline-start: calc((var(--aika-lobby-tile) - var(--aika-lobby-face)) / 2);
+}
+
+html.MillenniumWindow_FriendsList .friendGroup.gameGroup > .friendsContainer[data-aika-lobby] > .friend.ingame:not(.firstInGroup, .inGroup, .lastInGroup):last-of-type {
+    margin-bottom: var(--aika-space-1);
 }
