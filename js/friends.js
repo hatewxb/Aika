@@ -21,6 +21,31 @@
   const ART = (appid) => `url("${CDN}${appid}/library_hero.jpg"), url("${CDN}${appid}/header.jpg")`;
   const appidOf = (img) => img?.getAttribute("src")?.match(/\/apps\/(\d+)\//)?.[1];
 
+  // Newer games keep their images under a hashed folder (…/apps/<id>/<hash>/
+  // header.jpg) — both plain addresses fail (WARDOGS, 2026-10-26). Then the
+  // store's appdetails gives the real header address; one request per game,
+  // remembered for the window's life.
+  const fixed = new Map();   // appid → a css url(), or "" while it is checked
+  const loads = (url) => new Promise((ok) => {
+    const img = new Image();
+    img.onload = () => ok(true);
+    img.onerror = () => ok(false);
+    img.src = url;
+  });
+  const checkArt = async (appid) => {
+    if (fixed.has(appid)) return;
+    fixed.set(appid, "");
+    if (await loads(`${CDN}${appid}/library_hero.jpg`) || await loads(`${CDN}${appid}/header.jpg`)) return;
+    try {
+      const r = await fetch(`https://store.steampowered.com/api/appdetails?appids=${appid}&filters=basic`);
+      const url = (await r.json())?.[appid]?.data?.header_image;
+      if (!url) return;
+      fixed.set(appid, `url("${url}")`);
+      queue();
+    } catch { /* offline or the API changed — the card keeps the preset's light */ }
+  };
+  const artOf = (appid) => { checkArt(appid); return fixed.get(appid) || ART(appid); };
+
   // Party size: Steam shows a party ("+1 With 1 more player") only in a game's
   // own group, not in the mixed "In game" one. The friends store lives in the
   // opener (SharedJSContext); a row has no steamid, so the persona is found by
@@ -44,9 +69,12 @@
     // a friend in game: the icon sits in the row
     for (const row of root.querySelectorAll(".friend.ingame")) {
       const id = appidOf(row.querySelector(".FriendInGameIcon img.gameIcon"));
-      if (id && row.dataset.aikaArt !== id) {
-        row.dataset.aikaArt = id;
-        row.style.setProperty("--aika-fl-art", ART(id));
+      if (id) {
+        const art = artOf(id);
+        if (row.dataset.aikaArt !== id || row.style.getPropertyValue("--aika-fl-art") !== art) {
+          row.dataset.aikaArt = id;
+          row.style.setProperty("--aika-fl-art", art);
+        }
       }
       // the game's name for the title on the art (the CSS draws it from the
       // attribute — Steam's own label stays in the flow as the status line
@@ -68,9 +96,12 @@
     // a game group (two friends or more in one game): the icon in its header
     for (const group of root.querySelectorAll(".friendGroup.gameGroup:not(.OtherGamesGroup)")) {
       const id = appidOf(group.querySelector(".groupName img"));
-      if (id && group.dataset.aikaArt !== id) {
-        group.dataset.aikaArt = id;
-        group.style.setProperty("--aika-fl-art", ART(id));
+      if (id) {
+        const art = artOf(id);
+        if (group.dataset.aikaArt !== id || group.style.getPropertyValue("--aika-fl-art") !== art) {
+          group.dataset.aikaArt = id;
+          group.style.setProperty("--aika-fl-art", art);
+        }
       }
     }
   };
