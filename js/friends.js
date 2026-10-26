@@ -123,6 +123,20 @@
     return true;
   };
 
+  // "Group chats": Steam toggles the section only by its 17 px double arrow;
+  // the caption is the drag bar that resizes the section. A click on the
+  // caption that didn't drag (moved under 4 px) toggles it too.
+  let down = null;
+  document.addEventListener("mousedown", (e) => {
+    down = e.target.closest?.(".FriendsListChatSection .voiceRoomDragBar") ? [e.clientX, e.clientY] : null;
+  }, true);
+  document.addEventListener("click", (e) => {
+    if (!down || !e.target.closest?.(".FriendsListChatSection .voiceRoomDragBar")) return;
+    const moved = Math.hypot(e.clientX - down[0], e.clientY - down[1]);
+    down = null;
+    if (moved < 4) document.querySelector(".FriendsListChatSection .ToggleGroupChatList")?.click();
+  }, true);
+
   // the list mounts after the window; give it a few seconds, then give up
   // (a chat window has none)
   if (!start()) {

@@ -638,3 +638,86 @@ html.MillenniumWindow_FriendsList .currentUserContainer .labelHolder {
 html.MillenniumWindow_FriendsList .currentUserContainer .ContextMenuButton {
     bottom: calc(var(--aika-space-4) - var(--aika-fl-avatar-overhang));
 }
+
+/* --- The window bottom (ROADMAP 13a/b, author 2026-10-26) ----------------------- */
+/* The group chats bar: Steam's double arrow (a 17 px target) as our chevron in
+   a round button, the caption clickable too (js/friends.js — a click without
+   a drag toggles; dragging still resizes the section), the "new chat" button
+   as an icon button. The footer strip under it: no plate, just the resize
+   grip. */
+html.MillenniumWindow_FriendsList .FriendsListChatSection .chatSectionTitle {
+    align-items: center;
+    gap: var(--aika-space-1);
+    padding-inline: var(--aika-space-2) var(--aika-space-3);
+}
+
+html.MillenniumWindow_FriendsList .FriendsListChatSection .ToggleGroupChatList {
+    display: grid;
+    place-items: center;
+    flex: none;
+    width: 24px;
+    height: 24px;
+    border-radius: var(--aika-radius-md);
+    transition: background-color var(--aika-dur-fast) var(--aika-ease-hover);
+}
+
+html.MillenniumWindow_FriendsList .FriendsListChatSection .ToggleGroupChatList:hover {
+    background: var(--aika-surface-hover);
+}
+
+html.MillenniumWindow_FriendsList .FriendsListChatSection .ToggleGroupChatList svg {
+    display: none;
+}
+
+html.MillenniumWindow_FriendsList .FriendsListChatSection .ToggleGroupChatList::before {
+    content: "";
+    width: 12px;
+    height: 12px;
+    background: var(--aika-fg-subtle);
+    -webkit-mask: var(--aika-icon-chevron-down) center / contain no-repeat;
+    mask: var(--aika-icon-chevron-down) center / contain no-repeat;
+    transition: transform var(--aika-dur-fast) var(--aika-ease-hover);
+}
+
+html.MillenniumWindow_FriendsList .FriendsListChatSection.Collapsed .ToggleGroupChatList::before {
+    transform: rotate(-90deg);
+}
+
+html.MillenniumWindow_FriendsList .FriendsListChatSection .groupChatSectionTitle {
+    cursor: pointer;
+}
+
+html.MillenniumWindow_FriendsList .FriendsListChatSection .createChatRoomButton {
+    display: grid;
+    place-items: center;
+    width: 28px;
+    height: 28px;
+    padding: 0;
+    border: none;
+    border-radius: var(--aika-radius-md);
+    background: var(--aika-transparent);
+    transition: background-color var(--aika-dur-fast) var(--aika-ease-hover);
+}
+
+html.MillenniumWindow_FriendsList .FriendsListChatSection .createChatRoomButton:hover {
+    background: var(--aika-surface-hover);
+}
+
+html.MillenniumWindow_FriendsList .FriendsListChatSection .createChatRoomButton svg {
+    width: 18px;
+    height: 18px;
+    color: var(--aika-fg-muted);
+}
+
+html.MillenniumWindow_FriendsList .FriendsListChatSection .createChatRoomButton svg * {
+    fill: currentColor;
+}
+
+html.MillenniumWindow_FriendsList .friendListFooter {
+    background: var(--aika-transparent);
+    box-shadow: none;
+}
+
+html.MillenniumWindow_FriendsList .window_resize_grip {
+    opacity: 0.4;
+}
