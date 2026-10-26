@@ -189,6 +189,13 @@ html .contextMenu .contextMenuContents hr.Separator {
     background: var(--aika-border);
 }
 
+/* The friends menus separate every item with a border-top (Steam: white 5 %);
+   on our rounded items it curved at both ends. The items are spaced and
+   highlighted on hover — no lines between them, like the other menus. */
+html .contextMenu .contextMenuContents .contextMenuItem {
+    border-top-color: var(--aika-transparent);
+}
+
 /* --------------------------------------------------------------------------
    The "Add a Game" menu (.AddGameMenu — from the floating "+" at the bottom
    left of the library, sections/library.css): "Add a Non-Steam Game…",
