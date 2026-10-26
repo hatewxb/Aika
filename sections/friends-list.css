@@ -768,3 +768,112 @@ html.MillenniumWindow_FriendsList .TabSearchButton:has(> .tabSearchTransitionGro
     text-overflow: ellipsis;
     white-space: nowrap;
 }
+
+/* ==========================================================================
+   The chat window (html.MillenniumWindow_FriendChatWindow), concept B
+   (ROADMAP 13d, author 2026-10-26). Captured 2026-10-26: .ChatTabs >
+   .ChatTab(.Active) > .ChatTabRow; a .chatWindow per tab (hidden ones 0×0)
+   > .chatHeader, .displayRow (.chatHistoryScroll > .chatHistory > .msg.
+   timeDivision, .ChatMessageBlock > .ChatSpeaker + .msg > .msgText —
+   game invites .gameInviteSelf / .gameInviteDismissed with img.productImage),
+   .inviteAnotherFriendButton; .chatEntry > form.chatEntryControls
+   (textarea.chatTextarea, button.chatSubmitButton) +
+   .chatEntryActionsGroup + button.VoiceToggle. Shared bits (names by
+   status, timestamps, the field's focus ring) stay in sections/friends.css.
+   ========================================================================== */
+
+html.MillenniumWindow_FriendChatWindow body,
+html.MillenniumWindow_FriendChatWindow :is(textarea, button) {
+    font-family: var(--aika-font-friends);
+}
+
+/* Steam's gray-blue radial gradient → our canvas with a soft preset light on top */
+html.MillenniumWindow_FriendChatWindow .chatWindow {
+    background:
+        radial-gradient(60% 40% at 15% 0%, rgb(from var(--aika-accent) r g b / 0.10), transparent 70%),
+        radial-gradient(50% 35% at 95% 0%, rgb(from var(--aika-light-2) r g b / 0.07), transparent 70%),
+        var(--aika-bg-base);
+}
+
+/* Tabs as pills on the window's own bar */
+html.MillenniumWindow_FriendChatWindow .titleBarContainer.ChatTabs {
+    align-items: center;
+    background-color: var(--aika-bg-base);
+    box-shadow: inset 0 calc(-1 * var(--aika-hairline)) 0 0 var(--aika-border);
+}
+
+html.MillenniumWindow_FriendChatWindow .ChatTabs .ChatTab {
+    margin: var(--aika-space-1) 0 var(--aika-space-1) var(--aika-space-1);
+    border-radius: var(--aika-radius-md);
+    background-color: var(--aika-transparent);
+    transition: background-color var(--aika-dur-fast) var(--aika-ease-hover);
+}
+
+html.MillenniumWindow_FriendChatWindow .ChatTabs .ChatTab:hover {
+    background-color: var(--aika-surface);
+}
+
+html.MillenniumWindow_FriendChatWindow .ChatTabs .ChatTab.Active {
+    background-color: var(--aika-surface-hover);
+    box-shadow: inset 0 0 0 var(--aika-hairline) var(--aika-border-hover);
+}
+
+html.MillenniumWindow_FriendChatWindow :is(.ChatTabs, .ChatSpeaker) img.avatar {
+    border-radius: var(--aika-fl-avatar-radius);
+}
+
+/* Messages: names a step stronger, invites as small cards */
+html.MillenniumWindow_FriendChatWindow .ChatSpeaker .speakerName {
+    font-weight: var(--aika-weight-semibold);
+}
+
+html.MillenniumWindow_FriendChatWindow .ChatMessageBlock .msgText:has(> :is(.gameInviteSelf, .gameInviteDismissed)) {
+    display: inline-flex;
+    max-width: 100%;
+    margin-block: 2px;
+    padding: var(--aika-space-2) var(--aika-space-3);
+    border-radius: var(--aika-radius-md);
+    background: var(--aika-surface);
+    box-shadow: inset 0 0 0 var(--aika-hairline) var(--aika-border);
+}
+
+html.MillenniumWindow_FriendChatWindow .ChatMessageBlock .msgText :is(.gameInviteSelf, .gameInviteDismissed) {
+    font-style: normal;
+}
+
+html.MillenniumWindow_FriendChatWindow .ChatMessageBlock .msgText img.productImage {
+    border-radius: var(--aika-radius-xs);
+}
+
+/* Time dividers: fading lines like the list's group captions */
+html.MillenniumWindow_FriendChatWindow .chatHistory .msg.timeDivision :is(.preHorizDivider, .horizDivider) {
+    height: var(--aika-hairline);
+    background: var(--aika-border-hover);
+}
+
+/* "Invite a friend" — a round icon button */
+html.MillenniumWindow_FriendChatWindow .inviteAnotherFriendButton {
+    background: var(--aika-surface);
+    box-shadow: inset 0 0 0 var(--aika-hairline) var(--aika-border);
+    transition: background-color var(--aika-dur-fast) var(--aika-ease-hover);
+}
+
+html.MillenniumWindow_FriendChatWindow .inviteAnotherFriendButton:hover {
+    background: var(--aika-surface-hover);
+}
+
+/* The input row: no gray strip (Steam #22252b) — a hairline above */
+html.MillenniumWindow_FriendChatWindow .chatEntry {
+    background: var(--aika-bg-base);
+    box-shadow: inset 0 var(--aika-hairline) 0 0 var(--aika-border);
+}
+
+html.MillenniumWindow_FriendChatWindow .chatEntry .chatEntryActionsGroup {
+    background: var(--aika-bg-raised);
+    box-shadow: inset 0 0 0 var(--aika-hairline) var(--aika-border-hover);
+}
+
+/* Steam's 2 px status strip beside chat avatars — the name's color says it */
+html.MillenniumWindow_FriendChatWindow .avatarHolder > .avatarStatus.avatarStatus {
+    display: none;
+}
