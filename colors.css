@@ -239,6 +239,7 @@ html:root {
     /* Preloader presets (options/preloader-*.css): all built on the accent and
        the three light spots, so they follow the color preset */
     --aika-pl-vignette: radial-gradient(300px 230px at 50% 56%, rgb(from var(--aika-bg-base) r g b / 0.94), rgb(from var(--aika-bg-base) r g b / 0.5) 70%, transparent);
+    --aika-pl-dot-matrix: radial-gradient(circle, #000 42%, transparent 56%);   /* a mask: one round hole per tile */
     --aika-pl-tick-rest: rgb(from var(--aika-ink) r g b / 0.10);
     --aika-pl-sky:
         radial-gradient(1px 1px at 12% 20%, rgb(from var(--aika-ink) r g b / 0.55), transparent),
@@ -260,10 +261,11 @@ html:root {
     --aika-pl-aurora-floor: radial-gradient(520px 260px at 50% 100%, rgb(from var(--aika-light-2) r g b / 0.10), transparent 70%);
     --aika-pl-line-run: linear-gradient(90deg, transparent, var(--aika-accent-bright), var(--aika-ink));
     --aika-pl-dots: radial-gradient(rgb(from var(--aika-ink) r g b / 0.08) 1px, transparent 1.4px);
-    --aika-pl-beam-fill: conic-gradient(from var(--aika-pl-angle), transparent 0 62%, rgb(from var(--aika-light-1) r g b / 0.6) 78%, var(--aika-light-3) 86%, var(--aika-ink) 88%, transparent 90%);
+    --aika-pl-beam-fill: conic-gradient(transparent 0 62%, rgb(from var(--aika-light-1) r g b / 0.6) 78%, var(--aika-light-3) 86%, var(--aika-ink) 88%, transparent 90%);
     --aika-pl-beam-track: rgb(from var(--aika-ink) r g b / 0.06);
     --aika-pl-matrix-dim: rgb(from var(--aika-ink) r g b / 0.10);
-    --aika-pl-warp-core: radial-gradient(260px 200px at 50% 40%, rgb(from var(--aika-light-1) r g b / 0.12), transparent), var(--aika-bg-deep);
+    --aika-pl-warp-core: radial-gradient(260px 200px at 50% 40%, rgb(from var(--aika-light-1) r g b / 0.05), transparent), var(--aika-bg-deep);
+    --aika-pl-warp-glow: rgb(from var(--aika-accent) r g b / 0.22);
     --aika-pl-squircle: conic-gradient(var(--aika-light-1), var(--aika-light-2), var(--aika-light-3), var(--aika-light-1));
     --aika-pl-stars:
         radial-gradient(1.0px 1.0px at 40% 29%, var(--aika-light-1), transparent),

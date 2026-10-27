@@ -9,7 +9,7 @@
 @import url("../sections/login-presets.css");
 
 @keyframes aika-pl-beam {
-    to { --aika-pl-angle: 360deg; }
+    to { transform: rotate(1turn); }
 }
 
 @keyframes aika-pl-lubdub {
@@ -31,17 +31,39 @@ html:root .LoginStaticBackground::before {
     mask: radial-gradient(closest-side, #000, transparent);
 }
 
-/* The beam: a turning conic gradient cut to a 1.5 px ring round the window */
-html:root .LoginStaticBackground::after {
+/* The beam. A turning conic gradient repainted the whole window every frame
+   (animated angle under a mask and a filter: the window stalled at 165 Hz,
+   author 2026-10-27). Now the ring is a still mask on Steam's (hidden) grid
+   element and only its ::before, a big conic square, turns — on the GPU */
+/* (0,4,1): Steam sets the grid's background and animation with three classes */
+html:root .LoginStaticBackground > .LoginAnimatedBackground.Show {
+    display: block;
     inset: 6px;
     padding: 1.5px;
+    overflow: hidden;
     border-radius: var(--aika-radius-lg);
-    background: var(--aika-pl-beam-fill), var(--aika-pl-beam-track);
+    background: var(--aika-pl-beam-track);
     -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
     -webkit-mask-composite: xor;
     mask: linear-gradient(#000 0 0) content-box exclude, linear-gradient(#000 0 0);
-    filter: drop-shadow(0 0 6px var(--aika-accent-glow));
+    animation: none;
+    pointer-events: none;
+}
+
+html:root .LoginAnimatedBackground::before {
+    content: "";
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 900px;
+    height: 900px;
+    margin: -450px 0 0 -450px;
+    background: var(--aika-pl-beam-fill);
     animation: aika-pl-beam var(--aika-pl-beam) linear infinite;
+}
+
+html:root .LoginAnimatedBackground::after {
+    content: none;
 }
 
 /* The dot matrix round the mark: a lit ring over the dimmed grid, cut to a circle */

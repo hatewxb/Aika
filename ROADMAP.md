@@ -226,6 +226,7 @@
 | 2026-10-27 | Friends redesign, final check: the profile header under Hello Bert, Greeny and Rose Ash (preset files injected into the friends window, screenshots) — banner, nick gradient and status follow the preset, no changes. Steam's compact list (FriendsSettings.bCompactFriendsList): everything holds except a friend in the lobby's game outside the lobby — the lobby rule's 36 px face in Steam's 22 px compact row stuck out over the capsule; the row now has min-height of a face (normal mode unchanged, both modes screenshotted). The hover mini profile didn't open on a programmatic hover (no window, no element) — it is styled in components/status.css; live check by the author | sections/friends-list.css |
 | 2026-10-20 | The address capsule's shadow (author: a shadow without blur behind it): the capsule repeated the hairline that --aika-shadow-menu already carries (a double ring) and took its 0 8px 32px / 0.5 shadow — a dark halo around a 26 px capsule — over an 80 % fill that hid the backdrop blur. Now one hairline, a small soft shadow (--aika-url-capsule-shadow 0 2px 10px), the trailer player's 52 % material so the blurred page shows, and the text in fg with the Cinematic text shadow so it reads over a light image (screenshots over the Valheim poster and trailer). The loading placeholder matches | components/url-capsule.css, tokens.css |
 | 2026-10-27 | Preloader presets (author): Main → Preloader — Classic (as before; Steam's cover grid now takes the preset's hue via a color blend), Terminal (glyph rain, the Aika logo in 12 ticks, Geist Mono), Horizon (planet rim, sweep + scanline, Onest), Orbits (bits on tilted ellipses, three dots, Unbounded 300), Aurora (two toned-down aurora sheets, a running line, Onest), Frame (a beam round the window, the dot-matrix heartbeat), Glitter warp (a starfield flying out of the mark, a squircle, Unbounded). All built on the accent and light spots; rain/orbits are SMIL SVG masks (tools/preloader-svg.js), still frames on Low. tools/login-bench.js renders the window in the main window for screenshots; tools/login-watch.js captures the real one (Terminal verified live) | options/preloader-*.css, sections/login-presets.css, sections/login.css, skin.json, js/settings-l10n.js |
+| 2026-10-27 | Preloader fixes (author): Glitter warp — the glow behind the mark quieter (core glow 0.12 → 0.05, mark/squircle shadows softer, stars fade in only after they leave the centre); Frame — the beam turned the conic angle under a full-window mask and filter (repainted 700×440 every frame, stalled at 165 Hz), now a still ring mask on the hidden grid element with a turning ::before (GPU); Terminal — the logo and status in a dot-matrix look (bold Geist Mono through a dot mask, refs Bauhaus Olga / Regez), the ticks as one SVG mask (two composited masks drew a dark disc over the rain), no glow outline, the logo 24 px to fit the ring | options/preloader-*.css, tokens.css, colors.css |
 
 ## Waiting for the author to check in Steam
 
@@ -408,6 +409,21 @@
 - [ ] **Restart Steam** (2026-10-08: new settings structure — Main / Advanced / Colors; condition names changed, so saved choices reset to defaults once; the store Patch now points to js/store-app.js). Cinematic is the default: open any game in the store. Check: the poster at once, then trailers muted with crossfades; logo, badges, the sale price (green with a glow + a percent chip); "Buy" → editions; "Media" → the gallery; the viewer (trailer with sound, screenshots); the heart on a game not owned. Main → Store → Classic — the page as before. Games without a discount, free and unreleased ones are not checked yet.
 
 ## Next (in order)
+
+### Priority (author 2026-10-27) — do these first, in this order
+
+1. **Bugs from the screenshots** in SSforClaude/ (N.png, the file name says what to fix):
+   go through the folder, skip the ones already marked done in this file.
+2. **The hold effect on library cards works only every other time** —
+   find why the press/hold state sometimes doesn't start (js/cover-tilt.js,
+   options/covers-*.css), fix it at the root.
+3. **Recent chats / Friends tab: new messages don't show up** — check how
+   the recent chats are displayed and why incoming messages don't reach the
+   Friends tab (sections/friends-list.css, js/friends.js; could be the theme
+   hiding Steam's own unread/recent elements).
+
+Then: the items below that are still relevant.
+
 
 ### Backlog from the author (2026-10-16) — for later, not now
 

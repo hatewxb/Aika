@@ -797,7 +797,11 @@
     --aika-pl-weight-light: 300;
     --aika-pl-rain-opacity: 0.5;
     --aika-pl-ticks: 1s;               /* Terminal: one turn of the 12 ticks */
-    --aika-pl-logo-size: 30px;         /* Terminal: the "Aika" logo in the ring */
+    --aika-pl-logo-size: 24px;         /* Terminal: the "Aika" logo — four mono letters fit inside the ticks */
+    --aika-pl-ticks-mask: url("data:image/svg+xml,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20viewBox%3D'0%200%20100%20100'%3E%3Crect%20x%3D'48'%20y%3D'1'%20width%3D'4'%20height%3D'11'%20rx%3D'1.5'%20transform%3D'rotate(0%2050%2050)'%2F%3E%3Crect%20x%3D'48'%20y%3D'1'%20width%3D'4'%20height%3D'11'%20rx%3D'1.5'%20transform%3D'rotate(30%2050%2050)'%2F%3E%3Crect%20x%3D'48'%20y%3D'1'%20width%3D'4'%20height%3D'11'%20rx%3D'1.5'%20transform%3D'rotate(60%2050%2050)'%2F%3E%3Crect%20x%3D'48'%20y%3D'1'%20width%3D'4'%20height%3D'11'%20rx%3D'1.5'%20transform%3D'rotate(90%2050%2050)'%2F%3E%3Crect%20x%3D'48'%20y%3D'1'%20width%3D'4'%20height%3D'11'%20rx%3D'1.5'%20transform%3D'rotate(120%2050%2050)'%2F%3E%3Crect%20x%3D'48'%20y%3D'1'%20width%3D'4'%20height%3D'11'%20rx%3D'1.5'%20transform%3D'rotate(150%2050%2050)'%2F%3E%3Crect%20x%3D'48'%20y%3D'1'%20width%3D'4'%20height%3D'11'%20rx%3D'1.5'%20transform%3D'rotate(180%2050%2050)'%2F%3E%3Crect%20x%3D'48'%20y%3D'1'%20width%3D'4'%20height%3D'11'%20rx%3D'1.5'%20transform%3D'rotate(210%2050%2050)'%2F%3E%3Crect%20x%3D'48'%20y%3D'1'%20width%3D'4'%20height%3D'11'%20rx%3D'1.5'%20transform%3D'rotate(240%2050%2050)'%2F%3E%3Crect%20x%3D'48'%20y%3D'1'%20width%3D'4'%20height%3D'11'%20rx%3D'1.5'%20transform%3D'rotate(270%2050%2050)'%2F%3E%3Crect%20x%3D'48'%20y%3D'1'%20width%3D'4'%20height%3D'11'%20rx%3D'1.5'%20transform%3D'rotate(300%2050%2050)'%2F%3E%3Crect%20x%3D'48'%20y%3D'1'%20width%3D'4'%20height%3D'11'%20rx%3D'1.5'%20transform%3D'rotate(330%2050%2050)'%2F%3E%3C%2Fsvg%3E");   /* Terminal: the 12 ticks (one image: two composited masks drew a dark disc over the rain) */
+    --aika-pl-logo-pitch: 2px;         /* Terminal: the dot grid the logo is seen through */
+    --aika-pl-status-size: 16px;
+    --aika-pl-status-pitch: 2px;
     --aika-pl-bloom-dur: 7s;              /* Horizon: the glow over the rim breathing */
     --aika-pl-scan: 2s;                /* Horizon: the sweep over the mark */
     --aika-pl-orbit-1: 1.4s;           /* Orbits: the three dots round the mark */

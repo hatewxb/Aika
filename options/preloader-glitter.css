@@ -9,8 +9,9 @@
 @import url("../sections/login-presets.css");
 
 @keyframes aika-pl-warp {
-    0%   { transform: scale(0.25); opacity: 0; }
-    35%  { opacity: 1; }
+    0%, 30% { opacity: 0; }   /* no dense cluster of stars glowing behind the mark */
+    0%   { transform: scale(0.25); }
+    60%  { opacity: 1; }
     100% { transform: scale(2.4); opacity: 0; }
 }
 
@@ -21,6 +22,11 @@
 
 html:root .LoginStaticBackground::before {
     background: var(--aika-pl-warp-core);
+}
+
+/* A quieter glow on the mark than Classic's (author 2026-10-27) */
+html:root .Login .SpinnerLoaderContainer::after {
+    filter: drop-shadow(0 0 6px var(--aika-pl-warp-glow));
 }
 
 /* The star layers, all growing from the mark's centre (window 349, 175) */
@@ -62,7 +68,7 @@ html:root .Login .SpinnerLoaderContainer::before {
     -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
     -webkit-mask-composite: xor;
     mask: linear-gradient(#000 0 0) content-box exclude, linear-gradient(#000 0 0);
-    filter: drop-shadow(0 0 6px var(--aika-accent-glow));
+    filter: drop-shadow(0 0 3px var(--aika-pl-warp-glow));
     transform: translateX(-50%);
     animation: aika-pl-squircle var(--aika-pl-morph) var(--aika-ease-ambient) infinite;
     pointer-events: none;

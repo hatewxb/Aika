@@ -35,8 +35,9 @@ html:root .LoginStaticBackground::after {
     background: var(--aika-pl-vignette);
 }
 
-/* 12 ticks: a comet trail cut by tick-shaped holes, turning in 12 steps so the
-   ticks stay put and only the light moves */
+/* 12 ticks, no glow outline (author 2026-10-27): a comet trail seen through
+   tick-shaped holes, turning in 12 steps so the ticks stay put and only the
+   light moves */
 html:root .Login .SpinnerLoaderContainer::before {
     content: "";
     position: absolute;
@@ -46,17 +47,16 @@ html:root .Login .SpinnerLoaderContainer::before {
     height: var(--aika-login-mark-box);
     border-radius: 50%;
     background: conic-gradient(from -4deg, var(--aika-transparent) 0deg, var(--aika-accent) 300deg, var(--aika-accent-bright) 352deg), var(--aika-pl-tick-rest);
-    -webkit-mask: repeating-conic-gradient(from -4deg, #000 0 8deg, transparent 8deg 30deg), radial-gradient(farthest-side, transparent calc(100% - 11px), #000 calc(100% - 10px));
-    -webkit-mask-composite: source-in;
-    mask: repeating-conic-gradient(from -4deg, #000 0 8deg, transparent 8deg 30deg), radial-gradient(farthest-side, transparent calc(100% - 11px), #000 calc(100% - 10px));
-    mask-composite: intersect;
-    filter: drop-shadow(0 0 5px var(--aika-accent-glow));
+    -webkit-mask: var(--aika-pl-ticks-mask) center / 100% 100% no-repeat;
+    mask: var(--aika-pl-ticks-mask) center / 100% 100% no-repeat;
     transform: translateX(-50%);
     animation: aika-pl-ticks var(--aika-pl-ticks) steps(12) infinite;
     pointer-events: none;
 }
 
-/* The logo in place of the Steam mark: the header's classic wordmark in the accent */
+/* The logo in place of the Steam mark, set in dots like a dot-matrix display
+   (author 2026-10-27, refs "Bauhaus Olga" / "Regez"): bold Geist Mono seen
+   through a grid of round holes — no extra font file */
 html:root .Login .SpinnerLoaderContainer::after {
     content: "Aika";
     top: 0;
@@ -66,10 +66,10 @@ html:root .Login .SpinnerLoaderContainer::after {
     align-items: center;
     justify-content: center;
     background: none;
-    -webkit-mask: none;
-    mask: none;
-    font: var(--aika-weight-medium) var(--aika-pl-logo-size) / 1 var(--aika-font-display);
-    letter-spacing: -0.02em;
+    -webkit-mask: var(--aika-pl-dot-matrix) 0 0 / var(--aika-pl-logo-pitch) var(--aika-pl-logo-pitch);
+    mask: var(--aika-pl-dot-matrix) 0 0 / var(--aika-pl-logo-pitch) var(--aika-pl-logo-pitch);
+    font: var(--aika-weight-heavy) var(--aika-pl-logo-size) / 1 var(--aika-font-mono);
+    letter-spacing: 0.02em;
     color: var(--aika-accent-bright);
     filter: drop-shadow(0 0 10px var(--aika-accent-glow));
 }
@@ -77,9 +77,11 @@ html:root .Login .SpinnerLoaderContainer::after {
 /* The console line */
 html:root .Login .LoadingStatus > .LoginStatus {
     font-family: var(--aika-font-mono);
-    font-size: var(--aika-text-meta);
-    font-weight: var(--aika-weight-regular);
+    font-size: var(--aika-pl-status-size);
+    font-weight: var(--aika-weight-heavy);
     color: var(--aika-fg);
+    -webkit-mask: var(--aika-pl-dot-matrix) 0 0 / var(--aika-pl-status-pitch) var(--aika-pl-status-pitch);
+    mask: var(--aika-pl-dot-matrix) 0 0 / var(--aika-pl-status-pitch) var(--aika-pl-status-pitch);
 }
 
 html:root .Login .LoadingStatus > .LoginStatus::before {

@@ -19,12 +19,6 @@
    spinner container), .LoginStatus::before.
    ========================================================================== */
 
-@property --aika-pl-angle {
-    syntax: "<angle>";
-    inherits: false;
-    initial-value: 0deg;
-}
-
 @property --aika-pl-pulse-r {
     syntax: "<length>";
     inherits: false;
