@@ -452,8 +452,10 @@ html.MillenniumWindow_FriendsList .socialTabContainer .rcp-tab-button {
         color var(--aika-dur-fast) var(--aika-ease-hover);
 }
 
-html.MillenniumWindow_FriendsList .socialTabContainer .rcp-tab-button {
+/* the plugin's tab: 3 px lower and pushed right by its own auto margin */
+html.MillenniumWindow_FriendsList .socialTabContainer #recent-chats-tab-host.rcp-tab-button {
     order: 1;
+    margin: 0;
 }
 
 html.MillenniumWindow_FriendsList .socialTabContainer .friendTab.activeTab:not(.rcp-tab-button) > .tabLabel,
@@ -478,6 +480,7 @@ html.MillenniumWindow_FriendsList .socialTabContainer .socialListTab .tabLabel {
 /* the buttons: the search, requests, add a friend — round, on the right */
 html.MillenniumWindow_FriendsList .socialTabContainer .friendsTabButtonsContainer {
     order: 2;
+    flex: none;   /* Steam lets it grow: the buttons sat left with the room on their right */
     display: flex;
     align-items: center;
     gap: var(--aika-space-1);
@@ -503,6 +506,7 @@ html.MillenniumWindow_FriendsList .friendsTabButtonsContainer :is(.friendRequest
 }
 
 html.MillenniumWindow_FriendsList .friendsTabButtonsContainer :is(.friendRequestButton, .addFriendButton) svg {
+    display: block;   /* inline, the baseline dropped it a pixel */
     width: 18px;
     height: 18px;
 }
@@ -871,8 +875,10 @@ html.MillenniumWindow_FriendsList .TabSearchButton > .searchIconButton {
 }
 
 html.MillenniumWindow_FriendsList .TabSearchButton > .searchIconButton svg {
+    display: block;
     width: 14px;
     height: 14px;
+    margin: 0;
 }
 
 /* Steam hides the magnifier while searching (width 0, opacity 0) — it leads the pill */
@@ -893,6 +899,7 @@ html.MillenniumWindow_FriendsList .TabSearchButton .inputContainer {
     align-items: center;
     min-width: 0;
     height: 30px;
+    margin: 0;   /* Steam's bottom margin lifted the field 1.5 px */
 }
 
 /* the field inside the pill: no box of its own (sections/friends.css gives
@@ -906,6 +913,7 @@ html.MillenniumWindow_FriendsList .TabSearchButton .socialSearchContainer input.
     flex: 1 1 auto;
     min-width: 0;
     height: 30px;
+    margin: 0;   /* it sat 1.5 px above the pill */
     padding: 0 var(--aika-space-1);
     border: none;
     background: none;
@@ -926,7 +934,16 @@ html.MillenniumWindow_FriendsList .TabSearchButton .friendSearchClear {
     position: static;
     order: 2;
     flex: none;
-    margin-inline-end: var(--aika-space-2);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 30px;   /* as the magnifier's box: the icons sit 8 px from both ends */
+    height: 30px;
+    margin: 0;
+}
+
+html.MillenniumWindow_FriendsList .TabSearchButton .friendSearchClear svg {
+    display: block;
 }
 
 /* Concept A, "a command line" — the "Friend search" setting (js/friends.js
@@ -1265,6 +1282,15 @@ html.MillenniumWindow_FriendsList .quickAccessFriends.emptyQuickAccess {
     gap: var(--aika-space-2);
     height: auto;
     padding-top: var(--aika-space-2);
+}
+
+/* "Got it!" (.hintDismissed): Steam drops the button and hides the hint by
+   the strip's fixed height — our height: auto kept the hint on screen. Gone
+   until a drag starts; then the drop zone shows again. */
+html.MillenniumWindow_FriendsList body:not(.in_global_drag) .quickAccessFriends.emptyQuickAccess.hintDismissed {
+    height: 0;
+    padding: 0;
+    overflow: hidden;
 }
 
 html.MillenniumWindow_FriendsList .quickAccessFriends .quickAccessFriendsMessage {
