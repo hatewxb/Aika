@@ -118,6 +118,44 @@
       if (one) mark(lobby.at(-1), "aikaLobbyExtra", extra ? "+" + extra : "");
     }
 
+    // "Unread messages" as one notice (concept B, author 2026-10-27): Steam's
+    // header of the group gets the senders' faces, their names and the total
+    // count; a click on it is Steam's own collapse. Collapsed, Steam drops the
+    // rows, so the senders come from the chat store in the opener.
+    const unread = root.querySelector(".unreadChatsGroup > .friendGroup");
+    const head = unread?.querySelector(":scope > .groupName");
+    if (head) {
+      let chats = [];
+      try { chats = window.opener.g_FriendsUIApp.ChatStore.FriendChatStore.GetFriendsWithUnreadMessages() || []; } catch { /* the store's shape changed — Steam's plain header */ }
+      const total = chats.reduce((n, c) => n + (c.unread_message_count || 0), 0);
+      const faces = chats.slice(0, 3).map((c) => c.chat_partner?.persona?.avatar_url_medium || "");
+      const names = chats.map((c) => c.name).join(" · ");
+      const sign = total ? [total, names, ...faces].join("|") : "";
+      // (React may rebuild the header and drop the added parts)
+      if ((unread.dataset.aikaUnread || "") !== sign || (sign && !head.querySelector(":scope > .aika-unread-total"))) {
+        head.querySelectorAll(":scope > [class^='aika-unread-']").forEach((el) => el.remove());
+        if (sign) {
+          const add = (cls, text) => {
+            const el = document.createElement("span");
+            el.className = cls;
+            if (text) el.textContent = text;
+            head.append(el);
+            return el;
+          };
+          const stack = add("aika-unread-faces");
+          for (const src of faces) {
+            const img = document.createElement("img");
+            img.src = src;
+            img.alt = "";
+            stack.append(img);
+          }
+          add("aika-unread-names", names);
+          add("aika-unread-total", String(total));
+        }
+        mark(unread, "aikaUnread", sign);
+      }
+    }
+
     // a game group (two friends or more in one game): the icon in its header
     for (const group of root.querySelectorAll(".friendGroup.gameGroup:not(.OtherGamesGroup)")) {
       const id = appidOf(group.querySelector(".groupName img"));

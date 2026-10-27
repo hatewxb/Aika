@@ -1093,6 +1093,104 @@ html.MillenniumWindow_FriendsList .quickAccessFriends.emptyQuickAccess .quickAcc
     color: var(--aika-fg);
 }
 
+/* --- "Unread messages" as one notice (concept B, author 2026-10-27) ------------- */
+/* js/friends.js adds to Steam's group header the senders' faces
+   (.aika-unread-faces), their names (.aika-unread-names) and the total count
+   (.aika-unread-total), and sets data-aika-unread on the group. The header is
+   a card on a grid: the faces | Steam's title (a bare text node, auto-placed
+   in the first free cell) over the names | the count | a chevron. A click is
+   Steam's own collapse; open, the rows hang under the card. */
+html.MillenniumWindow_FriendsList .friendGroup[data-aika-unread] > .groupName {
+    display: grid;
+    grid-template-columns: auto minmax(0, 1fr) auto 14px;
+    grid-template-rows: auto auto;
+    align-items: center;
+    column-gap: var(--aika-space-3);
+    row-gap: 1px;
+    line-height: 1.3;
+    height: auto;
+    margin: var(--aika-space-1) var(--aika-space-3) var(--aika-space-2);
+    padding: var(--aika-space-2) var(--aika-space-3);
+    border-radius: var(--aika-radius-lg);
+    background: var(--aika-accent-tint);
+    box-shadow: inset 0 0 0 var(--aika-hairline) var(--aika-accent-glow);
+    font-family: var(--aika-font-friends);
+    font-size: var(--aika-text-body);
+    font-weight: var(--aika-weight-semibold);
+    letter-spacing: normal;
+    color: var(--aika-fg);
+    cursor: pointer;
+    transition: background-color var(--aika-dur-fast) var(--aika-ease-hover);
+}
+
+html.MillenniumWindow_FriendsList .friendGroup[data-aika-unread] > .groupName:hover {
+    background-color: var(--aika-accent-soft);
+}
+
+html.MillenniumWindow_FriendsList .friendGroup[data-aika-unread] > .groupName :is(.ExpandPlusMinus, .groupCount, hr) {
+    display: none;
+}
+
+html.MillenniumWindow_FriendsList .friendGroup[data-aika-unread] .aika-unread-faces {
+    grid-area: 1 / 1 / 3 / 2;
+    display: flex;
+}
+
+html.MillenniumWindow_FriendsList .friendGroup[data-aika-unread] .aika-unread-faces img {
+    width: 32px;
+    height: 32px;
+    border-radius: 30%;
+    box-shadow: 0 0 0 2px var(--aika-bg-base);
+}
+
+html.MillenniumWindow_FriendsList .friendGroup[data-aika-unread] .aika-unread-faces img + img {
+    margin-inline-start: -10px;
+}
+
+html.MillenniumWindow_FriendsList .friendGroup[data-aika-unread] .aika-unread-names {
+    grid-area: 2 / 2 / 3 / 3;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    font-family: var(--aika-font-mono);
+    font-size: var(--aika-text-label);
+    font-weight: var(--aika-weight-regular);
+    color: var(--aika-fg-muted);
+}
+
+html.MillenniumWindow_FriendsList .friendGroup[data-aika-unread] .aika-unread-total {
+    grid-area: 1 / 3 / 3 / 4;
+    min-width: 20px;
+    height: 20px;
+    padding: 0 6px;
+    border-radius: var(--aika-radius-full);
+    background: var(--aika-accent-fill);
+    color: var(--aika-on-accent);
+    box-shadow: 0 0 10px var(--aika-accent-glow);
+    font-family: var(--aika-font-mono);
+    font-size: var(--aika-text-label);
+    line-height: 20px;
+    text-align: center;
+    box-sizing: border-box;
+}
+
+/* the chevron: down while folded, up while open */
+html.MillenniumWindow_FriendsList .friendGroup[data-aika-unread] > .groupName::after {
+    content: "";
+    grid-area: 1 / 4 / 3 / 5;
+    justify-self: center;
+    width: 7px;
+    height: 7px;
+    border: solid var(--aika-accent-bright);
+    border-width: 0 1.5px 1.5px 0;
+    transform: translateY(-2px) rotate(45deg);
+    transition: transform var(--aika-dur-fast) var(--aika-ease-hover);
+}
+
+html.MillenniumWindow_FriendsList .friendGroup[data-aika-unread] > .groupName:not(.Collapsed)::after {
+    transform: translateY(2px) rotate(-135deg);
+}
+
 /* A chat tab's close cross */
 html.MillenniumWindow_FriendChatWindow .ChatTab .CloseButton svg,
 html.MillenniumWindow_FriendChatWindow .ChatTab .CloseButton svg line {
