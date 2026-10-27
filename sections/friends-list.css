@@ -1671,6 +1671,21 @@ html.MillenniumWindow_FriendsList .friendGroup[data-aika-unread] .aika-unread-fa
     margin-inline-start: -10px;
 }
 
+/* Steam's own title text node can't take an ellipsis — it is hidden
+   (font-size 0 on the header) and drawn by .aika-unread-title, a copy */
+html.MillenniumWindow_FriendsList .friendGroup[data-aika-unread] > .groupName:has(> .aika-unread-title) {
+    font-size: 0;
+}
+
+html.MillenniumWindow_FriendsList .friendGroup[data-aika-unread] .aika-unread-title {
+    grid-area: 1 / 2 / 2 / 3;
+    min-width: 0;
+    overflow: hidden;
+    font-size: var(--aika-text-body);
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
 html.MillenniumWindow_FriendsList .friendGroup[data-aika-unread] .aika-unread-names {
     grid-area: 2 / 2 / 3 / 3;
     overflow: hidden;
@@ -2033,7 +2048,8 @@ html.MillenniumWindow_FriendsList .friendGroup.gameGroup > .friendsContainer[dat
     --aika-lobby-top: calc(var(--aika-lobby-line) + var(--aika-space-1));
     container-type: inline-size;   /* the capsules span it: 100cqw */
     display: grid;
-    grid-template-columns: repeat(auto-fill, var(--aika-lobby-tile));
+    /* the trailing 1fr: rows below span the whole card, not just the face columns */
+    grid-template-columns: repeat(auto-fill, var(--aika-lobby-tile)) minmax(0, 1fr);
     column-gap: var(--aika-lobby-gap);
     row-gap: calc(var(--aika-lobby-pad) * 2 + var(--aika-space-2));
     margin: var(--aika-space-1) var(--aika-space-2) var(--aika-space-2);
@@ -2172,6 +2188,15 @@ html.MillenniumWindow_FriendsList .friendGroup.gameGroup > .friendsContainer > .
     font-family: var(--aika-font-mono);
     font-size: var(--aika-text-label);
     color: var(--aika-ok);
+}
+
+/* a status too long for a narrow window: an ellipsis (Steam's label is a flex
+   box with clip — the text was cut mid-letter) */
+html.MillenniumWindow_FriendsList .friendGroup .friend .richPresenceLabel {
+    display: block;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
 }
 
 /* friends in the same game outside a lobby: rows under the capsules */

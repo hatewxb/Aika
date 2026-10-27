@@ -168,7 +168,9 @@
       const total = chats.reduce((n, c) => n + (c.unread_message_count || 0), 0);
       const faces = chats.slice(0, 3).map((c) => c.chat_partner?.persona?.avatar_url_medium || "");
       const names = chats.map((c) => c.name).join(" · ");
-      const sign = total ? [total, names, ...faces].join("|") : "";
+      // Steam's title is a bare text node — copied into a span that can be cut with an ellipsis
+      const title = [...head.childNodes].filter((n) => n.nodeType === 3).map((n) => n.textContent).join("").trim();
+      const sign = total ? [total, title, names, ...faces].join("|") : "";
       // the Recent Chats plugin's list doesn't follow new messages until its
       // own refresh (checked 2026-10-27) — press it when the count grows
       if (total > unreadSeen) document.querySelector(".rcp-refresh")?.click();
@@ -191,6 +193,7 @@
             img.alt = "";
             stack.append(img);
           }
+          add("aika-unread-title", title);
           add("aika-unread-names", names);
           add("aika-unread-total", String(total));
         }
