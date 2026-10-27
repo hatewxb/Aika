@@ -1149,36 +1149,168 @@ html.MillenniumWindow_FriendsList .confirmInviteRequestContainer .cancelAddFrien
     stroke: var(--aika-accent-bright);
 }
 
-html.MillenniumWindow_FriendsList .friendInviteContainer .friend {
-    border-radius: var(--aika-radius-md);
+/* Each request a business card (concept A, author 2026-10-27): Steam's row
+   (.friendInviteContainer: the friend, the ✓ / ✕ pair, the hidden block
+   choice) stacked into a column — a big face in an accent ring, the name, the
+   mutual friends line, two buttons with their own titles ("Accept" /
+   "Decline", Steam's title attribute) as text. */
+html.MillenniumWindow_FriendsList .friendGroup .friendInviteContainer {
+    position: relative;
+    flex-direction: column;
+    align-items: center;
+    margin: 0 var(--aika-space-3) var(--aika-space-3);
+    padding: var(--aika-space-5) var(--aika-space-4) var(--aika-space-4);
+    border-radius: var(--aika-radius-lg);
+    background: linear-gradient(180deg, var(--aika-accent-soft), var(--aika-accent-spot) 60%), var(--aika-bg-elevated);
+    box-shadow: inset 0 0 0 var(--aika-hairline) var(--aika-accent-glow);
+}
+
+html.MillenniumWindow_FriendsList .friendGroup .friendInviteContainer .friend {
+    flex-direction: column;
+    align-items: center;
+    gap: var(--aika-space-3);
+    width: 100%;
+    height: auto;
+    margin: 0;
+    padding: 0;
+    background: none;
+}
+
+/* the ring on the holder: the image itself is clipped by it */
+html.MillenniumWindow_FriendsList .friendInviteContainer .friend .avatarHolder {
+    width: auto;
+    height: auto;
+    padding: 0;
+    border-radius: 30%;
+    box-shadow: 0 0 0 3px var(--aika-bg-base), 0 0 0 5px var(--aika-accent), 0 0 18px var(--aika-accent-glow);
+}
+
+html.MillenniumWindow_FriendsList .friendInviteContainer .friend .avatarHolder img.avatar {
+    width: 64px;
+    height: 64px;
+}
+
+/* the status badge — a stranger's status isn't the point here */
+html.MillenniumWindow_FriendsList .friendInviteContainer .friend .avatarHolder::after {
+    display: none;
+}
+
+html.MillenniumWindow_FriendsList .friendInviteContainer .friend .labelHolder {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--aika-space-1);
+    width: 100%;
+    margin: 0;
+    text-align: center;
+}
+
+html.MillenniumWindow_FriendsList .friendInviteContainer .friend .statusAndName {
+    justify-content: center;
+}
+
+html.MillenniumWindow_FriendsList .friendInviteContainer .friend .playerName {
+    font-size: var(--aika-text-h3);
+    font-weight: var(--aika-weight-semibold);
+    color: var(--aika-fg);
 }
 
 html.MillenniumWindow_FriendsList .friendInviteContainer .inviteLabel {
+    -webkit-mask: none;   /* Steam fades the line's end — centered, it cut the text */
+    font-family: var(--aika-font-mono);
+    font-size: var(--aika-text-label);
     color: var(--aika-fg-subtle) !important;   /* Steam's #4f6168 is !important */
 }
 
+html.MillenniumWindow_FriendsList .friendInviteContainer .friendInviteButtons {
+    justify-content: center;
+    gap: var(--aika-space-2);
+    margin-top: var(--aika-space-4);
+    padding: 0;
+}
+
 html.MillenniumWindow_FriendsList .friendInviteButton:is(.acceptFriendInvite, .declineFriendInvite) {
-    border-color: var(--aika-border-strong);
-    color: var(--aika-fg-subtle);
+    display: inline-flex;
+    align-items: center;
+    gap: var(--aika-space-2);
+    width: auto;
+    height: 32px;
+    margin: 0;
+    padding: 0 var(--aika-space-4);
+    border: none;
+    border-radius: var(--aika-radius-md);
+    font-family: var(--aika-font-friends);
+    font-size: var(--aika-text-meta);
+    font-weight: var(--aika-weight-medium);
+    cursor: pointer;
     transition:
         background-color var(--aika-dur-fast) var(--aika-ease-hover),
-        border-color var(--aika-dur-fast) var(--aika-ease-hover);
+        box-shadow var(--aika-dur-fast) var(--aika-ease-hover),
+        color var(--aika-dur-fast) var(--aika-ease-hover);
+}
+
+html.MillenniumWindow_FriendsList .friendInviteButton:is(.acceptFriendInvite, .declineFriendInvite)::after {
+    content: attr(title);
+}
+
+html.MillenniumWindow_FriendsList .friendInviteButton:is(.acceptFriendInvite, .declineFriendInvite) svg {
+    width: 12px;
+    height: 12px;
 }
 
 html.MillenniumWindow_FriendsList .friendInviteButton:is(.acceptFriendInvite, .declineFriendInvite) svg :is(polyline, line, path) {
     stroke: currentColor;
 }
 
-html.MillenniumWindow_FriendsList .friendInviteButton.acceptFriendInvite:is(:hover, :not(.dim)) {
-    border-color: var(--aika-ok-mid);
-    background-color: var(--aika-ok-dim);
-    color: var(--aika-ok);
+/* "Accept" is the main action: accent; picked — brighter with a glow */
+html.MillenniumWindow_FriendsList .friendInviteButton.acceptFriendInvite {
+    background-color: var(--aika-accent-fill);
+    color: var(--aika-on-accent);
 }
 
-html.MillenniumWindow_FriendsList .friendInviteButton.declineFriendInvite:is(:hover, :not(.dim)) {
-    border-color: var(--aika-live);
+html.MillenniumWindow_FriendsList .friendInviteButton.acceptFriendInvite:is(:hover, :not(.dim), .bright) {
+    background-color: var(--aika-accent-fill-hover);
+    box-shadow: 0 0 14px var(--aika-accent-glow);
+}
+
+html.MillenniumWindow_FriendsList .friendInviteButton.acceptFriendInvite:is(:not(.dim), .bright) {
+    box-shadow: 0 0 0 2px var(--aika-bg-base), 0 0 0 3px var(--aika-accent), 0 0 14px var(--aika-accent-glow);
+}
+
+/* "Decline": an outline; hovered or picked — the live color */
+html.MillenniumWindow_FriendsList .friendInviteButton.declineFriendInvite {
+    background-color: var(--aika-transparent);
+    color: var(--aika-fg-muted);
+    box-shadow: inset 0 0 0 var(--aika-hairline) var(--aika-border-hover);
+}
+
+html.MillenniumWindow_FriendsList .friendInviteButton.declineFriendInvite:is(:hover, :not(.dim), .bright) {
     background-color: var(--aika-live-soft);
     color: var(--aika-live);
+    box-shadow: inset 0 0 0 var(--aika-hairline) var(--aika-live);
+}
+
+/* Declined (.declined): Steam blurs and darkens the friend (.friend.dim) and
+   slides in "Block user?" over it — on the card, centered over the face and
+   the name */
+html.MillenniumWindow_FriendsList .friendInviteContainer .friendInviteBlockContainer {
+    inset: var(--aika-space-5) var(--aika-space-4) auto;
+    justify-content: center;
+    align-items: center;
+    height: calc(64px + var(--aika-space-3) + 3em);
+}
+
+html.MillenniumWindow_FriendsList .friendInviteBlockContainer .DialogCheckbox {
+    margin: 0 var(--aika-space-3) 0 0;
+}
+
+html.MillenniumWindow_FriendsList .friendInviteBlockContainer .blockCommunicationLabel {
+    margin-top: 0;
+    text-shadow: none;
+}
+
+html.MillenniumWindow_FriendsList .friendInviteBlockContainer .DialogCheckbox .SVGIcon_DialogCheck path {
+    stroke: var(--aika-live);
 }
 
 html.MillenniumWindow_FriendsList .friendInviteBlockContainer .DialogCheckbox {
