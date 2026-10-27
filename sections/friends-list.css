@@ -921,7 +921,11 @@ html.MillenniumWindow_FriendsList .TabSearchButton input.friendSearchInput::plac
     font-style: normal;
 }
 
+/* Steam's ✕ is absolute over the field's end — in the flow, last */
 html.MillenniumWindow_FriendsList .TabSearchButton .friendSearchClear {
+    position: static;
+    order: 2;
+    flex: none;
     margin-inline-end: var(--aika-space-2);
 }
 
@@ -978,8 +982,10 @@ html.aika-fl-search-cmd.MillenniumWindow_FriendsList .TabSearchButton .socialSea
 
 html.aika-fl-search-cmd.MillenniumWindow_FriendsList .TabSearchButton .inputContainer[data-aika-found]::after {
     content: attr(data-aika-found);
+    order: 1;
     flex: none;
     margin-inline-end: var(--aika-space-2);
+    text-transform: none;   /* the tab caption is uppercase */
     font-family: var(--aika-font-mono);
     font-size: var(--aika-text-label);
     color: var(--aika-fg-subtle);
