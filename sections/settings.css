@@ -774,3 +774,76 @@ html .GenericConfirmDialog .Body:has(> input.TextInput[type="password"]) .ErrorT
 
 /* The field itself — components/input.css (shared with the Family View web page) */
 
+
+/* ==========================================================================
+   The launch option picker (screenshot 33): a game with several launch
+   options asks which one on Play — its own window (html.ModalDialogPopup,
+   titled with the game name). Captured 2026-10-27, Wallpaper Engine.
+   Readable classes: .LaunchOptionDialog > .AppNameHeader, .ListHeader,
+   .ListContainer (#23262e) > .ListItem (#3d4450 50 %, a native radio),
+   .SeeProperties, .PlayButton (#1a9fff), .CancelButton (#3d4450).
+   Steam is (0,3,0)–(0,4,0) with hashes — hence html.ModalDialogPopup.
+   ========================================================================== */
+
+html.ModalDialogPopup .LaunchOptionDialog {
+    background:
+        radial-gradient(60% 30% at 10% 0%, rgb(from var(--aika-accent) r g b / 0.10), transparent 70%),
+        var(--aika-bg-elevated);
+}
+
+html.ModalDialogPopup .LaunchOptionDialog .ListHeader {
+    color: var(--aika-fg-subtle);
+    font-family: var(--aika-font-mono);
+    font-size: var(--aika-text-label);
+    letter-spacing: var(--aika-tracking-label);
+}
+
+html.ModalDialogPopup .LaunchOptionDialog .ListContainer {
+    border-radius: var(--aika-radius-lg);
+    background: var(--aika-bg-deep);
+    box-shadow: inset 0 0 0 var(--aika-hairline) var(--aika-border);
+}
+
+html.ModalDialogPopup .LaunchOptionDialog .ListContainer .ListItem {
+    border-radius: var(--aika-radius-md);
+    background: var(--aika-surface);
+    transition: background-color var(--aika-dur-fast) var(--aika-ease-hover);
+}
+
+html.ModalDialogPopup .LaunchOptionDialog .ListContainer .ListItem:hover {
+    background: var(--aika-surface-hover);
+}
+
+html.ModalDialogPopup .LaunchOptionDialog .ListContainer .ListItem:has(input:checked) {
+    background: var(--aika-accent-soft);
+    box-shadow: inset 0 0 0 var(--aika-hairline) var(--aika-border-accent);
+}
+
+html.ModalDialogPopup .LaunchOptionDialog .ListItem input {
+    accent-color: var(--aika-accent);
+}
+
+html.ModalDialogPopup .LaunchOptionDialog .SeeProperties {
+    color: var(--aika-fg-subtle);
+}
+
+html.ModalDialogPopup .LaunchOptionDialog .PlayButton {
+    border-radius: var(--aika-radius-md);
+    background: var(--aika-accent-fill);
+    color: var(--aika-on-accent);
+}
+
+html.ModalDialogPopup .LaunchOptionDialog .PlayButton:hover {
+    background: var(--aika-accent-fill-hover);
+}
+
+html.ModalDialogPopup .LaunchOptionDialog .CancelButton {
+    border-radius: var(--aika-radius-md);
+    background: var(--aika-surface);
+    color: var(--aika-fg);
+    box-shadow: var(--aika-shadow-secondary);
+}
+
+html.ModalDialogPopup .LaunchOptionDialog .CancelButton:hover {
+    background: var(--aika-surface-hover);
+}
