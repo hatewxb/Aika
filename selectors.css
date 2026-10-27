@@ -1158,7 +1158,7 @@ html body #StoreTemplate :is(.YrxkWXNtDMU-, .bi47TlP7SSw-, .l3tXfL5lEk0-, .dstuY
     color: var(--aika-fg-subtle);
 }
 
-html body #StoreTemplate .i-xXuvHLioU- .SVGIcon_WindowsLogo * {
+html body #StoreTemplate :is(.i-xXuvHLioU-, .tWdu3iqQbcE-) .SVGIcon_WindowsLogo * {
     fill: var(--aika-fg-subtle);
 }
 
@@ -1197,6 +1197,77 @@ html body #StoreTemplate :is(.StoreOriginalPrice, .Y9w82-bhx7g-) {
 html body #StoreTemplate :is(.QYFii1vIT5Q-, .-nS4ZC0Bruo-) {
     color: var(--aika-fg);
     font-weight: var(--aika-weight-semibold);
+}
+
+/* [Store, new engine] "Your personal calendar" (store…/personalcalendar/,
+   screenshots 34–35). Verified: 2026-10-27:
+     .-eI1hK-YHzA- — the page (#0f1924 over the theme background);
+     .ag682w7MuHY- — a section ("Released in the last month", #1b2838, square);
+     .zc6E7zYwMVQ- — a capsule (#414d5a behind the art).
+   The hover card (a shared store component, .m0FGLQCyzgQ- > .tWdu3iqQbcE-):
+     .tWdu3iqQbcE- — the card (a gray-to-black gradient, square),
+     .XYegsy7Crd8- — its lower half (a blue-gray gradient);
+     .vlV-ugrnJq4- / ._4t0KfdpWxTA- — "Ignore" / "Wishlist" (a blue radial);
+     .MqX-UEo7sDI- — the description (#bbb); a.WidgetTag — tags (gray 25 %);
+     .jZgodbCVsZk-.pcNbwAL-ARI- .bVsoJRSuCQI- — a positive score (#66c0f4);
+     ._2nb60BYT6xM- / .CMAk-Lj-B-c- — the review count / date (#6b8aaa). */
+html body #StoreTemplate .-eI1hK-YHzA- {
+    background: none;
+}
+
+html body #StoreTemplate .-eI1hK-YHzA- .ag682w7MuHY- {
+    border: var(--aika-hairline) solid var(--aika-border);
+    border-radius: var(--aika-radius-xl);
+    background: var(--aika-card-bg);
+    box-shadow: var(--aika-shadow-card);
+}
+
+html body #StoreTemplate .zc6E7zYwMVQ- {
+    overflow: hidden;
+    border-radius: var(--aika-radius-lg);
+    background: var(--aika-bg-raised);
+}
+
+html body #StoreTemplate .tWdu3iqQbcE- {
+    overflow: hidden;
+    border: var(--aika-hairline) solid var(--aika-border);
+    border-radius: var(--aika-radius-lg);
+    background: var(--aika-bg-elevated);
+    box-shadow: var(--aika-shadow-panel);
+}
+
+html body #StoreTemplate .tWdu3iqQbcE- .XYegsy7Crd8- {
+    background: none;
+}
+
+html body #StoreTemplate .tWdu3iqQbcE- :is(.vlV-ugrnJq4-, ._4t0KfdpWxTA-) {
+    border-radius: var(--aika-radius-md);
+    background-color: var(--aika-bg-raised);
+    background-image: none;
+}
+
+/* The small capsule laid over the trailer (.NWpi8EWX2Q8-, square) */
+html body #StoreTemplate .tWdu3iqQbcE- .NWpi8EWX2Q8- {
+    overflow: hidden;
+    border-radius: var(--aika-radius-md);
+}
+
+html body #StoreTemplate .tWdu3iqQbcE- .MqX-UEo7sDI- {
+    color: var(--aika-fg-muted);
+}
+
+html body #StoreTemplate .tWdu3iqQbcE- a.WidgetTag {
+    border-radius: var(--aika-radius-xs);
+    background: var(--aika-surface);
+    color: var(--aika-fg-muted);
+}
+
+html body #StoreTemplate .jZgodbCVsZk-.pcNbwAL-ARI- .bVsoJRSuCQI- {
+    color: var(--aika-ok);
+}
+
+html body #StoreTemplate :is(._2nb60BYT6xM-, .CMAk-Lj-B-c-) {
+    color: var(--aika-fg-subtle);
 }
 
 /* ==========================================================================
