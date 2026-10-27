@@ -122,7 +122,12 @@
   // the new engine pages); no menu (community) — the full width
   const MENU = '[data-featuretarget="store-menu-v7"] [role="navigation"], #StoreTemplate [role="navigation"]';
   const fit = () => {
-    const menus = [...document.querySelectorAll(MENU)].map((m) => m.getBoundingClientRect()).filter((r) => r.width > 0 && r.top < 120);
+    const menus = [...document.querySelectorAll(MENU)].map((m) => {
+      // the classic store paints the capsule on the nav's parent, wider than
+      // the links (screenshot 38); the new engine's parent is the full-width strip
+      const p = m.parentElement.getBoundingClientRect();
+      return p.width > 0 && p.width < innerWidth - 1 ? p : m.getBoundingClientRect();
+    }).filter((r) => r.width > 0 && r.top < 120);
     const c = css();
     const left = parseFloat(c.getPropertyValue("--aika-url-capsule-left")) || 12;
     const gap = parseFloat(c.getPropertyValue("--aika-space-3")) || 12;
