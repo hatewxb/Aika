@@ -1,0 +1,108 @@
+/* ==========================================================================
+   Preloader: Horizon (theme settings → Main → Preloader).
+   Idea: reactbits "Horizon Bloom". A night sky over the rim of a planet that
+   glows in the three light spots, the glow breathing; a light sweep crosses
+   the Steam mark and a scanline runs down its ring; the text in Onest.
+   ========================================================================== */
+
+@import url("../sections/login-presets.css");
+
+@keyframes aika-pl-bloom {
+    0%, 100% { transform: translateX(-50%) scale(1); opacity: 0.7; }
+    50%      { transform: translateX(-50%) scale(1.08, 1.2); opacity: 1; }
+}
+
+@keyframes aika-pl-shine {
+    0%        { background-position: 100% 0; }
+    70%, 100% { background-position: 0 0; }
+}
+
+@keyframes aika-pl-scanline {
+    0%        { transform: translateX(-50%) translateY(0); opacity: 0; }
+    10%       { opacity: 1; }
+    70%       { transform: translateX(-50%) translateY(76px); opacity: 0; }
+    100%      { opacity: 0; }
+}
+
+/* The sky with a few stars */
+html:root .LoginStaticBackground::before {
+    background: var(--aika-pl-sky);
+}
+
+/* The glow rising over the rim (under the planet, which is a layer up) */
+html:root .LoginStaticBackground::after {
+    inset: auto;
+    top: 222px;   /* centred on the rim (window y 352) */
+    left: 50%;
+    width: 900px;
+    height: 260px;
+    border-radius: 50%;
+    background: var(--aika-pl-bloom);
+    filter: blur(30px);
+    transform: translateX(-50%);
+    animation: aika-pl-bloom var(--aika-pl-bloom-dur) var(--aika-ease-ambient) infinite;
+}
+
+/* The planet: its top edge lit (the status layer starts 30 px down) */
+html:root .Login .LoginStatusContainer::before {
+    content: "";
+    position: absolute;
+    z-index: -1;
+    top: 322px;
+    left: 50%;
+    width: 1400px;
+    height: 1400px;
+    border-radius: 50%;
+    background: var(--aika-pl-planet);
+    box-shadow: var(--aika-pl-rim);
+    transform: translateX(-50%);
+    pointer-events: none;
+}
+
+/* A faint ring for the scanline to run in */
+html:root .Login .SpinnerLoaderContainer::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 50%;
+    width: var(--aika-login-mark-box);
+    height: var(--aika-login-mark-box);
+    box-sizing: border-box;
+    border: 1px solid var(--aika-pl-track);
+    border-radius: 50%;
+    transform: translateX(-50%);
+    pointer-events: none;
+}
+
+/* The sweep over the mark */
+html:root .Login .SpinnerLoaderContainer::after {
+    background: var(--aika-pl-shine) 100% 0 / 300% 100%;
+    animation: aika-pl-shine var(--aika-pl-scan) var(--aika-ease-ambient) infinite;
+}
+
+/* The scanline (measured from the spinner container) */
+html:root .Login .SpinnerLoaderContainer > .LoadingStatus::before {
+    content: "";
+    position: absolute;
+    top: 12px;
+    left: 50%;
+    width: 76px;
+    height: 1px;
+    border: 0;
+    border-radius: 0;
+    background: var(--aika-pl-scanline);
+    box-shadow: 0 0 8px var(--aika-accent-glow);
+    opacity: 0;
+    animation: aika-pl-scanline var(--aika-pl-scan) var(--aika-ease-ambient) infinite;
+    pointer-events: none;
+}
+
+html:root .Login .LoadingStatus > .LoginStatus,
+html:root .Login .UserContainer > .PersonaName {
+    font-family: var(--aika-pl-font-onest);
+    letter-spacing: normal;
+}
+
+html:root .Login .LoadingStatus > .LoginStatus {
+    font-size: var(--aika-pl-text-lg);
+}

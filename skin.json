@@ -74,6 +74,32 @@
                 }
             }
         },
+        "Preloader": {
+            "description": "The \"Sign in to Steam\" window shown while Steam starts. Classic: the cover grid in your preset's hue and a comet ring. Terminal: falling hex glyphs and the Aika logo. Horizon: a glowing planet rim. Orbits: bits circling the mark. Aurora: soft aurora sheets. Frame: a beam running round the window and a heartbeat of dots. Glitter warp: a starfield flying out of the mark. All follow the color preset; seen at the next Steam start.",
+            "tab": "Main",
+            "default": "Classic",
+            "values": {
+                "Classic": {},
+                "Terminal": {
+                    "TargetCss": { "affects": ["^(Sign in to Steam|Войти в Steam)$"], "src": "options/preloader-terminal.css" }
+                },
+                "Horizon": {
+                    "TargetCss": { "affects": ["^(Sign in to Steam|Войти в Steam)$"], "src": "options/preloader-horizon.css" }
+                },
+                "Orbits": {
+                    "TargetCss": { "affects": ["^(Sign in to Steam|Войти в Steam)$"], "src": "options/preloader-orbits.css" }
+                },
+                "Aurora": {
+                    "TargetCss": { "affects": ["^(Sign in to Steam|Войти в Steam)$"], "src": "options/preloader-aurora.css" }
+                },
+                "Frame": {
+                    "TargetCss": { "affects": ["^(Sign in to Steam|Войти в Steam)$"], "src": "options/preloader-frame.css" }
+                },
+                "Glitter warp": {
+                    "TargetCss": { "affects": ["^(Sign in to Steam|Войти в Steam)$"], "src": "options/preloader-glitter.css" }
+                }
+            }
+        },
         "Wallet visibility": {
             "description": "The wallet balance next to the account name in the top bar.",
             "tab": "Elements",

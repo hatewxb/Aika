@@ -790,6 +790,29 @@
     --aika-login-caret: 1.05s;
     --aika-login-caret-width: 2px;
 
+    /* Preloader presets (options/preloader-*.css, sections/login-presets.css) */
+    --aika-pl-font-onest: var(--aika-font-friends);   /* Horizon, Aurora */
+    --aika-pl-font-wide: var(--aika-font-heavy);      /* Orbits, Glitter warp — at light weights */
+    --aika-pl-text-lg: 15px;
+    --aika-pl-weight-light: 300;
+    --aika-pl-rain-opacity: 0.5;
+    --aika-pl-ticks: 1s;               /* Terminal: one turn of the 12 ticks */
+    --aika-pl-logo-size: 30px;         /* Terminal: the "Aika" logo in the ring */
+    --aika-pl-bloom-dur: 7s;              /* Horizon: the glow over the rim breathing */
+    --aika-pl-scan: 2s;                /* Horizon: the sweep over the mark */
+    --aika-pl-orbit-1: 1.4s;           /* Orbits: the three dots round the mark */
+    --aika-pl-orbit-2: 2.1s;
+    --aika-pl-orbit-3: 3.2s;
+    --aika-pl-aurora: 9s;              /* Aurora: a sheet's sway */
+    --aika-pl-rays: 7s;                /* Aurora: the striations drifting sideways */
+    --aika-pl-hue: 16s;                /* Aurora: the palette travelling along the sheet */
+    --aika-pl-aurora-opacity: 0.36;
+    --aika-pl-line: 1.5s;              /* Aurora: the running segment under the mark */
+    --aika-pl-beam: 5s;                /* Frame: one lap round the window */
+    --aika-pl-beat: 1.3s;              /* Frame: one lub-dub of the dot matrix */
+    --aika-pl-warp: 4.5s;              /* Glitter warp: a star layer flying past */
+    --aika-pl-morph: 3.2s;             /* Glitter warp: the squircle breathing */
+
     /* The main window loading curtain (js/boot-reveal.js, sections/boot.css):
        motion.dev "Loading line reveal" values */
     --aika-boot-line: 2px;            /* half the slit width */

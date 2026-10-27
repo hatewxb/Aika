@@ -1,0 +1,92 @@
+/* ==========================================================================
+   Preloader: Glitter warp (theme settings → Main → Preloader).
+   Idea: reactbits "Glitter Warp". A starfield in the light spot colors flies
+   out of the Steam mark like a warp tunnel (three star layers growing from the
+   centre, out of step); round the mark a squircle of the three lights breathes
+   between a circle and a rounded square; the text in Unbounded.
+   ========================================================================== */
+
+@import url("../sections/login-presets.css");
+
+@keyframes aika-pl-warp {
+    0%   { transform: scale(0.25); opacity: 0; }
+    35%  { opacity: 1; }
+    100% { transform: scale(2.4); opacity: 0; }
+}
+
+@keyframes aika-pl-squircle {
+    0%, 100% { border-radius: 50%; transform: translateX(-50%) rotate(0deg); }
+    50%      { border-radius: 30%; transform: translateX(-50%) rotate(180deg); }
+}
+
+html:root .LoginStaticBackground::before {
+    background: var(--aika-pl-warp-core);
+}
+
+/* The star layers, all growing from the mark's centre (window 349, 175) */
+html:root .LoginStaticBackground::after,
+html:root .Login .LoginStatusContainer::after,
+html:root .Login .StatusThrobber::before {
+    content: "";
+    position: fixed;
+    z-index: -1;
+    inset: 0;
+    background: var(--aika-pl-stars);
+    transform-origin: 349px 175px;
+    animation: aika-pl-warp var(--aika-pl-warp) cubic-bezier(0.5, 0, 0.9, 0.6) infinite;
+    pointer-events: none;
+}
+
+html:root .Login .LoginStatusContainer::after {
+    animation-delay: calc(var(--aika-pl-warp) / -3);
+    rotate: 120deg;
+}
+
+html:root .Login .StatusThrobber::before {
+    animation-delay: calc(var(--aika-pl-warp) / -1.5);
+    rotate: 240deg;
+}
+
+/* The squircle: a ring of the three lights, breathing and turning */
+html:root .Login .SpinnerLoaderContainer::before {
+    content: "";
+    position: absolute;
+    top: 4px;
+    left: 50%;
+    width: calc(var(--aika-login-mark-box) - 8px);
+    height: calc(var(--aika-login-mark-box) - 8px);
+    box-sizing: border-box;
+    padding: 1.5px;
+    border-radius: 50%;
+    background: var(--aika-pl-squircle);
+    -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+    -webkit-mask-composite: xor;
+    mask: linear-gradient(#000 0 0) content-box exclude, linear-gradient(#000 0 0);
+    filter: drop-shadow(0 0 6px var(--aika-accent-glow));
+    transform: translateX(-50%);
+    animation: aika-pl-squircle var(--aika-pl-morph) var(--aika-ease-ambient) infinite;
+    pointer-events: none;
+}
+
+html:root .Login .LoadingStatus > .LoginStatus {
+    font-family: var(--aika-pl-font-wide);
+    font-size: var(--aika-text-meta);
+    font-weight: var(--aika-pl-weight-light);
+    letter-spacing: 0.14em;
+    color: var(--aika-fg);
+}
+
+html:root .Login .LoadingStatus > .LoginStatus::after {
+    width: 4px;
+    height: 4px;
+    margin-left: 0.5em;
+    vertical-align: 0.1em;
+    border-radius: 50%;
+}
+
+html:root .Login .UserContainer > .PersonaName {
+    font-family: var(--aika-pl-font-wide);
+    font-size: var(--aika-text-meta);
+    font-weight: var(--aika-weight-medium);
+    letter-spacing: 0.04em;
+}

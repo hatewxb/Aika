@@ -64,7 +64,7 @@
 @font-face {
     font-family: "Unbounded";
     src: url("./assets/fonts/Unbounded-Variable.ttf") format("truetype");
-    font-weight: 400 900;
+    font-weight: 200 900;   /* the file's full axis: the preloader presets use 300 */
     font-style: normal;
     font-display: fallback;
 }

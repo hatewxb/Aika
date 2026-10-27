@@ -67,6 +67,18 @@ html .Login.AnimatedBackground::before {
     pointer-events: none;
 }
 
+/* Steam's cover grid in the preset's hue (author 2026-10-27): a "color" blend
+   keeps the covers' light and dark, takes the accent's hue. The grid is a
+   sibling of .Login (.LoginAnimatedBackground, captured 2026-10-27) */
+html .LoginAnimatedBackground::after {
+    content: "";
+    position: fixed;
+    inset: 0;
+    background: var(--aika-login-grid-tint);
+    mix-blend-mode: color;
+    pointer-events: none;
+}
+
 html .Login .LoginStatusContainer {
     position: relative;
     isolation: isolate;

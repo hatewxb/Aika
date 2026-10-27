@@ -1,0 +1,101 @@
+/* ==========================================================================
+   Preloader: Terminal (theme settings → Main → Preloader).
+   Idea: reactbits "Terminal Rain". Hex glyphs fall in columns in the accent
+   (an animated SVG mask, sections/login-rain.css), the "Aika" logo replaces the
+   Steam mark inside a ring of 12 ticks lighting round, the status reads like a
+   console line in Geist Mono with a "> " prompt and a block caret.
+   ========================================================================== */
+
+@import url("../sections/login-presets.css");
+@import url("../sections/login-rain.css");
+
+:root {
+    --aika-pl-rain: var(--aika-pl-rain-live);
+}
+
+@media (prefers-reduced-motion: reduce) {
+    :root {
+        --aika-pl-rain: var(--aika-pl-rain-still);
+    }
+}
+
+@keyframes aika-pl-ticks {
+    to { transform: translateX(-50%) rotate(1turn); }
+}
+
+/* The rain, and a dark pool under the logo and the text so they read */
+html:root .LoginStaticBackground::before {
+    background: var(--aika-accent);
+    -webkit-mask: var(--aika-pl-rain) 0 0 / 700px 440px no-repeat;
+    mask: var(--aika-pl-rain) 0 0 / 700px 440px no-repeat;
+    opacity: var(--aika-pl-rain-opacity);
+}
+
+html:root .LoginStaticBackground::after {
+    background: var(--aika-pl-vignette);
+}
+
+/* 12 ticks: a comet trail cut by tick-shaped holes, turning in 12 steps so the
+   ticks stay put and only the light moves */
+html:root .Login .SpinnerLoaderContainer::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 50%;
+    width: var(--aika-login-mark-box);
+    height: var(--aika-login-mark-box);
+    border-radius: 50%;
+    background: conic-gradient(from -4deg, var(--aika-transparent) 0deg, var(--aika-accent) 300deg, var(--aika-accent-bright) 352deg), var(--aika-pl-tick-rest);
+    -webkit-mask: repeating-conic-gradient(from -4deg, #000 0 8deg, transparent 8deg 30deg), radial-gradient(farthest-side, transparent calc(100% - 11px), #000 calc(100% - 10px));
+    -webkit-mask-composite: source-in;
+    mask: repeating-conic-gradient(from -4deg, #000 0 8deg, transparent 8deg 30deg), radial-gradient(farthest-side, transparent calc(100% - 11px), #000 calc(100% - 10px));
+    mask-composite: intersect;
+    filter: drop-shadow(0 0 5px var(--aika-accent-glow));
+    transform: translateX(-50%);
+    animation: aika-pl-ticks var(--aika-pl-ticks) steps(12) infinite;
+    pointer-events: none;
+}
+
+/* The logo in place of the Steam mark: the header's classic wordmark in the accent */
+html:root .Login .SpinnerLoaderContainer::after {
+    content: "Aika";
+    top: 0;
+    width: var(--aika-login-mark-box);
+    height: var(--aika-login-mark-box);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: none;
+    -webkit-mask: none;
+    mask: none;
+    font: var(--aika-weight-medium) var(--aika-pl-logo-size) / 1 var(--aika-font-display);
+    letter-spacing: -0.02em;
+    color: var(--aika-accent-bright);
+    filter: drop-shadow(0 0 10px var(--aika-accent-glow));
+}
+
+/* The console line */
+html:root .Login .LoadingStatus > .LoginStatus {
+    font-family: var(--aika-font-mono);
+    font-size: var(--aika-text-meta);
+    font-weight: var(--aika-weight-regular);
+    color: var(--aika-fg);
+}
+
+html:root .Login .LoadingStatus > .LoginStatus::before {
+    content: "> ";
+    color: var(--aika-accent-bright);
+}
+
+html:root .Login .LoadingStatus > .LoginStatus::after {
+    width: 0.6em;
+    height: 1.05em;
+    vertical-align: -0.18em;
+    border-radius: 1px;
+}
+
+html:root .Login .UserContainer > .PersonaName {
+    font-family: var(--aika-font-mono);
+    font-weight: var(--aika-weight-medium);
+    letter-spacing: normal;
+}

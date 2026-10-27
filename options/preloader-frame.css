@@ -1,0 +1,78 @@
+/* ==========================================================================
+   Preloader: Frame (theme settings → Main → Preloader).
+   Idea: reactbits "Frame Border". A beam of the light spot colors runs round
+   the window's edge over a faint dot grid; round the Steam mark the dot-matrix
+   heartbeat of the address capsule (lub-dub rings through a dot grid), the
+   mark beating with it. Text as in Classic (Inter).
+   ========================================================================== */
+
+@import url("../sections/login-presets.css");
+
+@keyframes aika-pl-beam {
+    to { --aika-pl-angle: 360deg; }
+}
+
+@keyframes aika-pl-lubdub {
+    0%         { --aika-pl-pulse-r: 18px; }
+    24%        { --aika-pl-pulse-r: 76px; }
+    24.01%     { --aika-pl-pulse-r: 18px; }
+    48%, 100%  { --aika-pl-pulse-r: 76px; }
+}
+
+@keyframes aika-pl-beat {
+    0%, 26%, 100% { scale: 1; }
+    5%, 31%       { scale: 1.08; }
+}
+
+/* The dot grid, fading out to the edges */
+html:root .LoginStaticBackground::before {
+    background: var(--aika-pl-dots) 0 0 / 22px 22px;
+    -webkit-mask: radial-gradient(closest-side, #000, transparent);
+    mask: radial-gradient(closest-side, #000, transparent);
+}
+
+/* The beam: a turning conic gradient cut to a 1.5 px ring round the window */
+html:root .LoginStaticBackground::after {
+    inset: 6px;
+    padding: 1.5px;
+    border-radius: var(--aika-radius-lg);
+    background: var(--aika-pl-beam-fill), var(--aika-pl-beam-track);
+    -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+    -webkit-mask-composite: xor;
+    mask: linear-gradient(#000 0 0) content-box exclude, linear-gradient(#000 0 0);
+    filter: drop-shadow(0 0 6px var(--aika-accent-glow));
+    animation: aika-pl-beam var(--aika-pl-beam) linear infinite;
+}
+
+/* The dot matrix round the mark: a lit ring over the dimmed grid, cut to a circle */
+html:root .Login .SpinnerLoaderContainer::before {
+    content: "";
+    position: absolute;
+    top: -22px;
+    left: 50%;
+    width: calc(var(--aika-login-mark-box) + 44px);
+    height: calc(var(--aika-login-mark-box) + 44px);
+    border-radius: 50%;
+    background: radial-gradient(circle, var(--aika-accent-bright) 1.1px, var(--aika-transparent) 1.5px) center / 6px 6px;
+    -webkit-mask:
+        radial-gradient(circle closest-side, #000 70%, transparent 100%),
+        radial-gradient(circle,
+            var(--aika-loader-mask-rest) calc(var(--aika-pl-pulse-r) - 7px),
+            var(--aika-loader-mask-on) var(--aika-pl-pulse-r),
+            var(--aika-loader-mask-rest) calc(var(--aika-pl-pulse-r) + 7px));
+    -webkit-mask-composite: source-in;
+    mask:
+        radial-gradient(circle closest-side, #000 70%, transparent 100%),
+        radial-gradient(circle,
+            var(--aika-loader-mask-rest) calc(var(--aika-pl-pulse-r) - 7px),
+            var(--aika-loader-mask-on) var(--aika-pl-pulse-r),
+            var(--aika-loader-mask-rest) calc(var(--aika-pl-pulse-r) + 7px));
+    mask-composite: intersect;
+    transform: translateX(-50%);
+    animation: aika-pl-lubdub var(--aika-pl-beat) linear infinite;
+    pointer-events: none;
+}
+
+html:root .Login .SpinnerLoaderContainer::after {
+    animation: aika-pl-beat var(--aika-pl-beat) var(--aika-ease-hover) infinite;
+}

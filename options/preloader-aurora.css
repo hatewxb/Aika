@@ -1,0 +1,110 @@
+/* ==========================================================================
+   Preloader: Aurora (theme settings → Main → Preloader).
+   Idea: reactbits "Aurora Beam", toned down (author 2026-10-27): two slanted
+   sheets of aurora light in the three light spot colors — a bright lower edge
+   with a streak rising from it, vertical striations drifting sideways, the
+   palette travelling along, the sheets swaying. Under the Steam mark a thin
+   track with a running segment; the text in Onest.
+   ========================================================================== */
+
+@import url("../sections/login-presets.css");
+
+@keyframes aika-pl-sway {
+    0%   { transform: rotate(-8deg) translateY(0) skewY(0deg); }
+    50%  { transform: rotate(-6deg) translateY(-14px) skewY(-3deg); }
+    100% { transform: rotate(-9deg) translateY(6px) skewY(2deg); }
+}
+
+@keyframes aika-pl-rays {
+    to { -webkit-mask-position: 0 0, 90px 0, -136px 0; mask-position: 0 0, 90px 0, -136px 0; }
+}
+
+@keyframes aika-pl-hue {
+    to { background-position: 200% 0; }
+}
+
+@keyframes aika-pl-run {
+    from { transform: translateX(-32px); opacity: 0; }
+    15%  { opacity: 1; }
+    85%  { opacity: 1; }
+    to   { transform: translateX(40px); opacity: 0; }
+}
+
+/* The sheets: a palette band, cut by two masks — the vertical profile (bright
+   bottom edge, streak fading up) and the striations */
+html:root .LoginStaticBackground::before,
+html:root .LoginStaticBackground::after {
+    inset: auto;
+    top: 40px;
+    left: -20%;
+    width: 140%;
+    height: 230px;
+    background: var(--aika-pl-aurora-palette) 0 0 / 200% 100%;
+    -webkit-mask:
+        linear-gradient(to top, transparent 0, #000 10%, rgba(0, 0, 0, 0.35) 40%, transparent 100%),
+        repeating-linear-gradient(90deg, #000 0, rgba(0, 0, 0, 0.6) 4px, #000 9px) 0 0 / 9px 100%, repeating-linear-gradient(90deg, #000 0, rgba(0, 0, 0, 0.75) 17px, #000 34px) 0 0 / 34px 100%;
+    -webkit-mask-composite: source-in;
+    mask:
+        linear-gradient(to top, transparent 0, #000 10%, rgba(0, 0, 0, 0.35) 40%, transparent 100%),
+        repeating-linear-gradient(90deg, #000 0, rgba(0, 0, 0, 0.6) 4px, #000 9px) 0 0 / 9px 100%, repeating-linear-gradient(90deg, #000 0, rgba(0, 0, 0, 0.75) 17px, #000 34px) 0 0 / 34px 100%;
+    mask-composite: intersect;
+    opacity: var(--aika-pl-aurora-opacity);
+    transform: rotate(-8deg);
+    animation:
+        aika-pl-sway var(--aika-pl-aurora) var(--aika-ease-ambient) infinite alternate,
+        aika-pl-rays var(--aika-pl-rays) linear infinite,
+        aika-pl-hue var(--aika-pl-hue) linear infinite;
+}
+
+/* The second sheet: lower, thinner, out of step */
+html:root .LoginStaticBackground::after {
+    top: 120px;
+    height: 170px;
+    opacity: calc(var(--aika-pl-aurora-opacity) * 0.7);
+    animation-delay: -4s, -2s, -8s;
+    animation-direction: alternate-reverse, reverse, normal;
+}
+
+/* A soft floor glow so the bottom isn't empty */
+html:root .Login .LoginStatusContainer::before {
+    content: "";
+    position: absolute;
+    z-index: -1;
+    inset: 0;
+    background: var(--aika-pl-aurora-floor);
+    pointer-events: none;
+}
+
+/* The track under the mark + the running segment */
+html:root .Login .SpinnerLoaderContainer::before,
+html:root .Login .SpinnerLoaderContainer > .LoadingStatus::before {
+    content: "";
+    position: absolute;
+    top: calc(var(--aika-login-mark-box) + 8px);
+    left: calc(50% - 32px);
+    width: 64px;
+    height: 2px;
+    border: 0;
+    border-radius: var(--aika-radius-full);
+    background: var(--aika-pl-track);
+    opacity: 1;
+    pointer-events: none;
+}
+
+html:root .Login .SpinnerLoaderContainer > .LoadingStatus::before {
+    width: 24px;
+    left: calc(50% - 12px);
+    background: var(--aika-pl-line-run);
+    box-shadow: 0 0 8px var(--aika-accent-glow);
+    animation: aika-pl-run var(--aika-pl-line) var(--aika-ease) infinite;
+}
+
+html:root .Login .LoadingStatus > .LoginStatus,
+html:root .Login .UserContainer > .PersonaName {
+    font-family: var(--aika-pl-font-onest);
+    letter-spacing: normal;
+}
+
+html:root .Login .LoadingStatus > .LoginStatus {
+    font-size: var(--aika-pl-text-lg);
+}

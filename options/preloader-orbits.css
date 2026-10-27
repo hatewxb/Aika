@@ -1,0 +1,105 @@
+/* ==========================================================================
+   Preloader: Orbits (theme settings → Main → Preloader).
+   Idea: reactbits "Binary Orbits". Three tilted ellipses round the Steam mark
+   with 0 and 1 riding them (an animated SVG mask in the accent,
+   sections/login-orbits.css); round the mark itself three dots in the light
+   spot colors circle on three tracks; the text in Unbounded, widely spaced.
+   ========================================================================== */
+
+@import url("../sections/login-presets.css");
+@import url("../sections/login-orbits.css");
+
+:root {
+    --aika-pl-orbits: var(--aika-pl-orbits-live);
+}
+
+@media (prefers-reduced-motion: reduce) {
+    :root {
+        --aika-pl-orbits: var(--aika-pl-orbits-still);
+    }
+}
+
+@keyframes aika-pl-orbit {
+    to { transform: translateX(-50%) rotate(1turn); }
+}
+
+html:root .LoginStaticBackground::before {
+    background: var(--aika-accent-bright);
+    -webkit-mask: var(--aika-pl-orbits) 0 0 / 700px 440px no-repeat;
+    mask: var(--aika-pl-orbits) 0 0 / 700px 440px no-repeat;
+}
+
+/* A dark pool under the text and the account so the bits pass behind them */
+html:root .LoginStaticBackground::after {
+    background: var(--aika-pl-under-text);
+}
+
+/* The three tracks: a faint ring + a dot on it (one per layer, each its own speed) */
+html:root .Login .SpinnerLoaderContainer::before,
+html:root .Login .SpinnerLoaderContainer > .LoadingStatus::before,
+html:root .Login .SpinnerLoaderContainer > .LoadingStatus::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 50%;
+    width: var(--aika-login-mark-box);
+    height: var(--aika-login-mark-box);
+    border: 0;
+    border-radius: 50%;
+    background:
+        radial-gradient(circle at 50% 3px, var(--aika-pl-dot) 2.5px, transparent 3.5px),
+        radial-gradient(farthest-side, transparent calc(100% - 3.5px), var(--aika-pl-track) calc(100% - 3px), var(--aika-pl-track) calc(100% - 2px), transparent calc(100% - 1.5px));
+    filter: drop-shadow(0 0 4px var(--aika-pl-dot));
+    opacity: 1;
+    transform: translateX(-50%);
+    animation: aika-pl-orbit var(--aika-pl-orbit-3) linear infinite;
+    pointer-events: none;
+    --aika-pl-dot: var(--aika-light-3);
+}
+
+html:root .Login .SpinnerLoaderContainer > .LoadingStatus::before {
+    top: 7px;
+    width: calc(var(--aika-login-mark-box) - 14px);
+    height: calc(var(--aika-login-mark-box) - 14px);
+    animation-duration: var(--aika-pl-orbit-2);
+    animation-direction: reverse;
+    --aika-pl-dot: var(--aika-light-2);
+}
+
+html:root .Login .SpinnerLoaderContainer > .LoadingStatus::after {
+    top: 14px;
+    width: calc(var(--aika-login-mark-box) - 28px);
+    height: calc(var(--aika-login-mark-box) - 28px);
+    animation-duration: var(--aika-pl-orbit-1);
+    --aika-pl-dot: var(--aika-light-1);
+}
+
+/* The mark a little smaller, to clear the inner track */
+html:root .Login .SpinnerLoaderContainer::after {
+    top: calc((var(--aika-login-mark-box) - var(--aika-login-mark-size) * 0.8) / 2);
+    width: calc(var(--aika-login-mark-size) * 0.8);
+    height: calc(var(--aika-login-mark-size) * 0.8);
+}
+
+html:root .Login .LoadingStatus > .LoginStatus {
+    font-family: var(--aika-pl-font-wide);
+    font-size: var(--aika-text-meta);
+    font-weight: var(--aika-pl-weight-light);
+    letter-spacing: 0.14em;
+    color: var(--aika-fg);
+}
+
+html:root .Login .LoadingStatus > .LoginStatus::after {
+    width: 4px;
+    height: 4px;
+    margin-left: 0.5em;
+    vertical-align: 0.1em;
+    border-radius: 50%;
+}
+
+html:root .Login .UserContainer > .PersonaName {
+    font-family: var(--aika-pl-font-wide);
+    font-size: var(--aika-text-meta);
+    font-weight: var(--aika-weight-medium);
+    letter-spacing: 0.04em;
+}

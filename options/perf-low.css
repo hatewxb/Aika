@@ -204,3 +204,17 @@ html:root:root body.v6 .aika-pop-near,
 html:root body.v6 .has_takeover > :is(.fullscreen-bg, .static_takeover_ctn, .home_page_takeover_link) {
     animation: none;
 }
+
+/* Preloader presets (options/preloader-*.css): every layer stands still, the
+   SVG masks switch to their still frames (SMIL can't be stopped from CSS) */
+html:root {
+    --aika-pl-rain: var(--aika-pl-rain-still);
+    --aika-pl-orbits: var(--aika-pl-orbits-still);
+}
+
+html:root .LoginStaticBackground::before,
+html:root .LoginStaticBackground::after,
+html:root .Login :is(.LoginStatusContainer, .StatusThrobber, .SpinnerLoaderContainer, .LoadingStatus)::before,
+html:root .Login :is(.LoginStatusContainer, .SpinnerLoaderContainer, .LoadingStatus)::after {
+    animation: none;
+}

@@ -1,0 +1,82 @@
+/* ==========================================================================
+   sections/login-presets.css — the shared stage of the sign-in window presets
+   (theme settings → Main → Preloader; every preset but Classic @imports this
+   from options/preloader-*.css). Classic is sections/login.css alone.
+
+   Steam (captured via CDP 2026-10-27, readable classes):
+     .LoginStaticBackground                   — 700×440, Steam's gray gradient
+       .LoginAnimatedBackground               — the cover grid (client_login_bg_grid.jpg)
+       .Login                                 — the title strip + the status layer
+         .LoginStatusContainer (y 30) > .StatusThrobber > .SpinnerLoaderContainer (y 95)
+           img.Small — the mark box, 100×100, centered: window centre (349, 175)
+
+   Option files load BEFORE login.css, so every rule here carries html:root to
+   beat login.css's `html .Login …` (one class more).
+   Free layers a preset can paint: .LoginStaticBackground::before/::after
+   (full window, position: fixed, under everything), .LoginStatusContainer::before/
+   ::after, .StatusThrobber::before, .SpinnerLoaderContainer::before (the loader)
+   and ::after (the mark), .LoadingStatus::before/::after (measured from the
+   spinner container), .LoginStatus::before.
+   ========================================================================== */
+
+@property --aika-pl-angle {
+    syntax: "<angle>";
+    inherits: false;
+    initial-value: 0deg;
+}
+
+@property --aika-pl-pulse-r {
+    syntax: "<length>";
+    inherits: false;
+    initial-value: 0px;
+}
+
+/* Steam's grid and gray go: each preset paints its own sky */
+html:root .LoginAnimatedBackground {
+    display: none;
+}
+
+html:root .LoginStaticBackground {
+    isolation: isolate;
+    background: var(--aika-bg-base);
+}
+
+html:root .LoginStaticBackground::before,
+html:root .LoginStaticBackground::after {
+    content: "";
+    position: fixed;
+    z-index: -1;
+    inset: 0;
+    pointer-events: none;
+}
+
+/* Classic's haze, comet ring and ripple step aside (a preset brings back the
+   ones it needs with its own look) */
+html:root .Login .LoginStatusContainer::before,
+html:root .Login .SpinnerLoaderContainer::before,
+html:root .Login .SpinnerLoaderContainer > .LoadingStatus::before {
+    content: none;
+    inset: auto;
+    width: auto;
+    height: auto;
+    aspect-ratio: auto;
+    border: 0;
+    border-radius: 0;
+    background: none;
+    -webkit-mask: none;
+    mask: none;
+    opacity: 1;
+    transform: none;
+    animation: none;
+    filter: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    html:root .LoginStaticBackground::before,
+    html:root .LoginStaticBackground::after,
+    html:root .Login .LoginStatusContainer::before,
+    html:root .Login .LoginStatusContainer::after,
+    html:root .Login .StatusThrobber::before {
+        animation: none;
+    }
+}
