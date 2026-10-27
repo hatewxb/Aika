@@ -47,6 +47,16 @@ html body ._1Pb6PMh_3L5p5NzuUz0Pp9 > .PlayButton.ButtonChild::after {
     display: none;
 }
 
+/* [Library] The action button on a hovered cover (screenshot 37): Steam paints
+   the hover itself — "Update" / "Install" a blue radial (0,6,0), "Play" a green
+   one (0,5,0) — stronger than button.css. ._1aml4h4CSJbtrNbX4brUYs — the
+   disabled button (Steam keeps its own gray there). .HoversEnabled — the cover
+   capsule. Verified: 2026-10-27, Steam rule "._54Puc… .WYgDg… ._3Ajo…:hover". */
+html .HoversEnabled .LibraryItemBox .LibraryItemActionButton:hover:not(._1aml4h4CSJbtrNbX4brUYs):not(.Play),
+html .HoversEnabled .LibraryItemActionButton.Play:not(._1aml4h4CSJbtrNbX4brUYs):hover {
+    background: var(--aika-accent-fill-hover);
+}
+
 /* TODO: the main window's root container (Steam's opaque background) */
 /* TODO: the top bar / window title */
 /* TODO: the STORE / LIBRARY / COMMUNITY tabs */
