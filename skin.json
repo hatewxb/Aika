@@ -372,6 +372,10 @@
             "TargetJs": "js/toast.js"
         },
         {
+            "MatchRegexString": "^SP Overlay:.*",
+            "TargetCss": "overlay.css"
+        },
+        {
             "MatchRegexString": "^(Sign in to Steam|Войти в Steam)$",
             "TargetCss": "login.css"
         },

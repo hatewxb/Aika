@@ -153,3 +153,23 @@ body::after {
         animation: none;
     }
 }
+
+/* --------------------------------------------------------------------------
+   In-game overlay panels (GitHub issue #5): the overlay's popups ("About this
+   game" and others) are html.ModalDialogPopup windows, so they get main.css —
+   and this backdrop covered the running game. Their body has the readable
+   OverlayPopupBody; Steam paints the panel itself. No backdrop there.
+   A child-only :has() — cheap. The overlay's own window: overlay.css.
+   Verified: 2026-10-28, Fallout Shelter, the overlay's game panel.
+   -------------------------------------------------------------------------- */
+
+html:has(> body.OverlayPopupBody) {
+    background: var(--aika-transparent);
+}
+
+html:has(> body.OverlayPopupBody)::before,
+html:has(> body.OverlayPopupBody)::after,
+html:has(> body.OverlayPopupBody) body::before,
+html:has(> body.OverlayPopupBody) body::after {
+    content: none;
+}

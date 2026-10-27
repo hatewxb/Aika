@@ -1,0 +1,24 @@
+/* ==========================================================================
+   overlay.css — entry point for the in-game overlay's own window (Patch by
+   title "SP Overlay: <pid>/<browser>/<type>", the desktop and the gamepad
+   overlay alike; GitHub issue #5).
+   The window is composited over the running game: its document must stay
+   transparent. With game recording on, Aika's backdrop (background.css — the
+   light spots, grid and noise) covered the game and the overlay's controls.
+   Millennium's injection order into this window isn't fixed, hence
+   !important here and nowhere else. Steam's own dimming (the overlay
+   .Wrapper) and controls stay as they are.
+   ========================================================================== */
+
+html:root,
+html:root body,
+html:root .Wrapper.ForceOpaqueBackground {
+    background: transparent !important;
+}
+
+html:root::before,
+html:root::after,
+html:root body::before,
+html:root body::after {
+    content: none !important;
+}
