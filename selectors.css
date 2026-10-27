@@ -1147,6 +1147,21 @@ html body.v6 ._2FKdJT3nRLNX_ue4Zj-qdK ._3TtUDn-J9j6rkwHqjT-i4Y {
      .-nS4ZC0Bruo- — the item's final price; .hAT7-qU1HuU- — a recommendation
        capsule (3 px), .Y9w82-bhx7g- / .QYFii1vIT5Q- — its old / final price (lime).
    The buttons and dropdowns take the remapped scales (sections/store.css). */
+/* The cart's backdrop: .otLXAz3VIiY- — the first item's store page background
+   art at full width under a 1200 px column, black around it (the author:
+   "the background is broken"). Off — the theme background shows. */
+html body #StoreTemplate .otLXAz3VIiY- {
+    background-image: none !important; /* Steam: an inline style */
+}
+
+/* The new engine's Valve footer (footer._36eiL2GCxdc-, a solid dark strip) —
+   transparent with a fading line on top, as the community footer */
+html body #StoreTemplate footer._36eiL2GCxdc- {
+    border-top: var(--aika-hairline) solid;
+    border-image: var(--aika-divider) 1;
+    background: var(--aika-transparent);
+}
+
 html body #StoreTemplate :is(.i-xXuvHLioU-, .i1XZFikuzME-) {
     border-radius: var(--aika-radius-lg);
     background: var(--aika-card-bg);
