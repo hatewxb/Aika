@@ -93,29 +93,66 @@
         }
       }
     }
-    // A lobby as a squad capsule (concept D, author 2026-10-27). Steam marks
-    // the friends of one party .firstInGroup / .inGroup / .lastInGroup and adds
-    // a footer "+N with N more players" for the members who aren't friends.
-    // A game group with one lobby gets the lobby's activity on its container
-    // (the first status line that isn't the game's name) and the others'
-    // count on the lobby's last face — the CSS draws the capsule, the links
-    // between the faces and a "+N" face from them. Friends in the same game
-    // outside the lobby stay rows under the capsule. Attributes only: Steam's
-    // rows stay as they are.
+    // Lobbies as squad capsules (concept D, author 2026-10-27). Steam marks the
+    // friends of one party .firstInGroup / .inGroup / .lastInGroup; when the
+    // party has members who aren't friends, a footer (.SteamPlayerGroupFooter
+    // .lastInGroup, "+N with N more players") closes it instead of the last
+    // friend. Every lobby of a game group — one friend with strangers too —
+    // gets: on each face data-aika-lobby-tile and its row (--aika-lobby-row,
+    // one row per lobby); on the first face the activity (the first status
+    // line that isn't the game's name, data-aika-lobby-mode and the quoted
+    // --aika-lobby-mode for the CSS's content) and the capsule's
+    // size (--aika-lobby-n, the faces plus "+N"); on the last face
+    // data-aika-lobby-end — "+N", or "0" for no strangers (no link out of
+    // it). Friends outside a lobby stay rows under the capsules. Attributes
+    // and custom properties only: Steam's rows stay as they are.
     const mark = (el, key, value) => {
       if ((el.dataset[key] ?? null) === (value || null)) return;
       if (value) el.dataset[key] = value;
       else delete el.dataset[key];
     };
+    const prop = (el, key, value) => {
+      if (el.style.getPropertyValue(key) === value) return;
+      if (value) el.style.setProperty(key, value);
+      else el.style.removeProperty(key);
+    };
     for (const box of root.querySelectorAll(".friendGroup.gameGroup:not(.OtherGamesGroup) > .friendsContainer")) {
-      const lobby = [...box.querySelectorAll(":scope > .friend:is(.firstInGroup, .inGroup, .lastInGroup)")];
-      const one = lobby.length >= 2 && lobby.filter((r) => r.classList.contains("firstInGroup")).length === 1;
-      const label = one && [...lobby[0].querySelectorAll(".richPresenceLabel")].find((l) => !l.classList.contains("gameName"));
-      const mode = one ? ((label || lobby[0].querySelector(".richPresenceLabel"))?.textContent.trim() || " ") : "";
-      const extra = one ? parseInt(box.querySelector(".SteamPlayerGroupFooter .count")?.textContent.replace(/\D/g, ""), 10) || 0 : 0;
-      mark(box, "aikaLobby", mode);
-      for (const row of box.querySelectorAll(":scope > .friend[data-aika-lobby-extra]")) if (row !== lobby.at(-1)) mark(row, "aikaLobbyExtra", "");
-      if (one) mark(lobby.at(-1), "aikaLobbyExtra", extra ? "+" + extra : "");
+      const lobbies = [];
+      let cur = null;
+      for (const el of box.children) {
+        if (el.matches(".friend.firstInGroup")) {
+          cur = { faces: [el], extra: 0 };
+          lobbies.push(cur);
+          if (el.classList.contains("lastInGroup")) cur = null;
+        } else if (cur && el.matches(".friend:is(.inGroup, .lastInGroup)")) {
+          cur.faces.push(el);
+          if (el.classList.contains("lastInGroup")) cur = null;
+        } else if (cur && el.matches(".SteamPlayerGroupFooter")) {
+          cur.extra = parseInt(el.querySelector(".count")?.textContent.replace(/\D/g, ""), 10) || 0;
+          cur = null;
+        } else cur = null;
+      }
+      // one friend alone (no strangers) is no lobby — a plain row
+      const real = lobbies.filter((l) => l.faces.length > 1 || l.extra);
+      const want = new Map();   // face → [row, mode, n, end]
+      real.forEach((l, i) => {
+        const first = l.faces[0];
+        const label = [...first.querySelectorAll(".richPresenceLabel")].find((x) => !x.classList.contains("gameName"));
+        const mode = (label || first.querySelector(".richPresenceLabel"))?.textContent.trim() || " ";
+        const n = String(l.faces.length + (l.extra ? 1 : 0));
+        l.faces.forEach((f, k) => want.set(f, [String(i + 1), k ? "" : mode, k ? "" : n, k === l.faces.length - 1 ? (l.extra ? "+" + l.extra : "0") : ""]));
+      });
+      mark(box, "aikaLobbies", real.length ? String(real.length) : "");
+      for (const f of box.querySelectorAll(":scope > .friend")) {
+        const [row = "", mode = "", n = "", end = ""] = want.get(f) || [];
+        mark(f, "aikaLobbyTile", row ? "1" : "");
+        mark(f, "aikaLobbyMode", mode);
+        mark(f, "aikaLobbyEnd", end);
+        prop(f, "--aika-lobby-row", row);
+        prop(f, "--aika-lobby-n", n);
+        // the CSS draws it with content: var() — a quoted string
+        prop(f, "--aika-lobby-mode", mode ? JSON.stringify(mode) : "");
+      }
     }
 
     // "Unread messages" as one notice (concept B, author 2026-10-27): Steam's
