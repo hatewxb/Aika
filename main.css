@@ -39,6 +39,7 @@
 @import url("./sections/boot.css");
 @import url("./sections/plugins.css");
 @import url("./sections/millennium.css");
+@import url("./sections/overlay.css");
 
 /* 4. Unstable Steam classes — last, to override everything above */
 @import url("./selectors.css");

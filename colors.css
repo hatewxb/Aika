@@ -70,6 +70,12 @@ html:root {
     /* The video player panel over the frame (Apple-style: a dark "material"
        with blur) — author's request 2026-10-04, DESIGN.md §11 */
     --aika-player-material: rgb(from var(--aika-bg-raised) r g b / 0.52);
+    /* The in-game overlay: panels and buttons over the running game (not over
+       Steam), so they are see-through like the player capsule, but denser — text
+       sits on them. Pinned widgets drop the panel entirely (Steam's PinnedView). */
+    --aika-overlay-material: rgb(from var(--aika-bg-elevated) r g b / 0.9);
+    --aika-overlay-button: rgb(from var(--aika-bg-raised) r g b / 0.78);
+    --aika-overlay-button-hover: rgb(from var(--aika-bg-hover) r g b / 0.9);
     --aika-player-track: rgb(from var(--aika-fg) r g b / 0.22);
     --aika-player-buffer: rgb(from var(--aika-fg) r g b / 0.38);
 

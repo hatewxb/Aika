@@ -1,0 +1,268 @@
+/* ==========================================================================
+   sections/overlay.css — the in-game overlay (Shift+Tab).
+
+   Two kinds of windows, captured via CDP 2026-10-28 (Fallout Shelter):
+     - the overlay's own window ("SP Overlay: …", no main.css — overlay.css
+       brings this file): .Wrapper (Steam's dimming over the game) >
+       .TopSection (.CurrentTime, .CurrentDate, .ExitGameBtn, .BackToGame /
+       .BackToGameBtn) and .ToolbarContainer > .Toolbar > .ToolbarButton
+       (.Toggled — the panel is open; Steam #23262e / #1a9fff);
+     - its panels and widgets ("About this game", achievements, the clock…) —
+       html.ModalDialogPopup > body.OverlayPopupBody, they get main.css:
+       .OverlayPopup (a gray-blue radial, square; .PinnedView — pinned over the
+       game, Steam clears the panel) > .WindowControls (.PinWindowButton) +
+       content: .GameOverviewSection(.HasBackground) > .GameOverviewSectionHeader
+       (#3d4450) + .GameOverviewSectionChildren (.GuideListItem, .RecentNewsItem,
+       #23262e); achievements — .StatsBlock, .ProgressBar > .Percent (#1a9fff),
+       .Tab; the clock — .OverlayClock (radio .Button tabs, .DialogSlider_*).
+
+   Aika: the panels are the overlay material (see-through over the game,
+   colors.css), rounded with a hairline; sections are cards; accents instead
+   of Steam's blue. Pinned widgets stay bare — only their text shows.
+   Steam's strength here is (0,1,0)…(0,3,0) — html + the panel class beats it.
+   ========================================================================== */
+
+/* --------------------------------------------------------------------------
+   Panels and widgets
+   -------------------------------------------------------------------------- */
+
+html .OverlayPopup:not(.PinnedView) {
+    overflow: hidden;
+    border: var(--aika-hairline) solid var(--aika-border);
+    border-radius: var(--aika-radius-xl);
+    background: var(--aika-overlay-material);
+    box-shadow: var(--aika-shadow-panel);
+}
+
+html .OverlayPopup .GameOverview {
+    background: none;
+}
+
+html .OverlayPopup .FocusBar {
+    background: none;
+}
+
+html .OverlayPopup :is(.OverviewTitle, .HeaderContainer .Title) {
+    color: var(--aika-fg);
+    font-size: var(--aika-text-h2);
+    font-weight: var(--aika-weight-semibold);
+}
+
+/* The pin: Steam's #3d4450 when pinned — the accent */
+html .OverlayPopup .PinWindowButton.Pinned {
+    border-radius: var(--aika-radius-md);
+    background: var(--aika-accent-soft);
+    color: var(--aika-accent-bright);
+}
+
+/* "About this game": sections as cards, headers as a label strip */
+html .OverlayPopup .GameOverview .GameOverviewSection {
+    overflow: hidden;
+    border: var(--aika-hairline) solid var(--aika-border);
+    border-radius: var(--aika-radius-lg);
+    background: var(--aika-card-bg);
+}
+
+html .OverlayPopup .GameOverview .GameOverviewSectionHeader {
+    background: var(--aika-bg-raised);
+    color: var(--aika-fg-muted);
+    font-family: var(--aika-font-mono);
+    font-size: var(--aika-text-label);
+    letter-spacing: var(--aika-tracking-label);
+}
+
+html .OverlayPopup .GameOverview .GameOverviewSectionHeader svg,
+html .OverlayPopup .GameOverview .GameOverviewSectionHeader svg path {
+    fill: var(--aika-fg-subtle);
+}
+
+html .OverlayPopup .GameOverview .GameOverviewSectionChildren {
+    background: none;
+    color: var(--aika-fg-muted);
+}
+
+html .OverlayPopup .GameOverview .Playtime {
+    font-family: var(--aika-font-mono);
+}
+
+html .OverlayPopup .GameOverview :is(.GuideListItem, .RecentNewsItem) {
+    background: none;
+    border-top: var(--aika-hairline) solid var(--aika-border);
+    color: var(--aika-fg);
+    transition: background-color var(--aika-dur-fast) var(--aika-ease-hover);
+}
+
+html .OverlayPopup .GameOverview :is(.GuideListItem, .RecentNewsItem):hover {
+    background: var(--aika-surface-hover);
+}
+
+html .OverlayPopup .GameOverview :is(.GuideTitle, .EventDetailTitle) {
+    color: var(--aika-fg);
+}
+
+html .OverlayPopup .GameOverview .PostedTime {
+    color: var(--aika-fg-subtle);
+    font-family: var(--aika-font-mono);
+}
+
+html .OverlayPopup .GameOverview .UGCRatingStar path {
+    fill: var(--aika-warn);
+}
+
+/* Achievements: the summary card, the bars, the tabs */
+html .OverlayPopup .StatsBlock {
+    border: var(--aika-hairline) solid var(--aika-border);
+    border-radius: var(--aika-radius-lg);
+    background: var(--aika-card-bg);
+}
+
+html .OverlayPopup .StatsBlock .Label {
+    color: var(--aika-fg-muted);
+    font-family: var(--aika-font-mono);
+}
+
+/* The bar fills are inline: background: var(--gpColor-Blue, #1a9fff) */
+html .OverlayPopup {
+    --gpColor-Blue: var(--aika-accent-fill);
+}
+
+html .OverlayPopup .ProgressBar {
+    overflow: hidden;
+    border-radius: var(--aika-radius-full);
+}
+
+html .OverlayPopup .ProgressBar > .Percent {
+    border-radius: inherit;
+}
+
+/* The track — the .ProgressBar holding the fill */
+html .OverlayPopup .ProgressBar:has(> .Percent) {
+    background: var(--aika-surface);
+}
+
+html .OverlayPopup .Tab .TabTitle {
+    color: var(--aika-fg-muted);
+}
+
+/* The selected tab: Steam's white 15 % pill — the accent */
+html .OverlayPopup .Tab.Selected {
+    border-radius: var(--aika-radius-full);
+    background: var(--aika-accent-soft);
+}
+
+html .OverlayPopup .Tab.Selected .TabTitle {
+    color: var(--aika-accent-bright);
+}
+
+/* The list (#0e141b) and its rows (#23262e, Steam (0,1,0)) */
+html .OverlayPopup .AchievementList {
+    background: none;
+}
+
+html .OverlayPopup .AchievementListItemBase {
+    border: var(--aika-hairline) solid var(--aika-border);
+    border-radius: var(--aika-radius-lg);
+    background: var(--aika-card-bg);
+}
+
+html .OverlayPopup .AchievementListItemBase .AchievementIconWrapper {
+    overflow: hidden;
+    border-radius: var(--aika-radius-md);
+}
+
+html .OverlayPopup .AchievementListItemBase :is(.UnlockDate, .AchievementGlobalPercentage) {
+    color: var(--aika-fg-subtle);
+}
+
+/* The clock widget: tabs as a segmented control, the text-size slider */
+html .OverlayPopup .OverlayClock .Tabs .Button {
+    border-radius: var(--aika-radius-md);
+    background: var(--aika-surface);
+    color: var(--aika-fg-muted);
+}
+
+html .OverlayPopup .OverlayClock .Tabs .Button.Active {
+    background: var(--aika-accent-soft);
+    color: var(--aika-accent-bright);
+}
+
+html .OverlayPopup .OverlayClock .ResizeTextLabel {
+    color: var(--aika-fg-muted);
+}
+
+html .OverlayPopup .DialogSlider_Slider {
+    background: var(--aika-surface);
+}
+
+html .OverlayPopup .DialogSlider_Value {
+    background: var(--aika-accent-fill);
+}
+
+html .OverlayPopup .DialogSlider_Grabber {
+    background: var(--aika-fg);
+}
+
+/* The big clock — mono figures, readable when pinned over a light game */
+html .OverlayPopup .OverlayClock .CurrentTime {
+    font-family: var(--aika-font-mono);
+    font-variant-numeric: tabular-nums;
+    text-shadow: 0 1px 6px var(--aika-shadow-deep);
+}
+
+/* --------------------------------------------------------------------------
+   The overlay's own window (overlay.css): the top strip and the toolbar
+   -------------------------------------------------------------------------- */
+
+html .Wrapper .TopSection .CurrentTime {
+    font-family: var(--aika-font-mono);
+    font-variant-numeric: tabular-nums;
+    color: var(--aika-fg);
+}
+
+html .Wrapper .TopSection .CurrentDate {
+    color: var(--aika-fg-muted);
+}
+
+html .Wrapper .TopSection .KBShortcut {
+    color: var(--aika-fg-subtle);
+    font-family: var(--aika-font-mono);
+}
+
+html .Wrapper :is(.ExitGameBtn, .BackToGameBtn).DialogButton {
+    border-radius: var(--aika-radius-md);
+    background: var(--aika-overlay-button);
+    color: var(--aika-fg);
+    box-shadow: var(--aika-shadow-secondary);
+}
+
+html .Wrapper :is(.ExitGameBtn, .BackToGameBtn).DialogButton:hover {
+    background: var(--aika-overlay-button-hover);
+}
+
+/* The toolbar: a floating capsule of round-cornered icon buttons */
+html .Wrapper .ToolbarContainer .Toolbar {
+    padding: var(--aika-space-1);
+    border: var(--aika-hairline) solid var(--aika-border);
+    border-radius: var(--aika-radius-xl);
+    background: var(--aika-overlay-material);
+    box-shadow: var(--aika-shadow-panel);
+}
+
+html .Wrapper .Toolbar .ToolbarButton.DialogButton {
+    border-radius: var(--aika-radius-md);
+    background: var(--aika-transparent);
+    color: var(--aika-fg-muted);
+    box-shadow: none;
+    transition: background-color var(--aika-dur-fast) var(--aika-ease-hover), color var(--aika-dur-fast) var(--aika-ease-hover);
+}
+
+html .Wrapper .Toolbar .ToolbarButton.DialogButton:hover {
+    background: var(--aika-surface-hover);
+    color: var(--aika-fg);
+}
+
+html .Wrapper .Toolbar .ToolbarButton.DialogButton.Toggled {
+    background: var(--aika-accent-fill);
+    color: var(--aika-on-accent);
+    box-shadow: var(--aika-shadow-cta);
+}
