@@ -1128,6 +1128,77 @@ html body.v6 ._2FKdJT3nRLNX_ue4Zj-qdK ._3TtUDn-J9j6rkwHqjT-i4Y {
     color: var(--aika-fg-subtle);
 }
 
+/* [Store, new engine] The cart moved to #StoreTemplate (screenshot 31; the
+   body.v6 cart rules above no longer match). Verified: 2026-10-27, one item:
+     .i-xXuvHLioU- — the item list, .i1XZFikuzME- — the total (black 25 %, square);
+     .nfxC9n3FRVE- — "When purchasing a digital item…" (a light-blue radial light),
+       .FN7MZpXIvZw- / .YrxkWXNtDMU- — its text; .bi47TlP7SSw- — "Sales tax…";
+     .l3tXfL5lEk0- — breadcrumbs (#56707f); .dstuYF4eZu4- — "Add | Remove" (#606f7f);
+     .-nS4ZC0Bruo- — the item's final price; .hAT7-qU1HuU- — a recommendation
+       capsule (3 px), .Y9w82-bhx7g- / .QYFii1vIT5Q- — its old / final price (lime).
+   The buttons and dropdowns take the remapped scales (sections/store.css). */
+html body #StoreTemplate :is(.i-xXuvHLioU-, .i1XZFikuzME-) {
+    border-radius: var(--aika-radius-lg);
+    background: var(--aika-card-bg);
+    color: var(--aika-fg-muted);
+    box-shadow: var(--aika-shadow-card);
+}
+
+html body #StoreTemplate .nfxC9n3FRVE- {
+    border-radius: var(--aika-radius-lg);
+    background: var(--aika-card-accent-bg);
+    box-shadow: inset 0 0 0 var(--aika-hairline) var(--aika-border-accent);
+}
+
+html body #StoreTemplate .FN7MZpXIvZw- {
+    color: var(--aika-fg);
+}
+
+html body #StoreTemplate :is(.YrxkWXNtDMU-, .bi47TlP7SSw-, .l3tXfL5lEk0-, .dstuYF4eZu4-, .dstuYF4eZu4- > div) {
+    color: var(--aika-fg-subtle);
+}
+
+html body #StoreTemplate .i-xXuvHLioU- .SVGIcon_WindowsLogo * {
+    fill: var(--aika-fg-subtle);
+}
+
+html body #StoreTemplate .hAT7-qU1HuU- {
+    border-radius: var(--aika-radius-lg);
+    box-shadow: var(--aika-shadow-card);
+}
+
+html body #StoreTemplate .CapsuleBottomBar {
+    background: var(--aika-bg-elevated);
+}
+
+html body #StoreTemplate .StoreSalePriceWidgetContainer {
+    border-radius: 0;
+    background: var(--aika-bg-raised);
+    color: var(--aika-fg);
+    font-family: var(--aika-font-mono);
+}
+
+/* Discounts: Steam lime on #4c6b22 — Aika ok, as on the classic store */
+html body #StoreTemplate .StoreSaleDiscountBox {
+    border-radius: var(--aika-radius-xs);
+    background: var(--aika-ok);
+    color: var(--aika-bg-deep);
+    font-weight: var(--aika-weight-semibold);
+}
+
+html body #StoreTemplate .StoreSalePriceWidgetContainer .StoreSaleDiscountBox {
+    border-radius: 0;
+}
+
+html body #StoreTemplate :is(.StoreOriginalPrice, .Y9w82-bhx7g-) {
+    color: var(--aika-fg-muted);
+}
+
+html body #StoreTemplate :is(.QYFii1vIT5Q-, .-nS4ZC0Bruo-) {
+    color: var(--aika-fg);
+    font-weight: var(--aika-weight-semibold);
+}
+
 /* ==========================================================================
    [Store, new engine] Pages on #StoreTemplate (body without .v6) —
    the wishlist (store.steampowered.com/wishlist/…). CSS module hashes
@@ -1497,6 +1568,25 @@ html body #StoreTemplate .jaUFLgHnJNs-.H3NNmSoIJ0E- img.cFn3BDbAK-g- {
 html body #StoreTemplate a.EYF1OQwj3TE- .oWSo9BvK7oY- {
     color: var(--aika-fg-subtle);
     font-family: var(--aika-font-mono);
+}
+
+/* "Cart N" with items (a.EYF1OQwj3TE-.iXv7KYShgr4-, Steam: #1a9fff, 0,2,1) —
+   accent, as the old-layout rule in store.css. Verified: 2026-10-27, the cart. */
+html body #StoreTemplate a.EYF1OQwj3TE-.iXv7KYShgr4- {
+    border-radius: var(--aika-radius-md);
+    background: var(--aika-accent-fill);
+    color: var(--aika-on-accent);
+    box-shadow: var(--aika-shadow-cta);
+}
+
+html body #StoreTemplate a.EYF1OQwj3TE-.iXv7KYShgr4-:hover {
+    background: var(--aika-accent-fill-hover);
+    color: var(--aika-on-accent);
+}
+
+html body #StoreTemplate a.EYF1OQwj3TE-.iXv7KYShgr4- .oWSo9BvK7oY- {
+    color: inherit;
+    opacity: 0.7;
 }
 
 /* The default avatar frame (a gray gradient) */
