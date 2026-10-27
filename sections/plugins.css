@@ -364,15 +364,50 @@ html.friendsui-container .rcp-error-banner {
     box-shadow: inset 0 0 0 var(--aika-hairline) var(--aika-live-soft);
 }
 
+/* Not the friends list's flat rows (author 2026-10-27: "different from the
+   list"): every conversation a card, the last message in a bubble growing out
+   of the name; unread ones lit in the accent with a strip on the left. The
+   plugin marks only conversations with unread messages .unreadFriend. */
+html.friendsui-container .rcp-list-content {
+    padding-block: var(--aika-space-1);
+}
+
 html.friendsui-container .friendGroup .rcp-row {
-    margin: 0 var(--aika-space-2);
-    border-bottom: none;
-    border-radius: var(--aika-radius-md);
-    transition: background-color var(--aika-dur-fast) var(--aika-ease-hover);
+    position: relative;
+    margin: 0 var(--aika-space-3) var(--aika-space-2);
+    padding: var(--aika-space-2) var(--aika-space-3);
+    border: none;
+    border-radius: var(--aika-radius-lg);
+    background-color: var(--aika-surface);
+    box-shadow: inset 0 0 0 var(--aika-hairline) var(--aika-border);
+    overflow: hidden;
+    transition:
+        background-color var(--aika-dur-fast) var(--aika-ease-hover),
+        box-shadow var(--aika-dur-fast) var(--aika-ease-hover);
 }
 
 html.friendsui-container .friendGroup .rcp-row:hover {
     background-color: var(--aika-surface-hover);
+    box-shadow: inset 0 0 0 var(--aika-hairline) var(--aika-border-hover);
+}
+
+html.friendsui-container .friendGroup .unreadFriend > .rcp-row {
+    background-color: var(--aika-accent-tint);
+    box-shadow: inset 0 0 0 var(--aika-hairline) var(--aika-accent-glow);
+}
+
+html.friendsui-container .friendGroup .unreadFriend > .rcp-row:hover {
+    background-color: var(--aika-accent-soft);
+}
+
+html.friendsui-container .friendGroup .unreadFriend > .rcp-row::before {
+    content: "";
+    position: absolute;
+    inset: var(--aika-space-2) auto var(--aika-space-2) 0;
+    width: 3px;
+    border-radius: 0 var(--aika-radius-full) var(--aika-radius-full) 0;
+    background: var(--aika-accent);
+    box-shadow: 0 0 10px var(--aika-accent-glow);
 }
 
 html.friendsui-container .rcp-row:focus-visible {
@@ -384,6 +419,37 @@ html.friendsui-container :is(.rcp-avatar, .rcp-avatar-fallback) {
     border-color: var(--aika-border);
     border-radius: var(--aika-radius-md);
     background: var(--aika-bg-raised);
+}
+
+html.friendsui-container .rcp-copy.labelHolder .rcp-name {
+    font-family: var(--aika-font-friends);
+    font-weight: var(--aika-weight-semibold);
+}
+
+/* the last message: a bubble with its corner toward the name */
+html.friendsui-container .rcp-copy.labelHolder .rcp-snippet.status {
+    justify-self: start;
+    max-width: 100%;
+    margin-top: 3px;
+    padding: 3px var(--aika-space-2);
+    border-radius: 3px var(--aika-radius-md) var(--aika-radius-md) var(--aika-radius-md);
+    background: var(--aika-surface-hover);
+    box-sizing: border-box;
+}
+
+html.friendsui-container .unreadFriend .rcp-copy.labelHolder .rcp-snippet.status {
+    background: var(--aika-accent-soft);
+    color: var(--aika-fg);
+}
+
+/* the time over the count, both on the right */
+html.friendsui-container .rcp-meta {
+    align-self: stretch;
+    justify-content: space-between;
+}
+
+html.friendsui-container .rcp-unread.FriendMessageCount {
+    margin: 0;
 }
 
 html.friendsui-container .rcp-copy.labelHolder.online .rcp-name {
@@ -400,6 +466,10 @@ html.friendsui-container .rcp-copy.labelHolder.offline .rcp-name {
 
 html.friendsui-container .rcp-copy.labelHolder .rcp-snippet.status {
     color: var(--aika-fg-muted);
+}
+
+html.friendsui-container .rcp-time {
+    font-size: var(--aika-text-label);
 }
 
 html.friendsui-container :is(.rcp-time, .rcp-empty) {

@@ -344,32 +344,34 @@ html.MillenniumWindow_FriendsList .friendGroup .groupName .ExpandPlusMinus svg {
 }
 
 /* --- Online: compact rows ------------------------------------------------------ */
-/* One line: the avatar, the name, the status on the right in mono (B) */
-html.MillenniumWindow_FriendsList .friendGroup.onlineFriends .friend {
+/* One line: the avatar, the name, the status on the right in mono (B). Rows in
+   Steam's "Unread messages" group (.unreadFriend, not the Recent Chats plugin's
+   wrapper of the same name) look the same (2026-10-27). */
+html.MillenniumWindow_FriendsList :is(.friendGroup.onlineFriends, .unreadFriend:not(.rcp-row-wrapper)) .friend {
     margin-inline: var(--aika-space-2);
     padding-inline-start: var(--aika-space-2);
     border-radius: var(--aika-radius-md);
 }
 
-html.MillenniumWindow_FriendsList .friendGroup.onlineFriends .friend .labelHolder {
+html.MillenniumWindow_FriendsList :is(.friendGroup.onlineFriends, .unreadFriend:not(.rcp-row-wrapper)) .friend .labelHolder {
     display: flex;   /* a block in Steam */
     flex-direction: row;
     align-items: center;
     gap: var(--aika-space-3);
 }
 
-html.MillenniumWindow_FriendsList .friendGroup.onlineFriends .friend .statusAndName {
+html.MillenniumWindow_FriendsList :is(.friendGroup.onlineFriends, .unreadFriend:not(.rcp-row-wrapper)) .friend .statusAndName {
     flex: 1 1 auto;
     min-width: 0;
 }
 
-html.MillenniumWindow_FriendsList .friendGroup.onlineFriends .friend .richPresenceContainer {
+html.MillenniumWindow_FriendsList :is(.friendGroup.onlineFriends, .unreadFriend:not(.rcp-row-wrapper)) .friend .richPresenceContainer {
     flex: none;
     max-width: 45%;
     margin-inline-end: var(--aika-space-2);
 }
 
-html.MillenniumWindow_FriendsList .friendGroup.onlineFriends .friend .richPresenceLabel {
+html.MillenniumWindow_FriendsList :is(.friendGroup.onlineFriends, .unreadFriend:not(.rcp-row-wrapper)) .friend .richPresenceLabel {
     font-family: var(--aika-font-mono);
     font-size: var(--aika-text-label);
     color: var(--aika-fg-subtle);
@@ -394,6 +396,7 @@ html.MillenniumWindow_FriendsList .friendGroup.gameGroup:not(.OtherGamesGroup) >
 /* --- Pins (favorites, .quickAccessFriends) ----------------------------------- */
 /* A row of faces under the card, the name below in the muted UI face */
 html.MillenniumWindow_FriendsList .quickAccessFriends {
+    box-sizing: border-box;   /* Steam's width: calc(100% - 8px) plus our padding ran past the window */
     gap: var(--aika-space-1);
     padding: 0 var(--aika-space-3) var(--aika-space-2);
 }
@@ -565,12 +568,12 @@ html.MillenniumWindow_FriendsList .currentUserAvatar .avatarHolder:is(.online, .
 }
 
 /* Bigger names in the online rows too; "Online" in the accent like the name */
-html.MillenniumWindow_FriendsList .friendGroup.onlineFriends .friend .playerName {
+html.MillenniumWindow_FriendsList :is(.friendGroup.onlineFriends, .unreadFriend:not(.rcp-row-wrapper)) .friend .playerName {
     font-size: var(--aika-fl-row-name);
     font-weight: var(--aika-weight-medium);
 }
 
-html.MillenniumWindow_FriendsList .friendGroup.onlineFriends .friend .labelHolder.online:not(.awayOrSnooze) .richPresenceLabel {
+html.MillenniumWindow_FriendsList :is(.friendGroup.onlineFriends, .unreadFriend:not(.rcp-row-wrapper)) .friend .labelHolder.online:not(.awayOrSnooze) .richPresenceLabel {
     color: var(--aika-accent-bright);
 }
 
@@ -619,11 +622,11 @@ html.MillenniumWindow_FriendsList :is(.friendGroup.gameGroup .friend.ingame, .cu
 
 /* Online rows: the name and the status on the avatar's middle line (author
    2026-10-21) — one line, so centered */
-html.MillenniumWindow_FriendsList .friendGroup.onlineFriends .friend {
+html.MillenniumWindow_FriendsList :is(.friendGroup.onlineFriends, .unreadFriend:not(.rcp-row-wrapper)) .friend {
     align-items: center;
 }
 
-html.MillenniumWindow_FriendsList .friendGroup.onlineFriends .friend .labelHolder {
+html.MillenniumWindow_FriendsList :is(.friendGroup.onlineFriends, .unreadFriend:not(.rcp-row-wrapper)) .friend .labelHolder {
     align-self: center;
     align-items: center;
 }
@@ -1000,6 +1003,78 @@ html.MillenniumWindow_FriendsList .ChatRoomListGroupItem .ChatRoomGroupAvatar_in
     background: none;
     color: var(--aika-accent);
     -webkit-text-fill-color: currentColor;
+}
+
+/* --- Audit leftovers, a second account (2026-10-27) ---------------------------- */
+/* Unread counts (Steam: yellow on amber with a glow) and incoming friend
+   requests (a red disc) — one accent pill */
+html.friendsui-container :is(.FriendMessageCount, .friendRequestButton .requestsNumber) {
+    min-width: 18px;
+    height: 18px;
+    padding: 0 5px;
+    line-height: 18px;
+    border-radius: var(--aika-radius-full);
+    background: var(--aika-accent-fill);
+    color: var(--aika-on-accent);
+    box-shadow: 0 0 10px var(--aika-accent-glow);
+    font-family: var(--aika-font-mono);
+    font-size: var(--aika-text-label);
+    font-weight: var(--aika-weight-semibold);
+    text-align: center;
+    box-sizing: border-box;
+}
+
+html.MillenniumWindow_FriendsList .friendRequestButton svg :is(.friendHead, .friendHead circle, .friendBody, .friendArm) {
+    fill: var(--aika-fg-subtle);
+}
+
+html.MillenniumWindow_FriendsList .friendRequestButton:hover svg :is(.friendHead, .friendHead circle, .friendBody, .friendArm) {
+    fill: var(--aika-fg);
+}
+
+html.MillenniumWindow_FriendsList .friendRequestButton svg .redCircle {
+    fill: var(--aika-accent);
+}
+
+/* Empty pins: Steam's cyan dashed hint ran past the window's right edge and
+   its "Got it!" hung off the box's corner — the hint and the button in a row */
+html.MillenniumWindow_FriendsList .quickAccessFriends.emptyQuickAccess {
+    display: flex;
+    align-items: center;
+    gap: var(--aika-space-2);
+    height: auto;
+    padding-top: var(--aika-space-2);
+}
+
+html.MillenniumWindow_FriendsList .quickAccessFriends .quickAccessFriendsMessage {
+    flex: 1 1 auto;
+    min-width: 0;
+    margin: 0;
+    padding: var(--aika-space-2) var(--aika-space-3);
+    border: var(--aika-hairline) dashed var(--aika-border-strong);
+    border-radius: var(--aika-radius-md);
+    color: var(--aika-fg-subtle);
+    font-family: var(--aika-font-friends);
+}
+
+html.MillenniumWindow_FriendsList .quickAccessFriends.emptyQuickAccess .quickAccessFriendsMessageDismiss {
+    position: static;
+    flex: none;
+    padding: var(--aika-space-1) var(--aika-space-3);
+    border-radius: var(--aika-radius-md);
+    background: var(--aika-surface-hover);
+    color: var(--aika-fg-muted);
+    box-shadow: inset 0 0 0 var(--aika-hairline) var(--aika-border-hover);
+    font-family: var(--aika-font-mono);
+    font-size: var(--aika-text-label);
+    transition:
+        background-color var(--aika-dur-fast) var(--aika-ease-hover),
+        color var(--aika-dur-fast) var(--aika-ease-hover);
+}
+
+html.MillenniumWindow_FriendsList .quickAccessFriends.emptyQuickAccess .quickAccessFriendsMessageDismiss:hover {
+    background: var(--aika-accent-soft);
+    color: var(--aika-fg);
 }
 
 /* A chat tab's close cross */
