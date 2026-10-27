@@ -577,6 +577,22 @@ html.MillenniumWindow_FriendsList :is(.friendGroup.onlineFriends, .unreadFriend:
     color: var(--aika-accent-bright);
 }
 
+/* "Away" a step darker than "Online" — Steam's opacity .5 on the whole label
+   made it read as offline (author 2026-10-27) */
+html.MillenniumWindow_FriendsList :is(.friendGroup.onlineFriends, .unreadFriend:not(.rcp-row-wrapper)) .friend .labelHolder.online.awayOrSnooze {
+    opacity: 1;
+}
+
+html.MillenniumWindow_FriendsList :is(.friendGroup.onlineFriends, .unreadFriend:not(.rcp-row-wrapper)) .friend .labelHolder.online.awayOrSnooze .richPresenceLabel {
+    color: var(--aika-accent);
+    opacity: 0.75;
+}
+
+/* Unread rows: the count says enough, the status is on the avatar and below */
+html.MillenniumWindow_FriendsList .unreadFriend:not(.rcp-row-wrapper) .friend .richPresenceContainer {
+    display: none;
+}
+
 /* The party mark (js/friends.js: data-aika-party "+N" on the label block,
    from the friend's rich presence — Steam leaves it out of the mixed "In
    game" group): a people icon and the count in the ok color, like Steam's
