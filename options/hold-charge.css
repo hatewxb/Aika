@@ -1,0 +1,63 @@
+/* ==========================================================================
+   "Cover press: Charge" (theme settings → "Animations").
+   While a library cover is held, an accent line runs round its edge from the
+   top like a charge meter; once it closes the cover lights up from the edges.
+   The cover sinks as with "Press". js/cover-hold.js marks the held cover
+   (data-aika-held); the layer .aika-hold-fx is set up in components/card.css.
+   On "Performance: Low" the durations are zero — the ring is simply full.
+   ========================================================================== */
+
+@property --aika-hold-p {
+    syntax: "<angle>";
+    inherits: false;
+    initial-value: 0deg;
+}
+
+@keyframes aika-hold-charge {
+    from { --aika-hold-p: 0deg; }
+    to { --aika-hold-p: 360deg; }
+}
+
+@keyframes aika-hold-charged {
+    to { opacity: 1; }
+}
+
+html:root .Draggable .LibraryItemBox > .aika-hold-fx {
+    transition: opacity var(--aika-dur-base) var(--aika-ease);
+}
+
+html:root .Draggable .LibraryItemBox[data-aika-held] > .aika-hold-fx {
+    opacity: 1;
+    transition-duration: 0s;
+}
+
+html:root .Draggable .LibraryItemBox > .aika-hold-fx::before,
+html:root .Draggable .LibraryItemBox > .aika-hold-fx::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+}
+
+/* The line: a conic sweep cut down to a thin frame */
+html:root .Draggable .LibraryItemBox > .aika-hold-fx::after {
+    padding: var(--aika-hold-charge-width);
+    background: conic-gradient(var(--aika-hold-ring) var(--aika-hold-p), var(--aika-transparent) 0);
+    -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+}
+
+/* Charged: the edges glow */
+html:root .Draggable .LibraryItemBox > .aika-hold-fx::before {
+    box-shadow: inset 0 0 var(--aika-space-6) var(--aika-hold-glow);
+    opacity: 0;
+}
+
+html:root .Draggable .LibraryItemBox[data-aika-held] > .aika-hold-fx::after {
+    animation: aika-hold-charge var(--aika-hold-charge-dur) linear forwards;
+}
+
+html:root .Draggable .LibraryItemBox[data-aika-held] > .aika-hold-fx::before {
+    animation: aika-hold-charged var(--aika-dur-base) var(--aika-ease) var(--aika-hold-charge-dur) forwards;
+}

@@ -27,10 +27,11 @@ html:root .Draggable.HoversEnabled .LibraryItemBox:hover:active {
         perspective(var(--aika-tilt-perspective))
         rotateX(calc(var(--aika-tilt-rx, 0) * 1deg))
         rotateY(calc(var(--aika-tilt-ry, 0) * 1deg))
-        scale(var(--aika-tilt-s, 1));
+        scale(calc(var(--aika-tilt-s, 1) * var(--aika-hold-s)));
     transition:
         box-shadow var(--aika-dur-base) var(--aika-ease),
-        filter var(--aika-dur-base) var(--aika-ease-hover);
+        filter var(--aika-dur-base) var(--aika-ease-hover),
+        --aika-hold-s var(--aika-dur-fast) var(--aika-ease-hover);
 }
 
 /* The shadow falls away from the raised edge */

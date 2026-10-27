@@ -256,6 +256,23 @@
                 }
             }
         },
+        "Cover press": {
+            "description": "What a library cover does while you hold the mouse button on it. Press: it sinks a little. Ripple: rings of accent light run out from the press point. Charge: an accent line runs round its edge and the cover lights up once it closes. Off: nothing.",
+            "tab": "Animations",
+            "default": "Press",
+            "values": {
+                "Press": {},
+                "Ripple": {
+                    "TargetCss": { "affects": ["^Steam$"], "src": "options/hold-ripple.css" }
+                },
+                "Charge": {
+                    "TargetCss": { "affects": ["^Steam$"], "src": "options/hold-charge.css" }
+                },
+                "Off": {
+                    "TargetCss": { "affects": ["^Steam$"], "src": "options/hold-off.css" }
+                }
+            }
+        },
         "Cursor glow": {
             "description": "A soft accent glow under the cursor on large library blocks (game page panels, What's New, collections).",
             "tab": "Animations",

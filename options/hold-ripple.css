@@ -1,0 +1,68 @@
+/* ==========================================================================
+   "Cover press: Ripple" (theme settings → "Animations").
+   While a library cover is held, rings of accent light run out from the
+   press point one after another over a soft light under the finger; the cover
+   sinks as with "Press". js/cover-hold.js marks the held cover
+   (data-aika-held) and gives the point (--aika-hold-x / -y); the layer
+   .aika-hold-fx is set up in components/card.css. Option files load before
+   the theme entry — html:root wins over card.css.
+   ========================================================================== */
+
+@property --aika-hold-r {
+    syntax: "<length>";
+    inherits: false;
+    initial-value: 0px;
+}
+
+@keyframes aika-hold-ripple {
+    from { --aika-hold-r: 0px; opacity: 1; }
+    to { --aika-hold-r: var(--aika-hold-ripple-size); opacity: 0; }
+}
+
+html:root .Draggable .LibraryItemBox > .aika-hold-fx {
+    transition: opacity var(--aika-dur-base) var(--aika-ease);
+}
+
+html:root .Draggable .LibraryItemBox[data-aika-held] > .aika-hold-fx {
+    opacity: 1;
+    transition-duration: var(--aika-dur-fast);
+}
+
+/* The light under the finger */
+html:root .Draggable .LibraryItemBox > .aika-hold-fx::before,
+html:root .Draggable .LibraryItemBox > .aika-hold-fx::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+}
+
+html:root .Draggable .LibraryItemBox > .aika-hold-fx::before {
+    mix-blend-mode: screen;
+    background: radial-gradient(
+        circle at var(--aika-hold-x, 50%) var(--aika-hold-y, 50%),
+        var(--aika-hold-glow),
+        var(--aika-transparent) 55%
+    );
+}
+
+/* The rings */
+html:root .Draggable .LibraryItemBox > .aika-hold-fx::after {
+    background: radial-gradient(
+        circle at var(--aika-hold-x, 50%) var(--aika-hold-y, 50%),
+        var(--aika-transparent) calc(var(--aika-hold-r) - var(--aika-hold-ripple-width)),
+        var(--aika-hold-ring) var(--aika-hold-r),
+        var(--aika-transparent) calc(var(--aika-hold-r) + 1px)
+    );
+    opacity: 0;
+}
+
+html:root .Draggable .LibraryItemBox[data-aika-held] > .aika-hold-fx::after {
+    animation: aika-hold-ripple var(--aika-hold-ripple-dur) var(--aika-ease-hover) infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    html:root .Draggable .LibraryItemBox[data-aika-held] > .aika-hold-fx::after {
+        animation: none;
+    }
+}

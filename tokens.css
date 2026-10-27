@@ -478,6 +478,12 @@
     --aika-lift-md: -4px;        /* card hover (≤ 6 px, DESIGN.md §7.3) */
     --aika-nudge: 2px;           /* the → arrow shift on hover */
     --aika-press-scale: 0.98;
+    --aika-hold-scale: 0.96;     /* a held library cover ("Cover press"; "Off" sets 1) */
+    --aika-hold-ripple-dur: calc(var(--aika-dur-enter) * 2);     /* one ring of "Ripple" (1 s, the next one follows) */
+    --aika-hold-ripple-size: 170px;     /* how far a ring runs (a shelf cover is ~230 × 170) */
+    --aika-hold-ripple-width: 14px;     /* the ring thickness (soft inner edge) */
+    --aika-hold-charge-dur: calc(var(--aika-dur-enter) * 1.6);   /* "Charge": the line runs round the cover in 0.8 s */
+    --aika-hold-charge-width: 3px;
     /* "Play" keeps its hover rise and press in "Performance: Low" (author
        2026-10-16) — own tokens, since Low zeroes the shared ones */
     --aika-play-lift: -1px;

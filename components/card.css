@@ -93,22 +93,53 @@
    we leave them alone.
    -------------------------------------------------------------------------- */
 
+/* The press ("Cover press" setting): js/cover-hold.js marks the held cover
+   with data-aika-held (not :active — Chromium loses it after a drag out of
+   the window); every "Library covers" mode multiplies its transform by
+   --aika-hold-s. A registered number, so it eases even in "3D tilt", where
+   the transform itself has no transition. */
+@property --aika-hold-s {
+    syntax: "<number>";
+    inherits: false;
+    initial-value: 1;
+}
+
 html .Draggable .LibraryItemBox {
     border-radius: var(--aika-radius-lg);
     box-shadow: var(--aika-shadow-cover);
     transition:
         transform var(--aika-dur-base) var(--aika-ease),
         box-shadow var(--aika-dur-base) var(--aika-ease),
-        filter var(--aika-dur-base) var(--aika-ease-hover);
+        filter var(--aika-dur-base) var(--aika-ease-hover),
+        --aika-hold-s var(--aika-dur-base) var(--aika-ease);
 }
 
 html .Draggable.HoversEnabled .LibraryItemBox:hover {
-    transform: translateY(var(--aika-lift-md));
+    transform: translateY(var(--aika-lift-md)) scale(var(--aika-hold-s));
     box-shadow: var(--aika-shadow-cover-hover);
 }
 
-html .Draggable.HoversEnabled .LibraryItemBox:hover:active {
-    transform: translateY(var(--aika-lift-md)) scale(var(--aika-press-scale));
+html .Draggable .LibraryItemBox[data-aika-held] {
+    --aika-hold-s: var(--aika-hold-scale);
+    transition:
+        transform var(--aika-dur-base) var(--aika-ease),
+        box-shadow var(--aika-dur-base) var(--aika-ease),
+        filter var(--aika-dur-base) var(--aika-ease-hover),
+        --aika-hold-s var(--aika-dur-fast) var(--aika-ease-hover);
+}
+
+html .Draggable.HoversEnabled .LibraryItemBox[data-aika-held]:hover {
+    box-shadow: var(--aika-shadow-cover);
+}
+
+/* The effects' layer (js/cover-hold.js); drawn by options/hold-*.css */
+html .Draggable .LibraryItemBox > .aika-hold-fx {
+    position: absolute;
+    inset: 0;
+    z-index: 4;   /* over the art and the bottom info plate (4, earlier in the DOM), under Play (5) */
+    border-radius: inherit;
+    pointer-events: none;
+    opacity: 0;
 }
 
 /* The caption under the cover (.LibraryItemBoxSubscript, a sibling element):

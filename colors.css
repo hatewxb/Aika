@@ -216,6 +216,8 @@ html:root {
     --aika-banner-glow-soft: rgb(from var(--aika-accent-bright) r g b / 0.45);
 
     --aika-tilt-light: rgb(from var(--aika-ink) r g b / 0.16);       /* the glare on a tilted library cover */
+    --aika-hold-ring: var(--aika-accent-bright);    /* "Cover press": the ripple ring, the charge line */
+    --aika-hold-glow: rgb(from var(--aika-accent-bright) r g b / 0.45);          /* …the light under the finger / the charged cover */
     /* The floating library icons: lighter than the player material (0.52) —
        the content shows through (author's fix 2026-10-12: "a bit more transparent") */
     --aika-dock-material: rgb(from var(--aika-bg-raised) r g b / 0.32);

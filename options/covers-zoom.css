@@ -11,12 +11,8 @@
 }
 
 html:root .Draggable.HoversEnabled .LibraryItemBox:hover {
-    transform: none;
+    transform: scale(var(--aika-hold-s));
     box-shadow: var(--aika-shadow-cover-hover);
-}
-
-html:root .Draggable.HoversEnabled .LibraryItemBox:hover:active {
-    transform: scale(var(--aika-press-scale));
 }
 
 html:root .Draggable.HoversEnabled .LibraryItemBox img.Image {

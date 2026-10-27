@@ -1,0 +1,6 @@
+/* "Cover press: Off" (theme settings → "Animations"): a held library cover
+   stays as it is. Option files load before the theme entry — html:root wins
+   over tokens.css. */
+html:root {
+    --aika-hold-scale: 1;
+}
