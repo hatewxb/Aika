@@ -1114,6 +1114,20 @@ html.MillenniumWindow_FriendsList.aika-fl-pattern body::after {
     display: none;
 }
 
+/* Over a moving pattern the game cards' hairline got lost: an accent ring
+   sets them apart (author 2026-10-27). A real border: the art (absolute,
+   inset 0) fills only the padding box, so it can't cover it — an inset
+   shadow and an outline both went under the art. */
+html.MillenniumWindow_FriendsList.aika-fl-pattern :is(.friendGroup.OtherGamesGroup .friend.ingame, .friendGroup.gameGroup:not(.OtherGamesGroup)) {
+    border: var(--aika-hairline) solid var(--aika-accent-ring);
+    box-shadow: none;
+}
+
+html.MillenniumWindow_FriendsList.aika-fl-pattern .friendGroup.OtherGamesGroup .friend.ingame:hover {
+    border-color: var(--aika-accent);
+    box-shadow: none;
+}
+
 /* Steam paints the body black (html.client_chat_frame body, #000) — over the
    light spots and the pattern alike */
 html.MillenniumWindow_FriendsList.client_chat_frame body {
