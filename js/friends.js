@@ -65,6 +65,7 @@
     return 0;
   };
 
+  let unreadSeen = 0;
   const paint = (root) => {
     // a friend in game: the icon sits in the row
     for (const row of root.querySelectorAll(".friend.ingame")) {
@@ -168,6 +169,10 @@
       const faces = chats.slice(0, 3).map((c) => c.chat_partner?.persona?.avatar_url_medium || "");
       const names = chats.map((c) => c.name).join(" · ");
       const sign = total ? [total, names, ...faces].join("|") : "";
+      // the Recent Chats plugin's list doesn't follow new messages until its
+      // own refresh (checked 2026-10-27) — press it when the count grows
+      if (total > unreadSeen) document.querySelector(".rcp-refresh")?.click();
+      unreadSeen = total;
       // (React may rebuild the header and drop the added parts)
       if ((unread.dataset.aikaUnread || "") !== sign || (sign && !head.querySelector(":scope > .aika-unread-total"))) {
         head.querySelectorAll(":scope > [class^='aika-unread-']").forEach((el) => el.remove());
@@ -191,7 +196,7 @@
         }
         mark(unread, "aikaUnread", sign);
       }
-    }
+    } else unreadSeen = 0;   // all read: the next message refreshes again
 
     // a game group (two friends or more in one game): the icon in its header
     for (const group of root.querySelectorAll(".friendGroup.gameGroup:not(.OtherGamesGroup)")) {
