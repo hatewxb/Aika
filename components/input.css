@@ -124,6 +124,11 @@ html .DialogCheckbox svg path {
     fill: var(--aika-accent-bright);
 }
 
+/* The tick's outline is a blue gradient stroke (seen in Properties → DLC) */
+html .DialogCheckbox svg path {
+    stroke: none;
+}
+
 /* The ring around a toggle on hover/focus (Steam: white 30 %,
    ".hash:not(.hash):hover" (0,3,0) — we use :not() too) */
 html .Toggle:not(.Disabled):is(:hover, :focus-visible, .gpfocus) {

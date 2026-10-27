@@ -775,6 +775,43 @@ html .GenericConfirmDialog .Body:has(> input.TextInput[type="password"]) .ErrorT
 /* The field itself — components/input.css (shared with the Family View web page) */
 
 
+/* Properties → DLC (screenshot 39; captured 2026-10-27, Tomb Raider):
+   .DlcGrid (#23262e, square) — a grid: four .DlcHeader cells (#3d4450,
+   sorting by .TriangleUp — a gray border triangle), then rows of plain cells;
+   .DlcArt — the DLC capsule (.Gloss — a white sheen), .NameText (#dfe3e6).
+   Steam: (0,3,0) on the grid, (0,4,0) on the headers. */
+html :is(.PagedSettingsDialog, .AppProperties.PagedSettingsDialog .DialogBody) .DlcGrid {
+    overflow: hidden;
+    border: var(--aika-hairline) solid var(--aika-border);
+    border-radius: var(--aika-radius-lg);
+    background: var(--aika-card-bg);
+}
+
+html :is(.PagedSettingsDialog, .AppProperties.PagedSettingsDialog .DialogBody) .DlcGrid .DlcHeader {
+    background: var(--aika-bg-raised);
+    color: var(--aika-fg-subtle);
+    font-family: var(--aika-font-mono);
+    font-size: var(--aika-text-label);
+    letter-spacing: var(--aika-tracking-label);
+}
+
+html :is(.PagedSettingsDialog, .AppProperties.PagedSettingsDialog .DialogBody) .DlcGrid .TriangleUp {
+    border-bottom-color: var(--aika-fg-muted);
+}
+
+html :is(.PagedSettingsDialog, .AppProperties.PagedSettingsDialog .DialogBody) .DlcGrid .DlcArt {
+    overflow: hidden;
+    border-radius: var(--aika-radius-xs);
+}
+
+html :is(.PagedSettingsDialog, .AppProperties.PagedSettingsDialog .DialogBody) .DlcGrid .DlcArt .Gloss {
+    display: none;
+}
+
+html :is(.PagedSettingsDialog, .AppProperties.PagedSettingsDialog .DialogBody) .DlcGrid .NameText {
+    color: var(--aika-fg);
+}
+
 /* ==========================================================================
    The launch option picker (screenshot 33): a game with several launch
    options asks which one on Play — its own window (html.ModalDialogPopup,
