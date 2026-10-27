@@ -246,9 +246,27 @@
         if (s && s.bCompactFriendsList !== (want === "compact")) store.BUpdateFriendsSettings({ ...s, bCompactFriendsList: want === "compact" });
       } catch { /* the store's shape changed — Steam's setting stays as it is */ }
     };
+    // "Friend search: Command line" — a class for the CSS, and the found count
+    // next to the field (the rows Steam shows in the search results)
+    const FOUND = (() => {
+      try { return /^russian/i.test(new URLSearchParams(window.opener.location.search).get("LANGUAGE")) ? "найдено" : "found"; } catch { return "found"; }
+    })();
+    const search = () => {
+      const cmd = getComputedStyle(document.documentElement).getPropertyValue("--aika-fl-search").trim() === "cmd";
+      document.documentElement.classList.toggle("aika-fl-search-cmd", cmd);
+      const box = document.querySelector(".TabSearchButton .inputContainer");
+      const input = box?.querySelector("input.friendSearchInput");
+      const text = cmd && input?.value.trim() ? `${document.querySelectorAll(".friendlistListContainer:not(.rcp-list) .friend").length} ${FOUND}` : "";
+      if (box && (box.dataset.aikaFound || "") !== text) {
+        if (text) box.dataset.aikaFound = text;
+        else delete box.dataset.aikaFound;
+      }
+    };
+    document.addEventListener("input", (e) => { if (e.target.matches?.("input.friendSearchInput")) requestAnimationFrame(search); }, true);
     let state = "";
     const sync = () => {
       density();
+      search();
       const want = read();
       const next = cell[want] ? want : "";
       const key = [next, still, ...colors].join("|");

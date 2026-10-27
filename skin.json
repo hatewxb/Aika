@@ -166,6 +166,17 @@
                 "List": {}
             }
         },
+        "Friend search": {
+            "description": "The search in the Friends tab. Magnifier: a round button that stretches into a field when clicked. Command line: always a field, monospace, with a \"›\" prompt and the number of friends found.",
+            "tab": "Friends list",
+            "default": "Magnifier",
+            "values": {
+                "Magnifier": {},
+                "Command line": {
+                    "TargetCss": { "affects": [".*"], "src": "options/friends-search-cmd.css" }
+                }
+            }
+        },
         "Friends list layout": {
             "description": "Steam's own compact friends list, switched from here. As in Steam: the theme leaves Steam's setting alone.",
             "tab": "Friends list",

@@ -418,26 +418,53 @@ html.MillenniumWindow_FriendsList .quickAccessFriends .friend .playerName {
 /* Steam: a tab strip with an accent line under the active tab. Here — pills:
    the active one a raised surface, no line; the search field inside the
    Friends tab as our input. */
+/* (author 2026-10-27: the Friends tab was one box around its caption, the
+   search and both icons.) The Friends tab is display: contents — its
+   caption becomes a tab pill beside "Chats" (Recent Chats plugin), its
+   buttons a group on the right; a click on the caption still reaches the
+   tab's handler (the DOM is unchanged). */
 html.MillenniumWindow_FriendsList .socialTabContainer {
-    gap: var(--aika-space-2);
+    align-items: center;
+    gap: var(--aika-space-1);
     padding: 0 var(--aika-space-3) var(--aika-space-2);
     border: none;
     box-shadow: none;
 }
 
-html.MillenniumWindow_FriendsList .socialTabContainer .socialListTab {
+html.MillenniumWindow_FriendsList .socialTabContainer .friendTab:not(.rcp-tab-button) {
+    display: contents;
+}
+
+html.MillenniumWindow_FriendsList .socialTabContainer .friendTab:not(.rcp-tab-button) > .tabLabel,
+html.MillenniumWindow_FriendsList .socialTabContainer .rcp-tab-button {
+    display: flex;
+    flex: none;
+    align-items: center;
+    height: 30px;
+    padding: 0 var(--aika-space-3);
     border-radius: var(--aika-radius-md);
+    background: none;
+    color: var(--aika-fg-subtle);
+    box-shadow: none;
+    cursor: pointer;
     transition:
         background-color var(--aika-dur-fast) var(--aika-ease-hover),
         color var(--aika-dur-fast) var(--aika-ease-hover);
 }
 
-html.MillenniumWindow_FriendsList .socialTabContainer .socialListTab.activeTab {
+html.MillenniumWindow_FriendsList .socialTabContainer .rcp-tab-button {
+    order: 1;
+}
+
+html.MillenniumWindow_FriendsList .socialTabContainer .friendTab.activeTab:not(.rcp-tab-button) > .tabLabel,
+html.MillenniumWindow_FriendsList .socialTabContainer .rcp-tab-button.activeTab {
     background-color: var(--aika-surface-hover);
+    color: var(--aika-fg);
     box-shadow: inset 0 0 0 var(--aika-hairline) var(--aika-border-hover);
 }
 
-html.MillenniumWindow_FriendsList .socialTabContainer .socialListTab:not(.activeTab):hover {
+html.MillenniumWindow_FriendsList .socialTabContainer .friendTab:not(.activeTab, .rcp-tab-button) > .tabLabel:hover,
+html.MillenniumWindow_FriendsList .socialTabContainer .rcp-tab-button:not(.activeTab):hover {
     background-color: var(--aika-surface);
     color: var(--aika-fg-muted);
 }
@@ -448,10 +475,49 @@ html.MillenniumWindow_FriendsList .socialTabContainer .socialListTab .tabLabel {
     font-weight: var(--aika-weight-medium);
 }
 
-html.MillenniumWindow_FriendsList .friendsTabButtonsContainer .TabSearchButton {
-    border-radius: var(--aika-radius-md);
-    background-color: var(--aika-bg-raised);
-    box-shadow: inset 0 0 0 var(--aika-hairline) var(--aika-border-hover);
+/* the buttons: the search, requests, add a friend — round, on the right */
+html.MillenniumWindow_FriendsList .socialTabContainer .friendsTabButtonsContainer {
+    order: 2;
+    display: flex;
+    align-items: center;
+    gap: var(--aika-space-1);
+    margin: 0 0 0 auto;
+    padding: 0;
+}
+
+html.MillenniumWindow_FriendsList .friendsTabButtonsContainer :is(.friendRequestButton, .addFriendButton) {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 30px;
+    height: 30px;
+    margin: 0;
+    padding: 0;
+    border-radius: var(--aika-radius-full);
+    transition: background-color var(--aika-dur-fast) var(--aika-ease-hover);
+}
+
+html.MillenniumWindow_FriendsList .friendsTabButtonsContainer :is(.friendRequestButton, .addFriendButton):hover {
+    background-color: var(--aika-surface-hover);
+}
+
+html.MillenniumWindow_FriendsList .friendsTabButtonsContainer :is(.friendRequestButton, .addFriendButton) svg {
+    width: 18px;
+    height: 18px;
+}
+
+/* the requests count: a small pill on the button's corner, not over the icon */
+html.MillenniumWindow_FriendsList .friendsTabButtonsContainer .friendRequestButton .requestsNumber {
+    position: absolute;
+    top: -2px;
+    right: -4px;
+    min-width: 16px;
+    height: 16px;
+    padding: 0 4px;
+    font-size: 10px;
+    line-height: 16px;
+    box-shadow: 0 0 0 2px var(--aika-bg-base);
 }
 
 /* --- Group chats ----------------------------------------------------------------- */
@@ -741,50 +807,182 @@ html.MillenniumWindow_FriendsList .window_resize_grip {
     opacity: 0.4;
 }
 
-/* The search, closed (ROADMAP 13c): Steam stretches an empty button with the
-   magnifier at its right end — it read as a blank field. A field like the
-   concept's: the magnifier first, then Steam's own tooltip text ("Search
-   friends") as the placeholder; a click opens the real input as before. */
-html.MillenniumWindow_FriendsList .TabSearchButton:has(> .tabSearchTransitionGroup:empty) {
-    cursor: text;
-    transition: box-shadow var(--aika-dur-fast) var(--aika-ease-hover);
+/* --- The friend search (author 2026-10-27) ------------------------------------- */
+/* Steam: .TabSearchButton (.tabSearchTransitionGroup — empty while closed, the
+   form with input.friendSearchInput + .friendSearchClear while open —
+   then .searchIconButton); open, the tab gets .TabSearchActive and the
+   "Friends" caption an inline width of ~1 px.
+   Default — concept B, "an expanding magnifier": closed, a round button
+   next to the caption; open, it stretches into a pill with an accent ring,
+   the caption stays. The magnifier leads in both (order: -1). */
+html.MillenniumWindow_FriendsList .friendsTabButtonsContainer .TabSearchButton {
+    flex: none;
+    align-items: center;
+    width: 30px;
+    max-width: none;
+    height: 30px;
+    margin: 0;
+    border-radius: var(--aika-radius-full);
+    background-color: var(--aika-surface);
+    box-shadow: inset 0 0 0 var(--aika-hairline) var(--aika-border-hover);
+    cursor: pointer;
+    overflow: hidden;
+    transition:
+        width var(--aika-dur-expand) var(--aika-ease-fold),
+        box-shadow var(--aika-dur-fast) var(--aika-ease-hover),
+        background-color var(--aika-dur-fast) var(--aika-ease-hover);
 }
 
-html.MillenniumWindow_FriendsList .TabSearchButton:has(> .tabSearchTransitionGroup:empty):hover {
+html.MillenniumWindow_FriendsList .friendsTabButtonsContainer .TabSearchButton:hover {
+    background-color: var(--aika-surface-hover);
     box-shadow: inset 0 0 0 var(--aika-hairline) var(--aika-border-strong);
+}
+
+html.MillenniumWindow_FriendsList .TabSearchActive .friendsTabButtonsContainer .TabSearchButton {
+    width: min(240px, 45vw);
+    background-color: var(--aika-bg-raised);
+    box-shadow: inset 0 0 0 var(--aika-hairline) var(--aika-accent-ring), 0 0 14px var(--aika-accent-tint);
+    cursor: text;
+}
+
+/* Steam squeezes the caption with an inline width while searching — keep it */
+html.MillenniumWindow_FriendsList .friendTab.TabSearchActive > .tabLabel {
+    width: auto !important;
+    opacity: 1 !important;
 }
 
 html.MillenniumWindow_FriendsList .TabSearchButton > .tabSearchTransitionGroup:empty {
     display: none;
 }
 
-html.MillenniumWindow_FriendsList .TabSearchButton:has(> .tabSearchTransitionGroup:empty) > .searchIconButton {
-    display: flex;
-    align-items: center;
+html.MillenniumWindow_FriendsList .TabSearchButton > .tabSearchTransitionGroup {
     flex: 1 1 auto;
-    gap: var(--aika-space-2);
-    box-sizing: border-box;   /* with the padding it ran 16 px past the field's left edge */
-    width: 100%;
     min-width: 0;
-    padding-inline: var(--aika-space-2);
 }
 
-html.MillenniumWindow_FriendsList .TabSearchButton:has(> .tabSearchTransitionGroup:empty) > .searchIconButton svg {
+html.MillenniumWindow_FriendsList .TabSearchButton > .searchIconButton {
+    order: -1;
+    display: flex;
     flex: none;
+    align-items: center;
+    justify-content: center;
+    width: 30px;
+    height: 30px;
+}
+
+html.MillenniumWindow_FriendsList .TabSearchButton > .searchIconButton svg {
     width: 14px;
     height: 14px;
 }
 
-html.MillenniumWindow_FriendsList .TabSearchButton:has(> .tabSearchTransitionGroup:empty) > .searchIconButton::after {
-    content: attr(title);
+/* Steam hides the magnifier while searching (width 0, opacity 0) — it leads the pill */
+html.MillenniumWindow_FriendsList .TabSearchActive .TabSearchButton > .searchIconButton {
+    width: 30px;
+    opacity: 1;
+}
+
+html.MillenniumWindow_FriendsList .TabSearchActive .TabSearchButton > .searchIconButton svg {
+    color: var(--aika-accent-bright);
+    fill: var(--aika-accent-bright);
+}
+
+html.MillenniumWindow_FriendsList .TabSearchButton .socialInputContainer,
+html.MillenniumWindow_FriendsList .TabSearchButton .inputContainer {
+    display: flex;
+    flex: 1 1 auto;   /* .inputContainer kept its content width: a short field, the ✕ far off */
+    align-items: center;
     min-width: 0;
-    overflow: hidden;
+    height: 30px;
+}
+
+/* the field inside the pill: no box of its own (sections/friends.css gives
+   the search field one, (0,4,1) — this is a step stronger) */
+html.MillenniumWindow_FriendsList .TabSearchButton .socialSearchContainer {
+    background: none;
+}
+
+html.MillenniumWindow_FriendsList .TabSearchButton .socialSearchContainer input.friendSearchInput[type="text"],
+html.MillenniumWindow_FriendsList .TabSearchButton .socialSearchContainer input.friendSearchInput[type="text"]:focus {
+    flex: 1 1 auto;
+    min-width: 0;
+    height: 30px;
+    padding: 0 var(--aika-space-1);
+    border: none;
+    background: none;
+    box-shadow: none;
+    font-family: var(--aika-font-friends);
     font-size: var(--aika-text-meta);
-    font-weight: var(--aika-weight-regular);
+    color: var(--aika-fg);
+    caret-color: var(--aika-accent-bright);
+}
+
+html.MillenniumWindow_FriendsList .TabSearchButton input.friendSearchInput::placeholder {
+    color: var(--aika-fg-subtle);
+    font-style: normal;
+}
+
+html.MillenniumWindow_FriendsList .TabSearchButton .friendSearchClear {
+    margin-inline-end: var(--aika-space-2);
+}
+
+/* Concept A, "a command line" — the "Friend search" setting (js/friends.js
+   puts html.aika-fl-search-cmd from --aika-fl-search: cmd): always a field,
+   mono, a "›" prompt, the accent caret, the found count on the right
+   (data-aika-found on the field, js/friends.js) */
+html.aika-fl-search-cmd.MillenniumWindow_FriendsList .friendsTabButtonsContainer .TabSearchButton {
+    width: min(240px, 45vw);
+    border-radius: var(--aika-radius-md);
+    background-color: var(--aika-bg-raised);
+    cursor: text;
+}
+
+html.aika-fl-search-cmd.MillenniumWindow_FriendsList .TabSearchActive .friendsTabButtonsContainer .TabSearchButton {
+    box-shadow: inset 0 0 0 var(--aika-hairline) var(--aika-accent-glow), 0 0 0 3px var(--aika-accent-tint);
+}
+
+html.aika-fl-search-cmd.MillenniumWindow_FriendsList .TabSearchButton > .searchIconButton svg {
+    display: none;
+}
+
+html.aika-fl-search-cmd.MillenniumWindow_FriendsList .TabSearchButton > .searchIconButton::before {
+    content: "›";
+    font-family: var(--aika-font-mono);
+    font-size: var(--aika-text-body);
+    font-weight: var(--aika-weight-semibold);
+    color: var(--aika-accent-bright);
+}
+
+/* closed: Steam's tooltip text ("Search friends") as the placeholder */
+html.aika-fl-search-cmd.MillenniumWindow_FriendsList .TabSearchButton:has(> .tabSearchTransitionGroup:empty) > .searchIconButton {
+    flex: 1 1 auto;
+    justify-content: flex-start;
+    gap: var(--aika-space-2);
+    padding-inline-start: var(--aika-space-3);
+}
+
+html.aika-fl-search-cmd.MillenniumWindow_FriendsList .TabSearchButton:has(> .tabSearchTransitionGroup:empty) > .searchIconButton::after {
+    content: attr(title);
+    overflow: hidden;
+    font-family: var(--aika-font-mono);
+    font-size: var(--aika-text-label);
     letter-spacing: normal;
     text-transform: none;   /* the tab caption is uppercase */
     color: var(--aika-fg-subtle);
     text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+html.aika-fl-search-cmd.MillenniumWindow_FriendsList .TabSearchButton .socialSearchContainer input.friendSearchInput[type="text"] {
+    font-family: var(--aika-font-mono);
+}
+
+html.aika-fl-search-cmd.MillenniumWindow_FriendsList .TabSearchButton .inputContainer[data-aika-found]::after {
+    content: attr(data-aika-found);
+    flex: none;
+    margin-inline-end: var(--aika-space-2);
+    font-family: var(--aika-font-mono);
+    font-size: var(--aika-text-label);
+    color: var(--aika-fg-subtle);
     white-space: nowrap;
 }
 
