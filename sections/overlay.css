@@ -209,6 +209,83 @@ html .OverlayPopup .OverlayClock .CurrentTime {
     text-shadow: 0 1px 6px var(--aika-shadow-deep);
 }
 
+/* The browser (Browser, Guides, Discussions — .OverlayBrowser_*): tabs
+   (#3d4450, Steam (0,3,0)) and the address bar (#0e141b) */
+html .OverlayPopup .BrowserTabs .BrowserTab {
+    border-color: var(--aika-transparent);
+    border-radius: var(--aika-radius-md) var(--aika-radius-md) 0 0;
+    background: var(--aika-surface);
+    color: var(--aika-fg-muted);
+}
+
+html .OverlayPopup .BrowserTabs .BrowserTab.Active {
+    background: var(--aika-bg-raised);
+    color: var(--aika-fg);
+}
+
+html .OverlayPopup .URLBar {
+    background: var(--aika-bg-raised);
+}
+
+html .OverlayPopup .URLBar .URLBarText {
+    background: var(--aika-surface);
+    color: var(--aika-fg-muted);
+    font-family: var(--aika-font-mono);
+}
+
+html .OverlayPopup .URLBar .NavigationButton {
+    color: var(--aika-fg-muted);
+}
+
+/* Recordings & Screenshots: the title (#1a9fff), the header strip, buttons —
+   .ButtonBox.Secondary (#3d4450, Steam (0,2,0)), .Active (#1a9fff) */
+html .OverlayPopup.ScreenshotManager .TopListTitle {
+    color: var(--aika-fg);
+}
+
+html .OverlayPopup.ScreenshotManager .StickyHeader {
+    border-color: var(--aika-border);
+    background: none;
+}
+
+html .OverlayPopup.ScreenshotManager .DesktopBottomGlass {
+    background: none;
+}
+
+html .OverlayPopup .ButtonBox.Interactable.Secondary {
+    border-radius: var(--aika-radius-md);
+    background: var(--aika-surface);
+    color: var(--aika-fg);
+}
+
+html .OverlayPopup .ButtonBox.Interactable.Secondary:hover {
+    background: var(--aika-surface-hover);
+}
+
+html .OverlayPopup .ButtonBox.Interactable.Secondary.Active {
+    background: var(--aika-accent-fill);
+    color: var(--aika-on-accent);
+}
+
+/* Notes: the "hide the list" button (#3d4450) */
+html .OverlayPopup .HidePageListButton {
+    border-radius: var(--aika-radius-md);
+    background: var(--aika-surface);
+}
+
+/* Controller settings: the Big Picture page inside (.BasicHome — black,
+   Steam (0,2,0); the footer — black 50 %) shows the panel material */
+html .OverlayPopup .BasicHome.OpaqueBackground,
+html .OverlayPopup .ControllerConfiguratorMain,
+html .OverlayPopup .ControllerConfiguratorMain .TopSection {
+    background: none;   /* Steam: black, #0e141b, #0a0e13 (0,1,0) */
+}
+
+html .OverlayPopup .BasicFooter {
+    border-top: var(--aika-hairline) solid var(--aika-border);
+    background: var(--aika-bg-raised);
+}
+
 /* --------------------------------------------------------------------------
    The overlay's own window (overlay.css): the top strip and the toolbar
    -------------------------------------------------------------------------- */
