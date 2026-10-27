@@ -2,7 +2,7 @@
 
 # Aika
 
-**A warm dark theme for Steam** · [Millennium](https://steambrew.app) · 0.1.5 · by **hatewxb**
+**A warm dark theme for Steam** · [Millennium](https://steambrew.app) · 0.1.6 · by **hatewxb**
 
 **[Get it on Steambrew](https://steambrew.app/theme/uV8M1eg45Hh662blPuyD)** — the official Millennium theme store
 
@@ -41,7 +41,16 @@ Steam's light blue. The theme doesn't change any Steam text, only the look.
   both in the colors of your preset.
 - **Four color presets**: Aika, Hello Bert, Greeny and Rose Ash.
 - **Screenshots grouped by game** in the profile: a carousel shelf per game.
-- **Library covers** that tilt toward the cursor in 3D, and floating library icons.
+- **Library covers** that tilt toward the cursor in 3D, and floating library icons;
+  holding a cover can sink it, send rings of light from the press point or charge an accent line round its edge.
+- **A redesigned friends list**: a profile card, Discord-like status badges,
+  now-playing game cards with the game's art, lobbies as squad capsules,
+  offline friends as a grid of faces, Recent Chats as conversation cards,
+  friend requests as business cards, a background pattern (halftone wave or
+  blinking squares); the chat window and group chats in the same look.
+- **Preloader presets** for the "Sign in to Steam" window: Classic, Terminal,
+  Horizon, Orbits, Aurora, Frame and Glitter warp, all in your preset's colors.
+- **Cart and checkout** in the theme look: the cart, purchase review and receipt, the launch option picker.
 - **Privacy blur** for the wallet balance in the account menu until you hover it.
 - **Top bar tabs centered** (can be moved back to the left), or a **compact header**: menus, tabs and account buttons in one line.
 - **The page address as a small capsule** over store and community pages, with a dot-matrix "heart pulse" while a page loads.
@@ -92,11 +101,14 @@ Aika is in the official Millennium theme store:
 Theme settings (the gear next to Aika in Millennium; in Russian when Steam is
 in Russian): **Main** — color preset, top bar tab position, compact header (the
 menus, tabs and account buttons in one line), the header wordmark (classic,
-calligraphy, or アイカ in two brush styles); **Elements** — show or hide the wallet balance, the address capsule
+calligraphy, or アイカ in two brush styles), the sign-in preloader; **Elements** — show or hide the wallet balance, the address capsule
 over store and community pages,
-What's New, the "Add shelf" row and the Steam news button; **Animations** —
+What's New, the "Add shelf" row and the Steam news button; **Friends list** —
+the background pattern and its opacity, offline friends (faces / list), the
+friend search (magnifier / command line), the list layout; **Animations** —
 performance (Full / Balanced / Low), store game page layout (Cinematic /
-Classic), library covers (3D tilt / Lift / Zoom), cursor glow and its radius;
+Classic), library covers (3D tilt / Lift / Zoom), cover press (Press / Ripple /
+Charge / Off), cursor glow and its radius;
 **Advanced** — privacy blur of the wallet balance (or name and balance) until
 hovered, notification wordmark and opacity; **Color set** — custom colors, set
 on the **Colors** page right below.
@@ -106,16 +118,16 @@ on the **Colors** page right below.
 | Section | Done | Not done yet |
 |:--|:--|:--|
 | Library | Home, game list, game page, game news, achievements, filters, collections, floating bottom icons | Long game titles on hover |
-| Store | Home, menu capsule and all menus, game page (Classic and Cinematic, Early Access, warnings, queue), search, wishlist, discovery queue, cart, checkout (payment info), News Hub | Purchase steps after payment info, free weekends and trials |
+| Store | Home, menu capsule and all menus, game page (Classic and Cinematic, Early Access, warnings, queue), search, wishlist, discovery queue, personal calendar, cart, checkout (payment info, review, receipt), News Hub | Free weekends and trials |
 | Community | Activity, friends, screenshots, artwork, videos, profile editing, notifications, discussions home, game discussions | Workshop, collections, profile, the rest of the game community hub |
-| Friends & chat | Friends list, direct chat, mini profiles | Group and voice chat, friend requests |
+| Friends & chat | Friends list (redesigned), friend requests, Recent Chats, direct and group chat, Create chat, mini profiles | Voice chat |
 | Downloads | Everything | — |
-| Settings & windows | Settings, game properties, dialogs, Family View (client PIN and web page), the sign-in window while signing in, Millennium settings, library manager and Quick CSS editor | The sign-in form (no saved account) |
+| Settings & windows | Settings, game properties (DLC included), dialogs, the launch option picker, Family View (client PIN and web page), the sign-in window while signing in (preloader presets), Millennium settings, library manager and Quick CSS editor | The sign-in form (no saved account) |
 | General | Menus, tooltips, notifications dropdown, notification toasts (message, "now playing", download) — liquid glass, smooth entrance; color presets (Aika, Hello Bert, Greeny, Rose Ash); the startup loading curtain and page transitions; plugins (How Long To Beat, Extendium, Recent Chats, Easy Restart) | Other notifications, Big Picture, overlay |
 
 ## Licenses
 
-The Inter, Geist Mono, Fraunces, Unbounded, UnifrakturMaguntia, Shojumaru, Great Vibes,
+The Inter, Onest, Geist Mono, Fraunces, Unbounded, UnifrakturMaguntia, Shojumaru, Great Vibes,
 Yuji Syuku and Yuji Mai fonts (the last three as subsets with only the wordmark letters) are
 licensed under the SIL Open Font License 1.1 (`assets/fonts/OFL-*.txt`). The
 notification liquid glass is [hyalite](https://github.com/VII-Cae/hyalite--liquid-glass),
