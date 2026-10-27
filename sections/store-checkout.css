@@ -68,6 +68,7 @@ html body.v6.checkout .payment_info_form_area {
 
 html body.v6.checkout .rightcol .block .block_header {
     padding: var(--aika-space-3) var(--aika-space-4) 0;
+    line-height: normal;   /* Steam: 32 px — a tall gap under the caption */
     font-family: var(--aika-font-mono);
     font-size: var(--aika-text-label);
     letter-spacing: var(--aika-tracking-label);
@@ -237,6 +238,79 @@ html body.v6.checkout .payment_method_review_method_label {
 
 html body.v6.checkout #accept_ssa {
     accent-color: var(--aika-accent);
+    color-scheme: dark;   /* unchecked: a dark box instead of the white native one */
+}
+
+/* The review column (author 2026-10-27: buttons, forms and spacing like the
+   cart): .checkout_review_cart_item (an item, black 20 %, 3 px apart),
+   .checkout_content.confirm (the totals, the payment method + agreement —
+   black 20 %, square, 4 px apart), .cart_totals_area (16 px more inside the
+   16 px block), .cart_total_rule (#7092a5) / .rule (#194660) — dividers */
+html body.v6.checkout :is(.checkout_review_cart_item, .checkout_content.confirm) {
+    border: var(--aika-hairline) solid var(--aika-border);
+    border-radius: var(--aika-radius-lg);
+    background: var(--aika-card-bg);
+    box-shadow: var(--aika-shadow-card);
+}
+
+/* Steam lays the row out with floats and top paddings (16 / 23 px) under a
+   77 px min-height — the cover and the title sat high. A centered flex row. */
+html body.v6.checkout .checkout_review_cart_item {
+    display: flex;
+    align-items: center;
+    gap: var(--aika-space-4);
+    min-height: 0;
+    margin: 0 0 var(--aika-space-2);
+    padding: var(--aika-space-3) var(--aika-space-5);
+}
+
+html body.v6.checkout .checkout_review_cart_item > :is(.checkout_review_item_img, .checkout_review_item_desc, .checkout_review_item_price) {
+    float: none;
+    padding: 0;
+}
+
+html body.v6.checkout .checkout_review_cart_item > .checkout_review_item_desc {
+    flex: 1;
+    order: 1;
+}
+
+html body.v6.checkout .checkout_review_cart_item > .checkout_review_item_price {
+    order: 2;
+}
+
+/* "Purchase": no empty strip under it; the e-mail note off the card */
+html body.v6.checkout #purchase_button_container_bottom {
+    padding-bottom: 0;
+}
+
+html body.v6.checkout .checkout_footer_notes {
+    margin-top: var(--aika-space-3);
+}
+
+html body.v6.checkout .checkout_review_item_img img {
+    border-radius: var(--aika-radius-md);
+}
+
+html body.v6.checkout .checkout_content.confirm {
+    margin-top: var(--aika-space-3);
+    padding: var(--aika-space-5);
+}
+
+html body.v6.checkout .checkout_content.confirm .cart_totals_area {
+    margin: 0;
+    padding: 0;
+}
+
+html body.v6.checkout .checkout_steam_rewards_banner {
+    margin: var(--aika-space-3) 0 0;
+}
+
+html body.v6.checkout :is(.cart_total_rule, .checkout_content .rule) {
+    border-color: var(--aika-border);
+}
+
+html body.v6.checkout .review_row_label {
+    color: var(--aika-fg-subtle);
 }
 
 /* --------------------------------------------------------------------------
