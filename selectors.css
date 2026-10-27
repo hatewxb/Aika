@@ -1169,6 +1169,78 @@ html body #StoreTemplate :is(.i-xXuvHLioU-, .i1XZFikuzME-) {
     box-shadow: var(--aika-shadow-card);
 }
 
+/* Spacing: Steam pads the cards 15 / 21 px and stacks the total on the
+   "digital item" card with no gap */
+html body #StoreTemplate :is(.i-xXuvHLioU-, .i1XZFikuzME-, .nfxC9n3FRVE-) {
+    padding: var(--aika-space-5);
+}
+
+html body #StoreTemplate .i1XZFikuzME- + .nfxC9n3FRVE- {
+    margin-top: var(--aika-space-4);
+}
+
+/* The item's cover (a.wuZBJ1ixmBQ-, square) */
+html body #StoreTemplate .i-xXuvHLioU- a.wuZBJ1ixmBQ- {
+    overflow: hidden;
+    border-radius: var(--aika-radius-md);
+}
+
+/* Buttons of the new engine (a.D8IENuW8Q7w-, the solid .ob-nIzzquk8-: 2 px,
+   var(--background) from the remapped scales): "Continue shopping"
+   ([data-accent-color="dull"]) — secondary, the rest ("Continue to payment") —
+   the Aika primary. Verified: 2026-10-27, the cart. */
+html body #StoreTemplate a.D8IENuW8Q7w-.ob-nIzzquk8- {
+    border-radius: var(--aika-radius-md);
+    font-weight: var(--aika-weight-semibold);
+    transition:
+        background-color var(--aika-dur-fast) var(--aika-ease-hover),
+        box-shadow var(--aika-dur-base) var(--aika-ease);
+}
+
+html body #StoreTemplate a.D8IENuW8Q7w-.ob-nIzzquk8-:not([data-accent-color="dull"]) {
+    background: var(--aika-accent-fill);
+    color: var(--aika-on-accent);
+    box-shadow: var(--aika-shadow-cta);
+}
+
+html body #StoreTemplate a.D8IENuW8Q7w-.ob-nIzzquk8-:not([data-accent-color="dull"]):hover {
+    background: var(--aika-accent-fill-hover);
+    box-shadow: var(--aika-shadow-cta-hover);
+}
+
+html body #StoreTemplate a.D8IENuW8Q7w-.ob-nIzzquk8-[data-accent-color="dull"] {
+    background: var(--aika-surface);
+    color: var(--aika-fg);
+    box-shadow: var(--aika-shadow-secondary);
+}
+
+html body #StoreTemplate a.D8IENuW8Q7w-.ob-nIzzquk8-[data-accent-color="dull"]:hover {
+    background: var(--aika-surface-hover);
+    box-shadow: var(--aika-shadow-secondary-hover);
+}
+
+/* Dropdowns in the cart (.pXN5O3YW9VE-: "For my account", the country —
+   2 px, dull-8 with Steam's drop shadow): the Aika field */
+html body #StoreTemplate :is(.i-xXuvHLioU-, .i1XZFikuzME-) .pXN5O3YW9VE- {
+    border-radius: var(--aika-radius-md);
+    background-color: var(--aika-bg-raised);
+    box-shadow: inset 0 0 0 var(--aika-hairline) var(--aika-border-strong);
+    transition: background-color var(--aika-dur-fast) var(--aika-ease-hover);
+}
+
+html body #StoreTemplate :is(.i-xXuvHLioU-, .i1XZFikuzME-) .pXN5O3YW9VE-:hover {
+    background-color: var(--aika-bg-hover);
+}
+
+/* "Add | Remove", "Remove all items" — muted links, light on hover */
+html body #StoreTemplate :is(._8IaR06zcRE4-, .BFDdk5e7x8k-, .EuZlR-CTcaY-) {
+    transition: color var(--aika-dur-fast) var(--aika-ease-hover);
+}
+
+html body #StoreTemplate :is(._8IaR06zcRE4-, .BFDdk5e7x8k-, .EuZlR-CTcaY-):hover {
+    color: var(--aika-fg);
+}
+
 html body #StoreTemplate .nfxC9n3FRVE- {
     border-radius: var(--aika-radius-lg);
     background: var(--aika-card-accent-bg);
