@@ -985,8 +985,21 @@ html.MillenniumWindow_FriendsList .ChatRoomListGroupItem .ContextMenuButton svg 
 
 html.MillenniumWindow_FriendsList .ChatRoomListGroupItem .ChatRoomMultiFriendAvatar {
     border-color: var(--aika-border-hover);
-    border-radius: var(--aika-radius-sm);
+    border-radius: var(--aika-radius-md);
     overflow: hidden;
+}
+
+/* A group chat without an avatar image: Steam's gray-blue disc with gradient initials */
+html.MillenniumWindow_FriendsList .ChatRoomListGroupItem .ChatRoomGroupAvatar {
+    background: var(--aika-accent-soft);
+    border-color: var(--aika-border-hover);
+    border-radius: var(--aika-radius-md);
+}
+
+html.MillenniumWindow_FriendsList .ChatRoomListGroupItem .ChatRoomGroupAvatar_initials {
+    background: none;
+    color: var(--aika-accent);
+    -webkit-text-fill-color: currentColor;
 }
 
 /* A chat tab's close cross */
@@ -1154,7 +1167,7 @@ html.MillenniumWindow_FriendChatWindow .chatRoomButton:hover svg :is(g, path, ci
 
 html.MillenniumWindow_FriendChatWindow .ChatRoomMultiFriendAvatar {
     border-color: var(--aika-border-hover);
-    border-radius: var(--aika-radius-sm);
+    border-radius: var(--aika-radius-md);
     overflow: hidden;
 }
 
