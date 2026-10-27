@@ -1048,7 +1048,8 @@ html.MillenniumWindow_FriendsList .friendRequestButton:hover svg :is(.friendHead
     fill: var(--aika-fg);
 }
 
-html.MillenniumWindow_FriendsList .friendRequestButton svg .redCircle {
+html.MillenniumWindow_FriendsList .friendRequestButton svg .redCircle,
+html.MillenniumWindow_FriendsList .friendRequestButton:hover svg .redCircle {
     fill: var(--aika-accent);
 }
 
@@ -1091,6 +1092,89 @@ html.MillenniumWindow_FriendsList .quickAccessFriends.emptyQuickAccess .quickAcc
 html.MillenniumWindow_FriendsList .quickAccessFriends.emptyQuickAccess .quickAccessFriendsMessageDismiss:hover {
     background: var(--aika-accent-soft);
     color: var(--aika-fg);
+}
+
+/* --- Friend requests in the window (author 2026-10-27) ------------------------ */
+/* The request button swaps the list for .friendGroup.friendRequests: rows with
+   ✓ / ✕ (.friendInviteButton.acceptFriendInvite / .declineFriendInvite, .dim
+   until picked), a "block" checkbox under a declined one, and a bar with
+   "Confirm" / "Decline all" and the back arrow (.cancelAddFriends). Steam:
+   gold #ffc628 caption and arrow, #444 rings, a blue #36f confirm, a red
+   checkbox — the accent, ok and live colors instead. */
+html.MillenniumWindow_FriendsList .FriendsListContent .friendGroup.friendRequests .groupName {
+    color: var(--aika-accent-bright);
+}
+
+html.MillenniumWindow_FriendsList .confirmInviteRequestContainer .cancelAddFriends .SVGIcon_Arrow polyline {
+    stroke: var(--aika-accent-bright);
+}
+
+html.MillenniumWindow_FriendsList .friendInviteContainer .friend {
+    border-radius: var(--aika-radius-md);
+}
+
+html.MillenniumWindow_FriendsList .friendInviteContainer .inviteLabel {
+    color: var(--aika-fg-subtle) !important;   /* Steam's #4f6168 is !important */
+}
+
+html.MillenniumWindow_FriendsList .friendInviteButton:is(.acceptFriendInvite, .declineFriendInvite) {
+    border-color: var(--aika-border-strong);
+    color: var(--aika-fg-subtle);
+    transition:
+        background-color var(--aika-dur-fast) var(--aika-ease-hover),
+        border-color var(--aika-dur-fast) var(--aika-ease-hover);
+}
+
+html.MillenniumWindow_FriendsList .friendInviteButton:is(.acceptFriendInvite, .declineFriendInvite) svg :is(polyline, line, path) {
+    stroke: currentColor;
+}
+
+html.MillenniumWindow_FriendsList .friendInviteButton.acceptFriendInvite:is(:hover, :not(.dim)) {
+    border-color: var(--aika-ok-mid);
+    background-color: var(--aika-ok-dim);
+    color: var(--aika-ok);
+}
+
+html.MillenniumWindow_FriendsList .friendInviteButton.declineFriendInvite:is(:hover, :not(.dim)) {
+    border-color: var(--aika-live);
+    background-color: var(--aika-live-soft);
+    color: var(--aika-live);
+}
+
+html.MillenniumWindow_FriendsList .friendInviteBlockContainer .DialogCheckbox {
+    border-color: var(--aika-live);
+    background-color: var(--aika-live-soft);
+}
+
+html.MillenniumWindow_FriendsList .friendInviteBlockContainer .blockCommunicationLabel {
+    color: var(--aika-fg-muted);
+}
+
+html.MillenniumWindow_FriendsList .friendInviteBlockContainer .blockCommunicationLabel.subtitle {
+    color: var(--aika-fg-subtle);
+}
+
+html.MillenniumWindow_FriendsList .confirmInviteRequestContainer .confirmInviteButton {
+    border-radius: var(--aika-radius-md);
+    background: var(--aika-surface-hover);
+    color: var(--aika-fg);
+    font-family: var(--aika-font-friends);
+    transition: background-color var(--aika-dur-fast) var(--aika-ease-hover);
+}
+
+html.MillenniumWindow_FriendsList .confirmInviteRequestContainer .confirmInviteButton:hover {
+    background: var(--aika-surface-active);
+}
+
+html.MillenniumWindow_FriendsList .confirmInviteRequestContainer .confirmInviteButton.confirmInvites:not(.dim) {
+    background: var(--aika-accent-fill);
+    color: var(--aika-on-accent);
+}
+
+html.MillenniumWindow_FriendsList .confirmInviteRequestContainer .confirmInviteButton.confirmInvites.dim {
+    background: var(--aika-transparent);
+    color: var(--aika-fg-subtle);
+    opacity: 1;
 }
 
 /* --- "Unread messages" as one notice (concept B, author 2026-10-27) ------------- */
