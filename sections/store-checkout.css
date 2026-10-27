@@ -9,7 +9,7 @@
      .payment_info_form_area     — the form panel (black 20 %)
        .form_row label + input.text (black 40 %, a black border, 3 px)
        .dselect_container button.trigger::after (a PNG arrow)
-       #submit_payment_info_btn.btnv6_green_white_innerfade (a lime gradient)
+       #submit_payment_info_btn, #purchase_button_bottom (a lime gradient)
      .rightcol .block (black 20 %) .block_header / .block_content
 
    Theme JS does not run on checkout (Millennium injects no scripts into
@@ -22,7 +22,7 @@ html body.v6.checkout .page_header_ctn {
 }
 
 /* The step tab ("Payment info"): an accent pill instead of the light-blue box and its PNG notch */
-html body.v6.checkout #checkout_pipeline .cart_tab_on {
+html body.v6.checkout :is(#checkout_pipeline, #receipt_pipeline) .cart_tab_on {
     border-radius: var(--aika-radius-full);
     background: var(--aika-accent-soft);
     box-shadow: inset 0 0 0 var(--aika-hairline) var(--aika-border-accent);
@@ -33,7 +33,7 @@ html body.v6.checkout #checkout_pipeline .cart_tab_on {
     text-transform: uppercase;
 }
 
-html body.v6.checkout #checkout_pipeline :is(.cart_tab_left_on, .cart_tab_right_on) {
+html body.v6.checkout :is(#checkout_pipeline, #receipt_pipeline) :is(.cart_tab_left_on, .cart_tab_right_on) {
     background: none;
 }
 
@@ -146,36 +146,97 @@ html body.v6.checkout .checkout_content .dselect_container button:is(.trigger:ho
     background: var(--aika-bg-hover);
 }
 
-/* "Continue": the Aika primary instead of the lime gradient */
-html body.v6.checkout #submit_payment_info_btn.btnv6_green_white_innerfade,
-html body.v6.checkout #submit_payment_info_btn.btnv6_green_white_innerfade > span {
+/* "Continue" and "Purchase": the Aika primary instead of the lime gradient */
+html body.v6.checkout :is(#submit_payment_info_btn, #purchase_button_bottom).btnv6_green_white_innerfade,
+html body.v6.checkout :is(#submit_payment_info_btn, #purchase_button_bottom).btnv6_green_white_innerfade > span {
     border-radius: var(--aika-radius-full);
     background: var(--aika-accent-fill);
     color: var(--aika-on-accent);
     text-shadow: none;
 }
 
-html body.v6.checkout #submit_payment_info_btn.btnv6_green_white_innerfade {
+html body.v6.checkout :is(#submit_payment_info_btn, #purchase_button_bottom).btnv6_green_white_innerfade {
     box-shadow: var(--aika-shadow-cta);
     transition:
         background-color var(--aika-dur-fast) var(--aika-ease-hover),
         box-shadow var(--aika-dur-base) var(--aika-ease);
 }
 
-html body.v6.checkout #submit_payment_info_btn.btnv6_green_white_innerfade > span {
+html body.v6.checkout :is(#submit_payment_info_btn, #purchase_button_bottom).btnv6_green_white_innerfade > span {
     padding: 0 var(--aika-space-5);
     font-family: var(--aika-font-ui);
     font-weight: var(--aika-weight-semibold);
 }
 
-html body.v6.checkout #submit_payment_info_btn.btnv6_green_white_innerfade:hover,
-html body.v6.checkout #submit_payment_info_btn.btnv6_green_white_innerfade:hover > span {
+html body.v6.checkout :is(#submit_payment_info_btn, #purchase_button_bottom).btnv6_green_white_innerfade:hover,
+html body.v6.checkout :is(#submit_payment_info_btn, #purchase_button_bottom).btnv6_green_white_innerfade:hover > span {
     background: var(--aika-accent-fill-hover);
     color: var(--aika-on-accent);
 }
 
-html body.v6.checkout #submit_payment_info_btn.btnv6_green_white_innerfade:hover {
+html body.v6.checkout :is(#submit_payment_info_btn, #purchase_button_bottom).btnv6_green_white_innerfade:hover {
     box-shadow: var(--aika-shadow-cta-hover);
+}
+
+/* --------------------------------------------------------------------------
+   Review and receipt (screenshots 32, 36; captured 2026-10-27 — the receipt
+   step is in the same page, hidden until the purchase):
+     .checkout_steam_rewards_banner — "You'll get / You got Steam Points"
+       (a blue PNG with a #30538a border; the figures #reward_points_to_earn /
+       #reward_points_earned — a blue gradient clipped to the text)
+     .purchase_summary_area, .receipt_body, .checkout_receipt_gift_detail (black 20 %)
+     .payment_method_review_method_label — "My Steam Wallet" (#8bc53f)
+     #accept_ssa — the native checkbox (blue)
+   -------------------------------------------------------------------------- */
+
+html body.v6.checkout .checkout_steam_rewards_banner {
+    border: var(--aika-hairline) solid var(--aika-border-accent);
+    border-radius: var(--aika-radius-xl);
+    background: var(--aika-card-accent-bg);
+    color: var(--aika-fg-muted);
+}
+
+html body.v6.checkout .checkout_steam_rewards_banner :is(.congratulations, #reward_points_to_earn, #reward_points_earned) {
+    background: none;
+    -webkit-text-fill-color: currentColor;
+}
+
+html body.v6.checkout .checkout_steam_rewards_banner .congratulations {
+    color: var(--aika-fg);
+}
+
+html body.v6.checkout .checkout_steam_rewards_banner :is(#reward_points_to_earn, #reward_points_earned) {
+    color: var(--aika-accent-bright);
+    font-family: var(--aika-font-mono);
+    font-weight: var(--aika-weight-semibold);
+}
+
+html body.v6.checkout .checkout_steam_rewards_banner .balance {
+    color: var(--aika-fg-muted);
+}
+
+html body.v6.checkout :is(.purchase_summary_area, .receipt_body, .checkout_receipt_gift_detail) {
+    border: var(--aika-hairline) solid var(--aika-border);
+    border-radius: var(--aika-radius-xl);
+    background: var(--aika-card-bg);
+    box-shadow: var(--aika-shadow-card);
+}
+
+html body.v6.checkout .receipt_confirmation_label {
+    color: var(--aika-fg-subtle);
+}
+
+html body.v6.checkout .receipt_confirmation_data {
+    color: var(--aika-fg);
+    font-family: var(--aika-font-mono);
+}
+
+html body.v6.checkout .payment_method_review_method_label {
+    color: var(--aika-ok);
+}
+
+html body.v6.checkout #accept_ssa {
+    accent-color: var(--aika-accent);
 }
 
 /* --------------------------------------------------------------------------
