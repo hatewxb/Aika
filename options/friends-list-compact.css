@@ -1,0 +1,4 @@
+/* "Friends list layout: Compact" — js/friends.js turns Steam's compact list on */
+:root:root {
+    --aika-fl-density: compact;
+}

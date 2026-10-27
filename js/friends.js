@@ -169,12 +169,123 @@
     }
   };
 
+  // The window's background pattern (author 2026-10-27, after React Bits
+  // "Halftone Wave" / "Blinking Squares"): the "Friends background" setting
+  // puts --aika-fl-bg (halftone | squares) on :root, the opacity slider
+  // --aika-setting-fl-bg-opacity. Drawn on a canvas at a fraction of the
+  // window's size and stretched by CSS — the smoothing is the blur, nothing
+  // to filter. Few frames (setTimeout, not rAF: at 165 Hz rAF would wake the
+  // thread for nothing), none while the window is hidden; one still frame
+  // with --aika-motion: 0 (Performance: Low, reduced motion).
+  const bg = (() => {
+    const FPS = 12;
+    let canvas = null, ctx = null, kind = "", timer = 0, colors = ["#8b7ff0", "#c792ea"], still = false;
+    const cell = { halftone: 16, squares: 22 };   // the grid step, CSS px
+    const scale = { halftone: 0.4, squares: 0.25 };
+    const seed = [];
+    const read = () => {
+      const css = getComputedStyle(document.documentElement);
+      colors = [css.getPropertyValue("--aika-accent").trim() || colors[0], css.getPropertyValue("--aika-light-2").trim() || colors[1]];
+      still = css.getPropertyValue("--aika-motion").trim() === "0";
+      return css.getPropertyValue("--aika-fl-bg").trim();
+    };
+    const size = () => {
+      const s = scale[kind];
+      canvas.width = Math.ceil(innerWidth * s);
+      canvas.height = Math.ceil(innerHeight * s);
+    };
+    const draw = (t) => {
+      const { width: w, height: h } = canvas;
+      const s = scale[kind], step = cell[kind] * s;
+      ctx.clearRect(0, 0, w, h);
+      const cols = Math.ceil(w / step) + 1, rows = Math.ceil(h / step) + 1;
+      if (kind === "halftone") {
+        // dots grow and shrink in a wave running from the bottom left
+        ctx.fillStyle = colors[0];
+        for (let y = 0; y < rows; y++) {
+          for (let x = 0; x < cols; x++) {
+            const wave = Math.sin(x * 0.35 - y * 0.22 - t * 1.3) * 0.5 + 0.5;
+            const r = step * 0.34 * wave * wave;
+            if (r < 0.3) continue;
+            ctx.beginPath();
+            ctx.arc(x * step, y * step, r, 0, 6.2832);
+            ctx.fill();
+          }
+        }
+      } else {
+        // a few squares light up and fade, each on its own beat
+        while (seed.length < cols * rows) seed.push([Math.random() * 40, 4 + Math.random() * 6, Math.random() < 0.5 ? 0 : 1]);
+        const side = step - Math.max(1, step * 0.18);
+        for (let i = 0; i < cols * rows; i++) {
+          const [phase, period, tone] = seed[i];
+          const p = ((t + phase) % period) / period;            // 0..1 within its beat
+          const a = p < 0.12 ? Math.sin(p / 0.12 * Math.PI) : 0;   // a short blink
+          if (a < 0.02) continue;
+          ctx.globalAlpha = a;
+          ctx.fillStyle = colors[tone];
+          ctx.fillRect((i % cols) * step, Math.floor(i / cols) * step, side, side);
+        }
+        ctx.globalAlpha = 1;
+      }
+    };
+    const tick = () => {
+      timer = 0;
+      if (!canvas || document.hidden) return;   // visibilitychange starts it again
+      draw(performance.now() / 1000);
+      if (!still) timer = setTimeout(tick, 1000 / FPS);
+    };
+    // "Friends list layout": Steam's own compact list setting, set from the
+    // theme's settings (--aika-fl-density: compact | normal); "As in Steam"
+    // leaves it alone, so Steam's own switch keeps working
+    const density = () => {
+      const want = getComputedStyle(document.documentElement).getPropertyValue("--aika-fl-density").trim();
+      if (want !== "compact" && want !== "normal") return;
+      try {
+        const store = window.opener.g_FriendsUIApp.SettingsStore;
+        const s = store.FriendsSettings;
+        if (s && s.bCompactFriendsList !== (want === "compact")) store.BUpdateFriendsSettings({ ...s, bCompactFriendsList: want === "compact" });
+      } catch { /* the store's shape changed — Steam's setting stays as it is */ }
+    };
+    let state = "";
+    const sync = () => {
+      density();
+      const want = read();
+      const next = cell[want] ? want : "";
+      const key = [next, still, ...colors].join("|");
+      if (key === state) return;
+      state = key;
+      clearTimeout(timer);
+      timer = 0;
+      kind = next;
+      document.documentElement.classList.toggle("aika-fl-pattern", !!kind);
+      if (!kind) { canvas?.remove(); canvas = ctx = null; return; }
+      if (!canvas) {
+        canvas = document.createElement("canvas");
+        canvas.className = "aika-fl-bg";
+        canvas.setAttribute("aria-hidden", "true");
+        document.body.prepend(canvas);
+        ctx = canvas.getContext("2d");
+      }
+      size();
+      tick();
+    };
+    // only the friends list window calls this (the chat windows load the script too)
+    return () => {
+      sync();
+      addEventListener("resize", () => { if (canvas) { size(); draw(performance.now() / 1000); } });
+      // the setting, the preset's colors and Performance change without a reload
+      setInterval(sync, 1000);
+      document.addEventListener("visibilitychange", () => { if (!document.hidden && canvas && !timer && !still) tick(); });
+    };
+  })();
+
   let frame = 0;
   const queue = () => { if (!frame) frame = requestAnimationFrame(() => { frame = 0; paint(document); }); };
 
   const start = () => {
     if (!document.querySelector(".FriendsListContent")) return false;
     paint(document);
+    bg();
     // rows come and go as friends start and stop playing; a search or a
     // change of the own status rebuilds whole parts of the list — the whole
     // window is watched. Only structure (childList): the attributes and the

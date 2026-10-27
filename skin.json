@@ -74,17 +74,6 @@
                 }
             }
         },
-        "Offline friends": {
-            "description": "The friends list's offline group: a grid of faces (the name shows on hover) or Steam's list.",
-            "tab": "Elements",
-            "default": "Faces",
-            "values": {
-                "Faces": {
-                    "TargetCss": { "affects": [".*"], "src": "options/friends-offline-faces.css" }
-                },
-                "List": {}
-            }
-        },
         "Wallet visibility": {
             "description": "The wallet balance next to the account name in the top bar.",
             "tab": "Elements",
@@ -137,6 +126,57 @@
                 "yes": {},
                 "no": {
                     "TargetCss": { "affects": ["^Steam$"], "src": "options/hide-news.css" }
+                }
+            }
+        },
+        "Friends background": {
+            "description": "The pattern behind the friends list: a halftone wave of dots, softly blinking squares, or only the light spots. Drawn at a few frames a second, paused while the window is hidden; one still frame on Performance: Low.",
+            "tab": "Friends list",
+            "default": "Halftone wave",
+            "values": {
+                "Halftone wave": {
+                    "TargetCss": { "affects": [".*"], "src": "options/friends-bg-halftone.css" }
+                },
+                "Blinking squares": {
+                    "TargetCss": { "affects": [".*"], "src": "options/friends-bg-squares.css" }
+                },
+                "Off": {}
+            }
+        },
+        "Friends background opacity": {
+            "description": "How visible the pattern behind the friends list is.",
+            "tab": "Friends list",
+            "default": 25,
+            "slider": {
+                "cssVariable": "--aika-setting-fl-bg-opacity",
+                "min": 5,
+                "max": 100,
+                "step": 5,
+                "unit": "%"
+            }
+        },
+        "Offline friends": {
+            "description": "The friends list's offline group: a grid of faces (the name shows on hover) or Steam's list.",
+            "tab": "Friends list",
+            "default": "Faces",
+            "values": {
+                "Faces": {
+                    "TargetCss": { "affects": [".*"], "src": "options/friends-offline-faces.css" }
+                },
+                "List": {}
+            }
+        },
+        "Friends list layout": {
+            "description": "Steam's own compact friends list, switched from here. As in Steam: the theme leaves Steam's setting alone.",
+            "tab": "Friends list",
+            "default": "As in Steam",
+            "values": {
+                "As in Steam": {},
+                "Regular": {
+                    "TargetCss": { "affects": [".*"], "src": "options/friends-list-normal.css" }
+                },
+                "Dense": {
+                    "TargetCss": { "affects": [".*"], "src": "options/friends-list-compact.css" }
                 }
             }
         },

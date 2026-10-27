@@ -1,0 +1,4 @@
+/* "Friends list layout: Normal" — js/friends.js turns Steam's compact list off */
+:root:root {
+    --aika-fl-density: normal;
+}

@@ -1094,6 +1094,32 @@ html.MillenniumWindow_FriendsList .quickAccessFriends.emptyQuickAccess .quickAcc
     color: var(--aika-fg);
 }
 
+/* --- The background pattern (author 2026-10-27) ---------------------------------- */
+/* js/friends.js draws "Halftone wave" / "Blinking squares" on canvas.aika-fl-bg
+   at a fraction of the window's size; stretched here, the smoothing is a soft
+   blur for free. Over the light spots, under the list; faded toward the top
+   (the profile card) and the bottom. The grid texture steps aside. */
+html.MillenniumWindow_FriendsList canvas.aika-fl-bg {
+    position: fixed;
+    inset: 0;
+    z-index: var(--aika-z-texture);
+    width: 100%;
+    height: 100%;
+    opacity: var(--aika-setting-fl-bg-opacity, 25%);
+    pointer-events: none;
+    -webkit-mask-image: linear-gradient(to bottom, var(--aika-transparent) 5%, #000 35%, #000 75%, var(--aika-transparent));
+}
+
+html.MillenniumWindow_FriendsList.aika-fl-pattern body::after {
+    display: none;
+}
+
+/* Steam paints the body black (html.client_chat_frame body, #000) — over the
+   light spots and the pattern alike */
+html.MillenniumWindow_FriendsList.client_chat_frame body {
+    background: var(--aika-transparent);
+}
+
 /* --- Friend requests in the window (author 2026-10-27) ------------------------ */
 /* The request button swaps the list for .friendGroup.friendRequests: rows with
    ✓ / ✕ (.friendInviteButton.acceptFriendInvite / .declineFriendInvite, .dim
