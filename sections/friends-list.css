@@ -6,7 +6,7 @@
    setting). Imported by main.css after sections/friends.css (which keeps the
    chat window and the shared colors).
 
-   Scope: html.MillenniumWindow_FriendsList — the friends list window only
+   Scope: html:is(.MillenniumWindow_FriendsList, .aika-friends-list) — the friends list window only
    (the chat windows are .friendsui-container too).
    Captured 2026-10-21:
      .friendListHeaderContainer > .currentUserContainer.<status>
@@ -15,7 +15,7 @@
         .ContextMenuButton) + .richPresenceContainer)
    ========================================================================== */
 
-html.MillenniumWindow_FriendsList body {
+html:is(.MillenniumWindow_FriendsList, .aika-friends-list) body {
     font-family: var(--aika-font-friends);
 }
 
@@ -23,12 +23,12 @@ html.MillenniumWindow_FriendsList body {
 /* A card under the window buttons: a banner of the preset's light spots on
    top, the avatar overlapping its edge, the name and status beside it.
    Steam's own glow (svg.statusHeaderGlow, in the status color) goes. */
-html.MillenniumWindow_FriendsList .friendListHeaderContainer {
+html:is(.MillenniumWindow_FriendsList, .aika-friends-list) .friendListHeaderContainer {
     background: var(--aika-transparent);
     box-shadow: none;
 }
 
-html.MillenniumWindow_FriendsList .currentUserContainer {
+html:is(.MillenniumWindow_FriendsList, .aika-friends-list) .currentUserContainer {
     position: relative;
     margin: var(--aika-fl-card-top) var(--aika-space-3) var(--aika-space-3);   /* under the window buttons */
     padding-top: var(--aika-fl-banner);
@@ -39,7 +39,7 @@ html.MillenniumWindow_FriendsList .currentUserContainer {
     overflow: hidden;
 }
 
-html.MillenniumWindow_FriendsList .currentUserContainer::before {
+html:is(.MillenniumWindow_FriendsList, .aika-friends-list) .currentUserContainer::before {
     content: "";
     position: absolute;
     inset: 0 0 auto;
@@ -52,11 +52,11 @@ html.MillenniumWindow_FriendsList .currentUserContainer::before {
     pointer-events: none;
 }
 
-html.MillenniumWindow_FriendsList .currentUserContainer .statusHeaderGlow {
+html:is(.MillenniumWindow_FriendsList, .aika-friends-list) .currentUserContainer .statusHeaderGlow {
     display: none;
 }
 
-html.MillenniumWindow_FriendsList .currentUserContainer .AvatarAndUser {
+html:is(.MillenniumWindow_FriendsList, .aika-friends-list) .currentUserContainer .AvatarAndUser {
     position: relative;
     align-items: flex-end;
     gap: var(--aika-space-3);
@@ -66,19 +66,19 @@ html.MillenniumWindow_FriendsList .currentUserContainer .AvatarAndUser {
 }
 
 /* The avatar, larger, cut out of the card by a ring of its color */
-html.MillenniumWindow_FriendsList .currentUserAvatar {
+html:is(.MillenniumWindow_FriendsList, .aika-friends-list) .currentUserAvatar {
     flex: none;
     width: var(--aika-fl-avatar);
     height: var(--aika-fl-avatar);
     margin: 0;
 }
 
-html.MillenniumWindow_FriendsList .currentUserAvatar .avatarHolder {
+html:is(.MillenniumWindow_FriendsList, .aika-friends-list) .currentUserAvatar .avatarHolder {
     width: 100%;
     height: 100%;
 }
 
-html.MillenniumWindow_FriendsList .currentUserAvatar .avatarHolder img.avatar {
+html:is(.MillenniumWindow_FriendsList, .aika-friends-list) .currentUserAvatar .avatarHolder img.avatar {
     width: 100%;
     height: 100%;
     border-radius: 50%;   /* a circle here — the frame is gone */
@@ -86,7 +86,7 @@ html.MillenniumWindow_FriendsList .currentUserAvatar .avatarHolder img.avatar {
 }
 
 /* the status line's bottom on the avatar's bottom */
-html.MillenniumWindow_FriendsList .currentUserContainer .labelHolder {
+html:is(.MillenniumWindow_FriendsList, .aika-friends-list) .currentUserContainer .labelHolder {
     display: flex;
     flex-direction: column;
     justify-content: flex-end;
@@ -98,7 +98,7 @@ html.MillenniumWindow_FriendsList .currentUserContainer .labelHolder {
 /* The name: the preset's colors as a gradient (React Bits "Gradient Text",
    linear, yoyo); it flows while the pointer is over the card. Low makes the
    flow 0s — it stays put. */
-html.MillenniumWindow_FriendsList .currentUserContainer .statusAndName .playerName {
+html:is(.MillenniumWindow_FriendsList, .aika-friends-list) .currentUserContainer .statusAndName .playerName {
     background: repeating-linear-gradient(90deg,
         var(--aika-accent-bright), var(--aika-light-2), var(--aika-light-3), var(--aika-accent-bright) 100%);
     background-size: 200% 100%;   /* about half the colors show at rest */
@@ -112,7 +112,7 @@ html.MillenniumWindow_FriendsList .currentUserContainer .statusAndName .playerNa
     line-height: var(--aika-leading-heading);
 }
 
-html.MillenniumWindow_FriendsList .currentUserContainer:hover .statusAndName .playerName {
+html:is(.MillenniumWindow_FriendsList, .aika-friends-list) .currentUserContainer:hover .statusAndName .playerName {
     animation: aika-fl-nick-flow var(--aika-fl-nick-flow) ease-in-out infinite alternate;
 }
 
@@ -120,7 +120,7 @@ html.MillenniumWindow_FriendsList .currentUserContainer:hover .statusAndName .pl
     to { background-position: 100% 50%; }
 }
 
-html.MillenniumWindow_FriendsList .currentUserContainer .richPresenceLabel {
+html:is(.MillenniumWindow_FriendsList, .aika-friends-list) .currentUserContainer .richPresenceLabel {
     color: var(--aika-fg-muted);
     font-size: var(--aika-text-meta);
 }
@@ -133,17 +133,17 @@ html.MillenniumWindow_FriendsList .currentUserContainer .richPresenceLabel {
    names: online — accent, in game — ok with a "play" notch, away — a warn
    crescent, offline — a gray ring. Steam's 2 px status strip (.avatarStatus)
    goes. Sizes: --aika-fl-badge per place. */
-html.MillenniumWindow_FriendsList .avatarHolder:is(.online, .ingame, .offline) {
+html:is(.MillenniumWindow_FriendsList, .aika-friends-list) .avatarHolder:is(.online, .ingame, .offline) {
     --aika-fl-badge-gap: 2.5px;
     --aika-fl-badge-out: 2px;   /* how far it hangs past the corner */
     position: relative;
 }
 
-html.MillenniumWindow_FriendsList .avatarHolder:is(.online, .ingame, .offline) > .avatarStatus.avatarStatus {
+html:is(.MillenniumWindow_FriendsList, .aika-friends-list) .avatarHolder:is(.online, .ingame, .offline) > .avatarStatus.avatarStatus {
     display: none;
 }
 
-html.MillenniumWindow_FriendsList .avatarHolder:is(.online, .ingame, .offline) img.avatar {
+html:is(.MillenniumWindow_FriendsList, .aika-friends-list) .avatarHolder:is(.online, .ingame, .offline) img.avatar {
     border-radius: var(--aika-fl-avatar-radius);
     -webkit-mask: radial-gradient(circle calc(var(--aika-fl-badge) / 2 + var(--aika-fl-badge-gap))
         at calc(100% - var(--aika-fl-badge) / 2 + var(--aika-fl-badge-out))
@@ -155,7 +155,7 @@ html.MillenniumWindow_FriendsList .avatarHolder:is(.online, .ingame, .offline) i
         transparent 98%, #000 100%);
 }
 
-html.MillenniumWindow_FriendsList .avatarHolder:is(.online, .ingame, .offline)::after {
+html:is(.MillenniumWindow_FriendsList, .aika-friends-list) .avatarHolder:is(.online, .ingame, .offline)::after {
     content: "";
     position: absolute;
     right: calc(-1 * var(--aika-fl-badge-out));
@@ -168,28 +168,28 @@ html.MillenniumWindow_FriendsList .avatarHolder:is(.online, .ingame, .offline)::
     mask: var(--aika-icon-status-dot) center / contain no-repeat;
 }
 
-html.MillenniumWindow_FriendsList .avatarHolder.ingame::after {
+html:is(.MillenniumWindow_FriendsList, .aika-friends-list) .avatarHolder.ingame::after {
     background: var(--aika-ok);
     -webkit-mask-image: var(--aika-icon-status-game);
     mask-image: var(--aika-icon-status-game);
 }
 
-html.MillenniumWindow_FriendsList .avatarHolder.awayOrSnooze::after {
+html:is(.MillenniumWindow_FriendsList, .aika-friends-list) .avatarHolder.awayOrSnooze::after {
     background: var(--aika-warn);
     -webkit-mask-image: var(--aika-icon-status-away);
     mask-image: var(--aika-icon-status-away);
 }
 
-html.MillenniumWindow_FriendsList .avatarHolder.offline::after {
+html:is(.MillenniumWindow_FriendsList, .aika-friends-list) .avatarHolder.offline::after {
     background: var(--aika-fg-subtle);
     -webkit-mask-image: var(--aika-icon-status-off);
     mask-image: var(--aika-icon-status-off);
 }
 
 /* Sizes */
-html.MillenniumWindow_FriendsList .friend .avatarHolder { --aika-fl-badge: 11px; }
-html.MillenniumWindow_FriendsList .quickAccessFriend .avatarHolder { --aika-fl-badge: 13px; }
-html.MillenniumWindow_FriendsList .currentUserAvatar .avatarHolder { --aika-fl-badge: 16px; --aika-fl-badge-gap: 3.5px; --aika-fl-badge-out: 1px; }
+html:is(.MillenniumWindow_FriendsList, .aika-friends-list) .friend .avatarHolder { --aika-fl-badge: 11px; }
+html:is(.MillenniumWindow_FriendsList, .aika-friends-list) .quickAccessFriend .avatarHolder { --aika-fl-badge: 13px; }
+html:is(.MillenniumWindow_FriendsList, .aika-friends-list) .currentUserAvatar .avatarHolder { --aika-fl-badge: 16px; --aika-fl-badge-gap: 3.5px; --aika-fl-badge-out: 1px; }
 
 /* --- Now playing: friends in game as cards ---------------------------------- */
 /* Friends in different games share Steam's "In game" group
@@ -200,7 +200,7 @@ html.MillenniumWindow_FriendsList .currentUserAvatar .avatarHolder { --aika-fl-b
    art; the avatar, the name and what they do below. Steam's small game icon
    (.FriendInGameIcon) goes — the art says it. A non-Steam game: the preset's
    light instead of art. */
-html.MillenniumWindow_FriendsList .friendGroup.OtherGamesGroup .friend.ingame {
+html:is(.MillenniumWindow_FriendsList, .aika-friends-list) .friendGroup.OtherGamesGroup .friend.ingame {
     position: relative;
     height: auto;
     min-height: 0;
@@ -213,12 +213,12 @@ html.MillenniumWindow_FriendsList .friendGroup.OtherGamesGroup .friend.ingame {
     transition: box-shadow var(--aika-dur-fast) var(--aika-ease-hover);
 }
 
-html.MillenniumWindow_FriendsList .friendGroup.OtherGamesGroup .friend.ingame:hover {
+html:is(.MillenniumWindow_FriendsList, .aika-friends-list) .friendGroup.OtherGamesGroup .friend.ingame:hover {
     background: var(--aika-bg-elevated);
     box-shadow: inset 0 0 0 var(--aika-hairline) var(--aika-border-hover);
 }
 
-html.MillenniumWindow_FriendsList .friendGroup.OtherGamesGroup .friend.ingame::before {
+html:is(.MillenniumWindow_FriendsList, .aika-friends-list) .friendGroup.OtherGamesGroup .friend.ingame::before {
     content: "";
     position: absolute;
     inset: 0 0 auto;
@@ -236,14 +236,14 @@ html.MillenniumWindow_FriendsList .friendGroup.OtherGamesGroup .friend.ingame::b
     pointer-events: none;
 }
 
-html.MillenniumWindow_FriendsList .friendGroup.OtherGamesGroup .friend.ingame .FriendInGameIcon {
+html:is(.MillenniumWindow_FriendsList, .aika-friends-list) .friendGroup.OtherGamesGroup .friend.ingame .FriendInGameIcon {
     display: none;
 }
 
 /* The title on the art: the game's name from data-aika-game (js/friends.js).
    Under the name Steam's labels: what they do ("Competitive - Dust II"),
    or the game's name when there is nothing more */
-html.MillenniumWindow_FriendsList .friendGroup.OtherGamesGroup .friend.ingame::after {
+html:is(.MillenniumWindow_FriendsList, .aika-friends-list) .friendGroup.OtherGamesGroup .friend.ingame::after {
     content: attr(data-aika-game);
     position: absolute;
     top: calc(var(--aika-fl-art-h) - var(--aika-fl-art-title) * 1.4);
@@ -260,17 +260,17 @@ html.MillenniumWindow_FriendsList .friendGroup.OtherGamesGroup .friend.ingame::a
     text-shadow: var(--aika-fl-title-shadow);
 }
 
-html.MillenniumWindow_FriendsList .friendGroup.OtherGamesGroup .friend.ingame .richPresenceContainer:has(> .richPresenceLabel ~ .richPresenceLabel) > .gameName {
+html:is(.MillenniumWindow_FriendsList, .aika-friends-list) .friendGroup.OtherGamesGroup .friend.ingame .richPresenceContainer:has(> .richPresenceLabel ~ .richPresenceLabel) > .gameName {
     display: none;
 }
 
 /* The status line's bottom on the avatar's bottom (author 2026-10-21) — in
    the cards and in the online rows; the header the same way */
-html.MillenniumWindow_FriendsList .friendGroup.gameGroup .friend.ingame {
+html:is(.MillenniumWindow_FriendsList, .aika-friends-list) .friendGroup.gameGroup .friend.ingame {
     align-items: flex-end;
 }
 
-html.MillenniumWindow_FriendsList .friendGroup.gameGroup .friend.ingame .labelHolder {
+html:is(.MillenniumWindow_FriendsList, .aika-friends-list) .friendGroup.gameGroup .friend.ingame .labelHolder {
     display: flex;
     flex-direction: column;
     justify-content: flex-end;
@@ -280,7 +280,7 @@ html.MillenniumWindow_FriendsList .friendGroup.gameGroup .friend.ingame .labelHo
     padding: 0 0 0 var(--aika-space-3);   /* the gap after the avatar */
 }
 
-html.MillenniumWindow_FriendsList .friendGroup.gameGroup .friend.ingame .playerName {
+html:is(.MillenniumWindow_FriendsList, .aika-friends-list) .friendGroup.gameGroup .friend.ingame .playerName {
     font-size: var(--aika-fl-row-name);
     font-weight: var(--aika-weight-semibold);
 }
@@ -288,7 +288,7 @@ html.MillenniumWindow_FriendsList .friendGroup.gameGroup .friend.ingame .playerN
 /* A game with two friends or more: Steam's own group for it — the group is
    the card, the art on its header (--aika-fl-art on the group), the friends
    as rows inside. Not seen live yet (needs two friends in one game). */
-html.MillenniumWindow_FriendsList .friendGroup.gameGroup:not(.OtherGamesGroup) {
+html:is(.MillenniumWindow_FriendsList, .aika-friends-list) .friendGroup.gameGroup:not(.OtherGamesGroup) {
     margin: 0 var(--aika-space-3) var(--aika-space-3);
     border-radius: var(--aika-radius-lg);
     background: var(--aika-bg-elevated);
@@ -296,7 +296,7 @@ html.MillenniumWindow_FriendsList .friendGroup.gameGroup:not(.OtherGamesGroup) {
     overflow: hidden;
 }
 
-html.MillenniumWindow_FriendsList .friendGroup.gameGroup:not(.OtherGamesGroup) > .groupName {
+html:is(.MillenniumWindow_FriendsList, .aika-friends-list) .friendGroup.gameGroup:not(.OtherGamesGroup) > .groupName {
     position: relative;
     height: var(--aika-fl-art-h);
     align-items: flex-end;
@@ -316,7 +316,7 @@ html.MillenniumWindow_FriendsList .friendGroup.gameGroup:not(.OtherGamesGroup) >
 /* "In game", "Friends online (5)", "Offline (19)"… — a mono caption, the count
    fainter, Steam's <hr> as our fading line after it (Steam's text and case
    as they are) */
-html.MillenniumWindow_FriendsList .friendGroup .groupName {
+html:is(.MillenniumWindow_FriendsList, .aika-friends-list) .friendGroup .groupName {
     gap: var(--aika-space-2);
     padding-inline: var(--aika-space-4) var(--aika-space-3);
     font-family: var(--aika-font-mono);
@@ -326,20 +326,20 @@ html.MillenniumWindow_FriendsList .friendGroup .groupName {
     color: var(--aika-fg-subtle);
 }
 
-html.MillenniumWindow_FriendsList .friendGroup .groupName .groupCount {
+html:is(.MillenniumWindow_FriendsList, .aika-friends-list) .friendGroup .groupName .groupCount {
     font-family: var(--aika-font-mono);
     color: var(--aika-fg-faint, var(--aika-fg-subtle));
     opacity: 0.7;
 }
 
-html.MillenniumWindow_FriendsList .friendGroup .groupName hr {
+html:is(.MillenniumWindow_FriendsList, .aika-friends-list) .friendGroup .groupName hr {
     flex: 1;
     height: var(--aika-hairline);
     border: none;
     background: linear-gradient(90deg, var(--aika-border-hover), var(--aika-transparent));
 }
 
-html.MillenniumWindow_FriendsList .friendGroup .groupName .ExpandPlusMinus svg {
+html:is(.MillenniumWindow_FriendsList, .aika-friends-list) .friendGroup .groupName .ExpandPlusMinus svg {
     color: var(--aika-fg-subtle);
 }
 
@@ -347,31 +347,31 @@ html.MillenniumWindow_FriendsList .friendGroup .groupName .ExpandPlusMinus svg {
 /* One line: the avatar, the name, the status on the right in mono (B). Rows in
    Steam's "Unread messages" group (.unreadFriend, not the Recent Chats plugin's
    wrapper of the same name) look the same (2026-10-27). */
-html.MillenniumWindow_FriendsList :is(.friendGroup.onlineFriends, .unreadFriend:not(.rcp-row-wrapper)) .friend {
+html:is(.MillenniumWindow_FriendsList, .aika-friends-list) :is(.friendGroup.onlineFriends, .unreadFriend:not(.rcp-row-wrapper)) .friend {
     margin-inline: var(--aika-space-2);
     padding-inline-start: var(--aika-space-2);
     border-radius: var(--aika-radius-md);
 }
 
-html.MillenniumWindow_FriendsList :is(.friendGroup.onlineFriends, .unreadFriend:not(.rcp-row-wrapper)) .friend .labelHolder {
+html:is(.MillenniumWindow_FriendsList, .aika-friends-list) :is(.friendGroup.onlineFriends, .unreadFriend:not(.rcp-row-wrapper)) .friend .labelHolder {
     display: flex;   /* a block in Steam */
     flex-direction: row;
     align-items: center;
     gap: var(--aika-space-3);
 }
 
-html.MillenniumWindow_FriendsList :is(.friendGroup.onlineFriends, .unreadFriend:not(.rcp-row-wrapper)) .friend .statusAndName {
+html:is(.MillenniumWindow_FriendsList, .aika-friends-list) :is(.friendGroup.onlineFriends, .unreadFriend:not(.rcp-row-wrapper)) .friend .statusAndName {
     flex: 1 1 auto;
     min-width: 0;
 }
 
-html.MillenniumWindow_FriendsList :is(.friendGroup.onlineFriends, .unreadFriend:not(.rcp-row-wrapper)) .friend .richPresenceContainer {
+html:is(.MillenniumWindow_FriendsList, .aika-friends-list) :is(.friendGroup.onlineFriends, .unreadFriend:not(.rcp-row-wrapper)) .friend .richPresenceContainer {
     flex: none;
     max-width: 45%;
     margin-inline-end: var(--aika-space-2);
 }
 
-html.MillenniumWindow_FriendsList :is(.friendGroup.onlineFriends, .unreadFriend:not(.rcp-row-wrapper)) .friend .richPresenceLabel {
+html:is(.MillenniumWindow_FriendsList, .aika-friends-list) :is(.friendGroup.onlineFriends, .unreadFriend:not(.rcp-row-wrapper)) .friend .richPresenceLabel {
     font-family: var(--aika-font-mono);
     font-size: var(--aika-text-label);
     color: var(--aika-fg-subtle);
@@ -380,7 +380,7 @@ html.MillenniumWindow_FriendsList :is(.friendGroup.onlineFriends, .unreadFriend:
 
 /* The game group's header is the card's title, not a caption: the UI face, no
    line through the art */
-html.MillenniumWindow_FriendsList .friendGroup.gameGroup:not(.OtherGamesGroup) > .groupName {
+html:is(.MillenniumWindow_FriendsList, .aika-friends-list) .friendGroup.gameGroup:not(.OtherGamesGroup) > .groupName {
     font-family: var(--aika-font-friends);
     font-size: var(--aika-text-body);
     font-weight: var(--aika-weight-semibold);
@@ -389,28 +389,28 @@ html.MillenniumWindow_FriendsList .friendGroup.gameGroup:not(.OtherGamesGroup) >
     text-shadow: var(--aika-fl-title-shadow);
 }
 
-html.MillenniumWindow_FriendsList .friendGroup.gameGroup:not(.OtherGamesGroup) > .groupName hr {
+html:is(.MillenniumWindow_FriendsList, .aika-friends-list) .friendGroup.gameGroup:not(.OtherGamesGroup) > .groupName hr {
     display: none;
 }
 
 /* --- Pins (favorites, .quickAccessFriends) ----------------------------------- */
 /* A row of faces under the card, the name below in the muted UI face */
-html.MillenniumWindow_FriendsList .quickAccessFriends {
+html:is(.MillenniumWindow_FriendsList, .aika-friends-list) .quickAccessFriends {
     box-sizing: border-box;   /* Steam's width: calc(100% - 8px) plus our padding ran past the window */
     gap: var(--aika-space-1);
     padding: 0 var(--aika-space-3) var(--aika-space-2);
 }
 
-html.MillenniumWindow_FriendsList .quickAccessFriends .friend {
+html:is(.MillenniumWindow_FriendsList, .aika-friends-list) .quickAccessFriends .friend {
     padding: var(--aika-space-1);
     transition: background-color var(--aika-dur-fast) var(--aika-ease-hover);
 }
 
-html.MillenniumWindow_FriendsList .quickAccessFriends .friend:hover {
+html:is(.MillenniumWindow_FriendsList, .aika-friends-list) .quickAccessFriends .friend:hover {
     background-color: var(--aika-surface-hover);
 }
 
-html.MillenniumWindow_FriendsList .quickAccessFriends .friend .playerName {
+html:is(.MillenniumWindow_FriendsList, .aika-friends-list) .quickAccessFriends .friend .playerName {
     font-size: var(--aika-text-label);
 }
 
@@ -423,7 +423,7 @@ html.MillenniumWindow_FriendsList .quickAccessFriends .friend .playerName {
    caption becomes a tab pill beside "Chats" (Recent Chats plugin), its
    buttons a group on the right; a click on the caption still reaches the
    tab's handler (the DOM is unchanged). */
-html.MillenniumWindow_FriendsList .socialTabContainer {
+html:is(.MillenniumWindow_FriendsList, .aika-friends-list) .socialTabContainer {
     align-items: center;
     gap: var(--aika-space-1);
     padding: 0 var(--aika-space-3) var(--aika-space-2);
@@ -431,12 +431,12 @@ html.MillenniumWindow_FriendsList .socialTabContainer {
     box-shadow: none;
 }
 
-html.MillenniumWindow_FriendsList .socialTabContainer .friendTab:not(.rcp-tab-button) {
+html:is(.MillenniumWindow_FriendsList, .aika-friends-list) .socialTabContainer .friendTab:not(.rcp-tab-button) {
     display: contents;
 }
 
-html.MillenniumWindow_FriendsList .socialTabContainer .friendTab:not(.rcp-tab-button) > .tabLabel,
-html.MillenniumWindow_FriendsList .socialTabContainer .rcp-tab-button {
+html:is(.MillenniumWindow_FriendsList, .aika-friends-list) .socialTabContainer .friendTab:not(.rcp-tab-button) > .tabLabel,
+html:is(.MillenniumWindow_FriendsList, .aika-friends-list) .socialTabContainer .rcp-tab-button {
     display: flex;
     flex: none;
     align-items: center;
@@ -453,32 +453,32 @@ html.MillenniumWindow_FriendsList .socialTabContainer .rcp-tab-button {
 }
 
 /* the plugin's tab: 3 px lower and pushed right by its own auto margin */
-html.MillenniumWindow_FriendsList .socialTabContainer #recent-chats-tab-host.rcp-tab-button {
+html:is(.MillenniumWindow_FriendsList, .aika-friends-list) .socialTabContainer #recent-chats-tab-host.rcp-tab-button {
     order: 1;
     margin: 0;
 }
 
-html.MillenniumWindow_FriendsList .socialTabContainer .friendTab.activeTab:not(.rcp-tab-button) > .tabLabel,
-html.MillenniumWindow_FriendsList .socialTabContainer .rcp-tab-button.activeTab {
+html:is(.MillenniumWindow_FriendsList, .aika-friends-list) .socialTabContainer .friendTab.activeTab:not(.rcp-tab-button) > .tabLabel,
+html:is(.MillenniumWindow_FriendsList, .aika-friends-list) .socialTabContainer .rcp-tab-button.activeTab {
     background-color: var(--aika-surface-hover);
     color: var(--aika-fg);
     box-shadow: inset 0 0 0 var(--aika-hairline) var(--aika-border-hover);
 }
 
-html.MillenniumWindow_FriendsList .socialTabContainer .friendTab:not(.activeTab, .rcp-tab-button) > .tabLabel:hover,
-html.MillenniumWindow_FriendsList .socialTabContainer .rcp-tab-button:not(.activeTab):hover {
+html:is(.MillenniumWindow_FriendsList, .aika-friends-list) .socialTabContainer .friendTab:not(.activeTab, .rcp-tab-button) > .tabLabel:hover,
+html:is(.MillenniumWindow_FriendsList, .aika-friends-list) .socialTabContainer .rcp-tab-button:not(.activeTab):hover {
     background-color: var(--aika-surface);
     color: var(--aika-fg-muted);
 }
 
-html.MillenniumWindow_FriendsList .socialTabContainer .socialListTab .tabLabel {
+html:is(.MillenniumWindow_FriendsList, .aika-friends-list) .socialTabContainer .socialListTab .tabLabel {
     font-family: var(--aika-font-friends);
     font-size: var(--aika-text-meta);
     font-weight: var(--aika-weight-medium);
 }
 
 /* the buttons: the search, requests, add a friend — round, on the right */
-html.MillenniumWindow_FriendsList .socialTabContainer .friendsTabButtonsContainer {
+html:is(.MillenniumWindow_FriendsList, .aika-friends-list) .socialTabContainer .friendsTabButtonsContainer {
     order: 2;
     flex: none;   /* Steam lets it grow: the buttons sat left with the room on their right */
     display: flex;
@@ -488,7 +488,7 @@ html.MillenniumWindow_FriendsList .socialTabContainer .friendsTabButtonsContaine
     padding: 0;
 }
 
-html.MillenniumWindow_FriendsList .friendsTabButtonsContainer :is(.friendRequestButton, .addFriendButton) {
+html:is(.MillenniumWindow_FriendsList, .aika-friends-list) .friendsTabButtonsContainer :is(.friendRequestButton, .addFriendButton) {
     position: relative;
     display: flex;
     align-items: center;
@@ -501,18 +501,18 @@ html.MillenniumWindow_FriendsList .friendsTabButtonsContainer :is(.friendRequest
     transition: background-color var(--aika-dur-fast) var(--aika-ease-hover);
 }
 
-html.MillenniumWindow_FriendsList .friendsTabButtonsContainer :is(.friendRequestButton, .addFriendButton):hover {
+html:is(.MillenniumWindow_FriendsList, .aika-friends-list) .friendsTabButtonsContainer :is(.friendRequestButton, .addFriendButton):hover {
     background-color: var(--aika-surface-hover);
 }
 
-html.MillenniumWindow_FriendsList .friendsTabButtonsContainer :is(.friendRequestButton, .addFriendButton) svg {
+html:is(.MillenniumWindow_FriendsList, .aika-friends-list) .friendsTabButtonsContainer :is(.friendRequestButton, .addFriendButton) svg {
     display: block;   /* inline, the baseline dropped it a pixel */
     width: 18px;
     height: 18px;
 }
 
 /* the requests count: a small pill on the button's corner, not over the icon */
-html.MillenniumWindow_FriendsList .friendsTabButtonsContainer .friendRequestButton .requestsNumber {
+html:is(.MillenniumWindow_FriendsList, .aika-friends-list) .friendsTabButtonsContainer .friendRequestButton .requestsNumber {
     position: absolute;
     top: -2px;
     right: -4px;
@@ -526,12 +526,12 @@ html.MillenniumWindow_FriendsList .friendsTabButtonsContainer .friendRequestButt
 
 /* --- Group chats ----------------------------------------------------------------- */
 /* The section bar as a caption like the groups; each chat a card */
-html.MillenniumWindow_FriendsList .FriendsListChatSection .chatSectionTitle {
+html:is(.MillenniumWindow_FriendsList, .aika-friends-list) .FriendsListChatSection .chatSectionTitle {
     background: var(--aika-transparent);
     box-shadow: inset 0 var(--aika-hairline) 0 0 var(--aika-border);
 }
 
-html.MillenniumWindow_FriendsList .FriendsListChatSection .groupChatSectionTitle {
+html:is(.MillenniumWindow_FriendsList, .aika-friends-list) .FriendsListChatSection .groupChatSectionTitle {
     font-family: var(--aika-font-mono);
     font-size: var(--aika-text-label);
     font-weight: var(--aika-weight-medium);
@@ -539,7 +539,7 @@ html.MillenniumWindow_FriendsList .FriendsListChatSection .groupChatSectionTitle
     color: var(--aika-fg-subtle);
 }
 
-html.MillenniumWindow_FriendsList .FriendsListChatSection .ChatRoomListGroupItem {
+html:is(.MillenniumWindow_FriendsList, .aika-friends-list) .FriendsListChatSection .ChatRoomListGroupItem {
     margin: var(--aika-space-1) var(--aika-space-3) var(--aika-space-2);
     border-radius: var(--aika-radius-lg);
     background: var(--aika-bg-elevated);
@@ -547,26 +547,26 @@ html.MillenniumWindow_FriendsList .FriendsListChatSection .ChatRoomListGroupItem
     transition: box-shadow var(--aika-dur-fast) var(--aika-ease-hover);
 }
 
-html.MillenniumWindow_FriendsList .FriendsListChatSection .ChatRoomListGroupItem:hover {
+html:is(.MillenniumWindow_FriendsList, .aika-friends-list) .FriendsListChatSection .ChatRoomListGroupItem:hover {
     box-shadow: inset 0 0 0 var(--aika-hairline) var(--aika-border-hover);
 }
 
-html.MillenniumWindow_FriendsList .FriendsListChatSection :is(.FriendListInsetShadowTop, .FriendListInsetShadowBottom) {
+html:is(.MillenniumWindow_FriendsList, .aika-friends-list) .FriendsListChatSection :is(.FriendListInsetShadowTop, .FriendListInsetShadowBottom) {
     display: none;
 }
 
 /* Steam's gray-blue radial gradient behind the chat list */
-html.MillenniumWindow_FriendsList .FriendsListChatSection .chatRoomListContainer {
+html:is(.MillenniumWindow_FriendsList, .aika-friends-list) .FriendsListChatSection .chatRoomListContainer {
     background: var(--aika-transparent);
 }
 
 /* --- Fixes after the first look (author 2026-10-21) --------------------------- */
 /* The own avatar without Steam's frame (it sat off the circle) */
-html.MillenniumWindow_FriendsList .currentUserAvatar .avatarFrame {
+html:is(.MillenniumWindow_FriendsList, .aika-friends-list) .currentUserAvatar .avatarFrame {
     display: none;
 }
 
-html.MillenniumWindow_FriendsList .currentUserAvatar .avatarHolder img.avatar {
+html:is(.MillenniumWindow_FriendsList, .aika-friends-list) .currentUserAvatar .avatarHolder img.avatar {
     -webkit-mask-image: radial-gradient(circle calc(var(--aika-fl-badge) / 2 + var(--aika-fl-badge-gap))
         at calc(85% + var(--aika-fl-badge-out) / 2) calc(85% + var(--aika-fl-badge-out) / 2),
         transparent 98%, #000 100%);
@@ -575,13 +575,13 @@ html.MillenniumWindow_FriendsList .currentUserAvatar .avatarHolder img.avatar {
         transparent 98%, #000 100%);
 }
 
-html.MillenniumWindow_FriendsList .currentUserAvatar .avatarHolder::after {
+html:is(.MillenniumWindow_FriendsList, .aika-friends-list) .currentUserAvatar .avatarHolder::after {
     right: calc(15% - var(--aika-fl-badge) / 2);
     bottom: calc(15% - var(--aika-fl-badge) / 2);
 }
 
 /* The status menu arrow: a square button at the card's right (concept B) */
-html.MillenniumWindow_FriendsList .currentUserContainer .ContextMenuButton {
+html:is(.MillenniumWindow_FriendsList, .aika-friends-list) .currentUserContainer .ContextMenuButton {
     position: absolute;
     right: var(--aika-space-4);
     bottom: var(--aika-space-4);   /* its bottom on the avatar's bottom, like the text */
@@ -598,11 +598,11 @@ html.MillenniumWindow_FriendsList .currentUserContainer .ContextMenuButton {
     transition: background-color var(--aika-dur-fast) var(--aika-ease-hover);
 }
 
-html.MillenniumWindow_FriendsList .currentUserContainer .ContextMenuButton:hover {
+html:is(.MillenniumWindow_FriendsList, .aika-friends-list) .currentUserContainer .ContextMenuButton:hover {
     background: var(--aika-surface-hover);
 }
 
-html.MillenniumWindow_FriendsList .currentUserContainer .ContextMenuButton svg {
+html:is(.MillenniumWindow_FriendsList, .aika-friends-list) .currentUserContainer .ContextMenuButton svg {
     position: static;
     flex: none;
     margin: 0;
@@ -611,55 +611,55 @@ html.MillenniumWindow_FriendsList .currentUserContainer .ContextMenuButton svg {
     color: var(--aika-fg-muted);
 }
 
-html.MillenniumWindow_FriendsList .currentUserContainer .labelHolder {
+html:is(.MillenniumWindow_FriendsList, .aika-friends-list) .currentUserContainer .labelHolder {
     padding-right: calc(var(--aika-fl-menu-btn) + var(--aika-space-2));
 }
 
 /* Away / snooze: only the badge on the avatar, in the accent (Steam's moon
    and Z's beside the name go) */
-html.MillenniumWindow_FriendsList .SnoozeContainer {
+html:is(.MillenniumWindow_FriendsList, .aika-friends-list) .SnoozeContainer {
     display: none;
 }
 
-html.MillenniumWindow_FriendsList .avatarHolder.awayOrSnooze::after {
+html:is(.MillenniumWindow_FriendsList, .aika-friends-list) .avatarHolder.awayOrSnooze::after {
     background: var(--aika-accent-bright);
 }
 
 /* A collapsed game card: just the title strip, the art behind it */
-html.MillenniumWindow_FriendsList .friendGroup.gameGroup:not(.OtherGamesGroup) > .groupName.Collapsed {
+html:is(.MillenniumWindow_FriendsList, .aika-friends-list) .friendGroup.gameGroup:not(.OtherGamesGroup) > .groupName.Collapsed {
     height: auto;
     padding-block: var(--aika-space-3);
     align-items: center;
 }
 
 /* (0,4,2) — the badge rule above gives every avatar the squircle */
-html.MillenniumWindow_FriendsList .currentUserAvatar .avatarHolder:is(.online, .ingame, .offline) img.avatar {
+html:is(.MillenniumWindow_FriendsList, .aika-friends-list) .currentUserAvatar .avatarHolder:is(.online, .ingame, .offline) img.avatar {
     border-radius: 50%;
 }
 
 /* Bigger names in the online rows too; "Online" in the accent like the name */
-html.MillenniumWindow_FriendsList :is(.friendGroup.onlineFriends, .unreadFriend:not(.rcp-row-wrapper)) .friend .playerName {
+html:is(.MillenniumWindow_FriendsList, .aika-friends-list) :is(.friendGroup.onlineFriends, .unreadFriend:not(.rcp-row-wrapper)) .friend .playerName {
     font-size: var(--aika-fl-row-name);
     font-weight: var(--aika-weight-medium);
 }
 
-html.MillenniumWindow_FriendsList :is(.friendGroup.onlineFriends, .unreadFriend:not(.rcp-row-wrapper)) .friend .labelHolder.online:not(.awayOrSnooze) .richPresenceLabel {
+html:is(.MillenniumWindow_FriendsList, .aika-friends-list) :is(.friendGroup.onlineFriends, .unreadFriend:not(.rcp-row-wrapper)) .friend .labelHolder.online:not(.awayOrSnooze) .richPresenceLabel {
     color: var(--aika-accent-bright);
 }
 
 /* "Away" a step darker than "Online" — Steam's opacity .5 on the whole label
    made it read as offline (author 2026-10-27) */
-html.MillenniumWindow_FriendsList :is(.friendGroup.onlineFriends, .unreadFriend:not(.rcp-row-wrapper)) .friend .labelHolder.online.awayOrSnooze {
+html:is(.MillenniumWindow_FriendsList, .aika-friends-list) :is(.friendGroup.onlineFriends, .unreadFriend:not(.rcp-row-wrapper)) .friend .labelHolder.online.awayOrSnooze {
     opacity: 1;
 }
 
-html.MillenniumWindow_FriendsList :is(.friendGroup.onlineFriends, .unreadFriend:not(.rcp-row-wrapper)) .friend .labelHolder.online.awayOrSnooze .richPresenceLabel {
+html:is(.MillenniumWindow_FriendsList, .aika-friends-list) :is(.friendGroup.onlineFriends, .unreadFriend:not(.rcp-row-wrapper)) .friend .labelHolder.online.awayOrSnooze .richPresenceLabel {
     color: var(--aika-accent);
     opacity: 0.75;
 }
 
 /* Unread rows: the count says enough, the status is on the avatar and below */
-html.MillenniumWindow_FriendsList .unreadFriend:not(.rcp-row-wrapper) .friend .richPresenceContainer {
+html:is(.MillenniumWindow_FriendsList, .aika-friends-list) .unreadFriend:not(.rcp-row-wrapper) .friend .richPresenceContainer {
     display: none;
 }
 
@@ -668,7 +668,7 @@ html.MillenniumWindow_FriendsList .unreadFriend:not(.rcp-row-wrapper) .friend .r
    game" group): a people icon and the count in the ok color, like Steam's
    "+1", no words — to the right of the name and the status (author
    2026-10-21): the block becomes two columns, the mark spans both rows */
-html.MillenniumWindow_FriendsList .friendGroup.OtherGamesGroup .friend.ingame .labelHolder[data-aika-party] {
+html:is(.MillenniumWindow_FriendsList, .aika-friends-list) .friendGroup.OtherGamesGroup .friend.ingame .labelHolder[data-aika-party] {
     display: grid;
     grid-template-columns: minmax(0, max-content) max-content;
     justify-content: start;   /* the column rule above has flex-end — in a grid it moves the columns */
@@ -676,13 +676,13 @@ html.MillenniumWindow_FriendsList .friendGroup.OtherGamesGroup .friend.ingame .l
     align-items: end;
 }
 
-html.MillenniumWindow_FriendsList .friendGroup.OtherGamesGroup .friend.ingame .labelHolder[data-aika-party] > * {
+html:is(.MillenniumWindow_FriendsList, .aika-friends-list) .friendGroup.OtherGamesGroup .friend.ingame .labelHolder[data-aika-party] > * {
     grid-column: 1;
 }
 
 /* one box: the icon is a mask over a small ok-colored square on the left,
    the count is text after it (the second mask layer keeps the text) */
-html.MillenniumWindow_FriendsList .friendGroup.OtherGamesGroup .friend.ingame .labelHolder[data-aika-party]::after {
+html:is(.MillenniumWindow_FriendsList, .aika-friends-list) .friendGroup.OtherGamesGroup .friend.ingame .labelHolder[data-aika-party]::after {
     content: attr(data-aika-party);
     grid-column: 2;
     grid-row: 1 / span 2;
@@ -702,17 +702,17 @@ html.MillenniumWindow_FriendsList .friendGroup.OtherGamesGroup .friend.ingame .l
 }
 
 /* Steam centers the text block in the row (align-self: center) — to the bottom */
-html.MillenniumWindow_FriendsList :is(.friendGroup.gameGroup .friend.ingame, .currentUserContainer) .labelHolder {
+html:is(.MillenniumWindow_FriendsList, .aika-friends-list) :is(.friendGroup.gameGroup .friend.ingame, .currentUserContainer) .labelHolder {
     align-self: flex-end;
 }
 
 /* Online rows: the name and the status on the avatar's middle line (author
    2026-10-21) — one line, so centered */
-html.MillenniumWindow_FriendsList :is(.friendGroup.onlineFriends, .unreadFriend:not(.rcp-row-wrapper)) .friend {
+html:is(.MillenniumWindow_FriendsList, .aika-friends-list) :is(.friendGroup.onlineFriends, .unreadFriend:not(.rcp-row-wrapper)) .friend {
     align-items: center;
 }
 
-html.MillenniumWindow_FriendsList :is(.friendGroup.onlineFriends, .unreadFriend:not(.rcp-row-wrapper)) .friend .labelHolder {
+html:is(.MillenniumWindow_FriendsList, .aika-friends-list) :is(.friendGroup.onlineFriends, .unreadFriend:not(.rcp-row-wrapper)) .friend .labelHolder {
     align-self: center;
     align-items: center;
 }
@@ -720,11 +720,11 @@ html.MillenniumWindow_FriendsList :is(.friendGroup.onlineFriends, .unreadFriend:
 /* The header: the avatar overhangs its holder by 2 px and the status line box
    keeps room under the letters — measured offsets so the letters' bottom and
    the button's bottom meet the avatar's bottom */
-html.MillenniumWindow_FriendsList .currentUserContainer .labelHolder {
+html:is(.MillenniumWindow_FriendsList, .aika-friends-list) .currentUserContainer .labelHolder {
     margin-bottom: calc(-1 * var(--aika-fl-header-text-drop));
 }
 
-html.MillenniumWindow_FriendsList .currentUserContainer .ContextMenuButton {
+html:is(.MillenniumWindow_FriendsList, .aika-friends-list) .currentUserContainer .ContextMenuButton {
     bottom: calc(var(--aika-space-4) - var(--aika-fl-avatar-overhang));
 }
 
@@ -734,13 +734,13 @@ html.MillenniumWindow_FriendsList .currentUserContainer .ContextMenuButton {
    a drag toggles; dragging still resizes the section), the "new chat" button
    as an icon button. The footer strip under it: no plate, just the resize
    grip. */
-html.MillenniumWindow_FriendsList .FriendsListChatSection .chatSectionTitle {
+html:is(.MillenniumWindow_FriendsList, .aika-friends-list) .FriendsListChatSection .chatSectionTitle {
     align-items: center;
     gap: var(--aika-space-1);
     padding-inline: var(--aika-space-2) var(--aika-space-3);
 }
 
-html.MillenniumWindow_FriendsList .FriendsListChatSection .ToggleGroupChatList {
+html:is(.MillenniumWindow_FriendsList, .aika-friends-list) .FriendsListChatSection .ToggleGroupChatList {
     display: grid;
     place-items: center;
     flex: none;
@@ -750,15 +750,15 @@ html.MillenniumWindow_FriendsList .FriendsListChatSection .ToggleGroupChatList {
     transition: background-color var(--aika-dur-fast) var(--aika-ease-hover);
 }
 
-html.MillenniumWindow_FriendsList .FriendsListChatSection .ToggleGroupChatList:hover {
+html:is(.MillenniumWindow_FriendsList, .aika-friends-list) .FriendsListChatSection .ToggleGroupChatList:hover {
     background: var(--aika-surface-hover);
 }
 
-html.MillenniumWindow_FriendsList .FriendsListChatSection .ToggleGroupChatList svg {
+html:is(.MillenniumWindow_FriendsList, .aika-friends-list) .FriendsListChatSection .ToggleGroupChatList svg {
     display: none;
 }
 
-html.MillenniumWindow_FriendsList .FriendsListChatSection .ToggleGroupChatList::before {
+html:is(.MillenniumWindow_FriendsList, .aika-friends-list) .FriendsListChatSection .ToggleGroupChatList::before {
     content: "";
     width: 12px;
     height: 12px;
@@ -768,15 +768,15 @@ html.MillenniumWindow_FriendsList .FriendsListChatSection .ToggleGroupChatList::
     transition: transform var(--aika-dur-fast) var(--aika-ease-hover);
 }
 
-html.MillenniumWindow_FriendsList .FriendsListChatSection.Collapsed .ToggleGroupChatList::before {
+html:is(.MillenniumWindow_FriendsList, .aika-friends-list) .FriendsListChatSection.Collapsed .ToggleGroupChatList::before {
     transform: rotate(-90deg);
 }
 
-html.MillenniumWindow_FriendsList .FriendsListChatSection .groupChatSectionTitle {
+html:is(.MillenniumWindow_FriendsList, .aika-friends-list) .FriendsListChatSection .groupChatSectionTitle {
     cursor: pointer;
 }
 
-html.MillenniumWindow_FriendsList .FriendsListChatSection .createChatRoomButton {
+html:is(.MillenniumWindow_FriendsList, .aika-friends-list) .FriendsListChatSection .createChatRoomButton {
     display: grid;
     place-items: center;
     width: 28px;
@@ -788,26 +788,26 @@ html.MillenniumWindow_FriendsList .FriendsListChatSection .createChatRoomButton 
     transition: background-color var(--aika-dur-fast) var(--aika-ease-hover);
 }
 
-html.MillenniumWindow_FriendsList .FriendsListChatSection .createChatRoomButton:hover {
+html:is(.MillenniumWindow_FriendsList, .aika-friends-list) .FriendsListChatSection .createChatRoomButton:hover {
     background: var(--aika-surface-hover);
 }
 
-html.MillenniumWindow_FriendsList .FriendsListChatSection .createChatRoomButton svg {
+html:is(.MillenniumWindow_FriendsList, .aika-friends-list) .FriendsListChatSection .createChatRoomButton svg {
     width: 18px;
     height: 18px;
     color: var(--aika-fg-muted);
 }
 
-html.MillenniumWindow_FriendsList .FriendsListChatSection .createChatRoomButton svg * {
+html:is(.MillenniumWindow_FriendsList, .aika-friends-list) .FriendsListChatSection .createChatRoomButton svg * {
     fill: currentColor;
 }
 
-html.MillenniumWindow_FriendsList .friendListFooter {
+html:is(.MillenniumWindow_FriendsList, .aika-friends-list) .friendListFooter {
     background: var(--aika-transparent);
     box-shadow: none;
 }
 
-html.MillenniumWindow_FriendsList .window_resize_grip {
+html:is(.MillenniumWindow_FriendsList, .aika-friends-list) .window_resize_grip {
     opacity: 0.4;
 }
 
@@ -819,7 +819,7 @@ html.MillenniumWindow_FriendsList .window_resize_grip {
    Default — concept B, "an expanding magnifier": closed, a round button
    next to the caption; open, it stretches into a pill with an accent ring,
    the caption stays. The magnifier leads in both (order: -1). */
-html.MillenniumWindow_FriendsList .friendsTabButtonsContainer .TabSearchButton {
+html:is(.MillenniumWindow_FriendsList, .aika-friends-list) .friendsTabButtonsContainer .TabSearchButton {
     flex: none;
     align-items: center;
     width: 30px;
@@ -837,12 +837,12 @@ html.MillenniumWindow_FriendsList .friendsTabButtonsContainer .TabSearchButton {
         background-color var(--aika-dur-fast) var(--aika-ease-hover);
 }
 
-html.MillenniumWindow_FriendsList .friendsTabButtonsContainer .TabSearchButton:hover {
+html:is(.MillenniumWindow_FriendsList, .aika-friends-list) .friendsTabButtonsContainer .TabSearchButton:hover {
     background-color: var(--aika-surface-hover);
     box-shadow: inset 0 0 0 var(--aika-hairline) var(--aika-border-strong);
 }
 
-html.MillenniumWindow_FriendsList .TabSearchActive .friendsTabButtonsContainer .TabSearchButton {
+html:is(.MillenniumWindow_FriendsList, .aika-friends-list) .TabSearchActive .friendsTabButtonsContainer .TabSearchButton {
     width: min(240px, 45vw);
     background-color: var(--aika-bg-raised);
     box-shadow: inset 0 0 0 var(--aika-hairline) var(--aika-accent-ring), 0 0 14px var(--aika-accent-tint);
@@ -850,21 +850,21 @@ html.MillenniumWindow_FriendsList .TabSearchActive .friendsTabButtonsContainer .
 }
 
 /* Steam squeezes the caption with an inline width while searching — keep it */
-html.MillenniumWindow_FriendsList .friendTab.TabSearchActive > .tabLabel {
+html:is(.MillenniumWindow_FriendsList, .aika-friends-list) .friendTab.TabSearchActive > .tabLabel {
     width: auto !important;
     opacity: 1 !important;
 }
 
-html.MillenniumWindow_FriendsList .TabSearchButton > .tabSearchTransitionGroup:empty {
+html:is(.MillenniumWindow_FriendsList, .aika-friends-list) .TabSearchButton > .tabSearchTransitionGroup:empty {
     display: none;
 }
 
-html.MillenniumWindow_FriendsList .TabSearchButton > .tabSearchTransitionGroup {
+html:is(.MillenniumWindow_FriendsList, .aika-friends-list) .TabSearchButton > .tabSearchTransitionGroup {
     flex: 1 1 auto;
     min-width: 0;
 }
 
-html.MillenniumWindow_FriendsList .TabSearchButton > .searchIconButton {
+html:is(.MillenniumWindow_FriendsList, .aika-friends-list) .TabSearchButton > .searchIconButton {
     order: -1;
     display: flex;
     flex: none;
@@ -874,7 +874,7 @@ html.MillenniumWindow_FriendsList .TabSearchButton > .searchIconButton {
     height: 30px;
 }
 
-html.MillenniumWindow_FriendsList .TabSearchButton > .searchIconButton svg {
+html:is(.MillenniumWindow_FriendsList, .aika-friends-list) .TabSearchButton > .searchIconButton svg {
     display: block;
     width: 14px;
     height: 14px;
@@ -882,18 +882,18 @@ html.MillenniumWindow_FriendsList .TabSearchButton > .searchIconButton svg {
 }
 
 /* Steam hides the magnifier while searching (width 0, opacity 0) — it leads the pill */
-html.MillenniumWindow_FriendsList .TabSearchActive .TabSearchButton > .searchIconButton {
+html:is(.MillenniumWindow_FriendsList, .aika-friends-list) .TabSearchActive .TabSearchButton > .searchIconButton {
     width: 30px;
     opacity: 1;
 }
 
-html.MillenniumWindow_FriendsList .TabSearchActive .TabSearchButton > .searchIconButton svg {
+html:is(.MillenniumWindow_FriendsList, .aika-friends-list) .TabSearchActive .TabSearchButton > .searchIconButton svg {
     color: var(--aika-accent-bright);
     fill: var(--aika-accent-bright);
 }
 
-html.MillenniumWindow_FriendsList .TabSearchButton .socialInputContainer,
-html.MillenniumWindow_FriendsList .TabSearchButton .inputContainer {
+html:is(.MillenniumWindow_FriendsList, .aika-friends-list) .TabSearchButton .socialInputContainer,
+html:is(.MillenniumWindow_FriendsList, .aika-friends-list) .TabSearchButton .inputContainer {
     display: flex;
     flex: 1 1 auto;   /* .inputContainer kept its content width: a short field, the ✕ far off */
     align-items: center;
@@ -904,12 +904,12 @@ html.MillenniumWindow_FriendsList .TabSearchButton .inputContainer {
 
 /* the field inside the pill: no box of its own (sections/friends.css gives
    the search field one, (0,4,1) — this is a step stronger) */
-html.MillenniumWindow_FriendsList .TabSearchButton .socialSearchContainer {
+html:is(.MillenniumWindow_FriendsList, .aika-friends-list) .TabSearchButton .socialSearchContainer {
     background: none;
 }
 
-html.MillenniumWindow_FriendsList .TabSearchButton .socialSearchContainer input.friendSearchInput[type="text"],
-html.MillenniumWindow_FriendsList .TabSearchButton .socialSearchContainer input.friendSearchInput[type="text"]:focus {
+html:is(.MillenniumWindow_FriendsList, .aika-friends-list) .TabSearchButton .socialSearchContainer input.friendSearchInput[type="text"],
+html:is(.MillenniumWindow_FriendsList, .aika-friends-list) .TabSearchButton .socialSearchContainer input.friendSearchInput[type="text"]:focus {
     flex: 1 1 auto;
     min-width: 0;
     height: 30px;
@@ -924,13 +924,13 @@ html.MillenniumWindow_FriendsList .TabSearchButton .socialSearchContainer input.
     caret-color: var(--aika-accent-bright);
 }
 
-html.MillenniumWindow_FriendsList .TabSearchButton input.friendSearchInput::placeholder {
+html:is(.MillenniumWindow_FriendsList, .aika-friends-list) .TabSearchButton input.friendSearchInput::placeholder {
     color: var(--aika-fg-subtle);
     font-style: normal;
 }
 
 /* Steam's ✕ is absolute over the field's end — in the flow, last */
-html.MillenniumWindow_FriendsList .TabSearchButton .friendSearchClear {
+html:is(.MillenniumWindow_FriendsList, .aika-friends-list) .TabSearchButton .friendSearchClear {
     position: static;
     order: 2;
     flex: none;
@@ -942,7 +942,7 @@ html.MillenniumWindow_FriendsList .TabSearchButton .friendSearchClear {
     margin: 0;
 }
 
-html.MillenniumWindow_FriendsList .TabSearchButton .friendSearchClear svg {
+html:is(.MillenniumWindow_FriendsList, .aika-friends-list) .TabSearchButton .friendSearchClear svg {
     display: block;
 }
 
@@ -950,22 +950,22 @@ html.MillenniumWindow_FriendsList .TabSearchButton .friendSearchClear svg {
    puts html.aika-fl-search-cmd from --aika-fl-search: cmd): always a field,
    mono, a "›" prompt, the accent caret, the found count on the right
    (data-aika-found on the field, js/friends.js) */
-html.aika-fl-search-cmd.MillenniumWindow_FriendsList .friendsTabButtonsContainer .TabSearchButton {
+html.aika-fl-search-cmd:is(.MillenniumWindow_FriendsList, .aika-friends-list) .friendsTabButtonsContainer .TabSearchButton {
     width: min(240px, 45vw);
     border-radius: var(--aika-radius-md);
     background-color: var(--aika-bg-raised);
     cursor: text;
 }
 
-html.aika-fl-search-cmd.MillenniumWindow_FriendsList .TabSearchActive .friendsTabButtonsContainer .TabSearchButton {
+html.aika-fl-search-cmd:is(.MillenniumWindow_FriendsList, .aika-friends-list) .TabSearchActive .friendsTabButtonsContainer .TabSearchButton {
     box-shadow: inset 0 0 0 var(--aika-hairline) var(--aika-accent-glow), 0 0 0 3px var(--aika-accent-tint);
 }
 
-html.aika-fl-search-cmd.MillenniumWindow_FriendsList .TabSearchButton > .searchIconButton svg {
+html.aika-fl-search-cmd:is(.MillenniumWindow_FriendsList, .aika-friends-list) .TabSearchButton > .searchIconButton svg {
     display: none;
 }
 
-html.aika-fl-search-cmd.MillenniumWindow_FriendsList .TabSearchButton > .searchIconButton::before {
+html.aika-fl-search-cmd:is(.MillenniumWindow_FriendsList, .aika-friends-list) .TabSearchButton > .searchIconButton::before {
     content: "›";
     font-family: var(--aika-font-mono);
     font-size: var(--aika-text-body);
@@ -974,14 +974,14 @@ html.aika-fl-search-cmd.MillenniumWindow_FriendsList .TabSearchButton > .searchI
 }
 
 /* closed: Steam's tooltip text ("Search friends") as the placeholder */
-html.aika-fl-search-cmd.MillenniumWindow_FriendsList .TabSearchButton:has(> .tabSearchTransitionGroup:empty) > .searchIconButton {
+html.aika-fl-search-cmd:is(.MillenniumWindow_FriendsList, .aika-friends-list) .TabSearchButton:has(> .tabSearchTransitionGroup:empty) > .searchIconButton {
     flex: 1 1 auto;
     justify-content: flex-start;
     gap: var(--aika-space-2);
     padding-inline-start: var(--aika-space-3);
 }
 
-html.aika-fl-search-cmd.MillenniumWindow_FriendsList .TabSearchButton:has(> .tabSearchTransitionGroup:empty) > .searchIconButton::after {
+html.aika-fl-search-cmd:is(.MillenniumWindow_FriendsList, .aika-friends-list) .TabSearchButton:has(> .tabSearchTransitionGroup:empty) > .searchIconButton::after {
     content: attr(title);
     overflow: hidden;
     font-family: var(--aika-font-mono);
@@ -993,11 +993,11 @@ html.aika-fl-search-cmd.MillenniumWindow_FriendsList .TabSearchButton:has(> .tab
     white-space: nowrap;
 }
 
-html.aika-fl-search-cmd.MillenniumWindow_FriendsList .TabSearchButton .socialSearchContainer input.friendSearchInput[type="text"] {
+html.aika-fl-search-cmd:is(.MillenniumWindow_FriendsList, .aika-friends-list) .TabSearchButton .socialSearchContainer input.friendSearchInput[type="text"] {
     font-family: var(--aika-font-mono);
 }
 
-html.aika-fl-search-cmd.MillenniumWindow_FriendsList .TabSearchButton .inputContainer[data-aika-found]::after {
+html.aika-fl-search-cmd:is(.MillenniumWindow_FriendsList, .aika-friends-list) .TabSearchButton .inputContainer[data-aika-found]::after {
     content: attr(data-aika-found);
     order: 1;
     flex: none;
@@ -1208,35 +1208,35 @@ html .CreateChatDialog .FriendPicker_ChosenFriend svg line {
 
 /* --- Audit leftovers (2026-10-26) ------------------------------------------------ */
 /* "Online 3 days ago" under offline friends (List mode): Steam's #6e6e6e */
-html.MillenniumWindow_FriendsList .friend.offline .richPresenceLabel {
+html:is(.MillenniumWindow_FriendsList, .aika-friends-list) .friend.offline .richPresenceLabel {
     color: var(--aika-fg-subtle);
 }
 
 /* A group chat row: the name, its menu arrow and the avatar stack's frame */
-html.MillenniumWindow_FriendsList .ChatRoomListGroupItem .chatRoomName {
+html:is(.MillenniumWindow_FriendsList, .aika-friends-list) .ChatRoomListGroupItem .chatRoomName {
     color: var(--aika-fg);
     font-weight: var(--aika-weight-medium);
 }
 
-html.MillenniumWindow_FriendsList .ChatRoomListGroupItem .ContextMenuButton svg,
-html.MillenniumWindow_FriendsList .ChatRoomListGroupItem .ContextMenuButton svg :is(polygon, path) {
+html:is(.MillenniumWindow_FriendsList, .aika-friends-list) .ChatRoomListGroupItem .ContextMenuButton svg,
+html:is(.MillenniumWindow_FriendsList, .aika-friends-list) .ChatRoomListGroupItem .ContextMenuButton svg :is(polygon, path) {
     fill: var(--aika-fg-subtle);
 }
 
-html.MillenniumWindow_FriendsList .ChatRoomListGroupItem .ChatRoomMultiFriendAvatar {
+html:is(.MillenniumWindow_FriendsList, .aika-friends-list) .ChatRoomListGroupItem .ChatRoomMultiFriendAvatar {
     border-color: var(--aika-border-hover);
     border-radius: var(--aika-radius-md);
     overflow: hidden;
 }
 
 /* A group chat without an avatar image: Steam's gray-blue disc with gradient initials */
-html.MillenniumWindow_FriendsList .ChatRoomListGroupItem .ChatRoomGroupAvatar {
+html:is(.MillenniumWindow_FriendsList, .aika-friends-list) .ChatRoomListGroupItem .ChatRoomGroupAvatar {
     background: var(--aika-accent-soft);
     border-color: var(--aika-border-hover);
     border-radius: var(--aika-radius-md);
 }
 
-html.MillenniumWindow_FriendsList .ChatRoomListGroupItem .ChatRoomGroupAvatar_initials {
+html:is(.MillenniumWindow_FriendsList, .aika-friends-list) .ChatRoomListGroupItem .ChatRoomGroupAvatar_initials {
     background: none;
     color: var(--aika-accent);
     -webkit-text-fill-color: currentColor;
@@ -1261,22 +1261,22 @@ html.friendsui-container :is(.FriendMessageCount, .friendRequestButton .requests
     box-sizing: border-box;
 }
 
-html.MillenniumWindow_FriendsList .friendRequestButton svg :is(.friendHead, .friendHead circle, .friendBody, .friendArm) {
+html:is(.MillenniumWindow_FriendsList, .aika-friends-list) .friendRequestButton svg :is(.friendHead, .friendHead circle, .friendBody, .friendArm) {
     fill: var(--aika-fg-subtle);
 }
 
-html.MillenniumWindow_FriendsList .friendRequestButton:hover svg :is(.friendHead, .friendHead circle, .friendBody, .friendArm) {
+html:is(.MillenniumWindow_FriendsList, .aika-friends-list) .friendRequestButton:hover svg :is(.friendHead, .friendHead circle, .friendBody, .friendArm) {
     fill: var(--aika-fg);
 }
 
-html.MillenniumWindow_FriendsList .friendRequestButton svg .redCircle,
-html.MillenniumWindow_FriendsList .friendRequestButton:hover svg .redCircle {
+html:is(.MillenniumWindow_FriendsList, .aika-friends-list) .friendRequestButton svg .redCircle,
+html:is(.MillenniumWindow_FriendsList, .aika-friends-list) .friendRequestButton:hover svg .redCircle {
     fill: var(--aika-accent);
 }
 
 /* Empty pins: Steam's cyan dashed hint ran past the window's right edge and
    its "Got it!" hung off the box's corner — the hint and the button in a row */
-html.MillenniumWindow_FriendsList .quickAccessFriends.emptyQuickAccess {
+html:is(.MillenniumWindow_FriendsList, .aika-friends-list) .quickAccessFriends.emptyQuickAccess {
     display: flex;
     align-items: center;
     gap: var(--aika-space-2);
@@ -1287,13 +1287,13 @@ html.MillenniumWindow_FriendsList .quickAccessFriends.emptyQuickAccess {
 /* "Got it!" (.hintDismissed): Steam drops the button and hides the hint by
    the strip's fixed height — our height: auto kept the hint on screen. Gone
    until a drag starts; then the drop zone shows again. */
-html.MillenniumWindow_FriendsList body:not(.in_global_drag) .quickAccessFriends.emptyQuickAccess.hintDismissed {
+html:is(.MillenniumWindow_FriendsList, .aika-friends-list) body:not(.in_global_drag) .quickAccessFriends.emptyQuickAccess.hintDismissed {
     height: 0;
     padding: 0;
     overflow: hidden;
 }
 
-html.MillenniumWindow_FriendsList .quickAccessFriends .quickAccessFriendsMessage {
+html:is(.MillenniumWindow_FriendsList, .aika-friends-list) .quickAccessFriends .quickAccessFriendsMessage {
     flex: 1 1 auto;
     min-width: 0;
     margin: 0;
@@ -1304,7 +1304,7 @@ html.MillenniumWindow_FriendsList .quickAccessFriends .quickAccessFriendsMessage
     font-family: var(--aika-font-friends);
 }
 
-html.MillenniumWindow_FriendsList .quickAccessFriends.emptyQuickAccess .quickAccessFriendsMessageDismiss {
+html:is(.MillenniumWindow_FriendsList, .aika-friends-list) .quickAccessFriends.emptyQuickAccess .quickAccessFriendsMessageDismiss {
     position: static;
     flex: none;
     padding: var(--aika-space-1) var(--aika-space-3);
@@ -1319,7 +1319,7 @@ html.MillenniumWindow_FriendsList .quickAccessFriends.emptyQuickAccess .quickAcc
         color var(--aika-dur-fast) var(--aika-ease-hover);
 }
 
-html.MillenniumWindow_FriendsList .quickAccessFriends.emptyQuickAccess .quickAccessFriendsMessageDismiss:hover {
+html:is(.MillenniumWindow_FriendsList, .aika-friends-list) .quickAccessFriends.emptyQuickAccess .quickAccessFriendsMessageDismiss:hover {
     background: var(--aika-accent-soft);
     color: var(--aika-fg);
 }
@@ -1329,7 +1329,7 @@ html.MillenniumWindow_FriendsList .quickAccessFriends.emptyQuickAccess .quickAcc
    at a fraction of the window's size; stretched here, the smoothing is a soft
    blur for free. Over the light spots, under the list; faded toward the top
    (the profile card) and the bottom. The grid texture steps aside. */
-html.MillenniumWindow_FriendsList canvas.aika-fl-bg {
+html:is(.MillenniumWindow_FriendsList, .aika-friends-list) canvas.aika-fl-bg {
     position: fixed;
     inset: 0;
     z-index: var(--aika-z-texture);
@@ -1340,7 +1340,7 @@ html.MillenniumWindow_FriendsList canvas.aika-fl-bg {
     -webkit-mask-image: linear-gradient(to bottom, var(--aika-transparent) 5%, #000 35%, #000 75%, var(--aika-transparent));
 }
 
-html.MillenniumWindow_FriendsList.aika-fl-pattern body::after {
+html:is(.MillenniumWindow_FriendsList, .aika-friends-list).aika-fl-pattern body::after {
     display: none;
 }
 
@@ -1348,19 +1348,19 @@ html.MillenniumWindow_FriendsList.aika-fl-pattern body::after {
    sets them apart (author 2026-10-27). A real border: the art (absolute,
    inset 0) fills only the padding box, so it can't cover it — an inset
    shadow and an outline both went under the art. */
-html.MillenniumWindow_FriendsList.aika-fl-pattern :is(.friendGroup.OtherGamesGroup .friend.ingame, .friendGroup.gameGroup:not(.OtherGamesGroup)) {
+html:is(.MillenniumWindow_FriendsList, .aika-friends-list).aika-fl-pattern :is(.friendGroup.OtherGamesGroup .friend.ingame, .friendGroup.gameGroup:not(.OtherGamesGroup)) {
     border: var(--aika-hairline) solid var(--aika-accent-ring);
     box-shadow: none;
 }
 
-html.MillenniumWindow_FriendsList.aika-fl-pattern .friendGroup.OtherGamesGroup .friend.ingame:hover {
+html:is(.MillenniumWindow_FriendsList, .aika-friends-list).aika-fl-pattern .friendGroup.OtherGamesGroup .friend.ingame:hover {
     border-color: var(--aika-accent);
     box-shadow: none;
 }
 
 /* Steam paints the body black (html.client_chat_frame body, #000) — over the
    light spots and the pattern alike */
-html.MillenniumWindow_FriendsList.client_chat_frame body {
+html:is(.MillenniumWindow_FriendsList, .aika-friends-list).client_chat_frame body {
     background: var(--aika-transparent);
 }
 
@@ -1371,11 +1371,11 @@ html.MillenniumWindow_FriendsList.client_chat_frame body {
    "Confirm" / "Decline all" and the back arrow (.cancelAddFriends). Steam:
    gold #ffc628 caption and arrow, #444 rings, a blue #36f confirm, a red
    checkbox — the accent, ok and live colors instead. */
-html.MillenniumWindow_FriendsList .FriendsListContent .friendGroup.friendRequests .groupName {
+html:is(.MillenniumWindow_FriendsList, .aika-friends-list) .FriendsListContent .friendGroup.friendRequests .groupName {
     color: var(--aika-accent-bright);
 }
 
-html.MillenniumWindow_FriendsList .confirmInviteRequestContainer .cancelAddFriends .SVGIcon_Arrow polyline {
+html:is(.MillenniumWindow_FriendsList, .aika-friends-list) .confirmInviteRequestContainer .cancelAddFriends .SVGIcon_Arrow polyline {
     stroke: var(--aika-accent-bright);
 }
 
@@ -1384,7 +1384,7 @@ html.MillenniumWindow_FriendsList .confirmInviteRequestContainer .cancelAddFrien
    choice) stacked into a column — a big face in an accent ring, the name, the
    mutual friends line, two buttons with their own titles ("Accept" /
    "Decline", Steam's title attribute) as text. */
-html.MillenniumWindow_FriendsList .friendGroup .friendInviteContainer {
+html:is(.MillenniumWindow_FriendsList, .aika-friends-list) .friendGroup .friendInviteContainer {
     position: relative;
     flex-direction: column;
     align-items: center;
@@ -1395,7 +1395,7 @@ html.MillenniumWindow_FriendsList .friendGroup .friendInviteContainer {
     box-shadow: inset 0 0 0 var(--aika-hairline) var(--aika-accent-glow);
 }
 
-html.MillenniumWindow_FriendsList .friendGroup .friendInviteContainer .friend {
+html:is(.MillenniumWindow_FriendsList, .aika-friends-list) .friendGroup .friendInviteContainer .friend {
     flex-direction: column;
     align-items: center;
     gap: var(--aika-space-3);
@@ -1407,7 +1407,7 @@ html.MillenniumWindow_FriendsList .friendGroup .friendInviteContainer .friend {
 }
 
 /* the ring on the holder: the image itself is clipped by it */
-html.MillenniumWindow_FriendsList .friendInviteContainer .friend .avatarHolder {
+html:is(.MillenniumWindow_FriendsList, .aika-friends-list) .friendInviteContainer .friend .avatarHolder {
     width: auto;
     height: auto;
     padding: 0;
@@ -1415,17 +1415,17 @@ html.MillenniumWindow_FriendsList .friendInviteContainer .friend .avatarHolder {
     box-shadow: 0 0 0 3px var(--aika-bg-base), 0 0 0 5px var(--aika-accent), 0 0 18px var(--aika-accent-glow);
 }
 
-html.MillenniumWindow_FriendsList .friendInviteContainer .friend .avatarHolder img.avatar {
+html:is(.MillenniumWindow_FriendsList, .aika-friends-list) .friendInviteContainer .friend .avatarHolder img.avatar {
     width: 64px;
     height: 64px;
 }
 
 /* the status badge — a stranger's status isn't the point here */
-html.MillenniumWindow_FriendsList .friendInviteContainer .friend .avatarHolder::after {
+html:is(.MillenniumWindow_FriendsList, .aika-friends-list) .friendInviteContainer .friend .avatarHolder::after {
     display: none;
 }
 
-html.MillenniumWindow_FriendsList .friendInviteContainer .friend .labelHolder {
+html:is(.MillenniumWindow_FriendsList, .aika-friends-list) .friendInviteContainer .friend .labelHolder {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -1435,31 +1435,31 @@ html.MillenniumWindow_FriendsList .friendInviteContainer .friend .labelHolder {
     text-align: center;
 }
 
-html.MillenniumWindow_FriendsList .friendInviteContainer .friend .statusAndName {
+html:is(.MillenniumWindow_FriendsList, .aika-friends-list) .friendInviteContainer .friend .statusAndName {
     justify-content: center;
 }
 
-html.MillenniumWindow_FriendsList .friendInviteContainer .friend .playerName {
+html:is(.MillenniumWindow_FriendsList, .aika-friends-list) .friendInviteContainer .friend .playerName {
     font-size: var(--aika-text-h3);
     font-weight: var(--aika-weight-semibold);
     color: var(--aika-fg);
 }
 
-html.MillenniumWindow_FriendsList .friendInviteContainer .inviteLabel {
+html:is(.MillenniumWindow_FriendsList, .aika-friends-list) .friendInviteContainer .inviteLabel {
     -webkit-mask: none;   /* Steam fades the line's end — centered, it cut the text */
     font-family: var(--aika-font-mono);
     font-size: var(--aika-text-label);
     color: var(--aika-fg-subtle) !important;   /* Steam's #4f6168 is !important */
 }
 
-html.MillenniumWindow_FriendsList .friendInviteContainer .friendInviteButtons {
+html:is(.MillenniumWindow_FriendsList, .aika-friends-list) .friendInviteContainer .friendInviteButtons {
     justify-content: center;
     gap: var(--aika-space-2);
     margin-top: var(--aika-space-4);
     padding: 0;
 }
 
-html.MillenniumWindow_FriendsList .friendInviteButton:is(.acceptFriendInvite, .declineFriendInvite) {
+html:is(.MillenniumWindow_FriendsList, .aika-friends-list) .friendInviteButton:is(.acceptFriendInvite, .declineFriendInvite) {
     display: inline-flex;
     align-items: center;
     gap: var(--aika-space-2);
@@ -1479,42 +1479,42 @@ html.MillenniumWindow_FriendsList .friendInviteButton:is(.acceptFriendInvite, .d
         color var(--aika-dur-fast) var(--aika-ease-hover);
 }
 
-html.MillenniumWindow_FriendsList .friendInviteButton:is(.acceptFriendInvite, .declineFriendInvite)::after {
+html:is(.MillenniumWindow_FriendsList, .aika-friends-list) .friendInviteButton:is(.acceptFriendInvite, .declineFriendInvite)::after {
     content: attr(title);
 }
 
-html.MillenniumWindow_FriendsList .friendInviteButton:is(.acceptFriendInvite, .declineFriendInvite) svg {
+html:is(.MillenniumWindow_FriendsList, .aika-friends-list) .friendInviteButton:is(.acceptFriendInvite, .declineFriendInvite) svg {
     width: 12px;
     height: 12px;
 }
 
-html.MillenniumWindow_FriendsList .friendInviteButton:is(.acceptFriendInvite, .declineFriendInvite) svg :is(polyline, line, path) {
+html:is(.MillenniumWindow_FriendsList, .aika-friends-list) .friendInviteButton:is(.acceptFriendInvite, .declineFriendInvite) svg :is(polyline, line, path) {
     stroke: currentColor;
 }
 
 /* "Accept" is the main action: accent; picked — brighter with a glow */
-html.MillenniumWindow_FriendsList .friendInviteButton.acceptFriendInvite {
+html:is(.MillenniumWindow_FriendsList, .aika-friends-list) .friendInviteButton.acceptFriendInvite {
     background-color: var(--aika-accent-fill);
     color: var(--aika-on-accent);
 }
 
-html.MillenniumWindow_FriendsList .friendInviteButton.acceptFriendInvite:is(:hover, :not(.dim), .bright) {
+html:is(.MillenniumWindow_FriendsList, .aika-friends-list) .friendInviteButton.acceptFriendInvite:is(:hover, :not(.dim), .bright) {
     background-color: var(--aika-accent-fill-hover);
     box-shadow: 0 0 14px var(--aika-accent-glow);
 }
 
-html.MillenniumWindow_FriendsList .friendInviteButton.acceptFriendInvite:is(:not(.dim), .bright) {
+html:is(.MillenniumWindow_FriendsList, .aika-friends-list) .friendInviteButton.acceptFriendInvite:is(:not(.dim), .bright) {
     box-shadow: 0 0 0 2px var(--aika-bg-base), 0 0 0 3px var(--aika-accent), 0 0 14px var(--aika-accent-glow);
 }
 
 /* "Decline": an outline; hovered or picked — the live color */
-html.MillenniumWindow_FriendsList .friendInviteButton.declineFriendInvite {
+html:is(.MillenniumWindow_FriendsList, .aika-friends-list) .friendInviteButton.declineFriendInvite {
     background-color: var(--aika-transparent);
     color: var(--aika-fg-muted);
     box-shadow: inset 0 0 0 var(--aika-hairline) var(--aika-border-hover);
 }
 
-html.MillenniumWindow_FriendsList .friendInviteButton.declineFriendInvite:is(:hover, :not(.dim), .bright) {
+html:is(.MillenniumWindow_FriendsList, .aika-friends-list) .friendInviteButton.declineFriendInvite:is(:hover, :not(.dim), .bright) {
     background-color: var(--aika-live-soft);
     color: var(--aika-live);
     box-shadow: inset 0 0 0 var(--aika-hairline) var(--aika-live);
@@ -1523,40 +1523,40 @@ html.MillenniumWindow_FriendsList .friendInviteButton.declineFriendInvite:is(:ho
 /* Declined (.declined): Steam blurs and darkens the friend (.friend.dim) and
    slides in "Block user?" over it — on the card, centered over the face and
    the name */
-html.MillenniumWindow_FriendsList .friendInviteContainer .friendInviteBlockContainer {
+html:is(.MillenniumWindow_FriendsList, .aika-friends-list) .friendInviteContainer .friendInviteBlockContainer {
     inset: var(--aika-space-5) var(--aika-space-4) auto;
     justify-content: center;
     align-items: center;
     height: calc(64px + var(--aika-space-3) + 3em);
 }
 
-html.MillenniumWindow_FriendsList .friendInviteBlockContainer .DialogCheckbox {
+html:is(.MillenniumWindow_FriendsList, .aika-friends-list) .friendInviteBlockContainer .DialogCheckbox {
     margin: 0 var(--aika-space-3) 0 0;
 }
 
-html.MillenniumWindow_FriendsList .friendInviteBlockContainer .blockCommunicationLabel {
+html:is(.MillenniumWindow_FriendsList, .aika-friends-list) .friendInviteBlockContainer .blockCommunicationLabel {
     margin-top: 0;
     text-shadow: none;
 }
 
-html.MillenniumWindow_FriendsList .friendInviteBlockContainer .DialogCheckbox .SVGIcon_DialogCheck path {
+html:is(.MillenniumWindow_FriendsList, .aika-friends-list) .friendInviteBlockContainer .DialogCheckbox .SVGIcon_DialogCheck path {
     stroke: var(--aika-live);
 }
 
-html.MillenniumWindow_FriendsList .friendInviteBlockContainer .DialogCheckbox {
+html:is(.MillenniumWindow_FriendsList, .aika-friends-list) .friendInviteBlockContainer .DialogCheckbox {
     border-color: var(--aika-live);
     background-color: var(--aika-live-soft);
 }
 
-html.MillenniumWindow_FriendsList .friendInviteBlockContainer .blockCommunicationLabel {
+html:is(.MillenniumWindow_FriendsList, .aika-friends-list) .friendInviteBlockContainer .blockCommunicationLabel {
     color: var(--aika-fg-muted);
 }
 
-html.MillenniumWindow_FriendsList .friendInviteBlockContainer .blockCommunicationLabel.subtitle {
+html:is(.MillenniumWindow_FriendsList, .aika-friends-list) .friendInviteBlockContainer .blockCommunicationLabel.subtitle {
     color: var(--aika-fg-subtle);
 }
 
-html.MillenniumWindow_FriendsList .confirmInviteRequestContainer .confirmInviteButton {
+html:is(.MillenniumWindow_FriendsList, .aika-friends-list) .confirmInviteRequestContainer .confirmInviteButton {
     border-radius: var(--aika-radius-md);
     background: var(--aika-surface-hover);
     color: var(--aika-fg);
@@ -1564,16 +1564,16 @@ html.MillenniumWindow_FriendsList .confirmInviteRequestContainer .confirmInviteB
     transition: background-color var(--aika-dur-fast) var(--aika-ease-hover);
 }
 
-html.MillenniumWindow_FriendsList .confirmInviteRequestContainer .confirmInviteButton:hover {
+html:is(.MillenniumWindow_FriendsList, .aika-friends-list) .confirmInviteRequestContainer .confirmInviteButton:hover {
     background: var(--aika-surface-active);
 }
 
-html.MillenniumWindow_FriendsList .confirmInviteRequestContainer .confirmInviteButton.confirmInvites:not(.dim) {
+html:is(.MillenniumWindow_FriendsList, .aika-friends-list) .confirmInviteRequestContainer .confirmInviteButton.confirmInvites:not(.dim) {
     background: var(--aika-accent-fill);
     color: var(--aika-on-accent);
 }
 
-html.MillenniumWindow_FriendsList .confirmInviteRequestContainer .confirmInviteButton.confirmInvites.dim {
+html:is(.MillenniumWindow_FriendsList, .aika-friends-list) .confirmInviteRequestContainer .confirmInviteButton.confirmInvites.dim {
     background: var(--aika-transparent);
     color: var(--aika-fg-subtle);
     opacity: 1;
@@ -1582,7 +1582,7 @@ html.MillenniumWindow_FriendsList .confirmInviteRequestContainer .confirmInviteB
 /* "Unread messages: N" over the top of a scrolled list (.unreadMessageViolator,
    Steam's gold bar; a click scrolls up to them) — a floating accent pill with
    an up arrow, centered under the tabs (author 2026-10-27) */
-html.MillenniumWindow_FriendsList .unreadMessageViolator {
+html:is(.MillenniumWindow_FriendsList, .aika-friends-list) .unreadMessageViolator {
     left: 0;
     right: 0;
     display: flex;
@@ -1603,7 +1603,7 @@ html.MillenniumWindow_FriendsList .unreadMessageViolator {
     transition: background-color var(--aika-dur-fast) var(--aika-ease-hover);
 }
 
-html.MillenniumWindow_FriendsList .unreadMessageViolator::before {
+html:is(.MillenniumWindow_FriendsList, .aika-friends-list) .unreadMessageViolator::before {
     content: "";
     width: 6px;
     height: 6px;
@@ -1613,7 +1613,7 @@ html.MillenniumWindow_FriendsList .unreadMessageViolator::before {
     transform: rotate(45deg);
 }
 
-html.MillenniumWindow_FriendsList .unreadMessageViolator:hover {
+html:is(.MillenniumWindow_FriendsList, .aika-friends-list) .unreadMessageViolator:hover {
     background: linear-gradient(var(--aika-accent-glow), var(--aika-accent-glow)), var(--aika-bg-elevated);
 }
 
@@ -1624,7 +1624,7 @@ html.MillenniumWindow_FriendsList .unreadMessageViolator:hover {
    a card on a grid: the faces | Steam's title (a bare text node, auto-placed
    in the first free cell) over the names | the count | a chevron. A click is
    Steam's own collapse; open, the rows hang under the card. */
-html.MillenniumWindow_FriendsList .friendGroup[data-aika-unread] > .groupName {
+html:is(.MillenniumWindow_FriendsList, .aika-friends-list) .friendGroup[data-aika-unread] > .groupName {
     display: grid;
     grid-template-columns: auto minmax(0, 1fr) auto 14px;
     grid-template-rows: auto auto;
@@ -1647,37 +1647,37 @@ html.MillenniumWindow_FriendsList .friendGroup[data-aika-unread] > .groupName {
     transition: background-color var(--aika-dur-fast) var(--aika-ease-hover);
 }
 
-html.MillenniumWindow_FriendsList .friendGroup[data-aika-unread] > .groupName:hover {
+html:is(.MillenniumWindow_FriendsList, .aika-friends-list) .friendGroup[data-aika-unread] > .groupName:hover {
     background-color: var(--aika-accent-soft);
 }
 
-html.MillenniumWindow_FriendsList .friendGroup[data-aika-unread] > .groupName :is(.ExpandPlusMinus, .groupCount, hr) {
+html:is(.MillenniumWindow_FriendsList, .aika-friends-list) .friendGroup[data-aika-unread] > .groupName :is(.ExpandPlusMinus, .groupCount, hr) {
     display: none;
 }
 
-html.MillenniumWindow_FriendsList .friendGroup[data-aika-unread] .aika-unread-faces {
+html:is(.MillenniumWindow_FriendsList, .aika-friends-list) .friendGroup[data-aika-unread] .aika-unread-faces {
     grid-area: 1 / 1 / 3 / 2;
     display: flex;
 }
 
-html.MillenniumWindow_FriendsList .friendGroup[data-aika-unread] .aika-unread-faces img {
+html:is(.MillenniumWindow_FriendsList, .aika-friends-list) .friendGroup[data-aika-unread] .aika-unread-faces img {
     width: 32px;
     height: 32px;
     border-radius: 30%;
     box-shadow: 0 0 0 2px var(--aika-bg-base);
 }
 
-html.MillenniumWindow_FriendsList .friendGroup[data-aika-unread] .aika-unread-faces img + img {
+html:is(.MillenniumWindow_FriendsList, .aika-friends-list) .friendGroup[data-aika-unread] .aika-unread-faces img + img {
     margin-inline-start: -10px;
 }
 
 /* Steam's own title text node can't take an ellipsis — it is hidden
    (font-size 0 on the header) and drawn by .aika-unread-title, a copy */
-html.MillenniumWindow_FriendsList .friendGroup[data-aika-unread] > .groupName:has(> .aika-unread-title) {
+html:is(.MillenniumWindow_FriendsList, .aika-friends-list) .friendGroup[data-aika-unread] > .groupName:has(> .aika-unread-title) {
     font-size: 0;
 }
 
-html.MillenniumWindow_FriendsList .friendGroup[data-aika-unread] .aika-unread-title {
+html:is(.MillenniumWindow_FriendsList, .aika-friends-list) .friendGroup[data-aika-unread] .aika-unread-title {
     grid-area: 1 / 2 / 2 / 3;
     min-width: 0;
     overflow: hidden;
@@ -1686,7 +1686,7 @@ html.MillenniumWindow_FriendsList .friendGroup[data-aika-unread] .aika-unread-ti
     white-space: nowrap;
 }
 
-html.MillenniumWindow_FriendsList .friendGroup[data-aika-unread] .aika-unread-names {
+html:is(.MillenniumWindow_FriendsList, .aika-friends-list) .friendGroup[data-aika-unread] .aika-unread-names {
     grid-area: 2 / 2 / 3 / 3;
     overflow: hidden;
     text-overflow: ellipsis;
@@ -1697,7 +1697,7 @@ html.MillenniumWindow_FriendsList .friendGroup[data-aika-unread] .aika-unread-na
     color: var(--aika-fg-muted);
 }
 
-html.MillenniumWindow_FriendsList .friendGroup[data-aika-unread] .aika-unread-total {
+html:is(.MillenniumWindow_FriendsList, .aika-friends-list) .friendGroup[data-aika-unread] .aika-unread-total {
     grid-area: 1 / 3 / 3 / 4;
     min-width: 20px;
     height: 20px;
@@ -1714,7 +1714,7 @@ html.MillenniumWindow_FriendsList .friendGroup[data-aika-unread] .aika-unread-to
 }
 
 /* the chevron: down while folded, up while open */
-html.MillenniumWindow_FriendsList .friendGroup[data-aika-unread] > .groupName::after {
+html:is(.MillenniumWindow_FriendsList, .aika-friends-list) .friendGroup[data-aika-unread] > .groupName::after {
     content: "";
     grid-area: 1 / 4 / 3 / 5;
     justify-self: center;
@@ -1726,7 +1726,7 @@ html.MillenniumWindow_FriendsList .friendGroup[data-aika-unread] > .groupName::a
     transition: transform var(--aika-dur-fast) var(--aika-ease-hover);
 }
 
-html.MillenniumWindow_FriendsList .friendGroup[data-aika-unread] > .groupName:not(.Collapsed)::after {
+html:is(.MillenniumWindow_FriendsList, .aika-friends-list) .friendGroup[data-aika-unread] > .groupName:not(.Collapsed)::after {
     transform: translateY(2px) rotate(-135deg);
 }
 
@@ -1749,23 +1749,23 @@ html.MillenniumWindow_FriendChatWindow .ChatTab .CloseButton:hover svg line {
    away, invisible = an offline ring, offline), in Steam's order; the current
    one (.menuChecked) on a raised surface. Separators: straight hairlines
    (Steam's border-top on an 8 px-rounded item curved at the ends). */
-html.MillenniumWindow_FriendsList .contextMenu:has(.currentUserContextMenu) .contextMenuContents {
+html:is(.MillenniumWindow_FriendsList, .aika-friends-list) .contextMenu:has(.currentUserContextMenu) .contextMenuContents {
     background: var(--aika-bg-raised);
 }
 
-html.MillenniumWindow_FriendsList .currentUserContextMenu > .contextMenuItem {
+html:is(.MillenniumWindow_FriendsList, .aika-friends-list) .currentUserContextMenu > .contextMenuItem {
     border-top: none;
     border-radius: var(--aika-radius-md);
     box-shadow: 0 calc(-1 * var(--aika-space-1)) 0 calc(-1 * var(--aika-space-1) + var(--aika-hairline)) var(--aika-border);
     margin-top: var(--aika-space-2);
 }
 
-html.MillenniumWindow_FriendsList .currentUserContextMenu .contextMenuSectionContent > .contextMenuItem {
+html:is(.MillenniumWindow_FriendsList, .aika-friends-list) .currentUserContextMenu .contextMenuSectionContent > .contextMenuItem {
     position: relative;
     padding-inline-start: calc(var(--aika-space-3) + 12px + var(--aika-space-2));
 }
 
-html.MillenniumWindow_FriendsList .currentUserContextMenu .contextMenuSectionContent > .contextMenuItem::before {
+html:is(.MillenniumWindow_FriendsList, .aika-friends-list) .currentUserContextMenu .contextMenuSectionContent > .contextMenuItem::before {
     content: "";
     position: absolute;
     left: var(--aika-space-3);
@@ -1777,22 +1777,22 @@ html.MillenniumWindow_FriendsList .currentUserContextMenu .contextMenuSectionCon
     mask: var(--aika-icon-status-dot) center / contain no-repeat;
 }
 
-html.MillenniumWindow_FriendsList .currentUserContextMenu .contextMenuSectionContent > .contextMenuItem:nth-child(2)::before {
+html:is(.MillenniumWindow_FriendsList, .aika-friends-list) .currentUserContextMenu .contextMenuSectionContent > .contextMenuItem:nth-child(2)::before {
     -webkit-mask-image: var(--aika-icon-status-away);
     mask-image: var(--aika-icon-status-away);
 }
 
-html.MillenniumWindow_FriendsList .currentUserContextMenu .contextMenuSectionContent > .contextMenuItem:nth-child(n + 3)::before {
+html:is(.MillenniumWindow_FriendsList, .aika-friends-list) .currentUserContextMenu .contextMenuSectionContent > .contextMenuItem:nth-child(n + 3)::before {
     background: var(--aika-fg-subtle);
     -webkit-mask-image: var(--aika-icon-status-off);
     mask-image: var(--aika-icon-status-off);
 }
 
-html.MillenniumWindow_FriendsList .currentUserContextMenu .contextMenuSectionContent > .contextMenuItem.menuChecked {
+html:is(.MillenniumWindow_FriendsList, .aika-friends-list) .currentUserContextMenu .contextMenuSectionContent > .contextMenuItem.menuChecked {
     background: var(--aika-surface-hover);
 }
 
-html.MillenniumWindow_FriendsList .currentUserContextMenu .contextMenuCheckMark {
+html:is(.MillenniumWindow_FriendsList, .aika-friends-list) .currentUserContextMenu .contextMenuCheckMark {
     display: none;
 }
 
@@ -1801,19 +1801,19 @@ html.MillenniumWindow_FriendsList .currentUserContextMenu .contextMenuCheckMark 
    the card was cut at the bottom with a scrollbar, and it crept out when the
    section unfolded (author 2026-10-26). The card now fits Steam's row exactly:
    46 px + 2 px above and below. */
-html.MillenniumWindow_FriendsList .FriendsListChatSection .ChatRoomListGroupItem {
+html:is(.MillenniumWindow_FriendsList, .aika-friends-list) .FriendsListChatSection .ChatRoomListGroupItem {
     box-sizing: border-box;
     height: 46px;
     min-height: 0;
     margin-block: 2px;
 }
 
-html.MillenniumWindow_FriendsList .FriendsListChatSection .ChatRoomListGroupItem_header {
+html:is(.MillenniumWindow_FriendsList, .aika-friends-list) .FriendsListChatSection .ChatRoomListGroupItem_header {
     height: 100%;
     align-items: center;
 }
 
-html.MillenniumWindow_FriendsList .FriendsListChatSection .ChatRoomList {
+html:is(.MillenniumWindow_FriendsList, .aika-friends-list) .FriendsListChatSection .ChatRoomList {
     padding-top: 0;   /* Steam's 6 px pushed the first card past its 50 px row */
 }
 
@@ -1822,22 +1822,22 @@ html.MillenniumWindow_FriendsList .FriendsListChatSection .ChatRoomList {
    .expanded #2f3844 with 8 px margins and a black shadow, and draws a cyan
    dashed drop box while dragging. Our card keeps its own hover; expanded is a
    raised card in the same row; the drop box in the accent. */
-html.MillenniumWindow_FriendsList .ChatRoomListGroupItem:hover .ChatRoomListGroupItem_header,
-html.MillenniumWindow_FriendsList .ChatRoomListGroupItem .ChatRoomListGroupItem_header {
+html:is(.MillenniumWindow_FriendsList, .aika-friends-list) .ChatRoomListGroupItem:hover .ChatRoomListGroupItem_header,
+html:is(.MillenniumWindow_FriendsList, .aika-friends-list) .ChatRoomListGroupItem .ChatRoomListGroupItem_header {
     background-color: var(--aika-transparent);
 }
 
-html.MillenniumWindow_FriendsList .FriendsListChatSection .ChatRoomListGroupItem.expanded {
+html:is(.MillenniumWindow_FriendsList, .aika-friends-list) .FriendsListChatSection .ChatRoomListGroupItem.expanded {
     margin-block: 2px;
     background-color: var(--aika-bg-raised);
     box-shadow: inset 0 0 0 var(--aika-hairline) var(--aika-border-hover);
 }
 
-html.MillenniumWindow_FriendsList .ChatRoomListGroupItem:active {
+html:is(.MillenniumWindow_FriendsList, .aika-friends-list) .ChatRoomListGroupItem:active {
     background-color: var(--aika-surface-active);
 }
 
-html.MillenniumWindow_FriendsList .ChatRoomListGroupItem .openGroupButton:hover {
+html:is(.MillenniumWindow_FriendsList, .aika-friends-list) .ChatRoomListGroupItem .openGroupButton:hover {
     background-color: var(--aika-surface-hover);
 }
 
@@ -1936,7 +1936,7 @@ html.MillenniumWindow_FriendChatWindow .friend.offline .richPresenceLabel {
    .inGroup / .lastInGroup with bracket lines .SteamPlayerGroupLines) share
    one soft block with an ok line joining their avatars, instead of the
    brackets. The card gets room under its last row. */
-html.MillenniumWindow_FriendsList .friendGroup.gameGroup:not(.OtherGamesGroup) > .groupName {
+html:is(.MillenniumWindow_FriendsList, .aika-friends-list) .friendGroup.gameGroup:not(.OtherGamesGroup) > .groupName {
     gap: var(--aika-space-2);
     font-size: var(--aika-fl-art-title);
     font-weight: var(--aika-weight-heavy);
@@ -1945,11 +1945,11 @@ html.MillenniumWindow_FriendsList .friendGroup.gameGroup:not(.OtherGamesGroup) >
     text-shadow: var(--aika-fl-title-shadow);
 }
 
-html.MillenniumWindow_FriendsList .friendGroup.gameGroup:not(.OtherGamesGroup) > .groupName .groupIcon {
+html:is(.MillenniumWindow_FriendsList, .aika-friends-list) .friendGroup.gameGroup:not(.OtherGamesGroup) > .groupName .groupIcon {
     display: none;
 }
 
-html.MillenniumWindow_FriendsList .friendGroup.gameGroup:not(.OtherGamesGroup) > .groupName .groupCount {
+html:is(.MillenniumWindow_FriendsList, .aika-friends-list) .friendGroup.gameGroup:not(.OtherGamesGroup) > .groupName .groupCount {
     align-self: flex-end;
     padding-bottom: 4px;
     font-family: var(--aika-font-mono);
@@ -1960,38 +1960,38 @@ html.MillenniumWindow_FriendsList .friendGroup.gameGroup:not(.OtherGamesGroup) >
     opacity: 1;
 }
 
-html.MillenniumWindow_FriendsList .friendGroup.gameGroup:not(.OtherGamesGroup) > .friendsContainer {
+html:is(.MillenniumWindow_FriendsList, .aika-friends-list) .friendGroup.gameGroup:not(.OtherGamesGroup) > .friendsContainer {
     padding: var(--aika-space-1) 0 var(--aika-space-3);
 }
 
 /* Steam's rows in a game group start 44 px in (room for the bracket lines) */
-html.MillenniumWindow_FriendsList .friendGroup.gameGroup:not(.OtherGamesGroup) .friend.ingame {
+html:is(.MillenniumWindow_FriendsList, .aika-friends-list) .friendGroup.gameGroup:not(.OtherGamesGroup) .friend.ingame {
     position: relative;
     margin-inline: var(--aika-space-2);
     padding-inline-start: var(--aika-space-3);
     border-radius: var(--aika-radius-md);
 }
 
-html.MillenniumWindow_FriendsList .friendGroup.gameGroup .SteamPlayerGroupLines {
+html:is(.MillenniumWindow_FriendsList, .aika-friends-list) .friendGroup.gameGroup .SteamPlayerGroupLines {
     display: none;
 }
 
-html.MillenniumWindow_FriendsList .friendGroup.gameGroup .friend.ingame:is(.firstInGroup, .inGroup, .lastInGroup) {
+html:is(.MillenniumWindow_FriendsList, .aika-friends-list) .friendGroup.gameGroup .friend.ingame:is(.firstInGroup, .inGroup, .lastInGroup) {
     background: var(--aika-ok-soft);
     border-radius: 0;
 }
 
-html.MillenniumWindow_FriendsList .friendGroup.gameGroup .friend.ingame.firstInGroup {
+html:is(.MillenniumWindow_FriendsList, .aika-friends-list) .friendGroup.gameGroup .friend.ingame.firstInGroup {
     border-radius: var(--aika-radius-md) var(--aika-radius-md) 0 0;
 }
 
-html.MillenniumWindow_FriendsList .friendGroup.gameGroup .friend.ingame.lastInGroup {
+html:is(.MillenniumWindow_FriendsList, .aika-friends-list) .friendGroup.gameGroup .friend.ingame.lastInGroup {
     border-radius: 0 0 var(--aika-radius-md) var(--aika-radius-md);
 }
 
 /* the line joining the lobby's avatars, from the first avatar's middle down
    to the last one's */
-html.MillenniumWindow_FriendsList .friendGroup.gameGroup .friend.ingame:is(.firstInGroup, .inGroup, .lastInGroup)::before {
+html:is(.MillenniumWindow_FriendsList, .aika-friends-list) .friendGroup.gameGroup .friend.ingame:is(.firstInGroup, .inGroup, .lastInGroup)::before {
     content: "";
     position: absolute;
     left: calc(var(--aika-space-3) + 16px);
@@ -2003,15 +2003,15 @@ html.MillenniumWindow_FriendsList .friendGroup.gameGroup .friend.ingame:is(.firs
     background: rgb(from var(--aika-ok) r g b / 0.5);
 }
 
-html.MillenniumWindow_FriendsList .friendGroup.gameGroup .friend.ingame.firstInGroup::before { top: 50%; }
-html.MillenniumWindow_FriendsList .friendGroup.gameGroup .friend.ingame.lastInGroup::before { bottom: 50%; }
+html:is(.MillenniumWindow_FriendsList, .aika-friends-list) .friendGroup.gameGroup .friend.ingame.firstInGroup::before { top: 50%; }
+html:is(.MillenniumWindow_FriendsList, .aika-friends-list) .friendGroup.gameGroup .friend.ingame.lastInGroup::before { bottom: 50%; }
 
-html.MillenniumWindow_FriendsList .friendGroup.gameGroup .friend.ingame .avatarHolder {
+html:is(.MillenniumWindow_FriendsList, .aika-friends-list) .friendGroup.gameGroup .friend.ingame .avatarHolder {
     z-index: 1;
 }
 
 /* "+1 with 1 more player" under a lobby */
-html.MillenniumWindow_FriendsList .friendGroup.gameGroup .SteamPlayerGroupFooter {
+html:is(.MillenniumWindow_FriendsList, .aika-friends-list) .friendGroup.gameGroup .SteamPlayerGroupFooter {
     margin-inline: var(--aika-space-2);
     padding-inline-start: var(--aika-space-3);
     border-radius: 0 0 var(--aika-radius-md) var(--aika-radius-md);
@@ -2020,16 +2020,16 @@ html.MillenniumWindow_FriendsList .friendGroup.gameGroup .SteamPlayerGroupFooter
 
 /* the whole header toggles the group — the icon block (+ / − and the game
    icon) only pushed the title 40 px in */
-html.MillenniumWindow_FriendsList .friendGroup.gameGroup:not(.OtherGamesGroup) > .groupName .gameGroupContainer {
+html:is(.MillenniumWindow_FriendsList, .aika-friends-list) .friendGroup.gameGroup:not(.OtherGamesGroup) > .groupName .gameGroupContainer {
     display: none;
 }
 
 /* a lobby is one block: no gap between its rows */
-html.MillenniumWindow_FriendsList .friendGroup.gameGroup .friend.ingame:is(.firstInGroup, .inGroup) {
+html:is(.MillenniumWindow_FriendsList, .aika-friends-list) .friendGroup.gameGroup .friend.ingame:is(.firstInGroup, .inGroup) {
     margin-bottom: 0;
 }
 
-html.MillenniumWindow_FriendsList .friendGroup.gameGroup .friend.ingame:is(.inGroup, .lastInGroup) {
+html:is(.MillenniumWindow_FriendsList, .aika-friends-list) .friendGroup.gameGroup .friend.ingame:is(.inGroup, .lastInGroup) {
     margin-top: 0;
 }
 
@@ -2044,7 +2044,7 @@ html.MillenniumWindow_FriendsList .friendGroup.gameGroup .friend.ingame:is(.inGr
    activity by the first face's name line (::before); faces are joined by ok
    links through the avatars' middles — the last face links only to a "+N"
    face, never into nothing. Steam's footer "+1 with 1 more player" goes. */
-html.MillenniumWindow_FriendsList .friendGroup.gameGroup > .friendsContainer[data-aika-lobbies] {
+html:is(.MillenniumWindow_FriendsList, .aika-friends-list) .friendGroup.gameGroup > .friendsContainer[data-aika-lobbies] {
     --aika-lobby-top: calc(var(--aika-lobby-line) + var(--aika-space-1));
     container-type: inline-size;   /* the capsules span it: 100cqw */
     display: grid;
@@ -2056,12 +2056,12 @@ html.MillenniumWindow_FriendsList .friendGroup.gameGroup > .friendsContainer[dat
     padding: calc(var(--aika-lobby-pad) + var(--aika-space-1)) var(--aika-lobby-pad) var(--aika-lobby-pad);
 }
 
-html.MillenniumWindow_FriendsList .friendGroup.gameGroup > .friendsContainer[data-aika-lobbies] > .SteamPlayerGroupFooter {
+html:is(.MillenniumWindow_FriendsList, .aika-friends-list) .friendGroup.gameGroup > .friendsContainer[data-aika-lobbies] > .SteamPlayerGroupFooter {
     display: none;
 }
 
 /* a face: the avatar, the name under it */
-html.MillenniumWindow_FriendsList .friendGroup.gameGroup > .friendsContainer > .friend.ingame[data-aika-lobby-tile] {
+html:is(.MillenniumWindow_FriendsList, .aika-friends-list) .friendGroup.gameGroup > .friendsContainer > .friend.ingame[data-aika-lobby-tile] {
     grid-row: var(--aika-lobby-row);
     position: relative;
     z-index: 1;
@@ -2078,26 +2078,26 @@ html.MillenniumWindow_FriendsList .friendGroup.gameGroup > .friendsContainer > .
     transform: none;   /* Steam's enter animation leaves a 3D tilt behind */
 }
 
-html.MillenniumWindow_FriendsList .friendGroup.gameGroup > .friendsContainer > .friend.ingame[data-aika-lobby-tile]:hover {
+html:is(.MillenniumWindow_FriendsList, .aika-friends-list) .friendGroup.gameGroup > .friendsContainer > .friend.ingame[data-aika-lobby-tile]:hover {
     background: var(--aika-transparent);
 }
 
-html.MillenniumWindow_FriendsList .friendGroup.gameGroup > .friendsContainer > .friend.ingame[data-aika-lobby-tile]:hover .playerName {
+html:is(.MillenniumWindow_FriendsList, .aika-friends-list) .friendGroup.gameGroup > .friendsContainer > .friend.ingame[data-aika-lobby-tile]:hover .playerName {
     color: var(--aika-fg);
 }
 
-html.MillenniumWindow_FriendsList .friendGroup.gameGroup > .friendsContainer > .friend.ingame[data-aika-lobby-tile] .avatarHolder {
+html:is(.MillenniumWindow_FriendsList, .aika-friends-list) .friendGroup.gameGroup > .friendsContainer > .friend.ingame[data-aika-lobby-tile] .avatarHolder {
     width: var(--aika-lobby-face);
     height: var(--aika-lobby-face);
     --aika-fl-badge: 12px;
 }
 
-html.MillenniumWindow_FriendsList .friendGroup.gameGroup > .friendsContainer > .friend.ingame[data-aika-lobby-tile] .avatarHolder img.avatar {
+html:is(.MillenniumWindow_FriendsList, .aika-friends-list) .friendGroup.gameGroup > .friendsContainer > .friend.ingame[data-aika-lobby-tile] .avatarHolder img.avatar {
     width: 100%;
     height: 100%;
 }
 
-html.MillenniumWindow_FriendsList .friendGroup.gameGroup > .friendsContainer > .friend.ingame[data-aika-lobby-tile] .labelHolder {
+html:is(.MillenniumWindow_FriendsList, .aika-friends-list) .friendGroup.gameGroup > .friendsContainer > .friend.ingame[data-aika-lobby-tile] .labelHolder {
     position: static;
     align-self: stretch;
     min-width: 0;
@@ -2106,12 +2106,12 @@ html.MillenniumWindow_FriendsList .friendGroup.gameGroup > .friendsContainer > .
     text-align: center;
 }
 
-html.MillenniumWindow_FriendsList .friendGroup.gameGroup > .friendsContainer > .friend.ingame[data-aika-lobby-tile] .statusAndName {
+html:is(.MillenniumWindow_FriendsList, .aika-friends-list) .friendGroup.gameGroup > .friendsContainer > .friend.ingame[data-aika-lobby-tile] .statusAndName {
     position: static;
     justify-content: center;
 }
 
-html.MillenniumWindow_FriendsList .friendGroup.gameGroup > .friendsContainer > .friend.ingame[data-aika-lobby-tile] .playerName {
+html:is(.MillenniumWindow_FriendsList, .aika-friends-list) .friendGroup.gameGroup > .friendsContainer > .friend.ingame[data-aika-lobby-tile] .playerName {
     overflow: hidden;
     font-size: var(--aika-text-label);
     font-weight: var(--aika-weight-medium);
@@ -2119,12 +2119,12 @@ html.MillenniumWindow_FriendsList .friendGroup.gameGroup > .friendsContainer > .
     white-space: nowrap;
 }
 
-html.MillenniumWindow_FriendsList .friendGroup.gameGroup > .friendsContainer > .friend.ingame[data-aika-lobby-tile] :is(.richPresenceContainer, .playerNicknameBracket, .ContextMenuButton) {
+html:is(.MillenniumWindow_FriendsList, .aika-friends-list) .friendGroup.gameGroup > .friendsContainer > .friend.ingame[data-aika-lobby-tile] :is(.richPresenceContainer, .playerNicknameBracket, .ContextMenuButton) {
     display: none;
 }
 
 /* the capsule: from the first face, across the card (the activity needs the room) */
-html.MillenniumWindow_FriendsList .friendGroup.gameGroup > .friendsContainer > .friend.ingame[data-aika-lobby-mode] .labelHolder::before {
+html:is(.MillenniumWindow_FriendsList, .aika-friends-list) .friendGroup.gameGroup > .friendsContainer > .friend.ingame[data-aika-lobby-mode] .labelHolder::before {
     content: "";
     position: absolute;
     top: calc(var(--aika-lobby-pad) * -1);
@@ -2139,7 +2139,7 @@ html.MillenniumWindow_FriendsList .friendGroup.gameGroup > .friendsContainer > .
 }
 
 /* the activity, over the faces ("Premier - Nuke [2 : 4]") */
-html.MillenniumWindow_FriendsList .friendGroup.gameGroup > .friendsContainer > .friend.ingame[data-aika-lobby-mode] .statusAndName::before {
+html:is(.MillenniumWindow_FriendsList, .aika-friends-list) .friendGroup.gameGroup > .friendsContainer > .friend.ingame[data-aika-lobby-mode] .statusAndName::before {
     content: var(--aika-lobby-mode);   /* a quoted string from js/friends.js */
     position: absolute;
     top: 0;
@@ -2156,7 +2156,7 @@ html.MillenniumWindow_FriendsList .friendGroup.gameGroup > .friendsContainer > .
 }
 
 /* the link to the next face (or to "+N"): through the avatars' middles */
-html.MillenniumWindow_FriendsList .friendGroup.gameGroup > .friendsContainer > .friend.ingame[data-aika-lobby-tile]:not([data-aika-lobby-end="0"])::before {
+html:is(.MillenniumWindow_FriendsList, .aika-friends-list) .friendGroup.gameGroup > .friendsContainer > .friend.ingame[data-aika-lobby-tile]:not([data-aika-lobby-end="0"])::before {
     content: "";
     position: absolute;
     top: calc(var(--aika-lobby-top) + var(--aika-lobby-face) / 2 - 1px);
@@ -2169,12 +2169,12 @@ html.MillenniumWindow_FriendsList .friendGroup.gameGroup > .friendsContainer > .
     background: rgb(from var(--aika-ok) r g b / 0.55);
 }
 
-html.MillenniumWindow_FriendsList .friendGroup.gameGroup > .friendsContainer > .friend.ingame[data-aika-lobby-end="0"]::before {
+html:is(.MillenniumWindow_FriendsList, .aika-friends-list) .friendGroup.gameGroup > .friendsContainer > .friend.ingame[data-aika-lobby-end="0"]::before {
     display: none;
 }
 
 /* the others in the lobby: one "+N" face after the last friend */
-html.MillenniumWindow_FriendsList .friendGroup.gameGroup > .friendsContainer > .friend.ingame[data-aika-lobby-end]:not([data-aika-lobby-end="0"])::after {
+html:is(.MillenniumWindow_FriendsList, .aika-friends-list) .friendGroup.gameGroup > .friendsContainer > .friend.ingame[data-aika-lobby-end]:not([data-aika-lobby-end="0"])::after {
     content: attr(data-aika-lobby-end);
     position: absolute;
     top: var(--aika-lobby-top);
@@ -2192,7 +2192,7 @@ html.MillenniumWindow_FriendsList .friendGroup.gameGroup > .friendsContainer > .
 
 /* a status too long for a narrow window: an ellipsis (Steam's label is a flex
    box with clip — the text was cut mid-letter) */
-html.MillenniumWindow_FriendsList .friendGroup .friend .richPresenceLabel {
+html:is(.MillenniumWindow_FriendsList, .aika-friends-list) .friendGroup .friend .richPresenceLabel {
     display: block;
     overflow: hidden;
     text-overflow: ellipsis;
@@ -2200,7 +2200,7 @@ html.MillenniumWindow_FriendsList .friendGroup .friend .richPresenceLabel {
 }
 
 /* friends in the same game outside a lobby: rows under the capsules */
-html.MillenniumWindow_FriendsList .friendGroup.gameGroup > .friendsContainer[data-aika-lobbies] > .friend.ingame:not([data-aika-lobby-tile]) {
+html:is(.MillenniumWindow_FriendsList, .aika-friends-list) .friendGroup.gameGroup > .friendsContainer[data-aika-lobbies] > .friend.ingame:not([data-aika-lobby-tile]) {
     grid-column: 1 / -1;
     min-height: var(--aika-lobby-face);   /* the compact list's 22 px row would let the face stick out */
     margin: 0;

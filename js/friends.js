@@ -347,6 +347,10 @@
 
   const start = () => {
     if (!document.querySelector(".FriendsListContent")) return false;
+    // Millennium marks only the desktop window (MillenniumWindow_FriendsList);
+    // the in-game overlay's friends list has the same content without it —
+    // sections/friends-list.css takes either class
+    document.documentElement.classList.add("aika-friends-list");
     paint(document);
     bg();
     // rows come and go as friends start and stop playing; a search or a

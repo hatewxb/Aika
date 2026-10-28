@@ -314,6 +314,35 @@ html .OverlayPopup .BasicFooter {
 }
 
 /* --------------------------------------------------------------------------
+   The friends list inside the overlay: the desktop list's redesign
+   (sections/friends-list.css) reaches it through js/friends.js's
+   .aika-friends-list — Millennium marks only the desktop window. Here it's
+   one more panel over the game: rounded with a hairline like the others, the
+   window's floating light spots off; the pattern and the cards stay inside.
+   contain: paint makes the body clip its fixed layers to the rounding.
+   Verified: 2026-10-28, Fallout Shelter.
+   -------------------------------------------------------------------------- */
+
+html.aika-friends-list:not(.MillenniumWindow_FriendsList) {
+    background: none;
+}
+
+html.aika-friends-list:not(.MillenniumWindow_FriendsList)::before,
+html.aika-friends-list:not(.MillenniumWindow_FriendsList)::after,
+html.aika-friends-list:not(.MillenniumWindow_FriendsList) body::before {
+    content: none;
+}
+
+html.aika-friends-list:not(.MillenniumWindow_FriendsList) body {
+    box-sizing: border-box;
+    contain: paint;
+    border: var(--aika-hairline) solid var(--aika-border);
+    border-radius: var(--aika-radius-xl);
+    background-color: var(--aika-bg-deep);
+    background-image: var(--aika-bg-gradient);
+}
+
+/* --------------------------------------------------------------------------
    The overlay's own window (overlay.css): the top strip and the toolbar
    -------------------------------------------------------------------------- */
 
@@ -330,6 +359,28 @@ html .Wrapper .TopSection .CurrentDate {
 html .Wrapper .TopSection .KBShortcut {
     color: var(--aika-fg-subtle);
     font-family: var(--aika-font-mono);
+}
+
+/* "Return to game": the caption and the × as one capsule (Steam: bare text
+   next to a square #23262e button) */
+html .Wrapper .TopSection .BackToGame {
+    align-items: center;
+    gap: var(--aika-space-3);
+    padding: var(--aika-space-1) var(--aika-space-1) var(--aika-space-1) var(--aika-space-5);
+    border: var(--aika-hairline) solid var(--aika-border);
+    border-radius: var(--aika-radius-full);
+    background: var(--aika-overlay-material);
+    box-shadow: var(--aika-shadow-panel);
+}
+
+html .Wrapper .TopSection .BackToGame .GameName {
+    color: var(--aika-fg);
+    font-size: var(--aika-text-h2);
+    font-weight: var(--aika-weight-semibold);
+}
+
+html .Wrapper .TopSection .BackToGame .BackToGameBtn.DialogButton {
+    border-radius: var(--aika-radius-full);
 }
 
 html .Wrapper :is(.ExitGameBtn, .BackToGameBtn).DialogButton {

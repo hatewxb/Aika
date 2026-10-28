@@ -8,7 +8,7 @@
    Option files load before the theme entry: selectors carry an extra :root.
    ========================================================================== */
 
-html.MillenniumWindow_FriendsList:root .friendGroup.offlineFriends .groupList {
+html:is(.MillenniumWindow_FriendsList, .aika-friends-list):root .friendGroup.offlineFriends .groupList {
     display: flex;
     flex-wrap: wrap;
     gap: var(--aika-space-2);
@@ -16,11 +16,11 @@ html.MillenniumWindow_FriendsList:root .friendGroup.offlineFriends .groupList {
     padding: var(--aika-space-1) var(--aika-space-4) var(--aika-space-4);
 }
 
-html.MillenniumWindow_FriendsList:root .friendGroup.offlineFriends .friendCategoryContainer {
+html:is(.MillenniumWindow_FriendsList, .aika-friends-list):root .friendGroup.offlineFriends .friendCategoryContainer {
     height: auto;
 }
 
-html.MillenniumWindow_FriendsList:root .friendGroup.offlineFriends .friend {
+html:is(.MillenniumWindow_FriendsList, .aika-friends-list):root .friendGroup.offlineFriends .friend {
     width: auto;
     height: auto;
     padding: var(--aika-space-1);
@@ -28,7 +28,7 @@ html.MillenniumWindow_FriendsList:root .friendGroup.offlineFriends .friend {
 }
 
 /* the name stays for screen readers and the mini profile, not on screen */
-html.MillenniumWindow_FriendsList:root .friendGroup.offlineFriends .friend .labelHolder {
+html:is(.MillenniumWindow_FriendsList, .aika-friends-list):root .friendGroup.offlineFriends .friend .labelHolder {
     position: absolute;
     width: 1px;
     height: 1px;
@@ -36,11 +36,11 @@ html.MillenniumWindow_FriendsList:root .friendGroup.offlineFriends .friend .labe
     clip-path: inset(50%);
 }
 
-html.MillenniumWindow_FriendsList:root .friendGroup.offlineFriends .friend img.avatar {
+html:is(.MillenniumWindow_FriendsList, .aika-friends-list):root .friendGroup.offlineFriends .friend img.avatar {
     filter: grayscale(1) brightness(0.7);
     transition: filter var(--aika-dur-fast) var(--aika-ease-hover);
 }
 
-html.MillenniumWindow_FriendsList:root .friendGroup.offlineFriends .friend:hover img.avatar {
+html:is(.MillenniumWindow_FriendsList, .aika-friends-list):root .friendGroup.offlineFriends .friend:hover img.avatar {
     filter: none;
 }
