@@ -2268,6 +2268,7 @@ html.aika-fl-games-many:is(.MillenniumWindow_FriendsList, .aika-friends-list) .f
 
 html.aika-fl-games-many:is(.MillenniumWindow_FriendsList, .aika-friends-list) .friendlist.compactView .friendlistListContainer:not(.rcp-list) > .listContentContainer > * {
     grid-column: 1 / -1;
+    width: auto;   /* Steam's width: 100% (the unread group) shifted it left instead of stretching */
     margin-inline: calc(var(--aika-space-3) * -1);
 }
 
@@ -2285,7 +2286,8 @@ html.aika-fl-games-many:is(.MillenniumWindow_FriendsList, .aika-friends-list) .f
 html.aika-fl-games-many:is(.MillenniumWindow_FriendsList, .aika-friends-list) .friendlist.compactView .listContentContainer > .friendGroup.gameGroup:not(.OtherGamesGroup):not([data-aika-open]),
 html.aika-fl-games-many:is(.MillenniumWindow_FriendsList, .aika-friends-list) .friendlist.compactView .listContentContainer > .friendGroup.OtherGamesGroup .friend.ingame {
     grid-column: auto;
-    height: 74px;
+    box-sizing: border-box;   /* the card's padding made it 10 px taller than a group's tile */
+    height: 80px;
     min-height: 0;
     margin: 0 0 var(--aika-space-2);
 }
@@ -2296,7 +2298,9 @@ html.aika-fl-games-many:is(.MillenniumWindow_FriendsList, .aika-friends-list) .f
 
 /* a game group's tile: the header (art) fills it, the rows wait for a click */
 html.aika-fl-games-many:is(.MillenniumWindow_FriendsList, .aika-friends-list) .friendlist.compactView .friendGroup.gameGroup:not(.OtherGamesGroup):not([data-aika-open]) > .groupName {
+    box-sizing: border-box;   /* with its top padding it ran 8 px past the tile */
     height: 100%;
+    margin: 0;   /* Steam's top margin pushed the faces 5 px lower than the next tile's */
     align-items: flex-start;
     padding: var(--aika-space-2) var(--aika-space-2) 0;
 }
@@ -2325,8 +2329,8 @@ html.aika-fl-games-many:is(.MillenniumWindow_FriendsList, .aika-friends-list) .f
 }
 
 html:is(.MillenniumWindow_FriendsList, .aika-friends-list) .friendGroup.gameGroup .aika-tile-faces > * {
-    width: 22px;
-    height: 22px;
+    width: 28px;
+    height: 28px;
     border-radius: var(--aika-fl-avatar-radius);
     box-shadow: 0 0 0 2px var(--aika-bg-elevated);
 }
@@ -2365,8 +2369,10 @@ html.aika-fl-games-many:is(.MillenniumWindow_FriendsList, .aika-friends-list) .f
 }
 
 html.aika-fl-games-many:is(.MillenniumWindow_FriendsList, .aika-friends-list) .friendlist.compactView .friendGroup.OtherGamesGroup .friend.ingame .avatarHolder {
-    width: 22px;
-    height: 22px;
+    flex: none;
+    width: 28px;
+    height: 28px;
+    padding: 0;
     --aika-fl-badge: 10px;
 }
 
@@ -2379,10 +2385,21 @@ html.aika-fl-games-many:is(.MillenniumWindow_FriendsList, .aika-friends-list) .f
     position: relative;
     z-index: 1;   /* over the art, which fills the tile here */
     display: flex;
+    flex: 1 1 auto;
+    flex-direction: row;   /* the cards' column pressed the name to the bottom */
+    justify-content: flex-start;
     align-items: center;
     min-width: 0;
-    height: auto;
-    padding-inline-start: var(--aika-space-2);
+    height: 28px;   /* the avatar's: the name on its middle */
+    margin: 0;
+    padding: 0 0 0 var(--aika-space-2);
+    overflow: hidden;   /* a long name ran past the tile */
+}
+
+html.aika-fl-games-many:is(.MillenniumWindow_FriendsList, .aika-friends-list) .friendlist.compactView .friendGroup.OtherGamesGroup .friend.ingame .statusAndName {
+    min-width: 0;
+    max-width: 100%;
+    margin: 0;   /* Steam's -2 px */
 }
 
 html.aika-fl-games-many:is(.MillenniumWindow_FriendsList, .aika-friends-list) .friendlist.compactView .friendGroup.OtherGamesGroup .friend.ingame .playerName {
