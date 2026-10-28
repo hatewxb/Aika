@@ -26,12 +26,22 @@
    Panels and widgets
    -------------------------------------------------------------------------- */
 
+/* border-box: the panel fills its window exactly — with the hairline on a
+   content-box 100 % it overflowed by 2 px, and the window cut its rounded
+   right and bottom corners square */
 html .OverlayPopup:not(.PinnedView) {
+    box-sizing: border-box;
     overflow: hidden;
     border: var(--aika-hairline) solid var(--aika-border);
     border-radius: var(--aika-radius-xl);
     background: var(--aika-overlay-material);
     box-shadow: var(--aika-shadow-panel);
+}
+
+/* Resizable panels: Steam's calc(100% - 24px) + 24 px of padding for the
+   resize grip assumes content-box — with border-box the whole window */
+html .OverlayPopup.Resizable:not(.PinnedView) {
+    height: 100%;
 }
 
 html .OverlayPopup .GameOverview {
@@ -46,6 +56,23 @@ html .OverlayPopup :is(.OverviewTitle, .HeaderContainer .Title) {
     color: var(--aika-fg);
     font-size: var(--aika-text-h2);
     font-weight: var(--aika-weight-semibold);
+}
+
+/* Panel title-bar buttons (pin, flip, close — .title-area-icon, no
+   .windowControlButton here, so components/window.css misses them):
+   rounded, close turns the Windows 11 red */
+html .OverlayPopup .TitleBar .title-area-icon {
+    border-radius: var(--aika-radius-md);
+    transition: background-color var(--aika-dur-fast) var(--aika-ease-hover);
+}
+
+html .OverlayPopup .TitleBar .title-area-icon:hover {
+    background: var(--aika-surface-hover);
+}
+
+html .OverlayPopup .TitleBar .title-area-icon.closeButton:hover {
+    background: var(--aika-close-hover);
+    color: var(--aika-fg);
 }
 
 /* The pin: Steam's #3d4450 when pinned — the accent */
@@ -336,6 +363,18 @@ html .Wrapper .Toolbar .ToolbarButton.DialogButton {
 html .Wrapper .Toolbar .ToolbarButton.DialogButton:hover {
     background: var(--aika-surface-hover);
     color: var(--aika-fg);
+}
+
+/* The toolbar hover label (.HoverPosition > .ToolbarToolTip, Steam: bare white
+   text) — the theme tooltip (components/menu.css doesn't reach this window) */
+html .HoverPosition .ToolbarToolTip {
+    padding: var(--aika-space-1) var(--aika-space-2);
+    border: var(--aika-hairline) solid var(--aika-border-hover);
+    border-radius: var(--aika-radius-md);
+    background: var(--aika-surface-translucent);
+    box-shadow: var(--aika-shadow-menu);
+    color: var(--aika-fg);
+    font-size: var(--aika-text-meta);
 }
 
 html .Wrapper .Toolbar .ToolbarButton.DialogButton.Toggled {
