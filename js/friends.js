@@ -201,6 +201,43 @@
       }
     } else unreadSeen = 0;   // all read: the next message refreshes again
 
+    // Compact list (Steam's .friendlist.compactView, author 2026-10-28): one
+    // game being played → the cards as thin strips; two or more → tiles, two
+    // a row (html.aika-fl-games-many). A game group's tile shows its friends
+    // as a stack of faces (.aika-tile-faces in its header, "+N" past three);
+    // a click opens it full width (data-aika-open, see the click handler).
+    const list = root.querySelector(".friendlistListContainer:not(.rcp-list) > .listContentContainer");
+    if (list) {
+      const groups = [...list.querySelectorAll(":scope > .friendGroup.gameGroup:not(.OtherGamesGroup)")];
+      const games = groups.length + list.querySelectorAll(":scope > .friendGroup.OtherGamesGroup .friend.ingame").length;
+      document.documentElement.classList.toggle("aika-fl-games-many", games > 1);
+      for (const g of groups) {
+        const head = g.querySelector(":scope > .groupName");
+        if (!head) continue;
+        const srcs = [...g.querySelectorAll(".friend img.avatar")].map((i) => i.getAttribute("src") || "");
+        const more = srcs.length > 3 ? "+" + (srcs.length - 3) : "";
+        const sign = srcs.slice(0, 3).join("|") + more;
+        let stack = head.querySelector(":scope > .aika-tile-faces");
+        if (stack && stack.dataset.sign === sign) continue;
+        stack?.remove();
+        stack = document.createElement("span");
+        stack.className = "aika-tile-faces";
+        stack.dataset.sign = sign;
+        for (const src of srcs.slice(0, 3)) {
+          const img = document.createElement("img");
+          img.src = src;
+          img.alt = "";
+          stack.append(img);
+        }
+        if (more) {
+          const n = document.createElement("span");
+          n.textContent = more;
+          stack.append(n);
+        }
+        head.append(stack);
+      }
+    }
+
     // a game group (two friends or more in one game): the icon in its header
     for (const group of root.querySelectorAll(".friendGroup.gameGroup:not(.OtherGamesGroup)")) {
       const id = appidOf(group.querySelector(".groupName img"));
@@ -363,6 +400,18 @@
     setInterval(queue, 5000);
     return true;
   };
+
+  // Compact list, tiles: a click on a game group's header opens the tile full
+  // width (and closes it) instead of Steam's collapse — Steam drops the rows
+  // of a collapsed group, and the tile needs them for its faces
+  document.addEventListener("click", (e) => {
+    const head = e.target.closest?.(".friendlist.compactView .friendGroup.gameGroup:not(.OtherGamesGroup) > .groupName");
+    if (!head || !document.documentElement.classList.contains("aika-fl-games-many")) return;
+    e.stopPropagation();
+    const g = head.parentElement;
+    if (g.dataset.aikaOpen) delete g.dataset.aikaOpen;
+    else g.dataset.aikaOpen = "1";
+  }, true);
 
   // "Group chats": Steam toggles the section only by its 17 px double arrow;
   // the caption is the drag bar that resizes the section. A click on the

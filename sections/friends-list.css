@@ -2207,3 +2207,195 @@ html:is(.MillenniumWindow_FriendsList, .aika-friends-list) .friendGroup.gameGrou
     padding-inline-start: calc((var(--aika-lobby-tile) - var(--aika-lobby-face)) / 2);
     background: var(--aika-transparent);
 }
+
+/* --- Compact list (Steam's .friendlist.compactView, author 2026-10-28) ----------- */
+/* One game being played: the cards as thin strips — the art a 26 px band with
+   the title, a lobby one line (small faces, links, "+N", the activity after
+   them). Two games or more (html.aika-fl-games-many, js/friends.js): tiles,
+   two a row — the art, the title, a stack of faces and the count; a game
+   group's tile opens full width as a strip on a click. */
+html:is(.MillenniumWindow_FriendsList, .aika-friends-list) .friendlist.compactView {
+    --aika-fl-art-h: 26px;
+    --aika-fl-art-title: 13px;
+    --aika-lobby-tile: 26px;
+    --aika-lobby-face: 20px;
+    --aika-lobby-pad: 6px;
+    --aika-lobby-h: calc(var(--aika-lobby-pad) * 2 + var(--aika-lobby-face));
+}
+
+html:is(.MillenniumWindow_FriendsList, .aika-friends-list) .friendlist.compactView .friendGroup.gameGroup:not(.OtherGamesGroup) > .groupName {
+    align-items: center;
+    padding: 0 var(--aika-space-3);
+}
+
+html:is(.MillenniumWindow_FriendsList, .aika-friends-list) .friendlist.compactView .friendGroup.gameGroup:not(.OtherGamesGroup) > .groupName .groupCount {
+    align-self: center;
+    padding: 0;
+}
+
+/* a lobby in one line: no names under the faces, the activity after them */
+html:is(.MillenniumWindow_FriendsList, .aika-friends-list) .friendlist.compactView .friendGroup.gameGroup > .friendsContainer[data-aika-lobbies] {
+    --aika-lobby-top: 0px;
+    row-gap: calc(var(--aika-lobby-pad) * 2 + var(--aika-space-1));
+    padding-top: calc(var(--aika-lobby-pad) + var(--aika-space-1));
+}
+
+html:is(.MillenniumWindow_FriendsList, .aika-friends-list) .friendlist.compactView .friendGroup.gameGroup > .friendsContainer > .friend.ingame[data-aika-lobby-tile] .playerName {
+    display: none;
+}
+
+html:is(.MillenniumWindow_FriendsList, .aika-friends-list) .friendlist.compactView .friendGroup.gameGroup > .friendsContainer > .friend.ingame[data-aika-lobby-mode] .statusAndName::before {
+    --aika-lobby-act: calc(var(--aika-lobby-n) * (var(--aika-lobby-tile) + var(--aika-lobby-gap)) + var(--aika-space-2));
+    top: calc(var(--aika-lobby-face) / 2 - 8px);
+    left: var(--aika-lobby-act);
+    width: calc(100cqw - var(--aika-lobby-act));
+    font-size: var(--aika-text-label);
+    line-height: 16px;
+}
+
+html:is(.MillenniumWindow_FriendsList, .aika-friends-list) .friendlist.compactView .friendGroup.gameGroup > .friendsContainer > .friend.ingame[data-aika-lobby-end]:not([data-aika-lobby-end="0"])::after {
+    font-size: 9px;
+}
+
+/* tiles: the list a two-column grid; everything but the games spans it as before */
+html.aika-fl-games-many:is(.MillenniumWindow_FriendsList, .aika-friends-list) .friendlist.compactView .friendlistListContainer:not(.rcp-list) > .listContentContainer {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    column-gap: var(--aika-space-2);
+    align-content: start;
+    padding-inline: var(--aika-space-3);
+}
+
+html.aika-fl-games-many:is(.MillenniumWindow_FriendsList, .aika-friends-list) .friendlist.compactView .friendlistListContainer:not(.rcp-list) > .listContentContainer > * {
+    grid-column: 1 / -1;
+    margin-inline: calc(var(--aika-space-3) * -1);
+}
+
+/* the single-friend games: their group dissolves, each card a grid cell */
+html.aika-fl-games-many:is(.MillenniumWindow_FriendsList, .aika-friends-list) .friendlist.compactView .listContentContainer > .friendGroup.OtherGamesGroup,
+html.aika-fl-games-many:is(.MillenniumWindow_FriendsList, .aika-friends-list) .friendlist.compactView .listContentContainer > .friendGroup.OtherGamesGroup > .friendsContainer {
+    display: contents;
+}
+
+html.aika-fl-games-many:is(.MillenniumWindow_FriendsList, .aika-friends-list) .friendlist.compactView .listContentContainer > .friendGroup.OtherGamesGroup > .groupName {
+    display: none;
+}
+
+/* a tile — both kinds */
+html.aika-fl-games-many:is(.MillenniumWindow_FriendsList, .aika-friends-list) .friendlist.compactView .listContentContainer > .friendGroup.gameGroup:not(.OtherGamesGroup):not([data-aika-open]),
+html.aika-fl-games-many:is(.MillenniumWindow_FriendsList, .aika-friends-list) .friendlist.compactView .listContentContainer > .friendGroup.OtherGamesGroup .friend.ingame {
+    grid-column: auto;
+    height: 74px;
+    min-height: 0;
+    margin: 0 0 var(--aika-space-2);
+}
+
+html.aika-fl-games-many:is(.MillenniumWindow_FriendsList, .aika-friends-list) .friendlist.compactView .listContentContainer > .friendGroup.gameGroup:not(.OtherGamesGroup)[data-aika-open] {
+    margin: 0 0 var(--aika-space-2);
+}
+
+/* a game group's tile: the header (art) fills it, the rows wait for a click */
+html.aika-fl-games-many:is(.MillenniumWindow_FriendsList, .aika-friends-list) .friendlist.compactView .friendGroup.gameGroup:not(.OtherGamesGroup):not([data-aika-open]) > .groupName {
+    height: 100%;
+    align-items: flex-start;
+    padding: var(--aika-space-2) var(--aika-space-2) 0;
+}
+
+html.aika-fl-games-many:is(.MillenniumWindow_FriendsList, .aika-friends-list) .friendlist.compactView .friendGroup.gameGroup:not(.OtherGamesGroup):not([data-aika-open]) > .friendsContainer {
+    display: none;
+}
+
+html.aika-fl-games-many:is(.MillenniumWindow_FriendsList, .aika-friends-list) .friendlist.compactView .friendGroup.gameGroup:not(.OtherGamesGroup):not([data-aika-open]) > .groupName .groupCount {
+    position: absolute;
+    right: var(--aika-space-2);
+    bottom: var(--aika-space-2);
+    color: var(--aika-ok);
+}
+
+/* the stack of faces (js/friends.js), only on a closed tile */
+html:is(.MillenniumWindow_FriendsList, .aika-friends-list) .friendGroup.gameGroup .aika-tile-faces {
+    display: none;
+}
+
+html.aika-fl-games-many:is(.MillenniumWindow_FriendsList, .aika-friends-list) .friendlist.compactView .friendGroup.gameGroup:not(.OtherGamesGroup):not([data-aika-open]) .aika-tile-faces {
+    position: absolute;
+    left: var(--aika-space-2);
+    bottom: var(--aika-space-2);
+    display: flex;
+}
+
+html:is(.MillenniumWindow_FriendsList, .aika-friends-list) .friendGroup.gameGroup .aika-tile-faces > * {
+    width: 22px;
+    height: 22px;
+    border-radius: var(--aika-fl-avatar-radius);
+    box-shadow: 0 0 0 2px var(--aika-bg-elevated);
+}
+
+html:is(.MillenniumWindow_FriendsList, .aika-friends-list) .friendGroup.gameGroup .aika-tile-faces > * + * {
+    margin-inline-start: -6px;
+}
+
+html:is(.MillenniumWindow_FriendsList, .aika-friends-list) .friendGroup.gameGroup .aika-tile-faces > span {
+    display: grid;
+    place-items: center;
+    background: var(--aika-bg-elevated);
+    font-family: var(--aika-font-mono);
+    font-size: 9px;
+    font-weight: var(--aika-weight-regular);
+    letter-spacing: normal;
+    color: var(--aika-ok);
+    text-shadow: none;
+}
+
+/* a single-friend tile: the art over the whole tile, the title on top, the
+   face and the name at the bottom, no status line */
+html.aika-fl-games-many:is(.MillenniumWindow_FriendsList, .aika-friends-list) .friendlist.compactView .friendGroup.OtherGamesGroup .friend.ingame {
+    align-items: flex-end;
+    padding: 0 var(--aika-space-2) var(--aika-space-2);
+}
+
+html.aika-fl-games-many:is(.MillenniumWindow_FriendsList, .aika-friends-list) .friendlist.compactView .friendGroup.OtherGamesGroup .friend.ingame::before {
+    height: 100%;
+}
+
+html.aika-fl-games-many:is(.MillenniumWindow_FriendsList, .aika-friends-list) .friendlist.compactView .friendGroup.OtherGamesGroup .friend.ingame::after {
+    top: var(--aika-space-2);
+    left: var(--aika-space-2);
+    right: var(--aika-space-2);
+}
+
+html.aika-fl-games-many:is(.MillenniumWindow_FriendsList, .aika-friends-list) .friendlist.compactView .friendGroup.OtherGamesGroup .friend.ingame .avatarHolder {
+    width: 22px;
+    height: 22px;
+    --aika-fl-badge: 10px;
+}
+
+html.aika-fl-games-many:is(.MillenniumWindow_FriendsList, .aika-friends-list) .friendlist.compactView .friendGroup.OtherGamesGroup .friend.ingame .avatarHolder img.avatar {
+    width: 100%;
+    height: 100%;
+}
+
+html.aika-fl-games-many:is(.MillenniumWindow_FriendsList, .aika-friends-list) .friendlist.compactView .friendGroup.OtherGamesGroup .friend.ingame .labelHolder {
+    position: relative;
+    z-index: 1;   /* over the art, which fills the tile here */
+    display: flex;
+    align-items: center;
+    min-width: 0;
+    height: auto;
+    padding-inline-start: var(--aika-space-2);
+}
+
+html.aika-fl-games-many:is(.MillenniumWindow_FriendsList, .aika-friends-list) .friendlist.compactView .friendGroup.OtherGamesGroup .friend.ingame .playerName {
+    overflow: hidden;
+    font-size: var(--aika-text-label);
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+html.aika-fl-games-many:is(.MillenniumWindow_FriendsList, .aika-friends-list) .friendlist.compactView .friendGroup.OtherGamesGroup .friend.ingame :is(.richPresenceContainer, .ContextMenuButton, .playerNicknameBracket) {
+    display: none;
+}
+
+html.aika-fl-games-many:is(.MillenniumWindow_FriendsList, .aika-friends-list) .friendlist.compactView .friendGroup.OtherGamesGroup .friend.ingame .labelHolder[data-aika-party]::after {
+    display: none;
+}
