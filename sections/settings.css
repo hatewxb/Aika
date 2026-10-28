@@ -614,6 +614,42 @@ html .ModalOverlayContent .ModalPosition_Content > .DialogContent {
     color: var(--aika-fg-muted);
 }
 
+/* Dialogs in their own window (html.ModalDialogPopup .PopupFullWindow >
+   .ModalPosition > .ModalPosition_Content > .DialogContent) — "Shutting down"
+   (.ShutdownDialog: Steam logo throbber, text, "Quit now" / Cancel) and other
+   small Steam windows built the same way. Steam: #25282e with a gray radial
+   light over our backdrop, Motiva Sans. Here the dialog is the whole window, so
+   no card — the content goes transparent and the theme backdrop shows.
+   Settings / Properties windows don't have this chain. :where() — dialogs with
+   their own look (.CreateChatDialog …) still win. Captured 2026-10-28. */
+html.ModalDialogPopup :where(.PopupFullWindow > .ModalPosition > .ModalPosition_Content) > .DialogContent {
+    background: var(--aika-transparent);
+    color: var(--aika-fg-muted);
+    font-family: var(--aika-font-ui);
+}
+
+html.ModalDialogPopup :where(.PopupFullWindow > .ModalPosition) .DialogBodyText {
+    color: var(--aika-fg);
+    font-family: var(--aika-font-ui);
+}
+
+/* Steam's PNG logo in a blue ring → the accent ring of the event video
+   placeholder (sections/game-page.css, aika-spin) */
+html.ModalDialogPopup :where(.PopupFullWindow > .ModalPosition) .SteamLogoThrobber .NewThrobber {
+    width: var(--aika-throbber-size);
+    height: var(--aika-throbber-size);
+    margin: auto;
+    border: var(--aika-throbber-width) solid var(--aika-accent-soft);
+    border-top-color: var(--aika-accent);
+    border-radius: var(--aika-radius-full);
+    background: none;
+    animation: aika-spin var(--aika-dur-spin) linear infinite;
+}
+
+html.ModalDialogPopup :where(.PopupFullWindow > .ModalPosition) .SteamLogoThrobber .NewThrobber img {
+    display: none;
+}
+
 /* "Install": the list of what's installed, size, shortcuts, folder choice */
 html .InstallRequestModal :is(.AppsToInstall, .AppToInstall) {
     border-color: var(--aika-border);
