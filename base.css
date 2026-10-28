@@ -132,28 +132,34 @@ body {
 }
 
 /* --------------------------------------------------------------------------
-   Scrollbars: thin, transparent track, brighter on hover
+   Scrollbars: thin, transparent track, brighter on hover.
+   :root lifts them over the store's own ::-webkit-scrollbar (loaded after us).
    -------------------------------------------------------------------------- */
 
-::-webkit-scrollbar {
+:root::-webkit-scrollbar,
+:root ::-webkit-scrollbar {
     width: var(--aika-scrollbar-size);
     height: var(--aika-scrollbar-size);
     background: var(--aika-transparent);
 }
 
-::-webkit-scrollbar-track,
-::-webkit-scrollbar-corner {
+:root::-webkit-scrollbar-track,
+:root ::-webkit-scrollbar-track,
+:root::-webkit-scrollbar-corner,
+:root ::-webkit-scrollbar-corner {
     background: var(--aika-transparent);
 }
 
-::-webkit-scrollbar-thumb {
+:root::-webkit-scrollbar-thumb,
+:root ::-webkit-scrollbar-thumb {
     background-color: var(--aika-surface-active);
     border-radius: var(--aika-radius-full);
     border: var(--aika-scrollbar-inset) solid var(--aika-transparent);
     background-clip: padding-box;
 }
 
-::-webkit-scrollbar-thumb:hover {
+:root::-webkit-scrollbar-thumb:hover,
+:root ::-webkit-scrollbar-thumb:hover {
     background-color: var(--aika-fg-subtle);
 }
 
