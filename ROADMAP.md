@@ -239,6 +239,7 @@
 | 2026-10-28 | Dialogs in their own window (author): "Shutting down" (.ShutdownDialog, also "Close <game> before quitting") and every Steam dialog built as html.ModalDialogPopup .PopupFullWindow > .ModalPosition > .DialogContent: Steam's gray gradient → the theme backdrop, Inter text, the logo throbber → the accent ring. :where() keeps dialog-specific rules winning; Settings/Properties untouched. Verified via CDP + screenshots (shown by faking the shutdown state in SharedJSContext) | sections/settings.css |
 | 2026-10-28 | Store scrollbars (author): Steam's store CSS loads after ours and put back its 14 px gray scrollbar; base.css scrollbar rules now start with :root so the theme's thin one wins on web pages too. Checked on the store home via CDP | base.css |
 | 2026-10-28 | Own name in the friends list header (author): Steam's compact view (on since the compact mode) pulled the status line up 4 px on an 11 px line, so it touched the 30 px name and pushed the name ~8 px down; the header status keeps the normal 18 px line, no pull. | sections/friends-list.css |
+| 2026-10-28 | Release 0.1.7: version in skin.json, README (in-game overlay, sign-in in every language and the sign-in form, compact friends view, standalone dialogs; roadmap table), privacy check of the changes since v0.1.6 (clean), all skin.json file references exist, the release commit is the short Millennium changelog, tag v0.1.7, GitHub release with Aika-0.1.7.zip | skin.json, README.md |
 
 ## Waiting for the author to check in Steam
 

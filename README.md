@@ -2,7 +2,7 @@
 
 # Aika
 
-**A warm dark theme for Steam** · [Millennium](https://steambrew.app) · 0.1.6 · by **hatewxb**
+**A warm dark theme for Steam** · [Millennium](https://steambrew.app) · 0.1.7 · by **hatewxb**
 
 **[Get it on Steambrew](https://steambrew.app/theme/uV8M1eg45Hh662blPuyD)** — the official Millennium theme store
 
@@ -47,9 +47,15 @@ Steam's light blue. The theme doesn't change any Steam text, only the look.
   now-playing game cards with the game's art, lobbies as squad capsules,
   offline friends as a grid of faces, Recent Chats as conversation cards,
   friend requests as business cards, a background pattern (halftone wave or
-  blinking squares); the chat window and group chats in the same look.
+  blinking squares); the chat window and group chats in the same look;
+  Steam's compact view as thin strips and two-a-row game tiles.
+- **The in-game overlay** in the theme look: panels as rounded cards,
+  achievements, guides, the browser, notes, recordings and the friends list
+  restyled, the toolbar as a floating capsule; pinned widgets stay see-through
+  and the theme backdrop never covers the game.
 - **Preloader presets** for the "Sign in to Steam" window: Classic, Terminal,
-  Horizon, Orbits, Aurora, Frame and Glitter warp, all in your preset's colors.
+  Horizon, Orbits, Aurora, Frame and Glitter warp, all in your preset's colors,
+  in every Steam language; the account chooser and the sign-in form in the theme look too.
 - **Cart and checkout** in the theme look: the cart, purchase review and receipt, the launch option picker.
 - **Privacy blur** for the wallet balance in the account menu until you hover it.
 - **Top bar tabs centered** (can be moved back to the left), or a **compact header**: menus, tabs and account buttons in one line.
@@ -122,8 +128,8 @@ on the **Colors** page right below.
 | Community | Activity, friends, screenshots, artwork, videos, profile editing, notifications, discussions home, game discussions | Workshop, collections, profile, the rest of the game community hub |
 | Friends & chat | Friends list (redesigned), friend requests, Recent Chats, direct and group chat, Create chat, mini profiles | Voice chat |
 | Downloads | Everything | — |
-| Settings & windows | Settings, game properties (DLC included), dialogs, the launch option picker, Family View (client PIN and web page), the sign-in window while signing in (preloader presets), Millennium settings, library manager and Quick CSS editor | The sign-in form (no saved account) |
-| General | Menus, tooltips, notifications dropdown, notification toasts (message, "now playing", download) — liquid glass, smooth entrance; color presets (Aika, Hello Bert, Greeny, Rose Ash); the startup loading curtain and page transitions; plugins (How Long To Beat, Extendium, Recent Chats, Easy Restart) | Other notifications, Big Picture, overlay |
+| Settings & windows | Settings, game properties (DLC included), dialogs, the launch option picker, Family View (client PIN and web page), the sign-in window (preloader presets, account chooser, sign-in form), standalone dialogs (shutdown and others), Millennium settings, library manager and Quick CSS editor | — |
+| General | Menus, tooltips, notifications dropdown, notification toasts (message, "now playing", download) — liquid glass, smooth entrance; color presets (Aika, Hello Bert, Greeny, Rose Ash); the startup loading curtain and page transitions; plugins (How Long To Beat, Extendium, Recent Chats, Easy Restart); the in-game overlay | Other notifications, Big Picture |
 
 ## Licenses
 
