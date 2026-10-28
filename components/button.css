@@ -24,7 +24,7 @@
    Shared base
    -------------------------------------------------------------------------- */
 
-html :is(.aika-button, button.DialogButton, .PlayButton) {
+html :is(.aika-button, button.DialogButton, .PlayButton, .Login button.SubmitButton) {
     border: none;
     border-radius: var(--aika-radius-md);
     font-family: var(--aika-font-ui);
@@ -43,7 +43,7 @@ html :is(.aika-button, button.DialogButton, .PlayButton) {
    Primary — the main action: accent, glow, shine
    -------------------------------------------------------------------------- */
 
-html :is(.aika-button--primary, button.DialogButton.Primary, .PlayButton) {
+html :is(.aika-button--primary, button.DialogButton.Primary, .PlayButton, .Login button.SubmitButton) {
     position: relative;
     overflow: hidden;
     background: var(--aika-accent-fill);
@@ -51,14 +51,14 @@ html :is(.aika-button--primary, button.DialogButton.Primary, .PlayButton) {
     box-shadow: var(--aika-shadow-cta);
 }
 
-html :is(.aika-button--primary, button.DialogButton.Primary, .PlayButton):not(.Disabled, :disabled):hover {
+html :is(.aika-button--primary, button.DialogButton.Primary, .PlayButton, .Login button.SubmitButton):not(.Disabled, :disabled):hover {
     background: var(--aika-accent-fill-hover);
     color: var(--aika-on-accent);
     box-shadow: var(--aika-shadow-cta-hover);
     transform: translateY(var(--aika-lift-sm));
 }
 
-html :is(.aika-button--primary, button.DialogButton.Primary, .PlayButton):not(.Disabled, :disabled):active {
+html :is(.aika-button--primary, button.DialogButton.Primary, .PlayButton, .Login button.SubmitButton):not(.Disabled, :disabled):active {
     background: var(--aika-accent-fill);
     box-shadow: var(--aika-shadow-cta-press);
     transform: scale(var(--aika-press-scale));
@@ -87,7 +87,7 @@ html button.DialogButton.Primary.DialogButton:enabled.gpfocus:active {
 
 /* Shine: a stripe beyond the left edge, sweeps right on hover.
    With --aika-motion: 0 the stripe is invisible (opacity = 0). */
-html :is(.aika-button--primary, button.DialogButton.Primary, .PlayButton)::after {
+html :is(.aika-button--primary, button.DialogButton.Primary, .PlayButton, .Login button.SubmitButton)::after {
     content: "";
     position: absolute;
     inset: 0;
@@ -97,7 +97,7 @@ html :is(.aika-button--primary, button.DialogButton.Primary, .PlayButton)::after
     pointer-events: none;
 }
 
-html :is(.aika-button--primary, button.DialogButton.Primary, .PlayButton):not(.Disabled, :disabled):hover::after {
+html :is(.aika-button--primary, button.DialogButton.Primary, .PlayButton, .Login button.SubmitButton):not(.Disabled, :disabled):hover::after {
     transform: translateX(var(--aika-shine-to));
     transition: transform var(--aika-dur-enter) var(--aika-ease);
 }
@@ -217,7 +217,7 @@ html button.DialogButton.Secondary.DialogButton:enabled.gpfocus {
    Disabled — muted, no glow or hover effects
    -------------------------------------------------------------------------- */
 
-html :is(.aika-button, button.DialogButton, .PlayButton):is(.Disabled, :disabled) {
+html :is(.aika-button, button.DialogButton, .PlayButton, .Login button.SubmitButton):is(.Disabled, :disabled) {
     opacity: var(--aika-disabled-opacity);
     box-shadow: none;
     cursor: default;

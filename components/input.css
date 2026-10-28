@@ -13,7 +13,7 @@
    and checkboxes (.DialogCheckbox) — captured in the settings window 2026-10-04, see the end of the file.
    ========================================================================== */
 
-html :is(.aika-input, input.DialogTextInputBase, button._DialogInputContainer) {
+html :is(.aika-input, input.DialogTextInputBase, .Login input.TextInput, button._DialogInputContainer) {
     background-color: var(--aika-bg-raised);
     border: var(--aika-hairline) solid var(--aika-border-strong);
     border-radius: var(--aika-radius-md);
@@ -26,20 +26,20 @@ html :is(.aika-input, input.DialogTextInputBase, button._DialogInputContainer) {
         box-shadow var(--aika-dur-base) var(--aika-ease);
 }
 
-html :is(.aika-input, input.DialogTextInputBase, button._DialogInputContainer):hover {
+html :is(.aika-input, input.DialogTextInputBase, .Login input.TextInput, button._DialogInputContainer):hover {
     border-color: var(--aika-border-hover);
 }
 
 /* Focus: an accent border + a soft ring. That ring is the focus indicator,
    so the outline from base.css isn't needed here — otherwise there'd be two rings. */
-html :is(.aika-input, input.DialogTextInputBase, button._DialogInputContainer):focus-visible,
-html :is(.aika-input, input.DialogTextInputBase):focus {
+html :is(.aika-input, input.DialogTextInputBase, .Login input.TextInput, button._DialogInputContainer):focus-visible,
+html :is(.aika-input, input.DialogTextInputBase, .Login input.TextInput):focus {
     border-color: var(--aika-accent);
     box-shadow: var(--aika-shadow-input-focus);
     outline: none;
 }
 
-html :is(.aika-input, input.DialogTextInputBase)::placeholder {
+html :is(.aika-input, input.DialogTextInputBase, .Login input.TextInput)::placeholder {
     color: var(--aika-fg-subtle);
 }
 

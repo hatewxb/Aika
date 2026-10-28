@@ -81,22 +81,22 @@
             "values": {
                 "Classic": {},
                 "Terminal": {
-                    "TargetCss": { "affects": ["^(Sign in to Steam|Войти в Steam)$"], "src": "options/preloader-terminal.css" }
+                    "TargetCss": { "affects": ["^(تسجيل الدخول إلى Steam|Iniciar a sessão no Steam|Вписване в Steam|Přihlášení do služby Steam|Log på Steam|Aanmelden bij Steam|Sign in to Steam|Kirjaudu Steamiin|Se connecter à Steam|Bei Steam anmelden|Σύνδεση στο Steam|Bejelentkezés a Steambe|Login ke Steam|Accedi a Steam|Steamにサインイン|Steam 로그인|Iniciar sesión en Steam|Daftar masuk ke Steam|Logg inn på Steam|Zaloguj się do Steam|Iniciar sessão no Steam|Conectează-te la Steam|Войти в Steam|登录 Steam|登录蒸汽平台|Logga in på Steam|登入 Steam|เข้าสู่ระบบ Steam|Steam'e Giriş Yap|Вхід до Steam|Đăng nhập vào Steam)$"], "src": "options/preloader-terminal.css" }
                 },
                 "Horizon": {
-                    "TargetCss": { "affects": ["^(Sign in to Steam|Войти в Steam)$"], "src": "options/preloader-horizon.css" }
+                    "TargetCss": { "affects": ["^(تسجيل الدخول إلى Steam|Iniciar a sessão no Steam|Вписване в Steam|Přihlášení do služby Steam|Log på Steam|Aanmelden bij Steam|Sign in to Steam|Kirjaudu Steamiin|Se connecter à Steam|Bei Steam anmelden|Σύνδεση στο Steam|Bejelentkezés a Steambe|Login ke Steam|Accedi a Steam|Steamにサインイン|Steam 로그인|Iniciar sesión en Steam|Daftar masuk ke Steam|Logg inn på Steam|Zaloguj się do Steam|Iniciar sessão no Steam|Conectează-te la Steam|Войти в Steam|登录 Steam|登录蒸汽平台|Logga in på Steam|登入 Steam|เข้าสู่ระบบ Steam|Steam'e Giriş Yap|Вхід до Steam|Đăng nhập vào Steam)$"], "src": "options/preloader-horizon.css" }
                 },
                 "Orbits": {
-                    "TargetCss": { "affects": ["^(Sign in to Steam|Войти в Steam)$"], "src": "options/preloader-orbits.css" }
+                    "TargetCss": { "affects": ["^(تسجيل الدخول إلى Steam|Iniciar a sessão no Steam|Вписване в Steam|Přihlášení do služby Steam|Log på Steam|Aanmelden bij Steam|Sign in to Steam|Kirjaudu Steamiin|Se connecter à Steam|Bei Steam anmelden|Σύνδεση στο Steam|Bejelentkezés a Steambe|Login ke Steam|Accedi a Steam|Steamにサインイン|Steam 로그인|Iniciar sesión en Steam|Daftar masuk ke Steam|Logg inn på Steam|Zaloguj się do Steam|Iniciar sessão no Steam|Conectează-te la Steam|Войти в Steam|登录 Steam|登录蒸汽平台|Logga in på Steam|登入 Steam|เข้าสู่ระบบ Steam|Steam'e Giriş Yap|Вхід до Steam|Đăng nhập vào Steam)$"], "src": "options/preloader-orbits.css" }
                 },
                 "Aurora": {
-                    "TargetCss": { "affects": ["^(Sign in to Steam|Войти в Steam)$"], "src": "options/preloader-aurora.css" }
+                    "TargetCss": { "affects": ["^(تسجيل الدخول إلى Steam|Iniciar a sessão no Steam|Вписване в Steam|Přihlášení do služby Steam|Log på Steam|Aanmelden bij Steam|Sign in to Steam|Kirjaudu Steamiin|Se connecter à Steam|Bei Steam anmelden|Σύνδεση στο Steam|Bejelentkezés a Steambe|Login ke Steam|Accedi a Steam|Steamにサインイン|Steam 로그인|Iniciar sesión en Steam|Daftar masuk ke Steam|Logg inn på Steam|Zaloguj się do Steam|Iniciar sessão no Steam|Conectează-te la Steam|Войти в Steam|登录 Steam|登录蒸汽平台|Logga in på Steam|登入 Steam|เข้าสู่ระบบ Steam|Steam'e Giriş Yap|Вхід до Steam|Đăng nhập vào Steam)$"], "src": "options/preloader-aurora.css" }
                 },
                 "Frame": {
-                    "TargetCss": { "affects": ["^(Sign in to Steam|Войти в Steam)$"], "src": "options/preloader-frame.css" }
+                    "TargetCss": { "affects": ["^(تسجيل الدخول إلى Steam|Iniciar a sessão no Steam|Вписване в Steam|Přihlášení do služby Steam|Log på Steam|Aanmelden bij Steam|Sign in to Steam|Kirjaudu Steamiin|Se connecter à Steam|Bei Steam anmelden|Σύνδεση στο Steam|Bejelentkezés a Steambe|Login ke Steam|Accedi a Steam|Steamにサインイン|Steam 로그인|Iniciar sesión en Steam|Daftar masuk ke Steam|Logg inn på Steam|Zaloguj się do Steam|Iniciar sessão no Steam|Conectează-te la Steam|Войти в Steam|登录 Steam|登录蒸汽平台|Logga in på Steam|登入 Steam|เข้าสู่ระบบ Steam|Steam'e Giriş Yap|Вхід до Steam|Đăng nhập vào Steam)$"], "src": "options/preloader-frame.css" }
                 },
                 "Glitter warp": {
-                    "TargetCss": { "affects": ["^(Sign in to Steam|Войти в Steam)$"], "src": "options/preloader-glitter.css" }
+                    "TargetCss": { "affects": ["^(تسجيل الدخول إلى Steam|Iniciar a sessão no Steam|Вписване в Steam|Přihlášení do služby Steam|Log på Steam|Aanmelden bij Steam|Sign in to Steam|Kirjaudu Steamiin|Se connecter à Steam|Bei Steam anmelden|Σύνδεση στο Steam|Bejelentkezés a Steambe|Login ke Steam|Accedi a Steam|Steamにサインイン|Steam 로그인|Iniciar sesión en Steam|Daftar masuk ke Steam|Logg inn på Steam|Zaloguj się do Steam|Iniciar sessão no Steam|Conectează-te la Steam|Войти в Steam|登录 Steam|登录蒸汽平台|Logga in på Steam|登入 Steam|เข้าสู่ระบบ Steam|Steam'e Giriş Yap|Вхід до Steam|Đăng nhập vào Steam)$"], "src": "options/preloader-glitter.css" }
                 }
             }
         },
@@ -376,7 +376,7 @@
             "TargetCss": "overlay.css"
         },
         {
-            "MatchRegexString": "^(Sign in to Steam|Войти в Steam)$",
+            "MatchRegexString": "^(تسجيل الدخول إلى Steam|Iniciar a sessão no Steam|Вписване в Steam|Přihlášení do služby Steam|Log på Steam|Aanmelden bij Steam|Sign in to Steam|Kirjaudu Steamiin|Se connecter à Steam|Bei Steam anmelden|Σύνδεση στο Steam|Bejelentkezés a Steambe|Login ke Steam|Accedi a Steam|Steamにサインイン|Steam 로그인|Iniciar sesión en Steam|Daftar masuk ke Steam|Logg inn på Steam|Zaloguj się do Steam|Iniciar sessão no Steam|Conectează-te la Steam|Войти в Steam|登录 Steam|登录蒸汽平台|Logga in på Steam|登入 Steam|เข้าสู่ระบบ Steam|Steam'e Giriş Yap|Вхід до Steam|Đăng nhập vào Steam)$",
             "TargetCss": "login.css"
         },
         {

@@ -14,8 +14,8 @@
                .LoginStatus                   — "Signing in…" (Steam's text)
                .Progress > .ProgressBar > .Percent   — hidden until Steam shows it
                .UserContainer > .Avatar > img, .PersonaName
-   Only the status layer is restyled — the sign-in form (no saved account)
-   stays Steam's apart from fonts and window buttons.
+   The account chooser and the sign-in form (the same window, "Change account"
+   or no saved account) — see the end of the file.
 
    The look (ideas: Magic UI "Ripple" + "Border Beam", reactbits "Shiny Text"):
    the cover grid sinks under a near-black veil with a breathing accent haze;
@@ -53,12 +53,12 @@
 
 /* The veil over Steam's cover grid (the whole window, the title strip too) +
    the haze behind the mark */
-html .Login.AnimatedBackground {
+html :is(.Login.AnimatedBackground, .LoginStaticBackground > .Login) {
     position: relative;
     isolation: isolate;
 }
 
-html .Login.AnimatedBackground::before {
+html :is(.Login.AnimatedBackground, .LoginStaticBackground > .Login)::before {
     content: "";
     position: absolute;
     z-index: -1;
@@ -243,6 +243,132 @@ html .Login .UserContainer > .PersonaName {
     background-clip: text;
     -webkit-text-fill-color: var(--aika-transparent);
     animation: aika-login-shine var(--aika-price-shine-dur) var(--aika-ease-ambient) infinite;
+}
+
+/* --------------------------------------------------------------------------
+   The account chooser and the sign-in form (captured via CDP 2026-10-28,
+   readable classes; the grid, veil and preset backdrop stay behind them):
+     .Login.DesktopUI > .UserChooser > .Content
+       .LogoContainer, .AvatarContainer > .WhosPlaying ("Who's playing?")
+       .CachedUsers > .UserList > div > .User(.Existing | .New) > .Icon, .Name.Persona, .Name.Account
+       .Toggle.Field ("Ask which account…" — the toggle is components/input.css)
+     .Login > .EmbeddedRoot (the "Add account" form)
+       .LogoContainer > .BackArrowContainer
+       form.LoginForm > .TextField > label.FieldLabel(.Highlight) + input.TextInput,
+         .CheckboxField > .Checkbox + .CheckboxFieldLabel, button.SubmitButton, .FormError
+       .QRSection > label.FieldLabel + .QR, .EmbeddedRootFooter > .TextLink, .AccountCreation
+   Fields and the button are components/input.css and button.css. Steam's
+   tile rules are four hash classes deep (0,4,0)-(0,4,1) — beaten by the
+   readable chain below.
+   -------------------------------------------------------------------------- */
+
+html .Login .UserChooser .WhosPlaying {
+    font-family: var(--aika-font-ui);
+    font-size: var(--aika-text-h1);
+    font-weight: var(--aika-weight-semibold);
+    letter-spacing: var(--aika-tracking-h1);
+    color: var(--aika-fg);
+}
+
+html .Login .CachedUsers .UserList .User .Icon {
+    overflow: hidden;
+    border: 1px solid var(--aika-border-strong);
+    border-radius: var(--aika-radius-lg);
+    background-color: var(--aika-bg-raised);
+    box-shadow: var(--aika-shadow-card-hover);
+}
+
+/* Hover / keyboard focus: Steam's white border and lift → an accent ring */
+html .Login .CachedUsers .UserList .User:is(:hover, :focus-within) .Icon {
+    border: 1px solid var(--aika-accent);
+    box-shadow: 0 0 0 1px var(--aika-accent), 0 0 16px var(--aika-accent-glow);
+}
+
+/* "Add account": the plus in a dashed circle */
+html .Login .CachedUsers .UserList .User.New .Icon {
+    border: 1px dashed var(--aika-border-strong);
+    border-radius: 50%;
+    background: none;
+    box-shadow: none;
+    color: var(--aika-fg-muted);
+}
+
+html .Login .CachedUsers .UserList .User.New:is(:hover, :focus-within) .Icon {
+    border: 1px dashed var(--aika-accent);
+    color: var(--aika-accent-bright);
+}
+
+html .Login .CachedUsers .UserList .User .Name.Persona {
+    font-family: var(--aika-font-ui);
+    font-weight: var(--aika-weight-semibold);
+    color: var(--aika-fg);
+}
+
+html .Login .CachedUsers .UserList .User .Name.Account {
+    font-family: var(--aika-font-mono);
+    color: var(--aika-fg-subtle);
+}
+
+html .Login .UserChooser .Toggle .FieldLabel {
+    font-family: var(--aika-font-ui);
+    color: var(--aika-fg-muted);
+}
+
+/* The form: Steam's dark panel gradient goes — the veil is behind it */
+html .Login .EmbeddedRoot {
+    background: none;
+}
+
+html .Login .LoginForm .FieldLabel,
+html .Login .QRSection .FieldLabel {
+    font-family: var(--aika-font-ui);
+    font-size: var(--aika-text-label);
+    font-weight: var(--aika-weight-medium);
+    color: var(--aika-fg-muted);
+}
+
+html .Login :is(.LoginForm, .QRSection) .FieldLabel.Highlight {
+    color: var(--aika-accent-bright);
+}
+
+html .Login .LoginForm input.TextInput {
+    padding-inline: var(--aika-space-3);
+}
+
+html .Login .LoginForm .Checkbox {
+    border: 1px solid var(--aika-border-strong);
+    border-radius: var(--aika-radius-xs);
+    background-color: var(--aika-bg-raised);
+}
+
+html .Login .LoginForm .CheckboxFieldLabel {
+    color: var(--aika-fg-muted);
+}
+
+html .Login .LoginForm .FormError {
+    color: var(--aika-live);
+}
+
+html .Login .QRSection .QR {
+    overflow: hidden;
+    border-radius: var(--aika-radius-lg);
+}
+
+html .Login .EmbeddedRoot :is(.TextLink, .AccountCreationPrompt) {
+    font-family: var(--aika-font-ui);
+    color: var(--aika-fg-subtle);
+}
+
+html .Login .EmbeddedRoot .TextLink:hover {
+    color: var(--aika-accent-bright);
+}
+
+html .Login .EmbeddedRoot .BackArrowContainer {
+    color: var(--aika-fg-muted);
+}
+
+html .Login .EmbeddedRoot .BackArrowContainer:hover {
+    color: var(--aika-fg);
 }
 
 @media (prefers-reduced-motion: reduce) {
