@@ -125,6 +125,14 @@ html:is(.MillenniumWindow_FriendsList, .aika-friends-list) .currentUserContainer
     font-size: var(--aika-text-meta);
 }
 
+/* (0,5,1) — Steam's compact view pulls the status up by 4 px on an 11 px line
+   (0,5,0): under our big name it touched the letters and pushed the name down;
+   the normal view's 18 px line, no pull */
+html:is(.MillenniumWindow_FriendsList, .aika-friends-list) .currentUserContainer .labelHolder .richPresenceContainer .richPresenceLabel {
+    margin-top: 0;
+    line-height: 18px;
+}
+
 /* --- Status badges (Discord-like, author 2026-10-21) ----------------------- */
 /* On every avatar of the window: .avatarHolder.<online | ingame | offline>
    (+ .awayOrSnooze for away / snooze). A dot at the bottom right, cut out of
