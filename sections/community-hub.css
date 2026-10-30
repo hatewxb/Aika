@@ -178,7 +178,8 @@ html .guides_home_integrated_box {
     background: var(--aika-bg-elevated);
 }
 
-html .guides_home_integrated_box .guides_home_section_title {
+html .guides_home_section_title {
+    border-color: var(--aika-border);
     color: var(--aika-fg);
 }
 
@@ -213,14 +214,11 @@ html body.apphub_blue #AppHubSearch {
     box-shadow: none;
 }
 
-html body.apphub_blue .browseOption.selected {
+html body.apphub_blue .browseOption.selected,
+html body.apphub_blue .browseOption.selected > a {
     border-radius: var(--aika-radius-md);
-    background: var(--aika-accent-soft);
+    background: var(--aika-accent-soft) !important;
     color: var(--aika-accent-bright);
-}
-
-html body.apphub_blue .browseOption.selected::before {
-    display: none;
 }
 
 html body.apphub_blue .browseOption.notSelected:hover {
