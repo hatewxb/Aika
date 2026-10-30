@@ -181,3 +181,25 @@ html #sharedfiles_content_ctn .commentthread_header .pagebtn {
     border-radius: var(--aika-radius-md);
     background: var(--aika-surface);
 }
+
+/* --------------------------------------------------------------------------
+   Steam's blue backdrops: the header's grid and piston art, and the glow
+   behind the description (background images, not colors)
+   -------------------------------------------------------------------------- */
+
+html .apphub_HeaderTop.workshop,
+html .apphub_HeaderBottomBG {
+    background: none;
+}
+
+html .apphub_WorkshopPiston {
+    opacity: var(--aika-disabled-opacity);
+}
+
+html #sharedfiles_content_ctn .detailBox {
+    background: none;
+}
+
+html #footer {
+    background: var(--aika-transparent);
+}
