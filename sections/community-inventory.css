@@ -1,0 +1,245 @@
+/* ==========================================================================
+   community-inventory.css — the item inventory (steamcommunity.com/id/…/inventory/),
+   imported through webkit.css.
+
+   Old markup with readable classes, captured via CDP 2026-10-23:
+     .profile_small_header_*           — the name strip (also on other sub-pages)
+     #games_list_public                — "Active inventories": .games_list_tabs_ctn
+                                         > a.games_list_tab#inventory_link_<appid>
+     button.games_list_separator       — the "Unavailable inventories" bar
+     #tabcontent_inventory             — the inventory:
+       #filter_control, .filter_tag_button — search / advanced filters
+       #inventories.trade_item_box     — the item grid (.itemHolder > .item)
+       .pagebtn / .pagecontrol_element — paging
+       the item info panel on the right — hashes only (selectors at the bottom)
+   Steam's strength is (0,1,0)…(1,1,0); item rarity borders are inline and kept.
+   ========================================================================== */
+
+/* --------------------------------------------------------------------------
+   Header buttons — Trade Offers (primary), More… (secondary)
+   -------------------------------------------------------------------------- */
+
+html .new_trade_offer_btn.btn_darkblue_white_innerfade,
+html .new_trade_offer_btn.btn_darkblue_white_innerfade > span {
+    border-radius: var(--aika-radius-md);
+    background: var(--aika-accent-fill);
+    box-shadow: none;
+    color: var(--aika-on-accent);
+}
+
+html .new_trade_offer_btn.btn_darkblue_white_innerfade:hover,
+html .new_trade_offer_btn.btn_darkblue_white_innerfade:hover > span {
+    background: var(--aika-accent-fill-hover);
+    color: var(--aika-on-accent);
+}
+
+html #inventory_more_trigger {
+    border: var(--aika-hairline) solid var(--aika-border-strong);
+    border-radius: var(--aika-radius-md);
+    background: var(--aika-surface);
+    color: var(--aika-fg);
+}
+
+html #inventory_more_trigger:hover {
+    background: var(--aika-surface-hover);
+    border-color: var(--aika-border-hover);
+}
+
+/* --------------------------------------------------------------------------
+   "Active inventories" — a card with a grid of rounded game tiles
+   -------------------------------------------------------------------------- */
+
+html #games_list_public,
+html .games_list_separator {
+    background: var(--aika-bg-elevated);
+    color: var(--aika-fg);
+}
+
+html #games_list_public {
+    overflow: hidden;
+    border: var(--aika-hairline) solid var(--aika-border);
+    border-radius: 0 0 var(--aika-radius-lg) var(--aika-radius-lg);
+}
+
+html .games_list_separator {
+    border: var(--aika-hairline) solid var(--aika-border);
+    border-radius: var(--aika-radius-lg) var(--aika-radius-lg) 0 0;
+    font-family: var(--aika-font-ui);
+    font-size: var(--aika-text-label);
+    font-weight: var(--aika-weight-medium);
+    letter-spacing: var(--aika-tracking-label);
+}
+
+/* The "Unavailable inventories" bar is a closed card by itself */
+html button.games_list_separator.actionable {
+    width: 100%;
+    border: var(--aika-hairline) solid var(--aika-border);
+    border-radius: var(--aika-radius-lg);
+    color: var(--aika-fg-muted);
+    transition: background-color var(--aika-dur-fast) var(--aika-ease-hover);
+}
+
+html button.games_list_separator.actionable:hover {
+    background: var(--aika-bg-raised);
+    color: var(--aika-fg);
+}
+
+html #games_list_public .games_list_tabs_ctn {
+    background: none;
+}
+
+html .games_list_tab {
+    border: var(--aika-hairline) solid var(--aika-border);
+    border-radius: var(--aika-radius-md);
+    background: var(--aika-surface);
+    color: var(--aika-fg-muted);
+    transition:
+        background-color var(--aika-dur-fast) var(--aika-ease-hover),
+        border-color var(--aika-dur-fast) var(--aika-ease-hover);
+}
+
+html .games_list_tab :is(.games_list_tab_name, .games_list_tab_number) {
+    color: inherit;
+    font-family: var(--aika-font-ui);
+}
+
+html .games_list_tab:hover {
+    border-color: var(--aika-border-hover);
+    background: var(--aika-surface-hover);
+    color: var(--aika-fg);
+}
+
+html .games_list_tab.active,
+html .games_list_tab.active:hover {
+    border-color: var(--aika-border-accent);
+    background: var(--aika-accent-soft);
+    box-shadow: inset var(--aika-indicator) 0 0 0 var(--aika-accent);
+    color: var(--aika-fg);
+}
+
+html .games_list_tab img {
+    border-radius: var(--aika-radius-xs);
+}
+
+html .games_list_tab_separator {
+    background: none;
+}
+
+/* --------------------------------------------------------------------------
+   The inventory itself — a card; items are rounded tiles
+   -------------------------------------------------------------------------- */
+
+html #tabcontent_inventory {
+    border: var(--aika-hairline) solid var(--aika-border);
+    border-radius: var(--aika-radius-lg);
+    background: var(--aika-bg-elevated);
+    color: var(--aika-fg-muted);
+}
+
+html #tabcontent_inventory :is(h1, h2, h3, .inventory_user_tab_name) {
+    color: var(--aika-fg);
+    font-family: var(--aika-font-ui);
+}
+
+html #inventories.trade_item_box {
+    border: none;
+    border-radius: var(--aika-radius-md);
+    background: none;
+}
+
+html #inventories .itemHolder {
+    background-color: transparent;
+    background-image: none;
+}
+
+html #inventories .item {
+    overflow: hidden;
+    border-radius: var(--aika-radius-md);
+    background-color: var(--aika-surface);
+    background-image: none;
+    transition: background-color var(--aika-dur-fast) var(--aika-ease-hover);
+}
+
+html #inventories .item:hover {
+    background-color: var(--aika-surface-hover);
+}
+
+html #inventories .item.activeInfo {
+    box-shadow: 0 0 0 2px var(--aika-accent-ring);
+}
+
+html #inventories .item img {
+    border-radius: var(--aika-radius-sm, 6px);
+}
+
+/* Search and filters */
+html #tabcontent_inventory .filter_search_box,
+html #tabcontent_inventory #filter_control {
+    border: var(--aika-hairline) solid var(--aika-border-strong);
+    border-radius: var(--aika-radius-md);
+    background: var(--aika-bg-raised);
+    color: var(--aika-fg);
+}
+
+html #tabcontent_inventory #filter_control:focus {
+    outline: none;
+    box-shadow: var(--aika-shadow-input-focus);
+}
+
+html #tabcontent_inventory #filter_control::placeholder {
+    color: var(--aika-fg-subtle);
+}
+
+html #tabcontent_inventory .filter_tag_button,
+html #tabcontent_inventory .btn_black {
+    border: var(--aika-hairline) solid var(--aika-border-strong);
+    border-radius: var(--aika-radius-md);
+    background: var(--aika-surface);
+    color: var(--aika-fg);
+}
+
+html #tabcontent_inventory :is(.filter_tag_button, .btn_black):hover {
+    background: var(--aika-surface-hover);
+}
+
+/* Paging */
+html #tabcontent_inventory :is(.pagebtn, .pagecontrol_element) {
+    border-radius: var(--aika-radius-md);
+    background: var(--aika-surface);
+    color: var(--aika-fg);
+}
+
+html #tabcontent_inventory .pagebtn:not(.disabled):hover {
+    background: var(--aika-surface-hover);
+}
+
+html #tabcontent_inventory .pagebtn.disabled {
+    color: var(--aika-fg-subtle);
+}
+
+/* --------------------------------------------------------------------------
+   The item info panel — hashes only (captured 2026-10-23): the frame
+   (._2lajV…), the action buttons (._3QKUr…); the artwork radial gradient is kept
+   -------------------------------------------------------------------------- */
+
+html ._2lajVjbyrA4lq9xF0X4NQW._3JCkAyd9cnB90tRcDLPp4W {
+    border: var(--aika-hairline) solid var(--aika-border);
+    border-radius: var(--aika-radius-lg);
+}
+
+html ._3QKUrmKA1DptBhihc8GSAF.AjHMNGqS56A5oRpfyYhEz {
+    border: var(--aika-hairline) solid var(--aika-border-strong);
+    border-radius: var(--aika-radius-md);
+    background: var(--aika-surface);
+    color: var(--aika-fg);
+}
+
+html ._3QKUrmKA1DptBhihc8GSAF.AjHMNGqS56A5oRpfyYhEz:hover {
+    background: var(--aika-surface-hover);
+}
+
+html #inventory_more_trigger,
+html #inventory_more_trigger .trigger_text,
+html #inventory_more_trigger > * {
+    color: var(--aika-fg);
+}

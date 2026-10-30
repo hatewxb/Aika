@@ -41,7 +41,7 @@
             "default": "Center",
             "values": {
                 "Center": {
-                    "TargetCss": { "affects": ["^Steam$"], "src": "options/tabs-center.css" }
+                    "TargetCss": { "affects": ["^(Steam|Steam Games List)$"], "src": "options/tabs-center.css" }
                 },
                 "Left": {}
             }
@@ -53,7 +53,7 @@
             "values": {
                 "Normal": {},
                 "Compact": {
-                    "TargetCss": { "affects": ["^Steam$"], "src": "options/header-compact.css" }
+                    "TargetCss": { "affects": ["^(Steam|Steam Games List)$"], "src": "options/header-compact.css" }
                 }
             }
         },
@@ -64,13 +64,13 @@
             "values": {
                 "Classic": {},
                 "Calligraphy": {
-                    "TargetCss": { "affects": ["^Steam$"], "src": "options/wordmark-calligraphy.css" }
+                    "TargetCss": { "affects": ["^(Steam|Steam Games List)$"], "src": "options/wordmark-calligraphy.css" }
                 },
                 "Katakana brush": {
-                    "TargetCss": { "affects": ["^Steam$"], "src": "options/wordmark-syuku.css" }
+                    "TargetCss": { "affects": ["^(Steam|Steam Games List)$"], "src": "options/wordmark-syuku.css" }
                 },
                 "Katakana soft": {
-                    "TargetCss": { "affects": ["^Steam$"], "src": "options/wordmark-mai.css" }
+                    "TargetCss": { "affects": ["^(Steam|Steam Games List)$"], "src": "options/wordmark-mai.css" }
                 }
             }
         },
@@ -107,7 +107,7 @@
             "values": {
                 "yes": {},
                 "no": {
-                    "TargetCss": { "affects": ["^Steam$"], "src": "options/hide-wallet.css" }
+                    "TargetCss": { "affects": ["^(Steam|Steam Games List)$"], "src": "options/hide-wallet.css" }
                 }
             }
         },
@@ -129,7 +129,7 @@
             "values": {
                 "yes": {},
                 "no": {
-                    "TargetCss": { "affects": ["^Steam$"], "src": "options/hide-whats-new.css" }
+                    "TargetCss": { "affects": ["^(Steam|Steam Games List)$"], "src": "options/hide-whats-new.css" }
                 }
             }
         },
@@ -140,7 +140,7 @@
             "values": {
                 "yes": {},
                 "no": {
-                    "TargetCss": { "affects": ["^Steam$"], "src": "options/hide-add-shelf.css" }
+                    "TargetCss": { "affects": ["^(Steam|Steam Games List)$"], "src": "options/hide-add-shelf.css" }
                 }
             }
         },
@@ -151,7 +151,7 @@
             "values": {
                 "yes": {},
                 "no": {
-                    "TargetCss": { "affects": ["^Steam$"], "src": "options/hide-news.css" }
+                    "TargetCss": { "affects": ["^(Steam|Steam Games List)$"], "src": "options/hide-news.css" }
                 }
             }
         },
@@ -248,11 +248,11 @@
             "default": "3D tilt",
             "values": {
                 "3D tilt": {
-                    "TargetCss": { "affects": ["^Steam$"], "src": "options/covers-tilt.css" }
+                    "TargetCss": { "affects": ["^(Steam|Steam Games List)$"], "src": "options/covers-tilt.css" }
                 },
                 "Lift": {},
                 "Zoom": {
-                    "TargetCss": { "affects": ["^Steam$"], "src": "options/covers-zoom.css" }
+                    "TargetCss": { "affects": ["^(Steam|Steam Games List)$"], "src": "options/covers-zoom.css" }
                 }
             }
         },
@@ -263,13 +263,13 @@
             "values": {
                 "Press": {},
                 "Ripple": {
-                    "TargetCss": { "affects": ["^Steam$"], "src": "options/hold-ripple.css" }
+                    "TargetCss": { "affects": ["^(Steam|Steam Games List)$"], "src": "options/hold-ripple.css" }
                 },
                 "Charge": {
-                    "TargetCss": { "affects": ["^Steam$"], "src": "options/hold-charge.css" }
+                    "TargetCss": { "affects": ["^(Steam|Steam Games List)$"], "src": "options/hold-charge.css" }
                 },
                 "Off": {
-                    "TargetCss": { "affects": ["^Steam$"], "src": "options/hold-off.css" }
+                    "TargetCss": { "affects": ["^(Steam|Steam Games List)$"], "src": "options/hold-off.css" }
                 }
             }
         },
@@ -280,7 +280,7 @@
             "values": {
                 "yes": {},
                 "no": {
-                    "TargetCss": { "affects": ["^Steam$"], "src": "options/spotlight-off.css" }
+                    "TargetCss": { "affects": ["^(Steam|Steam Games List)$"], "src": "options/spotlight-off.css" }
                 }
             }
         },
@@ -350,26 +350,27 @@
         {
             "MatchRegexString": "^Steam$",
             "TargetCss": "main.css",
-            "TargetJs": "js/main.js"
+            "TargetJs": "js/client-main.js"
         },
         {
             "MatchRegexString": ".ModalDialogPopup",
-            "TargetCss": "main.css"
+            "TargetCss": "main.css",
+            "TargetJs": "js/client-classes.js"
         },
         {
             "MatchRegexString": ".friendsui-container",
             "TargetCss": "main.css",
-            "TargetJs": "js/friends.js"
+            "TargetJs": "js/client-friends.js"
         },
         {
             "MatchRegexString": ".ContextMenuPopup",
             "TargetCss": "popup.css",
-            "TargetJs": "js/menu-motion.js"
+            "TargetJs": "js/client-menu-motion.js"
         },
         {
             "MatchRegexString": ".DesktopToastContainer",
             "TargetCss": "toast.css",
-            "TargetJs": "js/toast.js"
+            "TargetJs": "js/client-toast.js"
         },
         {
             "MatchRegexString": "^SP Overlay:.*",
@@ -377,7 +378,8 @@
         },
         {
             "MatchRegexString": "^(تسجيل الدخول إلى Steam|Iniciar a sessão no Steam|Вписване в Steam|Přihlášení do služby Steam|Log på Steam|Aanmelden bij Steam|Sign in to Steam|Kirjaudu Steamiin|Se connecter à Steam|Bei Steam anmelden|Σύνδεση στο Steam|Bejelentkezés a Steambe|Login ke Steam|Accedi a Steam|Steamにサインイン|Steam 로그인|Iniciar sesión en Steam|Daftar masuk ke Steam|Logg inn på Steam|Zaloguj się do Steam|Iniciar sessão no Steam|Conectează-te la Steam|Войти в Steam|登录 Steam|登录蒸汽平台|Logga in på Steam|登入 Steam|เข้าสู่ระบบ Steam|Steam'e Giriş Yap|Вхід до Steam|Đăng nhập vào Steam)$",
-            "TargetCss": "login.css"
+            "TargetCss": "login.css",
+            "TargetJs": "js/client-classes.js"
         },
         {
             "MatchRegexString": "^https://store\\.steampowered\\.com/app/.*",

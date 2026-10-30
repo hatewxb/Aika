@@ -1286,3 +1286,21 @@ html .Container .AdvancedSearchContainer.AdvancedSearchContainer:not(.Extended) 
 html .AdvancedSearchPane .AccessibilityOptionsButton svg :is(path, polygon) {
     fill: currentColor;
 }
+
+/* --------------------------------------------------------------------------
+   Post-Game Summary (the game page's "Spotlights" box). Steam: .BoxCarousel
+   has a 3 px radius and a dark radial gradient, so the box read as a square
+   black plate. Classes captured via CDP 2026-10-23:
+     .GamePlaySummaryContainer > .PageableContainer … > .BoxCarousel
+   -------------------------------------------------------------------------- */
+html .GamePlaySummaryContainer .BoxCarousel {
+    border-radius: var(--aika-radius-lg);
+    background: var(--aika-bg-elevated);   /* opaque — the blurred page background no longer shows through */
+    box-shadow: none;
+    overflow: hidden;
+}
+
+/* …and Steam's inset black vignette (.BoxCarousel::after, 12 px) — the dark edge */
+html .GamePlaySummaryContainer .BoxCarousel::after {
+    box-shadow: none;
+}

@@ -1,24 +1,22 @@
-/* ==========================================================================
-   The "Store / Library / …" tabs centered in the top bar
-   (theme settings → "Main → Top bar" → "Center", the default).
-   The "Left" option doesn't load this file — tabs stay where Steam puts them.
-
-   .SuperNav — flex: [← →] + .MenuWrapper×N. Auto margins on both sides
-   of the tab group plus an invisible counterweight on the right (::after) as wide
-   as the arrows + bar padding — the group center matches the window center
-   (verified by measurement 2026-10-04).
-   ========================================================================== */
-
+/* Aika centered tabs — keep auto flex space outside the Store menu anchor.
+   Requires js/supernav-center-spacer.js (imported from js/main.js). */
 html .SuperNav > div.MenuWrapper:first-of-type {
+    margin-inline-start: 0;
+}
+html .SuperNav > .aika-supernav-center-spacer {
+    flex: 0 0 0px;
     margin-inline-start: auto;
+    margin-inline-end: 0;
+    padding: 0;
+    width: 0;
+    pointer-events: none;
 }
-
 html .SuperNav > div.MenuWrapper:last-of-type {
-    margin-inline-end: auto;
+    margin-inline-end: 0;
 }
-
 html .SuperNav::after {
     content: "";
     flex: none;
+    margin-inline-start: auto;
     width: var(--aika-supernav-arrows-width);
 }

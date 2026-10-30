@@ -1,0 +1,434 @@
+/* ==========================================================================
+   community-profile.css — the profile page (steamcommunity.com/id/…/ and
+   /profiles/…/), imported through webkit.css.
+
+   Steam's own profile is a bright template tinted by the user's profile theme
+   (blue / purple header, 30 % black plates, a blue-to-purple gradient on every
+   showcase header, 2–3 px corners). Here it gets the same material as the rest
+   of the theme: a near-black page, cards with a hairline and 12 px corners,
+   file-panel-style headers, accent-only highlights. The user's profile
+   background art and the theme's tint stay as the user equipped them.
+
+   Classes are readable, captured via CDP 2026-10-23:
+     .profile_page.has_profile_background
+       .profile_header_bg > .profile_header_bg_texture > .profile_header
+       .profile_content > .profile_content_inner
+         .profile_leftcol  — showcases: .profile_customization
+                             (.profile_customization_header, _area, .showcase_content_bg)
+         .profile_rightcol — level, awards, badges, counts, friends, groups
+   Steam's strength is (0,1,0)…(0,3,0); ours start with html .profile_page.
+   ========================================================================== */
+
+/* --------------------------------------------------------------------------
+   Page colours
+
+   --aika-profile-text: light pink, the text colour of the whole profile page
+   Status colours (online / in game) and the accent hover stay.
+   -------------------------------------------------------------------------- */
+
+/* The colours come from the user's own profile theme (Game Profile): Steam
+   tints the header and content (rgba purple / blue) and the showcase headers
+   (a gradient) per theme — those are left alone so the page matches the
+   equipped theme; only shape, type and edges follow Aika. */
+
+/* --------------------------------------------------------------------------
+   Cards — every plate on the page
+   -------------------------------------------------------------------------- */
+
+html .profile_page :is(
+    .profile_rightcol,
+    .profile_customization,
+    .profile_comment_area,
+    .profile_header_badge,
+    .recent_game,
+    .profile_ban_status_cont
+) {
+    border: var(--aika-hairline) solid var(--aika-border);
+    border-radius: var(--aika-radius-lg);
+    box-shadow: var(--aika-highlight-top);
+}
+
+html .profile_page .profile_customization {
+    overflow: hidden;
+}
+
+/* The page's inner blocks (stat rows, game rows, comments) sit one level
+   deeper than the card */
+html .profile_page :is(.showcase_content_bg, .profile_comment_area .commentthread_comment_container) {
+    border-radius: var(--aika-radius-md);
+}
+
+html .profile_page .profile_customization .showcase_content_bg {
+    border: var(--aika-hairline) solid var(--aika-border);
+}
+
+/* --------------------------------------------------------------------------
+   Headers — Aika type and edge, the theme's own gradient
+   -------------------------------------------------------------------------- */
+
+html .profile_page :is(.profile_customization_header, .profile_recentgame_header, .profile_friends.title_bar) {
+    border-bottom: var(--aika-hairline) solid var(--aika-border);
+    color: var(--aika-profile-text);
+    font-family: var(--aika-font-ui);
+    font-size: var(--aika-text-label);
+    font-weight: var(--aika-weight-medium, 500);
+    letter-spacing: var(--aika-tracking-label);
+    text-transform: uppercase;
+}
+
+html .profile_page :is(.profile_customization_header, .profile_recentgame_header) :is(a, span) {
+    color: inherit;
+}
+
+html .profile_page .profile_customization_header .whiteLink:hover,
+html .profile_page .profile_recentgame_header a:hover {
+    color: var(--aika-profile-text);
+}
+
+/* --------------------------------------------------------------------------
+   Name block
+   -------------------------------------------------------------------------- */
+
+html .profile_page .persona_name,
+html .profile_page .persona_name .actual_persona_name {
+    color: var(--aika-profile-text);
+    font-family: var(--aika-font-ui);
+    letter-spacing: var(--aika-tracking-h1);
+}
+
+html .profile_page :is(.header_real_name, .profile_summary, .profile_header_summary) {
+    color: var(--aika-profile-text);
+}
+
+html .profile_page .profile_summary a,
+html .profile_page .profile_header_summary a,
+html .profile_page .header_real_name a {
+    color: var(--aika-accent-bright);
+}
+
+/* Avatar — rounded like the avatars elsewhere; the equipped frame is left alone */
+html .profile_page .playerAvatarAutoSizeInner > img:not(.profile_avatar_frame img),
+html .profile_page .playerAvatar img:not(.profile_avatar_frame img) {
+    border-radius: var(--aika-radius-md);
+}
+
+html .profile_page .playerAvatar:has(.profile_avatar_frame img) img:not(.profile_avatar_frame img) {
+    border-radius: 0;
+}
+
+html .profile_page .profile_in_game_header { color: var(--aika-ok); }
+html .profile_page .profile_in_game_name { color: var(--aika-profile-text); }
+html .profile_page .playerAvatar.online { --aika-profile-ring: var(--aika-accent-bright); }
+
+/* --------------------------------------------------------------------------
+   Buttons — Edit Profile, View more info, "Add friend"…
+   -------------------------------------------------------------------------- */
+
+html .profile_page :is(.btn_profile_action, .btn_green_white_innerfade, .btn_darkblue_white_innerfade) {
+    border: var(--aika-hairline) solid var(--aika-border-strong);
+    border-radius: var(--aika-radius-md);
+    background: var(--aika-surface);
+    box-shadow: none;
+    color: var(--aika-profile-text);
+    transition:
+        background-color var(--aika-dur-fast) var(--aika-ease-hover),
+        border-color var(--aika-dur-fast) var(--aika-ease-hover);
+}
+
+html .profile_page :is(.btn_profile_action, .btn_green_white_innerfade, .btn_darkblue_white_innerfade):hover {
+    border-color: var(--aika-border-hover);
+    background: var(--aika-surface-hover);
+    color: var(--aika-profile-text);
+}
+
+html .profile_page .btn_profile_action > span {
+    background: none;
+    color: inherit;
+}
+
+/* --------------------------------------------------------------------------
+   Right column — level, awards, badges, counts, friends, groups
+   -------------------------------------------------------------------------- */
+
+html .profile_page .profile_rightcol {
+    overflow: hidden;
+}
+
+html .profile_page :is(.profile_badges, .profile_awards, .profile_group_links, .profile_item_links, .profile_friend_links) {
+    color: var(--aika-profile-text);
+}
+
+html .profile_page :is(.profile_count_link a, .profile_count_link_preview) {
+    color: var(--aika-profile-text);
+}
+
+html .profile_page .profile_count_link a:hover {
+    color: var(--aika-profile-text);
+}
+
+html .profile_page .profile_count_link_total {
+    color: var(--aika-fg-subtle);
+    font-family: var(--aika-font-mono);
+}
+
+html .profile_page :is(.profile_xp_block_xp, .profile_xp_block_remaining) {
+    color: var(--aika-profile-text);
+}
+
+html .profile_page .profile_xp_block_xp .value,
+html .profile_page .profile_xp_block_level {
+    color: var(--aika-profile-text);
+}
+
+html .profile_page .profile_ban_status { color: var(--aika-profile-text); }
+html .profile_page .profile_ban_status a { color: var(--aika-profile-text); }
+
+html .profile_page .profile_ban_status .profile_ban,
+html .profile_page .profile_ban_status .profile_ban_info {
+    color: var(--aika-profile-text);
+}
+
+/* Friends / favourites list rows */
+html .profile_page :is(.friendBlock, .profile_friend_block, .profile_topfriends .friendBlock) {
+    border-radius: var(--aika-radius-md);
+    transition: background-color var(--aika-dur-fast) var(--aika-ease-hover);
+}
+
+html .profile_page :is(.friendBlock, .profile_topfriends .friendBlock):hover {
+    background-color: var(--aika-surface-hover);
+}
+
+html .profile_page .friendBlockLinkOverlay { border-radius: var(--aika-radius-md); }
+html .profile_page .friend_block_v2 { border-radius: var(--aika-radius-md); }
+
+/* --------------------------------------------------------------------------
+   Showcases — game collector, favourite group, recent activity, badges
+   -------------------------------------------------------------------------- */
+
+html .profile_page .showcase_stat {
+    color: var(--aika-profile-text);
+    font-family: var(--aika-font-ui);
+}
+
+html .profile_page .showcase_stat .label {
+    color: var(--aika-fg-subtle);
+}
+
+html .profile_page .gamecollector_showcase .showcase_featuredgames img,
+html .profile_page .game_capsule img,
+html .profile_page .game_capsule {
+    border-radius: var(--aika-radius-md);
+}
+
+html .profile_page .game_info_details,
+html .profile_page .game_info_cap + .game_info_details {
+    color: var(--aika-profile-text);
+}
+
+html .profile_page .game_name,
+html .profile_page .game_name a {
+    color: var(--aika-profile-text);
+}
+
+html .profile_page .recent_game_content {
+    background: none;
+}
+
+html .profile_page .recent_game .achievement_progress_bar_ctn,
+html .profile_page .recent_game .achievement_progress_bar {
+    border-radius: var(--aika-radius-full);
+}
+
+html .profile_page .favoritegroup_showcase_group .favoritegroup_namerow a,
+html .profile_page .favoritegroup_showcase_group .favoritegroup_name {
+    color: var(--aika-profile-text);
+}
+
+/* Links: accent instead of Steam's blue */
+html .profile_page .profile_content a:not(.btn_profile_action, .whiteLink):hover {
+    color: var(--aika-accent-bright);
+}
+
+/* Comments and fields */
+html .profile_page :is(.commentthread_textarea, .commentthread_entry_quotebox textarea) {
+    border: var(--aika-hairline) solid var(--aika-border-strong);
+    border-radius: var(--aika-radius-md);
+    background: var(--aika-bg-raised);
+    color: var(--aika-profile-text);
+}
+
+html .profile_page .commentthread_textarea:focus {
+    outline: none;
+    box-shadow: var(--aika-shadow-input-focus);
+}
+
+html .profile_page .commentthread_comment .commentthread_comment_author a {
+    color: var(--aika-accent-bright);
+}
+
+html .profile_page .commentthread_comment_text {
+    color: var(--aika-profile-text);
+}
+
+/* --------------------------------------------------------------------------
+   Shapes for the stat strips, bars and avatars (colours stay the theme's)
+   -------------------------------------------------------------------------- */
+
+html .profile_page :is(.game_info_stats, .commentthread_header) {
+    border-top: var(--aika-hairline) solid var(--aika-border);
+}
+
+html .profile_page .favoritegroup_stat.favoritegroup_inchat,
+html .profile_page .showcase_stat.favoritegroup_inchat {
+    border-radius: var(--aika-radius-md);
+}
+
+html .profile_page :is(.achievement_progress_bar_ctn, .achievement_progress_bar, .segment) {
+    border-radius: var(--aika-radius-full);
+}
+
+/* In game — the theme's ok green, as everywhere */
+html .profile_page :is(.persona.in-game, .friendBlock.in-game) {
+    color: var(--aika-ok);
+}
+
+/* Right column text: white instead of Steam's yellow (bans) and gray (labels,
+   "Info", "View Ban History", the counts) */
+html .profile_page .profile_rightcol {
+    color: var(--aika-profile-text);
+}
+
+html .profile_page .profile_rightcol :is(
+    .profile_ban_status, .profile_ban_status a, .profile_ban, .profile_ban_info,
+    .profile_count_link a, .profile_count_link .count_link_label,
+    .profile_group_links, .profile_item_links, .profile_friend_links,
+    .profile_badges, .profile_awards, .profile_xp_block_xp, .profile_xp_block_remaining
+) {
+    color: var(--aika-profile-text);
+}
+
+html .profile_page .profile_rightcol .profile_count_link_total,
+html .profile_page .profile_rightcol :is(.profile_group_links, .profile_item_links) .profile_count_link_total {
+    color: var(--aika-profile-text);
+    opacity: 0.8;
+}
+
+html .profile_page .profile_rightcol .profile_count_link a:hover {
+    color: var(--aika-accent-bright);
+}
+
+/* Group member counts and the like (the gray lines under the names) */
+html .profile_page .profile_rightcol :is(.profile_group_membercount, .groupMemberCount, .profile_group .member_count, .profile_group_links .profile_group div) {
+    color: var(--aika-profile-text);
+    opacity: 0.85;
+}
+
+/* Comment text — light pink */
+html .profile_page :is(.commentthread_comment_text, .commentthread_comment_content .commentthread_comment_text) {
+    color: var(--aika-profile-text);
+}
+
+/* Everything else on the page — plain text, headings, labels, names, counts */
+html .profile_page {
+    --aika-profile-text: #F8C8DC;
+}
+
+html .profile_page :is(.profile_content, .profile_header_bg) {
+    color: var(--aika-profile-text);
+}
+
+html .profile_page :is(
+    .persona_name, .actual_persona_name, .header_real_name, .profile_summary, .profile_header_summary,
+    .profile_customization_header, .profile_recentgame_header, .showcase_stat, .game_name, .game_name a,
+    .game_info_details, .game_info_stats, .profile_count_link a, .profile_count_link_total,
+    .profile_xp_block_level, .profile_group_membercount, .commentthread_comment_text,
+    .whiteLink, .friendSmallText, .favoritegroup_stat
+) {
+    color: var(--aika-profile-text);
+}
+
+html .profile_page :is(
+    .favorite_badge_description .name, .favorite_badge_description .xp,
+    .btn_profile_action, .btn_profile_action > span,
+    .friendBlock.persona.offline .friendBlockContent, .friendBlock .friendSmallText,
+    .showcase_stat .value, .showcase_stat .label,
+    .showcase_bodylabel, .favoritegroup_namerow,
+    .profile_customization_editlink_text, .published_file_link,
+    .game_info_achievement.plus_more,
+    .commentthread_header_label, .commentthread_subscribe_desc,
+    .commentthread_comment_timestamp, .commentthread_comment .commentthread_comment_author a,
+    .bb_link
+) {
+    color: var(--aika-profile-text);
+}
+
+/* Level numbers sit on the level rings — kept readable on their own colours */
+html .profile_page .friendPlayerLevelNum { color: #fff; }
+
+/* --------------------------------------------------------------------------
+   Type — the Inter face of the theme, a little tighter, with real weights
+   instead of Steam's thin 200 / 300 numbers and names
+   -------------------------------------------------------------------------- */
+
+html .profile_page .profile_content,
+html .profile_page .profile_header_bg {
+    font-family: var(--aika-font-ui);
+    font-feature-settings: "cv11", "ss01", "tnum" 0;
+    letter-spacing: -0.006em;
+    -webkit-font-smoothing: antialiased;
+}
+
+html .profile_page :is(.profile_rightcol, .profile_leftcol, .profile_header, .commentthread_comment_text, .game_name, .header_real_name) {
+    font-family: var(--aika-font-ui);
+}
+
+html .profile_page .persona_name,
+html .profile_page .actual_persona_name {
+    font-size: 28px;
+    font-weight: 650;
+    letter-spacing: -0.025em;
+}
+
+html .profile_page .header_real_name {
+    font-weight: 500;
+}
+
+/* Large numbers: Counts, stats, level */
+html .profile_page :is(.showcase_stat .value, .showcase_stat, .profile_count_link_total, .profile_xp_block_level, .profile_level) {
+    font-family: var(--aika-font-ui);
+    font-variant-numeric: tabular-nums;
+    font-weight: 600;
+    letter-spacing: -0.03em;
+}
+
+html .profile_page .profile_count_link_total {
+    font-size: 20px;
+    opacity: 0.75;
+}
+
+html .profile_page .showcase_stat .label {
+    font-size: 13px;
+    font-weight: 500;
+    letter-spacing: 0;
+}
+
+/* Section titles in the right column (Profile Awards, Badges, Friends…) and
+   links in the lists */
+html .profile_page .profile_rightcol :is(.profile_badges, .profile_awards, .profile_topfriends, .profile_group_block) > :is(.profile_count_link, .profile_group_links) a,
+html .profile_page .profile_rightcol .profile_count_link a {
+    font-weight: 500;
+}
+
+html .profile_page :is(.game_name, .game_name a, .favoritegroup_name, .friendBlockContent) {
+    font-weight: 550;
+}
+
+html .profile_page .recent_game .game_info_details,
+html .profile_page .commentthread_comment_text {
+    font-weight: 400;
+    line-height: 1.5;
+}
+
+html .profile_page .profile_summary {
+    line-height: 1.55;
+}

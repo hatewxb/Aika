@@ -48,7 +48,24 @@
         return a && Date.now() - a.t < ANCHOR_FRESH ? a : null;
     };
 
-    const open = () => html.classList.add("aika-menu-open");
+    // Steam sizes the menu window before the theme's item rows are laid out,
+    // so the window is shorter than the menu and the last items are cut off
+    // (Offline, Sign Out, Downloads…). Grow the window to the menu's real height.
+    function fit() {
+        const win = window.SteamClient && SteamClient.Window;
+        const box = document.querySelector(".contextMenu.ContextMenuPosition");
+        if (!win || !win.ResizeTo || !box) return;
+        const r = box.getBoundingClientRect();
+        const needH = Math.ceil(Math.max(box.scrollHeight, r.bottom));
+        const needW = Math.ceil(Math.max(box.scrollWidth, r.right));
+        // both ways: a window wider than the menu showed as a pale strip beside it
+        if (Math.abs(needH - window.innerHeight) > 1 || Math.abs(needW - window.innerWidth) > 1) {
+            try { win.ResizeTo(needW, needH, true); } catch (e) { /* keep Steam's size */ }
+        }
+    }
+    const fitSoon = () => [0, 60, 160, 320, 520].forEach(t => setTimeout(fit, t));
+
+    const open = () => { html.classList.add("aika-menu-open"); fitSoon(); };
 
     // Stand the icon column over the "+": the circle is the item's left square.
     // Steam places the window itself right after it shows — after our first
