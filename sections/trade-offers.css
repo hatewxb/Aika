@@ -200,3 +200,35 @@ html .trade_currency_slider_ctn .slider_background .slider_progress {
 html :is(.responsivetrade_backtooffer_ctn, .responsive_trade_fixedcontents) {
     background: var(--aika-bg-elevated);
 }
+
+/* --------------------------------------------------------------------------
+   The page around the offers: Steam's blue-gray name strip, its art and the
+   gray plate (shared with the other profile sub-pages), the right column
+   -------------------------------------------------------------------------- */
+
+html :is(.profile_subpage_general, .profile_subpage_column) .profile_small_header_bg {
+    background-image: none;
+}
+
+html .profile_small_header_texture {
+    border: var(--aika-hairline) solid var(--aika-border);
+    border-radius: var(--aika-radius-xl);
+    background: var(--aika-bg-elevated);
+    box-shadow: var(--aika-shadow-card);
+}
+
+html :is(.profile_subpage_general, .profile_subpage_column) .maincontent {
+    border-color: var(--aika-transparent);
+    background: none;
+}
+
+html .rightcol_controls {
+    border: var(--aika-hairline) solid var(--aika-border);
+    border-radius: var(--aika-radius-lg);
+    background-color: var(--aika-bg-elevated);
+}
+
+html .rightcol_controls_rule {
+    border-top-color: var(--aika-transparent);
+    background-color: var(--aika-border);
+}
