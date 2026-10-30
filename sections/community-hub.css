@@ -418,7 +418,6 @@ html body.apphub_blue .detailBox {
 }
 
 html a.guide_home_category_selection {
-    overflow: hidden;
     border: var(--aika-hairline) solid var(--aika-border);
     border-radius: var(--aika-radius-md);
     background: var(--aika-surface);
@@ -434,12 +433,29 @@ html a.guide_home_category_selection .guide_home_category_count {
     color: var(--aika-fg-subtle);
 }
 
+/* Steam's selection sticks out on the left, with an arrow */
 html body.apphub_blue .rightbox_list_selection_background {
+    right: 0;
+    left: 0;
+    width: auto;
     border-radius: var(--aika-radius-md);
     background: var(--aika-accent-soft);
 }
 
-html body.apphub_blue .rightSectionBrowseBarArrow,
+html body.apphub_blue .rightSectionBrowseBarArrow {
+    display: none;
+}
+
 html body.apphub_blue .guideInfo {
     background: none;
+}
+
+html a.guide_home_category_selection img {
+    filter: grayscale(1);
+}
+
+html .forumtopic_comments .forum_paging,
+html .forum_paging {
+    border-radius: var(--aika-radius-md);
+    background: var(--aika-surface);
 }
