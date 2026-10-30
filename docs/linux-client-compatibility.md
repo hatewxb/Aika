@@ -81,5 +81,5 @@ format, so this is not a promise of compatibility with every future release.
 
 The live checks above ran on Aika 0.1.5. The fix was then carried over to 0.1.7
 with `skin.json` merged by hand (`js/client-friends.js` and the cover-press
-options are new in that step); the automated tests were rerun, but the 0.1.7
-merge has not been run in Steam yet.
+options are new in that step). The automated tests were rerun, and the merged
+version was then used in Steam on the same machine and looked good.
