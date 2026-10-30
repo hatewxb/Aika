@@ -3906,8 +3906,10 @@ html svg.SVGIcon_Star_Filled :is(path, polygon) {
     fill: var(--aika-accent-bright);
 }
 
-/* The selected tab on a game's new React pages: Steam's blue line */
-html .UzmBdjUEGaQ-.Ldik1p0iuKE- {
+/* The selected tab and section headings on a game's new React pages: Steam's blue line */
+html .UzmBdjUEGaQ-.Ldik1p0iuKE-,
+html .Z4oAnn5XGR0-.fwQ356Jg-Qg-,
+html .xGjiYBznm-U-.GL-WxjUbwGc- {
     border-bottom-color: var(--aika-accent) !important;
 }
 
