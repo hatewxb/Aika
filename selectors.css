@@ -3839,7 +3839,8 @@ html .bt37JYoalu8-.Panel {
 
 /* Section panels, the left filter column */
 html .EnFuoPFRUQw-.OCw7CSOMK40-.Qhm6jOAQZog-,
-html .Bo5an3G1SQw-.Panel {
+html .Bo5an3G1SQw-.Panel,
+html .gFSdAS--WPM-.Panel {
     border: var(--aika-hairline) solid var(--aika-border);
     border-radius: var(--aika-radius-xl);
     background: var(--aika-bg-elevated);
@@ -3848,7 +3849,8 @@ html .Bo5an3G1SQw-.Panel {
 
 /* Item cards: Steam's radial blue-gray gradient */
 html .UNowfeldbNg-.Panel,
-html .tYCWuqm2E-A-.Panel {
+html .tYCWuqm2E-A-.Panel,
+html .hIuyWTKvAow-.Panel {
     overflow: hidden;
     border: var(--aika-hairline) solid var(--aika-border);
     border-radius: var(--aika-radius-lg);
@@ -3858,7 +3860,8 @@ html .tYCWuqm2E-A-.Panel {
 }
 
 html .UNowfeldbNg-.Panel:hover,
-html .tYCWuqm2E-A-.Panel:hover {
+html .tYCWuqm2E-A-.Panel:hover,
+html .hIuyWTKvAow-.Panel:hover {
     border-color: var(--aika-border-accent);
     background: var(--aika-surface-hover);
 }
@@ -3905,9 +3908,10 @@ html svg.SVGIcon_Star_Filled :is(path, polygon) {
 
 /* The selected tab on a game's new React pages: Steam's blue line */
 html .UzmBdjUEGaQ-.Ldik1p0iuKE- {
-    border-bottom-color: var(--aika-accent);
+    border-bottom-color: var(--aika-accent) !important;
 }
 
-html .UzmBdjUEGaQ-.Ldik1p0iuKE-::after {
-    background: var(--aika-accent);
+/* The blue glow behind the game's name */
+html .eDVdMzW4Ol4-.ZPIu-t4ftYI- {
+    background-image: none;
 }
