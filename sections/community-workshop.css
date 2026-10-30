@@ -203,3 +203,110 @@ html #sharedfiles_content_ctn .detailBox {
 html #footer {
     background: var(--aika-transparent);
 }
+
+/* --------------------------------------------------------------------------
+   The all-Workshops page (steamcommunity.com/workshop/): the banner, the
+   "Browse All Workshops" box, news and the "Your Workshop Files" panel.
+   The banner's logo is part of its image, so it's desaturated, not removed.
+   -------------------------------------------------------------------------- */
+
+html #BG_top_workshop {
+    filter: grayscale(1) brightness(0.7);
+}
+
+html .browseApps {
+    overflow: hidden;
+    border: var(--aika-hairline) solid var(--aika-border);
+    border-radius: var(--aika-radius-xl);
+    background: var(--aika-bg-elevated);
+    box-shadow: var(--aika-shadow-card);
+}
+
+html .browseApps .browseAppsTitleContainer {
+    background: var(--aika-surface);
+    box-shadow: inset 0 calc(-1 * var(--aika-hairline)) 0 0 var(--aika-border);
+}
+
+html .browseApps .searchApps {
+    border-radius: var(--aika-radius-md);
+    background: var(--aika-bg-raised);
+}
+
+html .browseApps .searchApps input {
+    background: var(--aika-transparent);
+    color: var(--aika-fg);
+}
+
+/* The sliding highlight behind the selected sort */
+html .browseApps .rightbox_list_selection_background {
+    border-radius: var(--aika-radius-md);
+    background: var(--aika-accent-soft);
+}
+
+html .browseApps .workshopAppsRow {
+    border-color: var(--aika-border);
+    background: var(--aika-transparent);
+}
+
+html .browseApps :is(.app, .appCover, .appCoverHover) {
+    background-image: none;
+}
+
+html .browseApps .app {
+    border-radius: var(--aika-radius-lg);
+    background-color: var(--aika-surface);
+    transition: background-color var(--aika-dur-base) var(--aika-ease);
+}
+
+html .browseApps .app:hover {
+    background-color: var(--aika-surface-hover);
+}
+
+html .browseApps .itemPreviewHolder {
+    overflow: hidden;
+    border-radius: var(--aika-radius-md);
+}
+
+html .browseApps .pagebtn {
+    border-radius: var(--aika-radius-md);
+    background: var(--aika-surface);
+}
+
+/* "Your Workshop Files" and the other right-hand panels */
+html .primary_panel_border {
+    border-radius: var(--aika-radius-lg);
+    background: var(--aika-border);
+}
+
+html .primary_panel_border .primary_panel {
+    border-radius: var(--aika-radius-lg);
+    background: var(--aika-bg-elevated);
+}
+
+html .primary_panel a {
+    color: var(--aika-accent-bright);
+}
+
+/* Workshop news */
+html .announcement.detailBox {
+    background: none;
+}
+
+html .announcement.detailBox a {
+    color: var(--aika-accent-bright);
+}
+
+html .announcement.detailBox :is(.bb_h1, .bb_h2, .bb_h3) {
+    color: var(--aika-fg);
+}
+
+html .announcement.detailBox .btn_grey_black {
+    border-radius: var(--aika-radius-md);
+    background: var(--aika-surface);
+}
+
+html .announcement.detailBox .btn_grey_black > span {
+    border-radius: var(--aika-radius-md);
+    background: var(--aika-transparent);
+    color: var(--aika-fg);
+}
