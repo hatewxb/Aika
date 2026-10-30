@@ -3788,3 +3788,254 @@ html body.v6 #module_discounts_and_events .carousel__slide--visible ._1gsW0WuP7Z
         animation: none;
     }
 }
+
+/* [Workshop] A game's Workshop home, browse and collections pages: a new React
+   page, hashes only (steamcommunity.com/app/<id>/workshop/, /workshop/browse/).
+   Verified: 2026-10-30, the pages as served that day
+   How to find: the "View All" button, the search box or an item card in DevTools */
+
+/* Primary ("Store Page") and outline ("View All") buttons: Steam's #1a9fff */
+html a.inqz7Zdx9Xg-.ob-nIzzquk8- {
+    border-radius: var(--aika-radius-md);
+    background: var(--aika-accent-fill);
+    color: var(--aika-on-accent);
+}
+
+html a.inqz7Zdx9Xg-.ob-nIzzquk8-:hover {
+    background: var(--aika-accent-fill-hover);
+}
+
+html .inqz7Zdx9Xg-.a-Dt3-0cU9Y- {
+    border: var(--aika-hairline) solid var(--aika-border-strong);
+    border-radius: var(--aika-radius-md);
+    background: var(--aika-surface);
+    color: var(--aika-fg);
+}
+
+html .inqz7Zdx9Xg-.a-Dt3-0cU9Y-:hover {
+    background: var(--aika-surface-hover);
+    color: var(--aika-fg);
+}
+
+/* Small "Subscribe"-style buttons on item cards */
+html .YAnzAmuUUnI-.ob-nIzzquk8- {
+    border-radius: var(--aika-radius-md);
+    background: var(--aika-surface-active);
+    color: var(--aika-fg);
+}
+
+/* The game banner and the Home / Browse / Your Items strip under it */
+html ._0rX4KuKZ9dM- {
+    overflow: hidden;
+    border-radius: var(--aika-radius-xl) var(--aika-radius-xl) 0 0;
+    background: var(--aika-bg-elevated);
+}
+
+html .bt37JYoalu8-.Panel {
+    border-radius: 0 0 var(--aika-radius-xl) var(--aika-radius-xl);
+    background: var(--aika-bg-elevated);
+    box-shadow: inset 0 var(--aika-hairline) 0 0 var(--aika-border);
+}
+
+/* Section panels, the left filter column */
+html .EnFuoPFRUQw-.OCw7CSOMK40-.Qhm6jOAQZog-,
+html .Bo5an3G1SQw-.Panel,
+html .gFSdAS--WPM-.Panel {
+    border: var(--aika-hairline) solid var(--aika-border);
+    border-radius: var(--aika-radius-xl);
+    background: var(--aika-bg-elevated);
+    background-image: none;
+}
+
+/* Item cards: Steam's radial blue-gray gradient */
+html .UNowfeldbNg-.Panel,
+html .tYCWuqm2E-A-.Panel,
+html .hIuyWTKvAow-.Panel {
+    overflow: hidden;
+    border: var(--aika-hairline) solid var(--aika-border);
+    border-radius: var(--aika-radius-lg);
+    background: var(--aika-surface);
+    background-image: none;
+    transition: background var(--aika-dur-base) var(--aika-ease), border-color var(--aika-dur-base) var(--aika-ease);
+}
+
+html .UNowfeldbNg-.Panel:hover,
+html .tYCWuqm2E-A-.Panel:hover,
+html .hIuyWTKvAow-.Panel:hover {
+    border-color: var(--aika-border-accent);
+    background: var(--aika-surface-hover);
+}
+
+html ._7-YnTYBrWGM-.Yd0pZ1PLSk0- {
+    background: var(--aika-bg-raised);
+}
+
+/* The search box and its settings button */
+html .PwGZnF9BFA8-._0Yp9qPJ4rvQ-,
+html .zsG6BJvEtlU-.Panel {
+    border-radius: var(--aika-radius-md);
+    background: var(--aika-surface);
+}
+
+html input.TIKXN-ViOCk- {
+    border-radius: var(--aika-radius-md);
+    background: var(--aika-bg-raised);
+    color: var(--aika-fg);
+}
+
+/* Browse: the sort bar and its dropdown button */
+html ._2koaVKcU7Tc-.Panel {
+    border-radius: var(--aika-radius-md);
+    background: var(--aika-surface);
+}
+
+html button.inqz7Zdx9Xg-.ob-nIzzquk8- {
+    border-radius: var(--aika-radius-md);
+    background: var(--aika-surface-hover);
+    color: var(--aika-fg);
+}
+
+html button.inqz7Zdx9Xg-.ob-nIzzquk8-:hover {
+    background: var(--aika-surface-active);
+}
+
+/* Rating stars: Steam's blue */
+html svg.SVGIcon_Star_Filled,
+html svg.SVGIcon_Star_Filled :is(path, polygon) {
+    color: var(--aika-accent-bright);
+    fill: var(--aika-accent-bright);
+}
+
+/* The selected tab and section headings on a game's new React pages: Steam's blue line */
+html .UzmBdjUEGaQ-.Ldik1p0iuKE-,
+html .Z4oAnn5XGR0-.fwQ356Jg-Qg-,
+html .xGjiYBznm-U-.GL-WxjUbwGc- {
+    border-bottom-color: var(--aika-accent) !important;
+}
+
+/* The blue glow behind the game's name */
+html .eDVdMzW4Ol4-.ZPIu-t4ftYI- {
+    background-image: none;
+}
+
+/* [Points Shop] store.steampowered.com/points/shop (body.rewards): React, hashes only.
+   Verified: 2026-10-30, the page as served that day
+   How to find: the side menu, a section's title or an item card in DevTools */
+
+/* The page: Steam's blue art and glow give way to the theme's background */
+html body.rewards {
+    background: var(--aika-transparent);
+}
+
+html body.rewards :is(.GRnRr6m2Ebs-.C4PmAZDunTs-, .tzrApHrBQDw-.uLWIA8kG0mY-) {
+    background: none;
+}
+
+/* The header: title and subtitle are gradient-clipped text */
+html body.rewards :is(._3z-SJMDRMwU-, .T5b2NUonuC8-) {
+    background: none;
+    color: var(--aika-fg);
+    -webkit-text-fill-color: var(--aika-fg);
+}
+
+html body.rewards .T5b2NUonuC8- {
+    color: var(--aika-fg-muted);
+    -webkit-text-fill-color: var(--aika-fg-muted);
+}
+
+html body.rewards ._7JSvJmQTuhw-.Wo4YgGDqLZc-,
+html body.rewards a.Z1DSZ-P71Sw- {
+    border: var(--aika-hairline) solid var(--aika-border-strong);
+    border-radius: var(--aika-radius-md);
+    background: var(--aika-surface);
+    color: var(--aika-fg);
+}
+
+/* The side menu */
+html body.rewards .d7He2hxHNDQ-.Panel {
+    border: var(--aika-hairline) solid var(--aika-border);
+    border-radius: var(--aika-radius-xl);
+    background: var(--aika-bg-elevated);
+    box-shadow: var(--aika-shadow-card);
+}
+
+html body.rewards .iC89KZRmD3g- {
+    color: var(--aika-fg-subtle);
+}
+
+html body.rewards a.FiYqYZBSUy8- {
+    border-radius: var(--aika-radius-md);
+    color: var(--aika-fg-muted);
+}
+
+html body.rewards a.FiYqYZBSUy8-:hover {
+    background: var(--aika-surface-hover);
+    color: var(--aika-fg);
+}
+
+html body.rewards a.FiYqYZBSUy8-.sas-eCiyqL4- {
+    background: var(--aika-accent-soft);
+    color: var(--aika-accent-bright);
+}
+
+/* Featured sections: a card, Steam's art kept faint behind it */
+html body.rewards .E4DS2G3IwKU-.Panel {
+    overflow: hidden;
+    border: var(--aika-hairline) solid var(--aika-border);
+    border-radius: var(--aika-radius-xl);
+    background: var(--aika-bg-elevated);
+    box-shadow: var(--aika-shadow-card);
+}
+
+html body.rewards :is(.y7wLLLq2IME-, .AWlvgEVBunk-) {
+    border-radius: var(--aika-radius-xl);
+    opacity: 0.18;
+    filter: grayscale(1);
+}
+
+html body.rewards .yu4-si75KQE- {
+    background: none;
+}
+
+html body.rewards :is(._2-H2jxauhXg-, .JttftKE3xaE-) {
+    color: var(--aika-fg);
+}
+
+html body.rewards .NdKx7mksqq8- a {
+    border-radius: var(--aika-radius-md);
+    background: var(--aika-surface-hover);
+    color: var(--aika-fg);
+}
+
+/* Item cards */
+html body.rewards .cL3tfa-JDBE-._216R8aJbhUM- {
+    overflow: hidden;
+    border-radius: var(--aika-radius-lg);
+    background: var(--aika-surface);
+    box-shadow: inset 0 0 0 var(--aika-hairline) var(--aika-border);
+    transition: box-shadow var(--aika-dur-base) var(--aika-ease), transform var(--aika-dur-base) var(--aika-ease);
+}
+
+html body.rewards .cL3tfa-JDBE-._216R8aJbhUM-:hover {
+    box-shadow: inset 0 0 0 var(--aika-hairline) var(--aika-border-accent);
+    transform: translateY(var(--aika-lift-sm));
+}
+
+html body.rewards :is(.w6UtE24wq8w-._6psFyKVNQmw-, .Df2BqSSNihs-) {
+    background: none;
+}
+
+html body.rewards .FkVCjE6GjQg-.E7oxZCRd9I0- {
+    background: var(--aika-transparent);
+}
+
+/* The item's name fades out through a gradient mask on the text */
+html body.rewards .SK7vXGSN6OY- {
+    background: linear-gradient(90deg, var(--aika-fg) 70%, var(--aika-transparent));
+    -webkit-background-clip: text;
+    background-clip: text;
+}
+
+html body.rewards .qZsAxH6YVCA- {
+    color: var(--aika-fg-subtle);
+}

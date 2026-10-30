@@ -1,0 +1,312 @@
+/* ==========================================================================
+   sections/community-workshop.css — a Workshop item page
+   (steamcommunity.com/sharedfiles/filedetails/?id=…), imported via webkit.css.
+
+   Old markup, readable classes:
+     .workshop_item_header         — the preview, controls and details (a blue
+                                     gradient plate); .workshopItemPreviewArea around it;
+     .workshopItemControlCtn .general_btn — vote, award, favorite, share… (icons
+                                     are background images, so colors only);
+     .game_area_purchase_game      — "Subscribe to download" + #SubscribeItemBtn;
+     #rightContents .panel         — creators and stats (a blue gradient);
+     .workshopItemDescription      — the description, .bb_h1 / .bb_h2 headings;
+     .commentthread_header         — the bar above the comments.
+   Steam's strength is (0,1,0)…(1,1,0).
+   ========================================================================== */
+
+/* --------------------------------------------------------------------------
+   The item plate: preview + controls + details
+   -------------------------------------------------------------------------- */
+
+html .workshopItemPreviewArea .workshop_item_header {
+    border: var(--aika-hairline) solid var(--aika-border);
+    border-radius: var(--aika-radius-xl);
+    background: var(--aika-bg-elevated);
+    box-shadow: var(--aika-shadow-card);
+}
+
+html .workshop_item_header .workshopItemPreviewImageEnlargeableContainer {
+    overflow: hidden;
+    border-radius: var(--aika-radius-lg);
+    background: var(--aika-bg-elevated);
+}
+
+/* Vote, award, favorite, share… — secondary buttons, Steam's icons stay */
+html .workshopItemControlCtn .general_btn {
+    border-radius: var(--aika-radius-md);
+    background-color: var(--aika-surface);
+    box-shadow: inset 0 0 0 var(--aika-hairline) var(--aika-border-strong);
+    color: var(--aika-fg-muted);
+}
+
+html .workshopItemControlCtn .general_btn:hover {
+    background-color: var(--aika-surface-hover);
+    color: var(--aika-fg);
+}
+
+html .workshopItemControls .vertical_divider {
+    background: var(--aika-border);
+}
+
+/* Tags and file details: Steam's gray-blue labels and links */
+html .workshop_item_header .workshopTagsTitle {
+    color: var(--aika-fg-subtle);
+}
+
+html .workshop_item_header .workshopTags a {
+    color: var(--aika-fg);
+}
+
+html .workshop_item_header .workshopTags a:hover {
+    color: var(--aika-accent-bright);
+}
+
+html .workshop_item_header .dotted_hr_uri {
+    background: var(--aika-border);
+    height: var(--aika-hairline);
+}
+
+html .workshop_item_header .detailsStatLeft,
+html .workshop_item_header .detailsStatRight {
+    color: var(--aika-fg-muted);
+}
+
+html .workshop_item_header .detailsStatRight {
+    font-family: var(--aika-font-mono);
+}
+
+html .workshop_item_header .detailsStatNumChangeNotes,
+html .workshop_item_header .detailsStatNumChangeNotes a {
+    color: var(--aika-accent-bright);
+}
+
+/* --------------------------------------------------------------------------
+   "Subscribe to download": a card and the theme's primary button
+   -------------------------------------------------------------------------- */
+
+html .game_area_purchase_margin .game_area_purchase_game {
+    border: var(--aika-hairline) solid var(--aika-border);
+    border-radius: var(--aika-radius-lg);
+    background: var(--aika-surface);
+}
+
+html .game_area_purchase_margin .game_area_purchase_game :is(h1, h2) {
+    color: var(--aika-fg);
+}
+
+html .game_area_purchase_margin .game_area_purchase_game span {
+    color: var(--aika-fg-subtle);
+}
+
+html a#SubscribeItemBtn,
+html a#SubscribeItemBtn > .subscribeText {
+    border-radius: var(--aika-radius-md);
+    background: var(--aika-accent-fill);
+    box-shadow: none;
+}
+
+html a#SubscribeItemBtn:hover,
+html a#SubscribeItemBtn:hover > .subscribeText {
+    background: var(--aika-accent-fill-hover);
+}
+
+html a#SubscribeItemBtn .subscribeOption {
+    color: var(--aika-on-accent);
+}
+
+/* --------------------------------------------------------------------------
+   Right column: creators and stats
+   -------------------------------------------------------------------------- */
+
+html #rightContents .sidebar > .panel {
+    margin-bottom: var(--aika-space-3);
+    border: var(--aika-hairline) solid var(--aika-border);
+    border-radius: var(--aika-radius-lg);
+    background: var(--aika-surface);
+}
+
+html #rightContents .rightSectionTopTitle {
+    color: var(--aika-fg-subtle);
+}
+
+html #rightContents .friendBlock {
+    border-radius: var(--aika-radius-md);
+    background: var(--aika-surface);
+}
+
+html #rightContents .friendBlock:hover {
+    background: var(--aika-surface-hover);
+}
+
+html #rightContents .friendBlock .playerAvatar {
+    border-radius: var(--aika-radius-md);
+    background: var(--aika-fg-subtle);
+}
+
+html #rightContents .friendBlock .playerAvatar img {
+    border-radius: var(--aika-radius-md);
+}
+
+html #rightContents .stats_table td {
+    color: var(--aika-fg-muted);
+}
+
+html #rightContents .stats_table td:first-child {
+    color: var(--aika-fg);
+    font-family: var(--aika-font-mono);
+}
+
+/* --------------------------------------------------------------------------
+   Description and comments
+   -------------------------------------------------------------------------- */
+
+html .workshopItemDescriptionTitle {
+    color: var(--aika-fg-subtle);
+}
+
+html .workshopItemDescription :is(.bb_h1, .bb_h2, .bb_h3) {
+    color: var(--aika-fg);
+}
+
+html .workshopItemDescription a {
+    color: var(--aika-accent-bright);
+}
+
+html #sharedfiles_content_ctn .commentthread_header {
+    border-radius: var(--aika-radius-md);
+    background: var(--aika-surface);
+}
+
+html #sharedfiles_content_ctn .commentthread_header .pagebtn {
+    border-radius: var(--aika-radius-md);
+    background: var(--aika-surface);
+}
+
+/* --------------------------------------------------------------------------
+   Steam's blue backdrops: the header's grid and piston art, and the glow
+   behind the description (background images, not colors)
+   -------------------------------------------------------------------------- */
+
+html .apphub_HeaderTop.workshop,
+html .apphub_HeaderBottomBG {
+    background: none;
+}
+
+html .apphub_WorkshopPiston {
+    opacity: var(--aika-disabled-opacity);
+}
+
+html #sharedfiles_content_ctn .detailBox {
+    background: none;
+}
+
+html #footer {
+    background: var(--aika-transparent);
+}
+
+/* --------------------------------------------------------------------------
+   The all-Workshops page (steamcommunity.com/workshop/): the banner, the
+   "Browse All Workshops" box, news and the "Your Workshop Files" panel.
+   The banner's logo is part of its image, so it's desaturated, not removed.
+   -------------------------------------------------------------------------- */
+
+html #BG_top_workshop {
+    filter: grayscale(1) brightness(0.7);
+}
+
+html .browseApps {
+    overflow: hidden;
+    border: var(--aika-hairline) solid var(--aika-border);
+    border-radius: var(--aika-radius-xl);
+    background: var(--aika-bg-elevated);
+    box-shadow: var(--aika-shadow-card);
+}
+
+html .browseApps .browseAppsTitleContainer {
+    background: var(--aika-surface);
+    box-shadow: inset 0 calc(-1 * var(--aika-hairline)) 0 0 var(--aika-border);
+}
+
+html .browseApps .searchApps {
+    border-radius: var(--aika-radius-md);
+    background: var(--aika-bg-raised);
+}
+
+html .browseApps .searchApps input {
+    background: var(--aika-transparent);
+    color: var(--aika-fg);
+}
+
+/* The sliding highlight behind the selected sort */
+html .browseApps .rightbox_list_selection_background {
+    border-radius: var(--aika-radius-md);
+    background: var(--aika-accent-soft);
+}
+
+html .browseApps .workshopAppsRow {
+    border-color: var(--aika-border);
+    background: var(--aika-transparent);
+}
+
+html .browseApps :is(.app, .appCover, .appCoverHover) {
+    background-image: none;
+}
+
+html .browseApps .app {
+    border-radius: var(--aika-radius-lg);
+    background-color: var(--aika-surface);
+    transition: background-color var(--aika-dur-base) var(--aika-ease);
+}
+
+html .browseApps .app:hover {
+    background-color: var(--aika-surface-hover);
+}
+
+html .browseApps .itemPreviewHolder {
+    overflow: hidden;
+    border-radius: var(--aika-radius-md);
+}
+
+html .browseApps .pagebtn {
+    border-radius: var(--aika-radius-md);
+    background: var(--aika-surface);
+}
+
+/* "Your Workshop Files" and the other right-hand panels */
+html .primary_panel_border {
+    border-radius: var(--aika-radius-lg);
+    background: var(--aika-border);
+}
+
+html .primary_panel_border .primary_panel {
+    border-radius: var(--aika-radius-lg);
+    background: var(--aika-bg-elevated);
+}
+
+html .primary_panel a {
+    color: var(--aika-accent-bright);
+}
+
+/* Workshop news */
+html .announcement.detailBox {
+    background: none;
+}
+
+html .announcement.detailBox a {
+    color: var(--aika-accent-bright);
+}
+
+html .announcement.detailBox :is(.bb_h1, .bb_h2, .bb_h3) {
+    color: var(--aika-fg);
+}
+
+html .announcement.detailBox .btn_grey_black {
+    border-radius: var(--aika-radius-md);
+    background: var(--aika-surface);
+}
+
+html .announcement.detailBox .btn_grey_black > span {
+    border-radius: var(--aika-radius-md);
+    background: var(--aika-transparent);
+    color: var(--aika-fg);
+}

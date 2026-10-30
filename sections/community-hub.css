@@ -1,0 +1,490 @@
+/* ==========================================================================
+   sections/community-hub.css — a game's community hub
+   (steamcommunity.com/app/<id>/ : All, Screenshots, Artwork, Broadcasts, Videos,
+   News, Guides, Reviews), imported via webkit.css.
+
+   Old markup, readable classes, body.apphub_blue:
+     .apphub_HeaderBottom, .apphub_StoreInfoHeader — the header plates;
+     .apphub_SectionFilter         — "Sort by" + .filterselect + the search box;
+     .apphub_Card                  — every card (.apphub_CardContentMain is the
+                                     content, .apphub_CardContentAuthorBlock the
+                                     author strip; cards load in by AJAX);
+     .guides_home_integrated_box, .workshopItemCollection — the guides page.
+   Steam's strength is (0,1,0)…(1,1,0). Game tabs: sections/community.css.
+   ========================================================================== */
+
+/* Steam paints the whole page #1b2838 (0,1,1), hiding the theme's background;
+   the game's art in .apphub_background stays */
+html body.apphub_blue {
+    background: var(--aika-transparent);
+}
+
+/* --------------------------------------------------------------------------
+   Header plates and Steam's blue buttons
+   -------------------------------------------------------------------------- */
+
+html body.apphub_blue :is(.apphub_HeaderBottom, .apphub_StoreInfoHeader) {
+    background: var(--aika-transparent);
+}
+
+html body.apphub_blue a.btnv6_blue_hoverfade {
+    border-radius: var(--aika-radius-md);
+    background: var(--aika-surface);
+    box-shadow: var(--aika-shadow-secondary);
+}
+
+html body.apphub_blue a.btnv6_blue_hoverfade:hover {
+    background: var(--aika-surface-hover);
+}
+
+html body.apphub_blue a.btnv6_blue_hoverfade > span {
+    border-radius: var(--aika-radius-md);
+    background: var(--aika-transparent);
+    color: var(--aika-fg);
+}
+
+/* --------------------------------------------------------------------------
+   The filter strip: "Sort by", dropdowns, search
+   -------------------------------------------------------------------------- */
+
+html .apphub_SectionFilter {
+    border: var(--aika-hairline) solid var(--aika-border);
+    border-radius: var(--aika-radius-lg);
+    background: var(--aika-surface);
+}
+
+html .apphub_SectionFilter .apphub_SectionFilterLabel {
+    color: var(--aika-fg-subtle);
+}
+
+html .apphub_SectionFilter .filterselect {
+    border-radius: var(--aika-radius-md);
+    background: var(--aika-surface-hover);
+}
+
+html .apphub_SectionFilter .filterselect:hover {
+    background: var(--aika-surface-active);
+}
+
+html .apphub_SectionFilter .filterselect :is(.option, .filterselect_subtext) {
+    color: var(--aika-fg);
+}
+
+html .apphub_SectionFilter .appHubSearchContainer {
+    border-radius: var(--aika-radius-md);
+    background: var(--aika-bg-raised);
+}
+
+html .apphub_SectionFilter .apphub_MostPopularLink {
+    color: var(--aika-fg-muted);
+}
+
+/* --------------------------------------------------------------------------
+   Cards
+   -------------------------------------------------------------------------- */
+
+html body.apphub_blue .apphub_Card {
+    overflow: hidden;
+    border: var(--aika-hairline) solid var(--aika-border);
+    border-radius: var(--aika-radius-lg);
+    background: var(--aika-bg-elevated);
+    box-shadow: none;
+    transition: border-color var(--aika-dur-base) var(--aika-ease);
+}
+
+html body.apphub_blue .apphub_Card:hover {
+    border-color: var(--aika-border-accent);
+    background: var(--aika-bg-elevated);
+}
+
+html .apphub_Card .apphub_CardContentMain {
+    background: var(--aika-transparent);
+}
+
+html .apphub_Card .apphub_CardContentPreviewImageBorder {
+    border: none;
+    background: var(--aika-transparent);
+}
+
+html .apphub_Card .apphub_CardContentAuthorBlock {
+    border-top: var(--aika-hairline) solid var(--aika-border);
+    background: var(--aika-surface);
+}
+
+html .apphub_Card .apphub_CardContentAuthorName a {
+    color: var(--aika-fg);
+}
+
+html .apphub_Card :is(.apphub_CardContentType, .apphub_CardCommentCount, .apphub_CardRating) {
+    color: var(--aika-fg-subtle);
+}
+
+html .apphub_Card .apphub_CardContentTitle {
+    color: var(--aika-fg);
+}
+
+html .apphub_Card .apphub_CardTextContent {
+    color: var(--aika-fg-muted);
+}
+
+html .apphub_Card .appHubIconHolder {
+    border-radius: var(--aika-radius-md);
+    background: var(--aika-fg-subtle);
+}
+
+html .apphub_Card .appHubIconHolder img {
+    border-radius: var(--aika-radius-md);
+}
+
+/* The fade at the bottom of long text cards, guide titles over images */
+html .apphub_Card .gradient {
+    background: linear-gradient(var(--aika-transparent), var(--aika-bg-elevated));
+}
+
+html .apphub_Card .apphub_CardContentGuideTitle {
+    background: var(--aika-surface-active);
+    color: var(--aika-fg);
+}
+
+html .apphub_Card a.btn_grey_grey {
+    border-radius: var(--aika-radius-md);
+    background: var(--aika-surface);
+}
+
+html .apphub_Card .review_award_aggregated {
+    color: var(--aika-fg-muted);
+}
+
+/* The "Load more" bar under the cards */
+html .apphub_GetMoreContent {
+    border-radius: var(--aika-radius-md);
+    background: var(--aika-surface);
+    color: var(--aika-fg);
+}
+
+/* --------------------------------------------------------------------------
+   Guides
+   -------------------------------------------------------------------------- */
+
+html body.apphub_blue .subtitle_ctn {
+    background: var(--aika-transparent);
+}
+
+html .guides_home_integrated_box {
+    overflow: hidden;
+    margin-bottom: var(--aika-space-3);
+    border: var(--aika-hairline) solid var(--aika-border);
+    border-radius: var(--aika-radius-lg);
+    background: var(--aika-bg-elevated);
+}
+
+html .guides_home_section_title {
+    border-color: var(--aika-border);
+    color: var(--aika-fg);
+}
+
+/* Steam: a blue plate, !important */
+html a.workshopItemCollection {
+    border-radius: var(--aika-radius-md);
+    background: var(--aika-surface) !important;
+}
+
+html a.workshopItemCollection:hover {
+    background: var(--aika-surface-hover) !important;
+}
+
+html a.workshopItemCollection .workshopItemPreviewHolder {
+    overflow: hidden;
+    border-radius: var(--aika-radius-md);
+    background: var(--aika-bg-raised);
+}
+
+html a.workshopItemCollection :is(.workshopItemAuthorLine, .workshopItemShortDesc) {
+    color: var(--aika-fg-muted);
+}
+
+html a.workshopItemCollection .workshopItemAuthorName {
+    color: var(--aika-fg);
+}
+
+html body.apphub_blue .searchTextContainer,
+html body.apphub_blue #AppHubSearch {
+    border-radius: var(--aika-radius-md);
+    background: var(--aika-bg-raised);
+    box-shadow: none;
+}
+
+html body.apphub_blue .browseOption.selected,
+html body.apphub_blue .browseOption.selected > a {
+    border-radius: var(--aika-radius-md);
+    background: var(--aika-accent-soft) !important;
+    color: var(--aika-accent-bright);
+}
+
+html body.apphub_blue .browseOption.notSelected:hover {
+    border-radius: var(--aika-radius-md);
+    background: var(--aika-surface-hover);
+}
+
+html body.apphub_blue a.general_btn {
+    border-radius: var(--aika-radius-md);
+    background-color: var(--aika-surface);
+    color: var(--aika-fg);
+}
+
+html body.apphub_blue :is(.selectTagsFilter, .inputTagsFilter) {
+    border-radius: var(--aika-radius-xs);
+    background: var(--aika-bg-raised);
+    color: var(--aika-fg);
+}
+
+html body.apphub_blue .rightSectionDivider {
+    background: var(--aika-border);
+}
+
+/* --------------------------------------------------------------------------
+   The footer: Steam's gray-blue links and buttons
+   -------------------------------------------------------------------------- */
+
+html body.apphub_blue #footer :is(a, .copyIcon, .copyright) {
+    color: var(--aika-fg-subtle);
+}
+
+html body.apphub_blue #footer a:hover {
+    color: var(--aika-fg);
+}
+
+html body.apphub_blue #footer .footer_content {
+    background: var(--aika-transparent);
+}
+
+html body.apphub_blue .btnv6_grey_black {
+    border-radius: var(--aika-radius-md);
+    background: var(--aika-surface);
+}
+
+html body.apphub_blue .btnv6_grey_black > span {
+    border-radius: var(--aika-radius-md);
+    background: var(--aika-transparent);
+    color: var(--aika-fg);
+}
+
+/* --------------------------------------------------------------------------
+   Card leftovers: Steam's blue art, hover plates, headings and fades
+   -------------------------------------------------------------------------- */
+
+html .apphub_Card .apphub_CardAnnouncementBG,
+html .apphub_Card :is(.apphub_CardContentType, .apphub_CardContentTypeContainer, .apphub_CardContentNewsFade) {
+    background-image: none;
+}
+
+html .apphub_Card .apphub_CardPinnedIcon {
+    filter: grayscale(1);
+}
+
+html body.apphub_blue .apphub_Card.interactable:hover :is(.apphub_CardContentAuthorBlock, .apphub_CardContentDiscussionType) {
+    background-color: var(--aika-surface-hover);
+}
+
+html .apphub_Card :is(.bb_h1, .bb_h2, .bb_h3) {
+    color: var(--aika-fg);
+}
+
+html .apphub_Card :is(.apphub_CardTextContent, .apphub_CardContentNewsDesc) a {
+    color: var(--aika-accent-bright);
+}
+
+html .apphub_Card .apphub_CardContentMain .hr {
+    background-color: var(--aika-border);
+}
+
+html .apphub_CardContentMain .UserReviewCardContent_Footer .gradient {
+    background: linear-gradient(var(--aika-transparent), var(--aika-bg-elevated));
+}
+
+html .apphub_CardContentMain .UserReviewCardContent_Footer .content {
+    background-color: var(--aika-bg-elevated);
+}
+
+html .apphub_CardMetaData .review_award_aggregated {
+    color: var(--aika-fg-muted);
+}
+
+/* The blue line under "Most popular…" (an image) */
+html .apphub_HubDivider {
+    height: var(--aika-hairline);
+    background: var(--aika-border);
+}
+
+html .apphub_AllContentText .apphub_MostPopularLink {
+    color: var(--aika-fg-muted);
+}
+
+/* Steam keeps the footer stuck to the window's left edge while the cards scroll */
+html body.apphub_blue #footer {
+    position: static;
+}
+
+/* --------------------------------------------------------------------------
+   A discussion topic (body.flat_page.thread): the first post and the replies
+   -------------------------------------------------------------------------- */
+
+html .forum_op {
+    border: var(--aika-hairline) solid var(--aika-border);
+    border-radius: var(--aika-radius-xl);
+    background: var(--aika-bg-elevated);
+    box-shadow: var(--aika-shadow-card);
+}
+
+html .forum_op .date,
+html .forum_op_footer,
+html .forum_op_footer a,
+html .forum_comment_permlink a {
+    color: var(--aika-fg-subtle);
+}
+
+html .forum_op .content {
+    color: var(--aika-fg-muted);
+}
+
+html :is(.forum_op, .forumtopic_comments) div.bb_h1 {
+    border-bottom-color: var(--aika-border);
+    color: var(--aika-fg);
+}
+
+html :is(.forum_op .content, .forumtopic_comments .commentthread_comment_text) a {
+    color: var(--aika-accent-bright);
+}
+
+html .forumtopic_comments .commentthread_comment {
+    margin-bottom: var(--aika-space-2);
+    border: var(--aika-hairline) solid var(--aika-border);
+    border-radius: var(--aika-radius-lg);
+    background-color: var(--aika-surface);
+    color: var(--aika-fg-muted);
+}
+
+html .forumtopic_comments .commentthread_comment.commentthread_newcomment {
+    border-color: var(--aika-border-accent);
+    background-color: var(--aika-accent-soft);
+}
+
+html .forumtopic_comments .commentthread_comment.commentthread_answer_comment,
+html .forumtopic_comments .commentthread_comment.permlinked {
+    border-color: var(--aika-accent);
+}
+
+html .forumtopic_comments .commentthread_comment.commentthread_deleted_comment {
+    border-color: var(--aika-border);
+    background-color: var(--aika-transparent);
+}
+
+html a.forum_comment_action {
+    border-radius: var(--aika-radius-md);
+    background-color: var(--aika-surface);
+}
+
+html a.forum_comment_action:hover {
+    background-color: var(--aika-accent-soft);
+}
+
+html .forum_comment_action_menu {
+    border-radius: var(--aika-radius-md);
+    background-color: var(--aika-bg-raised);
+}
+
+html :is(.forum_op, .forumtopic_comments) blockquote.bb_blockquote {
+    border: var(--aika-hairline) solid var(--aika-border-strong);
+    border-radius: var(--aika-radius-md);
+    background: var(--aika-surface);
+}
+
+/* "More discussions" in the right column */
+html .forum_topic.forum_topic_mini {
+    border-radius: var(--aika-radius-md);
+    background: var(--aika-surface);
+}
+
+html .forum_topic.forum_topic_mini:hover {
+    background: var(--aika-surface-hover);
+}
+
+/* --------------------------------------------------------------------------
+   Guides: categories and Steam's selection art in the right column
+   -------------------------------------------------------------------------- */
+
+html body.apphub_blue .detailBox {
+    background: none;
+}
+
+html a.guide_home_category_selection {
+    border: var(--aika-hairline) solid var(--aika-border);
+    border-radius: var(--aika-radius-md);
+    background: var(--aika-surface);
+    color: var(--aika-fg);
+}
+
+html a.guide_home_category_selection:hover {
+    border-color: var(--aika-border-accent);
+    background: var(--aika-surface-hover);
+}
+
+html a.guide_home_category_selection .guide_home_category_count {
+    color: var(--aika-fg-subtle);
+}
+
+/* Steam's selection sticks out on the left, with an arrow */
+html body.apphub_blue .rightbox_list_selection_background {
+    right: 0;
+    left: 0;
+    width: auto;
+    border-radius: var(--aika-radius-md);
+    background: var(--aika-accent-soft);
+}
+
+html body.apphub_blue .rightSectionBrowseBarArrow {
+    display: none;
+}
+
+html body.apphub_blue .guideInfo {
+    background: none;
+}
+
+html a.guide_home_category_selection img {
+    filter: grayscale(1);
+}
+
+html .forumtopic_comments .forum_paging,
+html .forum_paging {
+    border-radius: var(--aika-radius-md);
+    background: var(--aika-surface);
+}
+
+/* --------------------------------------------------------------------------
+   A single screenshot, artwork or guide page (sharedfiles/filedetails)
+   -------------------------------------------------------------------------- */
+
+html #VotesUpCount,
+html .screenshotDescription {
+    color: var(--aika-fg);
+}
+
+html :is(.guideTop, #ItemControls.workshopItemControls) {
+    border-radius: var(--aika-radius-lg);
+    background: var(--aika-surface);
+}
+
+html .subSectionTitle {
+    color: var(--aika-fg);
+}
+
+html a.dynamiclink_box {
+    border: var(--aika-hairline) solid var(--aika-border);
+    border-radius: var(--aika-radius-md);
+    background: var(--aika-surface);
+}
+
+html a.dynamiclink_box .dynamiclink_name {
+    border-color: var(--aika-border);
+    color: var(--aika-accent-bright);
+}

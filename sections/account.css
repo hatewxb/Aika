@@ -1,0 +1,250 @@
+/* ==========================================================================
+   sections/account.css — account and wallet pages on the store
+   (store.steampowered.com/account/, /steamaccount/addfunds, /account/history,
+   /account/redeemwalletcode, /account/preferences…), imported via webkit.css.
+
+   Old markup, readable classes (written against account.css and
+   steamaccount.css as served 2026-10-30; most pages need a login).
+   Status colors stay Steam's: refunds and warnings, .errormsg, price discounts.
+   ========================================================================== */
+
+/* The header art */
+html body:is(.account, .account_preferences) .page_header_ctn {
+    background: none;
+}
+
+/* --------------------------------------------------------------------------
+   Blocks and settings rows
+   -------------------------------------------------------------------------- */
+
+html .accountInfoBlock .block_content,
+html .account_setting_block,
+html .account_setting_block_short,
+html .account_settings_container,
+html .account_change_country_content,
+html .account_vat_setup_content,
+html .need_help_block,
+html .payment_method_box,
+html .email_pref_ctn.individual_pref {
+    border: var(--aika-hairline) solid var(--aika-border);
+    border-radius: var(--aika-radius-lg);
+    background: var(--aika-surface);
+}
+
+html .accountInfoBlock .block_content {
+    color: var(--aika-fg-muted);
+}
+
+html .account_header_line {
+    border-radius: var(--aika-radius-md);
+    background-color: var(--aika-surface-hover);
+    color: var(--aika-fg);
+}
+
+html :is(.account_setting_sub_block, .account_setting_sub_block_long, .account_setting_sub_block_full) {
+    color: var(--aika-fg-muted);
+}
+
+html .account_setting_parenthetical,
+html .youraccount_steamid,
+html .account_settings_container label,
+html .account_settings_container p.info {
+    color: var(--aika-fg-subtle);
+}
+
+html .account_data_field,
+html .account_manage_subtitle,
+html .subscription_header_info {
+    color: var(--aika-fg);
+}
+
+html .account_manage_link {
+    border-radius: var(--aika-radius-md);
+    background-color: var(--aika-surface);
+    color: var(--aika-fg);
+}
+
+html .account_manage_link:hover {
+    background-color: var(--aika-surface-hover);
+    color: var(--aika-fg);
+}
+
+html .account_setting_sub_block .payment_method_box a,
+html .accountData.price a,
+html .queue_customize,
+html .preferences_link {
+    color: var(--aika-accent-bright);
+}
+
+html .block .block_sub_header {
+    color: var(--aika-accent-bright);
+}
+
+html .block a.linkbar {
+    border-radius: var(--aika-radius-md);
+    background: var(--aika-surface);
+    color: var(--aika-fg);
+}
+
+html .block a.linkbar:hover {
+    background: var(--aika-accent-soft);
+    color: var(--aika-accent-bright);
+}
+
+html .preference_row {
+    border-bottom-color: var(--aika-border);
+}
+
+/* The wallet balance */
+html :is(.accountRow.accountBalance, .account_row.account_balance) {
+    color: var(--aika-accent-bright);
+}
+
+html .account_settings_container .dselect_container {
+    border-radius: var(--aika-radius-md);
+    background-color: var(--aika-surface);
+}
+
+html .account_settings_container .dselect_container button.trigger {
+    border-radius: var(--aika-radius-md);
+    background: var(--aika-surface-hover);
+}
+
+/* Inputs */
+html :is(.account_preferences input.gray_bevel, #enter_address input, .address_input_box, input[type="date"]) {
+    border: var(--aika-hairline) solid var(--aika-border-strong);
+    border-radius: var(--aika-radius-md);
+    background-color: var(--aika-bg-raised);
+    color: var(--aika-fg);
+}
+
+/* --------------------------------------------------------------------------
+   Purchase and wallet history, licenses
+   -------------------------------------------------------------------------- */
+
+html :is(.account_table th, .wallet_history_table th, .accountTable > thead > tr, .licenseLegend, .transactionLegend) {
+    background: var(--aika-surface-hover);
+    color: var(--aika-fg-muted);
+}
+
+html .wallet_history_table {
+    overflow: hidden;
+    border: var(--aika-hairline) solid var(--aika-border);
+    border-radius: var(--aika-radius-lg);
+}
+
+html :is(.account_table tr, .licenseRow, .transactionRow) {
+    border-bottom-color: var(--aika-border);
+}
+
+html :is(.account_table tr:nth-child(even), .wallet_history_table tr:nth-child(odd), .accountTable > tbody > tr:nth-child(even), .licenseRow.even, .transactionRow.even) {
+    background-color: var(--aika-surface);
+}
+
+html :is(.account_table tr:nth-child(odd), .accountTable > tbody > tr:nth-child(odd), .licenseRow.odd, .transactionRow.odd) {
+    background-color: var(--aika-transparent);
+}
+
+html .wallet_history_table tr:hover,
+html .wallet_entry_highlight {
+    background-color: var(--aika-surface-hover);
+}
+
+html :is(td.wht_date, .wth_payment, td.wht_wallet_change, td.wht_wallet_balance) {
+    border-left-color: var(--aika-border);
+    color: var(--aika-fg-muted);
+}
+
+html .wallet_history_click_hint {
+    color: var(--aika-accent-bright);
+}
+
+html .license_paginator_next {
+    border-radius: var(--aika-radius-md);
+    background-color: var(--aika-accent-fill);
+    color: var(--aika-on-accent);
+}
+
+html #load_more_button:hover {
+    background-color: var(--aika-accent-fill-hover);
+}
+
+/* --------------------------------------------------------------------------
+   Add funds and redeem a code
+   -------------------------------------------------------------------------- */
+
+html .addfunds_area_purchase_game.game_area_purchase_game {
+    border: var(--aika-hairline) solid var(--aika-border);
+    border-radius: var(--aika-radius-lg);
+    background: var(--aika-surface);
+}
+
+html .addfunds_about {
+    color: var(--aika-fg-muted);
+}
+
+html :is(.redeem_wallet_code_form, .registerkey_form) {
+    border: var(--aika-hairline) solid var(--aika-border);
+    border-radius: var(--aika-radius-lg);
+    background-color: var(--aika-surface);
+}
+
+html :is(.redeem_wallet_conversion_box, .redeem_wallet_conversion_text_box) {
+    border-color: var(--aika-border);
+    border-radius: var(--aika-radius-md);
+    background: var(--aika-surface);
+}
+
+html .redeem_wallet_code_upsell a {
+    color: var(--aika-accent-bright);
+}
+
+/* The green buy buttons: the theme's primary */
+html body.account a.btnv6_green_white_innerfade {
+    border-radius: var(--aika-radius-md);
+    background: var(--aika-accent-fill);
+}
+
+html body.account a.btnv6_green_white_innerfade:hover {
+    background: var(--aika-accent-fill-hover);
+}
+
+html body.account a.btnv6_green_white_innerfade > span {
+    border-radius: var(--aika-radius-md);
+    background: var(--aika-transparent);
+    color: var(--aika-on-accent);
+}
+
+/* --------------------------------------------------------------------------
+   The side menu and dividers on the account pages (checked 2026-10-30)
+   -------------------------------------------------------------------------- */
+
+html .two_column .nav_item {
+    border-radius: var(--aika-radius-md);
+    color: var(--aika-fg-muted);
+}
+
+html .two_column .nav_item:hover {
+    background: var(--aika-surface-hover) !important;
+    color: var(--aika-fg);
+}
+
+html .two_column .nav_item.active {
+    border-color: var(--aika-accent);
+    background: var(--aika-accent-soft) !important;
+    color: var(--aika-accent-bright);
+}
+
+html .two_column .nav_item.active::before,
+html .two_column .nav_item.active::after {
+    background: var(--aika-accent);
+}
+
+html body:is(.account, .account_preferences) :is(.rule, .inner_rule) {
+    border-top-color: var(--aika-border);
+}
+
+/* The little blue icons on the section headers */
+html .account_header_line img {
+    filter: grayscale(1) brightness(1.3);
+}

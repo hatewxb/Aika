@@ -1,0 +1,234 @@
+/* ==========================================================================
+   sections/trade-offers.css — trade offers: the list on your profile
+   (…/tradeoffers/) and the trade window (steamcommunity.com/tradeoffer/…),
+   imported via webkit.css.
+
+   Old markup, readable classes (written against profile_tradeoffers.css and
+   trade.css as served 2026-10-30; these pages need a login).
+   Warnings stay Steam's colors on purpose, they protect people from scams:
+   .trade_partner_not_friends, .trade_partner_recently_changed_name,
+   .trade_partner_limited, the escrow notices, #log .warning.
+   ========================================================================== */
+
+/* --------------------------------------------------------------------------
+   The list of offers
+   -------------------------------------------------------------------------- */
+
+html .tradeoffer_items_ctn {
+    border: var(--aika-hairline) solid var(--aika-border);
+    border-radius: var(--aika-radius-lg);
+    background-color: var(--aika-bg-elevated);
+}
+
+html .tradeoffer_items_ctn.active {
+    border-color: var(--aika-border-accent);
+}
+
+html .tradeoffer_items_header {
+    color: var(--aika-fg-muted);
+}
+
+html .tradeoffer_rule {
+    border-top-color: var(--aika-border);
+    background-color: var(--aika-border);
+}
+
+html .tradeoffer_item_list .trade_item {
+    border: var(--aika-hairline) solid var(--aika-border);
+    border-radius: var(--aika-radius-md);
+    background-color: var(--aika-surface);
+}
+
+html .tradeoffer_items_banner {
+    border-radius: var(--aika-radius-md);
+    background-color: var(--aika-surface-active);
+}
+
+html .tradeoffer_footer {
+    color: var(--aika-fg-subtle);
+}
+
+/* The right column */
+html .right_controls_large_block div.secondary {
+    color: var(--aika-accent-bright);
+}
+
+html :is(.right_controls_large_block_active_bg, .right_controls_secondary_active_bg) {
+    border-radius: var(--aika-radius-md);
+    background: var(--aika-accent-soft);
+}
+
+html .right_controls_secondary_link {
+    color: var(--aika-fg-muted);
+}
+
+html :is(.tradeoffer_welcome_ctn, .tradeoffer_privacy_box, .trade_offers_escrow_explanation) {
+    border: var(--aika-hairline) solid var(--aika-border);
+    border-radius: var(--aika-radius-lg);
+    background-color: var(--aika-bg-elevated);
+}
+
+html :is(.tradeoffer_privacy_box h2, .tradeoffer_hint h2) {
+    color: var(--aika-accent-bright);
+}
+
+/* --------------------------------------------------------------------------
+   The trade window: boxes, partner header, tabs
+   -------------------------------------------------------------------------- */
+
+html .trade_box {
+    border-radius: var(--aika-radius-lg);
+    background-color: var(--aika-bg-elevated);
+}
+
+html .trade_box_contents,
+html .trade_box.ready > .trade_box_contents,
+html .trade_box#inventory_box.ready > .trade_box_contents {
+    border-color: var(--aika-border);
+    border-radius: var(--aika-radius-lg);
+}
+
+html .trade_box.trade_box_withbg > .trade_box_contents {
+    background-image: none;
+}
+
+html .trade_box_bgheader,
+html .trade_box_bgheader.active {
+    border-radius: var(--aika-radius-lg) var(--aika-radius-lg) 0 0;
+    background: var(--aika-surface);
+}
+
+html .trade_partner_header {
+    border-radius: var(--aika-radius-md);
+    background-color: var(--aika-surface-hover);
+}
+
+html .trade_partner_headline {
+    color: var(--aika-fg);
+}
+
+html .trade_partner_info_block {
+    border-radius: var(--aika-radius-md);
+    background-color: var(--aika-surface);
+    color: var(--aika-fg-muted);
+}
+
+html :is(.inventory_user_tab, a.inventory_user_tab) {
+    border-color: var(--aika-border);
+    border-radius: var(--aika-radius-md) var(--aika-radius-md) 0 0;
+    background: var(--aika-surface);
+}
+
+html .inventory_user_tab.active {
+    background: var(--aika-accent-soft);
+}
+
+html .inventory_user_tabs {
+    background: none;
+}
+
+html :is(.inventory_user_tab_gap > div, .inventory_user_tab > div) {
+    border-bottom-color: var(--aika-border);
+}
+
+/* The game picker */
+html :is(div.appselect, div.appselect_options) {
+    border-color: var(--aika-border-strong);
+    border-radius: var(--aika-radius-md);
+    background-color: var(--aika-bg-raised);
+    color: var(--aika-fg);
+}
+
+html div.appselect_options div.option {
+    border-bottom-color: var(--aika-border);
+}
+
+/* Chat and the log */
+html div.log_bg {
+    border-radius: var(--aika-radius-md);
+    background: var(--aika-surface);
+}
+
+html #log .logevent {
+    color: var(--aika-fg-muted);
+}
+
+html #log .logevent .item {
+    color: var(--aika-fg);
+}
+
+html .playerchatname {
+    color: var(--aika-accent-bright);
+}
+
+html .log_chat_entry_area {
+    border-top-color: var(--aika-border);
+    background-color: var(--aika-surface);
+}
+
+html td.chat_entry_cell div,
+html .log_chat_entry_area textarea {
+    border-color: var(--aika-border-strong);
+    border-radius: var(--aika-radius-md);
+    background-color: var(--aika-bg-raised);
+    color: var(--aika-fg);
+}
+
+html div#chat_send_btn {
+    border-color: var(--aika-border-strong);
+    border-radius: var(--aika-radius-md);
+}
+
+html div#chat_send_btn.active {
+    border-color: var(--aika-border-accent);
+    background-color: var(--aika-accent-fill);
+    color: var(--aika-on-accent);
+}
+
+/* The wallet / gem slider dialog */
+html .trade_currency_slider_ctn .slider_background {
+    border-color: var(--aika-border);
+    border-radius: var(--aika-radius-full);
+    background: var(--aika-bg-raised);
+}
+
+html .trade_currency_slider_ctn .slider_background .slider_progress {
+    border-radius: var(--aika-radius-full);
+    background: var(--aika-accent);
+}
+
+html :is(.responsivetrade_backtooffer_ctn, .responsive_trade_fixedcontents) {
+    background: var(--aika-bg-elevated);
+}
+
+/* --------------------------------------------------------------------------
+   The page around the offers: Steam's blue-gray name strip, its art and the
+   gray plate (shared with the other profile sub-pages), the right column
+   -------------------------------------------------------------------------- */
+
+html :is(.profile_subpage_general, .profile_subpage_column) .profile_small_header_bg {
+    background-image: none;
+}
+
+html .profile_small_header_texture {
+    border: var(--aika-hairline) solid var(--aika-border);
+    border-radius: var(--aika-radius-xl);
+    background: var(--aika-bg-elevated);
+    box-shadow: var(--aika-shadow-card);
+}
+
+html :is(.profile_subpage_general, .profile_subpage_column) .maincontent {
+    border-color: var(--aika-transparent);
+    background: none;
+}
+
+html .rightcol_controls {
+    border: var(--aika-hairline) solid var(--aika-border);
+    border-radius: var(--aika-radius-lg);
+    background-color: var(--aika-bg-elevated);
+}
+
+html .rightcol_controls_rule {
+    border-top-color: var(--aika-transparent);
+    background-color: var(--aika-border);
+}
