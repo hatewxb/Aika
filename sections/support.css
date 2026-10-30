@@ -1,0 +1,64 @@
+/* ==========================================================================
+   sections/support.css — Steam Support (help.steampowered.com), imported via
+   webkit.css. Old markup, readable classes: .help_* and the wizard buttons;
+   FAQ articles are a React page (body.help_faqs) with readable BB_* headings.
+   ========================================================================== */
+
+/* The header: Steam's "bars" art and the site buttons */
+html .help_site_button {
+    border-radius: var(--aika-radius-md);
+    background: var(--aika-surface);
+    color: var(--aika-fg);
+}
+
+html .help_site_button:hover {
+    background: var(--aika-surface-hover);
+    color: var(--aika-fg);
+}
+
+html .Bar:is(.Bar1, .Bar2, .Bar3) {
+    background: var(--aika-accent) !important;
+}
+
+html :is(.help_intro_text, .help_section_text) {
+    color: var(--aika-fg-muted);
+}
+
+/* The wizard's big option rows (the arrow is an image on the same element) */
+html a.help_wizard_button {
+    border: var(--aika-hairline) solid var(--aika-border);
+    border-radius: var(--aika-radius-lg);
+    background-color: var(--aika-surface);
+    color: var(--aika-fg);
+    transition: border-color var(--aika-dur-base) var(--aika-ease), background-color var(--aika-dur-base) var(--aika-ease);
+}
+
+html a.help_wizard_button:hover {
+    border-color: var(--aika-border-accent);
+    background-color: var(--aika-surface-hover);
+    color: var(--aika-fg);
+}
+
+/* Search */
+html input#help_search_support_input {
+    border: var(--aika-hairline) solid var(--aika-border-strong);
+    border-radius: var(--aika-radius-lg);
+    background-color: var(--aika-bg-raised);
+    color: var(--aika-fg);
+}
+
+/* FAQ articles */
+html body.help_faqs :is(.BB_Header1, .BB_Header2, .BB_Header3) {
+    color: var(--aika-fg);
+}
+
+html body.help_faqs a.Focusable {
+    border-color: var(--aika-border-accent);
+    color: var(--aika-accent-bright);
+}
+
+/* The blue line between the product list and the topics */
+html .help_divider {
+    border-color: var(--aika-border);
+    background: var(--aika-border);
+}

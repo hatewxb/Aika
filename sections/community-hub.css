@@ -459,3 +459,32 @@ html .forum_paging {
     border-radius: var(--aika-radius-md);
     background: var(--aika-surface);
 }
+
+/* --------------------------------------------------------------------------
+   A single screenshot, artwork or guide page (sharedfiles/filedetails)
+   -------------------------------------------------------------------------- */
+
+html #VotesUpCount,
+html .screenshotDescription {
+    color: var(--aika-fg);
+}
+
+html :is(.guideTop, #ItemControls.workshopItemControls) {
+    border-radius: var(--aika-radius-lg);
+    background: var(--aika-surface);
+}
+
+html .subSectionTitle {
+    color: var(--aika-fg);
+}
+
+html a.dynamiclink_box {
+    border: var(--aika-hairline) solid var(--aika-border);
+    border-radius: var(--aika-radius-md);
+    background: var(--aika-surface);
+}
+
+html a.dynamiclink_box .dynamiclink_name {
+    border-color: var(--aika-border);
+    color: var(--aika-accent-bright);
+}
