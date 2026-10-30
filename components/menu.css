@@ -670,3 +670,87 @@ html .NotificationsMenu .NotificationMenuItem:nth-child(2) { --aika-notice-i: 2;
 html .NotificationsMenu .NotificationMenuItem:nth-child(3) { --aika-notice-i: 3; }
 html .NotificationsMenu .NotificationMenuItem:nth-child(4) { --aika-notice-i: 4; }
 html .NotificationsMenu .NotificationMenuItem:nth-child(n + 5) { --aika-notice-i: 5; }
+
+/* Linux/Wayland popup compositing: do not paint a square backing behind
+   the rounded menu. Applies only to separate Steam context-menu windows. */
+html.ContextMenuPopup,
+html.ContextMenuPopup body,
+html.ContextMenuPopup body.ContextMenuPopupBody {
+    background: transparent !important;
+    background-image: none !important;
+}
+
+/* Keep rounded menu geometry without the large external dark shadow that
+   reaches the rectangular boundary of the native popup window. */
+html.ContextMenuPopup body .contextMenu.ContextMenuPosition {
+    box-shadow: inset 0 0 0 1px var(--aika-border-hover) !important;
+    background-clip: padding-box;
+}
+
+/* Account/notifications draw the actual rounded plate on their contents. */
+html.ContextMenuPopup:is(.Account_Menu, .Notifications_Menu) body
+.contextMenu.ContextMenuPosition > .contextMenuContents {
+    box-shadow: inset 0 0 0 1px var(--aika-border-hover) !important;
+    background-clip: padding-box;
+}
+
+/* --------------------------------------------------------------------------
+   Linux fix: menu windows are not truly transparent here, so everything that
+   is painted outside the window box shows as black — the soft menu shadow
+   (black strip/corners on the notifications and account menus), the
+   see-through gap above the header menus, and the unfold clip. Steam also
+   sizes the window from the box before the padding / clip settle, which cut
+   off the bottom of the View / Friends menus (the status list stopped at
+   "Offline"). Flat, shadowless menus with no extra top gap and no clip
+   animation fit the window exactly.
+   -------------------------------------------------------------------------- */
+
+html body .contextMenu.ContextMenuPosition,
+html body .contextMenu.ContextMenuPosition.ready,
+html.aika-menu-js:not(.aika-menu-open) body .contextMenu.ContextMenuPosition.ready,
+.aika-menu {
+    animation: none !important;
+    clip-path: none !important;
+    box-shadow: none !important;
+    max-height: none !important;
+    overflow: visible;
+}
+
+html:is(.Account_Menu, .Notifications_Menu) body .contextMenu.ContextMenuPosition {
+    padding: 0 !important;
+}
+
+html:is(.Account_Menu, .Notifications_Menu) body .contextMenu.ContextMenuPosition > .contextMenuContents,
+html .contextMenu .contextMenuContents,
+html .contextMenu .contextMenuContents.NotificationsMenu {
+    box-shadow: none !important;
+}
+
+html body .contextMenu .contextMenuContents {
+    max-height: none !important;
+    overflow: visible;
+}
+
+html body .contextMenu.ready .contextMenuContents > :is(.contextMenuItem, hr.Separator) {
+    animation: none !important;
+}
+
+html.aika-menu-js:not(.aika-menu-open) body .contextMenu.ready :is(.contextMenuContents > :is(.contextMenuItem, hr.Separator), .NotificationsMenu :is(.NotificationHeader, .NotificationMenuItem)) {
+    opacity: 1 !important;
+}
+
+/* Steam sizes the menu window from the contents box and ignores the outer
+   box's own padding, so the bottom 8 px of every menu (the last item —
+   "Offline", "Steam Replay", "Charts") fell outside the window. All spacing
+   lives inside .contextMenuContents instead; the outer box has none. */
+html body .contextMenu.ContextMenuPosition {
+    padding: 0 !important;
+    background: var(--aika-transparent);
+    border-radius: 0;
+}
+
+html body .contextMenu.ContextMenuPosition > .contextMenuContents {
+    padding: var(--aika-space-2) !important;
+    border-radius: var(--aika-radius-lg);
+    background: var(--aika-surface-translucent);
+}

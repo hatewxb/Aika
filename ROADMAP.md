@@ -63,6 +63,7 @@
 
 | Date | What | Files |
 |:--|:--|:--|
+| 2026-10-22 | Linux client compatibility: restore readable CSS-module aliases from local Steam bundles, track React class changes, and match Linux main-window options. Tested on EndeavourOS/Wayland; other Linux optimization remains open. | js/client-*.js, skin.json, tests, docs/linux-client-compatibility.md |
 | 2026-10-04 | Design system, documentation, renamed to Aika (author hatewxb) | DESIGN.md, CLAUDE.md, README.md, skin.json |
 | 2026-10-04 | Foundation: palette, tokens, fonts (Inter, Geist Mono, Fraunces — OFL), a 4-layer background | root-colors.css, colors.css, tokens.css, base.css, background.css, assets/fonts |
 | 2026-10-04 | Narrow RootColors (the Millennium alpha bug), font weight from 400 | root-colors.css, base.css |

@@ -104,6 +104,13 @@ Aika is in the official Millennium theme store:
 3. Extract the `Aika` folder into `C:\Program Files (x86)\Steam\millennium\themes\`.
 4. Steam → **Millennium → Themes** → **Aika**. If theme scripts are disabled, enable them.
 
+On Linux, extract into `<Steam installation>/millennium/themes/` (usually
+`~/.local/share/Steam/millennium/themes/`). Keep theme scripts enabled: the
+client compatibility adapter restores the readable CSS-module names used by
+Aika from the running Steam build. Fully quit and restart Steam after installing
+or updating the theme. No Quick CSS or manual console import is needed.
+See [Linux compatibility notes](docs/linux-client-compatibility.md).
+
 Theme settings (the gear next to Aika in Millennium; in Russian when Steam is
 in Russian): **Main** — color preset, top bar tab position, compact header (the
 menus, tabs and account buttons in one line), the header wordmark (classic,
