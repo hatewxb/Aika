@@ -324,3 +324,122 @@ html .apphub_AllContentText .apphub_MostPopularLink {
 html body.apphub_blue #footer {
     position: static;
 }
+
+/* --------------------------------------------------------------------------
+   A discussion topic (body.flat_page.thread): the first post and the replies
+   -------------------------------------------------------------------------- */
+
+html .forum_op {
+    border: var(--aika-hairline) solid var(--aika-border);
+    border-radius: var(--aika-radius-xl);
+    background: var(--aika-bg-elevated);
+    box-shadow: var(--aika-shadow-card);
+}
+
+html .forum_op .date,
+html .forum_op_footer,
+html .forum_op_footer a,
+html .forum_comment_permlink a {
+    color: var(--aika-fg-subtle);
+}
+
+html .forum_op .content {
+    color: var(--aika-fg-muted);
+}
+
+html :is(.forum_op, .forumtopic_comments) div.bb_h1 {
+    border-bottom-color: var(--aika-border);
+    color: var(--aika-fg);
+}
+
+html :is(.forum_op .content, .forumtopic_comments .commentthread_comment_text) a {
+    color: var(--aika-accent-bright);
+}
+
+html .forumtopic_comments .commentthread_comment {
+    margin-bottom: var(--aika-space-2);
+    border: var(--aika-hairline) solid var(--aika-border);
+    border-radius: var(--aika-radius-lg);
+    background-color: var(--aika-surface);
+    color: var(--aika-fg-muted);
+}
+
+html .forumtopic_comments .commentthread_comment.commentthread_newcomment {
+    border-color: var(--aika-border-accent);
+    background-color: var(--aika-accent-soft);
+}
+
+html .forumtopic_comments .commentthread_comment.commentthread_answer_comment,
+html .forumtopic_comments .commentthread_comment.permlinked {
+    border-color: var(--aika-accent);
+}
+
+html .forumtopic_comments .commentthread_comment.commentthread_deleted_comment {
+    border-color: var(--aika-border);
+    background-color: var(--aika-transparent);
+}
+
+html a.forum_comment_action {
+    border-radius: var(--aika-radius-md);
+    background-color: var(--aika-surface);
+}
+
+html a.forum_comment_action:hover {
+    background-color: var(--aika-accent-soft);
+}
+
+html .forum_comment_action_menu {
+    border-radius: var(--aika-radius-md);
+    background-color: var(--aika-bg-raised);
+}
+
+html :is(.forum_op, .forumtopic_comments) blockquote.bb_blockquote {
+    border: var(--aika-hairline) solid var(--aika-border-strong);
+    border-radius: var(--aika-radius-md);
+    background: var(--aika-surface);
+}
+
+/* "More discussions" in the right column */
+html .forum_topic.forum_topic_mini {
+    border-radius: var(--aika-radius-md);
+    background: var(--aika-surface);
+}
+
+html .forum_topic.forum_topic_mini:hover {
+    background: var(--aika-surface-hover);
+}
+
+/* --------------------------------------------------------------------------
+   Guides: categories and Steam's selection art in the right column
+   -------------------------------------------------------------------------- */
+
+html body.apphub_blue .detailBox {
+    background: none;
+}
+
+html a.guide_home_category_selection {
+    overflow: hidden;
+    border: var(--aika-hairline) solid var(--aika-border);
+    border-radius: var(--aika-radius-md);
+    background: var(--aika-surface);
+    color: var(--aika-fg);
+}
+
+html a.guide_home_category_selection:hover {
+    border-color: var(--aika-border-accent);
+    background: var(--aika-surface-hover);
+}
+
+html a.guide_home_category_selection .guide_home_category_count {
+    color: var(--aika-fg-subtle);
+}
+
+html body.apphub_blue .rightbox_list_selection_background {
+    border-radius: var(--aika-radius-md);
+    background: var(--aika-accent-soft);
+}
+
+html body.apphub_blue .rightSectionBrowseBarArrow,
+html body.apphub_blue .guideInfo {
+    background: none;
+}

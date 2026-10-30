@@ -3917,3 +3917,125 @@ html .xGjiYBznm-U-.GL-WxjUbwGc- {
 html .eDVdMzW4Ol4-.ZPIu-t4ftYI- {
     background-image: none;
 }
+
+/* [Points Shop] store.steampowered.com/points/shop (body.rewards): React, hashes only.
+   Verified: 2026-10-30, the page as served that day
+   How to find: the side menu, a section's title or an item card in DevTools */
+
+/* The page: Steam's blue art and glow give way to the theme's background */
+html body.rewards {
+    background: var(--aika-transparent);
+}
+
+html body.rewards :is(.GRnRr6m2Ebs-.C4PmAZDunTs-, .tzrApHrBQDw-.uLWIA8kG0mY-) {
+    background: none;
+}
+
+/* The header: title and subtitle are gradient-clipped text */
+html body.rewards :is(._3z-SJMDRMwU-, .T5b2NUonuC8-) {
+    background: none;
+    color: var(--aika-fg);
+    -webkit-text-fill-color: var(--aika-fg);
+}
+
+html body.rewards .T5b2NUonuC8- {
+    color: var(--aika-fg-muted);
+    -webkit-text-fill-color: var(--aika-fg-muted);
+}
+
+html body.rewards ._7JSvJmQTuhw-.Wo4YgGDqLZc-,
+html body.rewards a.Z1DSZ-P71Sw- {
+    border: var(--aika-hairline) solid var(--aika-border-strong);
+    border-radius: var(--aika-radius-md);
+    background: var(--aika-surface);
+    color: var(--aika-fg);
+}
+
+/* The side menu */
+html body.rewards .d7He2hxHNDQ-.Panel {
+    border: var(--aika-hairline) solid var(--aika-border);
+    border-radius: var(--aika-radius-xl);
+    background: var(--aika-bg-elevated);
+    box-shadow: var(--aika-shadow-card);
+}
+
+html body.rewards .iC89KZRmD3g- {
+    color: var(--aika-fg-subtle);
+}
+
+html body.rewards a.FiYqYZBSUy8- {
+    border-radius: var(--aika-radius-md);
+    color: var(--aika-fg-muted);
+}
+
+html body.rewards a.FiYqYZBSUy8-:hover {
+    background: var(--aika-surface-hover);
+    color: var(--aika-fg);
+}
+
+html body.rewards a.FiYqYZBSUy8-.sas-eCiyqL4- {
+    background: var(--aika-accent-soft);
+    color: var(--aika-accent-bright);
+}
+
+/* Featured sections: a card, Steam's art kept faint behind it */
+html body.rewards .E4DS2G3IwKU-.Panel {
+    overflow: hidden;
+    border: var(--aika-hairline) solid var(--aika-border);
+    border-radius: var(--aika-radius-xl);
+    background: var(--aika-bg-elevated);
+    box-shadow: var(--aika-shadow-card);
+}
+
+html body.rewards :is(.y7wLLLq2IME-, .AWlvgEVBunk-) {
+    border-radius: var(--aika-radius-xl);
+    opacity: 0.18;
+    filter: grayscale(1);
+}
+
+html body.rewards .yu4-si75KQE- {
+    background: none;
+}
+
+html body.rewards :is(._2-H2jxauhXg-, .JttftKE3xaE-) {
+    color: var(--aika-fg);
+}
+
+html body.rewards .NdKx7mksqq8- a {
+    border-radius: var(--aika-radius-md);
+    background: var(--aika-surface-hover);
+    color: var(--aika-fg);
+}
+
+/* Item cards */
+html body.rewards .cL3tfa-JDBE-._216R8aJbhUM- {
+    overflow: hidden;
+    border-radius: var(--aika-radius-lg);
+    background: var(--aika-surface);
+    box-shadow: inset 0 0 0 var(--aika-hairline) var(--aika-border);
+    transition: box-shadow var(--aika-dur-base) var(--aika-ease), transform var(--aika-dur-base) var(--aika-ease);
+}
+
+html body.rewards .cL3tfa-JDBE-._216R8aJbhUM-:hover {
+    box-shadow: inset 0 0 0 var(--aika-hairline) var(--aika-border-accent);
+    transform: translateY(var(--aika-lift-sm));
+}
+
+html body.rewards :is(.w6UtE24wq8w-._6psFyKVNQmw-, .Df2BqSSNihs-) {
+    background: none;
+}
+
+html body.rewards .FkVCjE6GjQg-.E7oxZCRd9I0- {
+    background: var(--aika-transparent);
+}
+
+/* The item's name fades out through a gradient mask on the text */
+html body.rewards .SK7vXGSN6OY- {
+    background: linear-gradient(90deg, var(--aika-fg) 70%, var(--aika-transparent));
+    -webkit-background-clip: text;
+    background-clip: text;
+}
+
+html body.rewards .qZsAxH6YVCA- {
+    color: var(--aika-fg-subtle);
+}
