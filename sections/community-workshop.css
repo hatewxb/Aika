@@ -1,0 +1,183 @@
+/* ==========================================================================
+   sections/community-workshop.css — a Workshop item page
+   (steamcommunity.com/sharedfiles/filedetails/?id=…), imported via webkit.css.
+
+   Old markup, readable classes:
+     .workshop_item_header         — the preview, controls and details (a blue
+                                     gradient plate); .workshopItemPreviewArea around it;
+     .workshopItemControlCtn .general_btn — vote, award, favorite, share… (icons
+                                     are background images, so colors only);
+     .game_area_purchase_game      — "Subscribe to download" + #SubscribeItemBtn;
+     #rightContents .panel         — creators and stats (a blue gradient);
+     .workshopItemDescription      — the description, .bb_h1 / .bb_h2 headings;
+     .commentthread_header         — the bar above the comments.
+   Steam's strength is (0,1,0)…(1,1,0).
+   ========================================================================== */
+
+/* --------------------------------------------------------------------------
+   The item plate: preview + controls + details
+   -------------------------------------------------------------------------- */
+
+html .workshopItemPreviewArea .workshop_item_header {
+    border: var(--aika-hairline) solid var(--aika-border);
+    border-radius: var(--aika-radius-xl);
+    background: var(--aika-bg-elevated);
+    box-shadow: var(--aika-shadow-card);
+}
+
+html .workshop_item_header .workshopItemPreviewImageEnlargeableContainer {
+    overflow: hidden;
+    border-radius: var(--aika-radius-lg);
+    background: var(--aika-bg-elevated);
+}
+
+/* Vote, award, favorite, share… — secondary buttons, Steam's icons stay */
+html .workshopItemControlCtn .general_btn {
+    border-radius: var(--aika-radius-md);
+    background-color: var(--aika-surface);
+    box-shadow: inset 0 0 0 var(--aika-hairline) var(--aika-border-strong);
+    color: var(--aika-fg-muted);
+}
+
+html .workshopItemControlCtn .general_btn:hover {
+    background-color: var(--aika-surface-hover);
+    color: var(--aika-fg);
+}
+
+html .workshopItemControls .vertical_divider {
+    background: var(--aika-border);
+}
+
+/* Tags and file details: Steam's gray-blue labels and links */
+html .workshop_item_header .workshopTagsTitle {
+    color: var(--aika-fg-subtle);
+}
+
+html .workshop_item_header .workshopTags a {
+    color: var(--aika-fg);
+}
+
+html .workshop_item_header .workshopTags a:hover {
+    color: var(--aika-accent-bright);
+}
+
+html .workshop_item_header .dotted_hr_uri {
+    background: var(--aika-border);
+    height: var(--aika-hairline);
+}
+
+html .workshop_item_header .detailsStatLeft,
+html .workshop_item_header .detailsStatRight {
+    color: var(--aika-fg-muted);
+}
+
+html .workshop_item_header .detailsStatRight {
+    font-family: var(--aika-font-mono);
+}
+
+html .workshop_item_header .detailsStatNumChangeNotes,
+html .workshop_item_header .detailsStatNumChangeNotes a {
+    color: var(--aika-accent-bright);
+}
+
+/* --------------------------------------------------------------------------
+   "Subscribe to download": a card and the theme's primary button
+   -------------------------------------------------------------------------- */
+
+html .game_area_purchase_margin .game_area_purchase_game {
+    border: var(--aika-hairline) solid var(--aika-border);
+    border-radius: var(--aika-radius-lg);
+    background: var(--aika-surface);
+}
+
+html .game_area_purchase_margin .game_area_purchase_game :is(h1, h2) {
+    color: var(--aika-fg);
+}
+
+html .game_area_purchase_margin .game_area_purchase_game span {
+    color: var(--aika-fg-subtle);
+}
+
+html a#SubscribeItemBtn,
+html a#SubscribeItemBtn > .subscribeText {
+    border-radius: var(--aika-radius-md);
+    background: var(--aika-accent-fill);
+    box-shadow: none;
+}
+
+html a#SubscribeItemBtn:hover,
+html a#SubscribeItemBtn:hover > .subscribeText {
+    background: var(--aika-accent-fill-hover);
+}
+
+html a#SubscribeItemBtn .subscribeOption {
+    color: var(--aika-on-accent);
+}
+
+/* --------------------------------------------------------------------------
+   Right column: creators and stats
+   -------------------------------------------------------------------------- */
+
+html #rightContents .sidebar > .panel {
+    margin-bottom: var(--aika-space-3);
+    border: var(--aika-hairline) solid var(--aika-border);
+    border-radius: var(--aika-radius-lg);
+    background: var(--aika-surface);
+}
+
+html #rightContents .rightSectionTopTitle {
+    color: var(--aika-fg-subtle);
+}
+
+html #rightContents .friendBlock {
+    border-radius: var(--aika-radius-md);
+    background: var(--aika-surface);
+}
+
+html #rightContents .friendBlock:hover {
+    background: var(--aika-surface-hover);
+}
+
+html #rightContents .friendBlock .playerAvatar {
+    border-radius: var(--aika-radius-md);
+    background: var(--aika-fg-subtle);
+}
+
+html #rightContents .friendBlock .playerAvatar img {
+    border-radius: var(--aika-radius-md);
+}
+
+html #rightContents .stats_table td {
+    color: var(--aika-fg-muted);
+}
+
+html #rightContents .stats_table td:first-child {
+    color: var(--aika-fg);
+    font-family: var(--aika-font-mono);
+}
+
+/* --------------------------------------------------------------------------
+   Description and comments
+   -------------------------------------------------------------------------- */
+
+html .workshopItemDescriptionTitle {
+    color: var(--aika-fg-subtle);
+}
+
+html .workshopItemDescription :is(.bb_h1, .bb_h2, .bb_h3) {
+    color: var(--aika-fg);
+}
+
+html .workshopItemDescription a {
+    color: var(--aika-accent-bright);
+}
+
+html #sharedfiles_content_ctn .commentthread_header {
+    border-radius: var(--aika-radius-md);
+    background: var(--aika-surface);
+}
+
+html #sharedfiles_content_ctn .commentthread_header .pagebtn {
+    border-radius: var(--aika-radius-md);
+    background: var(--aika-surface);
+}
