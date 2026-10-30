@@ -268,3 +268,59 @@ html body.apphub_blue .btnv6_grey_black > span {
     background: var(--aika-transparent);
     color: var(--aika-fg);
 }
+
+/* --------------------------------------------------------------------------
+   Card leftovers: Steam's blue art, hover plates, headings and fades
+   -------------------------------------------------------------------------- */
+
+html .apphub_Card .apphub_CardAnnouncementBG,
+html .apphub_Card :is(.apphub_CardContentType, .apphub_CardContentTypeContainer, .apphub_CardContentNewsFade) {
+    background-image: none;
+}
+
+html .apphub_Card .apphub_CardPinnedIcon {
+    filter: grayscale(1);
+}
+
+html body.apphub_blue .apphub_Card.interactable:hover :is(.apphub_CardContentAuthorBlock, .apphub_CardContentDiscussionType) {
+    background-color: var(--aika-surface-hover);
+}
+
+html .apphub_Card :is(.bb_h1, .bb_h2, .bb_h3) {
+    color: var(--aika-fg);
+}
+
+html .apphub_Card :is(.apphub_CardTextContent, .apphub_CardContentNewsDesc) a {
+    color: var(--aika-accent-bright);
+}
+
+html .apphub_Card .apphub_CardContentMain .hr {
+    background-color: var(--aika-border);
+}
+
+html .apphub_CardContentMain .UserReviewCardContent_Footer .gradient {
+    background: linear-gradient(var(--aika-transparent), var(--aika-bg-elevated));
+}
+
+html .apphub_CardContentMain .UserReviewCardContent_Footer .content {
+    background-color: var(--aika-bg-elevated);
+}
+
+html .apphub_CardMetaData .review_award_aggregated {
+    color: var(--aika-fg-muted);
+}
+
+/* The blue line under "Most popular…" (an image) */
+html .apphub_HubDivider {
+    height: var(--aika-hairline);
+    background: var(--aika-border);
+}
+
+html .apphub_AllContentText .apphub_MostPopularLink {
+    color: var(--aika-fg-muted);
+}
+
+/* Steam keeps the footer stuck to the window's left edge while the cards scroll */
+html body.apphub_blue #footer {
+    position: static;
+}
