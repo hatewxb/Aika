@@ -63,11 +63,11 @@ html .LocalContentContainer > .URLBarReplacement {
    Steam's reload button and address stay hidden (the address is in the page
    capsule), and the toolbar floats in the top bar right after ← →
    (sections/plugins.css). */
-html .ContentFrame .BrowserWrapper > .URLBar:has(> .extensions-bar-container) {
+html .ContentFrame .BrowserWrapper > .URLBar:has(> :is(.extensions-bar-container, .autoclaim-toolbar-container)) {
     display: contents;
 }
 
-html .ContentFrame .BrowserWrapper > .URLBar:has(> .extensions-bar-container) > :not(.extensions-bar-container) {
+html .ContentFrame .BrowserWrapper > .URLBar:has(> :is(.extensions-bar-container, .autoclaim-toolbar-container)) > :not(.extensions-bar-container, .autoclaim-toolbar-container) {
     display: none;
 }
 
@@ -2030,8 +2030,16 @@ html body.v6 .bundle_label .bundle_label_tooltip {
 }
 
 html body.v6 .discount_block .bundle_base_discount {
-    color: var(--aika-fg-subtle);
+    background: var(--aika-ok);
+    color: var(--aika-bg-deep);
     font-family: var(--aika-font-mono);
+}
+
+/* Shared React capsules also appear outside legacy discount_block wrappers. */
+html body.v6 .StoreSalePriceWidgetContainer .StoreSaleDiscountBox {
+    background: var(--aika-ok);
+    color: var(--aika-bg-deep);
+    font-weight: var(--aika-weight-semibold);
 }
 
 html body.v6 .bundle_contents_preview {

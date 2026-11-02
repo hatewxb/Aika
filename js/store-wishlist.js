@@ -20,10 +20,30 @@
 //    ("319,00 ₴" → "319 ₴", author's request). If React writes the full price
 //    back, it is split again.
 
-(() => {
+export function startWishlist() {
   "use strict";
   if (window.__aikaStoreWishlist) return;
-  window.__aikaStoreWishlist = true;
+  const abort = new AbortController(), observers = [], cleanup = [];
+  const track = observer => { observers.push(observer); return observer; };
+  let stopped = false;
+  const destroy = () => {
+    if (stopped) return;
+    stopped = true;
+    abort.abort();
+    observers.forEach(observer => observer.disconnect());
+    cleanup.forEach(fn => fn());
+    veilBox?.remove();
+    for (const h of document.querySelectorAll('h2[data-aika-split]')) {
+      h.querySelector('.aika-wl-split')?.remove();
+      delete h.dataset.aikaSplit;
+      delete h.dataset.aikaSplitText;
+      delete h.dataset.aikaSplitWait;
+      delete h.__aikaWatched;
+    }
+    delete window.__aikaStoreWishlist;
+  };
+  window.__aikaStoreWishlist = {destroy};
+  addEventListener('pagehide', destroy, {once: true, signal: abort.signal});
 
   const root = document.documentElement;
   // Reduced motion or "Performance: Low" (--aika-motion: 0): the still path
@@ -31,7 +51,7 @@
     || getComputedStyle(root).getPropertyValue("--aika-motion").trim() === "0";
   const cssVar = (name) => getComputedStyle(root).getPropertyValue(name).trim();
   const cssNum = (name, fallback) => { const v = parseFloat(cssVar(name)); return Number.isFinite(v) ? v : fallback; };
-  const ready = (fn) => document.readyState === "loading" ? document.addEventListener("DOMContentLoaded", fn, { once: true }) : fn();
+  const ready = (fn) => document.readyState === "loading" ? document.addEventListener("DOMContentLoaded", fn, { once: true, signal: abort.signal }) : fn();
 
   // ---------------------------------------------------------------- 1. veil
   const QUAD_VERTEX = `#version 300 es
@@ -345,10 +365,15 @@ void main() {
     };
 
     // The Performance setting (options/perf-*.css): --aika-gl-fps caps the frame
-    // rate (0 / unset — every frame), --aika-gl-still: 1 stops after the intro.
+    // rate (default 30; explicit 0 — every frame); --aika-gl-still: 1 stops after the intro.
     // In any mode nothing is drawn while the veil is off screen.
-    const fps = cssNum("--aika-gl-fps", 0), still = cssNum("--aika-gl-still", 0) > 0;
+    const fps = cssNum("--aika-gl-fps", 30), still = cssNum("--aika-gl-still", 0) > 0;
     let timer = 0, onScreen = true;
+    cleanup.push(() => {
+      cancelAnimationFrame(raf);
+      clearTimeout(timer);
+      gl.getExtension('WEBGL_lose_context')?.loseContext();
+    });
     const frame = (now) => {
       raf = 0;
       if (document.hidden || !onScreen) return;
@@ -378,7 +403,7 @@ void main() {
       } else raf = requestAnimationFrame(frame);
     };
     const wake = () => { if (!raf && !document.hidden && onScreen) raf = requestAnimationFrame(frame); };
-    new IntersectionObserver(([e]) => { onScreen = e.isIntersecting; if (onScreen) { last = 0; wake(); } }).observe(canvas);
+    track(new IntersectionObserver(([e]) => { onScreen = e.isIntersecting; if (onScreen) { last = 0; wake(); } })).observe(canvas);
 
     const resize = () => {
       const w = Math.max(1, box.clientWidth), h = Math.max(1, box.clientHeight);
@@ -395,23 +420,28 @@ void main() {
       render();
       wake();
     };
-    new ResizeObserver(resize).observe(box);
+    track(new ResizeObserver(resize)).observe(box);
     addEventListener("pointermove", (e) => {
-      const r = box.getBoundingClientRect();
-      pointer.x = e.clientX - r.left;
-      pointer.y = e.clientY - r.top;
-      pointer.inside = pointer.x >= 0 && pointer.y >= 0 && pointer.x <= r.width && pointer.y <= r.height;
+      // The veil is fixed at viewport inset: 0. Its dimensions are already
+      // tracked by resize(); raw pointer input must not force page layout.
+      pointer.x = e.clientX;
+      pointer.y = e.clientY;
+      pointer.inside = pointer.x >= 0 && pointer.y >= 0 && pointer.x <= view.width && pointer.y <= view.height;
       wake();
-    }, { passive: true });
-    root.addEventListener("pointerleave", () => { pointer.inside = false; wake(); });
-    document.addEventListener("visibilitychange", () => { last = 0; readTint(); wake(); });
+    }, { passive: true, signal: abort.signal });
+    root.addEventListener("pointerleave", () => { pointer.inside = false; wake(); }, {signal: abort.signal});
+    document.addEventListener("visibilitychange", () => { last = 0; readTint(); wake(); }, {signal: abort.signal});
     resize();
   };
 
   // ---------------------------------------------------------- 2. split title
   const findTitle = () => [...document.querySelectorAll("#StoreTemplate h2")].find((h) => h.textContent.includes(":") && h.getBoundingClientRect().top < 400);
   const splitTitle = (h) => {
-    const text = h.textContent.replace(/\s+/g, " ").trim();
+    // React can change the native title while our decorative copy remains.
+    // Never include that copy in the source, or every update doubles the text.
+    const text = [...h.childNodes]
+      .filter(n => !(n.nodeType === 1 && n.classList.contains("aika-wl-split")))
+      .map(n => n.textContent).join("").replace(/\s+/g, " ").trim();
     if (!text || h.dataset.aikaSplitText === text) return;
     h.dataset.aikaSplitText = text;
     h.querySelector(".aika-wl-split")?.remove();
@@ -438,7 +468,7 @@ void main() {
     if (document.hidden) {
       h.dataset.aikaSplitWait = "";
       const go = () => { if (!document.hidden) { document.removeEventListener("visibilitychange", go); delete h.dataset.aikaSplitWait; } };
-      document.addEventListener("visibilitychange", go);
+      document.addEventListener("visibilitychange", go, {signal: abort.signal});
     }
   };
   const title = () => {
@@ -448,11 +478,11 @@ void main() {
     if (reduced) { h.dataset.aikaSplitSkip = ""; return true; }
     splitTitle(h);
     // React rewriting the title wipes the copy (it sets textContent): rebuild
-    new MutationObserver(() => {
+    track(new MutationObserver(() => {
       const own = [...h.childNodes].filter((n) => !(n.nodeType === 1 && n.classList.contains("aika-wl-split")));
       const text = own.map((n) => n.textContent).join("").replace(/\s+/g, " ").trim();
       if (text !== h.dataset.aikaSplitText || !h.querySelector(".aika-wl-split")) { delete h.dataset.aikaSplitText; splitTitle(h); }
-    }).observe(h, { childList: true, characterData: true, subtree: true });
+    })).observe(h, { childList: true, characterData: true, subtree: true });
     return true;
   };
 
@@ -487,6 +517,7 @@ void main() {
     let titled = null, queued = 0;
     const check = () => {
       queued = 0;
+      if (stopped) return;
       const app = document.getElementById("StoreTemplate");
       if (!app) return;
       if (!veilBox && cssVar("--aika-effects") !== "0") veil();   // "Performance: Low": no veil
@@ -494,8 +525,12 @@ void main() {
       if (!titled?.isConnected) titled = title() ? findTitle() : null;
       currency(app);
     };
-    new MutationObserver(() => { if (!queued) queued = requestAnimationFrame(check); })
+    cleanup.push(() => cancelAnimationFrame(queued));
+    track(new MutationObserver(() => { if (!queued) queued = requestAnimationFrame(check); }))
       .observe(document.documentElement, { childList: true, subtree: true, characterData: true });
     check();
   });
-})();
+}
+
+// Millennium also loads this entry directly on a full wishlist page load.
+if (/^\/wishlist(?:\/|$)/.test(location.pathname)) startWishlist();

@@ -95,7 +95,9 @@
     for (const el of document.querySelectorAll(".TopBar, .TopBar .RootMenuBar, .TopBar .TitleBarControls, .TopBar .WindowControls")) {
       if (watched.has(el)) continue;
       watched.add(el);
-      ro.observe(el);
+      // Plugin buttons can reserve room through padding without changing the
+      // content box. Include that room in the navigation counterweight.
+      ro.observe(el, {box: "border-box"});
     }
     queue();
   };

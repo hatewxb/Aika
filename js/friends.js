@@ -12,6 +12,8 @@
 // for games without one — set as --aika-fl-art on the friend row / the
 // group. A non-Steam game has no appid: no art, the card keeps its plain
 // background.
+import "./live-settings.js";
+
 (() => {
   "use strict";
   if (window.__aikaFriends) return;
@@ -67,9 +69,11 @@
 
   let unreadSeen = 0;
   const paint = (root) => {
+    const banners = getComputedStyle(document.documentElement).getPropertyValue("--aika-fl-game-banners").trim() !== "0";
+    document.documentElement.classList.toggle("aika-fl-banners-off", !banners);
     // a friend in game: the icon sits in the row
     for (const row of root.querySelectorAll(".friend.ingame")) {
-      const id = appidOf(row.querySelector(".FriendInGameIcon img.gameIcon"));
+      const id = banners && appidOf(row.querySelector(".FriendInGameIcon img.gameIcon"));
       if (id) {
         const art = artOf(id);
         if (row.dataset.aikaArt !== id || row.style.getPropertyValue("--aika-fl-art") !== art) {
@@ -134,7 +138,7 @@
         } else cur = null;
       }
       // one friend alone (no strangers) is no lobby — a plain row
-      const real = lobbies.filter((l) => l.faces.length > 1 || l.extra);
+      const real = banners ? lobbies.filter((l) => l.faces.length > 1 || l.extra) : [];
       const want = new Map();   // face → [row, mode, n, end]
       real.forEach((l, i) => {
         const first = l.faces[0];
@@ -210,8 +214,13 @@
     if (list) {
       const groups = [...list.querySelectorAll(":scope > .friendGroup.gameGroup:not(.OtherGamesGroup)")];
       const games = groups.length + list.querySelectorAll(":scope > .friendGroup.OtherGamesGroup .friend.ingame").length;
-      document.documentElement.classList.toggle("aika-fl-games-many", games > 1);
+      document.documentElement.classList.toggle("aika-fl-games-many", banners && games > 1);
       for (const g of groups) {
+        if (!banners) {
+          g.querySelectorAll(".aika-tile-faces").forEach(el => el.remove());
+          delete g.dataset.aikaOpen;
+          continue;
+        }
         const head = g.querySelector(":scope > .groupName");
         if (!head) continue;
         const srcs = [...g.querySelectorAll(".friend img.avatar")].map((i) => i.getAttribute("src") || "");
@@ -239,7 +248,7 @@
     }
 
     // a game group (two friends or more in one game): the icon in its header
-    for (const group of root.querySelectorAll(".friendGroup.gameGroup:not(.OtherGamesGroup)")) {
+    for (const group of banners ? root.querySelectorAll(".friendGroup.gameGroup:not(.OtherGamesGroup)") : []) {
       const id = appidOf(group.querySelector(".groupName img"));
       if (id) {
         const art = artOf(id);
@@ -347,6 +356,8 @@
     document.addEventListener("input", (e) => { if (e.target.matches?.("input.friendSearchInput")) requestAnimationFrame(search); }, true);
     let state = "";
     const sync = () => {
+      const bannersOff = getComputedStyle(document.documentElement).getPropertyValue("--aika-fl-game-banners").trim() === "0";
+      if (document.documentElement.classList.contains("aika-fl-banners-off") !== bannersOff) queue();
       density();
       search();
       const want = read();
@@ -381,6 +392,9 @@
 
   let frame = 0;
   const queue = () => { if (!frame) frame = requestAnimationFrame(() => { frame = 0; paint(document); }); };
+  addEventListener("aika-visual-setting", event => {
+    if (event.detail?.key === "Friends game banners") queue();
+  });
 
   const start = () => {
     if (!document.querySelector(".FriendsListContent")) return false;

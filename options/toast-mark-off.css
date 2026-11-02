@@ -1,0 +1,4 @@
+/* Hide only the wordmark; the refracted scene, abstract lights and rim stay. */
+html:root {
+    --aika-toast-mark-display: none;
+}

@@ -94,9 +94,16 @@ html .DesktopToastContainer .DesktopToastPopup::before {
     display: none;
 }
 
-html .DesktopToastContainer .DesktopToastPopup:not(:has(> .aika-toast-scene))::after,
 html .DesktopToastContainer .aika-toast-mark {
-    content: "Aika";
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+}
+
+html .DesktopToastContainer .DesktopToastPopup:not(:has(> .aika-toast-scene))::after,
+html .DesktopToastContainer .aika-toast-mark::after {
+    content: var(--aika-toast-mark-text, "Aika");
+    display: var(--aika-toast-mark-display, block);
     position: absolute;
     right: var(--aika-toast-mark-right);
     bottom: var(--aika-toast-mark-bottom);

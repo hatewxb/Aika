@@ -113,7 +113,7 @@ html body #StoreTemplate h2[data-aika-split] {
 html body #StoreTemplate h2 > .aika-wl-split {
     position: absolute;
     inset: 0;
-    white-space: nowrap;
+    white-space: normal;
     pointer-events: none;
 }
 

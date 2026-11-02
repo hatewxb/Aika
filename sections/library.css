@@ -1286,3 +1286,74 @@ html .Container .AdvancedSearchContainer.AdvancedSearchContainer:not(.Extended) 
 html .AdvancedSearchPane .AccessibilityOptionsButton svg :is(path, polygon) {
     fill: currentColor;
 }
+
+/* Explicit live comparison panel (library-scroll.js.showPreview), not shown
+   during ordinary use. Overlay only; no changes to virtual-list dimensions. */
+html .LeftListSizableContainer.aika-scroll-preview-open { position: relative; }
+html .aika-scroll-preview {
+    position: absolute;
+    z-index: 20;
+    left: 10px;
+    right: 10px;
+    bottom: 72px;
+    padding: 12px;
+    background: var(--aika-bg-elevated);
+    border: 1px solid var(--aika-border-strong);
+    border-radius: var(--aika-radius-lg);
+    box-shadow: var(--aika-shadow-menu);
+    color: var(--aika-fg);
+    font: 12px var(--aika-font-ui);
+}
+html .aika-scroll-preview-title {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 8px;
+}
+html .aika-scroll-preview button {
+    cursor: pointer;
+    border: 1px solid var(--aika-border);
+    border-radius: var(--aika-radius-md);
+    padding: 7px 5px;
+    background: var(--aika-surface);
+    color: var(--aika-fg-muted);
+    font: inherit;
+}
+html .aika-scroll-preview-title button { border: 0; padding: 0 5px; font-size: 18px; }
+html .aika-scroll-preview-modes { display: flex; gap: 5px; }
+html .aika-scroll-preview-modes button { flex: 1; min-width: 0; }
+html .aika-scroll-preview button:hover { background: var(--aika-surface-hover); color: var(--aika-fg); }
+html .aika-scroll-preview button[aria-pressed="true"] {
+    background: var(--aika-accent-soft);
+    border-color: var(--aika-accent);
+    color: var(--aika-accent-bright);
+}
+
+/* Cinematic shutter samples. This non-interactive layer holds SVG filter
+   definitions, not copies of the list. A filter on the clipped scroll viewport
+   combines the sharp source with three faint directional trails. */
+html .aika-scroll-trails {
+    position: fixed;
+    z-index: 15;
+    pointer-events: none;
+    opacity: 0;
+}
+html .aika-scroll-trails[hidden] { display: none; }
+
+/* --------------------------------------------------------------------------
+   Post-Game Summary (the game page's "Spotlights" box). Steam: .BoxCarousel
+   has a 3 px radius and a dark radial gradient, so the box read as a square
+   black plate. Classes captured via CDP 2026-10-23:
+     .GamePlaySummaryContainer > .PageableContainer … > .BoxCarousel
+   -------------------------------------------------------------------------- */
+html .GamePlaySummaryContainer .BoxCarousel {
+    border-radius: var(--aika-radius-lg);
+    background: var(--aika-bg-elevated);   /* opaque — the blurred page background no longer shows through */
+    box-shadow: none;
+    overflow: hidden;
+}
+
+/* …and Steam's inset black vignette (.BoxCarousel::after, 12 px) — the dark edge */
+html .GamePlaySummaryContainer .BoxCarousel::after {
+    box-shadow: none;
+}

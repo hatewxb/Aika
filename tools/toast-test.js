@@ -17,12 +17,14 @@ const base = "https://millennium.host/v1/themes/Aika/";
 
 const inject = `(async () => {
   const css = ["toast.css", "root-colors.css", "colors.css", "tokens.css", "base.css",
-    "components/toast.css", "components/status.css", "selectors.css", "options/toast-mark-brush.css"];
+    "components/toast.css", "components/status.css", "selectors.css", "options/toast-mark-brush.css",
+    "js/toast.js", "js/toast-glass.js"];
   await Promise.all(css.map(f => fetch("${base}" + f, { cache: "reload" })));
   const old = document.querySelector('link[href*="themes/Aika/toast.css"]');
   const l = document.createElement("link"); l.rel = "stylesheet"; l.href = "${base}toast.css?v=" + Date.now();
   await new Promise(r => { l.onload = r; l.onerror = r; old ? old.after(l) : document.head.append(l); });
   if (old) old.remove();
+  document.querySelectorAll(".aika-toast-mark").forEach(mark => { mark.textContent = ""; });
   if (!window.Hyalite) await import("${base}js/toast.js?v=" + Date.now());
 })()`;
 
@@ -31,7 +33,7 @@ const report = `(async () => {
   await document.fonts.ready;
   const q = s => document.querySelector(s), cs = (e, p) => e ? getComputedStyle(e, p) : {};
   const pop = q(".DesktopToastPopup"), tpl = q(".DesktopToastTemplate"), scene = q(".aika-toast-scene");
-  const mark = q(".aika-toast-mark") ? cs(q(".aika-toast-mark")) : cs(pop, "::after");
+  const mark = q(".aika-toast-mark") ? cs(q(".aika-toast-mark"), "::after") : cs(pop, "::after");
   return {
     links: [...document.querySelectorAll("link[rel=stylesheet], script[src]")].map(e => (e.href || e.src).split("/").slice(-2).join("/")),
     hyalite: !!window.Hyalite,
@@ -40,6 +42,10 @@ const report = `(async () => {
     svgFilters: document.querySelectorAll("svg filter").length,
     sceneBg: cs(scene || pop).backgroundImage?.slice(0, 80) + " | " + cs(scene || pop).backgroundColor,
     mark: mark.fontFamily + " " + mark.fontSize,
+    markContent: mark.content,
+    markDisplay: mark.display,
+    katakanaFontLoaded: [...document.fonts].some(f => f.family.includes("Yuji Syuku") && f.status === "loaded"),
+    katakanaFaces: [...document.fonts].filter(f => f.family.includes("Yuji Syuku")).map(f => ({family: f.family, status: f.status})),
     markFontLoaded: document.fonts.check("62px UnifrakturMaguntia") + " / " + document.fonts.check("46px Shojumaru"),
     text: tpl ? tpl.innerText.replace(/\\n/g, " | ") : "-"
   };

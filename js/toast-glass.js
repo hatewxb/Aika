@@ -28,7 +28,8 @@ function addScene(popup) {
     scene.setAttribute("aria-hidden", "true");
     const mark = document.createElement("span");
     mark.className = "aika-toast-mark";
-    mark.textContent = "Aika";
+    // CSS generates the text so presets can switch Latin/katakana or hide
+    // only the wordmark while keeping the glass scene and abstract lights.
     scene.append(mark);
     popup.append(scene);
 }

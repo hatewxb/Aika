@@ -1,0 +1,16 @@
+/* Same katakana and OFL font subset as the sharp brush header wordmark. */
+@font-face {
+    font-family: "Yuji Syuku Aika";
+    src: url("../assets/fonts/YujiSyuku-Aika.woff2") format("woff2");
+    font-weight: 400;
+    font-style: normal;
+    font-display: block;
+}
+
+html:root {
+    --aika-toast-mark-text: "アイカ";
+    --aika-toast-mark-font: "Yuji Syuku Aika", var(--aika-font-display);
+    --aika-toast-mark-size: 44px;
+    --aika-toast-mark-bottom: 5px;
+    --aika-toast-mark-tilt: -3deg;
+}

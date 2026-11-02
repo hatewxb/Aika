@@ -1,3 +1,5 @@
+import './store-router.js';
+
 // url-capsule.js — the page address over store and community pages, in both
 // header modes (author 2026-10-16). Attached by a Patch to store and community
 // pages (skin.json); the look is components/url-capsule.css.

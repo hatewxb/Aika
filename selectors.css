@@ -1,3 +1,6 @@
+/* Store module selectors refreshed from live Steam DOM, 2026-11-02.
+   Current price, calendar, specials and store-navigation hashes: see
+   diagnostics/store-class-migration.json for the verified role mapping. */
 /* ==========================================================================
    selectors.css — UNSTABLE Steam selectors in one place.
 
@@ -682,58 +685,58 @@ html body.v6 ._2_lmTz0tA4NOSle5WaO1PZ ._2FxbHJzYoH024ko7zqcJOf {
 
 /* [Store] The "Browse / Recommendations / Categories / Ways to Play /
    Special Sections" mega menu (under [data-featuretarget="store-menu-v7"], React):
-     ._16jZ3HEbtaJTl80pQINN2Y — the menu strip with the expanded part (text #dcdedf);
-     ._3gaaE-cRfFWJdZcC8XMi0x — the strip under the open button (#1a9fff);
-     .h2B3SGR_w4RWdrnsRZEcD ._19o1GB7ysfrWKLYpqZ6aXu — the page darkening under the menu;
-     ._2HcSSRyk_Jzd3Iq7xSC6En — the column of "main" links (a blue-cyan gradient),
-       ._4bi1iROLdQ66C6or_iLnT — its item (hover — a light-blue gradient via
-       --hi-1…3), .msDiiFvZmOWUVrazuOR7y — a divider, ._1O0H6NQY1-2DaXv-n_JyEm —
+     .XLbP8xOkCYw- — the menu strip with the expanded part (text #dcdedf);
+     .vph-SVDaiKo- — the strip under the open button (#1a9fff);
+     .uKlZfaGB3Rs- .hjG2apu1gQc- — the page darkening under the menu;
+     .dUvJZktS6bk- — the column of "main" links (a blue-cyan gradient),
+       .U67bdWLTNEo- — its item (hover — a light-blue gradient via
+       --hi-1…3), .msDiiFvZmOWUVrazuOR7y — a divider, .dHREWQDYPkI- —
        the caption under an item;
-     ._3wkp8GaMeHBsrImd61r1X- — column headings ("Top sellers…");
-     .-bDCBiZsIWB-_6IzGxbhz ._15eaL848WovXjJ0POHaD9D — large tile buttons
-       (pink / teal / blue gradients), ._3W0fAmrZB7mfUJZ8QRpquy — a white
+     .MX-rRQsC3sw- — column headings ("Top sellers…");
+     .V4SIMq1vkds- .a-U-GT11cxQ- — large tile buttons
+       (pink / teal / blue gradients), .Eo26qLDIMO0- — a white
        plate inside, ._15LI4ya5Dm0JI0f0GAMvaW — a small caption.
    Verified: 2026-10-04, store (hovering "Browse"), Steam rules
    (0,1,0)…(0,3,0). How to find: hover a store menu item. */
-html body.v6 [data-featuretarget="store-menu-v7"] ._16jZ3HEbtaJTl80pQINN2Y {
+html body.v6 [data-featuretarget="store-menu-v7"] .XLbP8xOkCYw- {
     color: var(--aika-fg);
 }
 
-html body.v6 [data-featuretarget="store-menu-v7"] ._16jZ3HEbtaJTl80pQINN2Y a:hover {
+html body.v6 [data-featuretarget="store-menu-v7"] .XLbP8xOkCYw- a:hover {
     color: var(--aika-fg);
 }
 
 /* Steam has "button._175B… .vj9h… ._1-hP… ._3gaaE…" (0,4,1) */
-html body.v6 [data-featuretarget="store-menu-v7"] button ._1-hPfsxjynE3demuqGmqf0 ._3gaaE-cRfFWJdZcC8XMi0x {
+html body.v6 [data-featuretarget="store-menu-v7"] button .y9M1Pq24Trk- .vph-SVDaiKo- {
     background: var(--aika-accent);
 }
 
-/* The price in search suggestions ("Frequently searched"): .hWF8eniTajf4-mfZvbK3F —
-   ._2lQxRlo1DQ1PN08TYTil2L the discount (green 50 %), ._2faI25vznC0tWNttks8OaJ —
+/* The price in search suggestions ("Frequently searched"): .dkW-v-f4lTw- —
+   .pnC74wQYjms- the discount (green 50 %), .cQ79XIQ7w-Y- —
    the old/new price. Like .discount_block in store.css: Aika ok, mono. */
-html body.v6 [data-featuretarget="store-menu-v7"] .hWF8eniTajf4-mfZvbK3F {
+html body.v6 [data-featuretarget="store-menu-v7"] .dkW-v-f4lTw- {
     font-family: var(--aika-font-mono);
 }
 
-html body.v6 [data-featuretarget="store-menu-v7"] .hWF8eniTajf4-mfZvbK3F ._2lQxRlo1DQ1PN08TYTil2L {
+html body.v6 [data-featuretarget="store-menu-v7"] .dkW-v-f4lTw- .pnC74wQYjms- {
     border-radius: var(--aika-radius-xs);
     background: var(--aika-ok);
     color: var(--aika-bg-deep);
 }
 
-/* Inside: % (._3cdhtxJwOkHYnEljY7P-vL), the old (._1xgg-R84IHS6h5_x6ZycXi)
-   and final (._2L23Sk2CNSFCplu_7mMmQx) prices — Steam has its own colors,
+/* Inside: % (.nw-DtQ670Sc-), the old (.Cnw9IXSgr7I-)
+   and final (.JBijjejcvmo-) prices — Steam has its own colors,
    they were faint */
-html body.v6 [data-featuretarget="store-menu-v7"] .hWF8eniTajf4-mfZvbK3F ._2lQxRlo1DQ1PN08TYTil2L ._3cdhtxJwOkHYnEljY7P-vL {
+html body.v6 [data-featuretarget="store-menu-v7"] .dkW-v-f4lTw- .pnC74wQYjms- .nw-DtQ670Sc- {
     color: var(--aika-bg-deep);
     font-weight: var(--aika-weight-semibold);
 }
 
-html body.v6 [data-featuretarget="store-menu-v7"] .hWF8eniTajf4-mfZvbK3F ._2faI25vznC0tWNttks8OaJ ._1xgg-R84IHS6h5_x6ZycXi {
+html body.v6 [data-featuretarget="store-menu-v7"] .dkW-v-f4lTw- .cQ79XIQ7w-Y- .Cnw9IXSgr7I- {
     color: var(--aika-fg-muted);
 }
 
-html body.v6 [data-featuretarget="store-menu-v7"] .hWF8eniTajf4-mfZvbK3F ._2faI25vznC0tWNttks8OaJ ._2L23Sk2CNSFCplu_7mMmQx {
+html body.v6 [data-featuretarget="store-menu-v7"] .dkW-v-f4lTw- .cQ79XIQ7w-Y- .JBijjejcvmo- {
     color: var(--aika-fg);
     font-weight: var(--aika-weight-semibold);
 }
@@ -751,19 +754,19 @@ html body.v6 [data-featuretarget="store-menu-v7"] .pL9V4hzvI0RysTdCufdAS .NOctYA
     text-shadow: var(--aika-genre-label-shadow);
 }
 
-html body.v6 .h2B3SGR_w4RWdrnsRZEcD ._19o1GB7ysfrWKLYpqZ6aXu,
-html body.v6 .h2B3SGR_w4RWdrnsRZEcD ._19o1GB7ysfrWKLYpqZ6aXu._2IyR9WyPwYb15ILBjPvLR9 {
+html body.v6 .uKlZfaGB3Rs- .hjG2apu1gQc-,
+html body.v6 .uKlZfaGB3Rs- .hjG2apu1gQc-.xf0Bphr6uMo- {
     background: var(--aika-scrim);
 }
 
-html body.v6 [data-featuretarget="store-menu-v7"] ._2HcSSRyk_Jzd3Iq7xSC6En {
+html body.v6 [data-featuretarget="store-menu-v7"] .dUvJZktS6bk- {
     overflow: hidden;
     border-radius: var(--aika-radius-lg);
     background: var(--aika-card-accent-bg);
     box-shadow: inset 0 0 0 var(--aika-hairline) var(--aika-border-accent);
 }
 
-html body.v6 [data-featuretarget="store-menu-v7"] ._4bi1iROLdQ66C6or_iLnT {
+html body.v6 [data-featuretarget="store-menu-v7"] .U67bdWLTNEo- {
     --hi-1: var(--aika-surface-active);
     --hi-2: var(--aika-surface);
     --hi-3: var(--aika-transparent);
@@ -774,11 +777,11 @@ html body.v6 [data-featuretarget="store-menu-v7"] .msDiiFvZmOWUVrazuOR7y {
     border-bottom-color: var(--aika-border);
 }
 
-html body.v6 [data-featuretarget="store-menu-v7"] ._1O0H6NQY1-2DaXv-n_JyEm {
+html body.v6 [data-featuretarget="store-menu-v7"] .dHREWQDYPkI- {
     color: var(--aika-fg-subtle);
 }
 
-html body.v6 [data-featuretarget="store-menu-v7"] ._3wkp8GaMeHBsrImd61r1X- {
+html body.v6 [data-featuretarget="store-menu-v7"] .MX-rRQsC3sw- {
     color: var(--aika-fg-subtle);
     font-size: var(--aika-text-label);
     letter-spacing: var(--aika-tracking-label);
@@ -787,9 +790,9 @@ html body.v6 [data-featuretarget="store-menu-v7"] ._3wkp8GaMeHBsrImd61r1X- {
 
 /* Large tiles: in Steam each has its own fill via nth-child — we make
    them Aika accent cards, all the same */
-html body.v6 [data-featuretarget="store-menu-v7"] .-bDCBiZsIWB-_6IzGxbhz ._15eaL848WovXjJ0POHaD9D,
-html body.v6 [data-featuretarget="store-menu-v7"] .-bDCBiZsIWB-_6IzGxbhz.JWPtoi9esADBpUUkODq1z ._15eaL848WovXjJ0POHaD9D:nth-child(n),
-html body.v6 [data-featuretarget="store-menu-v7"] .-bDCBiZsIWB-_6IzGxbhz._2SVHFh60yRjQbYRg6t2mcK ._15eaL848WovXjJ0POHaD9D {
+html body.v6 [data-featuretarget="store-menu-v7"] .V4SIMq1vkds- .a-U-GT11cxQ-,
+html body.v6 [data-featuretarget="store-menu-v7"] .V4SIMq1vkds-.JWPtoi9esADBpUUkODq1z .a-U-GT11cxQ-:nth-child(n),
+html body.v6 [data-featuretarget="store-menu-v7"] .V4SIMq1vkds-._2SVHFh60yRjQbYRg6t2mcK .a-U-GT11cxQ- {
     border-radius: var(--aika-radius-lg);
     background: var(--aika-card-accent-bg);
     color: var(--aika-fg);
@@ -799,9 +802,9 @@ html body.v6 [data-featuretarget="store-menu-v7"] .-bDCBiZsIWB-_6IzGxbhz._2SVHFh
     transition: box-shadow var(--aika-dur-base) var(--aika-ease);
 }
 
-html body.v6 [data-featuretarget="store-menu-v7"] .-bDCBiZsIWB-_6IzGxbhz ._15eaL848WovXjJ0POHaD9D:hover,
-html body.v6 [data-featuretarget="store-menu-v7"] .-bDCBiZsIWB-_6IzGxbhz.JWPtoi9esADBpUUkODq1z ._15eaL848WovXjJ0POHaD9D:nth-child(n):hover,
-html body.v6 [data-featuretarget="store-menu-v7"] .-bDCBiZsIWB-_6IzGxbhz._2SVHFh60yRjQbYRg6t2mcK ._15eaL848WovXjJ0POHaD9D:hover {
+html body.v6 [data-featuretarget="store-menu-v7"] .V4SIMq1vkds- .a-U-GT11cxQ-:hover,
+html body.v6 [data-featuretarget="store-menu-v7"] .V4SIMq1vkds-.JWPtoi9esADBpUUkODq1z .a-U-GT11cxQ-:nth-child(n):hover,
+html body.v6 [data-featuretarget="store-menu-v7"] .V4SIMq1vkds-._2SVHFh60yRjQbYRg6t2mcK .a-U-GT11cxQ-:hover {
     background: var(--aika-accent-soft);
     color: var(--aika-fg);
     box-shadow:
@@ -809,48 +812,48 @@ html body.v6 [data-featuretarget="store-menu-v7"] .-bDCBiZsIWB-_6IzGxbhz._2SVHFh
         var(--aika-shadow-card-hover);
 }
 
-html body.v6 [data-featuretarget="store-menu-v7"] .-bDCBiZsIWB-_6IzGxbhz ._15eaL848WovXjJ0POHaD9D ._3W0fAmrZB7mfUJZ8QRpquy {
+html body.v6 [data-featuretarget="store-menu-v7"] .V4SIMq1vkds- .a-U-GT11cxQ- .Eo26qLDIMO0- {
     border-radius: var(--aika-radius-md);
     background: var(--aika-accent-fill);
     color: var(--aika-on-accent);
     box-shadow: var(--aika-shadow-cta);
 }
 
-html body.v6 [data-featuretarget="store-menu-v7"] .-bDCBiZsIWB-_6IzGxbhz ._15eaL848WovXjJ0POHaD9D :is(span, ._3JmGSFfarJIfLqzni43JFQ) {
+html body.v6 [data-featuretarget="store-menu-v7"] .V4SIMq1vkds- .a-U-GT11cxQ- :is(span, ._3JmGSFfarJIfLqzni43JFQ) {
     color: inherit;
 }
 
-html body.v6 [data-featuretarget="store-menu-v7"] .-bDCBiZsIWB-_6IzGxbhz ._15eaL848WovXjJ0POHaD9D ._15LI4ya5Dm0JI0f0GAMvaW {
+html body.v6 [data-featuretarget="store-menu-v7"] .V4SIMq1vkds- .a-U-GT11cxQ- ._15LI4ya5Dm0JI0f0GAMvaW {
     color: var(--aika-fg-subtle);
 }
 
 /* [Store] The menu capsule, open (sections/store.css makes the strip
    a floating capsule; the open part unfolds inside it):
-     .oeCR-_-EhS8CaxEaFAqDZ > ._2RyPu-qJzs6novxZiGSDf- — the open part
+     .WHV9yn7TELM- > .RZQWX-64UNU- — the open part
        (Steam stretches it to the window width with its own backdrop);
-     .h2B3SGR_w4RWdrnsRZEcD ._19o1GB7ysfrWKLYpqZ6aXu — the page darkening: Steam puts
+     .uKlZfaGB3Rs- .hjG2apu1gQc- — the page darkening: Steam puts
        it in the flow under the strip, so beside the narrower capsule the page
        stayed bright — fixed over the whole window, under the capsule (z 1).
    The menus besides "Browse" (author's request 2026-10-08, screenshot 18):
-     "Recommendations": ._3Z1skIYVoqLbYiP2wy46Ce — a game row (a gray-blue
-       gradient, 2 px), ._2qsM52VkK9BR1Vi0HBOrtY — its capsule cell;
-       ._2-rKQdmSx7Khacm27tXK0K — the "Your calendar" card (blue-gray),
-       ._2ZuAr_P2w3N45sg9qxA2Vc — "NEW" (green #51da2e),
-       ._1PSb462Tg4S8M046QIk4PM — "Open calendar";
+     "Recommendations": .QHiQcR8jG10- — a game row (a gray-blue
+       gradient, 2 px), .Jhq3hD97Ms8- — its capsule cell;
+       .Yb-8AFgzlLQ- — the "Your calendar" card (blue-gray),
+       .D99kHv4fRj8- — "NEW" (green #51da2e),
+       .m07F-6-CvWk- — "Open calendar";
      "Categories": ._36Qgx6aYS9HfYORRauakKF — a favorite genre tile (a tinted
        gradient over art, square), ._3HqvlP8tdG4sTsVC0ANwfg — its label
        (a white plate; with our light text it was unreadable),
        ._2oz62CVNbwTn7KrUUwRdRw — a tag pill (light-blue on blue 20 %);
-     "Ways to Play", "Special Sections": ._1vPyDoJDpPKIAmF1YMCtY0 — a large
+     "Ways to Play", "Special Sections": .fHaybiqsJ6M- — a large
        tile (#44a5dd → #4275d3), Steam rule (0,3,0).
    Verified: 2026-10-08, store home (opening each menu). */
-html body.v6 [data-featuretarget="store-menu-v7"] :is(.oeCR-_-EhS8CaxEaFAqDZ, ._2RyPu-qJzs6novxZiGSDf-) {
+html body.v6 [data-featuretarget="store-menu-v7"] :is(.WHV9yn7TELM-, .RZQWX-64UNU-) {
     width: auto;
     background: var(--aika-transparent);
     box-shadow: none;
 }
 
-html body.v6 .h2B3SGR_w4RWdrnsRZEcD ._19o1GB7ysfrWKLYpqZ6aXu {
+html body.v6 .uKlZfaGB3Rs- .hjG2apu1gQc- {
     position: fixed;
     inset: 0;
     height: auto;
@@ -858,27 +861,27 @@ html body.v6 .h2B3SGR_w4RWdrnsRZEcD ._19o1GB7ysfrWKLYpqZ6aXu {
 }
 
 /* [Store] The capsule unfold (keyframes in sections/store.css): the capsule
-   ._16jZ3HEbtaJTl80pQINN2Y gets the open part .oeCR-_-EhS8CaxEaFAqDZ as a
+   .XLbP8xOkCYw- gets the open part .WHV9yn7TELM- as a
    direct child only while a menu is open (verified 2026-10-14). It used to be
    :has(> [role=navigation] button[aria-expanded=true]) on any element under
    the menu — a deep :has() argument with no element in front, and it made
    every style recalc of every store page expensive (~270 ms of main thread a
    second while an animation ran; tools/css-rules-bisect.js). */
 @media (prefers-reduced-motion: no-preference) {
-    html body.v6 [data-featuretarget="store-menu-v7"] ._16jZ3HEbtaJTl80pQINN2Y:has(> .oeCR-_-EhS8CaxEaFAqDZ) {
+    html body.v6 [data-featuretarget="store-menu-v7"] .XLbP8xOkCYw-:has(> .WHV9yn7TELM-) {
         animation: aika-storebar-unfold var(--aika-cardnav-dur) var(--aika-ease-fold);
     }
 }
 
 /* [Store] Card Nav cards in the open menu (the capsule unfold — sections/store.css).
    One layout for all five menus (verified 2026-10-14, opening each):
-     ._2ihG7DC0YPrw01ComUbKnY — the menu body, remounted on every menu switch;
-       ._3wkp8GaMeHBsrImd61r1X- — the heading ("Categories", "Ways to Play"…);
-       ._2dL6ap-BkfhXkVntihe2KS — the row: .wX6LdxJgqoPyuPTGpQRC0 (the main
+     .nke7JHPU65k- — the menu body, remounted on every menu switch;
+       .MX-rRQsC3sw- — the heading ("Categories", "Ways to Play"…);
+       .MXphJgcboPs- — the row: .ih-BHkg3XrQ- (the main
          block: links + tiles, game rows, large tiles) and the link columns
-         ._39xRzOagrnlvU_DbiDnzVW (._3ndoxZabNTcJ8NN50nQ4BM — a column title,
-         a._3xfL7u7e8rFk4XeOpKN0oC — a link, hr._1tOe1a5sCJUgvbHanH8BmV);
-       "Categories" has no row: .wX6LdxJgqoPyuPTGpQRC0 right in the body with
+         .rFhmVK3-faw- (.MX-rRQsC3sw- — a column title,
+         a.PcE8-n5Eb6Y- — a link, hr.dt7BOP7ytNI-);
+       "Categories" has no row: .ih-BHkg3XrQ- right in the body with
          three rows inside (genre tiles, tags, more genres).
    The blocks rise one after another, like the reactbits cards; the link
    columns become cards (a raised plate) and every link gets the ↗ arrow
@@ -892,20 +895,20 @@ html body.v6 .h2B3SGR_w4RWdrnsRZEcD ._19o1GB7ysfrWKLYpqZ6aXu {
 
 @media (prefers-reduced-motion: no-preference) {
     html body.v6 [data-featuretarget="store-menu-v7"] :is(
-        ._2ihG7DC0YPrw01ComUbKnY > ._3wkp8GaMeHBsrImd61r1X-,
-        ._2dL6ap-BkfhXkVntihe2KS > *,
-        ._2ihG7DC0YPrw01ComUbKnY > .wX6LdxJgqoPyuPTGpQRC0 > *
+        .nke7JHPU65k- > .MX-rRQsC3sw-,
+        .MXphJgcboPs- > *,
+        .nke7JHPU65k- > .ih-BHkg3XrQ- > *
     ) {
         animation: aika-cardnav-card-in var(--aika-cardnav-card-dur) var(--aika-ease-fold) backwards;
         animation-delay: calc(var(--aika-cardnav-card-delay) + var(--aika-cardnav-i, 0) * var(--aika-cardnav-card-stagger));
     }
 }
 
-html body.v6 [data-featuretarget="store-menu-v7"] :is(._2dL6ap-BkfhXkVntihe2KS, ._2ihG7DC0YPrw01ComUbKnY > .wX6LdxJgqoPyuPTGpQRC0) > :nth-child(2) { --aika-cardnav-i: 1; }
-html body.v6 [data-featuretarget="store-menu-v7"] :is(._2dL6ap-BkfhXkVntihe2KS, ._2ihG7DC0YPrw01ComUbKnY > .wX6LdxJgqoPyuPTGpQRC0) > :nth-child(3) { --aika-cardnav-i: 2; }
-html body.v6 [data-featuretarget="store-menu-v7"] :is(._2dL6ap-BkfhXkVntihe2KS, ._2ihG7DC0YPrw01ComUbKnY > .wX6LdxJgqoPyuPTGpQRC0) > :nth-child(n + 4) { --aika-cardnav-i: 3; }
+html body.v6 [data-featuretarget="store-menu-v7"] :is(.MXphJgcboPs-, .nke7JHPU65k- > .ih-BHkg3XrQ-) > :nth-child(2) { --aika-cardnav-i: 1; }
+html body.v6 [data-featuretarget="store-menu-v7"] :is(.MXphJgcboPs-, .nke7JHPU65k- > .ih-BHkg3XrQ-) > :nth-child(3) { --aika-cardnav-i: 2; }
+html body.v6 [data-featuretarget="store-menu-v7"] :is(.MXphJgcboPs-, .nke7JHPU65k- > .ih-BHkg3XrQ-) > :nth-child(n + 4) { --aika-cardnav-i: 3; }
 
-html body.v6 [data-featuretarget="store-menu-v7"] ._39xRzOagrnlvU_DbiDnzVW {
+html body.v6 [data-featuretarget="store-menu-v7"] .rFhmVK3-faw- {
     box-sizing: border-box;
     padding: var(--aika-space-3) var(--aika-space-4);
     border-radius: var(--aika-radius-lg);
@@ -914,21 +917,21 @@ html body.v6 [data-featuretarget="store-menu-v7"] ._39xRzOagrnlvU_DbiDnzVW {
     transition: box-shadow var(--aika-dur-base) var(--aika-ease);
 }
 
-html body.v6 [data-featuretarget="store-menu-v7"] ._39xRzOagrnlvU_DbiDnzVW:hover {
+html body.v6 [data-featuretarget="store-menu-v7"] .rFhmVK3-faw-:hover {
     box-shadow: inset 0 0 0 var(--aika-hairline) var(--aika-border-accent);
 }
 
-html body.v6 [data-featuretarget="store-menu-v7"] ._39xRzOagrnlvU_DbiDnzVW ._3ndoxZabNTcJ8NN50nQ4BM {
+html body.v6 [data-featuretarget="store-menu-v7"] .rFhmVK3-faw- .MX-rRQsC3sw- {
     color: var(--aika-fg-subtle);
 }
 
-html body.v6 [data-featuretarget="store-menu-v7"] ._39xRzOagrnlvU_DbiDnzVW hr._1tOe1a5sCJUgvbHanH8BmV {
+html body.v6 [data-featuretarget="store-menu-v7"] .rFhmVK3-faw- hr.dt7BOP7ytNI- {
     border: none;
     height: var(--aika-hairline);
     background: var(--aika-border);
 }
 
-html body.v6 [data-featuretarget="store-menu-v7"] a._3xfL7u7e8rFk4XeOpKN0oC {
+html body.v6 [data-featuretarget="store-menu-v7"] a.PcE8-n5Eb6Y- {
     display: flex;
     align-items: center;
     gap: var(--aika-space-2);
@@ -936,7 +939,7 @@ html body.v6 [data-featuretarget="store-menu-v7"] a._3xfL7u7e8rFk4XeOpKN0oC {
     transition: color var(--aika-dur-fast) var(--aika-ease-hover);
 }
 
-html body.v6 [data-featuretarget="store-menu-v7"] a._3xfL7u7e8rFk4XeOpKN0oC::before {
+html body.v6 [data-featuretarget="store-menu-v7"] a.PcE8-n5Eb6Y-::before {
     content: "";
     flex: none;
     width: var(--aika-cardnav-link-icon);
@@ -950,16 +953,16 @@ html body.v6 [data-featuretarget="store-menu-v7"] a._3xfL7u7e8rFk4XeOpKN0oC::bef
         transform var(--aika-dur-base) var(--aika-ease);
 }
 
-html body.v6 [data-featuretarget="store-menu-v7"] a._3xfL7u7e8rFk4XeOpKN0oC:hover {
+html body.v6 [data-featuretarget="store-menu-v7"] a.PcE8-n5Eb6Y-:hover {
     color: var(--aika-fg);
 }
 
-html body.v6 [data-featuretarget="store-menu-v7"] a._3xfL7u7e8rFk4XeOpKN0oC:hover::before {
+html body.v6 [data-featuretarget="store-menu-v7"] a.PcE8-n5Eb6Y-:hover::before {
     opacity: 1;
     transform: translate(var(--aika-nudge), calc(-1 * var(--aika-nudge)));
 }
 
-html body.v6 [data-featuretarget="store-menu-v7"] a._3Z1skIYVoqLbYiP2wy46Ce {
+html body.v6 [data-featuretarget="store-menu-v7"] a.QHiQcR8jG10- {
     overflow: hidden;
     border-radius: var(--aika-radius-md);
     background: var(--aika-surface);
@@ -970,23 +973,23 @@ html body.v6 [data-featuretarget="store-menu-v7"] a._3Z1skIYVoqLbYiP2wy46Ce {
         box-shadow var(--aika-dur-base) var(--aika-ease);
 }
 
-html body.v6 [data-featuretarget="store-menu-v7"] a._3Z1skIYVoqLbYiP2wy46Ce:hover {
+html body.v6 [data-featuretarget="store-menu-v7"] a.QHiQcR8jG10-:hover {
     background: var(--aika-surface-hover);
     box-shadow: inset 0 0 0 var(--aika-hairline) var(--aika-border-accent);
 }
 
-html body.v6 [data-featuretarget="store-menu-v7"] ._2qsM52VkK9BR1Vi0HBOrtY {
+html body.v6 [data-featuretarget="store-menu-v7"] .Jhq3hD97Ms8- {
     background: var(--aika-transparent);
 }
 
-html body.v6 [data-featuretarget="store-menu-v7"] ._2-rKQdmSx7Khacm27tXK0K {
+html body.v6 [data-featuretarget="store-menu-v7"] .Yb-8AFgzlLQ- {
     overflow: hidden;
     border-radius: var(--aika-radius-lg);
     background: var(--aika-card-accent-bg);
     box-shadow: inset 0 0 0 var(--aika-hairline) var(--aika-border-accent);
 }
 
-html body.v6 [data-featuretarget="store-menu-v7"] ._2ZuAr_P2w3N45sg9qxA2Vc {
+html body.v6 [data-featuretarget="store-menu-v7"] .D99kHv4fRj8- {
     padding-inline: var(--aika-space-2);
     border-radius: var(--aika-radius-full);
     background: var(--aika-ok-soft);
@@ -995,7 +998,7 @@ html body.v6 [data-featuretarget="store-menu-v7"] ._2ZuAr_P2w3N45sg9qxA2Vc {
     box-shadow: inset 0 0 0 var(--aika-hairline) var(--aika-ok-mid);
 }
 
-html body.v6 [data-featuretarget="store-menu-v7"] ._1PSb462Tg4S8M046QIk4PM {
+html body.v6 [data-featuretarget="store-menu-v7"] .m07F-6-CvWk- {
     border-radius: var(--aika-radius-md);
     background: var(--aika-accent-fill);
     color: var(--aika-on-accent);
@@ -1005,7 +1008,7 @@ html body.v6 [data-featuretarget="store-menu-v7"] ._1PSb462Tg4S8M046QIk4PM {
         box-shadow var(--aika-dur-base) var(--aika-ease);
 }
 
-html body.v6 [data-featuretarget="store-menu-v7"] ._1PSb462Tg4S8M046QIk4PM:hover {
+html body.v6 [data-featuretarget="store-menu-v7"] .m07F-6-CvWk-:hover {
     background: var(--aika-accent-fill-hover);
     box-shadow: var(--aika-shadow-cta-hover);
 }
@@ -1048,7 +1051,7 @@ html body.v6 [data-featuretarget="store-menu-v7"] a._2oz62CVNbwTn7KrUUwRdRw:hove
 }
 
 /* Large tiles — accent cards, like the "Browse" tiles above */
-html body.v6 [data-featuretarget="store-menu-v7"] a._1vPyDoJDpPKIAmF1YMCtY0 {
+html body.v6 [data-featuretarget="store-menu-v7"] a.fHaybiqsJ6M- {
     border-radius: var(--aika-radius-lg);
     background: var(--aika-card-accent-bg);
     color: var(--aika-fg);
@@ -1060,7 +1063,7 @@ html body.v6 [data-featuretarget="store-menu-v7"] a._1vPyDoJDpPKIAmF1YMCtY0 {
         box-shadow var(--aika-dur-base) var(--aika-ease);
 }
 
-html body.v6 [data-featuretarget="store-menu-v7"] a._1vPyDoJDpPKIAmF1YMCtY0:hover {
+html body.v6 [data-featuretarget="store-menu-v7"] a.fHaybiqsJ6M-:hover {
     background: var(--aika-accent-soft);
     color: var(--aika-fg);
     box-shadow:
@@ -1068,7 +1071,7 @@ html body.v6 [data-featuretarget="store-menu-v7"] a._1vPyDoJDpPKIAmF1YMCtY0:hove
         var(--aika-shadow-card-hover);
 }
 
-html body.v6 [data-featuretarget="store-menu-v7"] a._1vPyDoJDpPKIAmF1YMCtY0 svg {
+html body.v6 [data-featuretarget="store-menu-v7"] a.fHaybiqsJ6M- svg {
     color: var(--aika-accent-bright);
     fill: currentColor;
 }
@@ -1287,6 +1290,38 @@ html body #StoreTemplate .StoreSalePriceWidgetContainer .StoreSaleDiscountBox {
     border-radius: 0;
 }
 
+/* Wishlist's inner percentage paints its own native olive background. */
+html body #StoreTemplate .Cj7J5QHbL-0- .rsMD9WnTopA- .hPiY1A-1izA- {
+    background: var(--aika-ok);
+    color: var(--aika-bg-deep);
+}
+
+/* Calendar capsules use the shared React price widget without the legacy
+   StoreSaleDiscountBox class. Keep refunds/struck-out offers neutral. */
+html body #StoreTemplate .K2UfkCIuEhY-:not(._-54SS2-Bx9o-) .gXsTTmkhkp8- {
+    background: var(--aika-ok);
+    color: var(--aika-bg-deep);
+    font-weight: var(--aika-weight-semibold);
+}
+
+html body #StoreTemplate .K2UfkCIuEhY- .r9Xd1x4Y-Ig- {
+    background: var(--aika-accent-fill);
+    color: var(--aika-on-accent);
+    font-family: var(--aika-font-ui);
+    font-weight: var(--aika-weight-semibold);
+}
+
+/* Classic app-page React price module, verified 2026-11-03, Portal 2. */
+html body.v6 .StoreSalePriceWidgetContainer .eNdjZ1XB-fk- {
+    background: var(--aika-accent-fill);
+    color: var(--aika-on-accent);
+    font-family: var(--aika-font-ui);
+}
+html body.v6 .StoreSalePriceWidgetContainer > ._-1f811oo4iw- {
+    background: var(--aika-ok);
+    color: var(--aika-bg-deep);
+}
+
 html body #StoreTemplate :is(.StoreOriginalPrice, .Y9w82-bhx7g-) {
     color: var(--aika-fg-muted);
 }
@@ -1323,6 +1358,45 @@ html body #StoreTemplate .zc6E7zYwMVQ- {
     overflow: hidden;
     border-radius: var(--aika-radius-lg);
     background: var(--aika-bg-raised);
+}
+
+/* Steam leaves its blue-gray skeleton animation on populated capsules too. */
+html body #StoreTemplate .zc6E7zYwMVQ-:has(img) {
+    animation: none;
+}
+
+/* Full calendar, verified 2026-11-03: day / today / date / show-more controls. */
+html body #StoreTemplate .NCPaSb4YV1I- {
+    overflow: hidden;
+    border: var(--aika-hairline) solid var(--aika-border);
+    border-radius: var(--aika-radius-md);
+    background: var(--aika-bg-elevated);
+}
+html body #StoreTemplate .NCPaSb4YV1I-.JYobaVyh158- {
+    border-color: var(--aika-border-accent);
+    background: var(--aika-accent-tint);
+}
+html body #StoreTemplate .NCPaSb4YV1I- .TUgCewSfXl0- {
+    background: var(--aika-bg-raised);
+    color: var(--aika-fg-muted);
+    font-family: var(--aika-font-mono);
+}
+html body #StoreTemplate .NCPaSb4YV1I-.JYobaVyh158- .TUgCewSfXl0- {
+    background: var(--aika-accent-fill);
+    color: var(--aika-on-accent);
+}
+html body #StoreTemplate .NCPaSb4YV1I- .I9hYgy79VM8- {
+    border-radius: var(--aika-radius-md);
+    background: var(--aika-accent-fill);
+    color: var(--aika-on-accent);
+    box-shadow: var(--aika-shadow-secondary);
+}
+html body #StoreTemplate .NCPaSb4YV1I- ._1Alo3iMTfgQ- { color: var(--aika-accent-bright); }
+html body #StoreTemplate .-eI1hK-YHzA- .CapsuleDecorators > span {
+    border-radius: var(--aika-radius-full);
+    background: var(--aika-player-material);
+    color: var(--aika-fg);
+    box-shadow: inset 0 0 0 var(--aika-hairline) var(--aika-border-hover);
 }
 
 html body #StoreTemplate .tWdu3iqQbcE- {
@@ -1964,7 +2038,7 @@ html body #StoreTemplate .PE-3oq-yIvg- button:has(> .MqFcMoKfvAw-) svg * {
 }
 
 /* Price: the discount block .rsMD9WnTopA- (lime on green 50 %),
-   the old price .T6YQ-V5Z-WM- > div (#738895); the "Add to Cart" button —
+   the old price .-OkCLv-56oQ- > div (#738895); the "Add to Cart" button —
    .E4PXslhR-fI- > button > span (a green gradient) */
 html body #StoreTemplate .Cj7J5QHbL-0- {
     overflow: hidden;
@@ -1985,7 +2059,7 @@ html body #StoreTemplate .rsMD9WnTopA- .hPiY1A-1izA- {
     font-weight: var(--aika-weight-semibold);
 }
 
-html body #StoreTemplate .T6YQ-V5Z-WM- > div:first-child:not(:last-child) {
+html body #StoreTemplate .-OkCLv-56oQ- > div:first-child:not(:last-child) {
     color: var(--aika-fg-muted);
 }
 
@@ -2038,7 +2112,7 @@ html body.v6 .EMd4F6A8qdMk-l6os415A .PQzkJfi8IxzjcFEDG-yv- {
 /* TODO */
 
 /* [Store] Search suggestions with a query: the title (._2c8KHMFOeIi4TVcVN6qeIi,
-   white), the "In Library" flag on the cover (._3dtnlw7cvJhAMGafZPipGv,
+   white), the "In Library" flag on the cover (.UcrgejVf5aA-,
    #4f95bd), the "Games: N" counter on tag tiles (._3OXIIlPZdEJ8toS6in8CcY, #ccc).
    The gradient backing of tag tiles (._2w-jD5qv9RsHiUz19AVLGO) is colored
    per tag, kept. Verified: 2026-10-04, query "souls". */
@@ -2046,7 +2120,7 @@ html body.v6 [data-featuretarget="store-menu-v7"] form[role="search"] + div ._2c
     color: var(--aika-fg);
 }
 
-html body.v6 [data-featuretarget="store-menu-v7"] form[role="search"] + div ._3dtnlw7cvJhAMGafZPipGv {
+html body.v6 [data-featuretarget="store-menu-v7"] form[role="search"] + div .UcrgejVf5aA- {
     border-radius: 0 var(--aika-radius-xs) var(--aika-radius-xs) 0;
     background: var(--aika-accent-fill);
     color: var(--aika-on-accent);
@@ -3428,17 +3502,17 @@ html body ._1uSw_aqus0W7yb3vT9_-22 ._3R-McPl3j1ANvRa0U9reMV a:hover {
    classes only; anchors — #module_discounts_and_events, #discounts_and_events_title.
    "Specials & events" (Steam's CSS module discountsandevents.css):
      .PMgHw7SIUZWM8LLZTz-9k    — the title (#discounts_and_events_title)
-     ._2f_EIAuOVG5ZIzYb1sXJlw  — "More": a #ccc plate, black text (0,1,0), hover #fff
-     .znNVIhFP6KdJlUS2p2B7q    — the event label on the cover ("Weekend deal",
+     .znS2DqGQQHM-  — "More": a #ccc plate, black text (0,1,0), hover #fff
+     .jxYpM-g5fRs-    — the event label on the cover ("Weekend deal",
        "Daily deal"): --multi-color-bg-gradient-5/3, caps (0,2,0)
-     ._1-29ksrfQaORRCqN2AVf06  — the price strip under the cover (#99d4ff text)
-     ._2wlqkq-0fkggDE-Kll8Rwd  — "Up to -85%": lime #beee11 on rgba(76,107,34,.5), 26 px
-     .hWF8eniTajf4-mfZvbK3F    — the React price widget (shared with the mega
-       menu): ._3cdhtxJwOkHYnEljY7P-vL %, ._1xgg-R84IHS6h5_x6ZycXi the old price,
-       ._2L23Sk2CNSFCplu_7mMmQx the final one
+     .cV6I71ujCms-  — the price strip under the cover (#99d4ff text)
+     .TSCZ-XXe31E-  — "Up to -85%": lime #beee11 on rgba(76,107,34,.5), 26 px
+     .dkW-v-f4lTw-    — the React price widget (shared with the mega
+       menu): .nw-DtQ670Sc- %, .Cnw9IXSgr7I- the old price,
+       .JBijjejcvmo- the final one
    Verified: 2026-10-12, store home (autumn).
    ========================================================================== */
-html body.v6 #module_discounts_and_events ._2f_EIAuOVG5ZIzYb1sXJlw {
+html body.v6 #module_discounts_and_events .znS2DqGQQHM- {
     border-radius: var(--aika-radius-md);
     background: var(--aika-surface);
     color: var(--aika-fg);
@@ -3446,14 +3520,14 @@ html body.v6 #module_discounts_and_events ._2f_EIAuOVG5ZIzYb1sXJlw {
     transition: background-color var(--aika-dur-fast) var(--aika-ease-hover);
 }
 
-html body.v6 #module_discounts_and_events ._2f_EIAuOVG5ZIzYb1sXJlw:hover {
+html body.v6 #module_discounts_and_events .znS2DqGQQHM-:hover {
     background: var(--aika-surface-hover);
     color: var(--aika-fg);
 }
 
 /* The event label — a mono pill of the player material over the cover
    (DESIGN.md §11: badges over images), a glare runs over it on the tile's hover */
-html body.v6 #module_discounts_and_events .znNVIhFP6KdJlUS2p2B7q {
+html body.v6 #module_discounts_and_events .jxYpM-g5fRs- {
     top: var(--aika-space-2);
     left: var(--aika-space-2);
     padding: 2px var(--aika-space-2);
@@ -3468,7 +3542,7 @@ html body.v6 #module_discounts_and_events .znNVIhFP6KdJlUS2p2B7q {
     letter-spacing: var(--aika-tracking-label);
 }
 
-html body.v6 #module_discounts_and_events .znNVIhFP6KdJlUS2p2B7q::after {
+html body.v6 #module_discounts_and_events .jxYpM-g5fRs-::after {
     content: "";
     position: absolute;
     inset: 0;
@@ -3476,19 +3550,19 @@ html body.v6 #module_discounts_and_events .znNVIhFP6KdJlUS2p2B7q::after {
     transform: translateX(var(--aika-shine-from));
 }
 
-html body.v6 #module_discounts_and_events a:hover .znNVIhFP6KdJlUS2p2B7q::after {
+html body.v6 #module_discounts_and_events a:hover .jxYpM-g5fRs-::after {
     transform: translateX(var(--aika-shine-to));
     transition: transform var(--aika-home-shine-dur) var(--aika-ease);
 }
 
-html body.v6 #module_discounts_and_events ._1-29ksrfQaORRCqN2AVf06 {
+html body.v6 #module_discounts_and_events .cV6I71ujCms- {
     align-items: center;
     padding: 0 var(--aika-space-2);
     background: var(--aika-bg-elevated);
     color: var(--aika-fg-muted);
 }
 
-html body.v6 #module_discounts_and_events ._2wlqkq-0fkggDE-Kll8Rwd {
+html body.v6 #module_discounts_and_events .TSCZ-XXe31E- {
     padding: 0 var(--aika-space-2);
     border-radius: var(--aika-radius-md);
     background: var(--aika-ok-soft);
@@ -3499,38 +3573,38 @@ html body.v6 #module_discounts_and_events ._2wlqkq-0fkggDE-Kll8Rwd {
     line-height: 28px;
 }
 
-html body.v6 #module_discounts_and_events .hWF8eniTajf4-mfZvbK3F {
+html body.v6 #module_discounts_and_events .dkW-v-f4lTw- {
     overflow: hidden;
     border-radius: var(--aika-radius-md);
     font-family: var(--aika-font-mono);
 }
 
-html body.v6 #module_discounts_and_events .hWF8eniTajf4-mfZvbK3F ._2lQxRlo1DQ1PN08TYTil2L {
+html body.v6 #module_discounts_and_events .dkW-v-f4lTw- .pnC74wQYjms- {
     background: var(--aika-ok);
 }
 
-html body.v6 #module_discounts_and_events .hWF8eniTajf4-mfZvbK3F ._3cdhtxJwOkHYnEljY7P-vL {
+html body.v6 #module_discounts_and_events .dkW-v-f4lTw- .nw-DtQ670Sc- {
     color: var(--aika-bg-deep);
     font-weight: var(--aika-weight-semibold);
 }
 
-html body.v6 #module_discounts_and_events .hWF8eniTajf4-mfZvbK3F ._2faI25vznC0tWNttks8OaJ {
+html body.v6 #module_discounts_and_events .dkW-v-f4lTw- .cQ79XIQ7w-Y- {
     background: var(--aika-bg-raised);
 }
 
-html body.v6 #module_discounts_and_events .hWF8eniTajf4-mfZvbK3F ._1xgg-R84IHS6h5_x6ZycXi {
+html body.v6 #module_discounts_and_events .dkW-v-f4lTw- .Cnw9IXSgr7I- {
     color: var(--aika-fg-muted);
 }
 
-html body.v6 #module_discounts_and_events .hWF8eniTajf4-mfZvbK3F ._2L23Sk2CNSFCplu_7mMmQx {
+html body.v6 #module_discounts_and_events .dkW-v-f4lTw- .JBijjejcvmo- {
     color: var(--aika-fg);
     font-weight: var(--aika-weight-semibold);
 }
 
-/* The "On wishlist" / "In library" flag on a tile (._3dtnlw7cvJhAMGafZPipGv,
-   text ._2UUMzfFoTLL0YlWt710fZi; Steam: top 14 px, left 0 — right over the
+/* The "On wishlist" / "In library" flag on a tile (.UcrgejVf5aA-,
+   text ._3bO01VgrZH0-; Steam: top 14 px, left 0 — right over the
    event label) — to the top right corner, an Aika accent pill */
-html body.v6 #module_discounts_and_events ._3dtnlw7cvJhAMGafZPipGv {
+html body.v6 #module_discounts_and_events .UcrgejVf5aA- {
     top: var(--aika-space-2);
     left: auto;
     right: var(--aika-space-2);
@@ -3539,7 +3613,7 @@ html body.v6 #module_discounts_and_events ._3dtnlw7cvJhAMGafZPipGv {
     box-shadow: var(--aika-shadow-cta);
 }
 
-html body.v6 #module_discounts_and_events ._3dtnlw7cvJhAMGafZPipGv {
+html body.v6 #module_discounts_and_events .UcrgejVf5aA- {
     gap: var(--aika-space-1);
     padding: 1px var(--aika-space-2);
     color: var(--aika-on-accent);
@@ -3548,20 +3622,20 @@ html body.v6 #module_discounts_and_events ._3dtnlw7cvJhAMGafZPipGv {
     letter-spacing: var(--aika-tracking-label);
 }
 
-html body.v6 #module_discounts_and_events ._3dtnlw7cvJhAMGafZPipGv svg {
+html body.v6 #module_discounts_and_events .UcrgejVf5aA- svg {
     fill: currentColor;
 }
 
 /* "Your personal calendar" (Steam's CSS module personalcalendar.css), all under
    ._326_uhqq2I-hJwNRSqIZK4 — the block (anchor: .personal_calendar_ctn):
-     ._3RqS6vEZhqX3_4AIeJFajW — the title (white Motiva 600), .lX3GvxrkYaEqKJRpIhPsk
-       inside — the "NEW" badge (#1a9fff); ._1qbTrTsvR9qbMi-Navsk-D — the subtitle
-     .tqaXEuWN2wV5_8lmSkMng   — a day column (a blue → magenta gradient),
-       ._8UPO4fZBxxerbhcRBpAcc — today, ._1beaDtCHZ3Kn9oAHWEKXMe — the other days
-     .VSMflzbqITft0dYgbLNq1   — the day header: ._3cnfRW-1ajM2MW96f4sTXj weekday,
-       ._1pMe55FBPBDyaWssCZrawa date, ._1iXgQQI5ZT9D1DgDCwVW_T "Today" (white border)
-     ._2A83UfRXWSLbHFYfDcch9W — a cover frame (Steam scales it 1.05 on hover
-       with ._2z7ihwH3mo730-p6kXROXX), ._1wt5Ne6MrJfPVdFz5fGlop — "and N more" (#436081)
+     .IdjQXo6E9yc- — the title (white Motiva 600), .x8jWPgfdVoI-
+       inside — the "NEW" badge (#1a9fff); .sGDLZ2AYREY- — the subtitle
+     .maxz19gKOQc-   — a day column (a blue → magenta gradient),
+       ._8XPG-IbvHHs- — today, .N3v3VnhKgU8- — the other days
+     .CAnATFwmik4-   — the day header: .FeN6na6SvAg- weekday,
+       .bLQQ-syFWHg- date, .lGsGMjZ-9IE- "Today" (white border)
+     .e217oOT2n-w- — a cover frame (Steam scales it 1.05 on hover
+       with .T5zU104tmR0-), .rsPEubiF9HI- — "and N more" (#436081)
    Steam's strength up to (0,3,0). Verified: 2026-10-12. */
 @property --aika-home-angle {
     syntax: "<angle>";
@@ -3569,14 +3643,14 @@ html body.v6 #module_discounts_and_events ._3dtnlw7cvJhAMGafZPipGv svg {
     initial-value: 0deg;
 }
 
-html body.v6 .personal_calendar_ctn ._3RqS6vEZhqX3_4AIeJFajW {
+html body.v6 .personal_calendar_ctn .IdjQXo6E9yc- {
     align-items: center;
     font-family: var(--aika-font-ui);
     letter-spacing: var(--aika-tracking-h2);
     color: var(--aika-fg);
 }
 
-html body.v6 .personal_calendar_ctn ._1qbTrTsvR9qbMi-Navsk-D {
+html body.v6 .personal_calendar_ctn .sGDLZ2AYREY- {
     color: var(--aika-fg-muted);
     text-shadow: none;
 }
@@ -3587,7 +3661,7 @@ html body.v6 .personal_calendar_ctn ._1qbTrTsvR9qbMi-Navsk-D {
     100%    { transform: translateX(var(--aika-shine-to)); }
 }
 
-html body.v6 .personal_calendar_ctn .lX3GvxrkYaEqKJRpIhPsk {
+html body.v6 .personal_calendar_ctn .x8jWPgfdVoI- {
     position: relative;
     overflow: hidden;
     padding: 2px var(--aika-space-2);
@@ -3601,7 +3675,7 @@ html body.v6 .personal_calendar_ctn .lX3GvxrkYaEqKJRpIhPsk {
     letter-spacing: var(--aika-tracking-label);
 }
 
-html body.v6 .personal_calendar_ctn .lX3GvxrkYaEqKJRpIhPsk::after {
+html body.v6 .personal_calendar_ctn .x8jWPgfdVoI-::after {
     content: "";
     position: absolute;
     inset: 0;
@@ -3610,21 +3684,21 @@ html body.v6 .personal_calendar_ctn .lX3GvxrkYaEqKJRpIhPsk::after {
 }
 
 /* Day columns — Aika cards instead of the blue-magenta gradients */
-html body.v6 .personal_calendar_ctn .tqaXEuWN2wV5_8lmSkMng {
+html body.v6 .personal_calendar_ctn .maxz19gKOQc- {
     border-radius: var(--aika-radius-lg);
     background: var(--aika-card-bg);
     box-shadow: var(--aika-shadow-card), var(--aika-highlight-top);
     transition: box-shadow var(--aika-dur-base) var(--aika-ease);
 }
 
-html body.v6 .personal_calendar_ctn .tqaXEuWN2wV5_8lmSkMng:hover {
+html body.v6 .personal_calendar_ctn .maxz19gKOQc-:hover {
     box-shadow: var(--aika-shadow-card-hover), var(--aika-highlight-top);
 }
 
 /* Today: the accent card, its rim slowly circled by light (Star Border) —
    ::after is the shared spotlight rim (store-home.css), here a conic gradient
    that turns with --aika-home-angle and stays on without hover */
-html body.v6 .personal_calendar_ctn .tqaXEuWN2wV5_8lmSkMng._8UPO4fZBxxerbhcRBpAcc {
+html body.v6 .personal_calendar_ctn .maxz19gKOQc-._8XPG-IbvHHs- {
     background: var(--aika-card-accent-bg);
 }
 
@@ -3632,7 +3706,7 @@ html body.v6 .personal_calendar_ctn .tqaXEuWN2wV5_8lmSkMng._8UPO4fZBxxerbhcRBpAc
     to { --aika-home-angle: 360deg; }
 }
 
-html body.v6 .personal_calendar_ctn .carousel__inner-slide > ._8UPO4fZBxxerbhcRBpAcc::after {
+html body.v6 .personal_calendar_ctn .carousel__inner-slide > ._8XPG-IbvHHs-::after {
     padding: var(--aika-hairline);
     background: conic-gradient(
         from var(--aika-home-angle),
@@ -3646,26 +3720,26 @@ html body.v6 .personal_calendar_ctn .carousel__inner-slide > ._8UPO4fZBxxerbhcRB
     animation: aika-home-spin var(--aika-home-today-spin) linear infinite;
 }
 
-html body.v6 .personal_calendar_ctn .tqaXEuWN2wV5_8lmSkMng .VSMflzbqITft0dYgbLNq1 {
+html body.v6 .personal_calendar_ctn .maxz19gKOQc- .CAnATFwmik4- {
     font-family: var(--aika-font-mono);
     font-size: var(--aika-text-meta);
 }
 
-html body.v6 .personal_calendar_ctn .tqaXEuWN2wV5_8lmSkMng .VSMflzbqITft0dYgbLNq1 ._3cnfRW-1ajM2MW96f4sTXj {
+html body.v6 .personal_calendar_ctn .maxz19gKOQc- .CAnATFwmik4- .FeN6na6SvAg- {
     color: var(--aika-fg-subtle);
 }
 
-html body.v6 .personal_calendar_ctn .tqaXEuWN2wV5_8lmSkMng .VSMflzbqITft0dYgbLNq1 ._1pMe55FBPBDyaWssCZrawa {
+html body.v6 .personal_calendar_ctn .maxz19gKOQc- .CAnATFwmik4- .bLQQ-syFWHg- {
     color: var(--aika-fg);
     font-weight: var(--aika-weight-semibold);
 }
 
-html body.v6 .personal_calendar_ctn .tqaXEuWN2wV5_8lmSkMng .VSMflzbqITft0dYgbLNq1 ._1iXgQQI5ZT9D1DgDCwVW_T {
+html body.v6 .personal_calendar_ctn .maxz19gKOQc- .CAnATFwmik4- .lGsGMjZ-9IE- {
     border-bottom-color: var(--aika-accent);
     color: var(--aika-accent-bright);
 }
 
-html body.v6 .personal_calendar_ctn ._2A83UfRXWSLbHFYfDcch9W {
+html body.v6 .personal_calendar_ctn .e217oOT2n-w- {
     overflow: hidden;
     border-radius: var(--aika-radius-md);
     box-shadow: var(--aika-shadow-cover);
@@ -3675,13 +3749,13 @@ html body.v6 .personal_calendar_ctn ._2A83UfRXWSLbHFYfDcch9W {
 }
 
 /* Steam's hover class: a 5 % zoom in 0.1 s ease-in-out — our lift instead */
-html body.v6 .personal_calendar_ctn ._2A83UfRXWSLbHFYfDcch9W._2z7ihwH3mo730-p6kXROXX,
-html body.v6 .personal_calendar_ctn ._2A83UfRXWSLbHFYfDcch9W:hover {
+html body.v6 .personal_calendar_ctn .e217oOT2n-w-.T5zU104tmR0-,
+html body.v6 .personal_calendar_ctn .e217oOT2n-w-:hover {
     transform: translateY(var(--aika-lift-md));
     box-shadow: var(--aika-shadow-cover-hover);
 }
 
-html body.v6 .personal_calendar_ctn .tqaXEuWN2wV5_8lmSkMng ._1wt5Ne6MrJfPVdFz5fGlop {
+html body.v6 .personal_calendar_ctn .maxz19gKOQc- .rsPEubiF9HI- {
     border-radius: var(--aika-radius-full);
     background: var(--aika-player-material);
     backdrop-filter: var(--aika-player-blur);
@@ -3691,61 +3765,61 @@ html body.v6 .personal_calendar_ctn .tqaXEuWN2wV5_8lmSkMng ._1wt5Ne6MrJfPVdFz5fG
     font-size: var(--aika-text-label);
 }
 
-html body.v6 .personal_calendar_ctn .tqaXEuWN2wV5_8lmSkMng ._1wt5Ne6MrJfPVdFz5fGlop:hover {
+html body.v6 .personal_calendar_ctn .maxz19gKOQc- .rsPEubiF9HI-:hover {
     background: var(--aika-bg-raised);
     box-shadow: var(--aika-shadow-secondary-hover);
 }
 
 @media (prefers-reduced-motion: reduce) {
-    html body.v6 .personal_calendar_ctn .lX3GvxrkYaEqKJRpIhPsk::after,
-    html body.v6 .personal_calendar_ctn .carousel__inner-slide > ._8UPO4fZBxxerbhcRBpAcc::after {
+    html body.v6 .personal_calendar_ctn .x8jWPgfdVoI-::after,
+    html body.v6 .personal_calendar_ctn .carousel__inner-slide > ._8XPG-IbvHHs-::after {
         animation: none;
     }
 }
 
-/* An empty day — a note with a link (._1Vtz51wGyJHD9wpoDFNZ8M: white 7 %,
+/* An empty day — a note with a link (.MDx-yf8h-Ww-: white 7 %,
    #dcdedf, the link underlined) */
-html body.v6 .personal_calendar_ctn .tqaXEuWN2wV5_8lmSkMng ._1Vtz51wGyJHD9wpoDFNZ8M {
+html body.v6 .personal_calendar_ctn .maxz19gKOQc- .MDx-yf8h-Ww- {
     border-radius: var(--aika-radius-md);
     background-color: var(--aika-surface);
     box-shadow: inset 0 0 0 var(--aika-hairline) var(--aika-border);
     color: var(--aika-fg-muted);
 }
 
-html body.v6 .personal_calendar_ctn .tqaXEuWN2wV5_8lmSkMng ._1Vtz51wGyJHD9wpoDFNZ8M a {
+html body.v6 .personal_calendar_ctn .maxz19gKOQc- .MDx-yf8h-Ww- a {
     color: var(--aika-accent-bright);
 }
 
-html body.v6 .personal_calendar_ctn .tqaXEuWN2wV5_8lmSkMng ._1Vtz51wGyJHD9wpoDFNZ8M a:hover {
+html body.v6 .personal_calendar_ctn .maxz19gKOQc- .MDx-yf8h-Ww- a:hover {
     color: var(--aika-fg);
 }
 
 /* "Specials & events": a page turn like Code Slots (reactbits.dev — the idea;
    the motion is Aika's expo-out, no spring). Each tile is a slot: when Steam
    makes a slide visible (.carousel__slide--visible), the tile's cell
-   (._1gsW0WuP7ZclL1_ScZlsvo, its pseudo-elements are free) flashes an accent
+   (.I5xcEcLqHQE-, its pseudo-elements are free) flashes an accent
    fill growing from its center, then the cover, the label and the price
-   (._229f53fK_tl7R6wqc-g2bq — the link's wrapper) and the wishlist flag rise
+   (.Wv-2-GahLGE- — the link's wrapper) and the wishlist flag rise
    into place; tiles land left to right, the second tile of a column a half
    step later. The tray itself stops gliding here — the page changes in place.
-   Columns — ._14LO-skSyf__YkJybhT_cx inside the grid ._3gVAXLzTzt5xCjFA1_c9rn. */
+   Columns — .h8E3fLYHMcw- inside the grid ._5w6AlYMyKXw-. */
 html body.v6 #module_discounts_and_events .carousel__slider-tray {
     transition: none;
 }
 
-html body.v6 #module_discounts_and_events ._3gVAXLzTzt5xCjFA1_c9rn > :nth-child(2) { --aika-slot-i: 1; }
-html body.v6 #module_discounts_and_events ._3gVAXLzTzt5xCjFA1_c9rn > :nth-child(3) { --aika-slot-i: 2; }
-html body.v6 #module_discounts_and_events ._3gVAXLzTzt5xCjFA1_c9rn > :nth-child(n + 4) { --aika-slot-i: 3; }
+html body.v6 #module_discounts_and_events ._5w6AlYMyKXw- > :nth-child(2) { --aika-slot-i: 1; }
+html body.v6 #module_discounts_and_events ._5w6AlYMyKXw- > :nth-child(3) { --aika-slot-i: 2; }
+html body.v6 #module_discounts_and_events ._5w6AlYMyKXw- > :nth-child(n + 4) { --aika-slot-i: 3; }
 
-html body.v6 #module_discounts_and_events ._14LO-skSyf__YkJybhT_cx > ._1gsW0WuP7ZclL1_ScZlsvo + ._1gsW0WuP7ZclL1_ScZlsvo {
+html body.v6 #module_discounts_and_events .h8E3fLYHMcw- > .I5xcEcLqHQE- + .I5xcEcLqHQE- {
     --aika-slot-half: 0.5;
 }
 
-html body.v6 #module_discounts_and_events ._1gsW0WuP7ZclL1_ScZlsvo {
+html body.v6 #module_discounts_and_events .I5xcEcLqHQE- {
     --aika-slot-delay: calc((var(--aika-slot-i, 0) + var(--aika-slot-half, 0)) * var(--aika-slot-cascade));
 }
 
-html body.v6 #module_discounts_and_events ._1gsW0WuP7ZclL1_ScZlsvo::before {
+html body.v6 #module_discounts_and_events .I5xcEcLqHQE-::before {
     content: "";
     position: absolute;
     inset: 0;
@@ -3757,7 +3831,7 @@ html body.v6 #module_discounts_and_events ._1gsW0WuP7ZclL1_ScZlsvo::before {
 }
 
 /* The wrapper is positioned so it paints over the fill */
-html body.v6 #module_discounts_and_events ._229f53fK_tl7R6wqc-g2bq {
+html body.v6 #module_discounts_and_events .Wv-2-GahLGE- {
     position: relative;
 }
 
@@ -3774,17 +3848,31 @@ html body.v6 #module_discounts_and_events ._229f53fK_tl7R6wqc-g2bq {
     }
 }
 
-html body.v6 #module_discounts_and_events .carousel__slide--visible ._1gsW0WuP7ZclL1_ScZlsvo::before {
+html body.v6 #module_discounts_and_events .carousel__slide--visible .I5xcEcLqHQE-::before {
     animation: aika-slot-wash var(--aika-slot-wash) var(--aika-ease) var(--aika-slot-delay) both;
 }
 
-html body.v6 #module_discounts_and_events .carousel__slide--visible ._1gsW0WuP7ZclL1_ScZlsvo > :is(._229f53fK_tl7R6wqc-g2bq, ._3dtnlw7cvJhAMGafZPipGv) {
+html body.v6 #module_discounts_and_events .carousel__slide--visible .I5xcEcLqHQE- > :is(.Wv-2-GahLGE-, .UcrgejVf5aA-) {
     animation: aika-slot-rise var(--aika-slot-in) var(--aika-ease) calc(var(--aika-slot-delay) + var(--aika-slot-in-delay)) backwards;
 }
 
 @media (prefers-reduced-motion: reduce) {
-    html body.v6 #module_discounts_and_events .carousel__slide--visible ._1gsW0WuP7ZclL1_ScZlsvo::before,
-    html body.v6 #module_discounts_and_events .carousel__slide--visible ._1gsW0WuP7ZclL1_ScZlsvo > :is(._229f53fK_tl7R6wqc-g2bq, ._3dtnlw7cvJhAMGafZPipGv) {
+    html body.v6 #module_discounts_and_events .carousel__slide--visible .I5xcEcLqHQE-::before,
+    html body.v6 #module_discounts_and_events .carousel__slide--visible .I5xcEcLqHQE- > :is(.Wv-2-GahLGE-, .UcrgejVf5aA-) {
         animation: none;
     }
 }
+
+/* [Store prices] Verified 2026-11-02 in discount tiles and the native price
+   module. Color both the outer discount cell and its inner percentage: the
+   latter otherwise keeps Steam's green, independent of the selected palette. */
+html body.v6 .dkW-v-f4lTw- .pnC74wQYjms-,
+html body.v6 .dkW-v-f4lTw- .pnC74wQYjms- .nw-DtQ670Sc- {
+    background: var(--aika-ok);
+    color: var(--aika-bg-deep);
+    font-weight: var(--aika-weight-semibold);
+}
+html body.v6 .dkW-v-f4lTw- .cQ79XIQ7w-Y- { background: var(--aika-bg-raised); }
+html body.v6 .dkW-v-f4lTw- .Cnw9IXSgr7I-,
+html body #StoreTemplate .Cj7J5QHbL-0- ._9Rf9BwU0xAQ- { color: var(--aika-fg-muted); }
+html body.v6 .dkW-v-f4lTw- .JBijjejcvmo- { color: var(--aika-fg); font-weight: var(--aika-weight-semibold); }

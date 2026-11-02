@@ -18,6 +18,7 @@ dist/
 
 # Local notes and debug screenshots
 scratch/
+diagnostics/
 
 # Local Claude Code settings, debug screenshots, the README screenshots note
 .claude/

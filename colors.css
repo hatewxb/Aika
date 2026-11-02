@@ -66,6 +66,7 @@ html:root {
     --aika-surface-active: rgb(from var(--aika-ink) r g b / 0.10);
     --aika-card-top: rgb(from var(--aika-ink) r g b / 0.06);       /* card gradient at the top… */
     --aika-card-bottom: rgb(from var(--aika-ink) r g b / 0.015);   /* …and at the bottom */
+    --aika-content-fade: linear-gradient(to bottom, transparent, var(--aika-bg-elevated) 80%);
     --aika-surface-translucent: rgb(from var(--aika-bg-elevated) r g b / 0.92); /* ONLY menus, dropdowns, tooltips */
     /* The video player panel over the frame (Apple-style: a dark "material"
        with blur) — author's request 2026-10-04, DESIGN.md §11 */

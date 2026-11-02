@@ -203,3 +203,37 @@ html .TitleBarControls .AccountMenu:hover > :is(.WalletBalance, div:not(.avatarH
 html .TitleBarControls .tool-tip-source:focus-visible .AccountMenu > :is(.WalletBalance, div:not(.avatarHolder, .WalletBalance)) {
     --aika-privacy-amount: 0px;
 }
+
+/* --------------------------------------------------------------------------
+   Rounded hover / press / focus states in the header (fix: square black
+   corners behind the Store / Library / profile tabs, the account menu and the
+   news / notifications buttons). Steam paints their hover, active and focus
+   fill and shadow on a square box; give every one of those boxes the theme
+   radius so the fill, the glow and the focus ring follow it, and drop the
+   square outline / shadow Steam adds on top.
+   -------------------------------------------------------------------------- */
+
+html .SuperNav .SuperNavMenu,
+html .SuperNav .SuperNavMenu > .MenuButton,
+html .TitleBar .Button,
+html .TitleBarControls .Button,
+html .TitleBarControls .AccountMenu,
+html .TitleBarControls .tool-tip-source,
+html .TitleBar .RootMenuButton,
+html .TitleBar .RootMenuButton > div {
+    border-radius: var(--aika-radius-md);
+}
+
+html .SuperNav .SuperNavMenu > .MenuButton,
+html .TitleBarControls .AccountMenu,
+html .TitleBarControls .tool-tip-source {
+    background-clip: padding-box;
+    outline: none;
+}
+
+html .SuperNav .SuperNavMenu > .MenuButton:is(:hover, :active, :focus, :focus-visible),
+html .TitleBarControls .AccountMenu:is(:hover, :active, :focus),
+html .TitleBarControls .tool-tip-source:is(:hover, :active, :focus, :focus-visible) {
+    outline: none;
+    box-shadow: none;
+}

@@ -131,6 +131,71 @@ html #hltb-store-data .hltb-store-link:hover {
 /* The page starts right under the top bar — the anchor (an anchor has to come
    before the positioned element in the document; .Browser comes after the
    address bar) */
+html .TopBar .TitleBarControls { anchor-name: --aika-account-controls; }
+html.aika-autoclaim .TopBar .TitleBarControls { padding-inline-start: 38px; }
+html .BrowserWrapper .autoclaim-toolbar-container {
+    position: fixed;
+    position-anchor: --aika-account-controls;
+    left: calc(anchor(left) + 2px);
+    top: anchor(center);
+    translate: 0 -50%;
+    z-index: 100;
+    margin: 0;
+    pointer-events: auto;
+}
+html .autoclaim-toolbar-button {
+    width: 32px;
+    height: 32px;
+    border-radius: var(--aika-radius-md);
+    color: var(--aika-fg-muted);
+    background: var(--aika-surface);
+    border-color: var(--aika-border);
+}
+html .autoclaim-toolbar-button:hover {
+    color: var(--aika-fg);
+    background: var(--aika-surface-hover);
+    border-color: var(--aika-border-accent);
+}
+html .autoclaim-toolbar-badge { background: var(--aika-ok); }
+
+/* SIH on store game pages. Keep its links, badge progress and price-history
+   actions intact; theme only the visible material and type. */
+html body.v6.app :is(.sih-info, .sih_badge_progress_block, .sih-price-history) {
+    box-sizing: border-box;
+    padding: var(--aika-space-3);
+    border: var(--aika-hairline) solid var(--aika-border);
+    border-radius: var(--aika-radius-lg);
+    background: var(--aika-bg-elevated);
+    color: var(--aika-fg-muted);
+    font-family: var(--aika-font-ui);
+}
+html body.v6.app .sih-info :is(.sih-info__subtitle, .sih-info__date) { color: var(--aika-fg-muted); }
+html body.v6.app .sih-info a:hover { color: var(--aika-accent-bright); }
+html body.v6.app .sih_video_links a {
+    display: inline-flex;
+    padding: var(--aika-space-2) var(--aika-space-3);
+    border-radius: var(--aika-radius-md);
+    background: var(--aika-surface);
+    color: var(--aika-fg);
+}
+html body.v6.app .sih_badge_progress_block :is(.badge_current, .badge_info) {
+    background: var(--aika-transparent);
+    color: var(--aika-fg-muted);
+}
+html body.v6.app .sih_badge_progress_block .badge_empty_name { color: var(--aika-fg-muted); }
+html body.v6.app .sih_badge_progress_block .badge_info_title { color: var(--aika-fg); font-weight: var(--aika-weight-semibold); }
+html body.v6.app .sih_badge_progress_block .game_area_details_specs {
+    border-radius: var(--aika-radius-md);
+    background: var(--aika-surface);
+    box-shadow: inset 0 0 0 var(--aika-hairline) var(--aika-border);
+}
+html body.v6.app .sih_badge_progress_block .game_area_details_specs .name { color: var(--aika-fg); }
+html body.v6.app .sih_badge_progress_block .game_area_details_specs:hover { background: var(--aika-surface-hover); }
+html body.v6.app .sih-price-history__price.lower { color: var(--aika-ok); }
+html body.v6.app .sih_game_banner,
+html body.v6.app .sih_game_banner img { border-radius: var(--aika-radius-md); }
+html body.v6.app .sih-steam-refill-banner { border-radius: var(--aika-radius-lg); overflow: hidden; }
+
 html .OuterFrame > .TopBar {
     anchor-name: --aika-top-bar;
 }

@@ -455,6 +455,16 @@ html .LinksSectionBody .LinkInner .Anchor .Link {
     transition: background-color var(--aika-dur-fast) var(--aika-ease-hover);
 }
 
+/* Clip Steam's wrapper/focus paint to the same rounded shape as the link.
+   The section itself keeps its outer shadow; only child paint is clipped. */
+html .LinksSection > .AppDetailsSectionContainer { overflow: clip; }
+html .LinksSectionBody :is(.LinkInner, .Anchor) { border-radius: var(--aika-radius-md); }
+html .LinksSectionBody .Anchor { overflow: clip; }
+html .LinksSectionBody .Anchor:focus-visible .Link {
+    outline: 2px solid var(--aika-accent);
+    outline-offset: -2px;
+}
+
 html .LinksSectionBody .LinkInner .Anchor .Link:hover {
     background-color: var(--aika-surface-hover);
 }

@@ -1,0 +1,34 @@
+<!doctype html><meta charset="utf-8"><title>Aika class compatibility tests</title>
+<pre id="results">RUNNING</pre>
+<script type="module">
+import { observeClassAliases } from '../js/client-classes-core.js';
+const results = document.querySelector('#results');
+const root = document.createElement('section');
+document.body.append(root);
+const tick = () => new Promise(resolve => setTimeout(resolve, 0));
+const assert = (value, message) => { if (!value) throw new Error(message); };
+try {
+    const h = '_123456789012345678901', other = '_abcdefghijklmnopqrstu';
+    const existing = document.createElement('div'); existing.className = h; root.append(existing);
+    observeClassAliases(document, { [h]: ['HomeBox'], [other]: ['Selected'] });
+    assert(existing.classList.contains('HomeBox'), 'initial scan');
+    const added = document.createElement('div'); added.className = h; root.append(added); await tick();
+    assert(added.classList.contains('HomeBox'), 'inserted subtree');
+    added.className = `${h} ${other}`; await tick();
+    assert(added.classList.contains('HomeBox') && added.classList.contains('Selected'), 'React class replacement');
+    added.classList.remove(other); await tick();
+    assert(!added.classList.contains('Selected') && added.classList.contains('HomeBox'), 'stale state alias removed');
+    const native = document.createElement('div'); native.className = `${h} HomeBox Custom`; root.append(native); await tick();
+    native.classList.remove(h); await tick();
+    assert(native.classList.contains('HomeBox') && native.classList.contains('Custom'), 'preserve native names');
+    added.className = ''; await tick();
+    assert(!added.classList.contains('HomeBox'), 'clear removed hash');
+    let writes = 0;
+    const monitor = new MutationObserver(records => writes += records.length);
+    monitor.observe(root, { subtree: true, attributes: true, attributeFilter: ['class'] });
+    existing.classList.add('Unrelated'); await tick(); await tick();
+    monitor.disconnect(); assert(writes === 1, 'idempotent observer, no feedback loop');
+    root.remove();
+    results.textContent = 'PASS: 7 DOM regression checks';
+} catch (error) { results.textContent = `FAIL: ${error.stack}`; }
+</script>

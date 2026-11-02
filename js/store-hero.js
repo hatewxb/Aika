@@ -25,16 +25,12 @@
 
 import { HlsLite } from "./hls-lite.js";
 import { warpText } from "./warp-text.js";
+import { storeLanguage, storeText } from "./store-l10n.js";
 
 const root = document.documentElement;
-const RU = (root.lang || "en").startsWith("ru");
-const T = RU
-  ? { buy: "Купить", media: "Медиа", trailer: "Трейлер", close: "Закрыть", prev: "Назад", next: "Далее",
-      play: "Смотреть", pause: "Пауза", mute: "Выключить звук", unmute: "Включить звук", full: "Во весь экран",
-      reel: "Трейлер", seek: "Перемотка", volume: "Громкость", options: "Настройки", quality: "Качество", speed: "Скорость" }
-  : { buy: "Buy", media: "Media", trailer: "Trailer", close: "Close", prev: "Previous", next: "Next",
-      play: "Play", pause: "Pause", mute: "Mute", unmute: "Unmute", full: "Full screen",
-      reel: "Trailer", seek: "Seek", volume: "Volume", options: "Options", quality: "Quality", speed: "Speed" };
+const language = storeLanguage(window.g_strLanguage || root.lang);
+const RU = language === "russian";
+const T = storeText(language);
 
 const FADE_MS = 1200;      // trailer crossfade (matches --aika-cine-fade in tokens.css)
 const PRELOAD_S = 8;       // start loading the next trailer this long before the end

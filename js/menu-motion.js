@@ -31,6 +31,7 @@
 
     const html = document.documentElement;
     html.classList.add("aika-menu-js");
+    const linux = html.classList.contains("aika-linux");
 
     const FAB_MENU = ".contextMenu.ready > .AddGameMenu";
     const ANCHOR_FRESH = 3000;   // ms: an anchor older than this is from another opening
@@ -48,7 +49,43 @@
         return a && Date.now() - a.t < ANCHOR_FRESH ? a : null;
     };
 
-    const open = () => html.classList.add("aika-menu-open");
+    // Steam sizes the menu window before the theme's item rows are laid out,
+    // so the window is shorter than the menu and the last items are cut off
+    // (Offline, Sign Out, Downloads…). Grow the window to the menu's real height.
+    function fit() {
+        if (!linux || document.visibilityState !== "visible") return;
+        const win = window.SteamClient && SteamClient.Window;
+        const box = document.querySelector(".contextMenu.ContextMenuPosition");
+        if (!win || !win.ResizeTo || !box) return;
+        // screen coordinates and ResizeTo(..., true) both use CSS pixels.
+        // Leave a small display-edge margin and scroll oversized menus rather
+        // than growing a native window beyond the usable monitor rectangle.
+        const maxH = Math.max(1, Math.floor(Math.min(screen.availHeight - 4,
+            (screen.availTop || 0) + screen.availHeight - window.screenY - 4)));
+        const maxW = Math.max(1, Math.floor(Math.min(screen.availWidth - 4,
+            (screen.availLeft || 0) + screen.availWidth - window.screenX - 4)));
+        html.style.setProperty("--aika-linux-menu-max-height", maxH + "px");
+        html.style.setProperty("--aika-linux-menu-max-width", maxW + "px");
+        const contents = box.querySelector(":scope > .contextMenuContents");
+        const r = box.getBoundingClientRect();
+        const contentTop = contents ? contents.getBoundingClientRect().top : 0;
+        const needH = Math.min(maxH, Math.ceil(Math.max(box.scrollHeight, r.bottom,
+            contents ? contents.scrollHeight + contentTop : 0)));
+        const needW = Math.min(maxW, Math.ceil(Math.max(box.scrollWidth, r.right)));
+        // both ways: a window wider than the menu showed as a pale strip beside it
+        if (Math.abs(needH - window.innerHeight) > 1 || Math.abs(needW - window.innerWidth) > 1) {
+            try { win.ResizeTo(needW, needH, true); } catch (e) { /* keep Steam's size */ }
+        }
+    }
+    let fitTimers = [];
+    const cancelFit = () => { fitTimers.forEach(clearTimeout); fitTimers = []; };
+    const fitSoon = () => {
+        if (!linux) return;
+        cancelFit();
+        fitTimers = [0, 60, 160, 320, 520].map(t => setTimeout(fit, t));
+    };
+
+    const open = () => { html.classList.add("aika-menu-open"); fitSoon(); };
 
     // Stand the icon column over the "+": the circle is the item's left square.
     // Steam places the window itself right after it shows — after our first
@@ -96,6 +133,7 @@
 
     function sync(waited) {
         if (document.visibilityState !== "visible") {
+            cancelFit();
             stopWaiting(false);
             html.classList.remove("aika-menu-open");
             if (fabShown && channel) channel.postMessage({ type: "closed" });
@@ -122,6 +160,6 @@
 
     document.addEventListener("visibilitychange", () => sync(false));
     // a menu window made for one opening may be closed without being hidden first
-    window.addEventListener("pagehide", () => { if (fabShown && channel) channel.postMessage({ type: "closed" }); });
+    window.addEventListener("pagehide", () => { cancelFit(); if (fabShown && channel) channel.postMessage({ type: "closed" }); });
     sync(false);
 })();

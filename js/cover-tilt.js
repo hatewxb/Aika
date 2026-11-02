@@ -41,6 +41,11 @@
 
   const aim = () => {
     moveFrame = 0;
+    const e = lastEvent;
+    const candidate = e && e.target instanceof Element ? e.target.closest(COVERS) : null;
+    // Navigation and list scrolling must not flush pending page styles just
+    // to read cover settings when the pointer is outside every cover.
+    if (!candidate) { onLeave(); return; }
     if (low()) {
       document.removeEventListener("pointermove", onMove, { capture: true });
       document.removeEventListener("pointerleave", onLeave);
@@ -49,8 +54,7 @@
       hovered = null;
       return;
     }
-    const e = lastEvent;
-    const t = e && e.target instanceof Element && enabled() ? e.target.closest(COVERS) : null;
+    const t = enabled() ? candidate : null;
     if (hovered && hovered !== t) live.get(hovered).target = flat();   // released: ease back
     if (t && t !== hovered) {
       max = cssNum("--aika-tilt-max", 12);
@@ -97,10 +101,32 @@
 
   if (matchMedia("(prefers-reduced-motion: reduce)").matches) return;
   function onMove(e) {
+    if (!(e.target instanceof Element) || !e.target.closest(COVERS)) {
+      onLeave();
+      return;
+    }
     lastEvent = e;
     if (!moveFrame) moveFrame = requestAnimationFrame(aim);
   }
-  function onLeave() { lastEvent = null; aim(); }
+  function onLeave() {
+    lastEvent = null;
+    if (moveFrame) cancelAnimationFrame(moveFrame);
+    moveFrame = 0;
+    if (hovered) {
+      const state = live.get(hovered);
+      if (state) state.target = flat();
+      hovered = null;
+      if (live.size && !loop) { lastT = performance.now(); loop = requestAnimationFrame(step); }
+    }
+  }
   document.addEventListener("pointermove", onMove, { passive: true, capture: true });
   document.addEventListener("pointerleave", onLeave);
+  window.__aikaCoverTilt = { destroy() {
+    document.removeEventListener("pointermove", onMove, { capture: true });
+    document.removeEventListener("pointerleave", onLeave);
+    cancelAnimationFrame(moveFrame); cancelAnimationFrame(loop);
+    live.forEach((_, el) => PROPS.forEach(p => el.style.removeProperty(p)));
+    live.clear();
+    delete window.__aikaCoverTilt;
+  } };
 })();

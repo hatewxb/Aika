@@ -159,17 +159,21 @@ body::after {
    game" and others) are html.ModalDialogPopup windows, so they get main.css —
    and this backdrop covered the running game. Their body has the readable
    OverlayPopupBody; Steam paints the panel itself. No backdrop there.
-   A child-only :has() — cheap. The overlay's own window: overlay.css.
+   Scope :has() to dialog roots. An unqualified html:has() invalidates the
+   main library root when Steam mounts virtualized list rows; that root
+   invalidation made every descendant restyle (40–50 ms frames on scroll).
+   Removing the rule at runtime does not clear Chromium's invalidation flags:
+   restart Steam when checking this change. Overlay's own window: overlay.css.
    Verified: 2026-10-28, Fallout Shelter, the overlay's game panel.
    -------------------------------------------------------------------------- */
 
-html:has(> body.OverlayPopupBody) {
+html.ModalDialogPopup:has(> body.OverlayPopupBody) {
     background: var(--aika-transparent);
 }
 
-html:has(> body.OverlayPopupBody)::before,
-html:has(> body.OverlayPopupBody)::after,
-html:has(> body.OverlayPopupBody) body::before,
-html:has(> body.OverlayPopupBody) body::after {
+html.ModalDialogPopup:has(> body.OverlayPopupBody)::before,
+html.ModalDialogPopup:has(> body.OverlayPopupBody)::after,
+html.ModalDialogPopup:has(> body.OverlayPopupBody) body::before,
+html.ModalDialogPopup:has(> body.OverlayPopupBody) body::after {
     content: none;
 }

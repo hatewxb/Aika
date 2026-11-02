@@ -410,6 +410,34 @@ html #blotter_page .commentthread_comment_container .commentthread_comment {
     border-radius: var(--aika-radius-md);
 }
 
+/* Announcement discussions embedded into activity feeds and game hubs use
+   forumtopic_comments, not the small activity-reply rows. Keep the same
+   material for both locations, including asynchronously loaded pages. */
+html .forumtopic_comments .commentthread_comment {
+    border: var(--aika-hairline) solid var(--aika-border);
+    border-radius: var(--aika-radius-lg);
+    background: var(--aika-bg-elevated);
+    color: var(--aika-fg-muted);
+    box-shadow: var(--aika-highlight-top);
+}
+html .forumtopic_comments .commentthread_comment_text { color: var(--aika-fg-muted); }
+html .forumtopic_comments .commentthread_author_link { color: var(--aika-accent-bright); }
+html .forumtopic_comments :is(.commentthread_comment_timestamp, .commentthread_edit_info) { color: var(--aika-fg-subtle); }
+html .forumtopic_comments :is(.forum_paging, .commentthread_paging) {
+    border-radius: var(--aika-radius-md);
+    background: var(--aika-surface);
+    color: var(--aika-fg-muted);
+}
+html .forumtopic_comments :is(.forum_paging_pagelink, .commentthread_pagelink) { color: var(--aika-fg-muted); }
+html .forumtopic_comments :is(.forum_paging_pagelink.active, .commentthread_pagelink.active) { color: var(--aika-accent-bright); }
+
+html .shared_autocollapse_fade { background: var(--aika-content-fade); }
+html .shared_autocollapse_readmore {
+    border-radius: var(--aika-radius-md);
+    background: var(--aika-bg-elevated);
+    color: var(--aika-accent-bright);
+}
+
 /* A full-width screenshot in a card: the margins around the image are the deep background
    instead of black 0.5 */
 html #blotter_page .blotter_screenshot_image {

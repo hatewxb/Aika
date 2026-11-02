@@ -10,7 +10,7 @@ const files = [];
 (function walk(d) {
   for (const f of fs.readdirSync(d)) {
     const p = path.join(d, f);
-    if (fs.statSync(p).isDirectory()) { if (!/^(\.git|assets|tools)$/.test(f)) walk(p); }
+    if (fs.statSync(p).isDirectory()) { if (!f.startsWith(".") && !/^(assets|tools|diagnostics|tests|docs)$/.test(f)) walk(p); }
     else if (f.endsWith(".css")) files.push(path.relative(root, p).split(path.sep).join("/"));
   }
 })(root);

@@ -1,4 +1,4 @@
-// JS entry point for the main window (Patch "^Steam$" in skin.json):
+// JS entry point for the main window (Steam / Steam Games List in skin.json):
 // the loading curtain (first, so it covers the window as early as possible),
 // cursor glow, the gap between a menu and its submenu, the Family View PIN cells,
 // the 3D tilt of library covers ("Library covers" setting) and their press
@@ -12,9 +12,12 @@ import "./menu-gap.js";
 import "./pin-slots.js";
 import "./cover-tilt.js";
 import "./cover-hold.js";
+import "./library-scroll.js";
 import "./achievement-progress.js";
 import "./page-curtain.js";
 import "./fab.js";
 import "./header-compact.js";
 import "./settings-l10n.js";
+import "./live-settings.js";
 import "./extendium-bridge.js";
+import "./plugin-toolbar.js";

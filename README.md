@@ -2,7 +2,7 @@
 
 # Aika
 
-**A warm dark theme for Steam** · [Millennium](https://steambrew.app) · 0.1.7 · by **hatewxb**
+**A warm dark theme for Steam** · [Millennium](https://steambrew.app) · 0.1.8 · by **hatewxb**
 
 **[Get it on Steambrew](https://steambrew.app/theme/uV8M1eg45Hh662blPuyD)** — the official Millennium theme store
 
@@ -104,6 +104,13 @@ Aika is in the official Millennium theme store:
 3. Extract the `Aika` folder into `C:\Program Files (x86)\Steam\millennium\themes\`.
 4. Steam → **Millennium → Themes** → **Aika**. If theme scripts are disabled, enable them.
 
+On Linux, extract into `<Steam installation>/millennium/themes/` (usually
+`~/.local/share/Steam/millennium/themes/`). Keep theme scripts enabled: the
+client compatibility adapter restores the readable CSS-module names used by
+Aika from the running Steam build. Fully quit and restart Steam after installing
+or updating the theme. No Quick CSS or manual console import is needed.
+See [Linux compatibility notes](docs/linux-client-compatibility.md).
+
 Theme settings (the gear next to Aika in Millennium; in Russian when Steam is
 in Russian): **Main** — color preset, top bar tab position, compact header (the
 menus, tabs and account buttons in one line), the header wordmark (classic,
@@ -111,12 +118,14 @@ calligraphy, or アイカ in two brush styles), the sign-in preloader; **Element
 over store and community pages,
 What's New, the "Add shelf" row and the Steam news button; **Friends list** —
 the background pattern and its opacity, offline friends (faces / list), the
-friend search (magnifier / command line), the list layout; **Animations** —
-performance (Full / Balanced / Low), store game page layout (Cinematic /
+friend search (magnifier / command line), the list density and a separate game-banner switch;
+**Animations** —
+left library list scrolling (Standard by default; optional Soft / Cinematic, with short motion trails away from the cursor), performance (Full / Balanced / Low), store game page layout (Cinematic /
 Classic), library covers (3D tilt / Lift / Zoom), cover press (Press / Ripple /
 Charge / Off), cursor glow and its radius;
 **Advanced** — privacy blur of the wallet balance (or name and balance) until
-hovered, notification wordmark and opacity; **Color set** — custom colors, set
+hovered, notification wordmark (Gothic / brush Aika / katakana アイカ / Off,
+with glass and abstract lights retained) and opacity; **Color set** — custom colors, set
 on the **Colors** page right below.
 
 ## Roadmap

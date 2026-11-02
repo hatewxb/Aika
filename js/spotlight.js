@@ -36,11 +36,11 @@
 
   const update = () => {
     frame = 0;
-    // In Low / Balanced the handler goes away for good (switching back takes a restart)
-    if (off()) { document.removeEventListener("pointermove", onMove, { capture: true }); return; }
     const e = lastEvent;
     const t = e && e.target instanceof Element ? e.target.closest(SURFACES) : null;
     if (!t) { lastTarget = null; return; }
+    // In Low / Balanced the handler goes away for good (switching back takes a restart)
+    if (off()) { document.removeEventListener("pointermove", onMove, { capture: true }); return; }
     const r = t.getBoundingClientRect();
     t.style.setProperty("--aika-spot-x", Math.round(e.clientX - r.left) + "px");
     t.style.setProperty("--aika-spot-y", Math.round(e.clientY - r.top) + "px");
@@ -48,8 +48,19 @@
   };
 
   function onMove(e) {
+    if (!(e.target instanceof Element) || !e.target.closest(SURFACES)) {
+      lastEvent = lastTarget = null;
+      if (frame) cancelAnimationFrame(frame);
+      frame = 0;
+      return;
+    }
     lastEvent = e;
     if (!frame) frame = requestAnimationFrame(update);
   }
   document.addEventListener("pointermove", onMove, { passive: true, capture: true });
+  window.__aikaSpotlight = { destroy() {
+    document.removeEventListener("pointermove", onMove, { capture: true });
+    cancelAnimationFrame(frame);
+    delete window.__aikaSpotlight;
+  } };
 })();
