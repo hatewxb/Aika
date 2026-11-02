@@ -673,7 +673,8 @@ html .NotificationsMenu .NotificationMenuItem:nth-child(n + 5) { --aika-notice-i
 
 /* Native popup surfaces crop external shadows to a rectangular OS window.
    Keep the rounded material and inset rim, with transparent pixels outside. */
-html.ContextMenuPopup body .contextMenu.ContextMenuPosition,
+/* The Add a Game FAB has separate circles/pills and must have no outer rim. */
+html.ContextMenuPopup body .contextMenu.ContextMenuPosition:not(:has(> .AddGameMenu)),
 html.ContextMenuPopup:is(.Account_Menu, .Notifications_Menu) body .contextMenu.ContextMenuPosition > .contextMenuContents {
     box-shadow: inset 0 0 0 var(--aika-hairline) var(--aika-border-hover), var(--aika-highlight-top);
     background-clip: padding-box;
@@ -761,7 +762,7 @@ html.aika-linux body .contextMenu.ContextMenuPosition {
     border-radius: 0;
 }
 
-html.aika-linux body .contextMenu.ContextMenuPosition > .contextMenuContents {
+html.aika-linux body .contextMenu.ContextMenuPosition > .contextMenuContents:not(.AddGameMenu) {
     padding: var(--aika-space-2) !important;
     border-radius: var(--aika-radius-lg);
     background: var(--aika-surface-translucent);
